@@ -1,0 +1,11 @@
+{
+  "name": "fidelite-art",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "jsdom": "^30.0.1"
+  }
+}

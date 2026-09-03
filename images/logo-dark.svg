@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264 264" width="264" height="264" role="img" aria-label="FideLite">
+  <title>FideLite</title>
+  <!--
+    5x5, merkezden vezir hamlesi.
+    hücre 48, çizgi 4, adım 52  ->  4 56 108 160 212
+    bordo çerçeve 3x3 ızgara çizgilerinin tam ortasında (54..210), kalınlık 6
+  -->
+
+  <!-- ızgara: tek plaka, hücreler üstüne biniyor (dikiş/hairline yok) -->
+  <rect width="264" height="264" fill="#a8916b"/>
+
+  <!-- at kareleri -->
+  <g fill="#1c1714">
+    <rect x="56"  y="4"   width="48" height="48"/>
+    <rect x="160" y="4"   width="48" height="48"/>
+    <rect x="4"   y="56"  width="48" height="48"/>
+    <rect x="212" y="56"  width="48" height="48"/>
+    <rect x="4"   y="160" width="48" height="48"/>
+    <rect x="212" y="160" width="48" height="48"/>
+    <rect x="56"  y="212" width="48" height="48"/>
+    <rect x="160" y="212" width="48" height="48"/>
+  </g>
+
+  <!-- kale kareleri -->
+  <g fill="#7ab6c9">
+    <rect x="108" y="4"   width="48" height="48"/>
+    <rect x="108" y="56"  width="48" height="48"/>
+    <rect x="4"   y="108" width="48" height="48"/>
+    <rect x="56"  y="108" width="48" height="48"/>
+    <rect x="160" y="108" width="48" height="48"/>
+    <rect x="212" y="108" width="48" height="48"/>
+    <rect x="108" y="160" width="48" height="48"/>
+    <rect x="108" y="212" width="48" height="48"/>
+  </g>
+
+  <!-- fil kareleri -->
+  <g fill="#c895c4">
+    <rect x="4"   y="4"   width="48" height="48"/>
+    <rect x="212" y="4"   width="48" height="48"/>
+    <rect x="56"  y="56"  width="48" height="48"/>
+    <rect x="160" y="56"  width="48" height="48"/>
+    <rect x="56"  y="160" width="48" height="48"/>
+    <rect x="160" y="160" width="48" height="48"/>
+    <rect x="4"   y="212" width="48" height="48"/>
+    <rect x="212" y="212" width="48" height="48"/>
+  </g>
+
+  <!-- merkez -->
+  <rect x="108" y="108" width="48" height="48" fill="#ece3d8"/>
+
+  <!-- şahın erimi -->
+  <rect x="54" y="54" width="156" height="156" fill="none" stroke="#5c1a10" stroke-width="6"/>
+
+  <!-- söz markası: Liberation Serif (Times metriklerinde, OFL), outline'a çevrildi -->
+  <path fill="#1a3970" d="M75.94 88.06V95.44L79.43 95.86V97H68.54V95.86L71.02 95.44V77.59L68.33 77.19V76.05H85.8V81.69H84.33L83.83 77.98Q83.07 77.88 81.3 77.82Q79.54 77.77 78.52 77.77H75.94V86.34H81.05L81.54 83.69H82.93V90.75H81.54L81.05 88.06Z M96.02 95.44 98.71 95.84V97H88.41V95.84L91.1 95.44V77.61L88.41 77.19V76.05H98.71V77.19L96.02 77.61Z M116.15 86.53Q116.15 82 114.49 79.88Q112.83 77.77 109.1 77.77H107.94V95.22Q109.44 95.34 110.66 95.34Q112.69 95.34 113.87 94.47Q115.05 93.59 115.6 91.73Q116.15 89.86 116.15 86.53ZM110.3 76.05Q115.94 76.05 118.64 78.6Q121.33 81.16 121.33 86.41Q121.33 91.8 118.76 94.43Q116.18 97.06 110.96 97.06L103.94 97H100.35V95.86L103.04 95.44V77.59L100.35 77.19V76.05Z M123.44 95.86 126.13 95.44V77.59L123.44 77.19V76.05H141.29V81.38H139.87L139.37 77.98Q137.62 77.77 134.3 77.77H131.05V85.45H136.54L137.02 83.14H138.41V89.58H137.02L136.54 87.2H131.05V95.28H135.01Q139.04 95.28 140.29 95.03L141.18 91.16H142.6L142.3 97H123.44Z"/>
+  <path fill="#2f5aa0" d="M151.63 81.91 149.21 82.21V95.99H152.3Q154.8 95.99 155.97 95.76L156.7 92.49H157.46L157.25 97H144.93V96.38L146.95 96.06V82.21L144.93 81.91V81.29H151.63Z M164.03 96.06 166.05 96.38V97H159.77V96.38L161.78 96.06V82.21L159.77 81.91V81.29H166.05V81.91L164.03 82.21Z M170.58 97V96.38L173.08 96.06V82.29H172.48Q169.52 82.29 168.43 82.53L168.11 84.98H167.33V81.29H181.15V84.98H180.36L180.04 82.53Q179.69 82.45 178.51 82.38Q177.32 82.32 175.92 82.32H175.34V96.06L177.84 96.38V97Z M182.24 96.38 184.26 96.06V82.21L182.24 81.91V81.29H194.03V85.05H193.26L192.88 82.5Q191.57 82.34 189.09 82.34H186.52V88.48H190.76L191.13 86.61H191.88V91.43H191.13L190.76 89.54H186.52V95.95H189.62Q192.64 95.95 193.58 95.76L194.24 92.85H195.02L194.79 97H182.24Z"/>
+</svg>

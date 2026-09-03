@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<title>referee — FIDE 6.9 coverage</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{--bg:#ccc;--dark:#854;--light:#cb8;--hit:#c91;--pick:#0f0;--wait:#ff0;--ink:#221a12;--dim:#6b5c4a;--note:#00f;--del:#e59a86;--ins:#a4cd6c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Georgia,"Times New Roman",serif;padding:30px 18px 80px}
+.wrap{max-width:1040px;margin:0 auto}
+h1{font-size:29px;font-weight:normal;margin:0 0 4px}
+h2{font-size:19px;font-weight:normal;margin:38px 0 12px;border-bottom:2px solid var(--dark);padding-bottom:5px}
+h3{font-size:15px;font-weight:normal;margin:0 0 2px;font-family:ui-monospace,Menlo,Consolas,monospace}
+.sub{color:var(--dim);margin:0 0 20px;font-size:15px}
+code,.mono,td,th,input,select,button{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+.ctl{display:flex;flex-wrap:wrap;gap:20px;align-items:center;margin:0 0 6px;padding:12px 14px;background:var(--light);font-size:14px}
+.ctl label{display:flex;gap:8px;align-items:center}
+select{padding:5px 8px;border:1px solid var(--dark);background:#fff;font-size:13px}
+select[disabled]{opacity:.5}
+.drop{border:2px dashed var(--dark);background:var(--light);padding:32px 20px;text-align:center;cursor:pointer;transition:background .15s}
+.drop:hover,.drop.over{background:var(--hit)}
+.drop strong{display:block;font-size:18px;margin-bottom:6px}
+.drop small{font-size:13px;font-family:ui-monospace,Menlo,monospace}
+.drop:focus-visible{outline:3px solid var(--pick);outline-offset:2px}
+.opts{display:flex;flex-wrap:wrap;gap:18px;align-items:center;margin:18px 0 6px;font-size:14px}
+.opts label{display:flex;gap:7px;align-items:center}
+input[type=number]{width:78px;padding:4px 6px;border:1px solid var(--dark);background:#fff}
+button{padding:8px 18px;border:1px solid var(--ink);background:var(--dark);color:#fff;cursor:pointer;font-size:14px}
+button:hover{background:var(--hit)} button[disabled]{opacity:.45;cursor:default}
+button.ghost{background:transparent;color:var(--ink)}
+.bar{height:6px;background:var(--light);margin:14px 0 6px;display:none}
+.bar i{display:block;height:100%;width:0;background:var(--hit);transition:width .2s}
+.stat{font-size:13px;color:var(--dim);min-height:19px}
+.buckets{display:grid;grid-template-columns:repeat(3,1fr);margin:8px 0 2px}
+.buckets div{padding:20px 12px;text-align:center;font-family:ui-monospace,Menlo,monospace;font-size:12px}
+.buckets b{display:block;font-size:30px;font-weight:normal;letter-spacing:-.02em;margin-bottom:4px}
+.buckets em{display:block;font-style:normal;font-size:15px;margin-top:3px}
+.b0{background:var(--light)}
+.b3{background:#dfe8dc}
+.card{cursor:zoom-in}
+.lb{position:fixed;inset:0;background:rgba(20,18,14,.72);z-index:60;display:flex;align-items:center;justify-content:center;padding:20px}
+.lbin{background:var(--bg);border:1px solid var(--dark);padding:18px;display:flex;gap:20px;max-width:780px;width:100%;align-items:flex-start;flex-wrap:wrap}
+.lbbd{flex:0 0 340px;max-width:100%}
+.lbbd .bd{width:340px;max-width:100%}
+.lbbd .bd i{font-size:30px}
+.lbside{flex:1 1 240px;min-width:220px}
+.lbmeta{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.8}
+.lbfen{font-family:ui-monospace,Menlo,monospace;font-size:12px;background:var(--light);padding:8px;word-break:break-all;margin:10px 0}
+#lblink{display:inline-block;background:var(--ink);color:var(--bg);text-decoration:none;padding:6px 12px;font-size:13px}
+#lblink:hover{background:var(--hit);color:var(--ink)} .b1{background:var(--dark);color:#fff} .b2{background:var(--hit)}
+.legend{font-size:12.5px;color:var(--dim);margin:4px 0 0}
+table{border-collapse:collapse;width:100%;font-size:13px;margin-top:6px}
+th,td{text-align:right;padding:6px 10px;border-bottom:1px solid var(--light)}
+th{color:var(--dim);font-weight:normal;border-bottom:2px solid var(--dark)}
+th:first-child,td:first-child{text-align:left}
+tr.tot td{border-top:2px solid var(--dark);font-weight:bold}
+tr.act td{background:var(--light)}
+.note{border-left:4px solid var(--note);padding:8px 0 8px 14px;margin:16px 0;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:12px;margin-top:10px}
+.card{background:var(--light);text-decoration:none;color:var(--ink);display:block;padding:8px;border:2px solid transparent}
+.card:hover{border-color:var(--hit)}
+.bd{display:grid;grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(8,1fr);width:100%;aspect-ratio:1;margin-bottom:6px}
+.bd i{display:flex;align-items:center;justify-content:center;font-style:normal;font-size:15px;line-height:1;font-family:"Segoe UI Symbol","Apple Symbols",serif}
+.bd i.d{background:var(--dark)} .bd i.l{background:var(--light)} .bd i.w{color:#fff;text-shadow:0 0 1px #000,0 0 1px #000}
+.meta{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;line-height:1.45}
+.meta b{font-weight:normal;color:var(--dim)}
+.pg{display:flex;gap:10px;justify-content:center;align-items:center;margin-top:18px;font-size:13px}
+footer{margin-top:50px;font-size:12px;color:var(--dim);border-top:1px solid var(--dark);padding-top:12px}
+.hide{display:none}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;margin-top:6px}
+.two .col>h3{font-size:14px;font-weight:600;margin:0 0 8px;color:var(--ink)}
+.two .col input[type=text]{width:100%}
+.two .col .opts{margin:12px 0 0}
+.two .col .drop{padding:20px 16px}
+@media(max-width:760px){.two{grid-template-columns:1fr}}
+.opts.shared{border-top:1px solid var(--line);padding-top:14px;margin-top:20px}
+details.fold{margin:22px 0 0}
+details.fold>summary{list-style:none;cursor:pointer;display:flex;align-items:baseline;gap:9px}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary>h2{margin:0}
+details.fold>summary::before{content:"\25B8";color:var(--dim);font-size:13px}
+details.fold[open]>summary::before{content:"\25BE"}
+details.fold .foldbody{margin-top:10px}
+.solo input[type=text]{flex:1;min-width:340px;padding:8px 10px;border:1px solid var(--dark);background:#fff;font-size:13px}
+.panel{display:grid;grid-template-columns:190px 1fr;gap:20px;margin-top:16px;align-items:start}
+.panel .bd{width:190px}
+.verdict{font-size:34px;font-family:ui-monospace,Menlo,monospace;letter-spacing:-.02em;margin:0 0 2px}
+.tag{display:inline-block;padding:3px 10px;font-size:12px;font-family:ui-monospace,Menlo,monospace;margin-bottom:10px}
+.t0{background:var(--light)}.t1{background:var(--dark);color:#fff}.t2{background:var(--hit)}
+.kv{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.75}
+.kv b{font-weight:normal;color:var(--dim);display:inline-block;min-width:160px}
+.ed{display:inline-block;margin-top:10px;font-size:13px;color:var(--ink)}
+.badh{font-size:14px;font-weight:600;margin:18px 0 4px;color:#8a1010}
+.fn{margin:20px 0 0}
+.fnote{font-size:13px;color:var(--dim);margin:0 0 5px}
+.dif{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;line-height:1.75;background:var(--light);padding:10px 12px;white-space:pre-wrap;word-break:break-all;margin:0}
+.dif del{background:var(--del);text-decoration:none;padding:1px 0}
+.lf{text-align:left}
+.dif ins{background:var(--ins);text-decoration:none;padding:1px 0}
+.db{color:var(--dim);font-size:12px}
+.key{font-size:12.5px;color:var(--dim);margin:2px 0 14px}
+.key del{background:var(--del);text-decoration:none;padding:1px 3px}
+.key ins{background:var(--ins);text-decoration:none;padding:1px 3px}
+details{margin-top:16px;font-size:13px}
+summary{cursor:pointer;color:var(--dim)}
+.src{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;line-height:1.7;background:var(--light);padding:10px 12px;white-space:pre-wrap;word-break:break-all;margin:8px 0 0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<div class="wrap">
+<h1 data-i="h1">referee — FIDE 6.9 coverage</h1>
+<p class="sub" data-i="sub">The verdict is produced by the engine itself. The side whose flag falls is read from the FEN: the side to move.</p>
+
+<div class="ctl">
+  <label><span data-i="lblEngine">engine</span>
+    <select id="eng">
+      <option value="x4" data-i="optX4">engine_4x.js — speed</option>
+      <option value="nm" data-i="optNm">engine.js — compact</option>
+    </select></label>
+  <label><span data-i="lblLang">language</span>
+    <select id="lang">
+      <option value="en">English</option>
+      <option value="tr">Türkçe</option>
+    </select></label>
+  <span class="db" id="engnote"></span>
+</div>
+
+<details class="fold">
+  <summary><h2 data-i="secDiff">What separates the two builds</h2></summary>
+  <div class="foldbody">
+<p class="legend" data-i="diffSub">Both files are embedded verbatim. The table and the diff below are computed from those two sources at load time, so what you read is exactly what runs.</p>
+<table id="fntab"></table>
+<p class="key" data-ihtml data-i="diffKey"></p>
+<div id="fndiff"></div>
+<div id="srcbox"></div>
+  </div>
+</details>
+
+<h2 data-i="secInput">What to judge</h2>
+<div class="two">
+  <div class="col">
+    <h3 data-i="secSolo">Single position</h3>
+    <input type="text" id="fen" data-ip="fenPh" placeholder="paste a FEN — the halfmove clock is field 5"
+           value="4k1n1/8/8/8/8/8/8/4K1N1 w - - 146 1">
+    <div class="opts"><button id="one" data-i="btnOne">judge this position</button></div>
+  </div>
+  <div class="col">
+    <h3 data-i="secCsv">Batch — CSV</h3>
+    <div class="drop" id="drop" tabindex="0" role="button">
+      <strong data-i="dropBig">drop CSV files here</strong>
+      <small data-ihtml data-i="dropSmall"></small>
+    </div>
+    <input type="file" id="file" accept=".csv,.txt,text/csv,text/plain" multiple class="hide">
+    <div class="opts hide" id="labbar"></div>
+    <div class="opts">
+      <button id="run" disabled data-i="btnRun">judge the files</button>
+      <button id="both" disabled class="ghost" data-i="btnBoth">run both builds</button>
+    </div>
+  </div>
+</div>
+
+<div class="opts shared">
+  <label>ply <input type="number" id="ply" value="9" min="1" max="20"></label>
+  <label><span data-i="lblBud">node budget</span> <input type="number" id="bud" value="50000" min="100" step="500"></label>
+  <label><span data-i="lblRowA">rows</span> <input type="number" id="rowA" value="1" min="1" step="100" style="width:74px">
+         <span data-i="lblRowB">to</span> <input type="number" id="rowB" value="0" min="0" step="100" style="width:74px">
+         <span style="color:var(--dim)" data-i="lblRowC">(header = 0, first data row = 1, to = 0 means the end)</span></label>
+  <span class="db" data-i="sharedNote">these settings apply to both</span>
+</div>
+<div class="bar" id="bar"><i id="barf"></i></div>
+<div class="buckets" id="srcb"></div>
+<div class="stat" id="stat"></div>
+<div id="solo" class="hide"></div>
+
+<div id="cmp" class="hide">
+  <h2 data-i="secCmp">Build against build</h2>
+  <div class="note" id="cmpnote"></div>
+  <table id="cmptab"></table>
+</div>
+
+<div id="out" class="hide">
+  <h2 id="h2tot" data-i="secTotal">Total</h2>
+  <div class="buckets" id="buckets"></div>
+  <p class="legend" data-ihtml data-i="legTotal"></p>
+  <div class="note" id="warn"></div>
+
+  <div id="refbox" class="hide">
+    <h2 data-i="secRef">Against the reference</h2>
+    <div class="buckets" id="refb"></div>
+    <div class="note" id="refnote"></div>
+    <div id="badbox" class="hide">
+      <h3 class="badh" data-i="secBad">The false TM positions</h3>
+      <p class="legend" data-ihtml data-i="legBad"></p>
+      <div class="grid" id="badgrid"></div>
+    </div>
+  </div>
+
+  <h2 data-i="secPer">Set by set</h2>
+  <table id="perfile"></table>
+
+  <h2 data-i="secCost">Cost</h2>
+  <table id="cost"></table>
+
+  <h2 data-i="secUn">Positions we could not judge</h2>
+  <p class="legend" data-ihtml data-i="legUn"></p>
+  <div class="grid" id="grid"></div>
+  <div class="pg" id="pg"></div>
+
+  <h2 data-i="secExp">Export</h2>
+  <div class="opts">
+    <button class="ghost" id="expUn" data-i="expUn">could-not-judge.csv</button>
+    <button class="ghost" id="expMate" data-i="expMate">found-mate.csv</button>
+    <button class="ghost" id="expBad" data-i="expBad">false-tm.csv</button>
+    <button class="ghost" id="expAll" data-i="expAll">all-results.csv</button>
+  </div>
+</div>
+<footer data-ihtml data-i="foot"></footer>
+</div>
+
+<div id="lb" class="lb hide">
+  <div class="lbin">
+    <div class="lbbd" id="lbbd"></div>
+    <div class="lbside">
+      <div class="lbmeta" id="lbmeta"></div>
+      <p class="lbfen" id="lbfen"></p>
+      <div class="opts">
+        <a id="lblink" target="_blank" rel="noopener" data-i="lbOpen">open on lichess</a>
+        <button class="ghost" id="lbcopy" data-i="lbCopy">copy FEN</button>
+        <button class="ghost" id="lbx" data-i="lbClose">close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/plain" id="src_nm">
+c=15,U=N=600,e=Y=-1,t=1,b=[...`5d37b3d5${10n**40n-10n**32n}888888884c26a2c4`].map(u=>'0x'+u-0),z=n=o=0,R={[b+t+e+c]:$=1},Q='indexOf',a=Math.abs,G=(i,f,T,P=b[i]>>1,y=i>>3,h=a(i%8-f%8),v=a(y-(f>>3)),d=h|v,k=(f-i)/d,g=b[i]&1,S=Q=>(i+=k)==f||b[i]<1&&S())=>P>5?h*v==2:P>4?T|v|h^2?d<2:c&C(r=i+3.5*k-.5)&&G(r,i)&&!V(i,g)&!V(i+k,g):P>3?f<i^g&&(h?h*v==1&&T|b[f]|f==e:T|b[f]?0:v<2|v<3&!b[i+f>>1]&y%5==1):(h*v?h==v&P:P>1)&S(),V=(u,s)=>b.some((p,i)=>p%2^s&&G(i,u,1)),l=g=>V(b[Q](10+g),g),L=(i,q=[],g=b[i]&1)=>(b.map((p,f)=>!p|p&1^g&&G(i,f)&&(p=[b,e,n],b=[...b],M(i,f),l(g)||q.push(f),[b,e,n]=p)),q),C=i=>'20003001'[i%56]<<i/28,M=(i,f,u=3,p=b[i],P=p>>1==4,d=a(i-f),q=i+f>>1)=>(n=P|b[f]?0:n+1,b[f]=P&f%56<8?u*2+p%2:p,b[i]=b[P&f==e?f^8:i]=0,d==2&p>9&&(b[q]=b[r=f>i?i+3:i-4],b[r]=0),e=P&d>9&&(e=q,[f-1,f+1].some(x=>b[x]==17-p&&~L(x)[Q](e)))?e:-1),I=g=>(m=W=0,b.map((p,i)=>p&&g>1|p%2==g&&(p<4?m|=(i/8^i)%2+1:W+=p<10?9:p>11)),W*2+m<3),H=g=>(O=u=>!~b[Q](u+g),I(g),B=m,I(!g)&(!m&!W|O(12)&O(8)&(W&O(4)|m&&!(B&~m)))),Z=Q=>b.some((p,i)=>p%2==t&&L(i)+'')?I(2)|J(Y)?4:$>4?5:n>149?8:0:l(t)?t+1:3,A=(i,f,u)=>(c&=~C(i)&~C(f),Y=l(t)?0:e,M(i,f,u),t^=1,$=R[s=b+t+e+c]=-~R[s],Z()),D=g=>(o^=2-g,n>99?6:$>2?7:o>2?15:Z()),X=(g,d,v=t^g|!l(g))=>H(g)||Xs[s=b+t+e]>=d||J(0)||(Xs[s]=d,b.every((p,i)=>!p|p%2^t||L(i).every(f=>v=n>149||d&&Xm-->0&&[3,2,1,6].every((u,x,w)=>x&&p>>1^4|f%56>7||(w=[b,e,n,t],b=[...b],M(i,f,u),t^=1,X(g,d-1)|([b,e,n,t]=w)))))&&v),F=(g,k)=>(Xm=5e4,Xs={},X(g,9))?13+k:9+2*k+g,J=(E,f=2n**64n-1n,y=f^f/255n,x=y>>1n,S=s=>s<<1n&y|s>>1n&x,W=0n,B=W,V=W,v=W,K,L,C,Z,r=W,q=W,P,Q,l,m,u=1n,w=0,N=s=>(s|=S(s),s|s<<8n|s>>8n)&f,X=k=>k&&(l=W&~r,m=B&~q,P=l&(m|P)>>8n,Q=m&(l|Q)<<8n,C|=C<<8n&~m&f,Z|=Z>>8n&~l,K|=N(K)&~(P|S(Q)>>8n),L|=N(L)&~(Q|S(P)<<8n),r|=L|(r&~m)>>8n,q|=K|(q&~l)<<8n&f,X(k-1)))=>~e|n*!~E?0:(b.map(p=>(p&&(p-8>>2?w=1:p>9?p&1?K=V=u:L=v=u:p&1?W|=u:B|=u),u*=2n)),C=P=W,Z=Q=B,!w&&V*v&&(X(600),!(C>>56n|Z&255n|S(C)<<8n&(Z|v)|S(C^W)<<8n&L|S(Z)>>8n&(C|V)|S(Z^B)>>8n&K)))
+</script>
+<script type="text/plain" id="src_x4">
+c=15,U=N=600,e=Y=-1,t=1,b=[...`5d37b3d5${10n**40n-10n**32n}888888884c26a2c4`].map(u=>'0x'+u-0),z=n=o=0,R={[b+t+e+c]:$=1},Q='indexOf',a=Math.abs,G=(i,f,T,p=b[i],P=p>>1,y=i>>3,h=a(i%8-f%8),v=a(y-(f>>3)),d=h|v,k=(f-i)/d,g=p&1,S=Q=>(i+=k)==f||b[i]<1&&S())=>P>5?h*v==2:P>4?T|v|h^2?d<2:c&C(r=i+3.5*k-.5)&&G(r,i)&&!V(i,g)&&!V(i+k,g):P>3?f<i^g&&(h?h*v==1&&T|b[f]|f==e:T|b[f]?0:v<2|v<3&!b[i+f>>1]&y%5==1):(h*v?h==v&P:P>1)&&S(),V=(u,s)=>b.some((p,i)=>p&&p&1^s&&G(i,u,1)),l=g=>V(b[Q](10+g),g),L=(i,q=[],g=b[i]&1)=>(b.forEach((p,f)=>!p|p&1^g&&G(i,f)&&(p=[b,e,n],b=[...b],M(i,f),l(g)||q.push(f),[b,e,n]=p)),q),C=i=>'20003001'[i%56]<<i/28,M=(i,f,u=3,p=b[i],P=p>>1==4,d=a(i-f),q=i+f>>1)=>(n=P|b[f]?0:n+1,b[f]=P&f%56<8?u*2+p%2:p,b[i]=b[P&f==e?f^8:i]=0,d==2&p>9&&(b[q]=b[r=f>i?i+3:i-4],b[r]=0),e=P&d>9&&(e=q,[f-1,f+1].some(x=>b[x]==17-p&&~L(x)[Q](e)))?e:-1),I=g=>(m=W=0,b.map((p,i)=>p&&g>1|p%2==g&&(p<4?m|=(i/8^i)%2+1:W+=p<10?9:p>11)),W*2+m<3),H=g=>(O=u=>!~b[Q](u+g),I(g),B=m,I(!g)&(!m&!W|O(12)&O(8)&(W&O(4)|m&&!(B&~m)))),Z=Q=>b.some((p,i)=>p&&p%2==t&&L(i)+'')?I(2)|J(Y)?4:$>4?5:n>149?8:0:l(t)?t+1:3,A=(i,f,u)=>(c&=~C(i)&~C(f),Y=l(t)?0:e,M(i,f,u),t^=1,$=R[s=b+t+e+c]=-~R[s],Z()),D=g=>(o^=2-g,n>99?6:$>2?7:o>2?15:Z()),X=(g,d,v=0)=>H(g)||Xs[s=b+t+e]>=d||J(0)||(Xs[s]=d,b.every((p,i)=>!p||p%2^t||L(i).every(f=>v=n>149||d&&Xm-->0&&[3,2,1,6].every((u,x,w)=>x&&(f%56>7||p>>1^4)||(w=[b,e,n,t],b=[...b],M(i,f,u),t^=1,X(g,d-1)|([b,e,n,t]=w,0)))))&&(v||t^g|!l(g))),F=(g,k)=>(Xm=5e4,Xs={},X(g,9))?13+k:9+2*k+g,J=(E,f=2n**64n-1n,y=f^f/255n,x=y>>1n,S=s=>s<<1n&y|s>>1n&x,W=0n,B=W,V=W,v=W,K,L,C,Z,r=W,q=W,P,Q,l,m,u=1n,w=0,o=W,N=s=>(s|=S(s),s|s<<8n|s>>8n)&f,X=_=>(o^(o=C+Z+K+L+r+q-P-Q))&&(l=W&~r,m=B&~q,P=l&(m|P)>>8n,Q=m&(l|Q)<<8n,C|=C<<8n&~m&f,Z|=Z>>8n&~l,K|=N(K)&~(P|S(Q)>>8n),L|=N(L)&~(Q|S(P)<<8n),r|=L|(r&~m)>>8n,q|=K|(q&~l)<<8n&f,X()))=>~e|n*!~E?0:(b.every(p=>(p&&(p-8>>2?w=1:p>9?p&1?K=V=u:L=v=u:p&1?W|=u:B|=u),u*=2n,!w))&&(C=P=W,Z=Q=B,V*v&&(X(),!(C>>56n|Z&255n|S(C)<<8n&(Z|v)|S(C^W)<<8n&L|S(Z)>>8n&(C|V)|S(Z^B)>>8n&K))))
+</script>
+
+<script>
+/* ---- FEN reader and the judge; both are engine-agnostic ---- */
+PIECE={b:2,r:4,q:6,p:8,k:10,n:12};
+function setFen(str){
+  var A=String(str).trim().split(/\s+/); if(A.length<2)return 0;
+  var Bd=new Array(64).fill(0),rk=7,fl=0,ch,vv;
+  for(var ix=0;ix<A[0].length;ix++){ ch=A[0][ix];
+    if(ch=='/'){rk--;fl=0} else if(ch>='1'&&ch<='8'){fl+=+ch}
+    else{ vv=PIECE[ch.toLowerCase()]; if(vv===undefined||rk<0||fl>7)return 0;
+          Bd[rk*8+fl++]=vv+(ch==ch.toUpperCase()?1:0)} }
+  if(Bd.indexOf(10)<0||Bd.indexOf(11)<0)return 0;
+  b=Bd; t=A[1]=='w'?1:0; c=0;
+  var ca=A[2]||'-';
+  if(ca.indexOf('K')>=0)c|=1; if(ca.indexOf('Q')>=0)c|=2;
+  if(ca.indexOf('k')>=0)c|=4; if(ca.indexOf('q')>=0)c|=8;
+  var ep=A[3]||'-';
+  e=(ep=='-'||ep.length<2)?-1:(ep.charCodeAt(0)-97)+(+ep[1]-1)*8;
+  n=+A[4]||0; $=1; o=0; z=0;
+  window.FEN_N_GIVEN = A.length>4 && A[4]!=='-';
+  return 1
+}
+/* verdict on the real F/j path — TM, or WT/BT when the search cannot prove a helpmate */
+function judge(fen,ply,bud,forced){
+  if(!setFen(fen))return null;
+  var side=(forced===0||forced===1)?forced:t, nn=n, given=window.FEN_N_GIVEN, mv=0, i;
+  for(i=0;i<64;i++) if(b[i]&&(b[i]&1)==t) mv+=L(i).length;
+  setFen(fen); var hOnly=!!H(side);
+  /* static lock detector; J(0) means "judge this FEN as it stands" — only a live ep blocks */
+  setFen(fen); var dp=!!J(0);
+  setFen(fen); Xm=bud; Xs={};
+  var t0=performance.now(), ok=!!X(side,ply), used=bud-Xm, ms=performance.now()-t0;
+  /* hukmu kim uretti: X arama yaptiysa X, yoksa H, yoksa J, hicbiri degilse terminal Z */
+  var src=used>0?'X':hOnly?'H':dp?'J':'Z';
+  var code=(ok||dp)?(src=='J'?'DP':'TM'):'WB'[side]+'T', why='', mate=0;
+  if(!ok){ setFen(fen); Xm=bud; Xt={}; XM=0; Xd(side,ply); mate=XM;
+           why=mate?'mate':(Xm<0?'budget':'horizon') }
+  if(dp) why='static';
+  return{side:side,n:nn,nGiven:given,moves:mv,hOnly:hOnly,ok:ok,dp:dp,src:src,code:code,used:used,ms:ms,why:why,mate:mate}
+}
+</script>
+
+<script>
+(function(){
+"use strict";
+var GLYPH=' ♝♜♛♟♚♞', VAL={b:1,r:2,q:3,p:4,k:5,n:6};
+var $=function(id){return document.getElementById(id)};
+var dropEl=$('drop'),fileEl=$('file'),runEl=$('run'),bothEl=$('both'),statEl=$('stat'),
+    barEl=$('bar'),barfEl=$('barf'),outEl=$('out'),engEl=$('eng'),langEl=$('lang');
+var files=[],rows=[],results=null,page=0,busy=false,lastSolo=null,snap={},cmp=null;
+
+/* ================= i18n ================= */
+var DICT={
+en:{
+ title:'referee — FIDE 6.9 coverage',
+ h1:'referee — FIDE 6.9 coverage',
+ sub:"The verdict is produced by the engine itself. The side whose flag falls is read from the FEN: the side to move.",
+ lblEngine:'build', lblLang:'language',
+ optX4:'engine_4x.js — speed', optNm:'engine.js — compact',
+ engnote:'{0} B loaded · {1}',
+ nmTag:'shorter file', x4Tag:'faster search',
+ secDiff:'What separates the two builds',
+ diffSub:'Both files are embedded verbatim. The table and the diff below are computed from those two sources at load time, so what you read is exactly what runs.',
+ thFn:'function', thNm:'engine.js', thX4:'engine_4x.js', thD:'Δ', thWhat:'what changes',
+ totalRow:'whole file',
+ same:'{0} of {1} definitions are byte-identical in both builds.',
+ diffKey:'<del>red</del> — only in <code>engine.js</code> (compact) &nbsp;·&nbsp; <ins>green</ins> — only in <code>engine_4x.js</code> (speed). Everything unmarked is shared.',
+ wJ:'The pawn+king lock detector for FIDE 5.2.2, wired into <code>Z</code> beside the material test <code>I</code>. It grows six 64-bit masks — the two pawn cones, the two king regions and the two capture-reach sets — to a monotone fixpoint, then asks whether any pawn can promote, change file, or ever check a king. The compact build simply runs the relaxation a fixed 600 times, which is above the provable bound of 552 and therefore always converged. The speed build keeps a running sum of all eight masks and stops the recursion the moment that sum stops moving; on a real position that is about twenty passes instead of six hundred. The permanence masks <code>P</code> and <code>Q</code> belong in that sum: they drain downward without always moving the other six, so leaving them out could stop the loop one pass early and under-grow every mask.',
+ wG:'The piece is bound to a parameter (<code>p=b[i]</code>) instead of being read from the board twice, and two <code>&amp;</code> become <code>&amp;&amp;</code> so the right-hand side is skipped once the left one has decided. <code>G</code> is the geometry test every move generation goes through, so this is the hottest saving of the five.',
+ wV:'A <code>p&amp;&amp;</code> guard: an empty square leaves the attack scan at once instead of computing <code>p%2^s</code> and falling through. <code>V</code> runs 64 times per check test.',
+ wL:'<code>map</code> becomes <code>forEach</code>: the 64-element result array that <code>map</code> has to allocate — and immediately throw away — is never built. One allocation per legal-move generation.',
+ wZ:'The same <code>p&amp;&amp;</code> guard on the position-result scan, before the legal-move generation is called at all.',
+ wX:'The FIDE 6.9 helpmate search. Both builds now consult <code>J</code> right after the transposition cut: a locked node certifies that no mate lies below it, exactly as <code>H</code> does for material, which is what lets a position that only becomes dead after a forced reply be judged correctly. The compact build folds the "side to move is not in check" test into the parameter default of <code>v</code> and lets the restore expression be the value of the branch — the destructuring result is not a number, and a NaN is falsy, which is exactly what the search needs. The speed build starts from <code>v=0</code>, evaluates the check test only once at the terminal, appends <code>,0</code> so the restore expression is a plain zero, and reorders the two hot guards into short-circuiting form.',
+ secSolo:'Single position', btnJudge:'judge', btnBoth:'run both builds',
+ secInput:'What to judge', btnOne:'judge this position', btnRun:'judge the files',
+ sharedNote:'ply and node budget apply to both',
+ fenPh:'paste a FEN — the halfmove clock is field 5',
+ secCsv:'Batch — CSV / TXT', dropBig:'drop CSV or TXT files here',
+ dropSmall:'several at once · the file name becomes the set name · CSV: a <code>fen</code> column (and an optional <code>label</code> column) is looked for · TXT: lines of the form <code>WB &lt;fen&gt;</code>, the chasolver corpus format',
+ lblBud:'node budget',
+ secCmp:'Build against build',
+ cmpSame:'Both builds returned the same verdict on all {0} positions. The only difference is time: <b>{1}</b> ran the set in {2} s, <b>{3}</b> in {4} s — <b>{5}×</b>.',
+ cmpDiff:'<b>{0}</b> positions came back with different verdicts. That is not supposed to happen: the two builds are meant to be behaviourally identical. Export "all-results.csv" from each build and compare.',
+ thBuild:'build', thBytes:'bytes', thTime:'time (s)', thRate:'rows/s', thNodes:'nodes', thEq:'equivalent', thUn:'no verdict', thMt:'found mate',
+ secTotal:'Total',
+ kEq:'equivalent', kUn:'no verdict', kMt:'found mate', kStatic:'proved without searching',
+ kLock:'lock detector (J)', jYes:'dead position — proved statically', jNo:'no verdict — the search decides',
+ legTotal:'<b>equivalent</b> — the engine said <code>TM</code>/<code>RM</code>, the same verdict as the reference · <b>no verdict</b> — the search hit the horizon or the budget and fell to the safe side with <code>WT</code>/<code>BT</code> (a completeness loss) · <b>found mate</b> — the search really did find a mate, so we contradict the reference',
+ warnMate:'<b>{0}</b> positions where the search actually found a mate — the reference calls them a draw and we do not. These are contradictions worth reading; export them with "found-mate.csv".',
+ warnClean:'The search found a mate in no position — no contradiction with the reference. Everything we missed is a completeness loss, not a soundness loss.',
+ secPer:'Set by set',
+ thSet:'set', thRows:'rows', thRate2:'share', thHor:'horizon', thBud:'budget', thTot:'total',
+ secCost:'Cost',
+ thMeasure:'measure', thAvg:'mean', thMed:'median', thP99:'99%', thMax:'max',
+ mNodes:'nodes spent', mMs:'time (ms)',
+ secUn:'Positions we could not judge',
+ legUn:'Only the positions left without a verdict. Anything the lock detector settled as <code>DP</code> is not here — it was judged. Click a card to open the position in the lichess board editor. Reason: <code>horizon</code> = the ply ceiling was not enough, <code>budget</code> = the node limit ran out.',
+ lblLab:'label', lblBoth:'test both directions', sSel:'{0} rows selected',
+ secRef:'Against the reference', kOk:'agrees', kMiss:'missed draw', kBad:'FALSE TM',
+ secBad:'The false TM positions', expBad:'false-tm.csv',
+ lblRowA:'rows', lblRowB:'to', lblRowC:'(header = 0, first data row = 1; “to” 0 means the end)',
+ lbOpen:'open on lichess', lbCopy:'copy FEN', lbClose:'close',
+ sX:'search <code>X</code>', sH:'material <code>H</code>', sJ:'lock <code>J</code>', sZ:'already over <code>Z</code>',
+ kLabel:'reference', kExpect:'expected', kWhy:'came from',
+ legBad:'Every position the engine called dead while the reference says one side can still helpmate. <b>came from</b> names which of the three certificates produced the verdict, so you can tell a detector bug from a material-rule bug at a glance.',
+ refClean:'<b>No false TM.</b> Every TM/RM the engine produced is backed by the reference. Soundness holds on this set; what is left is completeness.',
+ refBad:'<b>{0} false TM.</b> The engine called a position dead that the reference says is winnable. This is a soundness break, not a completeness loss — read these before anything else.',
+ refNone:'No labelled rows in this run.',
+ secExp:'Export', expUn:'could-not-judge.csv', expMate:'found-mate.csv', expAll:'all-results.csv',
+ noneUn:'No row went unjudged.',
+ prev:'previous', next:'next', pgOf:'{0} / {1} ({2} rows)',
+ badFen:'Could not read that FEN. At least the piece placement and the side-to-move field are needed, and both kings must be on the board.',
+ kFlag:'flag fell for', kMoves:'legal moves', kClock:'halfmove clock n', kHOnly:'material alone (H)',
+ kUsed:'nodes spent', kMs:'time', kPly:'ply ceiling', kBuild:'build', kReason:'reason',
+ white:'white', black:'black', toMove:'(side to move)',
+ noN:"(absent from the FEN, 0 assumed)", z75:' — inside the 75-move rule', z50:' — inside the 50-move rule',
+ hYes:'enough on its own — no search needed', hNo:'cannot decide — the search runs',
+ openLichess:'open in the lichess board editor ↗',
+ rHorizon:'horizon', rBudget:'budget', rMate:'mate',
+ sReading:'reading…', sRows:'{0} rows', sBad:' · {0} malformed rows skipped', sPress:' — press "judge"',
+ sProg:'{0} / {1} · {2} rows/s · about {3} s left',
+ sDone:'done · {0} s · {1} rows/s · {2}',
+ sPhase:'[{0}/2 {1}] ',
+ sFail:'could not read: {0}',
+ foot:'The engine block is <code>engine.js</code> and <code>engine_4x.js</code> plus one addition: <code>J</code>, the pawn+king lock detector, wired into <code>Z</code> beside the material test <code>I</code>. Nothing else was rewritten for this page. The verdict is the code <code>F</code> returns. A second, marked copy of <code>X</code> is used only to tell a horizon miss from a real mate; it never touches the verdict.'
+},
+tr:{
+ title:'hakem — FIDE 6.9 örtüşmesi',
+ h1:'hakem — FIDE 6.9 örtüşmesi',
+ sub:'Hükmü motorun kendisi veriyor. Bayrağı düşen taraf FEN’den okunuyor: sırası gelen.',
+ lblEngine:'sürüm', lblLang:'dil',
+ optX4:'engine_4x.js — hız', optNm:'engine.js — kısa',
+ engnote:'{0} B yüklü · {1}',
+ nmTag:'daha kısa dosya', x4Tag:'daha hızlı arama',
+ secDiff:'İki sürümü ayıran şey',
+ diffSub:'İki dosya da birebir gömülü. Aşağıdaki tablo ve fark, sayfa açılırken o iki kaynaktan hesaplanıyor; yani okuduğunuz şey birebir çalışan şey.',
+ thFn:'fonksiyon', thNm:'engine.js', thX4:'engine_4x.js', thD:'Δ', thWhat:'ne değişiyor',
+ totalRow:'dosyanın tamamı',
+ same:'{0} tanımın {1} tanesi iki sürümde bayt bayt aynı.',
+ diffKey:'<del>kırmızı</del> — yalnız <code>engine.js</code>’de (kısa) &nbsp;·&nbsp; <ins>yeşil</ins> — yalnız <code>engine_4x.js</code>’de (hız). İşaretsiz olan her şey ortak.',
+ wJ:'FIDE 5.2.2 için piyon+şah kilit dedektörü; <code>Z</code> içinde materyal testi <code>I</code>’nin yanına bağlı. Altı adet 64 bitlik maskeyi — iki piyon konisi, iki şah bölgesi, iki yenilebilirlik kümesi — monoton bir sabit noktaya kadar büyütüyor, sonra herhangi bir piyonun terfi edip edemeyeceğini, sütun değiştirip değiştiremeyeceğini ve bir gün şah çekip çekemeyeceğini soruyor. Kısa sürüm gevşetmeyi sabit 600 kez koşuyor; bu, kanıtlanabilir 552 sınırının üstünde olduğu için her zaman yakınsamış oluyor. Hız sürümü sekiz maskenin toplamını tutup, toplam kıpırdamayı bıraktığı anda özyinelemeyi kesiyor — gerçek bir pozisyonda altı yüz yerine yaklaşık yirmi tur. Kalıcılık maskeleri <code>P</code> ve <code>Q</code> o toplamda olmak zorunda: aşağı boşalırken diğer altısını her zaman kıpırdatmıyorlar, dışarıda kalsalar döngü bir tur erken durup bütün maskeleri eksik büyütebilirdi.',
+ wG:'Taş, tahtadan iki kez okunmak yerine bir parametreye bağlanıyor (<code>p=b[i]</code>); ayrıca iki <code>&amp;</code> yerine <code>&amp;&amp;</code> geliyor, yani sol taraf kararı verdiğinde sağ taraf hiç çalışmıyor. <code>G</code> her hamle üretiminin geçtiği geometri testi olduğu için beşi içinde en sıcak kazanç bu.',
+ wV:'<code>p&amp;&amp;</code> koruması: boş kare, <code>p%2^s</code> hesaplanmadan taramadan çıkıyor. <code>V</code> her şah testinde 64 kez dönüyor.',
+ wL:'<code>map</code> yerine <code>forEach</code>: <code>map</code>’in ayırmak ve hemen atmak zorunda olduğu 64 elemanlık sonuç dizisi hiç kurulmuyor. Her legal hamle üretiminde bir tahsis eksiliyor.',
+ wZ:'Aynı <code>p&amp;&amp;</code> koruması, bu kez pozisyon sonucu taramasında — hamle üretimi çağrılmadan önce.',
+ wX:'FIDE 6.9 yardımcı-mat araması. İki sürüm de artık transpozisyon kesmesinin hemen ardından <code>J</code>’ye danışıyor: kilitli bir düğüm, altında mat olmadığının belgesi — tıpkı <code>H</code>’nin materyal için yaptığı gibi. Zorunlu bir cevaptan sonra ölüleşen pozisyonların doğru yargılanmasını sağlayan şey bu. Kısa sürüm “sırası gelen şahta değil” testini <code>v</code>’nin parametre varsayılanına katlıyor ve geri-yükleme ifadesinin değerini dalın değeri olarak bırakıyor — destructuring sonucu sayı değil, NaN de yanlış sayılıyor; aramanın istediği tam olarak bu. Hız sürümü <code>v=0</code>’dan başlıyor, şah testini yalnız terminalde bir kez hesaplıyor, geri-yüklemeye <code>,0</code> ekleyip düz bir sıfır döndürüyor ve iki sıcak korumayı kısa devre biçimine çeviriyor.',
+ secSolo:'Tek pozisyon', btnJudge:'hüküm ver', btnBoth:'iki sürümü de koştur',
+ secInput:'Neyi yargılayalım', btnOne:'bu pozisyona hüküm ver', btnRun:'dosyalara hüküm ver',
+ sharedNote:'ply ve düğüm bütçesi ikisinde de geçerli',
+ fenPh:'FEN yapıştır — hamle sayacı 5. alandan okunur',
+ secCsv:'Toplu — CSV / TXT', dropBig:'CSV ya da TXT buraya bırak',
+ dropSmall:'birden fazla olabilir · dosya adı küme adı olur · CSV: <code>fen</code> sütunu (ve varsa <code>label</code> sütunu) aranır · TXT: <code>WB &lt;fen&gt;</code> biçimli satırlar, chasolver korpus formatı',
+ lblBud:'düğüm bütçesi',
+ secCmp:'Sürüm sürüme',
+ cmpSame:'İki sürüm de {0} pozisyonun tamamında aynı hükmü verdi. Tek fark süre: <b>{1}</b> kümeyi {2} sn’de, <b>{3}</b> {4} sn’de bitirdi — <b>{5}×</b>.',
+ cmpDiff:'<b>{0}</b> pozisyonda hükümler farklı çıktı. Bunun olmaması gerekiyor: iki sürümün davranışça birebir olması bekleniyor. Her sürümden “tum-sonuclar.csv” alıp karşılaştır.',
+ thBuild:'sürüm', thBytes:'bayt', thTime:'süre (sn)', thRate:'satır/sn', thNodes:'düğüm', thEq:'eşdeğer', thUn:'hüküm veremedi', thMt:'mat buldu',
+ secTotal:'Toplam',
+ kEq:'eşdeğer', kUn:'hüküm veremedi', kMt:'mat buldu', kStatic:'arama yapmadan kanıtladı',
+ kLock:'kilit dedektörü (J)', jYes:'ölü pozisyon — statik olarak kanıtlandı', jNo:'hüküm yok — kararı arama veriyor',
+ legTotal:'<b>eşdeğer</b> — motor <code>TM</code>/<code>RM</code> verdi, referansla aynı hükümde · <b>hüküm veremedi</b> — ufka ya da bütçeye çarptı, güvenli tarafa düşüp <code>WT</code>/<code>BT</code> verdi (completeness kaybı) · <b>mat buldu</b> — aramada gerçekten mat çıktı, yani referansla çelişiyoruz',
+ warnMate:'<b>{0}</b> pozisyonda arama gerçekten mat buldu — referans berabere diyor, biz demiyoruz. İncelenmesi gereken çelişkiler; “mat-buldu.csv” ile çıkar.',
+ warnClean:'Aramada hiçbir pozisyonda mat bulunmadı — referansla çelişkimiz yok. Kaçırdıklarımızın tamamı completeness kaybı, soundness kaybı değil.',
+ secPer:'Küme kümesine',
+ thSet:'küme', thRows:'satır', thRate2:'oran', thHor:'ufuk', thBud:'bütçe', thTot:'toplam',
+ secCost:'Maliyet',
+ thMeasure:'ölçü', thAvg:'ortalama', thMed:'medyan', thP99:'%99', thMax:'maks',
+ mNodes:'harcanan düğüm', mMs:'süre (ms)',
+ secUn:'Hüküm veremediklerimiz',
+ legUn:'Yalnız hükümsüz kalanlar. Kilit dedektörünün <code>DP</code> dediği hiçbir pozisyon burada değil — onlara hüküm verildi. Karta tıkla, pozisyon lichess kurulum tahtasında açılsın. Sebep: <code>ufuk</code> = ply yetmedi, <code>bütçe</code> = düğüm sınırı doldu.',
+ lblLab:'etiket', lblBoth:'iki yönü de dene', sSel:'{0} satır seçili',
+ secRef:'Referansa karşı', kOk:'uyuşuyor', kMiss:'kaçan beraberlik', kBad:'YANLIŞ TM',
+ secBad:'Yanlış TM verilen pozisyonlar', expBad:'yanlis-tm.csv',
+ lblRowA:'satır', lblRowB:'—', lblRowC:'(başlık = 0, ilk veri satırı = 1; bitiş 0 ise sona kadar)',
+ lbOpen:'lichess’te aç', lbCopy:'FEN kopyala', lbClose:'kapat',
+ sX:'arama <code>X</code>', sH:'materyal <code>H</code>', sJ:'kilit <code>J</code>', sZ:'zaten bitmiş <code>Z</code>',
+ kLabel:'referans', kExpect:'beklenen', kWhy:'nereden geldi',
+ legBad:'Referansın “bir taraf hâlâ yardımcı-mat yapabilir” dediği ama motorun ölü dediği her pozisyon. <b>nereden geldi</b> sütunu hükmü üç sertifikadan hangisinin ürettiğini söylüyor; dedektör hatasıyla materyal kuralı hatasını bir bakışta ayırmanı sağlar.',
+ refClean:'<b>Yanlış TM yok.</b> Motorun ürettiği her TM/RM referansça doğrulanıyor. Bu kümede soundness ayakta; geriye kalan completeness.',
+ refBad:'<b>{0} yanlış TM.</b> Motor, referansın kazanılabilir dediği bir pozisyona ölü dedi. Bu completeness kaybı değil, soundness kırılması — her şeyden önce bunlara bak.',
+ refNone:'Bu koşuda etiketli satır yok.',
+ secExp:'Dışa aktar', expUn:'hukum-veremedi.csv', expMate:'mat-buldu.csv', expAll:'tum-sonuclar.csv',
+ noneUn:'Hüküm veremediğimiz satır yok.',
+ prev:'önceki', next:'sonraki', pgOf:'{0} / {1} ({2} satır)',
+ badFen:'FEN okunamadı. En az taş dizilimi ve sıra alanı gerekiyor, iki şah şart.',
+ kFlag:'bayrağı düşen', kMoves:'legal hamle', kClock:'hamle sayacı n', kHOnly:'yalnız materyal (H)',
+ kUsed:'harcanan düğüm', kMs:'süre', kPly:'ply tavanı', kBuild:'sürüm', kReason:'sebep',
+ white:'beyaz', black:'siyah', toMove:'(sırası gelen)',
+ noN:'(FEN’de yok, 0 varsayıldı)', z75:' — 75 kuralı bölgesi', z50:' — 50 kuralı bölgesi',
+ hYes:'yeterdi — arama gereksiz', hNo:'karar veremez — arama devrede',
+ openLichess:'lichess kurulum tahtasında aç ↗',
+ rHorizon:'ufuk', rBudget:'bütçe', rMate:'mat',
+ sReading:'okunuyor…', sRows:'{0} satır', sBad:' · {0} bozuk atlandı', sPress:' — “hüküm ver”e bas',
+ sProg:'{0} / {1} · {2} satır/sn · kalan ~{3} sn',
+ sDone:'bitti · {0} sn · {1} satır/sn · {2}',
+ sPhase:'[{0}/2 {1}] ',
+ sFail:'okunamadı: {0}',
+ foot:'Motor bloğu <code>engine.js</code> ve <code>engine_4x.js</code>, üstüne tek ekleme: piyon+şah kilit dedektörü <code>J</code>, <code>Z</code> içinde materyal testi <code>I</code>’nin yanına bağlandı. Başka hiçbir şey bu sayfa için yeniden yazılmadı. Hüküm, <code>F</code>’in döndürdüğü kod. Ufuk ıskası ile gerçek matı ayırmak için <code>X</code>’in ikinci, işaretlenmiş bir kopyası kullanılıyor; hükme karışmıyor.'
+}};
+var lang='en';
+function T(k){var v=DICT[lang][k];return v===undefined?DICT.en[k]:v}
+function F(k){var A=arguments;return T(k).replace(/\{(\d+)\}/g,function(_,i){return A[+i+1]})}
+function num(x){return Number(x).toLocaleString(lang=='tr'?'tr-TR':'en-US')}
+function why(w){return w=='horizon'?T('rHorizon'):w=='budget'?T('rBudget'):w=='mate'?T('rMate'):w}
+
+/* ================= engine sources ================= */
+var SRC={nm:$('src_nm').textContent.trim(), x4:$('src_x4').textContent.trim()};
+var NAME={nm:'engine.js', x4:'engine_4x.js'};
+function chunks(s){var r=[],d=0,st=0,i,c;
+  for(i=0;i<s.length;i++){c=s.charAt(i);
+    if(c=='('||c=='['||c=='{')d++; else if(c==')'||c==']'||c=='}')d--;
+    else if(c==','&&d===0){r.push(s.slice(st,i));st=i+1}}
+  r.push(s.slice(st));return r}
+function nameOf(ch){return ch.slice(0,ch.indexOf('='))}
+function mirror(x){
+  var y=x.replace(/^X=/,'Xd=').split('Xs[').join('Xt[').replace(',X(g,d-1)',',Xd(g,d-1)');
+  var k=y.lastIndexOf('&&');
+  return y.slice(0,k+2)+'('+y.slice(k+2,y.length-1)+'||(XM=1,0)))'
+}
+var CH={nm:chunks(SRC.nm), x4:chunks(SRC.x4)};
+var XD={}, k0;
+for(k0 in CH){ (function(k){ var i,c=CH[k];
+  for(i=0;i<c.length;i++) if(c[i].indexOf('X=')===0) XD[k]=mirror(c[i]) })(k0) }
+
+var cur=null;
+function loadEngine(k){
+  if(cur===k)return;
+  (new Function(SRC[k]+';'+XD[k]+';XM=0;Xt={};Xs={};Xm=0'))();
+  cur=k;
+  $('engnote').textContent=F('engnote',num(SRC[k].length),k=='nm'?T('nmTag'):T('x4Tag'))
+}
+
+/* ================= difference view ================= */
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function tok(s){return s.match(/[A-Za-z_$][\w$]*|\d+n?|[\s\S]/g)||[]}
+function ldiff(a,b){
+  var n=a.length,m=b.length,dp=[],i,j;
+  for(i=0;i<=n;i++)dp[i]=new Int32Array(m+1);
+  for(i=n-1;i>=0;i--)for(j=m-1;j>=0;j--)dp[i][j]=a[i]===b[j]?dp[i+1][j+1]+1:(dp[i+1][j]>=dp[i][j+1]?dp[i+1][j]:dp[i][j+1]);
+  var out=[];i=0;j=0;
+  while(i<n&&j<m){ if(a[i]===b[j]){out.push([0,a[i]]);i++;j++}
+    else if(dp[i+1][j]>=dp[i][j+1]){out.push([-1,a[i]]);i++} else {out.push([1,b[j]]);j++} }
+  while(i<n)out.push([-1,a[i++]]);
+  while(j<m)out.push([1,b[j++]]);
+  var g=[],p;
+  for(i=0;i<out.length;i++){ p=g[g.length-1];
+    if(p&&p[0]===out[i][0])p[1]+=out[i][1]; else g.push([out[i][0],out[i][1]]) }
+  return g}
+var WHAT={G:'wG',V:'wV',L:'wL',Z:'wZ',X:'wX',J:'wJ'};
+function renderDiff(){
+  var A=CH.nm,B=CH.x4,i,h='',same=0,d=[];
+  for(i=0;i<A.length;i++){ if(A[i]===B[i])same++; else d.push([nameOf(A[i]),A[i],B[i]]) }
+  h='<tr><th>'+T('thFn')+'</th><th>'+T('thNm')+'</th><th>'+T('thX4')+'</th><th>'+T('thD')+'</th><th class="lf">'+T('thWhat')+'</th></tr>';
+  d.forEach(function(o){
+    h+='<tr><td><code>'+o[0]+'</code></td><td>'+num(o[1].length)+'</td><td>'+num(o[2].length)+
+       '</td><td>'+(o[2].length-o[1].length>0?'+':'')+(o[2].length-o[1].length)+'</td><td style="text-align:left">'+
+       shortWhat(o[0])+'</td></tr>' });
+  h+='<tr class="tot"><td>'+T('totalRow')+'</td><td>'+num(SRC.nm.length)+'</td><td>'+num(SRC.x4.length)+
+     '</td><td>+'+(SRC.x4.length-SRC.nm.length)+'</td><td style="text-align:left">'+F('same',same,A.length)+'</td></tr>';
+  $('fntab').innerHTML=h;
+  var g='';
+  d.forEach(function(o){
+    var mg=ldiff(tok(o[1]),tok(o[2])),s='';
+    mg.forEach(function(x){ var e=esc(x[1]);
+      s+= x[0]===0?e:(x[0]<0?'<del>'+e+'</del>':'<ins>'+e+'</ins>') });
+    g+='<div class="fn"><h3>'+o[0]+' <span class="db">'+o[1].length+' B → '+o[2].length+' B ('+
+       (o[2].length-o[1].length>0?'+':'')+(o[2].length-o[1].length)+')</span></h3>'+
+       '<p class="fnote">'+(WHAT[o[0]]?T(WHAT[o[0]]):'')+'</p><p class="dif">'+s+'</p></div>' });
+  $('fndiff').innerHTML=g;
+  $('srcbox').innerHTML='<h3>engine.js — '+num(SRC.nm.length)+' B</h3><p class="src">'+esc(SRC.nm)+
+    '</p><h3 style="margin-top:14px">engine_4x.js — '+num(SRC.x4.length)+' B</h3><p class="src">'+esc(SRC.x4)+'</p>'
+}
+function shortWhat(f){
+  var m={G:{en:'piece cached in a parameter; two <code>&amp;</code> → <code>&amp;&amp;</code>',
+            tr:'taş bir parametreye alınıyor; iki <code>&amp;</code> → <code>&amp;&amp;</code>'},
+         V:{en:'<code>p&amp;&amp;</code> guard on empty squares', tr:'boş kareler için <code>p&amp;&amp;</code> koruması'},
+         L:{en:'<code>map</code> → <code>forEach</code>: no result array', tr:'<code>map</code> → <code>forEach</code>: sonuç dizisi yok'},
+         Z:{en:'<code>p&amp;&amp;</code> guard on empty squares', tr:'boş kareler için <code>p&amp;&amp;</code> koruması'},
+         X:{en:'helpmate search: check test moved to the terminal, guards short-circuited',
+            tr:'yardımcı-mat araması: şah testi terminale taşındı, korumalar kısa devreye çevrildi'},
+         J:{en:'lock detector: fixed 600 passes → stop the moment nothing changes',
+            tr:'kilit dedektörü: sabit 600 tur → hiçbir şey değişmeyince dur'}};
+  return m[f]?(m[f][lang]||m[f].en):''
+}
+
+/* ================= board drawing ================= */
+function drawBoard(board){
+  var sq=new Array(64).fill(0),rk=7,fl=0,k,ch,ty,out='';
+  for(k=0;k<board.length;k++){ ch=board[k];
+    if(ch=='/'){rk--;fl=0} else if(ch>='1'&&ch<='8'){fl+=+ch}
+    else{ ty=VAL[ch.toLowerCase()]; if(ty)sq[rk*8+fl]=ty*2+(ch==ch.toUpperCase()?1:0); fl++ } }
+  for(rk=7;rk>=0;rk--)for(fl=0;fl<8;fl++){ var u=rk*8+fl,p=sq[u];
+    out+='<i class="'+(((fl+rk)%2)==0?'d':'l')+(p&1?' w':'')+'">'+(p?GLYPH[p>>1]:'')+'</i>' }
+  return out}
+var editor=function(f){return 'https://lichess.org/editor/'+f.replace(/ /g,'_')};
+function pct(x,y){return y?(100*x/y).toFixed(2)+'%':'—'}
+function ply(){return +$('ply').value|0} function bud(){return +$('bud').value|0}
+function say(s){statEl.textContent=s}
+
+/* ================= single position ================= */
+function renderSolo(fen){
+  var box=$('solo');
+  box.classList.remove('hide');
+  var r=judge(fen,ply(),bud());
+  if(!r){ lastSolo=null;
+    box.innerHTML='<div class="note" style="border-left-color:#a00;color:#800">'+T('badFen')+'</div>'; return }
+  lastSolo=fen;
+  var kova=(r.ok||r.dp)?[T('kEq'),'t0']:(r.mate?[T('kMt'),'t2']:[T('kUn'),'t1']);
+  box.innerHTML=
+   '<div class="panel"><div><div class="bd">'+drawBoard(fen.split(/\s+/)[0])+'</div>'+
+   '<a class="ed" target="_blank" rel="noopener" href="'+editor(fen)+'">'+T('openLichess')+'</a></div>'+
+   '<div><p class="verdict">'+r.code+'</p><span class="tag '+kova[1]+'">'+kova[0]+
+   ((r.ok||r.dp)?(r.dp?' · '+T('kStatic'):''):' · '+why(r.why))+'</span><div class="kv">'+
+   '<b>'+T('kBuild')+'</b> '+NAME[cur]+'<br>'+
+   '<b>'+T('kFlag')+'</b> '+(r.side?T('white'):T('black'))+' '+T('toMove')+'<br>'+
+   '<b>'+T('kMoves')+'</b> '+r.moves+'<br>'+
+   '<b>'+T('kClock')+'</b> '+r.n+(r.nGiven?'':' <span style="color:#800">'+T('noN')+'</span>')+
+      (r.n>149?T('z75'):(r.n>99?T('z50'):''))+'<br>'+
+   '<b>'+T('kHOnly')+'</b> '+(r.hOnly?T('hYes'):T('hNo'))+'<br>'+
+   '<b>'+T('kLock')+'</b> '+(r.dp?T('jYes'):T('jNo'))+'<br>'+
+   '<b>'+T('kWhy')+'</b> '+T('s'+r.src)+' <code>'+r.src+'</code><br>'+
+   '<b>'+T('kUsed')+'</b> '+num(r.used)+' / '+num(bud())+'<br>'+
+   '<b>'+T('kMs')+'</b> '+r.ms.toFixed(2)+' ms<br>'+
+   '<b>'+T('kPly')+'</b> '+ply()+
+   '</div></div></div>'}
+$('one').onclick=function(){ renderSolo($('fen').value.trim()) };
+$('fen').onkeydown=function(ev){ if(ev.key=='Enter')$('one').onclick() };
+
+/* ================= CSV / TXT ================= */
+var LABS=['WB','W-','-B','--'], labSel={WB:1,'W-':1,'-B':1,'--':1};
+/* bayragi dusen taraf g icin referansin cevabi: g'nin rakibi mat edebiliyor mu?
+   g=1 (beyaz dustu) -> siyah mat edebiliyor mu -> etiketin 2. harfi
+   g=0 (siyah dustu) -> beyaz mat edebiliyor mu -> etiketin 1. harfi */
+function refDraw(lab,g){ return lab.charAt(g?1:0)=='-' }
+function sideOf(fen){ return (fen.split(/\s+/)[1]||'w')=='w'?1:0 }
+function parseTXT(text,name){
+  var lines=text.split(/\r?\n/), out=[], bad=0, i, L, m;
+  for(i=0;i<lines.length;i++){ L=lines[i].trim();
+    if(!L||L.charAt(0)=='#')continue;
+    m=L.match(/^(WB|W-|-B|--)[ \t]+(\S.*)$/);
+    if(!m){bad++;continue}
+    out.push({set:name,id:name+':'+(out.length+1),fen:m[2].trim(),lab:m[1]}) }
+  return{rows:out,bad:bad}}
+function looksTXT(text){
+  var lines=text.split(/\r?\n/), i, L;
+  for(i=0;i<lines.length&&i<400;i++){ L=lines[i].trim();
+    if(!L||L.charAt(0)=='#')continue;
+    return /^(WB|W-|-B|--)[ \t]/.test(L) }
+  return false}
+function parseCSV(text,name){
+  var lines=text.split(/\r?\n/), head=lines[0].split(',').map(function(s){return s.trim()}),
+      fi=head.indexOf('fen'), gi=head.indexOf('gameId'), li=head.indexOf('label');
+  if(fi<0)fi=head.length-1;
+  var out=[],bad=0;
+  for(var i=1;i<lines.length;i++){ if(!lines[i])continue;
+    var col=lines[i].split(','); if(col.length<head.length){bad++;continue}
+    var o={set:name,id:gi>=0?col[gi]:name+':'+i,fen:col[fi].trim()};
+    if(li>=0&&LABS.indexOf(col[li].trim())>=0)o.lab=col[li].trim();
+    out.push(o) }
+  return{rows:out,bad:bad}}
+function load(list){
+  files=[]; rows=[]; var pending=list.length, bad=0;
+  say(T('sReading'));
+  Array.prototype.forEach.call(list,function(f){
+    f.text().then(function(txt){
+      var nm=f.name.replace(/\.(csv|txt)$/i,''),
+          P=(/\.txt$/i.test(f.name)||looksTXT(txt))?parseTXT(txt,nm):parseCSV(txt,nm);
+      rows=rows.concat(P.rows); bad+=P.bad; files.push(f.name);
+      if(!--pending){ labBar(); outEl.classList.remove('hide'); runEl.disabled=false; bothEl.disabled=false;
+        snap={}; cmp=null; $('cmp').classList.add('hide');
+        say(files.join(', ')+' · '+F('sRows',num(rows.length))+(bad?F('sBad',bad):'')+T('sPress')) }
+    }).catch(function(err){ say(F('sFail',err.message)) })
+  })}
+dropEl.onclick=function(){fileEl.click()};
+dropEl.onkeydown=function(ev){ if(ev.key=='Enter'||ev.key==' '){ev.preventDefault();fileEl.click()} };
+fileEl.onchange=function(){ if(fileEl.files.length)load(fileEl.files) };
+dropEl.ondragover=function(ev){ev.preventDefault();dropEl.classList.add('over')};
+dropEl.ondragleave=function(){dropEl.classList.remove('over')};
+dropEl.ondrop=function(ev){ev.preventDefault();dropEl.classList.remove('over');
+  if(ev.dataTransfer.files.length)load(ev.dataTransfer.files)};
+
+/* ================= batch ================= */
+function lock(on){ busy=on; runEl.disabled=on||!rows.length; bothEl.disabled=on||!rows.length;
+  engEl.disabled=on; $('ply').disabled=on; $('bud').disabled=on;
+  $('rowA').disabled=on; $('rowB').disabled=on }
+function runBatch(key,work,P,B,phase,done){
+  loadEngine(key);
+  barEl.style.display='block';
+  var res=new Array(work.length), i=0, CHK=250, T0=performance.now(), pre=phase?F('sPhase',phase[0],NAME[key]):'';
+  function chunk(){
+    var end=Math.min(i+CHK,work.length);
+    for(;i<end;i++) res[i]=judge(work[i].fen,P,B,work[i].g);
+    var secs=(performance.now()-T0)/1000, rate=i/Math.max(secs,.001);
+    barfEl.style.width=(100*i/work.length)+'%';
+    say(pre+F('sProg',num(i),num(work.length),num(Math.round(rate)),num(Math.round((work.length-i)/Math.max(rate,1)))));
+    if(i<work.length)setTimeout(chunk,0);
+    else done(res,(performance.now()-T0)/1000)
+  }
+  setTimeout(chunk,20)}
+function tally(res){ var eq=0,un=0,mt=0,nd=0,k;
+  for(k=0;k<res.length;k++){ if(!res[k])continue; nd+=res[k].used;
+    if(res[k].ok||res[k].dp)eq++; else if(res[k].mate)mt++; else un++ }
+  return{eq:eq,un:un,mt:mt,nodes:nd}}
+function labBar(){
+  var have={}, any=0;
+  rows.forEach(function(r){ if(r.lab){have[r.lab]=(have[r.lab]||0)+1;any++} });
+  if(!any){ $('labbar').classList.add('hide'); return }
+  var h='<span>'+T('lblLab')+'</span>';
+  LABS.forEach(function(L){ if(!have[L])return;
+    h+='<label><input type="checkbox" class="labf" value="'+L+'"'+(labSel[L]?' checked':'')+
+       '> <code>'+L+'</code> '+num(have[L])+'</label>' });
+  h+='<label><input type="checkbox" id="bothdir"> '+T('lblBoth')+'</label>'+
+     '<span id="labsum" style="color:var(--dim)"></span>';
+  $('labbar').innerHTML=h; $('labbar').classList.remove('hide');
+  Array.prototype.forEach.call(document.querySelectorAll('.labf'),function(c){
+    c.onchange=function(){ labSel[c.value]=c.checked?1:0; labSum() } });
+  $('bothdir').onchange=labSum; labSum()}
+function labSum(){ var el=$('labsum'); if(el)el.textContent='· '+F('sSel',num(workset().length)) }
+function expand(src){
+  var two=$('bothdir')&&$('bothdir').checked, out=[];
+  (src||rows).forEach(function(r){
+    if(r.lab&&!labSel[r.lab])return;
+    if(!r.lab){ out.push({set:r.set,id:r.id,fen:r.fen}); return }
+    if(two){ [1,0].forEach(function(g){ out.push({set:r.set,id:r.id+(g?'/w':'/b'),fen:r.fen,
+               lab:r.lab,g:g,draw:refDraw(r.lab,g)}) }) }
+    else { var g=sideOf(r.fen);
+           out.push({set:r.set,id:r.id,fen:r.fen,lab:r.lab,draw:refDraw(r.lab,g)}) } });
+  return out}
+function workset(){
+  var a=+$('rowA').value|0, b=+$('rowB').value|0, n=rows.length;
+  if(a<1)a=1; if(b<1||b>n)b=n;
+  return b<a?[]:expand(rows.slice(a-1,b)) }
+runEl.onclick=function(){
+  var P=ply(), B=bud(), work=workset(), key=engEl.value;
+  lock(true);
+  runBatch(key,work,P,B,null,function(res,secs){
+    snap[key]={res:res,secs:secs,work:work,P:P,B:B};
+    results={rows:work,res:res,key:key}; page=0; render(); showCmp();
+    say(F('sDone',secs.toFixed(1),num(Math.round(work.length/Math.max(secs,.001))),NAME[key]));
+    lock(false) })};
+bothEl.onclick=function(){
+  var P=ply(), B=bud(), work=workset(), pick=engEl.value;
+  lock(true); snap={};
+  runBatch('x4',work,P,B,[1],function(r2,s2){
+    snap.x4={res:r2,secs:s2,work:work,P:P,B:B};
+    runBatch('nm',work,P,B,[2],function(r1,s1){
+      snap.nm={res:r1,secs:s1,work:work,P:P,B:B};
+      loadEngine(pick);
+      results={rows:work,res:snap[pick].res,key:pick}; page=0; render(); showCmp();
+      say(F('sDone',(s1+s2).toFixed(1),num(Math.round(2*work.length/Math.max(s1+s2,.001))),NAME.x4+' + '+NAME.nm));
+      lock(false) })})};
+function showCmp(){
+  if(!snap.nm||!snap.x4||snap.nm.work.length!==snap.x4.work.length||snap.nm.P!==snap.x4.P||snap.nm.B!==snap.x4.B){ $('cmp').classList.add('hide'); return }
+  var a=snap.nm,b=snap.x4,i,mis=0;
+  for(i=0;i<a.res.length;i++){ var x=a.res[i],y=b.res[i];
+    if(!x&&!y)continue;
+    if(!x||!y||x.code!==y.code){mis++} }
+  var ta=tally(a.res), tb=tally(b.res),
+      fast=a.secs<b.secs?'nm':'x4', slow=fast=='nm'?'x4':'nm',
+      ratio=(snap[slow].secs/Math.max(snap[fast].secs,1e-9)).toFixed(2);
+  $('cmpnote').innerHTML= mis
+    ? F('cmpDiff',num(mis))
+    : F('cmpSame',num(a.res.length),NAME[fast],snap[fast].secs.toFixed(2),NAME[slow],snap[slow].secs.toFixed(2),ratio);
+  var h='<tr><th>'+T('thBuild')+'</th><th>'+T('thBytes')+'</th><th>'+T('thTime')+'</th><th>'+T('thRate')+'</th><th>'+
+        T('thNodes')+'</th><th>'+T('thEq')+'</th><th>'+T('thUn')+'</th><th>'+T('thMt')+'</th></tr>';
+  [['x4',tb,b],['nm',ta,a]].forEach(function(o){
+    h+='<tr'+(results&&results.key===o[0]?' class="act"':'')+'><td>'+NAME[o[0]]+'</td><td>'+num(SRC[o[0]].length)+
+       '</td><td>'+o[2].secs.toFixed(2)+'</td><td>'+num(Math.round(o[2].res.length/Math.max(o[2].secs,1e-9)))+
+       '</td><td>'+num(o[1].nodes)+'</td><td>'+num(o[1].eq)+'</td><td>'+num(o[1].un)+'</td><td>'+num(o[1].mt)+'</td></tr>' });
+  $('cmptab').innerHTML=h;
+  $('cmp').classList.remove('hide')}
+
+/* ================= results ================= */
+function renderRef(){
+  var R=results.res, W=results.rows, n=0, ok=0, miss=0, bad=0, k;
+  for(k=0;k<R.length;k++){ if(!R[k]||W[k].draw===undefined)continue; n++;
+    if((R[k].ok||R[k].dp)===W[k].draw)ok++; else if(W[k].draw)miss++; else bad++ }
+  if(!n){ $('refbox').classList.add('hide'); return }
+  $('refbox').classList.remove('hide');
+  $('refb').innerHTML=
+    '<div class="b0"><b>'+num(ok)+'</b>'+T('kOk')+'<em>'+pct(ok,n)+'</em></div>'+
+    '<div class="b1"><b>'+num(miss)+'</b>'+T('kMiss')+'<em>'+pct(miss,n)+'</em>WT / BT</div>'+
+    '<div class="b2"><b>'+num(bad)+'</b>'+T('kBad')+'<em>'+pct(bad,n)+'</em>TM / RM</div>';
+  $('refnote').innerHTML= bad?F('refBad',num(bad)):T('refClean');
+  renderBad() }
+function falseTM(){ var out=[],R=results.res,W=results.rows,k;
+  for(k=0;k<R.length;k++)
+    if(R[k]&&W[k].draw===false&&(R[k].ok||R[k].dp))out.push({w:W[k],r:R[k]});
+  return out}
+function renderBad(){
+  var list=falseTM(), h='';
+  if(!list.length){ $('badbox').classList.add('hide'); return }
+  $('badbox').classList.remove('hide');
+  list.slice(0,48).forEach(function(o){
+    h+='<div class="card" data-fen="'+esc(o.w.fen)+'" data-meta="'+esc((o.w.lab||'?')+' \u2192 '+
+       ('WB'[o.r.side])+'T \u00b7 '+o.w.set+' \u00b7 '+o.w.id)+'">'+
+       '<div class="bd">'+drawBoard(o.w.fen.split(/\s+/)[0])+'</div>'+
+       '<div class="meta"><b>'+T('kLabel')+'</b> <code>'+(o.w.lab||'?')+'</code> \u2192 '+
+       T('kExpect')+' <code>'+('WB'[o.r.side])+'T</code><br><b>'+T('kFlag')+'</b> '+
+       (o.r.side?T('white'):T('black'))+' \u2192 <code>'+o.r.code+'</code><br><b>'+T('kWhy')+'</b> '+
+       T('s'+o.r.src)+'<br>'+o.w.set+' \u00b7 '+o.w.id+
+       '</div></div>' });
+  $('badgrid').innerHTML=h }
+function render(){
+  if(!results)return;
+  renderRef();
+  $('h2tot').textContent=T('secTotal')+' — '+NAME[results.key];
+  var R=results.res, W=results.rows, n=0, eq=0, un=0, mt=0, k;
+  var by={X:0,H:0,J:0,Z:0};
+  for(k=0;k<R.length;k++){ if(!R[k])continue; n++;
+    if(R[k].ok||R[k].dp){eq++; by[R[k].src]=(by[R[k].src]||0)+1}
+    else if(R[k].mate)mt++; else un++ }
+  $('buckets').innerHTML=
+    '<div class="b0"><b>'+num(eq)+'</b>'+T('kEq')+'<em>'+pct(eq,n)+'</em>TM / RM / DP</div>'+
+    '<div class="b1"><b>'+num(un)+'</b>'+T('kUn')+'<em>'+pct(un,n)+'</em>WT / BT</div>'+
+    '<div class="b2"><b>'+num(mt)+'</b>'+T('kMt')+'<em>'+pct(mt,n)+'</em>WT / BT</div>';
+  $('srcb').innerHTML= eq?
+    '<div class="b0"><b>'+num(by.X)+'</b>'+T('sX')+'<em>'+pct(by.X,eq)+'</em>TM / RM</div>'+
+    '<div class="b0"><b>'+num(by.H)+'</b>'+T('sH')+'<em>'+pct(by.H,eq)+'</em>TM / RM</div>'+
+    '<div class="b3"><b>'+num(by.J)+'</b>'+T('sJ')+'<em>'+pct(by.J,eq)+'</em>DP</div>'+
+    '<div class="b0"><b>'+num(by.Z)+'</b>'+T('sZ')+'<em>'+pct(by.Z,eq)+'</em>Z</div>' : '';
+  $('warn').innerHTML= mt?F('warnMate',num(mt)):T('warnClean');
+  var per={};
+  for(k=0;k<R.length;k++){ if(!R[k])continue; var s=W[k].set;
+    per[s]=per[s]||{n:0,eq:0,un:0,mt:0,uf:0,bt:0,dp:0};
+    per[s].n++; if((R[k].ok||R[k].dp)&&R[k].src=='J')per[s].dp++;
+    if(R[k].ok||R[k].dp)per[s].eq++; else if(R[k].mate)per[s].mt++;
+    else { per[s].un++; R[k].why=='horizon'?per[s].uf++:per[s].bt++ } }
+  var h='<tr><th>'+T('thSet')+'</th><th>'+T('thRows')+'</th><th>'+T('kEq')+'</th><th>'+T('thRate2')+'</th><th>'+
+        'DP</th><th>'+T('kUn')+'</th><th>'+T('thHor')+'</th><th>'+T('thBud')+'</th><th>'+T('kMt')+'</th></tr>',
+      TT={n:0,eq:0,un:0,mt:0,uf:0,bt:0,dp:0};
+  Object.keys(per).sort().forEach(function(s){ var v=per[s];
+    ['n','eq','un','mt','uf','bt','dp'].forEach(function(x){TT[x]+=v[x]});
+    h+='<tr><td>'+s+'</td><td>'+num(v.n)+'</td><td>'+num(v.eq)+'</td><td>'+pct(v.eq,v.n)+
+       '</td><td>'+num(v.dp)+'</td><td>'+num(v.un)+'</td><td>'+num(v.uf)+'</td><td>'+num(v.bt)+'</td><td>'+num(v.mt)+'</td></tr>' });
+  h+='<tr class="tot"><td>'+T('thTot')+'</td><td>'+num(TT.n)+'</td><td>'+num(TT.eq)+'</td><td>'+pct(TT.eq,TT.n)+
+     '</td><td>'+num(TT.dp)+'</td><td>'+num(TT.un)+'</td><td>'+num(TT.uf)+'</td><td>'+num(TT.bt)+'</td><td>'+num(TT.mt)+'</td></tr>';
+  $('perfile').innerHTML=h;
+  var used=[],ms=[];
+  for(k=0;k<R.length;k++)if(R[k]){used.push(R[k].used);ms.push(R[k].ms)}
+  if(!used.length){$('cost').innerHTML='';renderGrid();return}
+  used.sort(function(a,b2){return a-b2}); ms.sort(function(a,b2){return a-b2});
+  var st=function(a,f){return{ort:(a.reduce(function(x,y){return x+y},0)/a.length).toFixed(f),
+    med:a[a.length>>1].toFixed(f),p99:a[Math.floor(a.length*.99)].toFixed(f),max:a[a.length-1].toFixed(f)}};
+  var u=st(used,0),m=st(ms,2);
+  $('cost').innerHTML='<tr><th>'+T('thMeasure')+'</th><th>'+T('thAvg')+'</th><th>'+T('thMed')+'</th><th>'+T('thP99')+'</th><th>'+T('thMax')+'</th></tr>'+
+    '<tr><td>'+T('mNodes')+'</td><td>'+u.ort+'</td><td>'+u.med+'</td><td>'+u.p99+'</td><td>'+u.max+'</td></tr>'+
+    '<tr><td>'+T('mMs')+'</td><td>'+m.ort+'</td><td>'+m.med+'</td><td>'+m.p99+'</td><td>'+m.max+'</td></tr>';
+  renderGrid()}
+function unresolved(){ var out=[],R=results.res,W=results.rows;
+  for(var k=0;k<R.length;k++)if(R[k]&&!R[k].ok&&!R[k].dp&&!R[k].mate)out.push({w:W[k],r:R[k]});
+  return out}
+function renderGrid(){
+  var list=unresolved(), per=48, pages=Math.max(1,Math.ceil(list.length/per));
+  if(page>=pages)page=0;
+  var h='';
+  list.slice(page*per,(page+1)*per).forEach(function(o){
+    h+='<div class="card" data-fen="'+esc(o.w.fen)+'" data-meta="'+esc(o.w.set+' \u00b7 '+o.w.id+
+       ' \u00b7 '+T('kFlag')+' '+(o.r.side?T('white'):T('black'))+' \u2192 '+o.r.code+
+       ' \u00b7 '+T('kReason')+' '+why(o.r.why)+' \u00b7 n '+o.r.n+' \u00b7 '+T('kUsed')+' '+o.r.used)+'">'+
+       '<div class="bd">'+drawBoard(o.w.fen.split(/\s+/)[0])+'</div>'+
+       '<div class="meta">'+o.w.set+'<br><b>'+T('kFlag')+'</b> '+(o.r.side?T('white'):T('black'))+' → '+o.r.code+
+       '<br><b>'+T('kReason')+'</b> '+why(o.r.why)+' &nbsp;<b>n</b> '+o.r.n+'<br><b>'+T('kUsed')+'</b> '+o.r.used+' · '+o.w.id+'</div></div>' });
+  $('grid').innerHTML=h||'<p style="color:var(--dim)">'+T('noneUn')+'</p>';
+  $('pg').innerHTML= pages>1
+    ? '<button class="ghost" id="pv">'+T('prev')+'</button><span>'+F('pgOf',page+1,pages,num(list.length))+
+      '</span><button class="ghost" id="nx">'+T('next')+'</button>' : '';
+  if(pages>1){ $('pv').onclick=function(){if(page>0){page--;renderGrid()}};
+               $('nx').onclick=function(){if(page<pages-1){page++;renderGrid()}} }}
+
+/* ================= buyutme kutusu ================= */
+function lbOpen(fen,meta){
+  $('lbbd').innerHTML='<div class="bd">'+drawBoard(fen.split(/\s+/)[0])+'</div>';
+  $('lbmeta').textContent=meta||'';
+  $('lbfen').textContent=fen;
+  $('lblink').href=editor(fen);
+  $('lb').classList.remove('hide') }
+function lbClose(){ $('lb').classList.add('hide') }
+document.addEventListener('click',function(ev){
+  var c=ev.target.closest&&ev.target.closest('.card[data-fen]');
+  if(c){ lbOpen(c.getAttribute('data-fen'),c.getAttribute('data-meta')); return }
+  if(ev.target===$('lb'))lbClose() });
+document.addEventListener('keydown',function(ev){ if(ev.key=='Escape')lbClose() });
+$('lbx').onclick=lbClose;
+$('lbcopy').onclick=function(){ var t=$('lbfen').textContent;
+  if(navigator.clipboard)navigator.clipboard.writeText(t);
+  else { var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);
+         a.select();document.execCommand('copy');document.body.removeChild(a) } };
+
+/* ================= export ================= */
+function download(name,txt){ var url=URL.createObjectURL(new Blob([txt],{type:'text/csv'})),A=document.createElement('a');
+  A.href=url;A.download=name;A.click();URL.revokeObjectURL(url) }
+$('expUn').onclick=function(){ if(!results)return;
+  var o=['build,set,gameId,side,verdict,source,reason,n,nodes,fen'];
+  unresolved().forEach(function(x){o.push([NAME[results.key],x.w.set,x.w.id,x.r.side?'w':'b',x.r.code,x.r.src,x.r.why,x.r.n,x.r.used,x.w.fen].join(','))});
+  download('could-not-judge.csv',o.join('\n')) };
+$('expMate').onclick=function(){ if(!results)return;
+  var o=['build,set,gameId,side,verdict,n,nodes,fen'],R=results.res,W=results.rows;
+  for(var k=0;k<R.length;k++)if(R[k]&&!R[k].ok&&R[k].mate)o.push([NAME[results.key],W[k].set,W[k].id,R[k].side?'w':'b',R[k].code,R[k].n,R[k].used,W[k].fen].join(','));
+  download('found-mate.csv',o.join('\n')) };
+$('expBad').onclick=function(){ if(!results)return;
+  var o=['build,set,gameId,label,side,verdict,source,n,nodes,fen'];
+  falseTM().forEach(function(x){o.push([NAME[results.key],x.w.set,x.w.id,x.w.lab||'',x.r.side?'w':'b',
+    x.r.code,x.r.src,x.r.n,x.r.used,x.w.fen].join(','))});
+  download('false-tm.csv',o.join('\n')) };
+$('expAll').onclick=function(){ if(!results)return;
+  var o=['build,set,gameId,side,verdict,source,label,expect,agree,bucket,reason,n,nodes,ms,fen'],R=results.res,W=results.rows;
+  for(var k=0;k<R.length;k++){ if(!R[k])continue;
+    var kova=(R[k].ok||R[k].dp)?(R[k].src=='J'?'dead-position':'equivalent'):(R[k].mate?'mate':'unjudged');
+    var exp=W[k].draw===undefined?'':(W[k].draw?'TM':'WB'[R[k].side]+'T'),
+        agr=W[k].draw===undefined?'':((R[k].ok||R[k].dp)===W[k].draw?'yes':(W[k].draw?'missed':'FALSE-TM'));
+    o.push([NAME[results.key],W[k].set,W[k].id,R[k].side?'w':'b',R[k].code,R[k].src,W[k].lab||'',exp,agr,kova,R[k].why,R[k].n,R[k].used,R[k].ms.toFixed(2),W[k].fen].join(',')) }
+  download('all-results.csv',o.join('\n')) };
+
+/* ================= wiring ================= */
+function applyI18n(){
+  document.documentElement.lang=lang;
+  document.title=T('title');
+  var els=document.querySelectorAll('[data-i]'),i,el,k;
+  for(i=0;i<els.length;i++){ el=els[i]; k=el.getAttribute('data-i');
+    if(el.hasAttribute('data-ihtml'))el.innerHTML=T(k); else el.textContent=T(k) }
+  els=document.querySelectorAll('[data-ip]');
+  for(i=0;i<els.length;i++)els[i].placeholder=T(els[i].getAttribute('data-ip'));
+  if(cur)$('engnote').textContent=F('engnote',num(SRC[cur].length),cur=='nm'?T('nmTag'):T('x4Tag'));
+  renderDiff();
+  if(results)render();
+  if(snap.nm&&snap.x4)showCmp();
+  if(lastSolo)renderSolo(lastSolo)}
+engEl.onchange=function(){ if(busy){engEl.value=cur;return}
+  loadEngine(engEl.value);
+  if(snap[engEl.value]){ results={rows:snap[engEl.value].work,res:snap[engEl.value].res,key:engEl.value}; page=0; render(); showCmp() }
+  if(lastSolo)renderSolo(lastSolo) };
+langEl.onchange=function(){ lang=langEl.value; applyI18n() };
+engEl.value='x4'; langEl.value='en';
+loadEngine('x4');
+applyI18n();
+})();
+</script>

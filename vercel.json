@@ -1,0 +1,40 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "node build.mjs",
+  "outputDirectory": "dist",
+
+  "trailingSlash": false,
+
+  "rewrites": [
+    { "source": "/tr", "destination": "/tr/index.html" }
+  ],
+
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/tr/", "destination": "/tr", "permanent": true },
+    { "source": "/en", "destination": "/", "permanent": true },
+    { "source": "/en/(.*)", "destination": "/", "permanent": true }
+  ],
+
+  "headers": [
+    {
+      "source": "/(images|icons)/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/builds/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    }
+  ]
+}

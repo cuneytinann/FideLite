@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Board - Index Delta</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #f5f5f0;
+    color: #1a1a1a;
+    margin: 0;
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+  }
+  .container {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    max-width: 1100px;
+  }
+  .board {
+    display: grid;
+    gap: 2px;
+    background: #d0d0c8;
+    padding: 2px;
+    border-radius: 8px;
+    position: relative;
+  }
+  .cell {
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.1s, color 0.1s;
+    border-radius: 2px;
+  }
+  .cell:hover { background: #f0f0e8; }
+  .cell.reference {
+    background: #d6e9f8;
+    color: #0c447c;
+  }
+  .cell.target {
+    background: #c0dd97;
+    color: #27500a;
+  }
+  .cell.pending {
+    background: #fde9d8;
+    color: #854f0b;
+  }
+  .board.selecting .cell { cursor: crosshair; }
+
+  .selection-overlay {
+    position: absolute;
+    pointer-events: none;
+    box-sizing: border-box;
+    border: 2px dashed #c44b75;
+    border-radius: 4px;
+  }
+
+  .panel {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .reverse-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: #f0ece0;
+    border: 1px solid #e0d8c0;
+    border-radius: 6px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 13px;
+    color: #1a1a1a;
+  }
+  .reverse-card input { margin: 0; cursor: pointer; }
+  .reverse-card .hint-small {
+    color: #888;
+    font-size: 11px;
+    margin-left: auto;
+  }
+  .reverse-card.on {
+    background: #ede0c8;
+    border-color: #c8b582;
+  }
+
+  .section-label {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+  .dim-row { display: flex; gap: 8px; }
+  .dim-field { flex: 1; }
+  .dim-field label {
+    font-size: 12px;
+    color: #888;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .dim-field input {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 14px;
+    border: 1px solid #d0d0c8;
+    border-radius: 6px;
+    background: #fff;
+    outline: none;
+    font-family: inherit;
+  }
+  .dim-field input:focus { border-color: #888; }
+
+  .divider {
+    height: 1px;
+    background: #e5e5dd;
+    margin: 6px 0;
+  }
+
+  .groups-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .group-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 6px 5px 12px;
+    font-size: 13px;
+    border: 1px solid #d0d0c8;
+    background: #fff;
+    border-radius: 16px;
+    cursor: pointer;
+    color: #1a1a1a;
+    user-select: none;
+  }
+  .group-pill:hover { background: #f0f0e8; }
+  .group-pill.active {
+    background: #d6e9f8;
+    border-color: #a0c8eb;
+    color: #0c447c;
+  }
+  .group-del {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px; height: 18px;
+    font-size: 14px;
+    color: #999;
+    border-radius: 50%;
+    line-height: 1;
+  }
+  .group-del:hover {
+    color: #c00;
+    background: rgba(0,0,0,0.08);
+  }
+  .group-pill.active .group-del { color: #5a87b6; }
+
+  .active-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2px;
+  }
+  .group-name-input {
+    flex: 1;
+    padding: 6px 10px;
+    font-size: 13px;
+    border: 1px solid #d0d0c8;
+    border-radius: 6px;
+    background: #fff;
+    outline: none;
+    font-family: inherit;
+    color: #1a1a1a;
+  }
+  .group-name-input:focus { border-color: #888; }
+
+  .diff-row { display: flex; align-items: center; gap: 8px; }
+  .diff-row input.diff-val {
+    width: 80px;
+    padding: 8px 10px;
+    font-size: 14px;
+    border: 1px solid #d0d0c8;
+    border-radius: 6px;
+    background: #fff;
+    outline: none;
+    font-family: inherit;
+  }
+  .diff-row input.diff-val:focus { border-color: #888; }
+  .diff-toggle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: #555;
+    cursor: pointer;
+    user-select: none;
+  }
+  .diff-toggle input { margin: 0; cursor: pointer; }
+  .diff-row button.remove-btn {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #d0d0c8;
+    background: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #888;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+    padding: 0;
+    line-height: 1;
+    margin-left: auto;
+  }
+  .diff-row button.remove-btn:hover {
+    background: #f0f0e8;
+    color: #1a1a1a;
+  }
+
+  .add-btn {
+    align-self: flex-start;
+    padding: 6px 14px;
+    border: 1px solid #d0d0c8;
+    background: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #1a1a1a;
+    font-family: inherit;
+    margin-top: 2px;
+  }
+  .add-btn:hover { background: #f0f0e8; }
+
+  .sel-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .sel-btn {
+    padding: 6px 14px;
+    border: 1px solid #d0d0c8;
+    background: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #1a1a1a;
+    font-family: inherit;
+  }
+  .sel-btn:hover { background: #f0f0e8; }
+  .sel-btn.active {
+    background: #f9dce5;
+    border-color: #c44b75;
+    color: #80284b;
+  }
+  .sel-status {
+    font-size: 12px;
+    color: #c44b75;
+    margin-left: 2px;
+  }
+
+  .hint {
+    font-size: 12px;
+    color: #999;
+    line-height: 1.5;
+    margin-top: 6px;
+  }
+  .ref-info { font-size: 13px; color: #666; }
+  .ref-info span { font-weight: 500; color: #1a1a1a; }
+
+  .reset-btn {
+    align-self: flex-start;
+    padding: 4px 10px;
+    border: 1px solid #d0d0c8;
+    background: transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 11px;
+    color: #999;
+    font-family: inherit;
+    margin-top: 4px;
+  }
+  .reset-btn:hover {
+    color: #c00;
+    border-color: #c00;
+  }
+  .board-wrap { overflow: auto; max-width: 100%; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="board-wrap">
+    <div class="board" id="board"></div>
+  </div>
+
+  <div class="panel">
+    <label class="reverse-card" id="reverse-card">
+      <input type="checkbox" id="reverse-toggle">
+      <span>Reverse indexing</span>
+      <span class="hint-small">(n−1 → 0)</span>
+    </label>
+
+    <div class="section-label">Board size</div>
+    <div class="dim-row">
+      <div class="dim-field">
+        <label>Rows</label>
+        <input type="number" id="rows" min="1" value="8">
+      </div>
+      <div class="dim-field">
+        <label>Columns</label>
+        <input type="number" id="cols" min="1" value="8">
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-label">Groups</div>
+    <div class="groups-list" id="groups-list"></div>
+    <button class="add-btn" id="add-group-btn">+ New group</button>
+
+    <div class="divider"></div>
+
+    <div class="active-header">
+      <span class="section-label" style="margin: 0;">Active group:</span>
+      <input type="text" id="group-name-input" class="group-name-input">
+    </div>
+    <div id="diff-list"></div>
+    <button class="add-btn" id="add-diff-btn">+ Add delta</button>
+
+    <div class="divider"></div>
+
+    <div class="section-label">Marked area</div>
+    <div class="sel-row">
+      <button class="sel-btn" id="select-btn">Select area</button>
+      <button class="sel-btn" id="clear-selection-btn">Clear</button>
+      <span class="sel-status" id="sel-status"></span>
+    </div>
+
+    <div class="hint">
+      Click a cell → that cell becomes the reference.<br>
+      <b>±</b> → the negative of the delta is included too.<br>
+      <b>mul</b> → multiples of the delta are included too (n, 2n, 3n…).<br>
+      <b>Reverse indexing</b> → cells are counted from the highest number down to 0; deltas still work on the displayed index.<br>
+      <b>Select area</b> → click two corners and the area is framed.<br>
+      Everything is saved to the browser automatically.
+    </div>
+    <div class="ref-info">
+      Reference cell: <span id="ref-display">0</span>
+    </div>
+    <button class="reset-btn" id="reset-btn" title="Deletes all saved data">Reset</button>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'tahta_index_fark_v1';
+
+  // ----- DOM -----
+  const board          = document.getElementById('board');
+  const groupsList     = document.getElementById('groups-list');
+  const addGroupBtn    = document.getElementById('add-group-btn');
+  const groupNameInput = document.getElementById('group-name-input');
+  const diffList       = document.getElementById('diff-list');
+  const addDiffBtn     = document.getElementById('add-diff-btn');
+  const refDisplay     = document.getElementById('ref-display');
+  const rowsInput      = document.getElementById('rows');
+  const colsInput      = document.getElementById('cols');
+  const resetBtn       = document.getElementById('reset-btn');
+  const selectBtn      = document.getElementById('select-btn');
+  const clearSelBtn    = document.getElementById('clear-selection-btn');
+  const selStatus      = document.getElementById('sel-status');
+  const reverseToggle  = document.getElementById('reverse-toggle');
+  const reverseCard    = document.getElementById('reverse-card');
+
+  // ----- State -----
+  function genId() { return Math.random().toString(36).slice(2, 10); }
+
+  function defaultState() {
+    const g = { id: genId(), name: 'Group 1', diffs: [{ value: '', neg: false, mul: false }] };
+    return {
+      rows: 8,
+      cols: 8,
+      referenceIndex: 0,   // stored as POSITION on the grid (0..total-1)
+      groups: [g],
+      activeGroupId: g.id,
+      selection: { start: null, end: null }, // also positions
+      reversed: false
+    };
+  }
+
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return null;
+      const s = JSON.parse(raw);
+      if (!s || typeof s !== 'object') return null;
+      if (!Array.isArray(s.groups)) return null;
+      return s;
+    } catch (e) { return null; }
+  }
+
+  function saveState() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  function ensureValidState() {
+    if (!state.groups || state.groups.length === 0) {
+      state.groups = [{ id: genId(), name: 'Group 1', diffs: [{ value: '', neg: false, mul: false }] }];
+    }
+    state.groups.forEach(g => {
+      if (!g.id) g.id = genId();
+      if (!g.name) g.name = 'Group';
+      if (!Array.isArray(g.diffs) || g.diffs.length === 0) {
+        g.diffs = [{ value: '', neg: false, mul: false }];
+      }
+      g.diffs.forEach(d => {
+        if (typeof d.value === 'undefined') d.value = '';
+        if (typeof d.neg !== 'boolean') d.neg = false;
+        if (typeof d.mul !== 'boolean') d.mul = false;
+      });
+    });
+    if (!state.activeGroupId || !state.groups.find(g => g.id === state.activeGroupId)) {
+      state.activeGroupId = state.groups[0].id;
+    }
+    if (!Number.isFinite(state.rows) || state.rows < 1) state.rows = 8;
+    if (!Number.isFinite(state.cols) || state.cols < 1) state.cols = 8;
+    if (!Number.isFinite(state.referenceIndex) || state.referenceIndex < 0) state.referenceIndex = 0;
+    if (state.referenceIndex >= state.rows * state.cols) state.referenceIndex = 0;
+
+    if (!state.selection || typeof state.selection !== 'object') {
+      state.selection = { start: null, end: null };
+    }
+    const total = state.rows * state.cols;
+    const s = state.selection.start, e = state.selection.end;
+    if (s !== null && (s < 0 || s >= total)) state.selection.start = null;
+    if (e !== null && (e < 0 || e >= total)) state.selection.end = null;
+    if (state.selection.start === null || state.selection.end === null) {
+      state.selection = { start: null, end: null };
+    }
+
+    if (typeof state.reversed !== 'boolean') state.reversed = false;
+  }
+
+  let state = loadState() || defaultState();
+  ensureValidState();
+
+  // ----- Index <-> Position mapping -----
+  function displayedValue(position) {
+    const total = state.rows * state.cols;
+    return state.reversed ? (total - 1 - position) : position;
+  }
+  // displayed -> position is symmetrical
+  function positionFromDisplayed(v) {
+    const total = state.rows * state.cols;
+    return state.reversed ? (total - 1 - v) : v;
+  }
+
+  // ----- Selection mode -----
+  let selectionMode = null;
+  let pendingStart  = null;
+
+  // ----- Helpers -----
+  function getActiveGroup() {
+    return state.groups.find(g => g.id === state.activeGroupId);
+  }
+  function parseDiffValue(v) {
+    const s = String(v).trim();
+    if (s === '' || s === '+' || s === '-') return null;
+    const n = parseInt(s, 10);
+    return Number.isFinite(n) ? n : null;
+  }
+
+  // ----- Board -----
+  let cells = [];
+  let currentCellSize = 48;
+  const GAP = 2;
+  const PAD = 2;
+
+  function buildBoard() {
+    const total = state.rows * state.cols;
+    const cellSize = Math.max(22, Math.min(48, Math.floor(640 / Math.max(state.rows, state.cols))));
+    const fontSize = Math.max(9, Math.min(14, Math.floor(cellSize * 0.32)));
+    currentCellSize = cellSize;
+
+    board.style.gridTemplateColumns = `repeat(${state.cols}, ${cellSize}px)`;
+    board.style.gridTemplateRows    = `repeat(${state.rows}, ${cellSize}px)`;
+
+    board.innerHTML = '';
+    cells = [];
+
+    if (state.referenceIndex >= total) state.referenceIndex = 0;
+
+    for (let i = 0; i < total; i++) {
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.textContent = displayedValue(i);
+      cell.style.fontSize = fontSize + 'px';
+      cell.addEventListener('click', () => onCellClick(i));
+      board.appendChild(cell);
+      cells.push(cell);
+    }
+
+    const ss = state.selection.start, ee = state.selection.end;
+    if (ss !== null && ss >= total) state.selection = { start: null, end: null };
+    if (ee !== null && ee >= total) state.selection = { start: null, end: null };
+
+    refDisplay.textContent = displayedValue(state.referenceIndex);
+
+    paintBoard();
+    drawSelection();
+  }
+
+  function relabelCells() {
+    // Only update cell text contents (used when toggling reversed)
+    cells.forEach((cell, i) => {
+      cell.textContent = displayedValue(i);
+    });
+    refDisplay.textContent = displayedValue(state.referenceIndex);
+  }
+
+  function onCellClick(pos) {
+    if (selectionMode === 'waiting_start') {
+      pendingStart = pos;
+      selectionMode = 'waiting_end';
+      updateSelectionUI();
+      paintBoard();
+      return;
+    }
+    if (selectionMode === 'waiting_end') {
+      state.selection = { start: pendingStart, end: pos };
+      selectionMode = null;
+      pendingStart = null;
+      saveState();
+      updateSelectionUI();
+      paintBoard();
+      drawSelection();
+      return;
+    }
+    state.referenceIndex = pos;
+    refDisplay.textContent = displayedValue(pos);
+    saveState();
+    paintBoard();
+  }
+
+  function paintBoard() {
+    const total = state.rows * state.cols;
+    const group = getActiveGroup();
+    const targets = new Set();  // set of POSITIONS
+
+    const refDisp = displayedValue(state.referenceIndex);
+
+    group.diffs.forEach(d => {
+      const n = parseDiffValue(d.value);
+      if (n === null) return;
+      const absN = Math.abs(n);
+      if (absN === 0) return;
+      const maxK = d.mul ? Math.ceil(total / absN) : 1;
+      for (let k = 1; k <= maxK; k++) {
+        const offs = [k * n];
+        if (d.neg) offs.push(-k * n);
+        offs.forEach(off => {
+          const targetDisp = refDisp + off;
+          if (targetDisp >= 0 && targetDisp < total) {
+            targets.add(positionFromDisplayed(targetDisp));
+          }
+        });
+      }
+    });
+
+    cells.forEach((cell, i) => {
+      cell.classList.remove('reference', 'target', 'pending');
+      if (i === pendingStart && selectionMode === 'waiting_end') {
+        cell.classList.add('pending');
+      } else if (i === state.referenceIndex) {
+        cell.classList.add('reference');
+      } else if (targets.has(i)) {
+        cell.classList.add('target');
+      }
+    });
+  }
+
+  function drawSelection() {
+    const old = board.querySelector('.selection-overlay');
+    if (old) old.remove();
+
+    const s = state.selection.start, e = state.selection.end;
+    if (s === null || e === null) return;
+
+    const r1 = Math.floor(s / state.cols);
+    const c1 = s % state.cols;
+    const r2 = Math.floor(e / state.cols);
+    const c2 = e % state.cols;
+
+    const minR = Math.min(r1, r2);
+    const maxR = Math.max(r1, r2);
+    const minC = Math.min(c1, c2);
+    const maxC = Math.max(c1, c2);
+
+    const cs = currentCellSize;
+    const left   = PAD + minC * (cs + GAP);
+    const top    = PAD + minR * (cs + GAP);
+    const width  = (maxC - minC + 1) * cs + (maxC - minC) * GAP;
+    const height = (maxR - minR + 1) * cs + (maxR - minR) * GAP;
+
+    const expand = 1;
+    const overlay = document.createElement('div');
+    overlay.className = 'selection-overlay';
+    overlay.style.left   = (left - expand) + 'px';
+    overlay.style.top    = (top - expand) + 'px';
+    overlay.style.width  = (width + expand * 2) + 'px';
+    overlay.style.height = (height + expand * 2) + 'px';
+    board.appendChild(overlay);
+  }
+
+  function updateSelectionUI() {
+    if (selectionMode === 'waiting_start') {
+      selectBtn.textContent = 'Cancel';
+      selectBtn.classList.add('active');
+      selStatus.textContent = 'Click the first corner...';
+      board.classList.add('selecting');
+    } else if (selectionMode === 'waiting_end') {
+      selectBtn.textContent = 'Cancel';
+      selectBtn.classList.add('active');
+      selStatus.textContent = 'Click the opposite corner...';
+      board.classList.add('selecting');
+    } else {
+      selectBtn.textContent = 'Select area';
+      selectBtn.classList.remove('active');
+      selStatus.textContent = '';
+      board.classList.remove('selecting');
+    }
+  }
+
+  function updateReverseUI() {
+    reverseToggle.checked = !!state.reversed;
+    reverseCard.classList.toggle('on', !!state.reversed);
+  }
+
+  // ----- Groups -----
+  function renderGroups() {
+    groupsList.innerHTML = '';
+    state.groups.forEach(group => {
+      const pill = document.createElement('div');
+      pill.className = 'group-pill' + (group.id === state.activeGroupId ? ' active' : '');
+
+      const nameSpan = document.createElement('span');
+      nameSpan.textContent = group.name;
+      nameSpan.addEventListener('click', () => {
+        if (state.activeGroupId === group.id) return;
+        state.activeGroupId = group.id;
+        saveState();
+        renderGroups();
+        renderDiffs();
+        paintBoard();
+      });
+      pill.appendChild(nameSpan);
+
+      if (state.groups.length > 1) {
+        const del = document.createElement('span');
+        del.className = 'group-del';
+        del.textContent = '×';
+        del.title = 'Delete group';
+        del.addEventListener('click', (ev) => {
+          ev.stopPropagation();
+          state.groups = state.groups.filter(g => g.id !== group.id);
+          if (state.activeGroupId === group.id) state.activeGroupId = state.groups[0].id;
+          saveState();
+          renderGroups();
+          renderDiffs();
+          paintBoard();
+        });
+        pill.appendChild(del);
+      }
+      groupsList.appendChild(pill);
+    });
+  }
+
+  // ----- Diffs -----
+  function makeToggle(labelText, checked, title, onChange) {
+    const label = document.createElement('label');
+    label.className = 'diff-toggle';
+    if (title) label.title = title;
+    const box = document.createElement('input');
+    box.type = 'checkbox';
+    box.checked = !!checked;
+    box.addEventListener('change', () => onChange(box.checked));
+    const txt = document.createElement('span');
+    txt.textContent = labelText;
+    label.appendChild(box);
+    label.appendChild(txt);
+    return label;
+  }
+
+  function renderDiffs() {
+    const group = getActiveGroup();
+    groupNameInput.value = group.name;
+    diffList.innerHTML = '';
+
+    group.diffs.forEach((diff, idx) => {
+      const row = document.createElement('div');
+      row.className = 'diff-row';
+
+      const input = document.createElement('input');
+      input.type = 'number';
+      input.step = '1';
+      input.placeholder = 'e.g. 13';
+      input.className = 'diff-val';
+      input.value = diff.value;
+      input.addEventListener('input', () => {
+        diff.value = input.value;
+        saveState();
+        paintBoard();
+      });
+      row.appendChild(input);
+
+      row.appendChild(makeToggle('±', diff.neg, 'Include the negative too', (v) => {
+        diff.neg = v;
+        saveState();
+        paintBoard();
+      }));
+
+      row.appendChild(makeToggle('mul', diff.mul, 'Include multiples too (n, 2n, 3n…)', (v) => {
+        diff.mul = v;
+        saveState();
+        paintBoard();
+      }));
+
+      if (group.diffs.length > 1) {
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = '×';
+        removeBtn.className = 'remove-btn';
+        removeBtn.title = 'Remove delta';
+        removeBtn.addEventListener('click', () => {
+          group.diffs.splice(idx, 1);
+          saveState();
+          renderDiffs();
+          paintBoard();
+        });
+        row.appendChild(removeBtn);
+      }
+      diffList.appendChild(row);
+    });
+  }
+
+  // ----- Events -----
+  rowsInput.addEventListener('input', () => {
+    const r = parseInt(rowsInput.value, 10);
+    if (!Number.isFinite(r) || r < 1) return;
+    state.rows = r;
+    saveState();
+    buildBoard();
+  });
+  colsInput.addEventListener('input', () => {
+    const c = parseInt(colsInput.value, 10);
+    if (!Number.isFinite(c) || c < 1) return;
+    state.cols = c;
+    saveState();
+    buildBoard();
+  });
+
+  addGroupBtn.addEventListener('click', () => {
+    const ng = {
+      id: genId(),
+      name: 'Group ' + (state.groups.length + 1),
+      diffs: [{ value: '', neg: false, mul: false }]
+    };
+    state.groups.push(ng);
+    state.activeGroupId = ng.id;
+    saveState();
+    renderGroups();
+    renderDiffs();
+    paintBoard();
+  });
+
+  addDiffBtn.addEventListener('click', () => {
+    const group = getActiveGroup();
+    group.diffs.push({ value: '', neg: false, mul: false });
+    saveState();
+    renderDiffs();
+    paintBoard();
+    const inputs = diffList.querySelectorAll('input.diff-val');
+    if (inputs.length) inputs[inputs.length - 1].focus();
+  });
+
+  groupNameInput.addEventListener('input', () => {
+    const group = getActiveGroup();
+    group.name = groupNameInput.value || 'Group';
+    saveState();
+    renderGroups();
+  });
+
+  selectBtn.addEventListener('click', () => {
+    if (selectionMode !== null) {
+      selectionMode = null;
+      pendingStart = null;
+    } else {
+      selectionMode = 'waiting_start';
+      pendingStart = null;
+    }
+    updateSelectionUI();
+    paintBoard();
+  });
+
+  clearSelBtn.addEventListener('click', () => {
+    state.selection = { start: null, end: null };
+    selectionMode = null;
+    pendingStart = null;
+    saveState();
+    updateSelectionUI();
+    paintBoard();
+    drawSelection();
+  });
+
+  document.addEventListener('keydown', (ev) => {
+    if (ev.key === 'Escape' && selectionMode !== null) {
+      selectionMode = null;
+      pendingStart = null;
+      updateSelectionUI();
+      paintBoard();
+    }
+  });
+
+  reverseToggle.addEventListener('change', () => {
+    state.reversed = reverseToggle.checked;
+    saveState();
+    updateReverseUI();
+    // Re-label cells and re-compute targets, no need to rebuild grid
+    relabelCells();
+    paintBoard();
+  });
+
+  resetBtn.addEventListener('click', () => {
+    if (!confirm('Delete all groups, deltas, the marked area and board settings?')) return;
+    try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+    state = defaultState();
+    ensureValidState();
+    rowsInput.value = state.rows;
+    colsInput.value = state.cols;
+    selectionMode = null;
+    pendingStart = null;
+    buildBoard();
+    renderGroups();
+    renderDiffs();
+    updateSelectionUI();
+    updateReverseUI();
+  });
+
+  // ----- Init -----
+  rowsInput.value = state.rows;
+  colsInput.value = state.cols;
+  buildBoard();
+  renderGroups();
+  renderDiffs();
+  updateSelectionUI();
+  updateReverseUI();
+})();
+</script>
+
+</body>
+</html>

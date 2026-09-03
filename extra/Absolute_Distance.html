@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>8x8 Grid - Distance Selector</title>
+<style>
+  :root { --blue:#1a73e8; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: system-ui, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    padding: 24px;
+    background: #f5f5f5;
+    color: #222;
+  }
+  h1 { font-size: 17px; margin: 0; text-align: center; }
+  .layout { display: flex; gap: 28px; align-items: flex-start; flex-wrap: wrap; justify-content: center; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(8, 64px);
+    grid-template-rows: repeat(8, 64px);
+    gap: 2px;
+    background: #ccc;
+    padding: 2px;
+    border-radius: 4px;
+  }
+  .cell {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    transition: background 0.1s;
+  }
+  .cell:hover { outline: 2px solid #9bbcf0; outline-offset: -2px; }
+  .cell.origin { background: var(--blue); color: #fff; font-weight: bold; }
+  .cell.match { color: #fff; font-weight: 600; }
+  .num { font-size: 13px; }
+  .rad { font-size: 12px; opacity: .75; }
+  .radical { display: inline-flex; align-items: flex-start; }
+  .radical .sign { font-size: 12px; }
+  .radical .rand { border-top: 1px solid currentColor; padding: 0 2px; line-height: 1.1; }
+
+  .panel { width: 340px; display: flex; flex-direction: column; gap: 16px; }
+  .group {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+  }
+  .group-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .swatch { width: 16px; height: 16px; border-radius: 4px; flex-shrink: 0; }
+  .group-name { font-weight: 600; flex: 1; border: none; background: transparent; font-size: 15px; padding: 2px; }
+  .group-name:focus { outline: 1px solid #ccc; border-radius: 3px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+  .chip {
+    background: #eef3fc; border: 1px solid #cfe0ff; border-radius: 14px;
+    padding: 2px 8px; font-size: 13px; display: inline-flex; align-items: center; gap: 6px;
+  }
+  .chip button { border: none; background: none; cursor: pointer; color: #999; font-size: 14px; line-height: 1; padding: 0; }
+  .row { display: flex; gap: 6px; }
+  .row input { flex: 1; padding: 6px 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; }
+  button.act { padding: 6px 10px; border: 1px solid #ccc; background: #fafafa; border-radius: 6px; cursor: pointer; font-size: 13px; }
+  button.act:hover { background: #f0f0f0; }
+  .group-actions { display: flex; gap: 6px; justify-content: flex-end; margin-top: 4px; }
+  .toggle { display: flex; align-items: center; gap: 6px; font-size: 13px; }
+  .addgroup { display: flex; gap: 6px; }
+  .addgroup input { flex: 1; padding: 6px 8px; border: 1px solid #ccc; border-radius: 6px; }
+  .hint { font-size: 12px; color: #888; }
+  .info { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>Click a square. Each group highlights the squares whose distance to it matches one of the group's values.</h1>
+
+  <div class="layout">
+    <div>
+      <div class="grid" id="grid"></div>
+      <div class="info" id="info" style="margin-top:8px">No square selected — click any cell.</div>
+    </div>
+
+    <div class="panel">
+      <div class="hint">Values accept decimals (2.24) or radicals: <code>sqrt5</code>, <code>2sqrt2</code>, <code>√5</code>, <code>v8</code>. Multiple values per group = union.</div>
+      <div id="groups"></div>
+      <div class="addgroup">
+        <input id="newGroupName" placeholder="New group name">
+        <button class="act" onclick="addGroup()">+ Add group</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const SIZE = 8;
+  const grid = document.getElementById('grid');
+  const groupsEl = document.getElementById('groups');
+  const info = document.getElementById('info');
+  const cells = [];
+  let origin = null;
+  const EPS = 1e-6;
+
+  // ---- Grid build ----
+  for (let r = 0; r < SIZE; r++) {
+    for (let c = 0; c < SIZE; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.addEventListener('click', () => { origin = { r, c }; render(); });
+      grid.appendChild(cell);
+      cells.push(cell);
+    }
+  }
+  const getCell = (r, c) => cells[r * SIZE + c];
+
+  // ---- Radical helpers ----
+  function simplifyRadical(n) {
+    if (n === 0) return '0';
+    let outside = 1, inside = n;
+    for (let f = 2; f * f <= inside; f++) {
+      while (inside % (f * f) === 0) { inside /= f * f; outside *= f; }
+    }
+    if (inside === 1) return String(outside);
+    const coef = outside === 1 ? '' : outside;
+    return `${coef}<span class="radical"><span class="sign">√</span><span class="rand">${inside}</span></span>`;
+  }
+
+  // Parse a user value into a numeric distance. Supports "2.24", "sqrt5", "2sqrt2", "√5", "v8", "5".
+  function parseValue(raw) {
+    let s = raw.trim().toLowerCase().replace(/\s+/g, '');
+    if (!s) return NaN;
+    s = s.replace(/√|v/g, 'sqrt');
+    const m = s.match(/^(-?\d*\.?\d*)sqrt(\d*\.?\d+)$/);
+    if (m) {
+      const coef = m[1] === '' || m[1] === '+' ? 1 : parseFloat(m[1]);
+      return coef * Math.sqrt(parseFloat(m[2]));
+    }
+    const n = parseFloat(s);
+    return isNaN(n) ? NaN : n;
+  }
+
+  // ---- Groups state ----
+  const palette = ['#e8453c','#34a853','#fbbc05','#9333ea','#ff7a00','#00897b','#d81b60','#3949ab'];
+  let groups = [];
+  let colorIdx = 0;
+
+  function makeGroup(name, rawValues) {
+    return { id: crypto.randomUUID(), name, color: palette[colorIdx++ % palette.length],
+             values: rawValues.slice(), visible: true };
+  }
+
+  // Preset chess pieces
+  function presets() {
+    groups = [
+      makeGroup('Bishop', ['sqrt2','2sqrt2','3sqrt2','4sqrt2','5sqrt2','6sqrt2','7sqrt2']),
+      makeGroup('Knight', ['sqrt5']),
+      makeGroup('Rook',   ['1','2','3','4','5','6','7']),
+      makeGroup('Queen',  ['1','2','3','4','5','6','7','sqrt2','2sqrt2','3sqrt2','4sqrt2','5sqrt2','6sqrt2','7sqrt2']),
+      makeGroup('King',   ['1','sqrt2']),
+    ];
+    renderGroups();
+  }
+
+  function addGroup() {
+    const inp = document.getElementById('newGroupName');
+    const name = inp.value.trim() || `Group ${groups.length + 1}`;
+    groups.push(makeGroup(name, []));
+    inp.value = '';
+    renderGroups();
+  }
+
+  function removeGroup(id) { groups = groups.filter(g => g.id !== id); renderGroups(); }
+  function addValue(id, raw) {
+    if (!raw.trim()) return;
+    const g = groups.find(x => x.id === id);
+    g.values.push(raw.trim());
+    renderGroups();
+  }
+  function removeValue(id, idx) {
+    const g = groups.find(x => x.id === id);
+    g.values.splice(idx, 1);
+    renderGroups();
+  }
+
+  function renderGroups() {
+    groupsEl.innerHTML = '';
+    groups.forEach(g => {
+      const div = document.createElement('div');
+      div.className = 'group';
+      const chips = g.values.map((v, i) =>
+        `<span class="chip" title="${parseValue(v).toFixed(3)}">${v}<button onclick="removeValue('${g.id}',${i})">×</button></span>`
+      ).join('');
+      div.innerHTML = `
+        <div class="group-head">
+          <span class="swatch" style="background:${g.color}"></span>
+          <input class="group-name" value="${g.name.replace(/"/g,'&quot;')}"
+                 oninput="renameGroup('${g.id}', this.value)">
+          <label class="toggle"><input type="checkbox" ${g.visible?'checked':''}
+                 onchange="toggleGroup('${g.id}', this.checked)">show</label>
+        </div>
+        <div class="chips">${chips || '<span class="hint">no values yet</span>'}</div>
+        <div class="row">
+          <input placeholder="add value e.g. 2sqrt2" id="in-${g.id}"
+                 onkeydown="if(event.key==='Enter'){addValue('${g.id}', this.value); this.value='';}">
+          <button class="act" onclick="(()=>{const e=document.getElementById('in-${g.id}');addValue('${g.id}',e.value);e.value='';})()">Add</button>
+        </div>
+        <div class="group-actions">
+          <button class="act" onclick="removeGroup('${g.id}')">Delete group</button>
+        </div>`;
+      groupsEl.appendChild(div);
+    });
+    render();
+  }
+  function renameGroup(id, name) { groups.find(x=>x.id===id).name = name; }
+  function toggleGroup(id, v) { groups.find(x=>x.id===id).visible = v; render(); }
+
+  // ---- Render grid distances + matches ----
+  function render() {
+    cells.forEach(c => { c.className = 'cell'; c.style.background=''; c.style.color=''; c.innerHTML=''; });
+    if (!origin) { info.textContent = 'No square selected — click any cell.'; return; }
+    const { r, c } = origin;
+
+    // Precompute parsed target distances per visible group
+    const targets = groups.filter(g => g.visible).map(g => ({
+      color: g.color, name: g.name,
+      dists: g.values.map(parseValue).filter(n => !isNaN(n))
+    }));
+
+    for (let i = 0; i < SIZE; i++) {
+      for (let j = 0; j < SIZE; j++) {
+        const cell = getCell(i, j);
+        if (i === r && j === c) {
+          cell.classList.add('origin');
+          cell.innerHTML = '<div class="num">0</div>';
+          continue;
+        }
+        const dx = j - c, dy = i - r, sq = dx*dx + dy*dy, dist = Math.sqrt(sq);
+        cell.innerHTML = `<div class="num">${dist.toFixed(2)}</div><div class="rad">${simplifyRadical(sq)}</div>`;
+
+        // find matching groups
+        const hits = targets.filter(t => t.dists.some(d => Math.abs(d - dist) < EPS));
+        if (hits.length) {
+          cell.classList.add('match');
+          if (hits.length === 1) {
+            cell.style.background = hits[0].color;
+          } else {
+            // multiple groups -> striped gradient
+            const stops = hits.map((h, k) => {
+              const a = (k / hits.length * 100).toFixed(1);
+              const b = ((k+1) / hits.length * 100).toFixed(1);
+              return `${h.color} ${a}%, ${h.color} ${b}%`;
+            }).join(', ');
+            cell.style.background = `linear-gradient(135deg, ${stops})`;
+          }
+        }
+      }
+    }
+    info.textContent = `Origin: row ${r}, col ${c}. Colored squares match a group's distance value.`;
+  }
+
+  presets();
+</script>
+</body>
+</html>

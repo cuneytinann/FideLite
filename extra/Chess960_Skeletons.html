@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chess960 · Castling Skeletons (all 56)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0f1417; --ink2:#141b1f;
+    --panel:#171f23; --panel2:#1b2429;
+    --sq-light:#c4cbbf; --sq-dark:#33423b;
+    --glyph-onlight:#141b1f; --glyph-ondark:#e9e4d7;
+    --ivory:#e9e4d7; --muted:#7d8881; --faint:#566159;
+    --brass:#c89b3c; --brass-soft:#9a7a30;
+    --line:rgba(233,228,215,.10); --line2:rgba(233,228,215,.16);
+    --r:8px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:
+      radial-gradient(120% 80% at 50% -10%, #1a2429 0%, var(--ink) 55%) fixed,
+      var(--ink);
+    color:var(--ivory);
+    font-family:"Space Grotesk",system-ui,sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:clamp(20px,4vw,44px) clamp(14px,3vw,32px) 64px}
+
+  .eyebrow{
+    font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.28em;
+    text-transform:uppercase;color:var(--brass);margin:0 0 12px;
+  }
+  h1{
+    font-weight:700;font-size:clamp(26px,4.6vw,40px);line-height:1.04;
+    letter-spacing:-.02em;margin:0 0 12px;max-width:20ch;
+  }
+  h1 em{font-style:normal;color:var(--brass)}
+  .lede{color:var(--muted);font-size:14.5px;max-width:70ch;margin:0}
+
+  /* slim divider replacing the old paired-column header */
+  .bar{
+    display:flex;justify-content:space-between;align-items:baseline;
+    margin:clamp(22px,4vw,34px) 0 10px;padding-bottom:9px;border-bottom:1px solid var(--line);
+    font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint);
+  }
+  .bar b{color:var(--brass);font-weight:500}
+
+  .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+
+  .cell{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+    padding:9px 10px 10px;transition:border-color .15s,background .15s;
+  }
+  .cell:hover{border-color:var(--brass-soft);background:var(--panel2)}
+  .cell.std{border-color:var(--brass-soft)}
+
+  .top{
+    display:flex;justify-content:space-between;align-items:baseline;gap:6px;
+    font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--faint);
+    letter-spacing:.06em;margin-bottom:6px;
+  }
+  .top b{color:var(--ivory);font-weight:700}
+
+  /* visual 8-square strip */
+  .strip{display:grid;grid-template-columns:repeat(8,1fr);gap:0;border-radius:4px;overflow:hidden;max-width:184px}
+  .strip i{
+    font-style:normal;display:flex;align-items:center;justify-content:center;aspect-ratio:1;
+    font-family:"JetBrains Mono",monospace;font-weight:700;font-size:10.5px;
+  }
+  .strip i.l{background:var(--sq-light);color:var(--glyph-onlight)}
+  .strip i.d{background:var(--sq-dark);color:var(--glyph-ondark)}
+  .strip i.k{color:var(--brass)}
+
+  /* mono skeleton text -R--K-R- */
+  .skel{
+    font-family:"JetBrains Mono",monospace;font-weight:700;font-size:12.5px;
+    letter-spacing:.26em;margin:8px 0 6px;
+  }
+  .skel .d{color:var(--faint);font-weight:400}
+  .skel .r{color:var(--ivory)}
+  .skel .k{color:var(--brass)}
+
+  .ids{
+    font-family:"JetBrains Mono",monospace;font-size:10.5px;line-height:1.72;color:var(--muted);
+    overflow-wrap:break-word;
+  }
+  .ids s{text-decoration:none;white-space:nowrap}
+  .ids s.hi{color:var(--ink);background:var(--brass);border-radius:3px;padding:0 4px;font-weight:700}
+  .ids .dot{color:var(--line2);margin:0 1px}
+
+  .foot{margin-top:34px;color:var(--faint);font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.03em;line-height:1.8;max-width:96ch}
+  .foot b{color:var(--muted)}
+  .foot + .foot{margin-top:10px}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  @media (max-width:980px){ .grid{grid-template-columns:repeat(3,minmax(0,1fr))} }
+  @media (max-width:720px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+  @media (max-width:430px){
+    .grid{grid-template-columns:1fr}
+    .strip{max-width:210px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Chess960 · Castling Skeletons</p>
+  <h1>56 skeletons. <em>960 positions.</em></h1>
+  <p class="lede">Castling in Fischer-random chess depends only on where the king and its two rooks sit, and the king always stands between the rooks — so across all 960 setups there are exactly C(8,3)=56 king–rook skeletons. Each card holds one skeleton and every Scharnagl ID built on it. Ordered by file, from R K R on a–b–c through f–g–h. All generated live.</p>
+
+  <div class="bar">
+    <span>R K R skeleton <b>·</b> Scharnagl IDs</span>
+    <span id="tally"></span>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <p class="foot">
+    Skeleton written R&nbsp;K&nbsp;R with dashes for empty files (e.g. <b>-R--K-R-</b>). #518 (RNBQKBNR, the orthodox start) is highlighted where it appears. Numbering after Reinhard Scharnagl (FRC/Chess960, 2004) — the same IDs FIDE uses.
+  </p>
+  <p class="foot">
+    Why 18 or 12: the five files a skeleton leaves free split either <b>3–2</b> or <b>4–1</b> by square colour. A 3–2 split allows 3×2 bishop placements and 3 squares for the queen — <b>18</b> positions. In the eight 4–1 skeletons one bishop is pinned to the lone minority file: 1×4×3 = <b>12</b>.
+  </p>
+</div>
+
+<script>
+// ---- Scharnagl position generator (same as the index) ----
+function empties(p){const r=[];for(let i=0;i<8;i++)if(!p[i])r.push(i);return r;}
+function pos960(id){
+  const p=Array(8).fill(0), L=[1,3,5,7], D=[0,2,4,6];
+  let n=id;
+  p[L[n%4]]='B'; n=Math.floor(n/4);
+  p[D[n%4]]='B'; n=Math.floor(n/4);
+  let e=empties(p); p[e[n%6]]='Q'; n=Math.floor(n/6);
+  const kt=[[0,1],[0,2],[0,3],[0,4],[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]];
+  e=empties(p); p[e[kt[n][0]]]='N'; p[e[kt[n][1]]]='N';
+  e=empties(p); p[e[0]]='R'; p[e[1]]='K'; p[e[2]]='R';
+  return p.join('');
+}
+
+// ---- king-rook skeleton of a position: the three files holding R,K,R (a<k<b) ----
+function skelOf(s){const idx=[];for(let i=0;i<8;i++)if(s[i]==='R'||s[i]==='K')idx.push(i);return idx;}
+const STD = 518; // orthodox start, for highlight
+
+// group all 960 IDs by skeleton
+const groups={};
+for(let id=0;id<960;id++){
+  const k=skelOf(pos960(id)).join(',');
+  (groups[k]=groups[k]||[]).push(id);
+}
+
+// flat list of all 56, ordered by file: (0,1,2) … (5,6,7)
+const cells = Object.keys(groups)
+  .map(k=>({idx:k.split(',').map(Number), ids:groups[k]}))
+  .sort((a,b)=> a.idx[0]-b.idx[0] || a.idx[1]-b.idx[1] || a.idx[2]-b.idx[2]);
+
+// ---- renderers ----
+function stripHTML(idx){
+  let h='<div class="strip">';
+  for(let i=0;i<8;i++){
+    const dark = (i%2===0); // a1,c1,e1,g1 dark (matches the index)
+    let ch='', cls=dark?'d':'l';
+    if(i===idx[0]||i===idx[2]) ch='R';
+    else if(i===idx[1]){ ch='K'; cls+=' k'; }
+    h+=`<i class="${cls}">${ch}</i>`;
+  }
+  return h+'</div>';
+}
+function skelText(idx){
+  let h='<div class="skel">';
+  for(let i=0;i<8;i++){
+    if(i===idx[0]||i===idx[2]) h+='<span class="r">R</span>';
+    else if(i===idx[1]) h+='<span class="k">K</span>';
+    else h+='<span class="d">-</span>';
+  }
+  return h+'</div>';
+}
+function idsHTML(ids){
+  const parts = ids.map(id => id===STD
+    ? `<s class="hi">${id}</s>`
+    : `<s>${id}</s>`);
+  // separator carries a trailing space: the only break opportunities are BETWEEN ids,
+  // so a number is never split across lines and a line never starts with the dot
+  return '<div class="ids">'+parts.join('<span class="dot">·</span> ')+'</div>';
+}
+function cellHTML(c,n){
+  const isStd = c.ids.includes(STD);
+  return `<div class="cell${isStd?' std':''}">`
+    + `<div class="top"><span>${String(n).padStart(2,'0')}</span>`
+    + `<span><b>${c.ids.length}</b> positions</span></div>`
+    + stripHTML(c.idx)
+    + skelText(c.idx)
+    + idsHTML(c.ids)
+    + `</div>`;
+}
+
+document.getElementById('grid').innerHTML =
+  cells.map((c,i)=>cellHTML(c,i+1)).join('');
+document.getElementById('tally').textContent =
+  cells.length + ' skeletons · ' + cells.reduce((s,c)=>s+c.ids.length,0) + ' ids';
+</script>
+</body>
+</html>
