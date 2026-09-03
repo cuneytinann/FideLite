@@ -218,7 +218,7 @@ for (const t of TARGETS) {
      goreli yollar /en/images/... olur ve 404 verir; koke sabitlemek bu
      riski tamamen kaldirir. */
   let paths = 0;
-  h = h.replace(/(\s(?:src|href)=")(images\/|icons\/|builds\/|test\.zip)/g,
+  h = h.replace(/(\s(?:src|href)=")(images\/|icons\/|builds\/|special\/|test\.zip)/g,
                 (f, p1, p2) => { paths++; return p1 + '/' + p2; });
   h = h.replace(/var DIR = 'builds\/';/, () => { paths++; return "var DIR = '/builds/';"; });
 
@@ -243,7 +243,7 @@ for (const t of TARGETS) {
 }
 
 /* Statik varliklar */
-for (const dir of ['images', 'icons', 'builds']) {
+for (const dir of ['images', 'icons', 'builds', 'special']) {
   if (existsSync(dir)) cpSync(dir, join(OUT, dir), { recursive: true });
 }
 for (const f of ['test.zip', 'robots.txt']) {

@@ -1412,10 +1412,14 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       kendime koyduğum ölçüt hakem motorununkiyle aynı: bayt/kalite oranında şaheser olması. Bu
       daha uzun sürecek bir iş, ama çok keyif aldığım bir hobi olduğu için o tarafta da somut
       bir rekor denemesi yapacağım.</p>
-      <p>Geriye ölçülebilir tarafın ne satın aldığı kalıyor: 1.826 baytlık bu yapı, FIDE'yi tam
-      bağlılıkla baz alan platformlarla birebir eşdeğer. Saf FIDE uygulayan lichess.org'un kural
-      seti buna en yakın örnek — verdikleri hüküm her maddede aynı. Tam kapanmayan tek yarım madde de ortak —
-      <a href="#dead">kilitli pozisyonların</a> fil içeren yüzde yedisini lichess de görmüyor. Chess.com bazı maddelerde
+      <p>Geriye ölçülebilir tarafın ne satın aldığı kalıyor: 1.826 baytlık bu yapı, mat
+      imkânsızlığında büyük platformların <b>ilerisinde</b>. Saf FIDE uygulayan lichess.org
+      yalnız <b>materyal testini</b> yapıyor — motorun <code>H</code>'sinin karşılığı.
+      Pozisyondan arama yok, <a href="#dead">kilitli pozisyon</a> tespiti yok; motorun
+      <code>X</code> ile <code>J</code>'si oralarda yok. Bunun ölçüsü de var:
+      <a href="https://chasolver.org/" target="_blank" rel="noopener">CHA-Solver</a> Lichess
+      veritabanını tarayıp <b>200 bin civarında yanlış sonuçlanmış oyun</b> saydı, dörtte biri
+      kilitli pozisyonlardan. Chess.com bazı maddelerde
       <a href="#federations">FIDE-USCF hibriti</a> uyguluyor; eksiklik değil tercih, iki
       federasyonun kurallarını bilerek harmanlıyorlar. Buradaki tercih başka: tek kitap, tek
       ölçü. Aynı maddelerde motor bu yüzden FIDE'ye daha sıkı bağlı.</p>
@@ -1443,11 +1447,14 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       bringing a bot here is the same one the arbiter engine had to meet: it has to be a
       masterpiece in ratio of bytes to quality. That is a longer job — but since it is a hobby I
       enjoy a great deal, I will make a concrete attempt at a record on that side too.</p>
-      <p>What remains is what the measurable side bought: at 1,826 bytes this build is exactly
-      equivalent to the platforms that take FIDE as their base with full fidelity. The rule set of
-      lichess.org, which applies pure FIDE, is the closest example — the ruling they give is the
-      same on every article. The one half-article that does not fully close is shared too — lichess does not see the
-      seven per cent of <a href="#dead">blocked positions</a> that contain a bishop either. Chess.com applies a
+      <p>What remains is what the measurable side bought: at 1,826 bytes this build is <b>ahead of</b>
+      the large platforms on the impossibility of mate. lichess.org, which applies pure FIDE, runs
+      the <b>material test alone</b> — the counterpart of the engine's <code>H</code>. There is no
+      search from the position and no <a href="#dead">blocked-position</a> detection; the engine's
+      <code>X</code> and <code>J</code> have no equivalent there. And that has been measured:
+      <a href="https://chasolver.org/" target="_blank" rel="noopener">CHA-Solver</a> scanned the
+      Lichess database and counted <b>around 200,000 wrongly decided games</b>, a quarter of them
+      from blocked positions. Chess.com applies a
       <a href="#federations">FIDE-USCF hybrid</a> on some articles; not a shortcoming but a
       choice, blending the rules of two federations deliberately. The choice here is a different
       one: one book, one measure. On those same articles the engine is therefore bound more
