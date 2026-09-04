@@ -1703,6 +1703,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <thead><tr><th>Materyal</th><th>Karar</th></tr></thead>
 <tbody>
 <tr><td>Çıplak şah</td><td>Yetersiz</td></tr>
+<tr><td>Tek fil</td><td>Yetersiz</td></tr>
 <tr><td>Tek renk karelerde filler</td><td>Yetersiz</td></tr>
 <tr><td>Tek at</td><td>Yetersiz</td></tr>
 <tr><td>İki renkte filler</td><td>Yeterli</td></tr>
@@ -1715,6 +1716,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <thead><tr><th>Material</th><th>Ruling</th></tr></thead>
 <tbody>
 <tr><td>Lone king</td><td>Insufficient</td></tr>
+<tr><td>A single bishop</td><td>Insufficient</td></tr>
 <tr><td>Bishops all on one square colour</td><td>Insufficient</td></tr>
 <tr><td>A single knight</td><td>Insufficient</td></tr>
 <tr><td>Bishops on both square colours</td><td>Sufficient</td></tr>
@@ -2120,8 +2122,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       pozisyonun kazanılabilir olup olmadığına matematiksel kesinlikle karar veriyor;
       algoritması hakemli bir makaleyle yayımlandı, açık kaynak, ve Lichess veritabanının
       tamamını taradı. Bu yazının yazıldığı 08.08.2026 itibarıyla 200 bin civarında yanlış
-      sonuçlanmış oyun tespit edilmiş durumda; bunun dörtte biri kilitli pozisyonlardan
-      geliyor. Yani <b>sağlamlık çözülmüş bir problem</b> — verdiği cevap yanlış olmuyor.</p>
+      sonuçlanmış oyun tespit edilmiş durumda; bunun <b>50 bini</b> kilitli pozisyonlardan
+      geliyor, kalan <b>150 bini</b> bayrak düşmesinde sorulmayan sorudan. Yani <b>sağlamlık çözülmüş bir problem</b> — verdiği cevap yanlış olmuyor.</p>
       <p>Çözülmemiş olan <b>tamlık</b>, ve buradaki fark ince değil. Aracın kendi belgesi
       açıkça yazıyor: bilinen her legal pozisyonda — gerçek ya da kurgu — tam, ama teoride
       tamlığı kanıtlanmış değil; çözemediği bir pozisyon bulmaya davet ediyor. Bu bir kusur
@@ -2153,8 +2155,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       olmak zaten hareketliliğin bitmesi demek, tekrar da o yüzden erken gelir.</p>
       <p>Hedef %100 değildi, olamazdı da. Pratikte karşılaşılan kilitli pozisyonların
       %90'ından fazlasını kapsamak ve ne kapsandığını açıkça söylemekti; ölçülen sonuç %93.
-      Motor artık beraberliği yalnız emin olduğu yerde ilan ediyor. Chess.com ve lichess.org,
-      federasyondan bağımsız oldukları hâlde, hâlâ yalnız materyal testine bakıyor.</p>
+      Motor artık beraberliği yalnız emin olduğu yerde ilan ediyor. Büyük platformlarda yaygın
+      olan ise, federasyondan bağımsız olanlarda bile, materyal testiyle yetinmek.</p>
       <p>Sapma bundan ibaret. Mat imkânsızlığının çekilme ve süre bitimindeki iki
       istisnası — 5.1.2 ve 6.9 — eksiksiz uygulanıyor, ve ikisi de
       <a href="#codes">kendi sonucuyla</a> ayrı ayrı bildiriliyor.</p>
@@ -2173,7 +2175,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       mathematical certainty whether a position is winnable; the algorithm was published in a
       peer-reviewed paper, it is open source, and it has been run across the entire Lichess database. As of
       8 August 2026, when this was written, it has identified around 200,000 games that were decided
-      wrongly, a quarter of them from blocked positions. So <b>soundness is a solved
+      wrongly, <b>50,000</b> of them from blocked positions and the remaining <b>150,000</b>
+      from the question that goes unasked at flag fall. So <b>soundness is a solved
       problem</b> — the answer it gives is never wrong.</p>
       <p>What is not solved is <b>completeness</b>, and the difference is not a fine one. The
       tool's own documentation says so plainly: complete on every known legal position, real or
@@ -2209,8 +2212,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       is why the repetition arrives early.</p>
       <p>The target was never 100%, and could not have been. It was to cover more than 90% of the
       blocked positions that actually occur and to say plainly what was covered; the measured
-      result is 93%. The engine now declares a draw only where it is certain. Chess.com and Lichess, for all their independence from any federation, still look at the
-      material test alone.</p>
+      result is 93%. The engine now declares a draw only where it is certain. What is common on the large
+      platforms, even those independent of any federation, is to stop at the material test.</p>
       <p>That is the whole of the deviation. The two exceptions for impossibility of mate, at
       resignation and at flag fall — 5.1.2 and 6.9 — are implemented in full, and each is reported
       as <a href="#codes">a result of its own</a>.</p>
@@ -4474,8 +4477,8 @@ l=g=&gt;V(<b>b[Q](10+g)</b>,g)</pre>
       taşlar yeterli, arama da bir şey bulamıyor olabilir — çünkü pozisyon kilitli.
       <code>J</code> onu tarıyor.</p>
     </div>
-<pre class="snip" lang="tr">J=(<b>Y</b>, f=2n**64n-1n, y=f^f/255n, x=y&gt;&gt;1n, …)=&gt;
-  <b>~e|n*!~Y</b> ? 0 :                       <i>kapı: geri dönülemez bir şey oldu mu</i>
+<pre class="snip" lang="tr">J=(<b>E</b>, f=2n**64n-1n, y=f^f/255n, x=y&gt;&gt;1n, …)=&gt;
+  <b>~e|n&gt;1&amp;E</b> ? 0 :                       <i>kapı: geri dönülemez bir şey oldu mu</i>
   ( b.map(p=&gt;(p &amp;&amp; (<b>p-8&gt;&gt;2</b> ? w=1         <i>piyon ve şah dışı → kapsam dışı</i>
       : p&gt;9 ? p&amp;1?K=V=u:L=v=u               <i>şahlar</i>
             : p&amp;1?W|=u:B|=u), u*=2n)),      <i>piyonlar</i>
@@ -4485,8 +4488,8 @@ l=g=&gt;V(<b>b[Q](10+g)</b>,g)</pre>
        | S(C)&lt;&lt;8n&amp;(Z|v) | S(C^W)&lt;&lt;8n&amp;L
        | S(Z)&gt;&gt;8n&amp;(C|V) | S(Z^B)&gt;&gt;8n&amp;K     <i>alma kaldı mı</i>
        )))</pre>
-<pre class="snip" lang="en">J=(<b>Y</b>, f=2n**64n-1n, y=f^f/255n, x=y&gt;&gt;1n, …)=&gt;
-  <b>~e|n*!~Y</b> ? 0 :                       <i>gate: did anything irreversible just happen</i>
+<pre class="snip" lang="en">J=(<b>E</b>, f=2n**64n-1n, y=f^f/255n, x=y&gt;&gt;1n, …)=&gt;
+  <b>~e|n&gt;1&amp;E</b> ? 0 :                       <i>gate: did anything irreversible just happen</i>
   ( b.map(p=&gt;(p &amp;&amp; (<b>p-8&gt;&gt;2</b> ? w=1         <i>anything but pawn or king → out of scope</i>
       : p&gt;9 ? p&amp;1?K=V=u:L=v=u               <i>kings</i>
             : p&amp;1?W|=u:B|=u), u*=2n)),      <i>pawns</i>
@@ -4502,10 +4505,36 @@ l=g=&gt;V(<b>b[Q](10+g)</b>,g)</pre>
       because the position is blocked. <code>J</code> is the scan for that.</p>
     </div>
     <div class="prose" lang="tr">
-      <p>Kapı iki şey istiyor: şu an geçerken alma hakkı olmayacak, ve ya <code>n</code> sıfır
-      olacak ya da <code>Y</code> <code>-1</code> olmayacak. Anlamı şu — dedektör yalnız
-      <b>geri dönülemez bir şey olduğunda</b> koşuyor. Piyon oynamadıysa ve taş alınmadıysa yapı
-      değişmemiştir; dün ölü değilse bugün de değildir.</p>
+      <p>Kapı iki şey soruyor: şu an geçerken alma hakkı var mı, ve son iki yarım hamlede geri
+      dönülemez bir şey oldu mu. İkisinin de gerekçesi satranç, kod değil.</p>
+      <p><b>Birincisi bir susturma.</b> Geçerken alma hakkı açıkken pozisyon <b>ölü olamaz</b>:
+      alan piyon rakibin az önce boşalttığı dosyaya iniyor ve orada önü kalıcı olarak açık
+      kalıyor — terfi mümkün, mat mümkün. Dedektörün modeli bu çapraz sıçramayı göremiyor, çünkü
+      ilerleyiş kümesi yalnız dikey büyüyor; o yüzden hüküm vermesine hiç izin verilmiyor.
+      “Geçerken alma varsa kilit yoktur” bir tahmin değil, ispatlanabilir bir önerme.</p>
+      <p><b>İkincisi bir tetikleyici.</b> Bir pozisyon canlıdan ölüye ancak geri dönülemez bir
+      hamleyle geçebilir: ya bir piyon ilerlemiştir ya bir taş alınmıştır. Şah hamlesi geri
+      alınabilir, hiçbir imkânı kalıcı olarak yok edemez — şah geldiği kareye dönebilir. Piyon
+      hamlesi ile alım ise tam olarak <code>n</code>'i sıfırlayan iki şey. Yani doğal tetikleyici
+      <code>n=0</code>.</p>
+      <p>Ama tek başına yetmiyor, ve sebebi birinci maddede. Geçerken alma karesi bir
+      <b>çift adımdan</b> doğuyor, çift adım da bir piyon hamlesi — yani <code>n</code>'in
+      sıfırlandığı ply, tam da susturmanın devrede olduğu ply. Tetikleyicinin ateşlemesi gereken
+      an, dedektörün konuşmasının yasak olduğu an. Hüküm bir ply ertelenmek zorunda: geçerken
+      alma hakkı düştüğünde tekrar bakılacak. O anda <code>n</code> <b>bir</b>. Yani “ep düşünce
+      de bak” kuralı ayrı bir bit istemiyor; <code>n=0</code> penceresini bir ply genişletmek
+      yetiyor. İkisi birlikte <code>n&lt;2</code> ediyor.</p>
+      <p>Aynı gerekçe şah için de geçerli. Kapsam şah ve piyonla sınırlı olduğu için tahtada
+      kayan taş yok; kayan taş yoksa keşif şahı yok, şah da kendisi şah çekemez. Geriye tek
+      ihtimal kalıyor: şahı bir piyon hamlesi vermiştir. O da <code>n</code>'i sıfırlar, kaçış
+      hamlesi <code>n=1</code> verir. Yine pencerenin içinde. Alternatifi bir önceki ply'ın anlık
+      görüntüsünü taşımaktı — şah var mıydı, geçerken alma karesi neydi — ve o bilginin tamamı
+      zaten <code>n</code>'in içinde duruyor.</p>
+      <p><code>E</code> bir zorlama anahtarı. <code>Z</code> gerçek bir hamleden sonra bir
+      geçiyor ve pencereyi devreye sokuyor; <a href="#rules">6.9 araması</a> ise sıfır geçerek
+      “bu pozisyonu olduğu gibi yargıla” diyor, çünkü orada <code>n</code> aramanın kendi
+      hamlelerini sayıyor ve pencerenin bir anlamı kalmıyor. Susturma her iki çağrıda da
+      yerinde.</p>
       <p>Kapsamı <code>w</code> çiziyor. <code>p-8&gt;&gt;2</code> piyon ve şah kodlarının
       dışında kalan her şeyde yanıyor, <code>!w</code> koşulu da aramayı hiç başlatmıyor. Fil
       bulunan kilitli pozisyonların kaçmasının tek satırlık sebebi bu.</p>
@@ -4525,11 +4554,37 @@ l=g=&gt;V(<b>b[Q](10+g)</b>,g)</pre>
       alanına değiyor mu. Altısı da hayırsa pozisyon nefes alamıyor demektir.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The gate wants two things: no en-passant right standing now, and either <code>n</code>
-      at zero or <code>Y</code> not <code>-1</code>. What it means is that the detector runs only
-      when <b>something irreversible has just happened</b>. If no pawn moved and nothing was
-      captured, the structure has not changed; a position that was not dead yesterday is not dead
-      today.</p>
+      <p>The gate asks two things: is an en passant right standing now, and did anything
+      irreversible happen in the last two half-moves. Both are matters of chess, not of code.</p>
+      <p><b>The first is a silencer.</b> While an en passant right stands the position
+      <b>cannot</b> be dead: the capturing pawn lands on the file the opponent has just vacated,
+      and its path there is permanently clear — promotion is possible, mate is possible. The
+      detector's model cannot see that sideways jump, because its advance set grows vertically
+      only; so it is not allowed to rule at all. “Where there is en passant there is no lock” is
+      not a guess but a provable proposition.</p>
+      <p><b>The second is a trigger.</b> A position can only pass from live to dead through an
+      irreversible move: either a pawn advanced or a piece was captured. A king move is
+      reversible and can destroy no possibility for good — the king can walk back. A pawn move
+      and a capture are exactly the two things that reset <code>n</code>. So the natural trigger
+      is <code>n=0</code>.</p>
+      <p>On its own it is not enough, and the reason is the first point. An en passant square
+      arises from a <b>double push</b>, and a double push is a pawn move — so the ply on which
+      <code>n</code> resets is precisely the ply on which the silencer is in force. The moment
+      the trigger should fire is the moment the detector is forbidden to speak. The ruling has to
+      be deferred by one ply: look again once the en passant right lapses. At that moment
+      <code>n</code> is <b>one</b>. So the rule “look again when en passant lapses” needs no bit
+      of its own; widening the <code>n=0</code> window by one ply covers it. Together they come
+      to <code>n&lt;2</code>.</p>
+      <p>The same reasoning covers check. Because the scope is kings and pawns, there is no
+      sliding piece on the board; with no slider there is no discovered check, and a king cannot
+      give check itself. One possibility is left: a pawn move gave the check. That resets
+      <code>n</code>, and the escape makes it one. Inside the window again. The alternative was
+      to carry a snapshot of the previous ply — was there a check, what was the en passant square
+      — and all of that information is already sitting inside <code>n</code>.</p>
+      <p><code>E</code> is a force switch. <code>Z</code> passes one after a real move and turns
+      the window on; the <a href="#rules">6.9 search</a> passes zero to say “judge this position
+      as it stands”, because there <code>n</code> is counting the search's own moves and the
+      window has no meaning. The silencer stays in force on both calls.</p>
       <p>Its scope is drawn by <code>w</code>. <code>p-8&gt;&gt;2</code> lights up on anything
       outside the pawn and king codes, and the <code>!w</code> condition then keeps the search
       from starting at all. That single line is the whole reason blocked positions containing a
@@ -5905,8 +5960,8 @@ l=g=&gt;V(<b>b[Q](10+g)</b>,g)</pre>
       <code>Number</code> with <code>+</code>.</p>
       <p>Where the cost accumulates is measurable. <code>engine.js</code> touches the board in the
       form <code>b[…]</code> in eighteen places — 13 reads, 5 assignments — and walks it a further 6 times with <code>map</code>, <code>some</code> and <code>indexOf</code>. As an array, <code>b[i]</code> is four characters; packed, the same
-      read wants a shift and a mask, roughly twenty-five. That is a difference of over two hundred
-      bytes on the reads alone, and the walks have no direct equivalent — all six turn into hand
+      read wants a shift and a mask, roughly 25. That is a difference of over 200 bytes on the
+      reads alone, and the walks have no direct equivalent — all six turn into hand
       loops. On top of that, bitboards add attack tables.</p>
       <p>What makes these models cheap in C or assembly is 64-bit arithmetic being free at the
       processor level. JavaScript offers no such ground; far from gaining, both attempts added
@@ -5916,11 +5971,307 @@ l=g=&gt;V(<b>b[Q](10+g)</b>,g)</pre>
       <p>The irony is that <code>BigInt</code> stayed in the engine, but in a completely
       different job. The starting board is built with <code>10n**40n-10n**32n</code>: the
       expression produces a 40-digit number — eight nines, then thirty-two zeros — that is, the
-      white pawn rank and the four empty middle ranks. Twenty characters in the source, forty in
-      the string it produces. <b>A 20-byte gain.</b> BigInt was eliminated as a board
+      white pawn rank and the four empty middle ranks. 20 characters in the source, 40 in the string it produces. <b>A 20-byte gain.</b> BigInt was eliminated as a board
       representation and kept as a literal compressor.</p>
     </div>
 
+
+    <h3 lang="tr">Hayalet en passant — <code>e</code>'yi tahtaya taşımak</h3>
+    <h3 lang="en">Ghost en passant — moving <code>e</code> onto the board</h3>
+    <div class="prose" lang="tr">
+      <p>Geçerken alma karesi motorda ayrı bir global: <code>e</code>, bir kare indeksi, yokken
+      <code>-1</code>. Onu ayrı tutmak yerine tahtanın kendisinde işaretlemek denendi. Fikir
+      temiz: pozisyon tek doğruluk kaynağı oluyor, tekrar anahtarı <code>b+t+e+c</code> yerine
+      <code>b+t+c</code> diye kısalıyor, ve bir harf tamamen serbest kalıyor.</p>
+      <p><a href="#board">Yarım nibble kodlamasında</a> üç değer boşta: <code>1</code>,
+      <code>14</code>, <code>15</code>. Ucuz olan tek slot <code>1</code>, ve sebebi
+      <code>G</code>'nin dallanma zinciri. Kod taş tipini <code>p&gt;&gt;1</code> ile ayırıyor:
+      <code>1&gt;&gt;1</code> sıfır veriyor, yani boş karenin zaten düştüğü son dala düşüyor ve
+      orada ifade daima yanlış. <code>14</code> ile <code>15</code> ise <code>7</code> veriyor —
+      zincirin <b>ilk</b> dalına, at testine. Hayalet at gibi tehdit ediyor, tahtadaki şaha sekiz
+      kareden hayalet şah çekiyor; üstelik glif dizgisinde yedinci karakter yok.
+      <code>1</code> ise dört ayrı yerde bedavaya geliyor: <code>G</code>'de tehdit etmiyor, glif
+      tablosunda boşluğa düşüyor, <a href="#dead">ölü pozisyon</a> taramasını kendiliğinden
+      susturuyor, ve materyal sayımını bozmuyor — hayalet tahtadaysa piyon da tahtadadır, sayaç
+      zaten yeterli materyal görüyor.</p>
+      <p>Fikrin en güzel tarafı bu. Ama tek güzel tarafı. Kaybettiren şey tek cümleye sığıyor:
+      <b><code>e</code> bir değişkenken ep karesinin <em>nerede olduğu</em> bedavaydı; tahtaya
+      gömünce her hamlede aramak gerekiyor.</b> Kazançlar dağınık ve küçük — her biri
+      <code>e</code> harfinin bir kullanımını silmekten ibaret. Maliyet ise iki kalemde
+      toplanıyor.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The en passant square is a global of its own: <code>e</code>, a square index,
+      <code>-1</code> when there is none. Marking it on the board instead of keeping it apart was
+      tried. The idea is clean: the position becomes the single source of truth, the repetition
+      key shortens from <code>b+t+e+c</code> to <code>b+t+c</code>, and a letter comes free.</p>
+      <p>The <a href="#board">half-nibble encoding</a> leaves three values unused:
+      <code>1</code>, <code>14</code> and <code>15</code>. Only <code>1</code> is cheap, and the
+      reason is <code>G</code>'s branch chain. The code separates piece types with
+      <code>p&gt;&gt;1</code>: <code>1&gt;&gt;1</code> is zero, so it lands in the last branch,
+      where an empty square already lands and the expression is always false. <code>14</code> and
+      <code>15</code> give <code>7</code> — the <b>first</b> branch, the knight test. A ghost
+      there attacks like a knight and puts a phantom check on the king from eight squares; on top
+      of that the glyph string has no seventh character. <code>1</code>, by contrast, comes free
+      in four separate places: it threatens nothing in <code>G</code>, it lands on the blank in
+      the glyph table, it silences the <a href="#dead">dead-position</a> scan by itself, and it
+      does not disturb the material count — if a ghost is on the board a pawn is too, and the
+      count already sees enough material.</p>
+      <p>That is the beautiful part of the idea. It is also the only one. What loses fits in a
+      sentence: <b>while <code>e</code> was a variable, <em>where</em> the en passant square sat
+      was free; buried in the board it has to be searched for on every move.</b> The gains are
+      scattered and small — each is one use of the letter <code>e</code> disappearing. The cost
+      collects in two items.</p>
+    </div>
+<div class="tw" lang="tr"><table class="">
+<thead><tr><th>Kalem</th><th class="num">Bayt</th></tr></thead>
+<tbody>
+<tr><td><code>e</code>'nin başlangıç değeri</td><td class="num">−7</td></tr>
+<tr><td>Tekrar anahtarı, iki yerde</td><td class="num">−4</td></tr>
+<tr><td>Taramayı susturan muhafız</td><td class="num">−3</td></tr>
+<tr><td><code>G</code>'nin piyon çaprazındaki <code>f==e</code></td><td class="num">−5</td></tr>
+<tr><td>Legallik denemesinin yedeği, iki yerde</td><td class="num">−4</td></tr>
+<tr><td>Ep karesini kuran satır</td><td class="num">−5</td></tr>
+<tr class="alt"><td><b>Kazanç</b></td><td class="num"><b>−28</b></td></tr>
+<tr><td>Zorlama bitini kurtaran satır</td><td class="num">+9</td></tr>
+<tr><td>Temizleme zinciri ve <code>b[f]==1</code> testi</td><td class="num">+19</td></tr>
+<tr><td>Sayaç sıfırlamasının muhafızı</td><td class="num">+2</td></tr>
+<tr><td>Boşluk testi <code>!p</code> → <code>p&lt;2</code></td><td class="num">+1</td></tr>
+<tr><td>Taş seçme muhafızı</td><td class="num">+2</td></tr>
+<tr class="alt"><td><b>Maliyet</b></td><td class="num"><b>+33</b></td></tr>
+<tr><td><b>Net</b></td><td class="num"><b>+5</b></td></tr>
+</tbody>
+</table></div>
+<div class="tw" lang="en"><table class="">
+<thead><tr><th>Item</th><th class="num">Bytes</th></tr></thead>
+<tbody>
+<tr><td><code>e</code>'s initial value</td><td class="num">−7</td></tr>
+<tr><td>The repetition key, in two places</td><td class="num">−4</td></tr>
+<tr><td>The guard that silences the scan</td><td class="num">−3</td></tr>
+<tr><td><code>f==e</code> on <code>G</code>'s pawn diagonal</td><td class="num">−5</td></tr>
+<tr><td>The legality trial's snapshot, in two places</td><td class="num">−4</td></tr>
+<tr><td>The line that sets the en passant square</td><td class="num">−5</td></tr>
+<tr class="alt"><td><b>Gain</b></td><td class="num"><b>−28</b></td></tr>
+<tr><td>The line that rescues the forcing bit</td><td class="num">+9</td></tr>
+<tr><td>The clearing chain and the <code>b[f]==1</code> test</td><td class="num">+19</td></tr>
+<tr><td>The guard on the counter reset</td><td class="num">+2</td></tr>
+<tr><td>The emptiness test, <code>!p</code> → <code>p&lt;2</code></td><td class="num">+1</td></tr>
+<tr><td>The guard on picking up a piece</td><td class="num">+2</td></tr>
+<tr class="alt"><td><b>Cost</b></td><td class="num"><b>+33</b></td></tr>
+<tr><td><b>Net</b></td><td class="num"><b>+5</b></td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="tr">
+      <p><b>+19 — eski hayaleti silmek.</b> <code>e</code> varken temizlik tek bir atamaydı.
+      Hayalet varken tahtayı taramak gerekiyor:</p>
+    </div>
+    <div class="prose" lang="en">
+      <p><b>+19 — clearing the old ghost.</b> With <code>e</code>, clearing was a single
+      assignment. With a ghost the board has to be searched:</p>
+    </div>
+<pre class="snip">b[i]=b[b.indexOf(1)]=b[P&amp;b[f]==1?f^8:i]=0</pre>
+    <div class="prose" lang="tr">
+      <p>Ayrıca hedef kareye yazan atama aşağı taşınmak zorunda: orijinalde hedef,
+      <code>b[f]==1</code> testinden <b>önce</b> yazılıyordu, sıra düzeltilmezse ep alışı kendi
+      taşını okuyup yanlış kareyi siliyor. Zincirin çalışma sebebi ince — JavaScript atama
+      hedeflerini soldan sağa çözüp sağdan sola atıyor, yani <code>indexOf</code> ve
+      <code>b[f]</code> hâlâ eski değerleri görüyor. Temizliğin ham hamlenin <b>içinde</b> olması
+      da şart: kareyi dışarıdan verip bir üst katmanda bir kez arayan varyant 2 bayt daha
+      kazandırıyor, ama ham hamleyi o katmandan geçmeden çağıran her yol — ki legallik denemesi
+      tam olarak öyle çağırıyor — bayat hayalet bırakıyor.</p>
+      <p><b>+9 — zorlama bitini kurtarmak.</b> Ölü pozisyon taramasının tetikleyicisi üç iş
+      birden yapıyor: ep açıkken taramayı <b>sustur</b>, ep düştükten sonra <b>zorla</b>, şah
+      düştükten sonra <b>zorla</b>. Birincisi hayaletle bedava geliyor — tahtada
+      <code>1</code> varken tarama zaten kendi ilk kapısından çıkıyor, ayrı bir muhafız yazmaya
+      gerek kalmıyor, 3 bayt kâr. Ama ikincisi <code>e</code>'nin içinde saklıydı ve yerine bir
+      arama koymak gerekiyor, 9 bayt zarar. Aynı iki satırda net <b>+6</b>.</p>
+      <p>Susturmanın neden gerekli olduğu ayrıca ilginç: tarama piyonların ilerleyebildiği
+      kareleri yalnızca dikey büyütüyor, piyonun çapraz sıçrayıp komşu dosyadan terfi etmesini
+      göremiyor. Ep açıkken alan piyon rakibin <b>az önce boşalttığı</b> dosyaya iniyor ve orada
+      önü kalıcı olarak açık kalıyor — terfi mümkün, mat mümkün, pozisyon ölü değil. Yani
+      “ep varsa kilit yoktur” muhafazakâr bir tahmin değil ispatlanabilir bir önerme, ve susturma
+      taramanın modelindeki bu tek körlüğü kapatıyor. Susturma olmazsa klasik bir kilitli duvar
+      yanlışlıkla ölü ilan ediliyor: zincirin kenarında bekleyen tek bir çift adım, geçerken alma
+      yoluyla açılan dosyadan vezire gidiyor.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The assignment that writes the destination square also has to move down: in the original
+      the destination was written <b>before</b> the <code>b[f]==1</code> test, and without the
+      reorder an en passant capture reads its own piece and clears the wrong square. Why the chain
+      works at all is subtle — JavaScript resolves assignment targets left to right and assigns
+      right to left, so <code>indexOf</code> and <code>b[f]</code> still see the old values. The
+      clearing also has to sit <b>inside</b> the raw move: a variant that passes the square in
+      from outside and searches once a layer up saves 2 more bytes, but every path that calls
+      the raw move without going through that layer — and the legality trial calls it exactly
+      that way — leaves a stale ghost behind.</p>
+      <p><b>+9 — rescuing the forcing bit.</b> The trigger of the dead-position scan does three
+      jobs at once: <b>silence</b> the scan while en passant is open, <b>force</b> it once en
+      passant lapses, and <b>force</b> it once a check lapses. The first comes free with a ghost —
+      with a <code>1</code> on the board the scan already leaves through its own first gate, so no
+      separate guard has to be written, 3 bytes gained. But the second was hidden inside
+      <code>e</code> and a search has to take its place, 9 bytes lost. A net <b>+6</b> from
+      those two lines alone.</p>
+      <p>Why the silencing is needed is interesting in itself: the scan grows the squares a pawn
+      can advance to vertically only, and cannot see a pawn jumping sideways to promote on a
+      neighbouring file. With en passant open, the capturing pawn lands on the file the opponent
+      has <b>just vacated</b>, and its path there is permanently clear — promotion is possible,
+      mate is possible, the position is not dead. So “where there is en passant there is no lock”
+      is not a conservative guess but a provable proposition, and the silencing closes this one
+      blind spot in the scan's model. Without it a classic locked wall gets declared dead by
+      mistake: a single double step waiting at the edge of the chain queens through the file that
+      the en passant capture opens.</p>
+    </div>
+<div class="tw" lang="tr"><table class="">
+<thead><tr><th>Kod tabanı</th><th>Ep yöntemi</th><th class="num">Bayt</th><th class="num">Fark</th></tr></thead>
+<tbody>
+<tr><td>Mat ve pat<span class="sub">ölü pozisyon yok</span></td><td><code>e</code> indeksi</td><td class="num">1.598</td><td class="num"><span class="none">—</span></td></tr>
+<tr><td></td><td>hayalet</td><td class="num">1.600</td><td class="num">+2</td></tr>
+<tr class="alt"><td>Sayaçlar ve ölü pozisyon</td><td><code>e</code> indeksi</td><td class="num">2.324</td><td class="num"><span class="none">—</span></td></tr>
+<tr><td></td><td>hayalet</td><td class="num">2.329</td><td class="num">+5</td></tr>
+<tr><td></td><td>hayalet + <code>indexOf</code> alias'ı</td><td class="num">2.326</td><td class="num">+2</td></tr>
+</tbody>
+</table></div>
+<div class="tw" lang="en"><table class="">
+<thead><tr><th>Code base</th><th>En passant method</th><th class="num">Bytes</th><th class="num">Difference</th></tr></thead>
+<tbody>
+<tr><td>Mate and stalemate<span class="sub">no dead position</span></td><td><code>e</code> index</td><td class="num">1,598</td><td class="num"><span class="none">—</span></td></tr>
+<tr><td></td><td>ghost</td><td class="num">1,600</td><td class="num">+2</td></tr>
+<tr class="alt"><td>Counters and dead position</td><td><code>e</code> index</td><td class="num">2,324</td><td class="num"><span class="none">—</span></td></tr>
+<tr><td></td><td>ghost</td><td class="num">2,329</td><td class="num">+5</td></tr>
+<tr><td></td><td>ghost + the <code>indexOf</code> alias</td><td class="num">2,326</td><td class="num">+2</td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="tr">
+      <p>Mat/pat sürümünde hayaletin kazanabileceği kalemlerin çoğu zaten yok — tekrar anahtarı
+      yok, susturma yok, zorlama biti yok — ama temizleme zinciri aynen duruyor. Buna karşılık
+      orada ep mekanizması tamamen kayboluyor: <code>G</code>'nin piyon çaprazında ayrı bir
+      <code>f==e</code> kuralı gerekmiyor, hayaletin kendisi zaten alınabilir bir hedef gibi
+      okunuyor. Fikrin en temiz göründüğü yer burası, ve en net kaybettiği yer de burası.</p>
+      <p><b>Alias'ın hikâyesi ayrıca öğretici.</b> <code>indexOf</code> için takma ad kurmak
+      12 bayt, her kullanımda 5 bayt kazandırıyor — yani başabaş noktası üç kullanım. Gönderilen
+      iki sürümde <code>indexOf</code> tek bir yerde geçiyor, orada alias 7 bayt zarar.
+      Hayalet <b>üçüncü kullanımı kendisi yaratıyor</b>: şah karesini bulan arama, zorlama bitini
+      kurtaran arama, ve temizleme zincirindeki arama. Eşiği geçen tek dosya o, ve alias orada 3 bayt kazandırıyor. Yani bu bağımsız bir kazanç değil, hayaletin kendi zararını kısmen
+      geri alması — ve aracın gerçek kuralını gösteriyor: <b>takma ad bir kaldıraç değil,
+      kullanım sayısına bağlı bir eşik.</b></p>
+    </div>
+    <div class="prose" lang="en">
+      <p>In the mate-and-stalemate build most of the items a ghost could win are absent to begin
+      with — no repetition key, no silencing, no forcing bit — while the clearing chain stays
+      exactly as it is. In exchange the en passant mechanism vanishes there completely: no
+      separate <code>f==e</code> rule is needed on <code>G</code>'s pawn diagonal, because the
+      ghost already reads as a capturable target. That is where the idea looks cleanest, and it
+      is also where it loses most plainly.</p>
+      <p><b>The alias story is instructive in its own right.</b> Setting up an alias for
+      <code>indexOf</code> costs 12 bytes and saves 5 per use — break-even at three uses. In the
+      two shipped builds <code>indexOf</code> appears in a single place, where the alias is a 7-byte loss. The ghost <b>creates the third use itself</b>: the search that finds the
+      king's square, the search that rescues the forcing bit, and the search in the clearing
+      chain. It is the only file that crosses the threshold, and there the alias gains 3 bytes. So this is not an independent win but the ghost partly clawing back its own damage —
+      and it shows the real rule of the tool: <b>an alias is not a lever but a threshold, set by
+      the number of uses.</b></p>
+    </div>
+<div class="tw" lang="tr"><table class="">
+<thead><tr><th>Sürüm</th><th class="num"><code>indexOf</code> sayısı</th><th class="num">Alias'ın etkisi</th></tr></thead>
+<tbody>
+<tr><td>Mat/pat, <code>e</code> indeksi</td><td class="num">1</td><td class="num">+7</td></tr>
+<tr><td>Sayaçlı, <code>e</code> indeksi</td><td class="num">1</td><td class="num">+7</td></tr>
+<tr><td>Mat/pat, hayalet</td><td class="num">2</td><td class="num">+2</td></tr>
+<tr class="alt"><td>Sayaçlı, hayalet</td><td class="num"><b>3</b></td><td class="num"><b>−3</b></td></tr>
+</tbody>
+</table></div>
+<div class="tw" lang="en"><table class="">
+<thead><tr><th>Build</th><th class="num"><code>indexOf</code> uses</th><th class="num">Effect of the alias</th></tr></thead>
+<tbody>
+<tr><td>Mate/stalemate, <code>e</code> index</td><td class="num">1</td><td class="num">+7</td></tr>
+<tr><td>With counters, <code>e</code> index</td><td class="num">1</td><td class="num">+7</td></tr>
+<tr><td>Mate/stalemate, ghost</td><td class="num">2</td><td class="num">+2</td></tr>
+<tr class="alt"><td>With counters, ghost</td><td class="num"><b>3</b></td><td class="num"><b>−3</b></td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="tr">
+      <p><b>Bir de hız bedeli var.</b> Başlangıç pozisyonundan perft d3, hayalet sürümlerde
+      <b>%25 daha yavaş</b>. Kaynağı iki yerde: her ham hamlede fazladan bir tahta taraması, ve
+      hayalet tahtadayken ölü pozisyon taramasının 64 kareyi boşuna gezip ilk kapıdan çıkması.
+      Arayüzde ölçülemez — bir tıklama zaten mikrosaniyeler sürüyor — ama testte görünüyor, ve
+      “bedava” olmadığını söylüyor.</p>
+      <p><b>Alınmadı.</b> Üç kod tabanında da ya başabaş ya zararda, ve motoru yavaşlatıyor. Son
+      ironi de şurada: hayalet <code>e</code> ile <code>f</code> slotlarını serbest bırakıyor ama
+      ikisi de <code>&gt;&gt;1 = 7</code> olduğu için <code>G</code>'nin en sıcak ifadesine
+      muhafız eklemeden kullanılamıyor. Yani bu kodlamada ucuz olan tek serbest slot
+      <code>1</code>'di, hayalet onu harcayıp yerine kullanılamayan iki slot veriyor.</p>
+      <p>Doğruluğu tartışmalı değil: yedi pozisyonda perft sayıları indeksli sürümlerinkiyle
+      birebir aynı çıkıyor — başlangıç, dört standart CPW pozisyonu, ve özellikle ep yüklü iki
+      pozisyon. Elenme sebebi hata değil, fiyat.</p>
+      <p>Yan bir bulgu: aynı ölçümler sırasında ölü pozisyon taramasının tetikleyicisini
+      tamamen farklı bir şeye — yarım hamle sayacının kendisine — bağlamanın 18 bayt kazandırdığı
+      görüldü. O kazanç hayaletten bağımsız; hayaletin o kulvardaki net katkısı yine 2 bayt.
+      Tetikleyici değişikliği ayrı bir konu ve doğrulaması sürüyor, bu yüzden gönderilen sürümlerde
+      henüz yok.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p><b>There is a speed cost as well.</b> Perft d3 from the starting position runs
+      <b>25% slower</b> in the ghost builds. It comes from two places: an extra board scan on
+      every raw move, and the dead-position scan walking 64 squares for nothing before leaving
+      through its first gate whenever a ghost is on the board. In the interface it cannot be
+      measured — a click already takes microseconds — but it shows up in testing, and it says the
+      idea is not free.</p>
+      <p><b>Not adopted.</b> Break-even or losing in all three code bases, and slower. The final
+      irony is this: the ghost frees the <code>e</code> and <code>f</code> slots, but both give
+      <code>&gt;&gt;1 = 7</code> and cannot be used without adding a guard to <code>G</code>'s
+      hottest expression. The only cheap free slot in this encoding was <code>1</code>, and the
+      ghost spends it to hand back two that cannot be spent.</p>
+      <p>Its correctness is not in question: across seven positions the perft counts come out
+      identical to the index-based builds — the starting position, four standard CPW positions,
+      and two positions built specifically to be dense in en passant. It was eliminated on price,
+      not on error.</p>
+      <p>A side finding: the same measurements showed that tying the trigger of the
+      dead-position scan to something else entirely — the half-move counter itself — saves 18
+      bytes. That gain is independent of the ghost; the ghost's own net contribution in that lane is again 2 bytes. The trigger change is a separate matter and still under validation, so
+      it is not in the shipped builds yet.</p>
+    </div>
+
+    <h3 lang="tr">Boşta kalan slotlarla iki deneme daha</h3>
+    <h3 lang="en">Two more attempts on the free slots</h3>
+    <div class="prose" lang="tr">
+      <p>Hayalet fikri “tahtada boşta duran değerler işe yarar mı” sorusunu açıyor. Aynı soruyla
+      iki şey daha denendi, ikisi de aynı duvara çarptı.</p>
+      <p><b>Boş kareleri tehdit durumuna göre sınıflandırmak.</b> <code>0</code>,
+      <code>1</code>, <code>14</code>, <code>15</code> ile boş kareler üzerinde iki bitlik bir
+      tehdit haritası tutulup şah güvenliği ve rok kontrolü kısaltılabilir mi? Üç ayrı sebeple
+      hayır. Birincisi ve öldürücü olanı: bayrak hamleden <b>önceki</b> pozisyonu anlatıyor, oysa
+      şahın kendi gövdesi ışını kesiyor — “şah, şah çeken taşın ışında geri kaçamaz” kuralı
+      önbellekte çöküyor. Ölçüldü: aday şah hamlelerinin %0,2’sinde harita hatalı izin veriyor. Mevcut kod aynı işi legallik denemesinin yap-dene-geri al'ı sayesinde bedavaya ve
+      doğru yapıyor. İkincisi: şahın kendi karesi dolu, yani şah testinin ve rokun ihtiyaç
+      duyduğu kareler haritanın kapsadığı kareler değil. Üçüncüsü: boş kare artık
+      <code>0</code> olmayınca koddaki sekiz ayrı boşluk testi kırılıyor — harita bakım kodu yazılmadan önce 16 bayt.</p>
+      <p><b>Rok haklarını tahtaya taşımak.</b> Aynı fikrin <code>c</code> için hâli. Burada
+      duvar daha erken: <code>&gt;&gt;1 = 2</code>, yani kaleyle aynı dala düşen serbest bir değer
+      yok. Kalan yol kale karelerini işaretlemek olurdu, ama hakları kırpan fonksiyon zaten
+      yirmi yedi bayt ve o kadar sıkı ki dizginin kendisi tablo görevi görüyor — sınırın dışına
+      düşen kareler <code>undefined → NaN → 0</code> yoluyla bedavaya sıfır dönüyor. Tahtaya
+      taşımak o bedava davranışı kaybettiriyor.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The ghost raises the question of whether the values left unused on the board can be put
+      to work. Two more things were tried with the same question, and both hit the same wall.</p>
+      <p><b>Classifying empty squares by threat.</b> Could <code>0</code>, <code>1</code>,
+      <code>14</code> and <code>15</code> hold a two-bit threat map over the empty squares, and
+      shorten king safety and the castling test? No, for three separate reasons. The first is
+      fatal: the flag describes the position <b>before</b> the move, whereas the king's own body
+      blocks the ray — the rule that a king may not retreat along the ray of the piece checking it
+      collapses in the cache. Measured: on 0.2% of candidate king moves the map permits a move it should not. The current code gets the same thing right for free, through
+      the make-test-unmake of the legality trial. Second: the king's own square is occupied, so
+      the squares the check test and castling actually need are not the squares the map covers.
+      Third: once an empty square is no longer <code>0</code>, eight separate emptiness tests in
+      the code break — 16 bytes before a line of map maintenance is even written.</p>
+      <p><b>Moving the castling rights onto the board.</b> The same idea applied to
+      <code>c</code>. Here the wall comes earlier: there is no free value giving
+      <code>&gt;&gt;1 = 2</code>, the rook's branch. The remaining route would be to mark the rook
+      squares, but the function that clips the rights is already 27 bytes and so tight that the
+      string itself acts as the table — squares falling outside its range return zero for free
+      through <code>undefined → NaN → 0</code>. Moving it onto the board would cost exactly that
+      free behaviour.</p>
+    </div>
     <h3 lang="tr">Piyon yönü için işaretli değişken — denendi, kazandırmadı</h3>
     <h3 lang="en">A signed variable for pawn direction — tried, gained nothing</h3>
     <div class="prose" lang="tr">

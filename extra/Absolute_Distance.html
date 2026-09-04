@@ -17,8 +17,9 @@
     background: #f5f5f5;
     color: #222;
   }
-  h1 { font-size: 17px; margin: 0; text-align: center; }
+  h1 { font-size: 17px; margin: 0; text-align: center; max-width: 900px; }
   .layout { display: flex; gap: 28px; align-items: flex-start; flex-wrap: wrap; justify-content: center; }
+  .board-col { display: flex; flex-direction: column; gap: 12px; }
 
   .grid {
     display: grid;
@@ -44,6 +45,8 @@
   .cell:hover { outline: 2px solid #9bbcf0; outline-offset: -2px; }
   .cell.origin { background: var(--blue); color: #fff; font-weight: bold; }
   .cell.match { color: #fff; font-weight: 600; }
+  .cell.wrong { color: #1a1a1a; font-weight: 600; }
+  .cell.wrong .rad { opacity: .9; }
   .num { font-size: 13px; }
   .rad { font-size: 12px; opacity: .75; }
   .radical { display: inline-flex; align-items: flex-start; }
@@ -56,11 +59,15 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 12px;
+    margin-bottom: 12px;
   }
+  .group:last-child { margin-bottom: 0; }
   .group-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
   .swatch { width: 16px; height: 16px; border-radius: 4px; flex-shrink: 0; }
-  .group-name { font-weight: 600; flex: 1; border: none; background: transparent; font-size: 15px; padding: 2px; }
+  .group-name { font-weight: 600; flex: 1; border: none; background: transparent; font-size: 15px; padding: 2px; min-width: 0; }
   .group-name:focus { outline: 1px solid #ccc; border-radius: 3px; }
+  .rulerow { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; font-size: 12px; color: #666; }
+  .rulerow select { flex: 1; padding: 4px 6px; border: 1px solid #ccc; border-radius: 6px; font-size: 12px; background: #fff; min-width: 0; }
   .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
   .chip {
     background: #eef3fc; border: 1px solid #cfe0ff; border-radius: 14px;
@@ -68,29 +75,46 @@
   }
   .chip button { border: none; background: none; cursor: pointer; color: #999; font-size: 14px; line-height: 1; padding: 0; }
   .row { display: flex; gap: 6px; }
-  .row input { flex: 1; padding: 6px 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; }
+  .row input { flex: 1; padding: 6px 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; min-width: 0; }
   button.act { padding: 6px 10px; border: 1px solid #ccc; background: #fafafa; border-radius: 6px; cursor: pointer; font-size: 13px; }
   button.act:hover { background: #f0f0f0; }
   .group-actions { display: flex; gap: 6px; justify-content: flex-end; margin-top: 4px; }
   .toggle { display: flex; align-items: center; gap: 6px; font-size: 13px; }
   .addgroup { display: flex; gap: 6px; }
-  .addgroup input { flex: 1; padding: 6px 8px; border: 1px solid #ccc; border-radius: 6px; }
+  .addgroup input { flex: 1; padding: 6px 8px; border: 1px solid #ccc; border-radius: 6px; min-width: 0; }
   .hint { font-size: 12px; color: #888; }
   .info { font-size: 13px; color: #555; }
+
+  /* Knight + King live under the board, side by side */
+  .below { display: flex; gap: 12px; flex-wrap: wrap; width: 530px; max-width: 100%; }
+  .below .group { flex: 1 1 250px; margin-bottom: 0; }
+
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: #555; align-items: center; }
+  .legend span.box { width: 22px; height: 16px; border-radius: 3px; display: inline-block; vertical-align: -3px; margin-right: 6px; }
+  .legend .ok { background: #9333ea; }
+  .legend .bad {
+    background: repeating-linear-gradient(45deg, rgba(147,51,234,.45) 0 5px, rgba(147,51,234,.12) 5px 10px);
+    outline: 2px dashed #9333ea; outline-offset: -2px;
+  }
 </style>
 </head>
 <body>
   <h1>Click a square. Each group highlights the squares whose distance to it matches one of the group's values.</h1>
 
   <div class="layout">
-    <div>
+    <div class="board-col">
       <div class="grid" id="grid"></div>
-      <div class="info" id="info" style="margin-top:8px">No square selected — click any cell.</div>
+      <div class="info" id="info">No square selected — click any cell.</div>
+      <div class="legend">
+        <div><span class="box ok"></span>distance matches and the move is legal</div>
+        <div><span class="box bad"></span>distance matches but the piece can't move there</div>
+      </div>
+      <div class="below" id="groupsBelow"></div>
     </div>
 
     <div class="panel">
-      <div class="hint">Values accept decimals (2.24) or radicals: <code>sqrt5</code>, <code>2sqrt2</code>, <code>√5</code>, <code>v8</code>. Multiple values per group = union.</div>
-      <div id="groups"></div>
+      <div class="hint">Values accept decimals (2.24) or radicals: <code>sqrt5</code>, <code>2sqrt2</code>, <code>&#8730;5</code>, <code>v8</code>. Multiple values per group = union.</div>
+      <div id="groupsSide"></div>
       <div class="addgroup">
         <input id="newGroupName" placeholder="New group name">
         <button class="act" onclick="addGroup()">+ Add group</button>
@@ -101,11 +125,22 @@
 <script>
   const SIZE = 8;
   const grid = document.getElementById('grid');
-  const groupsEl = document.getElementById('groups');
+  const sideEl = document.getElementById('groupsSide');
+  const belowEl = document.getElementById('groupsBelow');
   const info = document.getElementById('info');
   const cells = [];
   let origin = null;
   const EPS = 1e-6;
+
+  // ---- Movement rules: dx = column diff, dy = row diff ----
+  const PATTERNS = {
+    none:   { label: 'no rule (all valid)',        ok: () => true },
+    rook:   { label: 'Rook — straight',            ok: (dx, dy) => dx === 0 || dy === 0 },
+    bishop: { label: 'Bishop — diagonal',          ok: (dx, dy) => Math.abs(dx) === Math.abs(dy) },
+    queen:  { label: 'Queen — straight + diagonal',ok: (dx, dy) => dx === 0 || dy === 0 || Math.abs(dx) === Math.abs(dy) },
+    knight: { label: 'Knight — L shape',           ok: (dx, dy) => { const a = Math.abs(dx), b = Math.abs(dy); return (a === 1 && b === 2) || (a === 2 && b === 1); } },
+    king:   { label: 'King — one square',          ok: (dx, dy) => Math.max(Math.abs(dx), Math.abs(dy)) === 1 },
+  };
 
   // ---- Grid build ----
   for (let r = 0; r < SIZE; r++) {
@@ -128,14 +163,14 @@
     }
     if (inside === 1) return String(outside);
     const coef = outside === 1 ? '' : outside;
-    return `${coef}<span class="radical"><span class="sign">√</span><span class="rand">${inside}</span></span>`;
+    return `${coef}<span class="radical"><span class="sign">&#8730;</span><span class="rand">${inside}</span></span>`;
   }
 
   // Parse a user value into a numeric distance. Supports "2.24", "sqrt5", "2sqrt2", "√5", "v8", "5".
   function parseValue(raw) {
     let s = raw.trim().toLowerCase().replace(/\s+/g, '');
     if (!s) return NaN;
-    s = s.replace(/√|v/g, 'sqrt');
+    s = s.replace(/\u221a|v/g, 'sqrt');
     const m = s.match(/^(-?\d*\.?\d*)sqrt(\d*\.?\d+)$/);
     if (m) {
       const coef = m[1] === '' || m[1] === '+' ? 1 : parseFloat(m[1]);
@@ -145,24 +180,37 @@
     return isNaN(n) ? NaN : n;
   }
 
+  function hexToRgba(hex, a) {
+    const h = hex.replace('#', '');
+    const n = parseInt(h.length === 3 ? h.split('').map(x => x + x).join('') : h, 16);
+    return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${a})`;
+  }
+
   // ---- Groups state ----
-  const palette = ['#e8453c','#34a853','#fbbc05','#9333ea','#ff7a00','#00897b','#d81b60','#3949ab'];
+  const palette = ['#e8453c','#34a853','#9333ea','#fbbc05','#00897b','#ff7a00','#d81b60','#3949ab'];
   let groups = [];
   let colorIdx = 0;
 
-  function makeGroup(name, rawValues) {
-    return { id: crypto.randomUUID(), name, color: palette[colorIdx++ % palette.length],
-             values: rawValues.slice(), visible: true };
+  function makeGroup(name, rawValues, opts = {}) {
+    return {
+      id: crypto.randomUUID(),
+      name,
+      color: opts.color || palette[colorIdx++ % palette.length],
+      values: rawValues.slice(),
+      visible: opts.visible !== undefined ? opts.visible : true,
+      pattern: opts.pattern || 'none',
+      slot: opts.slot || 'side',
+    };
   }
 
-  // Preset chess pieces
+  // Preset chess pieces — Rook / Bishop / Queen on the right, Knight / King under the board.
   function presets() {
     groups = [
-      makeGroup('Bishop', ['sqrt2','2sqrt2','3sqrt2','4sqrt2','5sqrt2','6sqrt2','7sqrt2']),
-      makeGroup('Knight', ['sqrt5']),
-      makeGroup('Rook',   ['1','2','3','4','5','6','7']),
-      makeGroup('Queen',  ['1','2','3','4','5','6','7','sqrt2','2sqrt2','3sqrt2','4sqrt2','5sqrt2','6sqrt2','7sqrt2']),
-      makeGroup('King',   ['1','sqrt2']),
+      makeGroup('Rook',   ['1','2','3','4','5','6','7'], { pattern: 'rook', slot: 'side', visible: false }),
+      makeGroup('Bishop', ['sqrt2','2sqrt2','3sqrt2','4sqrt2','5sqrt2','6sqrt2','7sqrt2'], { pattern: 'bishop', slot: 'side', visible: false }),
+      makeGroup('Queen',  ['1','2','3','4','5','6','7','sqrt2','2sqrt2','3sqrt2','4sqrt2','5sqrt2','6sqrt2','7sqrt2'], { pattern: 'queen', slot: 'side', visible: true }),
+      makeGroup('Knight', ['sqrt5'], { pattern: 'knight', slot: 'below', visible: false }),
+      makeGroup('King',   ['1','sqrt2'], { pattern: 'king', slot: 'below', visible: false }),
     ];
     renderGroups();
   }
@@ -178,59 +226,84 @@
   function removeGroup(id) { groups = groups.filter(g => g.id !== id); renderGroups(); }
   function addValue(id, raw) {
     if (!raw.trim()) return;
-    const g = groups.find(x => x.id === id);
-    g.values.push(raw.trim());
+    groups.find(x => x.id === id).values.push(raw.trim());
     renderGroups();
   }
   function removeValue(id, idx) {
+    groups.find(x => x.id === id).values.splice(idx, 1);
+    renderGroups();
+  }
+  function renameGroup(id, name) { groups.find(x => x.id === id).name = name; }
+  function toggleGroup(id, v) { groups.find(x => x.id === id).visible = v; render(); }
+  function setPattern(id, p) { groups.find(x => x.id === id).pattern = p; render(); }
+  function moveGroup(id) {
     const g = groups.find(x => x.id === id);
-    g.values.splice(idx, 1);
+    g.slot = g.slot === 'below' ? 'side' : 'below';
     renderGroups();
   }
 
+  function groupCard(g) {
+    const div = document.createElement('div');
+    div.className = 'group';
+    const chips = g.values.map((v, i) =>
+      `<span class="chip" title="${parseValue(v).toFixed(3)}">${v}<button onclick="removeValue('${g.id}',${i})">&times;</button></span>`
+    ).join('');
+    const opts = Object.entries(PATTERNS).map(([k, p]) =>
+      `<option value="${k}" ${g.pattern === k ? 'selected' : ''}>${p.label}</option>`
+    ).join('');
+    div.innerHTML = `
+      <div class="group-head">
+        <span class="swatch" style="background:${g.color}"></span>
+        <input class="group-name" value="${g.name.replace(/"/g,'&quot;')}"
+               oninput="renameGroup('${g.id}', this.value)">
+        <label class="toggle"><input type="checkbox" ${g.visible ? 'checked' : ''}
+               onchange="toggleGroup('${g.id}', this.checked)">show</label>
+      </div>
+      <div class="rulerow">
+        Move:
+        <select onchange="setPattern('${g.id}', this.value)">${opts}</select>
+      </div>
+      <div class="chips">${chips || '<span class="hint">no values yet</span>'}</div>
+      <div class="row">
+        <input placeholder="add value e.g. 2sqrt2" id="in-${g.id}"
+               onkeydown="if(event.key==='Enter'){addValue('${g.id}', this.value); this.value='';}">
+        <button class="act" onclick="(()=>{const e=document.getElementById('in-${g.id}');addValue('${g.id}',e.value);e.value='';})()">Add</button>
+      </div>
+      <div class="group-actions">
+        <button class="act" onclick="moveGroup('${g.id}')">${g.slot === 'below' ? 'Move to side panel' : 'Move below board'}</button>
+        <button class="act" onclick="removeGroup('${g.id}')">Delete group</button>
+      </div>`;
+    return div;
+  }
+
   function renderGroups() {
-    groupsEl.innerHTML = '';
-    groups.forEach(g => {
-      const div = document.createElement('div');
-      div.className = 'group';
-      const chips = g.values.map((v, i) =>
-        `<span class="chip" title="${parseValue(v).toFixed(3)}">${v}<button onclick="removeValue('${g.id}',${i})">×</button></span>`
-      ).join('');
-      div.innerHTML = `
-        <div class="group-head">
-          <span class="swatch" style="background:${g.color}"></span>
-          <input class="group-name" value="${g.name.replace(/"/g,'&quot;')}"
-                 oninput="renameGroup('${g.id}', this.value)">
-          <label class="toggle"><input type="checkbox" ${g.visible?'checked':''}
-                 onchange="toggleGroup('${g.id}', this.checked)">show</label>
-        </div>
-        <div class="chips">${chips || '<span class="hint">no values yet</span>'}</div>
-        <div class="row">
-          <input placeholder="add value e.g. 2sqrt2" id="in-${g.id}"
-                 onkeydown="if(event.key==='Enter'){addValue('${g.id}', this.value); this.value='';}">
-          <button class="act" onclick="(()=>{const e=document.getElementById('in-${g.id}');addValue('${g.id}',e.value);e.value='';})()">Add</button>
-        </div>
-        <div class="group-actions">
-          <button class="act" onclick="removeGroup('${g.id}')">Delete group</button>
-        </div>`;
-      groupsEl.appendChild(div);
-    });
+    sideEl.innerHTML = '';
+    belowEl.innerHTML = '';
+    groups.forEach(g => (g.slot === 'below' ? belowEl : sideEl).appendChild(groupCard(g)));
     render();
   }
-  function renameGroup(id, name) { groups.find(x=>x.id===id).name = name; }
-  function toggleGroup(id, v) { groups.find(x=>x.id===id).visible = v; render(); }
 
   // ---- Render grid distances + matches ----
   function render() {
-    cells.forEach(c => { c.className = 'cell'; c.style.background=''; c.style.color=''; c.innerHTML=''; });
+    cells.forEach(c => {
+      c.className = 'cell';
+      c.style.background = '';
+      c.style.color = '';
+      c.style.outline = '';
+      c.style.outlineOffset = '';
+      c.title = '';
+      c.innerHTML = '';
+    });
     if (!origin) { info.textContent = 'No square selected — click any cell.'; return; }
     const { r, c } = origin;
 
-    // Precompute parsed target distances per visible group
     const targets = groups.filter(g => g.visible).map(g => ({
       color: g.color, name: g.name,
+      ok: (PATTERNS[g.pattern] || PATTERNS.none).ok,
       dists: g.values.map(parseValue).filter(n => !isNaN(n))
     }));
+
+    let wrongCount = 0;
 
     for (let i = 0; i < SIZE; i++) {
       for (let j = 0; j < SIZE; j++) {
@@ -243,25 +316,39 @@
         const dx = j - c, dy = i - r, sq = dx*dx + dy*dy, dist = Math.sqrt(sq);
         cell.innerHTML = `<div class="num">${dist.toFixed(2)}</div><div class="rad">${simplifyRadical(sq)}</div>`;
 
-        // find matching groups
         const hits = targets.filter(t => t.dists.some(d => Math.abs(d - dist) < EPS));
-        if (hits.length) {
+        if (!hits.length) continue;
+
+        const good = hits.filter(t => t.ok(dx, dy));
+        const bad  = hits.filter(t => !t.ok(dx, dy));
+
+        if (good.length) {
           cell.classList.add('match');
-          if (hits.length === 1) {
-            cell.style.background = hits[0].color;
-          } else {
-            // multiple groups -> striped gradient
-            const stops = hits.map((h, k) => {
-              const a = (k / hits.length * 100).toFixed(1);
-              const b = ((k+1) / hits.length * 100).toFixed(1);
-              return `${h.color} ${a}%, ${h.color} ${b}%`;
-            }).join(', ');
-            cell.style.background = `linear-gradient(135deg, ${stops})`;
+          cell.style.background = good.length === 1
+            ? good[0].color
+            : `linear-gradient(135deg, ${good.map((h, k) => {
+                const a = (k / good.length * 100).toFixed(1);
+                const b = ((k + 1) / good.length * 100).toFixed(1);
+                return `${h.color} ${a}%, ${h.color} ${b}%`;
+              }).join(', ')})`;
+        }
+
+        if (bad.length) {
+          wrongCount++;
+          const col = bad[0].color;
+          if (!good.length) {
+            cell.classList.add('wrong');
+            cell.style.background =
+              `repeating-linear-gradient(45deg, ${hexToRgba(col, .45)} 0 5px, ${hexToRgba(col, .12)} 5px 10px)`;
           }
+          cell.style.outline = `2px dashed ${col}`;
+          cell.style.outlineOffset = '-2px';
+          cell.title = `${bad.map(b => b.name).join(', ')}: distance matches but the move is illegal`;
         }
       }
     }
-    info.textContent = `Origin: row ${r}, col ${c}. Colored squares match a group's distance value.`;
+    info.textContent = `Origin: row ${r}, col ${c}. `
+      + (wrongCount ? `${wrongCount} square(s) match by distance but not by move (hatched).` : 'No illegal-move matches.');
   }
 
   presets();
