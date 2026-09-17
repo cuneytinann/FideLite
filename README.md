@@ -2,8 +2,8 @@
 
 *[Türkçe ↓](#türkçe)*
 
-A full-FIDE chess arbiter in 1,815 bytes of plain JavaScript — board, interface and all.
-The rule engine on its own is 1,935.
+A full-FIDE chess arbiter in 1,806 bytes of plain JavaScript — board, interface and all.
+The rule engine on its own is 1,925.
 
 **→ [www.fidelite.art](https://www.fidelite.art)**
 
@@ -15,7 +15,7 @@ Castling, en passant, choice of promotion piece, stalemate, insufficient materia
 
 Every file under `builds/` runs on its own — no library, no install, no server. Download an HTML file and double-click it.
 
-The three JavaScript files there are the rule engine without a front end: `engine.js` (1,935 bytes), `engine_4x.js` (the same rules, +48 bytes, two to sixteen times the speed) and `engine_onlyMoveGenerator.js` (move generation only, for the test suite). The site reads them live and documents them in full — [structure and driver API](https://www.fidelite.art/#engine), [line by line](https://www.fidelite.art/#flow), [the speed measurements](https://www.fidelite.art/#speed).
+The three JavaScript files there are the rule engine without a front end: `engine.js` (1,925 bytes), `engine_4x.js` (the same rules, +48 bytes, two to sixteen times the speed) and `engine_onlyMoveGenerator.js` (move generation only, for the test suite). The site reads them live and documents them in full — [structure and driver API](https://www.fidelite.art/#engine), [line by line](https://www.fidelite.art/#flow), [the speed measurements](https://www.fidelite.art/#speed).
 
 ## The builds
 
@@ -24,13 +24,13 @@ The three JavaScript files there are the rule engine without a front end: `engin
 | build | what it enforces | bytes |
 |---|---|---|
 | `L1.html` | legality only — moves, check, mate, stalemate | 1,598 |
-| `L2.html` | + counters and the automatic draws | 2,308 |
-| `L3.html` | the full arbiter — clock, claims, resignation, flag fall | 3,217 |
-| `L2_aybars_2400.html` | `L2` with a bot on top of it | 7,175 |
+| `L2.html` | + counters and the automatic draws | 2,304 |
+| `L3.html` | the full arbiter — clock, claims, resignation, flag fall | 3,229 |
+| `L2_aybars_2400.html` | `L2` with a bot on top of it | 7,200 |
 
 `special/` holds the same rule levels wearing different interfaces. Every one of them runs on its own, and every one of them is the same arbiter underneath — what changes is how a move gets in and how the board comes out.
 
-`special/L3/` carries the full arbiter in five further shapes: `numerical.html` takes moves as two-digit square numbers through a `prompt()` dialog, `prompt.html` takes them in UCI through the same dialog, `input.html` in UCI through a text field on the page, and `input_blindfold.html` does the same while drawing no board at all. Alongside them sit the two self-extracting RegPack builds, `dom_packed.html` (2,728 bytes) and `numerical_packed.html` (**1,815 bytes** — the smallest full-FIDE arbiter here).
+`special/L3/` carries the full arbiter in five further shapes: `numerical.html` takes moves as two-digit square numbers through a `prompt()` dialog, `prompt.html` takes them in UCI through the same dialog, `input.html` in UCI through a text field on the page, and `input_blindfold.html` does the same while drawing no board at all. Alongside them sit the two self-extracting RegPack builds, `dom_packed.html` (2,719 bytes) and `numerical_packed.html` (**1,806 bytes** — the smallest full-FIDE arbiter here).
 
 `special/L2/` and `special/L1/` mirror the same idea one and two levels down, and `special/L1/` also holds the two Toledo comparison files.
 
@@ -78,7 +78,7 @@ Given enough thinking time mine plays the stronger game. Comparing the two on mi
 
 The core of this repository is an arbiter, and it stays that way: evaluation and search sit on top of the engine, never inside it. But what comes out when a search is laid on that core is measured too, and that side is a claim of its own.
 
-The build currently on the site, `L2_aybars_2400.html`, is the first of these: **7,175 bytes** — just over 7 KiB — in one file. Of that, the arbiter and the interface are the same core as `L2`, and the rest is the bot: alpha-beta with iterative deepening, a transposition table, killer and history heuristics, incremental Zobrist hashing and a tapered evaluation. In testing it held its own against Stockfish set to 2000. On the site it has only a short row in the builds table for now; neither its architecture nor the measurement method has been written up.
+The build currently on the site, `L2_aybars_2400.html`, is the first of these: **7,200 bytes** — just over 7 KiB — in one file. Of that, the arbiter and the interface are the same core as `L2`, and the rest is the bot: alpha-beta with iterative deepening, a transposition table, killer and history heuristics, incremental Zobrist hashing and a tapered evaluation. In testing it held its own against Stockfish set to 2000. On the site it has only a short row in the builds table for now; neither its architecture nor the measurement method has been written up.
 
 That write-up is waiting on purpose. The build I am working on is the stronger one — again a single HTML file, this time aiming at **3000 elo**. When it is finished it will be the most ambitious thing in this repository, and at that point the 2000 build will get the detail it deserves, elo reports included. For now it is in progress, and I am moving it forward as time allows. When it is done it will take its place on the site along with its account.
 
@@ -87,8 +87,8 @@ That write-up is waiting on purpose. The build I am working on is the stronger o
 
 # Türkçe
 
-Tam FIDE kurallı satranç hakemi, 1.815 bayt saf JavaScript — tahtası ve arayüzüyle birlikte.
-Kural motoru tek başına 1.935 bayt.
+Tam FIDE kurallı satranç hakemi, 1.806 bayt saf JavaScript — tahtası ve arayüzüyle birlikte.
+Kural motoru tek başına 1.925 bayt.
 
 **→ [www.fidelite.art/tr](https://www.fidelite.art/tr)**
 
@@ -100,7 +100,7 @@ Rok, geçerken alma, seçimli terfi, pat, yetersiz materyal, üçlü ve beşli t
 
 `builds/` altındaki her dosya tek başına çalışır — kütüphane yok, kurulum yok, sunucu yok. Bir HTML dosyasını indirip çift tıklamak yeterli.
 
-Oradaki üç JavaScript dosyası motorun önyüzsüz hâli: `engine.js` (1.935 bayt), `engine_4x.js` (aynı kurallar, +48 bayt, iki ilâ on altı kat hız) ve `engine_onlyMoveGenerator.js` (yalnız hamle üretimi, test süiti için). Site bu dosyaları canlı okuyor ve ayrıntısıyla belgeliyor — [yapı ve sürücü API'si](https://www.fidelite.art/tr#engine), [satır satır](https://www.fidelite.art/tr#flow), [hız ölçümleri](https://www.fidelite.art/tr#speed).
+Oradaki üç JavaScript dosyası motorun önyüzsüz hâli: `engine.js` (1.925 bayt), `engine_4x.js` (aynı kurallar, +48 bayt, iki ilâ on altı kat hız) ve `engine_onlyMoveGenerator.js` (yalnız hamle üretimi, test süiti için). Site bu dosyaları canlı okuyor ve ayrıntısıyla belgeliyor — [yapı ve sürücü API'si](https://www.fidelite.art/tr#engine), [satır satır](https://www.fidelite.art/tr#flow), [hız ölçümleri](https://www.fidelite.art/tr#speed).
 
 ## Sürümler
 
@@ -109,13 +109,13 @@ Oradaki üç JavaScript dosyası motorun önyüzsüz hâli: `engine.js` (1.935 b
 | sürüm | ne uyguluyor | bayt |
 |---|---|---|
 | `L1.html` | yalnız legallik — hamle, şah, mat, pat | 1.598 |
-| `L2.html` | + sayaçlar ve kendiliğinden gelen beraberlikler | 2.308 |
-| `L3.html` | tam hakem — saat, talep, terk, bayrak düşmesi | 3.217 |
-| `L2_aybars_2400.html` | `L2`'nin üstüne konmuş bot | 7.175 |
+| `L2.html` | + sayaçlar ve kendiliğinden gelen beraberlikler | 2.304 |
+| `L3.html` | tam hakem — saat, talep, terk, bayrak düşmesi | 3.229 |
+| `L2_aybars_2400.html` | `L2`'nin üstüne konmuş bot | 7.200 |
 
 `special/` aynı kural seviyelerinin farklı arayüzlerle giyinmiş hâllerini taşıyor. Hepsi tek başına çalışıyor ve hepsinin altında aynı hakem duruyor — değişen tek şey hamlenin nasıl girdiği ve tahtanın nasıl çıktığı.
 
-`special/L3/` tam hakemi beş ayrı biçimde taşıyor: `numerical.html` hamleyi iki basamaklı kare numarası olarak `prompt()` penceresinden alıyor, `prompt.html` aynı pencereden UCI ile alıyor, `input.html` sayfadaki bir metin alanından UCI ile alıyor, `input_blindfold.html` da aynısını yapıp tahtayı hiç çizmiyor. Yanlarında kendi kendini açan iki RegPack sürümü duruyor: `dom_packed.html` (2.728 bayt) ve `numerical_packed.html` (**1.815 bayt** — buradaki en küçük tam FIDE hakemi).
+`special/L3/` tam hakemi beş ayrı biçimde taşıyor: `numerical.html` hamleyi iki basamaklı kare numarası olarak `prompt()` penceresinden alıyor, `prompt.html` aynı pencereden UCI ile alıyor, `input.html` sayfadaki bir metin alanından UCI ile alıyor, `input_blindfold.html` da aynısını yapıp tahtayı hiç çizmiyor. Yanlarında kendi kendini açan iki RegPack sürümü duruyor: `dom_packed.html` (2.719 bayt) ve `numerical_packed.html` (**1.806 bayt** — buradaki en küçük tam FIDE hakemi).
 
 `special/L2/` ile `special/L1/` aynı fikri bir ve iki seviye aşağıda tekrarlıyor; `special/L1/` ayrıca iki Toledo karşılaştırma dosyasını da barındırıyor.
 
@@ -164,6 +164,6 @@ Yeterli düşünme süresi verildiğinde benimki daha güçlü oynuyor. Ama ikis
 
 Bu deponun çekirdeği hakem, ve öyle kalıyor: değerlendirme ve arama motorun içinde değil, üstünde duruyor. Ama aynı çekirdeğin üstüne bir arama konduğunda ne çıktığı da ölçülüyor, ve o taraf ayrı bir iddia.
 
-Şu an sitede duran `L2_aybars_2400.html` bunun ilk örneği: **7.175 bayt** — 7 KiB'ın biraz üstü — tek dosya. Hakem ve arayüz `L2` ile aynı çekirdek, kalanı bot: artan derinlikli alfa-beta, transpozisyon tablosu, killer ve history sezgileri, artımlı Zobrist hash ve kademeli değerlendirme. Ölçümlerde Stockfish'in 2000 seviyesiyle başa baş güç gösterdi. Sitede şimdilik yalnızca sürümler tablosunda kısa bir satırı var; ne mimarisi ne de ölçüm yöntemi anlatılmış değil.
+Şu an sitede duran `L2_aybars_2400.html` bunun ilk örneği: **7.200 bayt** — 7 KiB'ın biraz üstü — tek dosya. Hakem ve arayüz `L2` ile aynı çekirdek, kalanı bot: artan derinlikli alfa-beta, transpozisyon tablosu, killer ve history sezgileri, artımlı Zobrist hash ve kademeli değerlendirme. Ölçümlerde Stockfish'in 2000 seviyesiyle başa baş güç gösterdi. Sitede şimdilik yalnızca sürümler tablosunda kısa bir satırı var; ne mimarisi ne de ölçüm yöntemi anlatılmış değil.
 
 Tanıtımı bilerek bekliyor. Üzerinde çalıştığım asıl sürüm daha güçlüsü — yine tek HTML dosyası, hedef **3000 elo**. Bittiğinde bu depodaki en iddialı iş o olacak, ve o zaman 2000'lik sürümü de hak ettiği ayrıntıyla, elo raporlarıyla birlikte yayımlayacağım. Şimdilik yapım aşamasında; vakit buldukça ilerliyorum. Tamamlandığında açıklamasıyla birlikte sitede yerini alacak.
