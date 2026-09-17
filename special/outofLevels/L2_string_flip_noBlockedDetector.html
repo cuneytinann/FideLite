@@ -2,33 +2,33 @@
 <style>*{font:44px/1.5 _;text-align:center}p{font:24px _;color:#00f;word-spacing:1em}td{width:66px}#T{margin:auto;border-spacing:0}body{background:#bbb}</style>
 <br><p id=D><p id=p hidden><table id=T></table>
 
-<script>_='-',N='innerHTML',E='a',a=Math.abs,j=p=>p?.toUpperCase(),
+<script>N='innerHTML',a=Math.abs,E='a',_='-',j=p=>p?.toUpperCase(),
 
 b=[...'rnbqkbnrpppppppp'+_.repeat(32)+'PPPPPPPPRNBQKBNR'],t=1,c=15,e=_,n=0,
 
 z=0,R={[b+t+e+c]:$=1},
 G=(i,f,T,
-P=j(b[i]),y=i>>3,
+g=b[i],P=j(g),y=i>>3,
 h=a(i%8-f%8),v=a(y-(f>>3)),
-d=h|v,k=(f-i)/d,g=b[i]<E,
+d=h|v,k=(f-i)/d,
 S=Q=>(i+=k)==f||b[i]==_&&S())=>
 P=='N'?h*v==2
-:P=='K'?T|v|h^2?d<2:c&C(r=i+3.5*k-.5)&&G(r,i)&&!V(i,g)&!V(i+k,g)
-:P=='P'?f>i^g&&(
-h?h*v==1&&T|b[f]>_|f==e
-:T|b[f]>_?0:v<2|v<3&b[i+f>>1]==_&y%5==1)
+:P=='K'?T|v|h^2?d<2:c&C(r=i+3.5*k-.5)&&G(r,i)&&!V(t,i)&!V(t,i+k)
+:P=='P'?f>i^g<E&&(
+h*v==1?T|b[f]>_|f==e
+:h|T|b[f]>_?0:v<2|v<3&b[i+f>>1]==_&66>>y)
 :(h*v?h==v&P<'R':P>'B')&S(),
-V=(u,s)=>b.some((p,i)=>p>_&p<E!=s&&G(i,u,1)),
-l=g=>V(b.indexOf('kK'[+g]),g),
+V=(s,u=b.indexOf('kK'[+s]))=>b.some((p,i)=>p>_&p<E!=s&&G(i,u,1)),
+
 L=(i,u,g=b[i]<E,p=b[u],q)=>p==_|g^p<E&&G(i,u)&&(
-p=[b,e,n],b=[...b],M(i,u),q=!l(g),[b,e,n]=p,q),
+p=[b,e,n],b=[...b],M(i,u),q=!V(g),[b,e,n]=p,q),
 C=i=>'20003001'[i%56]<<i/28,
-M=(i,f,u='q',p=b[i],P=j(p)=='P',g=p<E,d=a(i-f),q=i+f>>1)=>(
+M=(i,f,u='q',p=b[i],P=j(p)=='P',d=a(i-f),q=i+f>>1)=>(
 n=P|b[f]>_?0:n+1,
-b[f]=P&f%56<8?g?j(u):u:p,
+b[f]=P&f%56<8?t?j(u):u:p,
 b[i]=b[P&f==e?f^8:i]=_,
 d==2&j(p)=='K'&&(b[q]=b[r=f>i?i+3:i-4],b[r]=_),
-e=P&d>9&&(e=q,[f-1,f+1].some(x=>b[x]=='Pp'[+g]&&L(x,e)))?e:_),
+e=P&d>9&&(e=q,[f-1,f+1].some(x=>b[x]=='Pp'[t]&&L(x,e)))?e:_),
 
 i=f=-1,
 p[N]='q♕r♖b♗n♘'.replace(/(.)(.)/g,`<button onclick=A(id) id=$1>$2</button>`),
@@ -39,7 +39,7 @@ O.color=b[u=w^K]<E?'#fff':'',
 o[N]='\xA0♝♚♞♟♛♜'['-BKNPQR'.search(j(b[u]))],
 o.bgColor=L(i,u)?'#c91':u+u/8&1?'#854':'#cb8',
 O.outline=u^f?0:'solid #0f0';
-D[N]=z||(t?'a8-h8':'h1-a1')+(l(t)?' C!':'')+' M='+n+' R='+$},
+D[N]=z||(t?'a8-h8':'h1-a1')+(V(t)?' C!':'')+' M='+n+' R='+$},
 
 A=T=>d(z=(
 c&=~C(i)&~C(f),
@@ -50,7 +50,7 @@ b.some((p,i)=>p>_&p<E==t&&b.some((q,u)=>L(i,u)))
 ?(m=W=0,b.map((p,i)=>p>_&&(q=j(p),q<'C'?m|=(i/8^i)%2+1:W+=q>'N'?9:q=='N')),W*2+m<3)?'IM'
 :$>4?'5R'
 :n>149&&'75'
-:l(t)?t?'B#':'W#':'SM'),
+:V(t)?t?'B#':'W#':'SM'),
 p.hidden=i=-1),
 S=u=>z||(u^=K,L(i,u)?(f=u,j(b[i])=='P'&u%56<8?p.hidden=z--:A()):b[u]>_&b[u]<E==t&&d(i=f=u));
 d()</script>
