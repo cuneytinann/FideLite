@@ -34,6 +34,13 @@
 // b, n, M(), I(), Z(), A(), F() keep their names, so FEN handling and the
 // perft driver are otherwise untouched.
 //
+// Fourth pass (signature and layer order). The signed builds now open with
+//   c=15,U=[600,600],N='indexOf',e=Y=-1,t=1
+// U is the driver's clock as an array, N the indexOf alias (Q, where present,
+// is innerHTML). L1/L2 carry no signature. Every build lists the rule layer
+// first and the interface after it, which is what lets the loader below take
+// any shipped file statement by statement. U and N are never read here.
+//
 // The index flip is the part that bites: every square number differs by
 // ^56 between the two engines, so FEN parsing, square naming and the
 // castling/en-passant fields all had to be rewritten rather than ported.
@@ -80,6 +87,18 @@ const sqName = i => String.fromCharCode(97 + (i & 7)) + ((i >> 3) + 1);
 const nameSq = s => (+s[1] - 1) * 8 + (s.charCodeAt(0) - 97);
 
 // ============== Engine loading ==============
+// Any shipped file can be handed over: a bare engine (.js), a plain build
+// (.html / .cjs) or a RegPack-packed build. The loader does not look for a
+// "driver starts here" marker any more — every build now opens with the rule
+// layer and the interface follows it, but the first interface statement differs
+// from build to build. Instead the script is split into its top-level
+// statements and each one is evaluated on its own, in order; a statement that
+// needs a DOM, prompt(), stdin or a timer simply throws and is skipped. The
+// first loop (a prompt or stdin driver) ends the walk, so no game is started.
+//
+// The harness never reads U or N. U is the driver's clock (U=[600,600] in the
+// engines, a timestamped array in L3.html), N is the indexOf alias in the signed
+// builds and the innerHTML alias in L1/L2; neither is touched by perft.
 function readEngine(p = ENGINE_FILE) {
   const full = path.isAbsolute(p) ? p : path.join(__dirname, p);
   if (!fs.existsSync(full)) {
@@ -89,28 +108,58 @@ function readEngine(p = ENGINE_FILE) {
     console.error(`Put one of them here, or set ENGINE=path`);
     process.exit(1);
   }
-  let src = fs.readFileSync(full, 'utf8');
+  let src = fs.readFileSync(full, 'utf8').replace(/^\uFEFF/, '');
   // Accept an .html wrapper too, so a shipped build can be tested directly.
   const m = src.match(/<script>([\s\S]*?)<\/script>/);
   if (m) src = m[1];
-  // Cut any driver: the core ends at the last engine definition (F=...).
-  // prompt builds continue with `for(`/`while(`, event builds with a driver
-  // that needs a DOM. Neither is wanted here.
-  for (const marker of ['while(!z)', ';for(', ',for(', ';J=v=>', ';J=V=>', ",y=' onclick='", ';onkeyup', ';setInterval']) {
-    const cut = src.indexOf(marker);
-    if (cut > 0) src = src.slice(0, cut);
+  // A RegPack build hands back its own source when eval(_) is captured.
+  if (/eval\(_\)\s*$/.test(src)) {
+    const box = {};
+    vm.createContext(box);
+    vm.runInContext(src.replace(/eval\(_\)\s*$/, '__src=_'), box);
+    src = box.__src;
   }
   return src;
 }
 
+// Top-level statements, split on commas and semicolons outside brackets,
+// strings, template literals and regex literals.
+function splitTop(js) {
+  const out = [], st = [];
+  let cur = '';
+  for (let i = 0; i < js.length; i++) {
+    const ch = js[i], top = st[st.length - 1];
+    if (top === "'" || top === '"') { cur += ch; if (ch === '\\') { cur += js[++i]; continue; } if (ch === top) st.pop(); continue; }
+    if (top === '`') { cur += ch; if (ch === '\\') { cur += js[++i]; continue; } if (ch === '`') st.pop(); else if (ch === '$' && js[i + 1] === '{') { cur += js[++i]; st.push('${'); } continue; }
+    if (ch === "'" || ch === '"' || ch === '`') { st.push(ch); cur += ch; continue; }
+    if (ch === '/' && js[i + 1] !== '/' && /[=(,:?&|!;{}[]$/.test(cur.trimEnd())) {
+      let j = i + 1, cls = 0;
+      while (j < js.length) { if (js[j] === '\\') { j += 2; continue; } if (js[j] === '[') cls = 1; else if (js[j] === ']') cls = 0; else if (js[j] === '/' && !cls) break; j++; }
+      j++; while (/[a-z]/.test(js[j] || '')) j++;
+      cur += js.slice(i, j); i = j - 1; continue;
+    }
+    if ('([{'.includes(ch)) st.push(ch);
+    else if (')]}'.includes(ch)) st.pop();
+    if (!st.length && (ch === ',' || ch === ';')) { out.push(cur); cur = ''; continue; }
+    cur += ch;
+  }
+  if (cur.trim()) out.push(cur);
+  return out;
+}
+
 function loadEngine(p = ENGINE_FILE) {
   const src = readEngine(p);
-  const sb = { Math, String, Number, Array, Object, JSON, console };
+  const quiet = { log() {}, error() {}, warn() {} };
+  const sb = { Math, String, Number, Array, Object, JSON, BigInt, Date,
+               Int8Array, Int32Array, Uint8Array, console: quiet };
   vm.createContext(sb);
-  try {
-    vm.runInContext(src, sb);
-  } catch (e) {
-    console.error('ERROR: engine failed to load: ' + e.message);
+  let loaded = 0;
+  for (const stmt of splitTop(src)) {
+    if (/^\s*(for|while)\s*\(/.test(stmt)) break;          // a driver loop begins
+    try { vm.runInContext(stmt, sb); loaded++; } catch (e) { /* interface statement */ }
+  }
+  if (!loaded) {
+    console.error('ERROR: engine failed to load: no statement could be evaluated');
     process.exit(1);
   }
   // Only what the suite actually calls. l(), H(), I(), Z(), A(), D() and F()
@@ -121,6 +170,19 @@ function loadEngine(p = ENGINE_FILE) {
       console.error(`ERROR: engine is missing ${fn}() — is this a newengine core?`);
       process.exit(1);
     }
+  }
+  // Two build families speak a different dialect and cannot run this suite.
+  if (!Array.isArray(sb.b) && !(sb.b instanceof Int8Array)) {
+    console.error('ERROR: no numeric board b[] after loading');
+    process.exit(1);
+  }
+  if (typeof sb.b[0] === 'string') {
+    console.error('ERROR: string-board build (prompt_string family) — the suite needs the numeric board');
+    process.exit(1);
+  }
+  if (!Array.isArray(sb.L(12))) {
+    console.error('ERROR: L(i) does not return a move list — this is an L(i,u) build (L1/L2 family), not supported');
+    process.exit(1);
   }
   sb.__src = src;
   return sb;
@@ -138,7 +200,7 @@ function setFEN(env, fen) {
     if (!(ch in FROM_FEN)) throw new Error('bad FEN piece: ' + ch);
     board[sq++] = FROM_FEN[ch];
   }
-  env.b = board;
+  env.b = env.b instanceof Int8Array ? Int8Array.from(board) : board;
   env.t = side === 'w' ? 1 : 0;
   let cr = 0;
   if (castling && castling !== '-') {
@@ -333,6 +395,8 @@ function cmdDetect() {
     console.log(`    ${typeof env[fn] === 'function' ? '+' : '-'} ${fn.padEnd(2)} ${what}`);
   }
   console.log(`\n  initial state: c=${env.c} t=${env.t} e=${env.e} n=${env.n}`);
+  const sig = /^c=15,U=[^,\]]*(\[[^\]]*\])?,N=[^,]*,e=Y=/.test(src.trim());
+  console.log(`  signature c U N e Y t: ${sig ? 'present' : 'absent'}  (U: ${Array.isArray(env.U) ? 'clock array' : typeof env.U}, N: ${JSON.stringify(env.N)})`);
   // Castling bit semantics, checked rather than assumed.
   const bits = [0, 4, 7, 56, 60, 63].map(i => `${sqName(i)}=${env.C(i)}`).join(' ');
   console.log(`  castling bits: ${bits}`);
