@@ -7132,6 +7132,11 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       still visible: <code>h*v==2</code> is the knight, <code>h|v&lt;2</code> the king,
       <code>h==v</code> the bishop, <code>h*v==0</code> the rook. The distance went, the shape
       stayed.</p>
+      <p>The simulation from that day is still around, if you want to click a square and see where
+      it breaks:
+      <a href="/extra/Absolute_Distance.html" target="_blank" rel="noopener">Absolute_Distance.html</a>
+      — pick a square, every square at the same distance lights up together, and the collisions
+      show at a glance.</p>
     </div>
     <div class="prose" lang="tr">
       <p>3-4-5 üçgeni kalenin beşinci karesini, (1,7) filin beşinci karesini taklit ediyor.
@@ -7144,6 +7149,10 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       çünkü <code>f&lt;i^g</code> işaretli bir karşılaştırma taşıyor. Vazgeçilen yaklaşımın kalıntısı
       hâlâ görünür: <code>h*v==2</code> at, <code>h|v&lt;2</code> şah, <code>h==v</code> fil,
       <code>h*v==0</code> kale. Uzaklık gitti, şekil kaldı.</p>
+      <p>Çöküşün nerede olduğunu kareye tıklayarak görmek için o günkü simülasyon hâlâ duruyor:
+      <a href="/extra/Absolute_Distance.html" target="_blank" rel="noopener">Absolute_Distance.html</a>
+      — bir kare seçin, aynı uzaklıktaki bütün kareler birlikte yanıyor, ve çakışanlar tek bakışta
+      görünüyor.</p>
     </div>
 
     <h3 lang="tr">Dolgulu tahta ve indeks farkı — aynı karar</h3>
@@ -7193,6 +7202,12 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <p>Tersi doğru değil: dolgulu tahta vektör tablosu gerektirmiyor, 0x88 üstünde de
       <code>h</code> / <code>v</code> koşturulabilirdi. Ama dolgunun maliyetini ödemenin tek
       sebebi delta kullanmak. İkisi ayrı ayrı elenmedi, birlikte elendi.</p>
+      <p>İndeks farkının neden yanıltıcı olduğunu kareye tıklayarak görmek için o günkü ikinci
+      simülasyon da duruyor:
+      <a href="/extra/Board_Delta_Index.html" target="_blank" rel="noopener">Board_Delta_Index.html</a>
+      — bir kare seçin, her hedefe giden indeks farkı üstüne yazılıyor. Aynı farkın tahtanın iki
+      ucunda iki ayrı hamle anlamına geldiği, ve kenardan taşan farkların nereye düştüğü orada
+      tek bakışta görünüyor.</p>
     </div>
     <div class="prose" lang="en">
       <p>Once distance had turned into shape, the next question was: could the shape test go too?
@@ -7242,6 +7257,12 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <code>h</code> / <code>v</code> could have run on top of 0x88 too. But the only reason to
       pay padding's cost is to use deltas. The two were not eliminated separately; they were
       eliminated together.</p>
+      <p>The second simulation from those days is still around too, if you want to click a square
+      and see why the index delta misleads:
+      <a href="/extra/Board_Delta_Index.html" target="_blank" rel="noopener">Board_Delta_Index.html</a>
+      — pick a square and the index difference to every target is written on it. That the same
+      delta means two different moves at opposite ends of the board, and where the deltas that
+      spill over an edge land, are both visible at a glance.</p>
     </div>
 
     <h3 lang="tr">Tahtayı sayı olarak tutmak — iki deneme, iki eksen</h3>
@@ -7994,14 +8015,14 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
     <h2 lang="en">The two packed files</h2>
     <div class="prose" lang="tr">
       <p>Paketlenmiş sürüm iki tane: <code>dom_packed.html</code> 2.697 bayt,
-      <code>numerical_packed.html</code> 1.806. İkisi de kendi kendini açan RegPack
+      <code>numerical_packed.html</code> 1.790. İkisi de kendi kendini açan RegPack
       çıktısı — dosyanın gövdesi bir açma döngüsü, son adımı <code>eval(_)</code>.
       <code>eval(_)</code> yerine bir atama koyulduğunda dosya kendi kaynağını geri
       veriyor:</p>
     </div>
     <div class="prose" lang="en">
       <p>There are two packed builds: <code>dom_packed.html</code> at 2,697 bytes and
-      <code>numerical_packed.html</code> at 1,806. Both are self-extracting RegPack output — the
+      <code>numerical_packed.html</code> at 1,790. Both are self-extracting RegPack output — the
       body of the file is an unpacking loop whose last step is <code>eval(_)</code>. Put an
       assignment in place of <code>eval(_)</code> and the file hands back its own source:</p>
     </div>
@@ -8012,16 +8033,100 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
     <div class="prose" lang="tr">
       <p>Geri gelen kaynak plain dosyanın kendisi değil. RegPack'in aradığı kısalık değil
       tekrar, o yüzden paketlenen kaynak plain'den <b>daha uzun</b>: <code>numerical</code>'da
-      2.145 bayt yerine 2.227, <code>L3</code>'da 2.796 yerine 3.356. Aradaki fark üç başlıkta
+      2.086 bayt yerine 2.204, <code>L3</code>'da 2.748 yerine 3.313. Aradaki fark üç başlıkta
       toplanıyor — açılan alias'lar, gömülen fonksiyonlar, uzatılan operatörler — ve
       <code>L3</code>'da bir dördüncüsü var: eskimiş işaretleme.</p>
     </div>
     <div class="prose" lang="en">
       <p>What comes back is not the plain file. What RegPack looks for is not brevity but
-      repetition, so the packed source is <b>longer</b> than plain: 2,227 bytes instead of 2,145
-      in <code>numerical</code>, 3,356 instead of 2,796 in <code>L3</code>. The difference falls
+      repetition, so the packed source is <b>longer</b> than plain: 2,204 bytes instead of 2,086
+      in <code>numerical</code>, 3,313 instead of 2,748 in <code>L3</code>. The difference falls
       under three headings — aliases expanded, functions inlined, operators widened — and in
       <code>L3</code> there is a fourth: obsolete markup.</p>
+    </div>
+
+    <h3 lang="tr">Paketin kaynağı düz kaynak değil</h3>
+    <h3 lang="en">The packed source is not the plain source</h3>
+    <div class="prose" lang="tr">
+      <p>Buraya kadar olan cümle şuydu: paketlenen kaynak düzden uzun. Bunun bir de zamansal
+      yüzü var, ve daha rahatsız edici. <b>Sevk edilen iki paket, düz kaynağın bugünkü hâlinden
+      değil, daha önceki nesillerinden üretildi</b> — ve bu bir ihmal değil, ölçülmüş bir
+      tercih.</p>
+      <p>Bugünkü <code>numerical</code> kaynağı paketlendiğinde çıkan sayı şu:</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The sentence so far has been: the packed source is longer than the plain one. There is a
+      second face to this, and a more uncomfortable one. <b>The two packed builds that ship were
+      produced not from today's plain source but from earlier generations of it</b> — and that is
+      not an oversight but a measured choice.</p>
+      <p>Pack today's <code>numerical</code> source and this is the number that comes out:</p>
+    </div>
+<div class="tw" lang="tr"><table class="">
+<thead><tr><th>Kaynak</th><th class="num">Düz gövde</th><th class="num">Paketlenmiş</th><th class="num">Dosya</th></tr></thead>
+<tbody>
+<tr><td><b>Sevk edilen</b> <span class="sub">önceki nesil</span></td><td class="num">2.204</td><td class="num"><b>1.773</b></td><td class="num"><b>1.790</b></td></tr>
+<tr><td>Bugünkü düz kaynak</td><td class="num">2.086</td><td class="num">1.833</td><td class="num">1.850</td></tr>
+<tr><td><span class="sub">+</span> <code>l</code> geri ayrılmış</td><td class="num">2.096</td><td class="num">1.843</td><td class="num">1.860</td></tr>
+</tbody>
+</table></div>
+<div class="tw" lang="en"><table class="">
+<thead><tr><th>Source</th><th class="num">Plain body</th><th class="num">Packed</th><th class="num">File</th></tr></thead>
+<tbody>
+<tr><td><b>What ships</b> <span class="sub">earlier generation</span></td><td class="num">2,204</td><td class="num"><b>1,773</b></td><td class="num"><b>1,790</b></td></tr>
+<tr><td>Today's plain source</td><td class="num">2,086</td><td class="num">1,833</td><td class="num">1,850</td></tr>
+<tr><td><span class="sub">+</span> <code>l</code> split back out</td><td class="num">2,096</td><td class="num">1,843</td><td class="num">1,860</td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="tr">
+      <p>Bugünkü kaynak düz hâlde <b>118 bayt daha küçük</b>, paketlenince <b>60 bayt daha
+      büyük</b>. Ölçüm kalibre: eski gövde aynı ayarlarla yeniden paketlendiğinde 1.770 çıkıyor,
+      sevk edilen 1.773 — yani fark ayarlardan değil kaynaktan geliyor. İki yüz seksen sekiz ayar
+      kombinasyonu tarandı; 1.833 bugünkü kaynağın en iyisi.</p>
+      <p>İlk akla gelen açıklama yanlış çıktı. <code>V</code> ile <code>l</code>'nin birleşmesi
+      bir tekrarı sildiği için suçlu gibi duruyordu; <code>l</code>'yi geri ayırıp yeniden
+      paketlediğimde paket <b>daha da büyüdü</b>. Sebep tek bir değişiklik değil, yönün kendisi:
+      <b>golf her tekrarı siler, RegPack tam olarak tekrardan beslenir.</b> İki hedef zıt yönde
+      çalışıyor, ve kaynağı birinde iyileştirmek öbüründe kötüleştirebiliyor.</p>
+      <p>Bunun emsali zaten var. <a href="#packing"><code>dom_packed</code></a> de düz
+      <code>L3.html</code>'den üretilmiyor: düz sürüm işaretlemeyi statik yazıyor, paketlenen
+      sürüm <code>document.write</code> ile basıyor. Yani “paketin kaynağı ayrıdır” bu projede
+      kabul edilmiş bir şey; yeni olan, farkın <em>nesil</em> farkına dönüşmüş olması.</p>
+      <p><b>Ne değişmiyor:</b> kural seti. İki paket de hüküm katmanının tamamını taşıyor ve aynı
+      hükümleri veriyor. Aradaki kod farkları davranışı değiştirmeyen cinsten —
+      <code>y%5==1</code> ile <code>66&gt;&gt;y</code> aynı iki yatayı seçiyor,
+      <code>u*2+p%2</code> ile <code>u*2+t</code> gerçek bir hamlede aynı rengi veriyor.
+      <b>Ne değişiyor:</b> paketi açtığınızda elinize gelen kaynak, <code>builds/</code> altındaki
+      dosyanın bugünkü hâli değil.</p>
+      <p>Doğru çözüm üçüncü bir yol: pakete kendi kaynağını yazmak — düz kaynak bayt için, paket
+      kaynağı tekrar için ayarlanmış. O tur henüz yapılmadı. Yapılana kadar burada duran şey, 60
+      baytlık bir tercihin açıkça söylenmiş hâli.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>Today's source is <b>118 bytes smaller</b> plain and <b>60 bytes larger</b> packed. The
+      measurement is calibrated: repacking the older body with the same settings gives 1,770
+      against the 1,773 that ships — so the difference comes from the source, not the settings.
+      Two hundred and eighty-eight setting combinations were swept; 1,833 is the best today's
+      source can do.</p>
+      <p>The first explanation that comes to mind turned out to be wrong. Merging <code>V</code>
+      and <code>l</code> removed a repetition, so it looked like the culprit; split
+      <code>l</code> back out and repack, and the file gets <b>larger still</b>. The cause is not
+      one change but the direction itself: <b>golf deletes every repetition, and RegPack feeds on
+      exactly that.</b> The two targets pull opposite ways, and improving the source for one can
+      worsen it for the other.</p>
+      <p>There is already a precedent. <a href="#packing"><code>dom_packed</code></a> is not built
+      from the plain <code>L3.html</code> either: the plain build writes its markup statically,
+      the packed one emits it with <code>document.write</code>. So “the packed build has its own
+      source” is accepted in this project; what is new is that the difference has turned into a
+      difference of <em>generation</em>.</p>
+      <p><b>What does not change:</b> the rule set. Both packed builds carry the whole
+      adjudication layer and return the same verdicts. The differences in the code are of a kind
+      that does not alter behaviour — <code>y%5==1</code> and <code>66&gt;&gt;y</code> select the
+      same two ranks, <code>u*2+p%2</code> and <code>u*2+t</code> give the same colour on a real
+      move. <b>What does change:</b> the source you get back when you unpack the file is not
+      today's version of the file under <code>builds/</code>.</p>
+      <p>The right answer is a third route: give the packed build its own source — the plain one
+      tuned for bytes, the packed one for repetition. That round has not been run. Until it is,
+      what stands here is a 60-byte choice, stated plainly.</p>
     </div>
 
     <h3 lang="tr">Alias'lar ve gömülen fonksiyonlar</h3>
@@ -8030,24 +8135,31 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
 <thead><tr><th>Dosya</th><th>Açılan alias</th><th>Gömülen fonksiyon</th><th>Fonksiyon kalan</th></tr></thead>
 <tbody>
 <tr><td><code>numerical_packed.html</code></td><td><code>a=Math.abs</code><span class="sub">3 yer</span><code>N='indexOf'</code><span class="sub">4 yer</span></td><td><code>V</code> <code>Z</code> <code>A</code> <code>D</code> <code>F</code></td><td><code>G</code> <code>l</code> <code>L</code> <code>C</code> <code>M</code> <code>I</code> <code>H</code> <code>X</code> <code>J</code></td></tr>
-<tr><td><code>dom_packed.html</code></td><td><code>a=Math.abs</code><span class="sub">3 yer</span><code>N='indexOf'</code><span class="sub">5 yer</span><span class="sub">N='innerText' açılmayan tek alias</span></td><td><code>Z</code> <code>H</code></td><td><code>G</code> <code>V</code> <code>l</code> <code>L</code> <code>C</code> <code>M</code> <code>I</code> <code>X</code> <code>J</code> <code>A</code> <code>F</code> <code>S</code> <code>d</code></td></tr>
+<tr><td><code>dom_packed.html</code></td><td><code>a=Math.abs</code><span class="sub">3 yer</span><code>N='indexOf'</code><span class="sub">5 yer</span><span class="sub">N='innerText' açılmayan tek alias</span></td><td><code>Z</code> <code>H</code></td><td><code>G</code> <code>V</code> <code>L</code> <code>C</code> <code>M</code> <code>I</code> <code>X</code> <code>J</code> <code>A</code> <code>F</code> <code>S</code> <code>d</code></td></tr>
 </tbody>
 </table></div>
 <div class="tw" lang="en"><table class="">
 <thead><tr><th>File</th><th>Alias expanded</th><th>Function inlined</th><th>Kept as a function</th></tr></thead>
 <tbody>
 <tr><td><code>numerical_packed.html</code></td><td><code>a=Math.abs</code><span class="sub">3 sites</span><code>N='indexOf'</code><span class="sub">4 sites</span></td><td><code>V</code> <code>Z</code> <code>A</code> <code>D</code> <code>F</code></td><td><code>G</code> <code>l</code> <code>L</code> <code>C</code> <code>M</code> <code>I</code> <code>H</code> <code>X</code> <code>J</code></td></tr>
-<tr><td><code>dom_packed.html</code></td><td><code>a=Math.abs</code><span class="sub">3 sites</span><code>N='indexOf'</code><span class="sub">5 sites</span><span class="sub">N='innerText' — the one alias not expanded</span></td><td><code>Z</code> <code>H</code></td><td><code>G</code> <code>V</code> <code>l</code> <code>L</code> <code>C</code> <code>M</code> <code>I</code> <code>X</code> <code>J</code> <code>A</code> <code>F</code> <code>S</code> <code>d</code></td></tr>
+<tr><td><code>dom_packed.html</code></td><td><code>a=Math.abs</code><span class="sub">3 sites</span><code>N='indexOf'</code><span class="sub">5 sites</span><span class="sub">N='innerText' — the one alias not expanded</span></td><td><code>Z</code> <code>H</code></td><td><code>G</code> <code>V</code> <code>L</code> <code>C</code> <code>M</code> <code>I</code> <code>X</code> <code>J</code> <code>A</code> <code>F</code> <code>S</code> <code>d</code></td></tr>
 </tbody>
 </table></div>
     <div class="prose" lang="tr">
       <p><code>X</code> ile <code>J</code> iki dosyada da fonksiyon kalıyor; ikisi de özyinelemeli,
-      yani gömülmeleri mümkün değil. <code>V</code> ile <code>l</code> ise ayrışıyor. <code>l</code>'nin gövdesi
-      tek bir <code>V</code> çağrısı, yani birini gömmek ötekinin çağrı yerlerini çoğaltıyor:
-      <code>L3</code>'da ikisi de gömülmüyor: <code>l</code> 7 çağrı yerine çıkıyor,
-      <code>V</code> 3 çağrı yeriyle kalıyor. <code>numerical</code>'da tercih öbür yöne
-      gidiyor — <code>l</code> fonksiyon kalıyor, düz kaynakta 3 çağrı yeri olan
-      <code>V</code> gömülüyor.</p>
+      yani gömülmeleri mümkün değil. <code>V</code> ile <code>l</code> ise iki dosyada iki ayrı hikâye anlatıyor, ve bu
+      <a href="#packing">nesil farkının</a> en somut kanıtı.</p>
+      <p><code>numerical_packed</code> birleşmeden <b>önceki</b> nesilden: içinde hâlâ
+      <code>l</code> duruyor, ve <code>V</code> onun gövdesine gömülmüş — düz kaynakta üç çağrı
+      yeri olduğu için gömmek kazandırıyor. <code>dom_packed</code> ise birleşmeden
+      <b>sonraki</b> nesilden: orada <code>l</code> diye bir şey yok, <code>V</code> sekiz çağrı
+      yeriyle fonksiyon olarak duruyor.</p>
+      <p>Yani paketleyicinin bir zamanlar bulduğu kazanç — <code>l</code>'nin gövdesi tek bir
+      <code>V</code> çağrısı olduğu için gömülebilmesi — sonradan <b>kaynağa terfi etti</b>:
+      <code>l</code> silinip <code>V</code>'nin ikinci parametresinin varsayılanına katlandı.
+      Aynı desen <a href="#speed">hız bölümünde</a> iki kez daha görülüyor. Paketleyici ile hız
+      varyantı, kaynağa neyin ait olduğunu bulan iki ayrı arama; ikisinin bulduğu da er ya da
+      geç aşağı iniyor.</p>
       <p>Operatörler doğruluk değeri beklenen yerlerde uzatılıyor:
       <code>numerical</code>'da <code>&amp;&amp;</code> 25'ten 37'ye, <code>||</code> 10'dan 14'e;
       <code>L3</code>'da 28'den 42'ye ve 14'ten 19'a. Motor tarafında renk çıkarma <code>&amp;1</code> yerine
@@ -8056,12 +8168,20 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
     </div>
     <div class="prose" lang="en">
       <p><code>X</code> and <code>J</code> stay functions in both files; both are recursive, so
-      inlining them is not an option. <code>V</code> and <code>l</code>, on the other hand, differ.
-      <code>l</code>'s body is a single call to <code>V</code>, so inlining one multiplies the
-      other's call sites. In <code>L3</code> neither is inlined: <code>l</code> ends up with 7
-      call sites and <code>V</code> keeps its 3. In <code>numerical</code> the choice goes
-      the other way — <code>l</code> stays a function and <code>V</code>, with 3 call sites in
-      the plain source, is inlined away.</p>
+      inlining them is not an option. <code>V</code> and <code>l</code>, on the other hand, tell two
+      different stories in the two files — and that is the most concrete evidence of the
+      <a href="#packing">difference in generation</a>.</p>
+      <p><code>numerical_packed</code> comes from <b>before</b> the merge: <code>l</code> is still
+      in there, and <code>V</code> has been inlined into its body — with three call sites in the
+      plain source, inlining pays. <code>dom_packed</code> comes from <b>after</b> it: there is no
+      <code>l</code> there at all, and <code>V</code> stands as a function with eight call
+      sites.</p>
+      <p>So the gain the packer once found — that <code>l</code>'s body was a single call to
+      <code>V</code> and could therefore be inlined — was later <b>promoted into the source</b>:
+      <code>l</code> was deleted and folded into the default of <code>V</code>'s second parameter.
+      The same pattern shows up twice more in <a href="#speed">the speed section</a>. The packer
+      and the fast variant are two separate searches for what belongs in the source; and what
+      either of them finds comes down, sooner or later.</p>
       <p>Operators are widened wherever only the truth value is used: in <code>numerical</code>
       <code>&amp;&amp;</code> goes from 25 to 37 and <code>||</code> from 10 to 14; in
       <code>L3</code> from 28 to 42 and from 14 to 19. In the engine, colour extraction is written
@@ -8435,7 +8555,7 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       disturbs <b>the repeat sequences the packer sees</b> and, for every new character entering
       the source, <a href="#packing">costs a slot in the token pool</a>. The cheapest measured
       packing of today's plain <code>L3.html</code> is <b>2,902 bytes</b><span class="sub">2,481 of packed script + 404 of static markup + 17 of tags</span>; the shipped older
-      generation sits at 2,719, and the 15 bytes of <code>&lt;!DOCTYPE html&gt;</code> fall
+      generation sits at 2,697, and the 15 bytes of <code>&lt;!DOCTYPE html&gt;</code> fall
       outside the packed payload and land directly on top of that.</p>
       <p>Reaching for an obsolete technique remains not a preference but a last resort, turned to only
       when <b>there is no room left</b> — the moment room appeared, the plain build dropped all

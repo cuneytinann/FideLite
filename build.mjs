@@ -218,7 +218,7 @@ for (const t of TARGETS) {
      goreli yollar /en/images/... olur ve 404 verir; koke sabitlemek bu
      riski tamamen kaldirir. */
   let paths = 0;
-  h = h.replace(/(\s(?:src|href)=")(images\/|icons\/|builds\/|special\/|test\.zip)/g,
+  h = h.replace(/(\s(?:src|href)=")(images\/|icons\/|builds\/|special\/|extra\/|test\.zip)/g,
                 (f, p1, p2) => { paths++; return p1 + '/' + p2; });
   h = h.replace(/var DIR = 'builds\/';/, () => { paths++; return "var DIR = '/builds/';"; });
 
@@ -245,6 +245,12 @@ for (const t of TARGETS) {
 /* Statik varliklar */
 for (const dir of ['images', 'icons', 'builds', 'special']) {
   if (existsSync(dir)) cpSync(dir, join(OUT, dir), { recursive: true });
+}
+/* extra/ deposunda durur ama tamami yayinlanmaz: yalnizca siteden baglanan
+   kucuk gosterimler kopyalanir. Buyuk arsiv dosyalari disarida kalir. */
+for (const f of ['extra/Absolute_Distance.html',
+                 'extra/Board_Delta_Index.html']) {
+  if (existsSync(f)) { mkdirSync(join(OUT, 'extra'), { recursive: true }); cpSync(f, join(OUT, f)); }
 }
 for (const f of ['test.zip', 'robots.txt']) {
   if (existsSync(f)) cpSync(f, join(OUT, f));
