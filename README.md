@@ -33,8 +33,8 @@ shelved, not lost. [The full argument is on the site.](https://www.fidelite.art/
 
 ## Why it matters
 
-Across the Lichess open database, Miguel Ambrona's [CHA-Solver](https://chasolver.org/) counted
-**201,060** games that were decided wrongly. This engine gets **197,463** of them right. The 3,597
+Across the Lichess open database, Miguel Ambrona's CHA-Solver counted **201,060** games that were
+decided wrongly. This engine gets **197,463** of them right. The 3,597
 it misses are all blocked positions, and nearly every one of them has a bishop on the board.
 
 The difference fits in one sentence: **the platforms look at the board at the moment the flag fell;
@@ -88,6 +88,19 @@ contains the suite, copies of the three engines, the Vajolet position list and e
 `.bat` files. Five of the eight runs need only Node; two need Stockfish, which is not in the
 package. On any other platform, `node test.js <command>`.
 
+## Also in the repository
+
+Five files that the site does not link to, kept here because they are part of how the engine got
+where it is.
+
+| File | What it is |
+| --- | --- |
+| [`special/L1/Toledos-ES6-optimized.html`](special/L1/Toledos-ES6-optimized.html) | Oscar Toledo G.'s chess in an ES6 rewrite — the best-known tiny chess program, and the benchmark this project measured itself against. |
+| [`special/L1/ToledosOpponentbyMe.html`](special/L1/ToledosOpponentbyMe.html) | The opponent I wrote for it, on this engine. Two tiny programs playing each other. |
+| [`extra/2kbfullfidejs.com_index.html`](extra/2kbfullfidejs.com_index.html) | A generator built on the same ideas: it emits standalone engines of roughly 0.6–2.7 KB across several rule levels. |
+| [`extra/2kbfullfidejs.com_README.md`](extra/2kbfullfidejs.com_README.md) | That generator's own documentation — architecture, option axes, the optimisation rules it follows. |
+| [`extra/Chess960_Skeletons.html`](extra/Chess960_Skeletons.html) | All 56 castling skeletons of Chess960, laid out. Where the castling rules go once the back rank is no longer fixed. |
+
 ## Licence
 
 MIT — see [LICENSE](LICENSE). The claim is falsifiable and should be: it falls the moment someone
@@ -126,8 +139,8 @@ dönüştürdüğü için motorun tek ispatlı özelliğini riske atıyor. Askı
 
 ## Neden önemli
 
-Miguel Ambrona'nın [CHA-Solver](https://chasolver.org/)'ı Lichess açık veritabanını baştan sona
-tarayıp **201.060** haksız sonuçlanmış oyun saydı. Bu motor onların **197.463'ünü** doğru karara
+Miguel Ambrona'nın CHA-Solver'ı Lichess açık veritabanını baştan sona tarayıp **201.060** haksız
+sonuçlanmış oyun saydı. Bu motor onların **197.463'ünü** doğru karara
 bağlıyor. Kaçırdığı 3.597 oyunun tamamı kilitli pozisyon, ve neredeyse hepsinde tahtada bir fil
 var.
 
@@ -181,6 +194,19 @@ Bana güvenmeniz gerekmiyor. [`test.zip`](https://www.fidelite.art/test.zip) (23
 üç motorun kopyası, Vajolet pozisyon listesi ve sekiz çift tıklanabilir `.bat` var. Sekiz koşunun
 beşi yalnızca Node istiyor; ikisi Stockfish gerektiriyor, o da pakette değil. Başka platformda
 `node test.js <komut>`.
+
+## Repoda ayrıca
+
+Sitenin bağlantı vermediği beş dosya. Motorun bugünkü hâline nasıl geldiğinin parçası oldukları
+için burada duruyorlar.
+
+| Dosya | Ne |
+| --- | --- |
+| [`special/L1/Toledos-ES6-optimized.html`](special/L1/Toledos-ES6-optimized.html) | Oscar Toledo G.'nin satrancının ES6 ile yeniden yazımı — en bilinen küçük satranç programı, ve bu projenin kendini ölçtüğü eşik. |
+| [`special/L1/ToledosOpponentbyMe.html`](special/L1/ToledosOpponentbyMe.html) | Ona karşı bu motorla yazdığım rakip. İki küçük program birbiriyle oynuyor. |
+| [`extra/2kbfullfidejs.com_index.html`](extra/2kbfullfidejs.com_index.html) | Aynı fikirler üzerine kurulu bir üretici: birkaç kural seviyesinde, kabaca 0,6–2,7 KB arası tek başına çalışan motorlar üretiyor. |
+| [`extra/2kbfullfidejs.com_README.md`](extra/2kbfullfidejs.com_README.md) | O üreticinin kendi belgesi — mimari, seçenek eksenleri, uyduğu optimizasyon kuralları. |
+| [`extra/Chess960_Skeletons.html`](extra/Chess960_Skeletons.html) | Chess960'ın 56 rok iskeletinin tamamı. Son yatay sabit olmaktan çıkınca rok kurallarının nereye gittiği. |
 
 ## Lisans
 

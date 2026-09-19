@@ -242,15 +242,11 @@ for (const t of TARGETS) {
               `-${a.removed} blok, ${b.applied} attr, ${paths} yol, ${stamped} ozet`);
 }
 
-/* Statik varliklar */
-for (const dir of ['images', 'icons', 'builds', 'special']) {
+/* Statik varliklar. extra/ tamamen yayinlanir: siteden su an yalnizca ikisine
+   atif var, ama hepsi /extra/<ad>.html adresinden acilabilir durmali -- bugun
+   atif vermemek yarin vermeyecegimiz anlamina gelmiyor. */
+for (const dir of ['images', 'icons', 'builds', 'special', 'extra']) {
   if (existsSync(dir)) cpSync(dir, join(OUT, dir), { recursive: true });
-}
-/* extra/ deposunda durur ama tamami yayinlanmaz: yalnizca siteden baglanan
-   kucuk gosterimler kopyalanir. Buyuk arsiv dosyalari disarida kalir. */
-for (const f of ['extra/Absolute_Distance.html',
-                 'extra/Board_Delta_Index.html']) {
-  if (existsSync(f)) { mkdirSync(join(OUT, 'extra'), { recursive: true }); cpSync(f, join(OUT, f)); }
 }
 for (const f of ['test.zip', 'robots.txt']) {
   if (existsSync(f)) cpSync(f, join(OUT, f));
