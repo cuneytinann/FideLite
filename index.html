@@ -2310,7 +2310,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <i class="d" data-f="g"></i>
 <i data-f="h" data-r="1"></i>
 </div>
-        <figcaption>Aynı kilit, üstüne iki fil. Pozisyon yine ölü — filler de kendi yarılarına hapsolmuş, hiçbir taş alınamıyor. Ama <b>motor bunu göremiyor:</b> tarama yalnızca şah ve piyona bakıyor, tahtada fil görünce hiç koşmuyor.</figcaption>
+        <figcaption>Fillerin neden geçemediği kare renklerinde: beyazın piyonları 4. yatayın bütün açık karelerinde, siyahınkiler 5. yatayın bütün koyu karelerinde. Açık kareli beyaz fil 4. yatayı, koyu kareli siyah fil 5. yatayı hiçbir zaman aşamıyor — kalan kareleri de karşı piyonlar dövüyor.</figcaption>
       </figure>
     <figure class="fig fig-wide" lang="en">
         <div class="mb et el eb er" style="--c:8" role="img" aria-label="White pawns on a4, c4, e4 and g4 face black pawns on a5, c5, e5 and g5, locked head to head. White king a1 and bishop f1, black king a8 and bishop f8. Each bishop is confined to its own half and neither king can pass the fourth rank.">
@@ -2379,7 +2379,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <i class="d" data-f="g"></i>
 <i data-f="h" data-r="1"></i>
 </div>
-        <figcaption>The same lock with two bishops added. The position is still dead — the bishops are confined to their own halves too, and nothing can be captured. But <b>the engine cannot see it:</b> the scan looks only at kings and pawns, and with a bishop on the board it does not run at all.</figcaption>
+        <figcaption>Why the bishops cannot cross is a matter of square colour: White’s pawns occupy every light square of the fourth rank, Black’s every dark square of the fifth. The light-squared white bishop can never pass the fourth rank, nor the dark-squared black bishop the fifth — and the squares left over are covered by the opposing pawns.</figcaption>
       </figure>
 
     <div class="prose" lang="tr">
@@ -2455,7 +2455,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <i class="d" data-f="g"></i>
 <i data-f="h" data-r="1"></i>
 </div>
-        <figcaption>Aynı fikrin sıkışık hâli. Şahların önünü kendi filleri kapatıyor, geriye a1–b1 ve a8–b8 mekiği kalıyor. Tarama yine susuyor — fil var — ama <b>arama bütün hatları tüketip beraberliği buluyor:</b> beş düğüm.</figcaption>
+        <figcaption>Bir öncekiyle aynı kilit, ama alan dar: piyonlar b ve d dikeylerinde karşılıklı, ve her şahın önünü <b>kendi fili</b> kapatıyor. Geriye a1–b1 ile a8–b8 mekiği kalıyor, yani iki tarafın da tek hamlesi var.</figcaption>
       </figure>
     <div class="prose" lang="tr">
       <p>Orada olan şu: kilitli pozisyon taraması yine susuyor, çünkü tahtada fil var ve kapsam
@@ -2586,7 +2586,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <i class="d" data-f="g"></i>
 <i data-f="h" data-r="1"></i>
 </div>
-        <figcaption>The tight version of the same idea. Each king is boxed in by its own bishop, leaving only the a1–b1 and a8–b8 shuttle. The scan is silent again — there is a bishop — but <b>the search exhausts every line and finds the draw:</b> five nodes.</figcaption>
+        <figcaption>The same lock as before, but with no room: the pawns face each other on the b- and d-files, and each king is shut in by <b>its own bishop</b>. What is left is the a1–b1 and a8–b8 shuttle — one move for each side.</figcaption>
       </figure>
     <div class="prose" lang="en">
       <p>What happens there is this: the blocked-position scan still says nothing, because there is
@@ -3839,9 +3839,19 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       </figure>
       <div class="prose" lang="tr">
         <p><b>Zorunlu beşli tekrar.</b> Zorunlu hat aynı pozisyona dönüp duruyor ve beşli tekrar sınırına çarpıyor; oyun orada kendiliğinden bitiyor. <b>Doğru hüküm: beraberlik.</b> Bu altıncısı hepsinden zor, çünkü hükmü ne diyagram ne de FEN taşıyor — <b>oyunun geçmişi</b> gerekiyor. Hangi pozisyonun kaç kez görüldüğü bir kare dizisinden çıkarılamaz.</p>
+        <p>Pratikte işler bu kadar karmaşık olmuyor. Bu dalın asıl karşılığı, tekrara zaten bir
+        sonraki yarım hamlede düşecek olan ama <b>talep edecek vakti kalmamış</b> oyuncular. Sahada
+        görülen haksız sonuçlanmış maçların çoğu bu türden, ve arama onları birkaç düğümde
+        kapatıyor. Yukarıdaki gibi uzun zorunlu hatlar kuralın sınırını göstermek için var, sık
+        rastlanan hâli için değil.</p>
       </div>
       <div class="prose" lang="en">
         <p><b>A forced fivefold repetition.</b> The forced line keeps returning to the same position and runs into the fivefold limit; the game ends there by itself. <b>Correct ruling: a draw.</b> This sixth one is the hardest, because neither the diagram nor a FEN carries the ruling — it needs <b>the history of the game</b>. How many times a position has been seen cannot be derived from an arrangement of squares.</p>
+        <p>In practice things are not this involved. What this branch really covers are the players
+        who would have reached the repetition on the very next ply but <b>ran out of time to claim
+        it</b>. Most of the unfairly decided games seen in the wild are of that kind, and the search
+        closes them in a handful of nodes. Long forced lines like the one above are here to show
+        where the rule’s edge is, not what it usually looks like.</p>
       </div>
     </div>
 
@@ -3885,6 +3895,326 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 
     <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Kitabın bu maddeyi uygulamaktan kaçınma gerekçesi hep aynı olmuştur: hesaplanamaz. Gerekçe sanıldığı kadar sağlam değil — ileriye bakmak gerekiyor, ama zorunlu dallar tanım gereği dar, ve pratikte karar mikrosaniyeler içinde veriliyor; ölçülen en kötü durum bile milisaniye mertebesinde. Bir insanın hamle düşünme süresinin yanında görünmüyor.</p>
     <p class="cost" lang="en"><b>What it costs to apply.</b> The standing reason for not applying this article has always been the same: it is intractable. The reason is less solid than it looks. Looking ahead is required, but forced branches are narrow by definition, and in practice the ruling lands within microseconds; even the measured worst case is on the order of a millisecond. Set against a human thinking about a move, it does not register.</p>
+
+    <h4 lang="tr">Kenar not: yarı kilitli pozisyon</h4>
+    <h4 lang="en">A note in the margin: the half-blocked position</h4>
+    <div class="prose" lang="tr">
+      <p>Çok uç bir vaka, pratikte milyarda bir görülür, ve bu bölümün ana fikri için gerekli
+      değil — ama 6.9'un neden 5.2.2'den ayrı bir madde olduğunu tek bir tahtayla gösterdiği için
+      kenarda dursun.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>A very extreme case, one in a billion in practice, and not needed for the main point of
+      this section — but it belongs in the margin, because it shows on a single board why 6.9 is a
+      separate article from 5.2.2.</p>
+    </div>
+    <figure class="fig fig-wide" lang="tr">
+        <div class="mb et el eb er" style="--c:8" role="img" aria-label="Beyaz şah d1 ve fil f7, piyonlar a6, b5, d5, f5, g4. Siyah şah d7 ve fil f8, piyonlar a7, b6, d6, f6, g5. Bütün piyonlar karşılıklı kilitli; beyaz piyonlar açık karelerde, siyah piyonlar koyu karelerde, filler zıt renkte.">
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"><b class="b">♝</b></i>
+<i></i>
+<i class="d" data-r="8"></i>
+<i class="d"><b class="b">♟</b></i>
+<i></i>
+<i class="d"></i>
+<i><b class="b">♚</b></i>
+<i class="d"></i>
+<i><b class="w">♝</b></i>
+<i class="d"></i>
+<i data-r="7"></i>
+<i><b class="w">♟</b></i>
+<i class="d"><b class="b">♟</b></i>
+<i></i>
+<i class="d"><b class="b">♟</b></i>
+<i></i>
+<i class="d"><b class="b">♟</b></i>
+<i></i>
+<i class="d" data-r="6"></i>
+<i class="d"></i>
+<i><b class="w">♟</b></i>
+<i class="d"></i>
+<i><b class="w">♟</b></i>
+<i class="d"></i>
+<i><b class="w">♟</b></i>
+<i class="d"><b class="b">♟</b></i>
+<i data-r="5"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i><b class="w">♟</b></i>
+<i class="d" data-r="4"></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i data-r="3"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="2"></i>
+<i class="d" data-f="a"></i>
+<i data-f="b"></i>
+<i class="d" data-f="c"></i>
+<i data-f="d"><b class="w">♚</b></i>
+<i class="d" data-f="e"></i>
+<i data-f="f"></i>
+<i class="d" data-f="g"></i>
+<i data-f="h" data-r="1"></i>
+</div>
+        <figcaption>Piyonlar donmuş: beyazınkiler açık karelerde, siyahınkiler koyu karelerde, filler zıt renkte — hiçbir alım mümkün değil. Şahlar da karşı tarafa geçemiyor. Ama pozisyon <b>ölü değil</b>: beyaz hâlâ mat edebiliyor, siyah edemiyor.</figcaption>
+      </figure>
+    <figure class="fig fig-wide" lang="en">
+        <div class="mb et el eb er" style="--c:8" role="img" aria-label="White king d1 and bishop f7, pawns a6, b5, d5, f5, g4. Black king d7 and bishop f8, pawns a7, b6, d6, f6, g5. All the pawns are locked head to head; the white pawns stand on light squares, the black pawns on dark, and the bishops are of opposite colours.">
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"><b class="b">♝</b></i>
+<i></i>
+<i class="d" data-r="8"></i>
+<i class="d"><b class="b">♟</b></i>
+<i></i>
+<i class="d"></i>
+<i><b class="b">♚</b></i>
+<i class="d"></i>
+<i><b class="w">♝</b></i>
+<i class="d"></i>
+<i data-r="7"></i>
+<i><b class="w">♟</b></i>
+<i class="d"><b class="b">♟</b></i>
+<i></i>
+<i class="d"><b class="b">♟</b></i>
+<i></i>
+<i class="d"><b class="b">♟</b></i>
+<i></i>
+<i class="d" data-r="6"></i>
+<i class="d"></i>
+<i><b class="w">♟</b></i>
+<i class="d"></i>
+<i><b class="w">♟</b></i>
+<i class="d"></i>
+<i><b class="w">♟</b></i>
+<i class="d"><b class="b">♟</b></i>
+<i data-r="5"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i><b class="w">♟</b></i>
+<i class="d" data-r="4"></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i data-r="3"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="2"></i>
+<i class="d" data-f="a"></i>
+<i data-f="b"></i>
+<i class="d" data-f="c"></i>
+<i data-f="d"><b class="w">♚</b></i>
+<i class="d" data-f="e"></i>
+<i data-f="f"></i>
+<i class="d" data-f="g"></i>
+<i data-f="h" data-r="1"></i>
+</div>
+        <figcaption>The pawns are frozen: White’s on light squares, Black’s on dark, the bishops of opposite colours — no capture is possible at all. Neither king can cross either. But the position is <b>not dead</b>: White can still mate, Black cannot.</figcaption>
+      </figure>
+    <div class="prose" lang="tr">
+      <p>Piyon yapısı donduğu için ulaşılabilir durum sayısı sonlu, ve tamamı sayılabiliyor:
+      <b>75.168 durum</b>. Bunların hiçbirinde beyaz mat değil; <b>58'inde</b> siyah mat.
+      Örneğin:</p>
+    </div>
+    <figure class="fig fig-wide" lang="tr">
+        <div class="mb et el eb er" style="--c:8" role="img" aria-label="Siyah şah a8, kendi fili b8 ve kendi piyonu a7. Beyaz fil c6 şah çekiyor, beyaz piyon a6 b7 karesini dövüyor. Siyahın hiçbir legal hamlesi yok — mat.">
+<i><b class="b">♚</b></i>
+<i class="d"><b class="b">♝</b></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="8"></i>
+<i class="d"><b class="b">♟</b></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i data-r="7"></i>
+<i><b class="w">♟</b></i>
+<i class="d"><b class="b">♟</b></i>
+<i><b class="w">♝</b></i>
+<i class="d"><b class="b">♟</b></i>
+<i></i>
+<i class="d"><b class="b">♟</b></i>
+<i></i>
+<i class="d" data-r="6"></i>
+<i class="d"></i>
+<i><b class="w">♟</b></i>
+<i class="d"></i>
+<i><b class="w">♟</b></i>
+<i class="d"></i>
+<i><b class="w">♟</b></i>
+<i class="d"><b class="b">♟</b></i>
+<i data-r="5"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i><b class="w">♟</b></i>
+<i class="d" data-r="4"></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i data-r="3"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="2"></i>
+<i class="d" data-f="a"></i>
+<i data-f="b"></i>
+<i class="d" data-f="c"></i>
+<i data-f="d"><b class="w">♚</b></i>
+<i class="d" data-f="e"></i>
+<i data-f="f"></i>
+<i class="d" data-f="g"></i>
+<i data-f="h" data-r="1"></i>
+</div>
+        <figcaption>Aynı kilitten çıkan 58 mat pozisyonundan biri. Beyaz fil <b>c6</b>’dan şah çekiyor, a6 piyonu <b>b7</b>’yi dövüyor, ve siyahın kaçacağı iki kareyi <b>kendi</b> fili ile <b>kendi</b> piyonu kapatıyor. Beyaz şah hâlâ d1’de — mata hiç karışmıyor.</figcaption>
+      </figure>
+    <div class="prose" lang="tr">
+      <p>Buradan çıkan hüküm <b>asimetrik</b>: beyazın bayrağı düşerse <b>beraberlik</b>, siyahınki
+      düşerse <b>kayıp</b>. Aynı tahta, iki ayrı sonuç — belirleyen şey bayrağı kimin düşürdüğü.
+      <a href="#dead">5.2.2</a> böyle çalışmaz; orada soru iki taraf için birden sorulur ve cevap
+      tek olur. Pozisyon ölü olmadığı için oyun da durmuyor, ve durmaması gerekiyor.</p>
+      <p>Motor bu pozisyonda bir tarafı doğru, bir tarafı yanlış veriyor: siyahın düşüşünü doğru
+      hükme bağlıyor, beyazınkini kaçırıyor. Sebebi bilinen sebep — alan geniş, arama bütçe içinde
+      kapatamıyor. Bütçe elli kat büyütüldüğünde de değişmiyor. Yukarıda anlatılan
+      <a href="#dead">3.597 oyunluk şeridin</a> somut bir örneği.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>Because the pawn structure is frozen, the number of reachable states is finite and can be
+      counted in full: <b>75,168 states</b>. In none of them is White mated; in <b>58</b> Black is.
+      For instance:</p>
+    </div>
+    <figure class="fig fig-wide" lang="en">
+        <div class="mb et el eb er" style="--c:8" role="img" aria-label="Black king a8 with its own bishop on b8 and its own pawn on a7. The white bishop on c6 gives check and the white pawn on a6 covers b7. Black has no legal move — mate.">
+<i><b class="b">♚</b></i>
+<i class="d"><b class="b">♝</b></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="8"></i>
+<i class="d"><b class="b">♟</b></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i data-r="7"></i>
+<i><b class="w">♟</b></i>
+<i class="d"><b class="b">♟</b></i>
+<i><b class="w">♝</b></i>
+<i class="d"><b class="b">♟</b></i>
+<i></i>
+<i class="d"><b class="b">♟</b></i>
+<i></i>
+<i class="d" data-r="6"></i>
+<i class="d"></i>
+<i><b class="w">♟</b></i>
+<i class="d"></i>
+<i><b class="w">♟</b></i>
+<i class="d"></i>
+<i><b class="w">♟</b></i>
+<i class="d"><b class="b">♟</b></i>
+<i data-r="5"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i><b class="w">♟</b></i>
+<i class="d" data-r="4"></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i data-r="3"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="2"></i>
+<i class="d" data-f="a"></i>
+<i data-f="b"></i>
+<i class="d" data-f="c"></i>
+<i data-f="d"><b class="w">♚</b></i>
+<i class="d" data-f="e"></i>
+<i data-f="f"></i>
+<i class="d" data-f="g"></i>
+<i data-f="h" data-r="1"></i>
+</div>
+        <figcaption>One of the 58 mates the same lock allows. The white bishop checks from <b>c6</b>, the a6 pawn covers <b>b7</b>, and the two squares Black might flee to are blocked by <b>its own</b> bishop and <b>its own</b> pawn. The white king is still on d1 — it takes no part in the mate.</figcaption>
+      </figure>
+    <div class="prose" lang="en">
+      <p>The ruling that follows is <b>asymmetric</b>: if White’s flag falls it is a <b>draw</b>, if
+      Black’s it is a <b>loss</b>. The same board, two different results — decided by whose flag
+      fell. <a href="#dead">5.2.2</a> does not work this way; there the question is asked for both
+      sides at once and the answer is single. Since the position is not dead the game does not stop,
+      and it should not.</p>
+      <p>On this position the engine gets one side right and one wrong: it rules correctly on
+      Black’s flag and misses White’s. The reason is the familiar one — the space is roomy and the
+      search cannot close it within its budget. Raising the budget fiftyfold does not change it. A
+      concrete instance of the <a href="#dead">strip of 3,597 games</a> described above.</p>
+    </div>
 
     <h3 id="counters" lang="tr">6. Sayaçlar ve tekrar — 9.2 · 9.3 · 9.6</h3>
     <h3 lang="en" data-id="counters">6. Counters and repetition — 9.2 · 9.3 · 9.6</h3>
@@ -4276,16 +4606,16 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     <h4 lang="en">Where the book does not answer</h4>
 
     <ul class="tight" lang="tr">
-      <li><b>“Mümkün hamleler” nereye kadar?</b> 9.2.3 pozisyonları mümkün hamleler üzerinden tanımlıyor. Bu ifadeyi talep haklarını da kapsayacak kadar geniş okursanız tuhaf bir sonuç çıkıyor: 50 hamle sayacı her turda değiştiğine göre iki pozisyonun mümkün hamleleri hiçbir zaman tam olarak aynı olmaz, dolayısıyla <em>hiçbir pozisyon hiçbir zaman tekrar etmez</em>. Kitap bu okumayı açıkça kapatmıyor; pratikte 9.2.3'ün iki alt maddesi sayılı istisna kabul edildiği için dar okunuyor. Ama dayanağı gelenek, metin değil.</li>
-      <li><b>Ölü pozisyonu kim fark edecek?</b> 5.2.2 oyunun kendiliğinden bittiğini söylüyor, ama kimsenin fark etmesi gerekmediğini de söylemiyor. Hakemin re'sen müdahale etmesi mi gerekir, oyunculardan birinin göstermesi mi? Kitap sessiz.</li>
+      <li><b>“Mümkün hamleler” nereye kadar?</b> 9.2.3 pozisyonları mümkün hamleler üzerinden tanımlıyor. Bu ifadeyi talep haklarını da kapsayacak kadar geniş okursanız tuhaf bir sonuç çıkıyor: tekrar eden iki pozisyonun arasında ne alım ne piyon hamlesi olabileceğine göre 50 hamle sayacı o aralıkta durmadan artar, yani iki pozisyonun mümkün hamleleri hiçbir zaman tam olarak aynı olmaz, dolayısıyla <em>hiçbir pozisyon hiçbir zaman tekrar etmez</em>. Kitap bu okumayı açıkça kapatmıyor; pratikte 9.2.3'ün iki alt maddesi sayılı istisna kabul edildiği için dar okunuyor. Ama dayanağı gelenek, metin değil.</li>
+      <li><b>Ölü pozisyonu kim fark edecek?</b> 5.2.2 oyunun kendiliğinden bittiğini söylüyor, ama bunu kimin fark etmesi gerektiğini söylemiyor. Hakemin re'sen müdahale etmesi mi gerekir, oyunculardan birinin göstermesi mi? Kitap sessiz.</li>
       <li><b>Hakemsiz ortam.</b> 9.5'in yanlış iddia yaptırımı hakem varsayıyor. Hakemin olmadığı bir ortamda yanlış iddia ne olur — reddedilip oyun mu sürer, yoksa hiç mi yapılamaz? Kitap bu ortamı düzenlemiyor.</li>
-      <li><b>2023'ün açtığı yeni soru.</b> Terk artık her zaman kayıp değil. Peki mat edemeyecek durumdaki bir oyuncu terk ederse ve karşı taraf bunu fark etmezse ne olur? Beraberlik kendiliğinden mi doğar, yoksa gösterilmesi mi gerekir? Madde yeni, uygulama henüz oturmadı.</li>
+      <li><b>2023'ün açtığı yeni soru.</b> Terk artık her zaman kayıp değil. Peki bir oyuncu, <b>rakibinin onu mat etmesinin imkânsız</b> olduğu bir pozisyonda terk ederse ve kimse bunu fark etmezse ne olur? Beraberlik kendiliğinden mi doğar, yoksa gösterilmesi mi gerekir? Madde yeni, uygulama henüz oturmadı.</li>
     </ul>
     <ul class="tight" lang="en">
-      <li><b>How far does “possible moves” reach?</b> 9.2.3 defines positions through possible moves. Read that phrase widely enough to include claim rights and a strange result follows: since the 50-move counter changes every ply, the possible moves of two positions are never exactly the same, and so <em>no position ever repeats</em>. The book does not explicitly close this reading; in practice it is read narrowly because the two sub-articles of 9.2.3 are taken as an exhaustive list. But what holds that is convention, not the text.</li>
-      <li><b>Who is to notice a dead position?</b> 5.2.2 says the game ends of its own accord, but it does not say that nobody needs to notice. Must the arbiter intervene unprompted, or must a player point it out? The book is silent.</li>
+      <li><b>How far does “possible moves” reach?</b> 9.2.3 defines positions through possible moves. Read that phrase widely enough to include claim rights and a strange result follows: since neither a capture nor a pawn move can occur between two repeating positions, the 50-move counter climbs without interruption across that span, so the possible moves of two positions are never exactly the same, and so <em>no position ever repeats</em>. The book does not explicitly close this reading; in practice it is read narrowly because the two sub-articles of 9.2.3 are taken as an exhaustive list. But what holds that is convention, not the text.</li>
+      <li><b>Who is to notice a dead position?</b> 5.2.2 says the game ends of its own accord, but it does not say who is supposed to notice. Must the arbiter intervene unprompted, or must a player point it out? The book is silent.</li>
       <li><b>A setting with no arbiter.</b> The penalty for an incorrect claim in 9.5 presupposes an arbiter. With none, what becomes of a wrong claim — is it refused and the game continues, or can it not be made at all? The book does not regulate this setting.</li>
-      <li><b>The question 2023 opened.</b> Resignation is no longer always a loss. So what if a player who cannot possibly mate resigns and the other side does not notice? Does the draw arise by itself, or must it be shown? The article is new and the practice has not settled.</li>
+      <li><b>The question 2023 opened.</b> Resignation is no longer always a loss. So what if a player resigns in a position where <b>the opponent could not possibly mate them</b>, and nobody notices? Does the draw arise by itself, or must it be shown? The article is new and the practice has not settled.</li>
     </ul>
 
     <h3 id="federations" lang="tr">9. Federasyon farkı: FIDE, USCF ve platformlar</h3>
@@ -4420,48 +4750,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       possible, and so that where each article comes from stays visible.</p>
     </div>
 
-    <h3 id="fenler" lang="tr">Ek: diyagrama sığmayan pozisyon</h3>
-    <h3 lang="en" data-id="fenler">Appendix: the position a diagram cannot hold</h3>
-
-    <div class="prose" lang="tr">
-      <p>Beşinci bölümdeki altı daldan beşinin hükmü tahtadan okunuyor; biri sayacın değerini
-      gerektiriyor ve FEN'i yanında duruyor. Kalan bir tanesini <b>FEN bile taşıyamaz</b>: hangi
-      pozisyonun kaç kez görüldüğü bir kare dizisinden çıkmaz. Onun için oyunun geçmişi gerekiyor.</p>
     </div>
-    <div class="prose" lang="en">
-      <p>Five of the six branches in section five can be read off the board; one needs the value of
-      a counter and carries its FEN beside it. The remaining one <b>not even a FEN can carry</b>:
-      how many times a position has been seen does not follow from an arrangement of squares. That
-      one needs the history of the game.</p>
-    </div>
-
-    <p class="cost" lang="tr"><b>Zorunlu beşli tekrar.</b> Yukarıdaki pozisyonda her iki tarafın da
-    tek hamlesi şah mekiği, yani dizi kendiliğinden yürüyor. İki tam hamlede aynı pozisyona
-    dönülüyor, ve <b>17. yarım hamlede</b> beşinci kez doğuyor: oyun kendiliğinden berabere
-    bitiyor, motor <code>5R</code> döndürüyor.</p>
-    <p class="cost" lang="en"><b>A forced fivefold repetition.</b> In the position above each side's
-    only move is the king shuttling, so the sequence walks itself. The same position returns after
-    two full moves, and on the <b>17th ply</b> it occurs for the fifth time and the game ends in a
-    draw of its own accord — the engine returns <code>5R</code>.</p>
-    <pre class="snip">5b1k/4p1p1/4P1P1/8/8/1p1p4/1P1P4/1KB5 w - - 0 1
-
-1. Ka1 Kg8  2. Kb1 Kh8  3. Ka1 Kg8  4. Kb1 Kh8
-5. Ka1 Kg8  6. Kb1 Kh8  7. Ka1 Kg8  8. Kb1 Kh8
-9. Ka1 — <b>5R</b></pre>
-
-    <p class="cost" lang="tr">Aynı dizinin <b>aynası</b>. Tahta 180° döndürülmüş, renkler yer
-    değiştirmiş; kural aynı, sayaç aynı, hüküm aynı yarım hamlede geliyor. Kilidin hangi köşede
-    kurulduğu hükmü değiştirmiyor.</p>
-    <p class="cost" lang="en">The same sequence <b>mirrored</b>. The board is turned through 180°
-    and the colours swapped; the rule is the same, the counter is the same, and the ruling arrives
-    on the same ply. Which corner the lock is built in does not change the verdict.</p>
-    <pre class="snip">1kb5/1p1p4/1P1P4/8/8/4p1p1/4P1P1/5BK1 w - - 0 1
-
-1. Kh1 Ka8  2. Kg1 Kb8  3. Kh1 Ka8  4. Kg1 Kb8
-5. Kh1 Ka8  6. Kg1 Kb8  7. Kh1 Ka8  8. Kg1 Kb8
-9. Kh1 — <b>5R</b></pre>
-
-      </div>
 </section>
 
 </div>
