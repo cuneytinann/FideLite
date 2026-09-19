@@ -83,7 +83,7 @@ The rule claims are checked with perft against published reference values: the C
 Kervinck's tricky list, the 6,838-position Vajolet corpus, and a move-list comparison against
 Stockfish — about **1.5 billion nodes, zero deviations**.
 
-You do not have to take my word for it. [`test.zip`](https://www.fidelite.art/test.zip) (238 KB)
+You do not have to take my word for it. [`test.zip`](https://www.fidelite.art/test.zip) (243 KB)
 contains the suite, copies of the three engines, the Vajolet position list and eight clickable
 `.bat` files. Five of the eight runs need only Node; two need Stockfish, which is not in the
 package. On any other platform, `node test.js <command>`.
@@ -190,7 +190,7 @@ Kural iddiaları perft ile, yayımlanmış referans değerlere karşı sınandı
 Kervinck'in zor listesi, 6.838 pozisyonluk Vajolet külliyatı ve Stockfish'e karşı hamle listesi
 karşılaştırması — yaklaşık **1,5 milyar düğüm, sıfır sapma**.
 
-Bana güvenmeniz gerekmiyor. [`test.zip`](https://www.fidelite.art/test.zip) (238 KB) içinde süit,
+Bana güvenmeniz gerekmiyor. [`test.zip`](https://www.fidelite.art/test.zip) (243 KB) içinde süit,
 üç motorun kopyası, Vajolet pozisyon listesi ve sekiz çift tıklanabilir `.bat` var. Sekiz koşunun
 beşi yalnızca Node istiyor; ikisi Stockfish gerektiriyor, o da pakette değil. Başka platformda
 `node test.js <komut>`.

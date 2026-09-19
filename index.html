@@ -2474,6 +2474,29 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <p>Yani boşluk göründüğünden dar. Gerçekten kaçan şey, <em>aynı anda</em> hem kilitli hem
       geniş olan pozisyon: statik taramanın kapsamı dışında kalacak kadar taşlı, aramanın bütçe
       içinde kapatamayacağı kadar açık. Motorun yanlış bildiği 3.597 oyun bu şeritte duruyor.</p>
+      <p><b>Taramanın ne zaman koşturulacağı da kuraldan türetilebiliyor.</b> Kilitli pozisyon
+      ancak <b>geri alınamaz bir hamleyle</b> ortaya çıkar. Sessiz bir hamle — şahın ya da kayan
+      taşın yer değiştirmesi — yeni bir kilit yaratamaz, çünkü tersi de oynanabilir: kilit olsaydı
+      bir önceki pozisyonda da vardı. Kilidi ilk kez var eden şeyin dönüşü olmaması gerekir, ve
+      satrançta bunun üç hâli var: <b>taş almak</b>, <b>piyon sürmek</b>, ve <b>rok hakkının
+      azalması</b>. İlk ikisi yarım hamle sayacını sıfırlıyor, üçüncüsü rok maskesinden bit
+      düşürüyor. Yani taramanın koşması gereken an tam olarak bu üçünden biri olduğu an;
+      öncesinde bakmaya gerek yok, çünkü kilit henüz doğmuş olamaz.</p>
+      <p><b>Ama piyon sürmek dikkat istiyor.</b> Çift adım geri alınamaz bir hamle, yani kilidi
+      doğurmuş olabilir — ama aynı anda bir <a href="#counters">geçerken alma hakkı</a> da
+      yaratıyor, ve o hak dururken pozisyon ölü sayılamaz. Tarama tam o anda koşarsa kaçınılmaz
+      olarak “kilitli değil” der. Tehlike de burada: bir daha geri alınamaz hamle gelmeyeceği için
+      tarama <b>bir daha hiç koşmaz</b>. Kilit doğduğu anda bakılmış, doğru cevap alınamamış, ve
+      bakacak başka an kalmamıştır. Pozisyon kalıcı olarak kaçar.</p>
+      <p>Bu yüzden taramaya giren şey, o pozisyonun <b>geçerken alma hakkı düşmüş hâli</b> olmalı —
+      çift adımın hemen sonrası değil, hak lapse ettikten sonraki hâli. Koşul böylece bileşik
+      oluyor: <b>(sayaç sıfırlandı ya da rok hakkı azaldı) ve geçerken alma karesi yok.</b></p>
+      <p>Bu motor bu inceliğe ihtiyaç duymuyor, çünkü tetikleyici diye bir şeyi yok: tarama her
+      hamlede ve <a href="#flag">6.9 aramasının</a> her düğümünde yeniden koşuyor, dolayısıyla
+      kaçırılacak bir an da yok. Yukarıdaki türetme, maddeyi <em>tam kapsamla ve ucuza</em>
+      uygulamak isteyen biri için geçerli — %93'lük bir taramanın kendi sorunu değil.
+      <a href="#nwindow">Benzer bir kapının</a> bu motorda bir süre durup sonra kaldırılışı
+      teknik tarafta anlatılıyor.</p>
       <p>Ve burada durup bir şey söylemek gerekiyor: <b>satranç programlamada sınırları en belirsiz
       kavram budur.</b> Mat, pat, tekrar, sayaç — hepsinin tanımı kapalı, ve bir uygulamanın doğru
       olup olmadığı perft ile sınanabiliyor. Ölü pozisyonun böyle bir sınaması yok. Kitap “hiçbir
@@ -2607,6 +2630,31 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       blocked <em>and</em> roomy at the same time: out of the static scan's scope, and too wide for
       the search to close within its budget. The 3,597 games the engine gets wrong all sit in that
       strip.</p>
+      <p><b>When the scan should be run can be derived from the rule too.</b> A blocked position can
+      only arise through an <b>irreversible move</b>. A quiet move — a king or a sliding piece
+      changing square — cannot create a new lock, because it can be played back: had there been a
+      lock, it was there in the previous position too. Whatever first brings a lock into being must
+      be something with no way back, and in chess there are three such things: <b>a capture</b>, <b>a
+      pawn move</b>, and <b>the loss of a castling right</b>. The first two reset the ply counter,
+      the third drops a bit from the castling mask. So the moment the scan needs to run is exactly
+      the moment one of those three occurs; before that there is nothing to look at, because the
+      lock cannot yet exist.</p>
+      <p><b>But the pawn move needs care.</b> A double step is an irreversible move, so it may well
+      have created the lock — yet it also creates an
+      <a href="#counters">en passant right</a>, and while that right stands the position cannot be
+      called dead. Run the scan at that instant and it must answer “not blocked”. And here is the
+      danger: since no further irreversible move will come, the scan <b>never runs again</b>. It
+      looked at the moment the lock was born, could not get the right answer, and there is no other
+      moment left to look. The position is missed for good.</p>
+      <p>So what should go into the scan is the <b>en passant-free version</b> of that position —
+      not the instant after the double step, but the position once the right has lapsed. The
+      condition therefore becomes compound: <b>(the counter reset or a castling right was lost)
+      and there is no en passant square.</b></p>
+      <p>This engine does not need that refinement, because it has no trigger at all: the scan runs
+      afresh on every move and at every node of <a href="#flag">the 6.9 search</a>, so there is no
+      moment to miss. The derivation above holds for someone implementing the article <em>fully and
+      cheaply</em> — it is not a problem a 93% scan has. <a href="#nwindow">A similar gate</a> stood
+      in this engine for a while and was then removed; that is described on the technical side.</p>
       <p>And here something has to be said plainly: <b>this is the concept with the least settled
       boundaries in chess programming.</b> Checkmate, stalemate, repetition, the counters — each
       has a closed definition, and whether an implementation gets them right can be tested with
@@ -8229,7 +8277,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <p>Repo herkese açık:
       <a href="https://github.com/cuneytinann/FideLite" target="_blank" rel="noopener">github.com/cuneytinann/FideLite</a>.
       Test klasörünün tamamını tek dosyada indirmek için
-      <a href="test.zip" download="test.zip">test.zip · 238 KB</a> — içinde süit, üç motorun
+      <a href="test.zip" download="test.zip">test.zip · 243 KB</a> — içinde süit, üç motorun
       kopyası, Vajolet pozisyon listesi ve sekiz çift tıklanabilir <code>.bat</code> var,
       başka bir şey indirmeniz gerekmiyor. Windows'ta dosyaya çift tıklamak yetiyor; başka
       platformda <code>node test.js &lt;komut&gt;</code>.</p>
@@ -8255,7 +8303,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <p>The repository is public:
       <a href="https://github.com/cuneytinann/FideLite" target="_blank" rel="noopener">github.com/cuneytinann/FideLite</a>. To
       download the whole test folder as one file, use
-      <a href="test.zip" download="test.zip">test.zip · 238 KB</a> — it contains the suite, copies
+      <a href="test.zip" download="test.zip">test.zip · 243 KB</a> — it contains the suite, copies
       of all three engines, the Vajolet position list and eight double-clickable <code>.bat</code>
       files, and you need nothing else. On Windows, double-clicking the file is enough; on other
       platforms, <code>node test.js &lt;command&gt;</code>.</p>
