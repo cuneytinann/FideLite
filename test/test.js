@@ -57,21 +57,82 @@ const path = require('path');
 const vm = require('vm');
 const { spawnSync } = require('child_process');
 
-// Engine selection. ENGINE=path always wins; otherwise the first of these
-// that exists in this folder is used, most capable first:
+// Engine selection. Four builds can run this suite:
 //
-//   engine_4x.js                the speed build (+48 B, ~2-8x faster, same rules)
-//   engine.js                   the byte-record build, full FIDE
-//   engine_onlyMoveGenerator.js move generation only, no side to move, no result
+//   1  engine_4x.js                speed build, numeric board (+48 B, ~2-8x faster)
+//   2  engine.js                   byte-record build, numeric board, full FIDE
+//   3  engine_string.js            string board: b[] holds FEN letters, '-' is empty
+//   4  engine_onlyMoveGenerator.js move generation only, no side to move, no result
 //
-// The suite only ever exercises move generation — L(), M() and C() — so every
-// level in the list can run it. What the lower levels drop (result codes,
-// counters, material) is never called here; see cmdDetect for what each one
-// actually carries. Delete files from the top of the list to walk down it.
-const ENGINE_CANDIDATES = ['./engine_4x.js', './engine.js', './engine_onlyMoveGenerator.js'];
-const ENGINE_FILE = process.env.ENGINE ||
-  ENGINE_CANDIDATES.find(p => fs.existsSync(path.join(__dirname, p))) ||
-  './engine.js';
+// The suite only ever exercises move generation — L(), M(), C() and G() — so every
+// level can run it. What the lower levels drop (result codes, counters, material)
+// is never called here; see cmdDetect for what each one actually carries.
+//
+// How the build is chosen, first match wins:
+//   ENGINE=path            an explicit file, no prompt
+//   --engine=N  /  -e N    one of the four by number, no prompt
+//   interactive picker     arrows + Enter, or type 1-4; bare Enter takes 1
+//   not a TTY (.bat, pipe) the first of the four present in this folder
+const ENGINES = [
+  { file: 'engine_4x.js',                what: 'speed build, numeric board' },
+  { file: 'engine.js',                   what: 'byte-record build, numeric board' },
+  { file: 'engine_string.js',            what: 'string board (FEN letters)' },
+  { file: 'engine_onlyMoveGenerator.js', what: 'move generation only' },
+];
+const ENGINE_CANDIDATES = ENGINES.map(e => './' + e.file);
+const here = f => path.join(__dirname, f);
+
+function pickEngine(interactive) {
+  if (process.env.ENGINE) return process.env.ENGINE;
+  const argv = process.argv.slice(2);
+  let n = null;
+  for (let i = 0; i < argv.length; i++) {
+    let m = /^--engine=([1-4])$/.exec(argv[i]);
+    if (m) n = +m[1];
+    else if (argv[i] === '-e' && /^[1-4]$/.test(argv[i + 1] || '')) n = +argv[++i];
+  }
+  if (n) return './' + ENGINES[n - 1].file;
+
+  const present = ENGINES.map((e, i) => ({ ...e, i })).filter(e => fs.existsSync(here(e.file)));
+  if (!present.length) return './engine.js';
+  if (!interactive || !process.stdin.isTTY || !process.stdout.isTTY) return './' + present[0].file;
+
+  let sel = present.findIndex(e => e.i === 0);
+  if (sel < 0) sel = 0;
+  const H = ENGINES.length + 3;
+  const draw = first => {
+    if (!first) process.stdout.write(`\x1b[${H}A`);
+    process.stdout.write('\n  Which engine?   (arrows + Enter, or type 1-4; Enter alone takes 1)\n');
+    ENGINES.forEach((e, i) => {
+      const p = present.find(x => x.i === i);
+      const cur = p && present[sel].i === i;
+      const line = `   ${cur ? '>' : ' '} ${i + 1}  ${e.file.padEnd(28)} ${e.what}` +
+                   (p ? '' : '   [not in this folder]');
+      process.stdout.write(`\x1b[2K${cur ? '\x1b[1m' : p ? '' : '\x1b[2m'}${line}\x1b[0m\n`);
+    });
+    process.stdout.write('\n');
+  };
+  draw(true);
+  const buf = Buffer.alloc(8);
+  process.stdin.setRawMode(true);
+  try {
+    for (;;) {
+      let k = 0;
+      try { k = fs.readSync(0, buf, 0, 8); }
+      catch (err) { if (err.code === 'EAGAIN') continue; throw err; }
+      const key = buf.slice(0, k).toString('latin1');
+      if (key === '\x03' || key === 'q') { process.stdout.write('\n'); process.exit(130); }
+      if (key === '\r' || key === '\n') break;
+      if (key === '\x1b[A' || key === 'k') { sel = (sel + present.length - 1) % present.length; draw(false); continue; }
+      if (key === '\x1b[B' || key === 'j') { sel = (sel + 1) % present.length; draw(false); continue; }
+      const d = /^[1-4]$/.test(key) ? +key : 0;          // a wrong key is simply ignored
+      if (d) { const p = present.findIndex(x => x.i === d - 1); if (p >= 0) { sel = p; draw(false); } }
+    }
+  } finally { process.stdin.setRawMode(false); }
+  return './' + present[sel].file;
+}
+
+let ENGINE_FILE = './engine.js';        // set from main(); readEngine() reads it at call time
 
 // ============== Piece encoding ==============
 // newengine: piece = type*2 + colour, colour bit 0 (1 = White), 0 = empty.
@@ -81,6 +142,37 @@ const TO_FEN = Object.fromEntries(Object.entries(FROM_FEN).map(([k, v]) => [v, k
 
 // Promotion argument for M()/O(): the TYPE, not a lookup index.
 const PROMO = { q: 3, r: 2, b: 1, n: 6 };
+
+// ============== Board dialect ==============
+// Two board encodings ship. Everything the suite does to a square goes through
+// D, so the perft driver, the FEN codec and the move lists are written once.
+//
+//   numeric  b[i] = type*2 + colour, 0 empty, e = -1 when there is no ep square
+//   string   b[i] = the FEN letter itself, '-' empty, e = '-' when there is none
+//
+// The string engine's M() uppercases a promotion for White on its own
+// (`P&f%56<8?t?j(u):u:p`), so the promotion argument is always lower case.
+const DIALECT_NUM = {
+  string: false, EMPTY: 0, NOEP: -1,
+  fromFen: ch => FROM_FEN[ch],
+  toFen:   p  => TO_FEN[p],
+  empty:   p  => !p,
+  own:     (p, side) => !!p && (p & 1) === side,
+  pawn:    p  => (p >> 1) === 4,
+  promo:   q  => PROMO[q],
+  noEp:    e  => e == null || e < 0,
+};
+const DIALECT_STR = {
+  string: true, EMPTY: '-', NOEP: '-',
+  fromFen: ch => ch,
+  toFen:   p  => p,
+  empty:   p  => p === '-',
+  own:     (p, side) => p !== '-' && (p < 'a') === !!side,
+  pawn:    p  => p === 'P' || p === 'p',
+  promo:   q  => q,
+  noEp:    e  => e == null || e === '-',
+};
+let D = DIALECT_NUM;      // set by loadEngine() from the board it finds
 
 // ---- squares: newengine is a1 = 0, file = i&7, rank = i>>3 ----
 const sqName = i => String.fromCharCode(97 + (i & 7)) + ((i >> 3) + 1);
@@ -171,15 +263,12 @@ function loadEngine(p = ENGINE_FILE) {
       process.exit(1);
     }
   }
-  // Two build families speak a different dialect and cannot run this suite.
+  // The board tells us which dialect to speak. Both are supported.
   if (!Array.isArray(sb.b) && !(sb.b instanceof Int8Array)) {
-    console.error('ERROR: no numeric board b[] after loading');
+    console.error('ERROR: no board b[] after loading');
     process.exit(1);
   }
-  if (typeof sb.b[0] === 'string') {
-    console.error('ERROR: string-board build (prompt_string family) — the suite needs the numeric board');
-    process.exit(1);
-  }
+  D = typeof sb.b[0] === 'string' ? DIALECT_STR : DIALECT_NUM;
   if (!Array.isArray(sb.L(12))) {
     console.error('ERROR: L(i) does not return a move list — this is an L(i,u) build (L1/L2 family), not supported');
     process.exit(1);
@@ -192,13 +281,13 @@ function loadEngine(p = ENGINE_FILE) {
 // FEN lists rank 8 first; newengine stores rank 1 first. Hence the flip.
 function setFEN(env, fen) {
   const [pieces, side, castling, ep, halfmove] = fen.trim().split(/\s+/);
-  const board = new Array(64).fill(0);
+  const board = new Array(64).fill(D.EMPTY);
   let sq = 56;                       // a8 in newengine indexing
   for (const ch of pieces) {
     if (ch === '/') { sq -= 16; continue; }
     if (/\d/.test(ch)) { sq += +ch; continue; }
     if (!(ch in FROM_FEN)) throw new Error('bad FEN piece: ' + ch);
-    board[sq++] = FROM_FEN[ch];
+    board[sq++] = D.fromFen(ch);
   }
   env.b = env.b instanceof Int8Array ? Int8Array.from(board) : board;
   env.t = side === 'w' ? 1 : 0;
@@ -210,7 +299,7 @@ function setFEN(env, fen) {
     if (castling.includes('q')) cr |= 8;
   }
   env.c = cr;
-  env.e = (!ep || ep === '-') ? -1 : nameSq(ep);
+  env.e = (!ep || ep === '-') ? D.NOEP : nameSq(ep);
   env.n = halfmove ? +halfmove : 0;
 }
 
@@ -220,8 +309,8 @@ function envToFEN(env) {
     let row = '', empty = 0;
     for (let f = 0; f < 8; f++) {
       const p = env.b[r * 8 + f];
-      if (!p) empty++;
-      else { if (empty) { row += empty; empty = 0; } row += TO_FEN[p]; }
+      if (D.empty(p)) empty++;
+      else { if (empty) { row += empty; empty = 0; } row += D.toFen(p); }
     }
     if (empty) row += empty;
     pieces += (r < 7 ? '/' : '') + row;
@@ -232,7 +321,7 @@ function envToFEN(env) {
   if (env.c & 4) castling += 'k';
   if (env.c & 8) castling += 'q';
   if (!castling) castling = '-';
-  const ep = (env.e == null || env.e < 0) ? '-' : sqName(env.e);
+  const ep = D.noEp(env.e) ? '-' : sqName(env.e);
   return `${pieces} ${env.t ? 'w' : 'b'} ${castling} ${ep} ${env.n} 1`;
 }
 
@@ -250,17 +339,20 @@ function makePerft(env) {
     const side = env.t;
     for (let from = 0; from < 64; from++) {
       const p = env.b[from];
-      if (!p || (p & 1) !== side) continue;
-      const isPawn = (p >> 1) === 4;
+      if (!D.own(p, side)) continue;
+      const isPawn = D.pawn(p);
       for (const to of env.L(from)) {
         const promo = isPawn && (to < 8 || to >= 56);
         for (const q of (promo ? PROMOS : ['q'])) {
           const st = snap();
-          // Castling rights must be updated by hand: M() deliberately does not,
-          // because it also runs inside l()'s legality probe. A() would do it,
-          // but A() also flips T and counts repetitions, which perft must not.
+          // Castling rights are updated by hand. engine_4x.js needs it: there the
+          // line lives in the search, not in M(). engine.js, engine_string.js and
+          // engine_onlyMoveGenerator.js clear the bits inside M() themselves, so
+          // for those this is a repeat — harmless, the mask is idempotent. A()
+          // would also do it, but A() flips t and counts repetitions, which perft
+          // must not. Do not delete this line: 4x would silently lose castling.
           env.c &= ~env.C(from) & ~env.C(to);
-          env.M(from, to, PROMO[q]);
+          env.M(from, to, D.promo(q));
           env.t ^= 1;
           nodes += perft(depth - 1);
           restore(st);
@@ -277,8 +369,8 @@ function legalMoves(env) {
   const side = env.t;
   for (let i = 0; i < 64; i++) {
     const p = env.b[i];
-    if (!p || (p & 1) !== side) continue;
-    const isPawn = (p >> 1) === 4;
+    if (!D.own(p, side)) continue;
+    const isPawn = D.pawn(p);
     for (const to of env.L(i)) {
       if (isPawn && (to < 8 || to >= 56)) {
         for (const q of ['q', 'r', 'b', 'n']) moves.push(sqName(i) + sqName(to) + q);
@@ -367,16 +459,17 @@ const fmt = n => n.toLocaleString('en-US');
 // Which rungs of the ladder are present, so a run on a lower level is never
 // mistaken for a run on the full engine.
 const LEVELS = {
-  './engine_4x.js': 'full FIDE, speed build',
-  './engine.js': 'full FIDE, byte-record build',
-  './engine_onlyMoveGenerator.js': 'move generation only',
+  './engine_4x.js': 'full FIDE, speed build, numeric board',
+  './engine.js': 'full FIDE, byte-record build, numeric board',
+  './engine_string.js': 'full FIDE, string board (FEN letters)',
+  './engine_onlyMoveGenerator.js': 'move generation only, numeric board',
 };
 
 function banner() {
   const src = readEngine();
   const level = LEVELS[ENGINE_FILE];
   const skipped = ENGINE_CANDIDATES.slice(0, ENGINE_CANDIDATES.indexOf(ENGINE_FILE))
-    .filter(p => !fs.existsSync(path.join(__dirname, p))).length;
+    .filter(p => !fs.existsSync(here(p.slice(2)))).length;
   console.log(`\nEngine: ${ENGINE_FILE}  (${Buffer.byteLength(src, 'utf8')} B of core)`
     + (level ? `\n        ${level}` : '')
     + (skipped ? `  [${skipped} higher level(s) not in this folder]` : ''));
@@ -400,7 +493,8 @@ function cmdDetect() {
   // Castling bit semantics, checked rather than assumed.
   const bits = [0, 4, 7, 56, 60, 63].map(i => `${sqName(i)}=${env.C(i)}`).join(' ');
   console.log(`  castling bits: ${bits}`);
-  console.log(`  board: ${env.b.length} squares, a1=${env.b[0]} h8=${env.b[63]}`);
+  console.log(`  board: ${env.b.length} squares, a1=${JSON.stringify(env.b[0])} h8=${JSON.stringify(env.b[63])}`);
+  console.log(`  dialect: ${D.string ? "string (FEN letters, '-' empty)" : 'numeric (type*2+colour, 0 empty)'}`);
   console.log(`\n  Stockfish: ${hasStockfish() ? 'found (' + SF + ')' : 'NOT found'}\n`);
 }
 
@@ -514,14 +608,14 @@ function cmdDivide(fen, depth) {
   const out = [];
   for (let from = 0; from < 64; from++) {
     const p = env.b[from];
-    if (!p || (p & 1) !== env.t) continue;
-    const isPawn = (p >> 1) === 4;
+    if (!D.own(p, env.t)) continue;
+    const isPawn = D.pawn(p);
     for (const to of env.L(from)) {
       const promo = isPawn && (to < 8 || to >= 56);
       for (const q of (promo ? ['q', 'r', 'b', 'n'] : ['q'])) {
         const st = snap();
         env.c &= ~env.C(from) & ~env.C(to);
-        env.M(from, to, PROMO[q]);
+        env.M(from, to, D.promo(q));
         env.t ^= 1;
         const sub = d > 1 ? perft(d - 1) : 1;
         restore(st);
@@ -639,7 +733,7 @@ function cmdRandom(start, games = 20, maxPlies = 60) {
       const choice = fl[Math.abs(rng) % fl.length];
       const from = nameSq(choice.slice(0, 2)), to = nameSq(choice.slice(2, 4));
       env.c &= ~env.C(from) & ~env.C(to);
-      env.M(from, to, PROMO[choice.length === 5 ? choice[4] : 'q']);
+      env.M(from, to, D.promo(choice.length === 5 ? choice[4] : 'q'));
       env.t ^= 1;
     }
     if (fault) { mismatches.push({ g: g + 1, ...fault }); process.stdout.write('X'); }
@@ -687,7 +781,13 @@ newengine test suite
   node test.js perft "<FEN>" <depth>         raw perft
   node test.js divide "<FEN>" <depth>        divide perft (debugging)
   node test.js all                           sanity + cpw d4 + tricky d4 + vajolet
+
+Engine: a picker appears when a command is given. Skip it with
+  ENGINE=./engine_string.js node test.js sanity
+  node test.js sanity --engine=3            (1 4x, 2 engine, 3 string, 4 movegen)
 `;
+
+ENGINE_FILE = pickEngine(!!cmd && cmd !== 'help' && cmd !== '--help');
 
 let okExit = true;
 switch (cmd) {
