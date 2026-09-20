@@ -34,7 +34,7 @@ shelved, not lost. [The full argument is on the site.](https://www.fidelite.art/
 ## Why it matters
 
 Across the Lichess open database, Miguel Ambrona's CHA-Solver counted **201,060** games that were
-decided wrongly. This engine gets **197,463** of them right. The 3,597
+decided wrongly. This engine gets **197,493** of them right. The 3,567
 it misses are all blocked positions, and nearly every one of them has a bishop on the board.
 
 The difference fits in one sentence: **the platforms look at the board at the moment the flag fell;
@@ -140,8 +140,8 @@ dönüştürdüğü için motorun tek ispatlı özelliğini riske atıyor. Askı
 ## Neden önemli
 
 Miguel Ambrona'nın CHA-Solver'ı Lichess açık veritabanını baştan sona tarayıp **201.060** haksız
-sonuçlanmış oyun saydı. Bu motor onların **197.463'ünü** doğru karara
-bağlıyor. Kaçırdığı 3.597 oyunun tamamı kilitli pozisyon, ve neredeyse hepsinde tahtada bir fil
+sonuçlanmış oyun saydı. Bu motor onların **197.493'ünü** doğru karara
+bağlıyor. Kaçırdığı 3.567 oyunun tamamı kilitli pozisyon, ve neredeyse hepsinde tahtada bir fil
 var.
 
 Fark tek cümleye sığıyor: **platformlar bayrak düştüğü andaki tahtaya bakıyor, kitap ise o tahtanın
