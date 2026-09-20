@@ -18,7 +18,7 @@ P>3?f<i^g&1&&(
 h*v==1?T|b[f]|f==e
 :h|T|b[f]?0:v<2|v<3&!b[i+f>>1]&66>>y):
 (h*v?h==v:2)&P&&S(),
-V=(s,u=b[Q](10+s))=>b.some((p,i)=>p%2^s&&G(i,u,1)),
+V=(s,u=b[Q](10+s))=>b.some((p,i)=>p&1^s&&G(i,u,1)),
 
 L=(i,q=[],g=b[i]&1)=>b.map((p,f)=>!p|p&1^g&&G(i,f)&&(
 p=[b,e,n],b=[...b],M(i,f),V(g)||q.push(f),[b,e,n]=p))&&q,
@@ -28,7 +28,7 @@ n=P|b[f]?0:n+1,
 b[f]=P&f%56<8?u*2+t:p,
 b[i]=b[P&f==e?f^8:i]=0,
 d==2&p>9&&(b[q]=b[r=f>i?i+3:i-4],b[r]=0),
-e=P&d>9&&(e=q,[f-1,f+1].some(x=>b[x]==17-p&&~L(x)[Q](e)))?e:-1),
+e=P&d>9&(e=q,[f-1,f+1].some(x=>b[x]==17-p&&~L(x)[Q](e)))?e:-1),
 
 i=f=-1,
 p[N]='3♕2♖1♗6♘'.replace(/(.)(.)/g,`<button onclick=A($1)>$2</button>`),
