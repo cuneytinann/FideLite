@@ -73,6 +73,11 @@ const { spawnSync } = require('child_process');
 //   --engine=N  /  -e N    one of the four by number, no prompt
 //   interactive picker     arrows + Enter, or type 1-4; bare Enter takes 1
 //   not a TTY (.bat, pipe) the first of the four present in this folder
+//
+// The picker draws on stderr and `node test.js pick` prints the chosen path on
+// stdout, so a script can ask once and pin the answer for every run that follows:
+//   for /f "usebackq delims=" %%e in (`node test.js pick`) do set "ENGINE=%%e"
+//   ENGINE=$(node test.js pick)          # sh
 const ENGINES = [
   { file: 'engine_4x.js',                what: 'speed build, numeric board' },
   { file: 'engine.js',                   what: 'byte-record build, numeric board' },
@@ -95,22 +100,22 @@ function pickEngine(interactive) {
 
   const present = ENGINES.map((e, i) => ({ ...e, i })).filter(e => fs.existsSync(here(e.file)));
   if (!present.length) return './engine.js';
-  if (!interactive || !process.stdin.isTTY || !process.stdout.isTTY) return './' + present[0].file;
+  if (!interactive || !process.stdin.isTTY || !process.stderr.isTTY) return './' + present[0].file;
 
   let sel = present.findIndex(e => e.i === 0);
   if (sel < 0) sel = 0;
   const H = ENGINES.length + 3;
   const draw = first => {
-    if (!first) process.stdout.write(`\x1b[${H}A`);
-    process.stdout.write('\n  Which engine?   (arrows + Enter, or type 1-4; Enter alone takes 1)\n');
+    if (!first) process.stderr.write(`\x1b[${H}A`);
+    process.stderr.write('\n  Which engine?   (arrows + Enter, or type 1-4; Enter alone takes 1)\n');
     ENGINES.forEach((e, i) => {
       const p = present.find(x => x.i === i);
       const cur = p && present[sel].i === i;
       const line = `   ${cur ? '>' : ' '} ${i + 1}  ${e.file.padEnd(28)} ${e.what}` +
                    (p ? '' : '   [not in this folder]');
-      process.stdout.write(`\x1b[2K${cur ? '\x1b[1m' : p ? '' : '\x1b[2m'}${line}\x1b[0m\n`);
+      process.stderr.write(`\x1b[2K${cur ? '\x1b[1m' : p ? '' : '\x1b[2m'}${line}\x1b[0m\n`);
     });
-    process.stdout.write('\n');
+    process.stderr.write('\n');
   };
   draw(true);
   const buf = Buffer.alloc(8);
@@ -121,7 +126,7 @@ function pickEngine(interactive) {
       try { k = fs.readSync(0, buf, 0, 8); }
       catch (err) { if (err.code === 'EAGAIN') continue; throw err; }
       const key = buf.slice(0, k).toString('latin1');
-      if (key === '\x03' || key === 'q') { process.stdout.write('\n'); process.exit(130); }
+      if (key === '\x03' || key === 'q') { process.stderr.write('\n'); process.exit(130); }
       if (key === '\r' || key === '\n') break;
       if (key === '\x1b[A' || key === 'k') { sel = (sel + present.length - 1) % present.length; draw(false); continue; }
       if (key === '\x1b[B' || key === 'j') { sel = (sel + 1) % present.length; draw(false); continue; }
@@ -781,10 +786,14 @@ newengine test suite
   node test.js perft "<FEN>" <depth>         raw perft
   node test.js divide "<FEN>" <depth>        divide perft (debugging)
   node test.js all                           sanity + cpw d4 + tricky d4 + vajolet
+  node test.js pick                          ask once, print the chosen engine path
 
 Engine: a picker appears when a command is given. Skip it with
   ENGINE=./engine_string.js node test.js sanity
   node test.js sanity --engine=3            (1 4x, 2 engine, 3 string, 4 movegen)
+
+A script that runs several commands should ask once and pin the answer:
+  for /f "usebackq delims=" %%e in (\`node test.js pick\`) do set "ENGINE=%%e"
 `;
 
 ENGINE_FILE = pickEngine(!!cmd && cmd !== 'help' && cmd !== '--help');
@@ -802,6 +811,7 @@ switch (cmd) {
   case 'vajolet': okExit = cmdVajolet(args[0] ?? 30, args[1] ?? 3, args[2] ?? 0); break;
   case 'random': okExit = cmdRandom(args[0] ?? 'kiwipete', args[1] ?? 20, args[2] ?? 60); break;
   case 'all': okExit = cmdAll(); break;
+  case 'pick': process.stdout.write(ENGINE_FILE + '\n'); break;
   default: console.log(USAGE);
 }
 process.exit(okExit ? 0 : 1);
