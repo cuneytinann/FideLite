@@ -108,6 +108,11 @@ if (FLOLD[location.hash.slice(1)]) {
   --pc-q:    light-dark(#7e5a05,  #e8b641);
   --pc-k:    light-dark(#1f5fa8,  #86b6ef);
   --pc-p:    light-dark(#0f6b70,  #5fc3ca);
+  /* paketli surumler: siyaha yakin kahverengi. Koyu temada ayni koyu renk
+     sicak bir isiltiyla okunur kaliyor. */
+  --pk:      light-dark(#3a2214,  #2a170c);
+  --pk-glow: light-dark(rgba(204,170,120,.55), #d6b48a);
+  --pk-acc:  light-dark(#3a2214,  #a8784f);
 
   /* ---- logo paleti ----
      Lejant yuvarlaklari logonun kendi renklerini gosteriyor; ikisi ayri
@@ -175,7 +180,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --card-b-bg:#232a3a; --card-b-fg:#f2e6d8; --card-b-fg2:#c9bdb2; --card-b-fg3:#9a8d82;
     --code-bg:#ffffff; --code-fg:#0d4f26; --code-dim:#3f7a55; --code-ink:#12595f;
     --pc-r:#8f1d13; --pc-n:#146a33; --pc-b:#6b3fa0; --pc-q:#7e5a05; --pc-k:#1f5fa8;
-    --pc-p:#0f6b70;
+    --pc-p:#0f6b70; --pk:#3a2214; --pk-glow:rgba(204,170,120,.55); --pk-acc:#3a2214;
     --lg-grid:#cc9911; --lg-knight:#fffdf6; --lg-rook:#93cfe0;
     --lg-bishop:#e0a3da; --lg-start:#0f1626; --lg-king:#8f1d13; --lg-pawn:#1a3970; --lg-chip:#fffdf6;
   }
@@ -192,7 +197,7 @@ if (FLOLD[location.hash.slice(1)]) {
       --card-w-fg2:#4a3f36; --card-w-fg3:#6b5f54; --card-b-bg:#0b0908; --card-b-fg:#ece3d8;
       --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-dim:#3f8f5c; --code-ink:#7fc9cf;
       --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
-      --pc-p:#5fc3ca;
+      --pc-p:#5fc3ca; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
       --lg-grid:#a8916b; --lg-knight:#1c1714; --lg-rook:#7ab6c9;
       --lg-bishop:#c895c4; --lg-start:#ece3d8; --lg-king:#5c1a10; --lg-pawn:#1a3970; --lg-chip:#d7ccbd;
     }
@@ -210,7 +215,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --card-w-fg2:#4a3f36; --card-w-fg3:#6b5f54; --card-b-bg:#0b0908; --card-b-fg:#ece3d8;
     --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-dim:#3f8f5c; --code-ink:#7fc9cf;
     --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
-    --pc-p:#5fc3ca;
+    --pc-p:#5fc3ca; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
     --lg-grid:#a8916b; --lg-knight:#1c1714; --lg-rook:#7ab6c9;
     --lg-bishop:#c895c4; --lg-start:#ece3d8; --lg-king:#5c1a10; --lg-pawn:#1a3970; --lg-chip:#d7ccbd;
   }
@@ -655,6 +660,13 @@ fieldset.levels { gap:0 }
 .rd.alt { margin-left:1.1rem }
 .rd.alt input, .rd.bot input { accent-color:var(--pc-b) }
 .rd.alt code, .rd.bot code { color:var(--pc-b) }
+/* tahtayi harf dizgisi olarak tutan surumler: botlar gibi kendi renkleriyle okunsun.
+   Varsayilan code rengi zaten camgobegi, o yuzden sahin mavisi (--pc-k). */
+.rd.str input { accent-color:var(--pc-k) }
+.rd.str code { color:var(--pc-k) }
+/* paketli calisan surumler */
+.rd.pk input { accent-color:var(--pk-acc) }
+.rd.pk code { color:var(--pk); text-shadow:0 0 1px var(--pk-glow), 0 0 2px var(--pk-glow), 0 0 3px var(--pk-glow) }
 .pacts { display:flex; flex-wrap:wrap; gap:.5rem; margin-left:auto }
 button { font:500 .8125rem/1 var(--mono); padding:.55rem .8rem; background:var(--paper);
   color:var(--ink); border:1px solid var(--ink); cursor:pointer; letter-spacing:.02em }
@@ -1262,9 +1274,9 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <div class="pbar">
         <fieldset class="builds levels">
           <legend class="grp"><span lang="tr">Seviye</span><span lang="en">Level</span></legend>
-<label class="lv" title="Yalnızca legallik — beraberlik kuralları yok" data-en-title="Legality only — no draw rules"><input type="radio" name="level" value="L1"><span><code>L1</code></span></label>
-<label class="lv" title="Sayaçlar ve kendiliğinden gelen beraberlikler — saat yok" data-en-title="Counters and automatic draws — no clock"><input type="radio" name="level" value="L2"><span><code>L2</code></span></label>
 <label class="lv" title="Tam hakem — saat, terk, teklif ve talep dahil" data-en-title="Full arbiter — clock, resignation, offers and claims included"><input type="radio" name="level" value="L3" checked><span><code>L3</code><small lang="tr">asıl</small><small lang="en">main</small></span></label>
+<label class="lv" title="Sayaçlar ve kendiliğinden gelen beraberlikler — saat yok" data-en-title="Counters and automatic draws — no clock"><input type="radio" name="level" value="L2"><span><code>L2</code></span></label>
+<label class="lv" title="Yalnızca legallik — beraberlik kuralları yok" data-en-title="Legality only — no draw rules"><input type="radio" name="level" value="L1"><span><code>L1</code></span></label>
 <label class="lv" title="Seviyelerin dışında kalanlar" data-en-title="Builds outside the rule levels"><input type="radio" name="level" value="special"><span><code>special</code></span></label>
         </fieldset>
         <fieldset class="builds">
@@ -1273,31 +1285,31 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <label class="rd" data-lv="L1" hidden title="Tıklanabilir tahta, en yalın hâli — gösterge yok, oyun bitince sessizce durur" data-en-title="Clickable board at its barest — no indicators; the game stops silently when it ends"><input type="radio" name="build" value="L1_light"> <code>light</code></label>
 <label class="rd" data-lv="L1" hidden title="Sayısal arayüz, prompt penceresi" data-en-title="Numeric interface, prompt dialog"><input type="radio" name="build" value="L1_numerical"> <code>numerical</code></label>
 <label class="rd" data-lv="L1" hidden title="UCI, metin alanı" data-en-title="UCI, text field"><input type="radio" name="build" value="L1_input"> <code>input</code></label>
-<label class="rd" data-lv="L1" hidden title="Harf dizgisi, indeks sırası ters" data-en-title="String board, flipped index order"><input type="radio" name="build" value="L1_prompt_string_flip"> <code>prompt_string_flip</code></label>
+<label class="rd str" data-lv="L1" hidden title="Harf dizgisi, indeks sırası ters" data-en-title="String board, flipped index order"><input type="radio" name="build" value="L1_prompt_string_flip"> <code>prompt_string_flip</code></label>
 <label class="rd bot" data-lv="L1" hidden title="Bota karşı — tek kişilik" data-en-title="Against a bot — single player"><input type="radio" name="build" value="L1_1250elo"> <code>1250elo</code></label>
 <label class="rd" data-lv="L2" hidden title="Ana dosya — tıklanabilir tahta" data-en-title="Main file — clickable board"><input type="radio" name="build" value="L2"> <code>default</code></label>
 <label class="rd" data-lv="L2" hidden title="Tıklanabilir tahta, en yalın hâli — gösterge yok, oyun bitince sessizce durur" data-en-title="Clickable board at its barest — no indicators; the game stops silently when it ends"><input type="radio" name="build" value="L2_light"> <code>light</code></label>
 <label class="rd" data-lv="L2" hidden title="Sayısal arayüz, prompt penceresi" data-en-title="Numeric interface, prompt dialog"><input type="radio" name="build" value="L2_numerical"> <code>numerical</code></label>
 <label class="rd" data-lv="L2" hidden title="UCI, metin alanı" data-en-title="UCI, text field"><input type="radio" name="build" value="L2_input"> <code>input</code></label>
-<label class="rd" data-lv="L2" hidden title="Harf dizgisi, indeks sırası ters" data-en-title="String board, flipped index order"><input type="radio" name="build" value="L2_prompt_string_flip"> <code>prompt_string_flip</code></label>
+<label class="rd str" data-lv="L2" hidden title="Harf dizgisi, indeks sırası ters" data-en-title="String board, flipped index order"><input type="radio" name="build" value="L2_prompt_string_flip"> <code>prompt_string_flip</code></label>
 <label class="rd bot" data-lv="L2" hidden title="Bota karşı — tek kişilik" data-en-title="Against a bot — single player"><input type="radio" name="build" value="L2_aybars_2500"> <code>aybars_2500</code></label>
-<label class="rd" data-lv="L3" title="Ana dosya — tıklanabilir tahta, canlı saat" data-en-title="Main file — clickable board, live clock"><input type="radio" name="build" value="L3" checked> <code>default</code></label>
+<label class="rd pk" data-lv="L3" title="Ana dosya — tıklanabilir tahta, canlı saat" data-en-title="Main file — clickable board, live clock"><input type="radio" name="build" value="L3" checked> <code>default</code></label>
 <label class="rd" data-lv="L3" title="Tıklanabilir tahta, yalın hâli" data-en-title="Clickable board, pared down"><input type="radio" name="build" value="L3_light"> <code>light</code></label>
-<label class="rd" data-lv="L3" title="Sayısal arayüz, prompt penceresi" data-en-title="Numeric interface, prompt dialog"><input type="radio" name="build" value="L3_numerical"> <code>numerical</code></label>
+<label class="rd pk" data-lv="L3" title="Sayısal arayüz, prompt penceresi" data-en-title="Numeric interface, prompt dialog"><input type="radio" name="build" value="L3_numerical"> <code>numerical</code></label>
 <label class="rd" data-lv="L3" title="UCI, prompt penceresi" data-en-title="UCI, prompt dialog"><input type="radio" name="build" value="L3_prompt"> <code>prompt</code></label>
 <label class="rd" data-lv="L3" title="UCI, prompt penceresi, tahta çizilmiyor" data-en-title="UCI, prompt dialog, no board"><input type="radio" name="build" value="L3_prompt_blindfold"> <code>prompt_blindfold</code></label>
 <label class="rd" data-lv="L3" title="UCI, metin alanı" data-en-title="UCI, text field"><input type="radio" name="build" value="L3_input"> <code>input</code></label>
 <label class="rd" data-lv="L3" title="UCI, metin alanı, tahta çizilmiyor" data-en-title="UCI, text field, no board"><input type="radio" name="build" value="L3_input_blindfold"> <code>input_blindfold</code></label>
-<label class="rd" data-lv="L3" title="Tahta harf dizgisi olarak tutuluyor" data-en-title="The board is held as a string of letters"><input type="radio" name="build" value="L3_prompt_string"> <code>prompt_string</code></label>
-<label class="rd" data-lv="L3" title="Harf dizgisi, indeks sırası ters" data-en-title="String board, flipped index order"><input type="radio" name="build" value="L3_prompt_string_flip"> <code>prompt_string_flip</code></label>
+<label class="rd str" data-lv="L3" title="Tahta harf dizgisi olarak tutuluyor" data-en-title="The board is held as a string of letters"><input type="radio" name="build" value="L3_prompt_string"> <code>prompt_string</code></label>
+<label class="rd str" data-lv="L3" title="Harf dizgisi, indeks sırası ters" data-en-title="String board, flipped index order"><input type="radio" name="build" value="L3_prompt_string_flip"> <code>prompt_string_flip</code></label>
 <label class="rd" data-lv="special" hidden title="Tıklanabilir tahta, kurallar Chess.com'un uyguladığı gibi" data-en-title="Clickable board, with the rules as Chess.com applies them"><input type="radio" name="build" value="Chesscom-equivalent"> <code>Chesscom-equivalent</code></label>
-<label class="rd" data-lv="special" hidden title="Chess.com kuralları, sayısal arayüz, prompt penceresi" data-en-title="Chess.com rules, numeric interface, prompt dialog"><input type="radio" name="build" value="Chesscom-equivalent_numerical"> <code>Chesscom-equivalent_numerical</code></label>
+<label class="rd pk" data-lv="special" hidden title="Chess.com kuralları, sayısal arayüz, prompt penceresi" data-en-title="Chess.com rules, numeric interface, prompt dialog"><input type="radio" name="build" value="Chesscom-equivalent_numerical"> <code>Chesscom-equivalent_numerical</code></label>
 <label class="rd" data-lv="special" hidden title="Tıklanabilir tahta, kurallar Lichess'in uyguladığı gibi" data-en-title="Clickable board, with the rules as Lichess applies them"><input type="radio" name="build" value="Lichess-equivalent"> <code>Lichess-equivalent</code></label>
-<label class="rd" data-lv="special" hidden title="Lichess kuralları, sayısal arayüz, prompt penceresi" data-en-title="Lichess rules, numeric interface, prompt dialog"><input type="radio" name="build" value="Lichess-equivalent_numerical"> <code>Lichess-equivalent_numerical</code></label>
+<label class="rd pk" data-lv="special" hidden title="Lichess kuralları, sayısal arayüz, prompt penceresi" data-en-title="Lichess rules, numeric interface, prompt dialog"><input type="radio" name="build" value="Lichess-equivalent_numerical"> <code>Lichess-equivalent_numerical</code></label>
 <label class="rd" data-lv="special" hidden title="L2, kilitli pozisyon dedektörü olmadan" data-en-title="L2 without the blocked-position detector"><input type="radio" name="build" value="L2_noBlockedDetector"> <code>L2_noBlockedDetector</code></label>
-<label class="rd" data-lv="special" hidden title="Aynısı, harf dizgisi tahta ve ters indeksle" data-en-title="The same on a string board with flipped index order"><input type="radio" name="build" value="L2_string_flip_noBlockedDetector"> <code>L2_string_flip_noBlockedDetector</code></label>
-<label class="rd" data-lv="special" hidden title="1.023 baytlık tıklanabilir tahta — yalnızca legallik" data-en-title="A clickable board in 1,023 bytes — legality only"><input type="radio" name="build" value="DOM_1023"> <code>DOM_1023</code></label>
-<label class="rd" data-lv="special" hidden title="830 bayt; taşlar onaltılık rakamlarla, terfi metin alanından" data-en-title="830 bytes; pieces shown as hexadecimal digits, promotion typed into a text field"><input type="radio" name="build" value="DOM_minimum"> <code>DOM_minimum</code></label>
+<label class="rd str" data-lv="special" hidden title="Aynısı, harf dizgisi tahta ve ters indeksle" data-en-title="The same on a string board with flipped index order"><input type="radio" name="build" value="L2_string_flip_noBlockedDetector"> <code>L2_string_flip_noBlockedDetector</code></label>
+<label class="rd pk" data-lv="special" hidden title="1.023 baytlık tıklanabilir tahta — yalnızca legallik" data-en-title="A clickable board in 1,023 bytes — legality only"><input type="radio" name="build" value="DOM_1023"> <code>DOM_1023</code></label>
+<label class="rd pk" data-lv="special" hidden title="830 bayt; taşlar onaltılık rakamlarla, terfi metin alanından" data-en-title="830 bytes; pieces shown as hexadecimal digits, promotion typed into a text field"><input type="radio" name="build" value="DOM_minimum"> <code>DOM_minimum</code></label>
 <label class="rd" data-lv="special" hidden title="Tam hakem, zengin arayüz — sürükle bırak, sağ tıkla işaretleme, başlarken süre ve FEN seçimi — yapım aşamasında" data-en-title="Full arbiter with a rich interface — drag and drop, right-click marking, time control and FEN picked at the start — in progress"><input type="radio" name="build" value="LUX_inProgress"> <code>LUX_inProgress</code></label>
 <label class="rd bot" data-lv="special" hidden title="Oscar Toledo G.'nin satrancı, ES6 yeniden yazımı — bota karşı" data-en-title="Oscar Toledo G.'s chess in an ES6 rewrite — against its bot"><input type="radio" name="build" value="Toledos-ES6-optimized"> <code>Toledos-ES6-optimized</code></label>
 <label class="rd bot" data-lv="special" hidden title="Toledo'nun programına rakip olarak yazdığım bot, bu motorun üstünde" data-en-title="The bot I wrote as an opponent for Toledo's program, on this engine"><input type="radio" name="build" value="ToledosOpponentbyMe"> <code>ToledosOpponentbyMe</code></label>
@@ -4504,6 +4516,77 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     </div>
 
 
+    <h4 lang="tr">Üç ölçü, iki hak</h4>
+    <h4 lang="en">Three measures for two rights</h4>
+
+    <div class="prose" lang="tr">
+      <p>Geçerken alma ve rok için tekrar sayımında üç ayrı ölçü kullanılabiliyor, ve her biri aynı
+      tahtadan farklı bir pozisyon kümesi çıkarıyor. Tablonun üst satırı pozisyonları en çok
+      ayıran ölçü, alt satırı en az ayıran; ayrım arttıkça tekrar da o kadar geç geliyor.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>For en passant and for castling, the repetition count can use three different measures,
+      and each draws a different set of positions out of the same board. The top row of the table
+      is the measure that tells positions apart the most, the bottom row the one that tells them
+      apart the least; the more positions are told apart, the later a repetition arrives.</p>
+    </div>
+
+    <div class="tw" lang="tr"><table class="">
+<thead><tr><th>Ölçü</th><th>Geçerken alma</th><th>Rok</th></tr></thead>
+<tbody>
+<tr><td><b>Hak</b><span class="sub">iz</span></td><td>İki kare ilerleme yetiyor; alacak piyon olmasa da iz kalıyor</td><td>Kalıcı hak: şah ya da o kale oynamadıkça duruyor</td></tr>
+<tr><td><b>Pseudo-legal</b></td><td>Yanında alabilecek bir rakip piyon var; bağlı olup olmadığına bakılmıyor</td><td>Hak var ve şahla kale arasındaki kareler boş; dövülen karelere bakılmıyor</td></tr>
+<tr><td><b>Legal</b></td><td>Alma şu an gerçekten oynanabiliyor</td><td>Rok şu an oynanabiliyor: hak var, yol boş, şah dövülmüyor, geçtiği ve indiği kareler dövülmüyor</td></tr>
+<tr class="alt"><td>FIDE'nin seçtiği</td><td>Legal<span class="sub">9.2.3.1</span></td><td>Hak<span class="sub">9.2.3.2</span></td></tr>
+</tbody>
+</table></div>
+    <div class="tw" lang="en"><table class="">
+<thead><tr><th>Measure</th><th>En passant</th><th>Castling</th></tr></thead>
+<tbody>
+<tr><td><b>Right</b><span class="sub">trace</span></td><td>A two-square advance is enough; the trace stays even with no pawn to capture</td><td>The permanent right: it stands as long as the king and that rook have not moved</td></tr>
+<tr><td><b>Pseudo-legal</b></td><td>An enemy pawn stands alongside that could capture; whether it is pinned is not checked</td><td>The right exists and the squares between king and rook are empty; attacked squares are not checked</td></tr>
+<tr><td><b>Legal</b></td><td>The capture can genuinely be played now</td><td>Castling can be played now: the right exists, the path is empty, the king is not in check, and the squares it crosses and lands on are not attacked</td></tr>
+<tr class="alt"><td>FIDE's choice</td><td>Legal<span class="sub">9.2.3.1</span></td><td>Right<span class="sub">9.2.3.2</span></td></tr>
+</tbody>
+</table></div>
+
+    <div class="prose" lang="tr">
+      <p>FIDE iki hakkı iki ayrı satırdan ölçüyor, gerekçesi de yukarıda: geçerken almanın geçici
+      engeli yok, rokun var. FideLite da aynısını yapıyor — <code>e</code> yalnızca komşu bir piyon
+      gerçekten alabiliyorsa yazılıyor, <code>c</code> ise hakları tutuyor.</p>
+      <p>Uygulamalar geçerken almada bu satırlara dağılıyor. Chess.com alma karesini her iki kare
+      ilerlemede yazıyor — ilk satır; hamle zaten reddedildiği için bir şey bozuk görünmüyor, ama
+      tekrar anahtarı farklı çıkıyor. Bazı yorumlar ikinci satırı, pseudo-legal ölçüyü kullanıyor.
+      <a href="https://github.com/lichess-org/scalachess" target="_blank" rel="noopener">Lichess</a>'in pozisyon anahtarı ise kareyi
+      ancak legallik süzgecinden geçtikten sonra alıyor — üçüncü satır, FIDE'nin ölçüsü.</p>
+      <p>Bence rok da üçüncü satırdan ölçülmeli, ve bu üzerine düşünülmeye değer. Legal ölçüyle
+      aynı sayılan iki pozisyonun legal hamle listesi birebir aynı oluyor; 9.2.3'ün “bütün
+      taşların mümkün hamleleri aynı” şartını doğrudan karşılayan ölçü bu. Öbür iki ölçü bu kadar
+      isabetli değil: hamle listesi aynı olan pozisyonları ayrı sayabiliyorlar. Rok da legal
+      sayılırsa iki hak aynı satırda buluşuyor ve pozisyonun kimliği daha kesin tanımlanıyor.
+      <a href="#hybrid">Önerilen karma sistem</a> bunu böyle uyguluyor.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>FIDE measures the two rights on two different rows, and the reason is above: en passant
+      has no temporary prevention, castling does. FideLite does the same — <code>e</code> is
+      written only if a neighbouring pawn can genuinely capture, while <code>c</code> holds the
+      rights.</p>
+      <p>Implementations spread across these rows for en passant. Chess.com writes the square after
+      every two-square advance — the first row; nothing looks broken, because the capture is refused
+      anyway, but the repetition key comes out different. Some interpretations use the second row,
+      the pseudo-legal measure. <a href="https://github.com/lichess-org/scalachess" target="_blank" rel="noopener">Lichess</a>'s position
+      key, by contrast, takes the square only after it has passed the legality filter — the third
+      row, FIDE's measure.</p>
+      <p>I think castling should be measured on the third row too, and that this deserves thought.
+      Under the legal measure, two positions that count as the same have exactly the same list of
+      legal moves; it is the measure that meets 9.2.3's condition — “the possible moves of all the
+      pieces are the same” — directly. The other two are not as precise: they can count apart
+      positions whose move lists are identical. With castling measured by legality as well, both
+      rights meet on the same row and a position's identity is defined more exactly. The
+      <a href="#hybrid">proposed hybrid</a> applies it that way.</p>
+    </div>
+
+
 <h4 lang="tr">Sayaç neden en dışta duruyor</h4>
     <h4 lang="en">Why the counter is the outermost net</h4>
     <div class="prose" lang="tr">
@@ -4561,8 +4644,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Tekrar, kitabın tahta dışında durum saklamayı gerektiren ilk maddesi. Pozisyonu tanımlayan şey yalnızca taşların yeri değil: sıra, rok hakları ve geçerken alma imkânı da o tanımın parçası. Bunlardan birini yanlış saymak, sayacı sessizce bozar.</p>
     <p class="cost" lang="en"><b>What it costs to apply.</b> Repetition is the first article in the book that requires keeping state beyond the board. What defines a position is not only where the pieces stand: the side to move, the castling rights and the availability of an en passant capture are all part of the definition. Get one of them wrong and the counter fails silently.</p>
 
-    <h3 lang="tr">7. İddia ve anlaşma — 9.1 · 9.2 · 9.3 · 9.5</h3>
-    <h3 lang="en">7. Claims and agreement — 9.1 · 9.2 · 9.3 · 9.5</h3>
+    <h3 id="claims" lang="tr">7. İddia ve anlaşma — 9.1 · 9.2 · 9.3 · 9.5</h3>
+    <h3 lang="en" data-id="claims">7. Claims and agreement — 9.1 · 9.2 · 9.3 · 9.5</h3>
 
     <ul class="tight" lang="tr">
       <li><b>Mevcut durumu iddia.</b> Eşik tahtada zaten dolmuşsa, hamle yapılmadan talep edilir.</li>
@@ -4727,31 +4810,113 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     <h3 lang="en" data-id="federations">9. Federation differences: FIDE, USCF and the platforms</h3>
 
     <div class="prose" lang="tr">
-      <p>Oyunun nasıl bitebileceği federasyona göre kayda değer biçimde değişiyor. USCF'de terk her
-      zaman kayıptır, materyale bakılmaz. Kendiliğinden gelen beraberlik diye bir şey yoktur:
-      75 hamle ve 5'li tekrar sonuç doğurmaz; beraberlik yalnızca 50 hamle ya da 3'lü tekrar iddia
-      edilirse verilir.</p>
-      <p>Asıl fark bayrak düşmesiyle materyalin karşılaştığı yerde. FIDE'nin sorduğu soru,
-      <a href="#flag">beşinci bölümde</a> görüldüğü gibi, matın <em>kurulabilir</em> olup
-      olmadığı — kaybeden taraf yardım etse bile. USCF ise bunu bir arama olarak değil,
-      <b>sabit bir materyal listesi</b> olarak çözüyor: çıplak şah, şah ve fil, şah ve at, ve
-      rakipte piyon yokken şah ve iki at. Listenin gerekçesi “zorlama mat yok”tur, ama uygulanan
-      test liste. Yani iki federasyon da bakarak karar veriyor; fark, FIDE'nin listesinin daha dar
-      ve pozisyona duyarlı olması.</p>
+      <p>Hamle kuralları, taşların hareketi, mat ve pat iki federasyonda birebir aynı. Ayrışma
+      tahtanın dışında başlıyor — saatte, terkte, beraberlik iddiasında. İki kitap aynı oyunu
+      yönetiyor; oyuncunun, saatin ve hakemin oyuna karıştığı yerleri farklı okuyor.</p>
     </div>
     <div class="prose" lang="en">
-      <p>How a game may end varies considerably by federation. Under USCF rules resignation is always a
-      loss, whatever the material. There is no such thing as an automatic draw: 75 moves and fivefold
-      repetition produce no result; a draw is awarded only if the 50-move rule or threefold
-      repetition is claimed.</p>
-      <p>The real difference appears where flag fall meets material. FIDE’s question, as
-      <a href="#flag">section five</a> showed, is whether mate can be <em>constructed</em> — even
-      with the losing side helping. USCF settles it not by a search but by a <b>fixed material
-      list</b>: a lone king, king and bishop, king and knight, and king and two knights when the
-      opponent has no pawn. The reasoning behind the list is “no forced mate”, but the test applied
-      is the list. So both federations decide by looking; the difference is that FIDE’s list is
-      narrower and sensitive to the position.</p>
+      <p>Move rules, how the pieces travel, checkmate and stalemate are identical in both
+      federations. The divergence begins off the board — at the clock, at resignation, at the draw
+      claim. The two books run the same game and read differently the places where the player, the
+      clock and the arbiter step into it.</p>
     </div>
+
+    <h4 lang="tr">Usul farkları</h4>
+    <h4 lang="en">Procedural differences</h4>
+
+    <ul class="tight" lang="tr">
+      <li><b>50 hamle ve 3'lü tekrar — ortak.</b> İki kitapta da oyun kendiliğinden bitmiyor; beraberlik için oyunculardan birinin iddia etmesi gerekiyor.</li>
+      <li><b>75 hamle ve 5'li tekrar — yalnızca FIDE.</b> FIDE 9.6 iddia beklemeden oyunu bitiriyor. USCF'de böyle bir tavan yok: kimse iddia etmezse oyun sürüyor.</li>
+      <li><b>Terk.</b> USCF'de terk her zaman kayıp, materyale bakılmıyor. FIDE'de 2023'ten beri 5.1.2 gereği, rakip hiçbir yasal hamle dizisiyle mat edemiyorsa terk beraberliğe dönüyor.</li>
+      <li><b>Ölü pozisyon — ortak.</b> FIDE 5.2.2 ile USCF 14D aynı ilkeyi koyuyor: iki taraf için de mat imkânı kalmadıysa oyun o an biter, kilitli pozisyonlar dahil.</li>
+    </ul>
+    <ul class="tight" lang="en">
+      <li><b>50 moves and threefold repetition — shared.</b> In neither book does the game end by itself; a draw needs one of the players to claim it.</li>
+      <li><b>75 moves and fivefold repetition — FIDE only.</b> FIDE 9.6 ends the game without waiting for a claim. USCF has no such ceiling: if nobody claims, play goes on.</li>
+      <li><b>Resignation.</b> Under USCF a resignation is always a loss, whatever the material. Under FIDE, since 2023, 5.1.2 turns it into a draw if the opponent cannot mate by any series of legal moves.</li>
+      <li><b>Dead position — shared.</b> FIDE 5.2.2 and USCF 14D lay down the same principle: once neither side can mate, the game ends at that moment, blocked positions included.</li>
+    </ul>
+
+    <h4 lang="tr">Asıl ayrım: yardımlı mat ve zorlamalı mat</h4>
+    <h4 lang="en">The main divide: helpmate and forced mate</h4>
+
+    <div class="prose" lang="tr">
+      <p>Bayrak düştüğünde iki kitap da aynı soruyu soruyor — rakip bu oyuncuyu mat edebilir mi —
+      ama “edebilir”i farklı okuyor. İkisi de pozisyona bakıyor, ikisi de bir arama gerektiriyor;
+      ayrıldıkları yer, aramanın neyi aradığı.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>When a flag falls both books ask the same question — can the opponent mate this player —
+      but they read “can” differently. Both look at the position and both need a search; where they
+      part is in what the search is looking for.</p>
+    </div>
+
+    <ul class="tight" lang="tr">
+      <li><b>FIDE: yardımlı mat — 6.9.</b> Kaybeden tarafın en kötü hamleleri oynadığı, kendi şahının kaçış karelerini kendi taşlarıyla kapattığı bir dizi yetiyor. Soru “mat kurulabilir mi”. Zor hâlleri <a href="#flag">beşinci bölümde</a>.</li>
+      <li><b>USCF: zorlamalı mat — 14E.</b> Rakipte yalnızca çıplak şah, tek at, tek fil ya da — süresi bitenin piyonu yokken — iki at kaldıysa, oyuncu süreden kaybetmiyor; rakibin zorlamalı bir matı yoksa. Soru “mat karşı tarafa kabul ettirilebilir mi”. Liste nereye bakılacağını söylüyor; istisnayı görmek için pozisyonun kendisine bakmak gerekiyor.</li>
+    </ul>
+    <ul class="tight" lang="en">
+      <li><b>FIDE: helpmate — 6.9.</b> A line in which the losing side plays the worst moves available, walling in its own king with its own pieces, is enough. The question is “can a mate be built”. Its hard cases are in <a href="#flag">section five</a>.</li>
+      <li><b>USCF: forced mate — 14E.</b> If the opponent is left with only a bare king, a lone knight, a lone bishop or — when the player out of time has no pawn — two knights, the player does not lose on time; unless the opponent has a forced mate. The question is “can the mate be imposed on the other side”. The list says where to look; seeing the exception takes a look at the position itself.</li>
+    </ul>
+
+    <div class="prose" lang="tr">
+      <p><b>Zorlamalı matı aramak sanıldığından hafif.</b> Zorlamalı mat ya vardır ya yoktur;
+      kurala bir derinlik ya da eşik yazmaya gerek yok. Bu sınıflarda saldıran tarafın elinde bir
+      ya da iki hafif taş var, savunan tarafın tek bir kurtaran hamlesi bütün bir dalı kapatmaya
+      yetiyor, ve ağaç çok küçük kalıyor. Mat varsa kısa — pratikte beş hamle civarını geçmiyor.
+      Teorik sınır daha uzun olabilir, ama bugünün makineleri onu da zorlanmadan buluyor.</p>
+      <p>İki kitabın beraberlikleri iç içe de değil. Materyal tarafında USCF daha cömert: süresi
+      bitenin elinde yalnızca şahı kaldıysa ve rakipte iki at varsa FIDE kazanç verir, çünkü yardımlı mat
+      kurulabilir; USCF beraberlik verir, çünkü mat zorlanamaz. Pozisyon tarafında tersi
+      olabiliyor: <a href="#flag">beşinci bölümdeki</a> zorunlu karşı mat örneğinde süresi bitenin
+      tek hamlesi rakibini mat ediyor, yani rakip onu hiçbir diziyle mat edemez ve FIDE beraberlik
+      verir; USCF'de ise rakibin elinde vezir olduğu için liste devreye girmez ve süresi biten
+      kaybeder.</p>
+      <p>Aşağıdaki tabloda “kazanç”, süresi bitmeyen tarafın kazancı.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p><b>Searching for a forced mate is lighter than it sounds.</b> A forced mate either
+      exists or it does not; there is no need to write a depth or a threshold into the rule. In
+      these classes the attacking side holds one or two minor pieces, a single saving reply by the
+      defender is enough to close a whole branch, and the tree stays very small. If a mate exists
+      it is short — in practice no more than about five moves. The theoretical bound can be
+      longer, but today's machines find that too without strain.</p>
+      <p>Nor do the two books' draws nest inside each other. On material USCF is the more generous:
+      with the player out of time down to a bare king and two knights on the other side, FIDE awards
+      the win, because a helpmate can be built, and USCF the draw, because the mate cannot be
+      forced. On position it can run the other way: in the forced mate the other way in
+      <a href="#flag">section five</a>, the only move of the player out of time mates the opponent,
+      so the opponent cannot mate them by any series and FIDE awards the draw; under USCF the
+      opponent holds a queen, so the list never applies and the player out of time loses.</p>
+      <p>In the table below, “win” means a win for the side whose clock is still running.</p>
+    </div>
+
+    <div class="tw" lang="tr"><table class="">
+<thead><tr><th>Süresi biten · rakip</th><th>FIDE</th><th>USCF</th></tr></thead>
+<tbody>
+<tr><td>K+R · K+N</td><td>Kazanç<span class="sub">yardımlı mat kurulabiliyor</span></td><td>Beraberlik<span class="sub">zorlamalı mat yoksa</span></td></tr>
+<tr><td>K+B · K+B zıt renk</td><td>Kazanç<span class="sub">yardımlı mat kurulabiliyor</span></td><td>Beraberlik<span class="sub">zorlamalı mat yoksa</span></td></tr>
+<tr><td>K+Q · K+N</td><td>Beraberlik<span class="sub">mat kurulamıyor</span></td><td>Beraberlik</td></tr>
+<tr><td>K · K+N+N</td><td>Kazanç<span class="sub">yardımlı mat kurulabiliyor</span></td><td>Beraberlik<span class="sub">iki at matı zorlayamıyor</span></td></tr>
+<tr><td>K+P · K+N+N</td><td>Kazanç</td><td>Kazanç<span class="sub">süresi bitenin piyonu var</span></td></tr>
+<tr><td>Zorunlu karşı mat<span class="sub">5. bölüm</span></td><td>Beraberlik<span class="sub">rakip hiçbir diziyle mat edemiyor</span></td><td>Kazanç<span class="sub">rakipte vezir var</span></td></tr>
+</tbody>
+</table></div>
+    <div class="tw" lang="en"><table class="">
+<thead><tr><th>Out of time · opponent</th><th>FIDE</th><th>USCF</th></tr></thead>
+<tbody>
+<tr><td>K+R · K+N</td><td>Win<span class="sub">a helpmate can be built</span></td><td>Draw<span class="sub">unless a forced mate exists</span></td></tr>
+<tr><td>K+B · K+B opposite colour</td><td>Win<span class="sub">a helpmate can be built</span></td><td>Draw<span class="sub">unless a forced mate exists</span></td></tr>
+<tr><td>K+Q · K+N</td><td>Draw<span class="sub">no mate can be built</span></td><td>Draw</td></tr>
+<tr><td>K · K+N+N</td><td>Win<span class="sub">a helpmate can be built</span></td><td>Draw<span class="sub">two knights cannot force it</span></td></tr>
+<tr><td>K+P · K+N+N</td><td>Win</td><td>Win<span class="sub">the player out of time has a pawn</span></td></tr>
+<tr><td>Forced mate the other way<span class="sub">section 5</span></td><td>Draw<span class="sub">the opponent can mate by no series</span></td><td>Win<span class="sub">the opponent holds a queen</span></td></tr>
+</tbody>
+</table></div>
+
+    <h4 lang="tr">Platformlar</h4>
+    <h4 lang="en">The platforms</h4>
 
         <div class="sidefig" lang="tr">
       <figure class="fig">
@@ -4833,6 +4998,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       metni</a> ise bunun tersini söylüyor — rakibinde yalnız şah ve iki at varken süreniz biterse
       beraberlik değil mağlubiyet alıyorsunuz, gerekçe de matın zorlanamasa bile mümkün olması.
       Yani platform bu tek maddede FIDE'nin mantığına geçmiş durumda.</p>
+      <p>İki platformun davranışını izleyen eşdeğer sürümler <a href="#special">Özel sürümler</a>
+      sekmesinde; aynı pozisyonu FideLite'la ve onlarla yan yana oynamak mümkün.</p>
       <p>Buradaki tercih bir başkası: <b>tek kitap, tek ölçü.</b> Karşılaştırma yapılabilsin diye,
       hangi maddenin nereden geldiği hep görünür kalsın diye.</p>
     </div>
@@ -4843,8 +5010,96 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       page</a> says the opposite — if your opponent has only a king and two knights and you run out
       of time, you take a loss rather than a draw, on the grounds that mate is possible even though it
       cannot be forced. On that one article the platform has moved to FIDE’s logic.</p>
+      <p>Equivalents that follow both platforms' behaviour are on the <a href="#special">Special
+      builds</a> tab, so the same position can be played side by side in FideLite and in them.</p>
       <p>The choice here is a different one: <b>one book, one measure.</b> So that comparison is
       possible, and so that where each article comes from stays visible.</p>
+    </div>
+
+    <h3 id="hybrid" lang="tr">10. Önerilen karma sistem</h3>
+    <h3 lang="en" data-id="hybrid">10. A proposed hybrid ruleset</h3>
+
+    <div class="prose" lang="tr">
+      <p>Dijital bir platformda iki kitaptan birini olduğu gibi uygulamak her zaman en iyi sonucu
+      vermiyor. FIDE'nin yardımlı mat ölçütü, matı hiçbir zaman zorlayamayacak tarafa kazanç
+      verebiliyor: kaleye karşı tek atla, yalnızca rakibin bayrağı düştü diye. USCF'de 75 hamle ve
+      5'li tekrar tavanı olmadığı için, kimse iddia etmezse bir oyun sunucuda sonsuza dek
+      sürebiliyor.</p>
+      <p>Aşağıdaki karma sistem iki kitabın en adil görünen parçalarını birleştiriyor. Bu bir
+      öneri: FideLite'ın kendisi FIDE'yi uyguluyor, ve bu sekmedeki her şey o kitaba göre yazıldı.
+      Chess.com'un bazı maddelerde yaptığı karmadan farkı da burada: hangi maddenin hangi
+      kitaptan geldiği tabloda açıkça duruyor.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>On a digital platform, applying either book as it stands does not always give the best
+      outcome. FIDE's helpmate criterion can hand the win to a side that could never force the
+      mate: a lone knight against a rook, only because the opponent's flag fell. USCF has no
+      75-move or fivefold ceiling, so if nobody claims, a game can run on a server forever.</p>
+      <p>The hybrid below combines what looks fairest in each book. It is a proposal: FideLite
+      itself applies FIDE, and everything on this tab is written to that book. That is also where
+      it differs from the blend Chess.com applies on some articles: which article comes from
+      which book is stated openly in the table.</p>
+    </div>
+
+    <ul class="tight" lang="tr">
+      <li><b>50 hamle ve 3'lü tekrar iddiası — kapalı.</b> Oyuncular bu eşiklerde iddiayla oyunu bitiremiyor; anlaşmalı beraberlik açık kalıyor. Teknik oyun sonlarında üstün taraf matı zorlama hakkını koruyor, iddia mekanizması da suistimal edilemiyor. Yan etkisi: <a href="#claims">yedinci bölümdeki</a> iddia penceresi sorunu — premove'un kapattığı pencere — kökünden kalkıyor.</li>
+      <li><b>75 hamle ve 5'li tekrar — açık.</b> Sayaç 75 hamleye ulaştığında ya da pozisyon beşinci kez doğduğunda oyun kendiliğinden berabere biter. FIDE'nin tavanı; oyunun <a href="#counters">sonlu kalmasını</a> garanti eden en dış ağ bu.</li>
+      <li><b>Ölü pozisyon — hemen biter.</b> 5.2.2'deki gibi, kilitli pozisyonlar dahil.</li>
+      <li><b>Tekrar kimliği — geçerken alma da rok da legal ölçüyle.</b> Geçerken alma FIDE'deki gibi sayılıyor. Rok ise iki kitaptan da ayrılıyor: kalıcı hak değil, o an oynanabilir olması sayılıyor; iki taraf için de aynı soru soruluyor — sıra o tarafta olsaydı rok şu an oynanabilir miydi. Bu ölçüyle aynı sayılan iki pozisyonun legal hamle listesi birebir aynı oluyor, ki 9.2.3'ün “mümkün hamleler aynı olmalı” şartının doğrudan karşılığı bu. Hak ve pseudo-legal ölçüler bu kadar isabetli değil: hamle listesi aynı olan pozisyonları ayrı sayabiliyorlar. İki hak da böylece <a href="#counters">aynı satırdan</a> ölçülüyor.</li>
+      <li><b>Bayrak düşmesi — zorlamalı mat.</b> USCF'deki gibi: rakipte yalnızca çıplak şah, tek at, tek renk karelerde fil ya da filler, ya da — süresi bitenin piyonu yokken — iki at kaldıysa ve zorlamalı mat yoksa, sonuç yetersiz materyalden beraberlik. Süresi bitenin piyonu varsa iki at kazanıyor. Tek fark fil sınıfının genişliği: USCF'nin metni tek bir fil sayıyor, karma sistem terfiyle gelenler dahil tek renkteki bütün filleri aynı sınıfa koyuyor.</li>
+      <li><b>Terk — bayrak düşmesiyle aynı test.</b> Rakip aynı sınıftaysa ve zorlamalı mat yoksa, terk eden kaybetmiyor. USCF'de terk her zaman kayıp, FIDE'de yardımlı mat ölçüsü geçerli; karma sistem terki bayrakla aynı ölçüye bağlıyor.</li>
+    </ul>
+    <ul class="tight" lang="en">
+      <li><b>50-move and threefold claim — off.</b> Players cannot end the game by claiming at these thresholds; draw by agreement stays open. In technical endgames the stronger side keeps its right to force the mate, and the claim mechanism cannot be abused. A side effect: the claim-window problem of <a href="#claims">section seven</a> — the window a premove closes — disappears at the root.</li>
+      <li><b>75 moves and fivefold repetition — on.</b> When the counter reaches 75 moves or the position arises for the fifth time, the game ends in a draw by itself. This is FIDE's ceiling, the outermost net that <a href="#counters">keeps the game finite</a>.</li>
+      <li><b>Dead position — ends at once.</b> As in 5.2.2, blocked positions included.</li>
+      <li><b>Identity for repetition — en passant and castling both by the legal measure.</b> En passant is counted as under FIDE. Castling departs from both books: what counts is not the permanent right but whether castling can be played at that moment; the same question is asked for both sides — had it been that side's turn, could it castle right now. Two positions that count as the same under this measure have exactly the same list of legal moves, which is the direct counterpart of 9.2.3's condition that the possible moves be the same. The right and pseudo-legal measures are not as precise: they can count apart positions whose move lists are identical. Both rights are thereby measured <a href="#counters">on the same row</a>.</li>
+      <li><b>Flag fall — forced mate.</b> As under USCF: if the opponent is left with only a bare king, a lone knight, bishops on squares of one colour, or — when the player out of time has no pawn — two knights, and there is no forced mate, the result is a draw by insufficient material. If the player out of time has a pawn, the two knights win. The one difference is the width of the bishop class: USCF's text counts a single bishop, the hybrid puts every bishop of one colour, promoted ones included, in the same class.</li>
+      <li><b>Resignation — the same test as a flag fall.</b> If the opponent falls in the same class and there is no forced mate, the player who resigns does not lose. Under USCF a resignation is always a loss, under FIDE the helpmate measure applies; the hybrid ties resignation to the same measure as the flag.</li>
+    </ul>
+
+    <div class="tw" lang="tr"><table class="">
+<thead><tr><th>Parametre</th><th>FIDE</th><th>USCF</th><th>Karma</th></tr></thead>
+<tbody>
+<tr><td>50 hamle · 3'lü tekrar iddiası</td><td>Açık</td><td>Açık</td><td><b>Kapalı</b></td></tr>
+<tr><td>75 hamle · 5'li tekrar tavanı</td><td>Açık</td><td>Yok</td><td>Açık</td></tr>
+<tr><td>Anlaşmalı beraberlik</td><td>Açık</td><td>Açık</td><td>Açık</td></tr>
+<tr><td>Ölü pozisyon</td><td>Hemen biter</td><td>Hemen biter</td><td>Hemen biter</td></tr>
+<tr><td>Tekrarda geçerken alma</td><td>Legal</td><td>Legal</td><td>Legal</td></tr>
+<tr><td>Tekrarda rok</td><td>Hak</td><td>Hak</td><td><b>Legal</b></td></tr>
+<tr><td>Bayrak düşmesinde ölçüt</td><td>Yardımlı mat</td><td>Zorlamalı mat</td><td>Zorlamalı mat</td></tr>
+<tr><td>Yetersiz sayılan filler</td><td><span class="none">—</span><span class="sub">pozisyona bakılır</span></td><td>Tek fil</td><td>Tek renkteki bütün filler</td></tr>
+<tr><td>İki at, süresi bitenin piyonu varken</td><td>Kazanç</td><td>Kazanç</td><td>Kazanç</td></tr>
+<tr><td>İki at, piyonsuz tarafa karşı</td><td>Kazanç<span class="sub">yardımlı mat varsa</span></td><td>Beraberlik<span class="sub">zorlamalı mat yoksa</span></td><td>Beraberlik<span class="sub">zorlamalı mat yoksa</span></td></tr>
+<tr><td>Terk</td><td>Rakip mat edemiyorsa beraberlik<span class="sub">yardımlı mat ölçüsü</span></td><td>Her zaman kayıp</td><td>Bayrakla aynı test</td></tr>
+</tbody>
+</table></div>
+    <div class="tw" lang="en"><table class="">
+<thead><tr><th>Parameter</th><th>FIDE</th><th>USCF</th><th>Hybrid</th></tr></thead>
+<tbody>
+<tr><td>50-move · threefold claim</td><td>On</td><td>On</td><td><b>Off</b></td></tr>
+<tr><td>75-move · fivefold ceiling</td><td>On</td><td>None</td><td>On</td></tr>
+<tr><td>Draw by agreement</td><td>On</td><td>On</td><td>On</td></tr>
+<tr><td>Dead position</td><td>Ends at once</td><td>Ends at once</td><td>Ends at once</td></tr>
+<tr><td>En passant in repetition</td><td>Legal</td><td>Legal</td><td>Legal</td></tr>
+<tr><td>Castling in repetition</td><td>Right</td><td>Right</td><td><b>Legal</b></td></tr>
+<tr><td>Criterion at flag fall</td><td>Helpmate</td><td>Forced mate</td><td>Forced mate</td></tr>
+<tr><td>Bishops counted as insufficient</td><td><span class="none">—</span><span class="sub">the position decides</span></td><td>A single bishop</td><td>Every bishop of one colour</td></tr>
+<tr><td>Two knights, player out of time has a pawn</td><td>Win</td><td>Win</td><td>Win</td></tr>
+<tr><td>Two knights against a pawnless side</td><td>Win<span class="sub">if a helpmate exists</span></td><td>Draw<span class="sub">unless a forced mate exists</span></td><td>Draw<span class="sub">unless a forced mate exists</span></td></tr>
+<tr><td>Resignation</td><td>Draw if the opponent cannot mate<span class="sub">helpmate measure</span></td><td>Always a loss</td><td>Same test as the flag</td></tr>
+</tbody>
+</table></div>
+
+    <div class="prose" lang="tr">
+      <p>Uygulama tarafında bir not: zorlamalı mat araması bayrak düşmeyi beklemek zorunda değil.
+      Hafif taşlı her pozisyonda arka planda koşabilir; bayrak düştüğünde sonuç hazırdır ve
+      oyuncular için bekleme olmaz.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>One note on the implementation side: the forced-mate search does not have to wait for the
+      flag. It can run in the background in every minor-piece position, so the result is ready when
+      the flag falls and the players never wait for it.</p>
     </div>
 
     </div>
