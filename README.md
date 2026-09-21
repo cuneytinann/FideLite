@@ -71,12 +71,15 @@ Everything below is on the site, in English and Turkish.
 | Resignation and flag fall — 5.1.2 and 6.9 | [/#flag](https://www.fidelite.art/#flag) |
 | The builds, and how to play them | [/#builds](https://www.fidelite.art/#builds) |
 | The fifteen result codes | [/#codes](https://www.fidelite.art/#codes) |
+| Special builds — platform equivalents, experimental interfaces, Toledo | [/#special](https://www.fidelite.art/#special) |
 | Engine structure, board representation, driver API | [/#engine](https://www.fidelite.art/#engine) |
 | Line-by-line source analysis | [/#flow](https://www.fidelite.art/#flow) |
+| The pipeline of endings — which result wins when two coincide | [/#endings](https://www.fidelite.art/#endings) |
 | Perft tests, and running them yourself | [/#tests](https://www.fidelite.art/#tests) |
-| `engine_4x` and the speed measurements | [/#speed](https://www.fidelite.art/#speed) |
 | Architectures tried and eliminated | [/#alternatives](https://www.fidelite.art/#alternatives) |
 | The previous generation — the letter board | [/#letters](https://www.fidelite.art/#letters) |
+| `engine_4x` and the speed measurements | [/#speed](https://www.fidelite.art/#speed) |
+| The driver's three parsers — click, UCI, numeric | [/#parsing](https://www.fidelite.art/#parsing) |
 | Packing, RegPack, obsolete techniques | [/#packing](https://www.fidelite.art/#packing) |
 | Pitfalls and fragile spots | [/#pitfalls](https://www.fidelite.art/#pitfalls) |
 
@@ -127,7 +130,7 @@ olup olmadığına ve oyunun bitip bitmediğine karar vermektir. Değerlendirme 
 açılış kitabı yok — bu bir bot motoru değil, hakem motoru.
 
 Rok, geçerken alma, seçimli terfi, pat, ölü pozisyon, üçlü ve beşli tekrar, 50 ve 75 hamle,
-anlaşmalı beraberlik, iddia, süre ve terk eksiksiz uygulanır, ve motor
+anlaşmalı beraberlik, iddia, süre ve terk eksiksiz uygulanır ve motor
 [on beş sonuçtan](https://www.fidelite.art/tr#codes) hangisi geldiyse onu adıyla bildirir.
 
 Kısmi kalan tek madde **5.2.2'nin kilitli pozisyon hâli** — materyalin yeterli olduğu ama matın
@@ -136,7 +139,7 @@ kilitli olup olmadığına karar veriyor; ölçülen kapsama **%93**. Yön de sa
 ölü dediği her pozisyon gerçekten ölüdür, tanımadığını oynatmaya devam eder.
 
 Kalanı kapatan bir genişletme tasarlandı ve ölçüldü. **782 bayt daha** tutuyor, yani bayt başına
-getiri yirmi üç kat düşüyor; hızı da aşağı çekiyor, ve fil soruyu üçüncü bir bilinmeyene
+getiri yirmi üç kat düşüyor; hızı da aşağı çekiyor ve fil soruyu üçüncü bir bilinmeyene
 dönüştürdüğü için motorun tek ispatlı özelliğini riske atıyor. Askıda, kaybolmuş değil.
 [Ayrıntılı gerekçe sitede.](https://www.fidelite.art/tr#dead)
 
@@ -144,7 +147,7 @@ dönüştürdüğü için motorun tek ispatlı özelliğini riske atıyor. Askı
 
 Miguel Ambrona'nın CHA-Solver'ı Lichess açık veritabanını baştan sona tarayıp **201.060** haksız
 sonuçlanmış oyun saydı. Bu motor onların **197.493'ünü** doğru karara
-bağlıyor. Kaçırdığı 3.567 oyunun tamamı kilitli pozisyon, ve neredeyse hepsinde tahtada bir fil
+bağlıyor. Kaçırdığı 3.567 oyunun tamamı kilitli pozisyon ve neredeyse hepsinde tahtada bir fil
 var.
 
 Fark tek cümleye sığıyor: **platformlar bayrak düştüğü andaki tahtaya bakıyor, kitap ise o tahtanın
@@ -181,12 +184,15 @@ Aşağıdakilerin hepsi sitede, Türkçe ve İngilizce.
 | Terk ve süre bitimi — 5.1.2 ve 6.9 | [/tr#flag](https://www.fidelite.art/tr#flag) |
 | Varyantlar ve oynanış | [/tr#builds](https://www.fidelite.art/tr#builds) |
 | On beş sonuç kodu | [/tr#codes](https://www.fidelite.art/tr#codes) |
+| Özel sürümler — platform eşdeğerleri, deneysel arayüzler, Toledo | [/tr#special](https://www.fidelite.art/tr#special) |
 | Motorun yapısı, tahta temsili, sürücü API'si | [/tr#engine](https://www.fidelite.art/tr#engine) |
 | Satır satır kaynak çözümlemesi | [/tr#flow](https://www.fidelite.art/tr#flow) |
+| Bitişin boru hattı — iki sonuç çakışınca hangisi kazanır | [/tr#endings](https://www.fidelite.art/tr#endings) |
 | Perft testleri ve testleri kendiniz koşmak | [/tr#tests](https://www.fidelite.art/tr#tests) |
-| `engine_4x` ve hız ölçümleri | [/tr#speed](https://www.fidelite.art/tr#speed) |
 | Denenip elenen mimariler | [/tr#alternatives](https://www.fidelite.art/tr#alternatives) |
 | Önceki nesil — harf tahtası | [/tr#letters](https://www.fidelite.art/tr#letters) |
+| `engine_4x` ve hız ölçümleri | [/tr#speed](https://www.fidelite.art/tr#speed) |
+| Sürücünün üç ayrıştırıcısı — tıklama, UCI, sayısal | [/tr#parsing](https://www.fidelite.art/tr#parsing) |
 | Paketleme, RegPack, eskimiş teknikler | [/tr#packing](https://www.fidelite.art/tr#packing) |
 | Tuzaklar ve kırılgan yerler | [/tr#pitfalls](https://www.fidelite.art/tr#pitfalls) |
 
