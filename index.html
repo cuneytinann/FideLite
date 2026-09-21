@@ -75,6 +75,14 @@ if (FLOLD[location.hash.slice(1)]) {
   --dl-tx:    light-dark(#1a3970,              #a8c6ee);
   --dl-edge:  light-dark(rgba(35,74,143,.38),  rgba(168,198,238,.34));
   --dl-hover: light-dark(#d3e2f7,              #27374f);
+  /* oynatici dugmeleri: Kapat tuglanin kisik kirmizisi, indirmeler mavi,
+     paketli olan bir ton koyu. Oyna yesili --live'dan geliyor. */
+  --halt:     light-dark(#9b2c22,  #e0806f);
+  --on-halt:  light-dark(#fff,     #2a0d08);
+  --dl1:      light-dark(#2a64ad,  #7fb0ea);
+  --on-dl1:   light-dark(#fff,     #0b1a2c);
+  --dl2:      light-dark(#173a6a,  #3a6aa6);
+  --on-dl2:   light-dark(#fff,     #fff);
 
   /* tahta: iki kare rengi ve uzerlerindeki metin */
   --lt:      light-dark(#ccbb88,  #a8916b);
@@ -170,7 +178,8 @@ if (FLOLD[location.hash.slice(1)]) {
   :root {
     --paper:#faf4e4; --panel:#f2ead6; --ink:#0f1626; --ink-2:#2c384c; --ink-3:#465268;
     --head:#1a3970; --dl-bg:#e6eefa; --dl-tx:#1a3970;
-    --dl-edge:rgba(35,74,143,.38); --dl-hover:#d3e2f7; --lt:#ccbb88;
+    --dl-edge:rgba(35,74,143,.38); --dl-hover:#d3e2f7;
+    --halt:#9b2c22; --on-halt:#fff; --dl1:#2a64ad; --on-dl1:#fff; --dl2:#173a6a; --on-dl2:#fff; --lt:#ccbb88;
     --dk:#885544; --on-lt:#2a1d12; --on-dk:#f2e6d8; --acc:#c99111; --acc-tx:#7e5a05;
     --acc-wash:rgba(201,145,17,.11); --acc-tint:rgba(201,145,17,.17);
     --acc-edge:rgba(201,145,17,.46); --acc-hover:rgba(201,145,17,.17);--x:#b3261e; --link:#8f1d13;
@@ -188,7 +197,8 @@ if (FLOLD[location.hash.slice(1)]) {
     :root:not([data-theme="light"]) {
       --paper:#14100e; --panel:#1c1714; --ink:#ece3d8; --ink-2:#b9ab9c; --ink-3:#8e8175;
       --head:#9fbfe8; --dl-bg:#1e2b45; --dl-tx:#a8c6ee;
-      --dl-edge:rgba(168,198,238,.34); --dl-hover:#27374f; --lt:#a8916b; --dk:#6b4433; --on-lt:#221a12; --on-dk:#f6ede2; --acc:#e3ad35;
+      --dl-edge:rgba(168,198,238,.34); --dl-hover:#27374f;
+      --halt:#e0806f; --on-halt:#2a0d08; --dl1:#7fb0ea; --on-dl1:#0b1a2c; --dl2:#3a6aa6; --on-dl2:#fff; --lt:#a8916b; --dk:#6b4433; --on-lt:#221a12; --on-dk:#f6ede2; --acc:#e3ad35;
       --acc-tx:#e8b641; --acc-wash:rgba(227,173,53,.10); --acc-tint:rgba(227,173,53,.14);
       --acc-edge:rgba(227,173,53,.42); --acc-hover:rgba(227,173,53,.13);--x:#f28a80; --link:#ec8a75;
       --live:#58c67e; --warn:#dfa250; --on-live:#0d2415; --warn-bg:#241a10;
@@ -206,6 +216,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --paper:#14100e; --panel:#1c1714; --ink:#ece3d8; --ink-2:#b9ab9c; --ink-3:#8e8175;
     --head:#9fbfe8; --dl-bg:#1e2b45; --dl-tx:#a8c6ee;
     --dl-edge:rgba(168,198,238,.34); --dl-hover:#27374f;
+      --halt:#e0806f; --on-halt:#2a0d08; --dl1:#7fb0ea; --on-dl1:#0b1a2c; --dl2:#3a6aa6; --on-dl2:#fff;
     --lt:#a8916b; --dk:#6b4433; --on-lt:#221a12; --on-dk:#f6ede2; --acc:#e3ad35; --acc-tx:#e8b641;
     --acc-wash:rgba(227,173,53,.10); --acc-tint:rgba(227,173,53,.14);
     --acc-edge:rgba(227,173,53,.42); --acc-hover:rgba(227,173,53,.13);--x:#f28a80; --link:#ec8a75;
@@ -625,11 +636,16 @@ th.numr { text-align:right }
   padding:.85rem 1rem; border-bottom:1px solid var(--rule); background:var(--panel) }
 fieldset.builds { border:0; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:.4rem .9rem;
   align-items:center; flex:1 1 100% }
+/* Seviye satiri: solda seviye serisi, sagda Oyna / Kodu goster / Kapat. Surum
+   listesi alttaki tam genislik satirda, ince bir cizgiyle ayrilarak. */
+fieldset.levels { flex:0 1 auto }
+/* Cizgi kenarlik degil golge: fieldset'in ust kenarligi legend'i icine alir,
+   dar ekranda etiket cizginin ortasina oturuyordu. */
+.pbar > .blist { margin-top:.1rem; padding-top:.6rem; box-shadow:0 -1px 0 var(--rule) }
 .builds legend.grp { position:static; width:auto; height:auto; overflow:visible; clip-path:none;
   float:left; margin:0 .85rem 0 0; padding:0; font-size:.75rem; letter-spacing:.04em;
   text-transform:uppercase; color:var(--dim) }
 .builds legend.grp code { font-size:.8rem; text-transform:none; letter-spacing:0 }
-.builds + .builds { margin-top:.55rem; padding-top:.55rem; border-top:1px solid var(--rule) }
 fieldset.builds legend { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%) }
 .rd { display:flex; align-items:center; gap:.35rem; font-size:.875rem; cursor:pointer }
 .rd[hidden] { display:none }
@@ -653,7 +669,9 @@ fieldset.levels { gap:0 }
 /* dar ekranda etiketler satirin basinda yer kaplayinca dort parca tek satira
    sigmiyor ve special alta kayiyordu; etiket ustte durunca seri butun kaliyor. */
 @media (max-width: 34rem) {
-  .builds legend.grp { float:none; margin:0 0 .45rem }
+  /* float:none olsaydi legend fieldset'in kenarligina oturur, ayirici cizgi
+     etiketin ortasindan gecerdi. Yuzmeye devam edip kendi satirini kapliyor. */
+  .builds legend.grp { flex:0 0 100%; margin:0 0 .35rem }
 }
 .rd input { accent-color:var(--acc); margin:0 }
 /* botlu surum digerlerinden ayri okunsun: once bosluk, sonra kendi rengi. */
@@ -680,6 +698,18 @@ button[disabled] { opacity:.38; cursor:not-allowed }
 button[disabled]:hover { background:var(--paper) }
 button.go[disabled]:hover { background:var(--ink) }
 button[disabled]:active { transform:none }
+/* Renkli oynatici dugmeleri: rengi isinden aliyor. Zemin --bg'de durur ki soluk
+   (disabled) hali de ayni renkte kalsin, ustteki genel kural onu kagida cevirmesin. */
+button.play { --bg:var(--live); --fg:var(--on-live) }
+button.halt { --bg:var(--halt); --fg:var(--on-halt) }
+button.dl1  { --bg:var(--dl1);  --fg:var(--on-dl1) }
+button.dl2  { --bg:var(--dl2);  --fg:var(--on-dl2) }
+button.play, button.halt, button.dl1, button.dl2 { background:var(--bg); color:var(--fg);
+  border-color:var(--bg) }
+button.play:hover, button.halt:hover, button.dl1:hover, button.dl2:hover {
+  background:var(--bg); filter:brightness(1.12) }
+button.play[disabled]:hover, button.halt[disabled]:hover,
+button.dl1[disabled]:hover, button.dl2[disabled]:hover { background:var(--bg); filter:none }
 .stage { min-height:22rem; display:flex; align-items:center; justify-content:center;
   background:var(--paper) }
 .stage.is-src { display:block }
@@ -687,7 +717,8 @@ button[disabled]:active { transform:none }
 .fit { position:relative; margin:0 auto; max-width:100%; overflow:hidden; background:#fff }
 .fit iframe { position:absolute; top:0; left:0; border:0; display:block; background:#fff;
   color-scheme:light; transform-origin:0 0 }
-.stage pre.src { min-height:22rem; max-height:34rem }
+/* Kaynak asla kaydirmaz: satirlar sarilir, blok icerik kadar uzar. */
+.stage pre.src { min-height:22rem; max-height:none; overflow:visible }
 .idle { font-family:var(--mono); font-size:.8125rem; color:var(--ink-3); text-align:center;
   padding:2rem 1.5rem; max-width:34rem }
 .idle b { color:var(--ink); font-weight:500 }
@@ -1023,25 +1054,22 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <li><b>Kural doğruluğu ve bitişler.</b> Oyun bittiğinde “berabere” deyip geçmez;
       <a href="#codes">on beş sonucun</a> hangisi geldiyse onu adıyla bildirir. Kodlar iki karakterlik olmasına rağmen akılda kalıcı — hangi harfin neye karşılık geldiği bir bakışta
       oturuyor — ve on beşi FIDE kitapçığındaki maddelerle birebir örtüşüyor. Pat mı, 3'lü tekrar mı, ölü pozisyon mu: belirsiz kalmaz.</li>
-      <li><b>Beraberliğin zor yarısı.</b> Bir hakemin, sıradan hamle üretiminin dışında
-      cevaplaması gereken iki soru var: <em>bu pozisyonda mat artık hiç kurulabilir mi?</em> ve
-      <em>bayrak düştüğünde ya da bir taraf terk ettiğinde rakip mat edebilecek durumda mıydı?</em>
-      İkisinin de ucuz bir yarısı var, bir de zor yarısı. Ucuz yarı materyali saymak: tahtada
-      mat etmeye yetecek taş kaldı mı. Yaygın olan bu; motor da bunu yapıyor.</li>
-      <li><b>Zor yarı taşları saymakla çıkmıyor.</b> Bir pozisyon, materyal fazlasıyla
-      yeterliyken de ölü olabilir: piyonlar birbirini kilitlemiştir, hiçbir taş oynayamaz, iki
-      taraf iş birliği yapsa bile mat kurulamaz. Bayrak düştüğünde de asıl soru “rakibin yeterli
-      taşı var mı” değil, “bu tahtada bir mat pozisyonu kurulabiliyor mu”dur — kaybeden taraf
-      kendi şahının kaçış karelerini kendi taşlarıyla kapatarak yardım edebildiği için savunanın
-      taşları da hesaba giriyor. Motor iki yarıyı da uyguluyor.</li>
-      <li><b>Ve zor yarının maliyeti sanıldığı kadar yüksek değil.</b>
-      <a href="#dead">Kilitli pozisyon</a> hamle araması istemiyor; tahtanın statik resminden
-      çıkıyor — piyonların ve şahların ulaşabildiği kareler büyüme durana kadar genişletiliyor; sonunda ne terfi ne de alma erişilebilir kalıyorsa pozisyon ölüdür. Ölçülen kapsama <b>%93</b> ve kaçırdıklarının neredeyse
-      tamamında tahtada bir fil var; motor tanımadığı hiçbir pozisyona “ölü” demiyor, yalnızca
-      bazılarını görmüyor. Bunun maliyeti <b>457 bayt</b>. Kalan %7'yi de kapatan bir genişletme
-      yazıldı ve ölçüldü — <b>782 bayt daha</b> tutuyor, yani bayt başına getiri yirmi üç kat
-      düşüyor, üstelik hızı da aşağı çekiyor. <a href="#dead">Neden askıda bıraktığım</a> ayrı
-      bir başlıkta.</li>
+      <li><b>Beraberliğin zor yarısı.</b> Hamle üretiminin dışında bir hakemin cevaplaması
+      gereken iki soru var: <em>bu pozisyonda mat hâlâ kurulabilir mi?</em> ve <em>bayrak
+      düştüğünde ya da bir taraf terk ettiğinde rakip mat edebilecek durumda mıydı?</em> İkisinin de
+      ucuz yarısı taş saymak ve yaygın olan bu. Zor yarısı tahtanın kendisine bakmak: piyonlar
+      birbirini kilitlemişse, materyal fazlasıyla yeterliyken ve iki taraf iş birliği yapsa bile mat
+      kurulamaz; bayrak düştüğünde de soru taşların sayısı değil, bu tahtada bir mat kurulup
+      kurulamayacağıdır — kaybeden taraf kendi şahının kaçış karelerini kendi taşlarıyla
+      kapatabildiği için savunanın taşları da hesaba girer. Motor iki yarıyı da uyguluyor ve
+      <a href="#dead">kilitli pozisyon</a> tespiti bu kadar küçük bir motorda bile doğru çalışıyor:
+      hamle araması istemiyor, piyonların ve şahların ulaşabildiği kareler büyüme durana kadar
+      genişletiliyor; sonunda ne terfi ne alma erişilebilir kalıyorsa pozisyon ölü. Motor
+      tanımadığı hiçbir pozisyona “ölü” demiyor, yalnızca bazılarını görmüyor — kaçırdıklarının
+      neredeyse tamamında tahtada bir fil var. Ölçülen kapsama <b>%93</b> ve hepsi
+      <b>457 bayt</b>. Kalan %7'yi kapatan genişletme yazıldı ve ölçüldü: <b>782 bayt daha</b>
+      tutuyor, bayt başına getiriyi yirmi üç kat düşürüyor, üstelik hızı da aşağı çekiyor;
+      <a href="#dead">neden askıda bıraktığım</a> ayrı bir başlıkta.</li>
       <li><b>Sağlamlık.</b> Ne bir hata ne geçersiz bir girdi ne de kasıtlı bir kötüye kullanım motoru yoldan çıkarabiliyor.
       <code>L3</code>'te hatalı girdi zaten doğmuyor; hamle tıklayarak yapılıyor ve yalnızca
       legal kareler işaretleniyor. Metin girişli sürümlerde motor kabul etmediği her şeyi
@@ -1103,26 +1131,23 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       are two characters yet mnemonic — you can tell at a glance which letter stands for what — and all
       fifteen map one-to-one onto articles in the FIDE handbook. Stalemate, threefold repetition,
       a dead position: never left ambiguous.</li>
-      <li><b>The hard half of the draw.</b> Beyond ordinary move generation an arbiter has two
-      questions to answer: <em>can mate still be reached in this position at all?</em> and
-      <em>when the flag fell, or when one side resigned, was the opponent in a position to
-      mate?</em> Each has a cheap half and a hard half. The cheap half is counting material:
-      is there enough left on the board to mate with. That is the common one, and the engine
-      does it too.</li>
-      <li><b>The hard half does not come from counting pieces.</b> A position can be dead with
-      material to spare: the pawns have locked each other, nothing can move, and no mating
-      sequence exists even with both sides cooperating. At flag fall the real question is not
-      “does the opponent hold enough material” but “can a mating position be constructed on this
-      board” — since the losing side can help by shutting off its own king's escape squares with
-      its own pieces, the defender's material counts too. The engine implements both halves.</li>
-      <li><b>And the hard half costs less than you would think.</b> A
-      <a href="#dead">blocked position</a> needs no move search; it falls out of the static
-      picture of the board — the squares the pawns and kings can reach are grown until they stop growing, and if no promotion or capture is left within reach, the position is dead. Measured coverage is
-      <b>93%</b>, and nearly every case it misses has a bishop on the board; the engine never
-      calls a position dead by mistake, it only fails to see some. That costs <b>457 bytes</b>.
-      An extension closing the remaining 7% was written and measured — it takes <b>782 bytes
-      more</b>, so the return per byte falls by a factor of twenty-three, and it costs speed on
-      top. <a href="#dead">Why it is shelved</a> is under a separate heading.</li>
+      <li><b>The hard half of the draw.</b> Beyond move generation an arbiter has two questions
+      to answer: <em>can mate still be reached in this position at all?</em> and <em>when the flag
+      fell, or one side resigned, was the opponent in a position to mate?</em> The cheap half of
+      both is counting material, and that is what is common. The hard half is looking at the board
+      itself: with the pawns locked against each other, mate can be impossible with material to
+      spare and even with both sides cooperating; and at flag fall the question is not how many
+      pieces the opponent holds but whether a mating position can be built on this board — since
+      the losing side can help by shutting off its own king's escape squares with its own pieces,
+      the defender's material counts too. The engine implements both halves, and its
+      <a href="#dead">blocked-position</a> detection works correctly even in an engine this small:
+      it needs no move search — the squares the pawns and kings can reach are grown until they stop
+      growing, and if no promotion or capture is left within reach, the position is dead. The
+      engine never calls a position dead by mistake, it only misses some — nearly all of them with
+      a bishop on the board. Measured coverage is <b>93%</b>, and all of it fits in
+      <b>457 bytes</b>. An extension closing the remaining 7% was written and measured: it takes
+      <b>782 bytes more</b>, cuts the return per byte twenty-threefold and costs speed on top;
+      <a href="#dead">why it is shelved</a> is under a separate heading.</li>
       <li><b>Robustness.</b> Neither a bug nor invalid input nor deliberate abuse can derail the
       engine. In <code>L3</code> bad input never arises in the first place: moves are made by
       clicking and only legal squares are marked. In the text-input builds the engine rejects
@@ -1190,8 +1215,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
   <div class="wrap">
     <p class="eyebrow" lang="tr">Oyna</p>
     <p class="eyebrow" lang="en">Play</p>
-    <h2 lang="tr">Sürümü seç, başlat</h2>
-    <h2 lang="en">Pick a build, start it</h2>
+    <h2 lang="tr">Sürümü seç, oyna</h2>
+    <h2 lang="en">Pick a build, play it</h2>
     <div class="prose" lang="tr">
       <p>Her sürüm kendi penceresinde çalışır, saatler ancak başlattığında işlemeye
       başlar. Sürüm değiştirmek çalışan oyunu kapatır.</p>
@@ -1232,26 +1257,35 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <code>prompt()</code> penceresiyle alıyor ve oyun sonucunu <code>alert()</code> ile
       bildiriyor. Tarayıcın bu pencereleri engelliyorsa — çoğu tarayıcı ikinciden sonra
       “bu sayfanın iletişim kutularını engelle” seçeneği sunar — oyun sessizce durur.
-      Engellediysen sayfayı yenile ve kutuları geri aç. Diğer sürümler hiç iletişim kutusu kullanmaz.</p>
+      Engellediysen sayfayı yenile ve kutuları geri aç. Diğer sürümler hiç iletişim kutusu kullanmaz.
+      <code>L1</code> ve <code>L2</code>'nin prompt sürümlerinde terk olmadığı için pencereden çıkış
+      yok; bu yüzden onlar yeni sekmede açılıyor ve oyun sekmeyle birlikte kapanıyor.</p>
     </div>
     <div class="note" lang="en">
       <p>The builds with <code>prompt</code> or <code>numerical</code> in their name take moves
       through a <code>prompt()</code> dialog and announce the result with <code>alert()</code>. If
       your browser blocks those dialogs — most offer a “prevent this page from creating dialogs”
       option after the second one — the game stops silently. If you have blocked them, reload the
-      page and allow dialogs again. The rest use no dialogs at all.</p>
+      page and allow dialogs again. The rest use no dialogs at all. The prompt builds of
+      <code>L1</code> and <code>L2</code> have no resignation, so their dialog has no way out;
+      they open in a new tab instead, and the game closes with the tab.</p>
     </div>
 
     <div class="player">
       <div class="pbar">
         <fieldset class="builds levels">
           <legend class="grp"><span lang="tr">Seviye</span><span lang="en">Level</span></legend>
-<label class="lv" title="Tam hakem — saat, terk, teklif ve talep dahil" data-en-title="Full arbiter — clock, resignation, offers and claims included"><input type="radio" name="level" value="L3" checked><span><code>L3</code><small lang="tr">asıl</small><small lang="en">main</small></span></label>
+<label class="lv" title="Tam hakem — saat, terk, teklif ve talep dahil" data-en-title="Full arbiter — clock, resignation, offers and claims included"><input type="radio" name="level" value="L3" checked><span><code>L3</code><small lang="tr">(asıl)</small><small lang="en">(main)</small></span></label>
 <label class="lv" title="Sayaçlar ve kendiliğinden gelen beraberlikler — saat yok" data-en-title="Counters and automatic draws — no clock"><input type="radio" name="level" value="L2"><span><code>L2</code></span></label>
 <label class="lv" title="Yalnızca legallik — beraberlik kuralları yok" data-en-title="Legality only — no draw rules"><input type="radio" name="level" value="L1"><span><code>L1</code></span></label>
 <label class="lv" title="Seviyelerin dışında kalanlar" data-en-title="Builds outside the rule levels"><input type="radio" name="level" value="special"><span><code>special</code></span></label>
         </fieldset>
-        <fieldset class="builds">
+        <div class="pacts">
+          <button class="play" id="go" type="button"><span lang="tr">Oyna</span><span lang="en">Play</span></button>
+          <button id="view" type="button" aria-pressed="false"><span lang="tr">Kodu göster</span><span lang="en">Show code</span></button>
+          <button class="halt" id="stop" type="button" disabled><span lang="tr">Kapat</span><span lang="en">Close</span></button>
+        </div>
+        <fieldset class="builds blist">
           <legend class="grp"><span lang="tr">Sürüm</span><span lang="en">Build</span></legend>
 <label class="rd" data-lv="L1" hidden title="Ana dosya — tıklanabilir tahta" data-en-title="Main file — clickable board"><input type="radio" name="build" value="L1"> <code>default</code></label>
 <label class="rd" data-lv="L1" hidden title="Tıklanabilir tahta, en yalın hâli — gösterge yok, oyun bitince sessizce durur" data-en-title="Clickable board at its barest — no indicators; the game stops silently when it ends"><input type="radio" name="build" value="L1_light"> <code>light</code></label>
@@ -1286,11 +1320,6 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <label class="rd bot" data-lv="special" hidden title="Oscar Toledo G.'nin satrancı, ES6 yeniden yazımı — bota karşı" data-en-title="Oscar Toledo G.'s chess in an ES6 rewrite — against its bot"><input type="radio" name="build" value="Toledos-ES6-optimized"> <code>Toledos-ES6-optimized</code></label>
 <label class="rd bot" data-lv="special" hidden title="Toledo'nun programına rakip olarak yazdığım bot, bu motorun üstünde" data-en-title="The bot I wrote as an opponent for Toledo's program, on this engine"><input type="radio" name="build" value="ToledosOpponentbyMe"> <code>ToledosOpponentbyMe</code></label>
         </fieldset>
-        <div class="pacts">
-          <button class="go" id="go" type="button"><span lang="tr">Başlat</span><span lang="en">Start</span></button>
-          <button id="view" type="button" aria-pressed="false"><span lang="tr">Kodu göster</span><span lang="en">Show code</span></button>
-          <button id="stop" type="button" disabled><span lang="tr">Kapat</span><span lang="en">Close</span></button>
-        </div>
       </div>
       <div class="stage" id="stage">
         <p class="idle" id="idle"><span lang="tr">Seçili sürüm <b>L3</b>. Oyunu başlat ya da kodunu göster.</span><span lang="en">Selected build <b>L3</b>. Start the game or show its code.</span></p>
@@ -1300,8 +1329,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
         <span id="status"><span lang="tr">Hazır</span><span lang="en">Ready</span></span>
         <span class="pacts">
           <button id="copysrc" type="button" disabled><span lang="tr">Kopyala</span><span lang="en">Copy</span></button>
-          <button id="dlpacked" type="button"><span lang="tr">Paketli sürümü indir</span><span lang="en">Download packed</span></button>
-          <button id="dlplain" type="button"><span lang="tr">Düz sürümü indir</span><span lang="en">Download plain</span></button>
+          <button class="dl2" id="dlpacked" type="button"><span lang="tr">Paketli sürümü indir</span><span lang="en">Download packed</span></button>
+          <button class="dl1" id="dlplain" type="button"><span lang="tr">Düz sürümü indir</span><span lang="en">Download plain</span></button>
         </span>
       </div>
     </div>
@@ -6107,7 +6136,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
                   title="engine_onlyMoveGenerator.js kaynağına geç"
                   data-en-title="Switch to engine_onlyMoveGenerator.js source">perft</button>
           <button id="engcopy" type="button"><span lang="tr">Kopyala</span><span lang="en">Copy</span></button>
-          <button id="engplain" type="button"><span lang="tr">İndir</span><span lang="en">Download</span></button>
+          <button class="dl1" id="engplain" type="button"><span lang="tr">İndir</span><span lang="en">Download</span></button>
         </span>
       </div>
       <pre class="src" id="engsrc"></pre>
@@ -11896,7 +11925,9 @@ var FLT = {
     showSrc:  'Kodu göster',
     hideSrc:  'Kodu gizle',
     switched: 'Sürüm değişti, oyun kapatıldı',
-    idle:     'Seçili sürüm <b>%s</b>. Oyunu başlat ya da kodunu göster.',
+    idle:     'Seçili sürüm <b>%s</b>. Oyna ya da kodunu göster.',
+    tabNote:  ' Bu sürüm yeni sekmede açılır: prompt penceresinden çıkış yok, oyun sekmeyle birlikte kapanır.',
+    newTab:   '%s yeni sekmede açıldı \u00b7 ',
     frame:    '%s sürümü',
     noEval:   ' \u00b7 eval kapalı, düz',
     noPack:   ' \u00b7 paket açılmadı, düz',
@@ -11927,7 +11958,9 @@ var FLT = {
     showSrc:  'Show code',
     hideSrc:  'Hide code',
     switched: 'Build changed, game closed',
-    idle:     'Selected build <b>%s</b>. Start the game or show its code.',
+    idle:     'Selected build <b>%s</b>. Play it or show its code.',
+    tabNote:  ' This build opens in a new tab: its prompt dialog has no way out, so the game closes with the tab.',
+    newTab:   '%s opened in a new tab \u00b7 ',
     frame:    '%s build',
     noEval:   ' \u00b7 eval blocked, plain',
     noPack:   ' \u00b7 packed did not unpack, plain',
@@ -12212,7 +12245,7 @@ function paint() {
   dlp.disabled = !has;
   if (has) dlp.removeAttribute('title'); else dlp.title = FL('noPacked');
   if (mode === 'idle') {
-    idle.innerHTML = FL('idle').replace('%s', current());
+    idle.innerHTML = FL('idle').replace('%s', current()) + (NEWTAB[current()] ? FL('tabNote') : '');
   }
 }
 
@@ -12273,7 +12306,7 @@ function naturalWidth(d) {
    BASE her surume gider; icerik cercevenin kenarina yapismasin diye.
    display:table hem daraltip ortalar hem blok seviyesinde birakir — inline-block
    olsaydi girdi kutusu tahtanin yanina gecerdi. */
-var BASE = 'body{padding:16px 0}';
+var BASE = 'html,body{overflow:hidden!important}body{padding:16px 0}';
 var CENTER = 'body{text-align:center}#T{display:table;margin:1em auto;text-align:left}';
 var SHOW = { L1_input: CENTER, L2_input: CENTER, L3_input: CENTER, L3_input_blindfold: CENTER };
 function dress(d, key) {
@@ -12346,8 +12379,26 @@ function stop(msg) {
   paint();
   statusEl.textContent = msg || FL('ready');
 }
+/* Terk kanali olmayan prompt surumleri: iptal ayni pencereyi yeniden acar, yani
+   cikis yok. iframe sayfayla ayni olay dongusunu paylastigi icin orada acilsalar
+   butun site donar. noopener ile acilan sekme ayri bir surecte calisir, oyun
+   sekmeyle birlikte kapanir. Liste olculdu: iptale basinca alert gelmeyen dort surum. */
+var NEWTAB = { L1_numerical: 1, L1_prompt_string_flip: 1, L2_numerical: 1, L2_prompt_string_flip: 1 };
+function openTab(key, a) {
+  killFrame();
+  srcToken++;
+  mode = 'idle';
+  paint();
+  var link = document.createElement('a');
+  link.href = url(a.p); link.target = '_blank'; link.rel = 'noopener';
+  document.body.appendChild(link); link.click(); link.remove();
+  /* Engellenirse diye ayni adres durum satirinda tiklanabilir kalir. */
+  statusEl.innerHTML = FL('newTab').replace('%s', key) + '<a href="' + url(a.p) +
+    '" target="_blank" rel="noopener">' + a.p.split('/').pop() + '</a>';
+}
 function start() {
   var key = current(), a = ART[key];
+  if (NEWTAB[key]) { openTab(key, a); return; }
   killFrame();
   srcToken++;
   mode = 'game';
@@ -12357,6 +12408,8 @@ function start() {
   frame = document.createElement('iframe');
   frame.title = FL('frame').replace('%s', key);
   frame.setAttribute('allow', 'clipboard-write');
+  /* Kaydirma cubugu hic dogmasin: olcum gelmeden once de kapali. */
+  frame.setAttribute('scrolling', 'no');
   /* prompt aileleri bloklayan bir dongu icinde acildigi icin load geç ateşler
      ve o ana kadar olcum yapilamaz; cerceve o sure boyunca bu boyutta durur. */
   fitBox.style.width = frame.style.width = '320px';
@@ -12372,6 +12425,17 @@ function start() {
     natW = 0;
     try { dress(mine.contentDocument, key); } catch (e) {}
     measure();
+    /* Icerik degistigi an yeniden olc: hamle sonrasi uzayan satirlar kirpilmasin.
+       Zamanlayici yedek olarak kaliyor. */
+    try {
+      var queued = false;
+      new MutationObserver(function () {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(function () { queued = false; if (frame === mine) measure(); });
+      }).observe(mine.contentDocument.documentElement,
+        { childList: true, subtree: true, characterData: true, attributes: true });
+    } catch (e) {}
     setTimeout(function () { if (frame === mine) measure(); }, 80);
   });
   /* L3 saatini saniyede bir yaziyor, sonuc satiri uzayabiliyor. */
