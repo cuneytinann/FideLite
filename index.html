@@ -1770,11 +1770,11 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     <h3 lang="en">1. Check, checkmate and stalemate</h3>
 
     <ul class="tight" lang="tr">
-      <li><b>Şah — 3.9.</b> Şah, rakibin bir ya da birden fazla taşı tarafından dövülüyorsa şahtadır. İncelik şurada: dövmek için o taşın oraya <em>gidebiliyor</em> olması gerekmiyor. Kendi şahına bağlı bir taş da şah çeker — bağlılık onun hamlesini engeller, tehdidini değil.</li>
-      <li><b>Şah tahtadan hiç kalkmaz.</b> Oyun matla biter, şahın alınmasıyla değil. Bu bir üslup tercihi değil, bütün geçerlilik tanımının dayandığı yer: kendi şahını dövülür bırakan hamle kötü bir hamle değil, <em>var olmayan</em> bir hamledir.</li>
-      <li><b>Mat — 5.1.1.</b> Şah dövülüyor ve tehdidi kaldıracak hiçbir geçerli hamle yok. Mat eden kazanır, ve oyun <b>o anda</b> biter.</li>
-      <li><b>Pat — 5.2.1.</b> Sırası gelenin şahı dövülmüyor, ama hiçbir geçerli hamlesi yok. Oyun berabere biter, ve yine <b>o anda</b>.</li>
-      <li><b>İkisi tek bir ayrımla ayrılıyor.</b> Ortak kısım aynı: sırası gelenin oynayabileceği hamle yok. Sonucu belirleyen tek şey şahın o sırada dövülüp dövülmediği.</li>
+      <li><b>Şah — 3.9.</b> Şah, rakibin bir ya da birden fazla taşı tarafından tehdit ediliyorsa şahtadır. İncelik şurada: tehdit etmek için o taşın oraya <em>gidebiliyor</em> olması gerekmiyor. Kendi şahına bağlı bir taş da şah çeker — bağlılık onun hamlesini engeller, tehdidini değil.</li>
+      <li><b>Şah tahtadan hiç kalkmaz.</b> Oyun matla biter, şahın alınmasıyla değil. Bu bir üslup tercihi değil, bütün geçerlilik tanımının dayandığı yer: kendi şahını tehdit altında bırakan hamle kötü bir hamle değil, <em>var olmayan</em> bir hamledir.</li>
+      <li><b>Mat — 5.1.1.</b> Şah tehdit altında ve tehdidi kaldıracak hiçbir geçerli hamle yok. Mat eden kazanır, ve oyun <b>o anda</b> biter.</li>
+      <li><b>Pat — 5.2.1.</b> Sırası gelenin şahı tehdit edilmiyor, ama hiçbir geçerli hamlesi yok. Oyun berabere biter, ve yine <b>o anda</b>.</li>
+      <li><b>İkisi tek bir ayrımla ayrılıyor.</b> Ortak kısım aynı: sırası gelenin oynayabileceği hamle yok. Sonucu belirleyen tek şey şahın o sırada tehdit edilip edilmediği.</li>
     </ul>
     <ul class="tight" lang="en">
       <li><b>Check — 3.9.</b> A king is in check when one or more of the opponent’s pieces attack it. The subtlety: the attacking piece does not have to be able to <em>go</em> there. A piece pinned against its own king still gives check — the pin stops its move, not its attack.</li>
@@ -1784,7 +1784,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <li><b>One distinction separates the two.</b> The shared part is identical: the side to move has no move it can play. The only thing that decides the result is whether its king is attacked.</li>
     </ul>
 
-    <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Tek bakışta çözülür. Sıradaki tarafın bir geçerli hamlesi var mı, ve şahı dövülüyor mu — ikisi de mevcut tahtadan okunur, ileriye bakmak gerekmez.</p>
+    <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Tek bakışta çözülür. Sıradaki tarafın bir geçerli hamlesi var mı, ve şahı tehdit altında mı — ikisi de mevcut tahtadan okunur, ileriye bakmak gerekmez.</p>
     <p class="cost" lang="en"><b>What it costs to apply.</b> Settled at a glance. Does the side to move have a legal move, and is its king attacked — both are read off the board in front of you; no looking ahead is needed.</p>
 
     <h3 lang="tr">2. Taş hareketleri ve geçerlilik</h3>
@@ -1794,7 +1794,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <li><b>Geometrik hatlar.</b> Kale, fil ve vezir kendi doğrultularında ilerler; şah her yöne bir kare; piyon dikey ileri gider, çapraz alır; at “L” geometrisiyle atlar.</li>
       <li><b>Yolun açıklığı.</b> At dışındaki bütün taşlar için hat üzerinde başka taş bulunmamalıdır. Atın bu şartı taşımaması onu kuralın istisnası değil, tanımının parçası yapar.</li>
       <li><b>Hedef kare.</b> Boş olmalı ya da rakip taş barındırmalıdır; kendi taşının durduğu kareye hamle yapılamaz.</li>
-      <li><b>Şah güvenliği.</b> Hiçbir hamle kendi şahını dövülür bırakamaz. Diğer üçü hamlenin <em>şekliyle</em> ilgili; bu dördüncüsü <em>sonucuyla</em>.</li>
+      <li><b>Şah güvenliği.</b> Hiçbir hamle kendi şahını tehdit altında bırakamaz. Diğer üçü hamlenin <em>şekliyle</em> ilgili; bu dördüncüsü <em>sonucuyla</em>.</li>
     </ul>
     <ul class="tight" lang="en">
       <li><b>Lines of movement.</b> Rook, bishop and queen travel along their own lines; the king one square in any direction; the pawn goes forward and captures diagonally; the knight jumps its L.</li>
@@ -1828,7 +1828,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <p>Kitap rokta iki ayrı şeyi ayrı alt maddelere koyuyor, ve bu ayrım ilk bakışta göründüğünden
       önemli. <b>3.8.2.1 hakkın kaybı:</b> şah oynadıysa, ya da o kale oynadıysa hak gider ve bir
       daha geri gelmez. <b>3.8.2.2 geçici engel:</b> şahın durduğu, geçtiği veya vardığı karelerden
-      biri dövülüyorsa, ya da şahla kale arasında taş varsa rok o an yapılamaz — ama hak
+      biri tehdit ediliyorsa, ya da şahla kale arasında taş varsa rok o an yapılamaz — ama hak
       yerinde durur.</p>
       <p>Aradaki fark tekrar sayacına geldiğinde somutlaşıyor;
       <a href="#counters">altıncı bölümde</a> oraya dönüyoruz.</p>
@@ -1845,8 +1845,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     </div>
 
     <ul class="tight" lang="tr">
-      <li><b>Üç kare, ikisi değil.</b> Şahın <em>durduğu</em>, <em>geçtiği</em> ve <em>vardığı</em> kare — üçü de dövülmemelidir. Vardığı kare çoğu özette atlanıyor; oysa üçü de aynı alt maddede.</li>
-      <li><b>Kale muaf.</b> Bu üç kare şahın kareleri. Kalenin geçtiği kare dövülüyor olabilir: uzun rokta b1 tehdit ediliyorken rok yine geçerlidir. Kalenin yolunda istenen tek şey boş olması.</li>
+      <li><b>Üç kare, ikisi değil.</b> Şahın <em>durduğu</em>, <em>geçtiği</em> ve <em>vardığı</em> kare — üçü de tehdit edilmemelidir. Vardığı kare çoğu özette atlanıyor; oysa üçü de aynı alt maddede.</li>
+      <li><b>Kale muaf.</b> Bu üç kare şahın kareleri. Kalenin geçtiği kare tehdit altında olabilir: uzun rokta b1 tehdit ediliyorken rok yine geçerlidir. Kalenin yolunda istenen tek şey boş olması.</li>
       <li><b>Şah oynarsa ikisi birden gider.</b> Şah hareket ettiğinde her iki taraftaki hak da düşer; kale hareket ettiğinde yalnız kendi tarafındaki.</li>
     </ul>
     <ul class="tight" lang="en">
@@ -2005,12 +2005,12 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     <div class="prose" lang="tr">
       <p>Geçerken alma ayrı bir kural değil, <b>başka bir kuralın yaması</b>. Piyonun ilk hamlesinde
       iki kare ilerleyebilmesi açılışı hızlandırmak için geldi; ama bununla birlikte piyon, düşman
-      piyonunun dövdüğü kareyi atlayıp geçebilir hâle geldi. Geçerken alma tam olarak o deliği
+      piyonunun tehdit ettiği kareyi atlayıp geçebilir hâle geldi. Geçerken alma tam olarak o deliği
       kapatıyor: iki kare ilerleyen piyon, tek kare ilerlemiş gibi alınabiliyor. İkisi tek bir
       kuraldır ve ayrılamazlar — biri olmadan öbürü oyunu bozar.</p>
       <p>Yamanın <em>kasten dar</em> olması da ilginç. Yalnızca piyon–piyon simetrisini onarıyor.
-      Aynı piyon bir kalenin ya da filin dövdüğü kareyi atlayıp geçebilir ve hiçbir şey olmaz.
-      Yani madde “atlanan kare dövülüyorsa telafi et” demiyor; “bir piyonun dövdüğü kare
+      Aynı piyon bir kalenin ya da filin tehdit ettiği kareyi atlayıp geçebilir ve hiçbir şey olmaz.
+      Yani madde “atlanan kare tehdit ediliyorsa telafi et” demiyor; “bir piyonun tehdit ettiği kare
       atlanıyorsa telafi et” diyor.</p>
       <p>Hak tek hamleliktir. Hemen kullanılmazsa kalıcı olarak düşer — bir hamle sonra geri
       gelmez.</p>
@@ -2379,7 +2379,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <i class="d" data-f="g"></i>
 <i data-f="h" data-r="1"></i>
 </div>
-        <figcaption>Fillerin neden geçemediği kare renklerinde: beyazın piyonları 4. yatayın bütün açık karelerinde, siyahınkiler 5. yatayın bütün koyu karelerinde. Açık kareli beyaz fil 4. yatayı, koyu kareli siyah fil 5. yatayı hiçbir zaman aşamıyor — kalan kareleri de karşı piyonlar dövüyor.</figcaption>
+        <figcaption>Fillerin neden geçemediği kare renklerinde: beyazın piyonları 4. yatayın bütün açık karelerinde, siyahınkiler 5. yatayın bütün koyu karelerinde. Açık kareli beyaz fil 4. yatayı, koyu kareli siyah fil 5. yatayı hiçbir zaman aşamıyor — kalan kareleri de karşı piyonlar tehdit ediyor.</figcaption>
       </figure>
     <figure class="fig fig-wide" lang="en">
         <div class="mb et el eb er" style="--c:8" role="img" aria-label="White pawns on a4, c4, e4 and g4 face black pawns on a5, c5, e5 and g5, locked head to head. White king a1 and bishop f1, black king a8 and bishop f8. Each bishop is confined to its own half and neither king can pass the fourth rank.">
@@ -3253,7 +3253,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <i class="d" data-f="g"></i>
 <i data-f="h" data-r="1"></i>
 </div>
-        <figcaption>Siyahın şahı kendi ve rakip piyonlarla gömülü: g7 piyonu f8 ile h8'i dövüyor. Geriye yalnız a7 piyonunun iki hamlesi kalıyor; tükendiğinde pat.</figcaption>
+        <figcaption>Siyahın şahı kendi ve rakip piyonlarla gömülü: g7 piyonu f8 ile h8'i tehdit ediyor. Geriye yalnız a7 piyonunun iki hamlesi kalıyor; tükendiğinde pat.</figcaption>
       </figure>
       <figure class="fig fig-wide" lang="en">
         <div class="mb et el eb er" style="--c:8" role="img" aria-label="Black king g8 with its own pawns on f7 and h7, white pawns on g7, f6, h6 and a2, white king d3. The only black piece that can move is the a7 pawn.">
@@ -4169,7 +4169,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       Örneğin:</p>
     </div>
     <figure class="fig fig-wide" lang="tr">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="Siyah şah a8, kendi fili b8 ve kendi piyonu a7. Beyaz fil c6 şah çekiyor, beyaz piyon a6 b7 karesini dövüyor. Siyahın hiçbir legal hamlesi yok — mat.">
+        <div class="mb et el eb er" style="--c:8" role="img" aria-label="Siyah şah a8, kendi fili b8 ve kendi piyonu a7. Beyaz fil c6 şah çekiyor, beyaz piyon a6 b7 karesini tehdit ediyor. Siyahın hiçbir legal hamlesi yok — mat.">
 <i><b class="b">♚</b></i>
 <i class="d"><b class="b">♝</b></i>
 <i></i>
@@ -4235,7 +4235,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <i class="d" data-f="g"></i>
 <i data-f="h" data-r="1"></i>
 </div>
-        <figcaption>Aynı kilitten çıkan 58 mat pozisyonundan biri. Beyaz fil <b>c6</b>’dan şah çekiyor, a6 piyonu <b>b7</b>’yi dövüyor, ve siyahın kaçacağı iki kareyi <b>kendi</b> fili ile <b>kendi</b> piyonu kapatıyor. Beyaz şah hâlâ d1’de — mata hiç karışmıyor.</figcaption>
+        <figcaption>Aynı kilitten çıkan 58 mat pozisyonundan biri. Beyaz fil <b>c6</b>’dan şah çekiyor, a6 piyonu <b>b7</b>’yi tehdit ediyor, ve siyahın kaçacağı iki kareyi <b>kendi</b> fili ile <b>kendi</b> piyonu kapatıyor. Beyaz şah hâlâ d1’de — mata hiç karışmıyor.</figcaption>
       </figure>
     <div class="prose" lang="tr">
       <p>Buradan çıkan hüküm <b>asimetrik</b>: beyazın bayrağı düşerse <b>beraberlik</b>, siyahınki
@@ -4369,7 +4369,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
         alınabiliyorduysa, sonradan alınamadığında pozisyonlar aynı sayılmaz. Ölçülen şey hakkın
         <em>kullanılabilirliği</em>.</li>
         <li><b>9.2.3.2 — rok: hak bazlı.</b> Rok hakkı ancak şah ya da kale <em>oynadığında</em>
-        kaybolur. Yolda taş olduğu ya da kareler dövüldüğü için rokun o an yapılamıyor olması
+        kaybolur. Yolda taş olduğu ya da kareler tehdit edildiği için rokun o an yapılamıyor olması
         pozisyonu değiştirmez.</li>
       </ul>
       <p>Yani iki hak, iki farklı ölçüyle sayılıyor. Bu bir tutarsızlık gibi duruyor ama değil:
@@ -4438,7 +4438,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 </div>
         <figcaption>Siyah az önce g7–g5 oynadı ve geçerken alma karesi g6. Ama f5'teki
         beyaz piyon, f8'deki kaleye karşı şahına bağlı: fxg6 oynanırsa f dikeyi açılır ve
-        beyaz şah dövülür kalır. Alma geçerli olmadığı için imkân da kurulmaz.</figcaption>
+        beyaz şah tehdit altında kalır. Alma geçerli olmadığı için imkân da kurulmaz.</figcaption>
       </figure>
       <div class="prose">
         <p>9.2.3.1'deki şart, imkânın <em>gerçekten</em> geçerli olmasını istiyor. Yandaki
@@ -4535,8 +4535,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <thead><tr><th>Ölçü</th><th>Geçerken alma</th><th>Rok</th></tr></thead>
 <tbody>
 <tr><td><b>Hak</b><span class="sub">iz</span></td><td>İki kare ilerleme yetiyor; alacak piyon olmasa da iz kalıyor</td><td>Kalıcı hak: şah ya da o kale oynamadıkça duruyor</td></tr>
-<tr><td><b>Pseudo-legal</b></td><td>Yanında alabilecek bir rakip piyon var; bağlı olup olmadığına bakılmıyor</td><td>Hak var ve şahla kale arasındaki kareler boş; dövülen karelere bakılmıyor</td></tr>
-<tr><td><b>Legal</b></td><td>Alma şu an gerçekten oynanabiliyor</td><td>Rok şu an oynanabiliyor: hak var, yol boş, şah dövülmüyor, geçtiği ve indiği kareler dövülmüyor</td></tr>
+<tr><td><b>Pseudo-legal</b></td><td>Yanında alabilecek bir rakip piyon var; bağlı olup olmadığına bakılmıyor</td><td>Hak var ve şahla kale arasındaki kareler boş; tehdit edilen karelere bakılmıyor</td></tr>
+<tr><td><b>Legal</b></td><td>Alma şu an gerçekten oynanabiliyor</td><td>Rok şu an oynanabiliyor: hak var, yol boş, şah tehdit edilmiyor, geçtiği ve indiği kareler tehdit edilmiyor</td></tr>
 <tr class="alt"><td>FIDE'nin seçtiği</td><td>Legal<span class="sub">9.2.3.1</span></td><td>Hak<span class="sub">9.2.3.2</span></td></tr>
 </tbody>
 </table></div>
@@ -4554,11 +4554,22 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <p>FIDE iki hakkı iki ayrı satırdan ölçüyor, gerekçesi de yukarıda: geçerken almanın geçici
       engeli yok, rokun var. FideLite da aynısını yapıyor — <code>e</code> yalnızca komşu bir piyon
       gerçekten alabiliyorsa yazılıyor, <code>c</code> ise hakları tutuyor.</p>
-      <p>Uygulamalar geçerken almada bu satırlara dağılıyor. Chess.com alma karesini her iki kare
+      <p>Uygulamalar geçerken almada bu satırlara dağılıyor. Birçok motor alma karesini her iki kare
       ilerlemede yazıyor — ilk satır; hamle zaten reddedildiği için bir şey bozuk görünmüyor, ama
-      tekrar anahtarı farklı çıkıyor. Bazı yorumlar ikinci satırı, pseudo-legal ölçüyü kullanıyor.
+      tekrar anahtarı farklı çıkıyor. Chess.com'un FEN'i de kareyi her çift adımda yazıyor, ama
+      tekrar sayımı o alanı kullanmıyor: ikinci satırı, pseudo-legal ölçüyü uyguluyor.
       <a href="https://github.com/lichess-org/scalachess" target="_blank" rel="noopener">Lichess</a>'in pozisyon anahtarı ise kareyi
       ancak legallik süzgecinden geçtikten sonra alıyor — üçüncü satır, FIDE'nin ölçüsü.</p>
+      <p>Chess.com'un satırı ölçülerek bulundu. <a href="https://github.com/IgorRigolon/titled.tuesday" target="_blank" rel="noopener">Titled
+      Tuesday arşivindeki</a> 2020, 2022, 2023 ve 2024 oyunlarından tekrarla biten 24.610'u üç kurala
+      göre yeniden oynatıldı. 24.403'ünde üç kural aynı yarım hamlede tekrar buluyor. Kalan 207
+      oyunda tekrarlardan biri, alacak piyonu olmayan bir çift adımın hemen ardında; Chess.com bu
+      207 oyunun hepsini ikinci ve üçüncü satırın öngördüğü yarım hamlede bitirmiş, ilk satırın
+      öngördüğü yerde hiçbirini. Örneğin 12 Mart 2024'te Angry_Twin – Hikaru'da 40...h5'ten sonraki
+      pozisyon 42...Kg8 ve 44...Kg8'de geri geliyor ve oyun 44...Kg8'de tekrarla bitiyor; kare
+      sayılsaydı bu yalnızca ikinci tekrar olurdu. İkinci ile üçüncü satırı ayıran tek durum şahına
+      bağlı bir piyon, ve 2025'te <a href="https://www.chess.com/forum/view/help-support/chess-com-does-not-handle-threefold-repetition-correctly-if-it-involves-pinned-en-passants" target="_blank" rel="noopener">bildirilen bir
+      vakada</a> Chess.com o piyonu alabilir saymış.</p>
       <p>Bence rok da üçüncü satırdan ölçülmeli, ve bu üzerine düşünülmeye değer. Legal ölçüyle
       aynı sayılan iki pozisyonun legal hamle listesi birebir aynı oluyor; 9.2.3'ün “bütün
       taşların mümkün hamleleri aynı” şartını doğrudan karşılayan ölçü bu. Öbür iki ölçü bu kadar
@@ -4571,12 +4582,24 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       has no temporary prevention, castling does. FideLite does the same — <code>e</code> is
       written only if a neighbouring pawn can genuinely capture, while <code>c</code> holds the
       rights.</p>
-      <p>Implementations spread across these rows for en passant. Chess.com writes the square after
+      <p>Implementations spread across these rows for en passant. Many engines write the square after
       every two-square advance — the first row; nothing looks broken, because the capture is refused
-      anyway, but the repetition key comes out different. Some interpretations use the second row,
-      the pseudo-legal measure. <a href="https://github.com/lichess-org/scalachess" target="_blank" rel="noopener">Lichess</a>'s position
+      anyway, but the repetition key comes out different. Chess.com's FEN also writes the square
+      after every double step, but its repetition count does not use that field: it applies the
+      second row, the pseudo-legal measure. <a href="https://github.com/lichess-org/scalachess" target="_blank" rel="noopener">Lichess</a>'s position
       key, by contrast, takes the square only after it has passed the legality filter — the third
       row, FIDE's measure.</p>
+      <p>Chess.com's row was found by measurement. Of the games in the <a href="https://github.com/IgorRigolon/titled.tuesday" target="_blank"
+      rel="noopener">Titled Tuesday archive</a> from 2020, 2022, 2023 and 2024, the 24,610 that ended
+      in repetition were replayed under all three rules. In 24,403 the three rules find the
+      repetition on the same ply. In the remaining 207, one of the repetitions comes right after a
+      double step with no pawn to capture; Chess.com ended all 207 on the ply the second and third
+      rows predict, and none where the first row does. In Angry_Twin – Hikaru on 12 March 2024, for
+      instance, the position after 40...h5 returns after 42...Rg8 and 44...Rg8, and the game ends in
+      repetition on 44...Rg8; had the square been counted, that would only have been the second
+      occurrence. The one case that separates the second row from the third is a pawn pinned to its
+      king, and in a <a href="https://www.chess.com/forum/view/help-support/chess-com-does-not-handle-threefold-repetition-correctly-if-it-involves-pinned-en-passants" target="_blank" rel="noopener">case reported in 2025</a> Chess.com
+      counted that pawn as able to capture.</p>
       <p>I think castling should be measured on the third row too, and that this deserves thought.
       Under the legal measure, two positions that count as the same have exactly the same list of
       legal moves; it is the measure that meets 9.2.3's condition — “the possible moves of all the
@@ -5102,6 +5125,47 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       the flag falls and the players never wait for it.</p>
     </div>
 
+    <h4 lang="tr">Hamle listesi yerine sayaçlar</h4>
+    <h4 lang="en">Counters instead of a scoresheet</h4>
+
+    <div class="prose" lang="tr">
+      <p>Tahta başında FIDE oyuncudan hamleleri kaydetmesini istiyor (8.1), ve iddianın dayanağı
+      o kayıt. 50 hamlenin dolup dolmadığını, bir pozisyonun kaçıncı kez geldiğini oyuncu kayıttan
+      çıkarıyor; 9.2 ve 9.3'te iddia da hamleyi kayda yazarak yapılıyor, hakem de kayıttan
+      doğruluyor. Kayıt orada bir delil: geçersiz bir hamlenin de yanlış bir iddianın da bedeli ona
+      bakılarak kesiliyor.</p>
+      <p>Dijitalde bu yükün hiçbiri kalmıyor. Geçersiz hamle yapmak imkânsız, dolayısıyla cezası
+      da yok; platformlarda iddianın ve teklifin ne kısıtı ne cezası var. Kaydın delil olarak
+      taşıdığı iş kalkınca, oyuncunun ondan çıkarmak zorunda kaldığı iki sayı kalıyor: yarım hamle
+      sayacı ve tekrar sayısı. Bence dijitalin ruhuna uygun olan, bu ikisini bir hamle listesinden
+      yapılacak bir hesap olarak bırakmak değil, doğrudan göstermek. Buradaki sürümlerin durum
+      satırındaki <code>M=</code> ve <code>R=</code> tam olarak bu —
+      <a href="#indicators">göstergeler</a> nasıl okunacaklarını anlatıyor. Karma sistemde iddia
+      kapalı olsa da ikisi işe yarıyor: 75 hamle ve 5'li tekrar tavanının ne kadar yaklaştığını
+      gösteriyorlar.</p>
+      <p>Bunun platformlar arasında standart hâle gelmesi iyi olur. Hakkı olan bir oyuncu, o hakkı
+      kullanabilmek için hamle listesini geriye doğru saymak zorunda kalmamalı.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>Over the board FIDE requires the players to record the moves (8.1), and the record is
+      what a claim stands on. Whether fifty moves have passed, how many times a position has
+      occurred — the player works both out from the scoresheet; under 9.2 and 9.3 the claim itself
+      is made by writing the move on it, and the arbiter checks it against the scoresheet. There the
+      record is evidence: the price of an illegal move and of an incorrect claim alike is set by
+      looking at it.</p>
+      <p>Digitally none of that load remains. An illegal move is impossible, so it carries no
+      penalty; on the platforms, claims and offers carry neither a restriction nor a penalty. With
+      the record no longer needed as evidence, what is left are the two numbers the player had to
+      work out of it: the ply counter and the repetition count. I think the spirit of digital play
+      calls for showing those two directly, rather than leaving them as a sum to be done from a move
+      list. The <code>M=</code> and <code>R=</code> on the status line of the builds here are exactly
+      that — the <a href="#indicators">indicators</a> explain how to read them. They stay useful in
+      the hybrid even with claims switched off: they show how close the 75-move and fivefold
+      ceilings are.</p>
+      <p>It would be good for this to become standard across platforms. A player who holds a right
+      should not have to count back through the move list to be able to use it.</p>
+    </div>
+
     </div>
 </section>
 
@@ -5445,8 +5509,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 </tbody>
 </table></div>
 
-    <h3 lang="tr">Göstergeler</h3>
-    <h3 lang="en">Indicators</h3>
+    <h3 id="indicators" lang="tr">Göstergeler</h3>
+    <h3 lang="en" data-id="indicators">Indicators</h3>
     <div class="prose" lang="tr">
       <p>Motor hiçbir sürümde durumu anlatmaz; ne gösterileceği tamamen sürücünün
       tercihidir, ve bayt bütçesi arttıkça gösterge artar. Beş sürüm durumu yazıyla
@@ -6482,7 +6546,7 @@ f = K[2] + K[3] - 1</pre></div>
       tek işi şahın karesini bulup <code>V</code>'ye sormaktı. O sarmalayıcı
       <code>V</code>'nin ikinci parametresinin varsayılanına katlandı: <code>V(s)</code> artık
       “<code>s</code> şahta mı”, <code>V(s,u)</code> ise “<code>u</code> karesi
-      <code>s</code>'in rakibi tarafından dövülüyor mu”. Bir fonksiyon eksildi, davranış
+      <code>s</code>'in rakibi tarafından tehdit ediliyor mu”. Bir fonksiyon eksildi, davranış
       değişmedi. Eski sürücüler <code>l(g)</code> çağrısını <code>V(g)</code> ile
       değiştirmeli.</p>
     </div>
@@ -6602,7 +6666,7 @@ f = K[2] + K[3] - 1</pre></div>
 <thead><tr><th>Ad</th><th>İmza</th><th>Bayt</th><th>İşi</th></tr></thead>
 <tbody>
 <tr><td><code>G</code></td><td><code>G(i, f, T)</code></td><td>263</td><td>Geometri. <code>i</code>'deki taş <code>f</code>'ye gidebilir mi — şah güvenliğine bakmadan. <code>T</code> tehdit modu: açıkken piyonun yalnızca alma hamlelerini sayar.</td></tr>
-<tr><td><code>V</code></td><td><code>V(s, u)</code></td><td>50</td><td><code>u</code> karesi <code>s</code>'in rakibi tarafından dövülüyor mu. <code>u</code> verilmezse <code>s</code>'in şahının karesi kullanılır, yani <code>V(s)</code> doğrudan şah testidir.</td></tr>
+<tr><td><code>V</code></td><td><code>V(s, u)</code></td><td>50</td><td><code>u</code> karesi <code>s</code>'in rakibi tarafından tehdit ediliyor mu. <code>u</code> verilmezse <code>s</code>'in şahının karesi kullanılır, yani <code>V(s)</code> doğrudan şah testidir.</td></tr>
 <tr><td><code>L</code></td><td><code>L(i)</code></td><td>100</td><td>Legal varış listesi. Her adayı <code>M</code> ile oynayıp <code>V</code> ile bakar, sonra geri alır.</td></tr>
 <tr><td><code>C</code></td><td><code>C(i)</code></td><td>27</td><td>Kare → hangi rok hakkını düşürdüğü. Şah ve kale kareleri dışında <code>0</code>.</td></tr>
 <tr><td><code>M</code></td><td><code>M(i, f, u)</code></td><td>236</td><td>Ham hamle. Tahtayı klonlar, taşı taşır, rok kalesini oynatır, geçerken alınanı siler, terfi eder. <b>Rok haklarını düşürür; sıraya ve tekrar tablosuna dokunmaz</b> — çünkü <code>L</code>'nin deneme döngüsü içinde de koşar.</td></tr>
@@ -6816,7 +6880,7 @@ f = K[2] + K[3] - 1</pre></div>
     <div class="prose" lang="tr">
       <p>Motor altı kat. En altta <b>saf geometri</b>: bir taş şu kareden şu kareye gidebilir mi —
       hedefte ne olduğunu ve şahın açıkta kalıp kalmadığını hiç sormadan. Üstünde <b>tehdit</b>:
-      bir kare dövülüyor mu. Sonra <b>legallik</b>: hamleyi gerçekten yapıp şahı sınayan, sonra
+      bir kare tehdit ediliyor mu. Sonra <b>legallik</b>: hamleyi gerçekten yapıp şahı sınayan, sonra
       tahtayı geri alan kat. Sonra <b>hüküm</b>: pozisyon bitti mi, bittiyse nasıl. En üstte
       <b>işlem</b>: hamleyi kalıcı hâle getiren, hakları düşüren, sayaçları yürüten ve sonucu
       döndüren üç fonksiyon. Sürücü yalnızca bu son kata dokunuyor.</p>
@@ -6847,7 +6911,7 @@ f = K[2] + K[3] - 1</pre></div>
       <p>Bağımlılık neredeyse tamamen tek yönlü. İki yerde kırılıyor:</p>
       <ul class="tight">
         <li><b><code>G</code> → <code>V</code>.</b> Geometri katı rokta bir üst kata uzanıyor:
-        şahın <em>geçtiği</em> karenin dövülüp dövülmediğini sormadan rokun geçerliliğine karar
+        şahın <em>geçtiği</em> karenin tehdit edilip edilmediğini sormadan rokun geçerliliğine karar
         veremez. Bu yüzden <code>G</code> ile <code>V</code> karşılıklı özyinelemeli —
         <code>V</code> her taş için <code>G</code>'yi çağırırken <code>G</code> de rok dalında
         <code>V</code>'yi çağırıyor.</li>
@@ -7013,8 +7077,8 @@ f = K[2] + K[3] - 1</pre></div>
       ikinci fonksiyonu.</p>
       <p>Üçüncü argüman <code>T</code> <b>tehdit kipi</b>. Açıkken üç şey değişiyor: rok kapanıyor
       (rok bir tehdit değildir), piyonun çapraz karesi üzerinde taş olmasa bile sayılıyor (piyon o
-      kareyi <em>döver</em>), ve piyonun düz itişi kapanıyor (itiş kimseyi tehdit etmez). Yani
-      <code>G(i,u,1)</code> “şu taş şu kareyi dövüyor mu” demek.</p>
+      kareyi <em>tehdit eder</em>), ve piyonun düz itişi kapanıyor (itiş kimseyi tehdit etmez). Yani
+      <code>G(i,u,1)</code> “şu taş şu kareyi tehdit ediyor mu” demek.</p>
     </div>
     <div class="prose" lang="en">
       <p><code>G(i,f,T)</code> answers a single question: can the piece on square <code>i</code>
@@ -7139,7 +7203,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <code>c&amp;C(r)</code> hakkın hâlâ maskede olduğunu, <code>G(r,i)</code> kalenin yolunun
       boş olduğunu — özyineleme, ve uzun rokta <code>b1</code>'in de boşluğu bu sayede sınanıyor —
       <code>!V(t,i)</code> şahın şahta olmadığını, <code>!V(t,i+k)</code> geçtiği karenin
-      dövülmediğini sınıyor. <a href="#rules">Şahın vardığı kare</a> burada yok, çünkü onu zaten
+      tehdit edilmediğini sınıyor. <a href="#rules">Şahın vardığı kare</a> burada yok, çünkü onu zaten
       <code>L</code>'nin legallik süzgeci yakalıyor.</p>
       <p><b>Piyon.</b> Önce yön: <code>f&lt;i^g&amp;1</code>. Beyaz indeksi büyütmek zorunda, yani
       <code>f&lt;i</code> yanlış olmalı ve XOR bir verir; siyahta tersi. Sonra iki dal, ayıracı
@@ -7244,7 +7308,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 
     <div class="prose" lang="tr">
       <p><code>V(s,u)</code> şunu soruyor: <code>u</code> karesi, <code>s</code>'in
-      <em>karşısındaki</em> taraf tarafından dövülüyor mu? Süzgeç <code>p%2^s</code> — taşın renk
+      <em>karşısındaki</em> taraf tarafından tehdit ediliyor mu? Süzgeç <code>p%2^s</code> — taşın renk
       biti ile <code>s</code>'in özel veyası, yani renkler farklıysa bir. Ardından
       <code>G(i,u,1)</code>, tehdit kipiyle. <code>some</code> ilk saldırganı bulduğu anda duruyor;
       tam bir tarama yalnızca kare gerçekten güvenliyse yapılıyor.</p>
@@ -8255,7 +8319,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <code>G</code>'nin içinde, hedef listesine çıkmadan sınanmış oluyor.</p>
       <p>O tek <code>L</code> çağrısında <code>C</code> bir kez, <code>V</code> beş kez koşuyor.
       Beşin ikisi doğrudan <code>G</code>'nin rok dalından geliyor — şahın şu an şahta olmadığı ve
-      geçtiği karenin dövülmediği. Uzun rok hiç sorulmuyor bile: c1'de hâlâ fil durduğu için
+      geçtiği karenin tehdit edilmediği. Uzun rok hiç sorulmuyor bile: c1'de hâlâ fil durduğu için
       <code>L</code>'nin süzgeci hedefi geometriye götürmeden eliyor.</p>
       <p>Ardından <code>A(4,6)</code>: <code>C(4)</code> üç döndürüyor, maske 15'ten <b>12</b>'ye
       iniyor — beyazın iki hakkı da tek adımda gidiyor. <code>M</code>'nin dördüncü adımı
@@ -8722,8 +8786,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
     <div class="tw" lang="tr"><table class="">
 <thead><tr><th>Sürüm</th><th>Ne</th><th>Giriş</th><th>Bayt</th></tr></thead>
 <tbody>
-<tr><td><code>Chesscom-equivalent</code><br><span class="fn2">special/Chesscom-equivalent.html</span></td><td>Kurallar Chess.com'un uyguladığı gibi: 3'lü tekrar ve 50 hamle oyunu kendiliğinden bitiriyor, süre bitiminde yalnızca taş sayılıyor.</td><td>Tıklama</td><td>2.838</td></tr>
-<tr><td><code>Chesscom-equivalent_numerical</code><br><span class="fn2">special/Chesscom-equivalent_numerical.html</span></td><td>Aynı kurallar, sayısal arayüzle; paketli.</td><td>Sayısal, prompt penceresi</td><td>1.144</td></tr>
+<tr><td><code>Chesscom-equivalent</code><br><span class="fn2">special/Chesscom-equivalent.html</span></td><td>Kurallar Chess.com'un uyguladığı gibi: 3'lü tekrar ve 50 hamle oyunu kendiliğinden bitiriyor, süre bitiminde yalnızca taş sayılıyor, tekrarda geçerken alma pseudo-legal ölçülüyor.</td><td>Tıklama</td><td>2.878</td></tr>
+<tr><td><code>Chesscom-equivalent_numerical</code><br><span class="fn2">special/Chesscom-equivalent_numerical.html</span></td><td>Aynı kurallar, sayısal arayüzle; paketli.</td><td>Sayısal, prompt penceresi</td><td>1.175</td></tr>
 <tr><td><code>Lichess-equivalent</code><br><span class="fn2">special/Lichess-equivalent.html</span></td><td>Kurallar Lichess'in uyguladığı gibi: 5'li tekrar ve 50 hamle kendiliğinden, 3'lü tekrar iddiayla; süre bitiminde ve terkte hızlı bir mat imkânı testi.</td><td>Tıklama</td><td>3.043</td></tr>
 <tr><td><code>Lichess-equivalent_numerical</code><br><span class="fn2">special/Lichess-equivalent_numerical.html</span></td><td>Aynı kurallar, sayısal arayüzle; paketli.</td><td>Sayısal, prompt penceresi</td><td>1.228</td></tr>
 <tr><td><code>L2_noBlockedDetector</code><br><span class="fn2">special/L2_noBlockedDetector.html</span></td><td><code>L2</code>, kilitli pozisyon dedektörü olmadan: ölü pozisyonu yalnızca materyalden tanıyor.</td><td>Tıklama</td><td>1.908</td></tr>
@@ -8740,8 +8804,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
     <div class="tw" lang="en"><table class="">
 <thead><tr><th>Build</th><th>What it is</th><th>Input</th><th>Bytes</th></tr></thead>
 <tbody>
-<tr><td><code>Chesscom-equivalent</code><br><span class="fn2">special/Chesscom-equivalent.html</span></td><td>The rules as Chess.com applies them: threefold repetition and the 50-move rule end the game by themselves, and flag fall is judged by piece count alone.</td><td>Clicking</td><td>2,838</td></tr>
-<tr><td><code>Chesscom-equivalent_numerical</code><br><span class="fn2">special/Chesscom-equivalent_numerical.html</span></td><td>The same rules with the numeric interface; packed.</td><td>Numeric, prompt dialog</td><td>1,144</td></tr>
+<tr><td><code>Chesscom-equivalent</code><br><span class="fn2">special/Chesscom-equivalent.html</span></td><td>The rules as Chess.com applies them: threefold repetition and the 50-move rule end the game by themselves, flag fall is judged by piece count alone, and en passant is counted pseudo-legally for repetition.</td><td>Clicking</td><td>2,878</td></tr>
+<tr><td><code>Chesscom-equivalent_numerical</code><br><span class="fn2">special/Chesscom-equivalent_numerical.html</span></td><td>The same rules with the numeric interface; packed.</td><td>Numeric, prompt dialog</td><td>1,175</td></tr>
 <tr><td><code>Lichess-equivalent</code><br><span class="fn2">special/Lichess-equivalent.html</span></td><td>The rules as Lichess applies them: fivefold repetition and the 50-move rule are automatic, threefold is claimed; flag fall and resignation use a quick mating-material test.</td><td>Clicking</td><td>3,043</td></tr>
 <tr><td><code>Lichess-equivalent_numerical</code><br><span class="fn2">special/Lichess-equivalent_numerical.html</span></td><td>The same rules with the numeric interface; packed.</td><td>Numeric, prompt dialog</td><td>1,228</td></tr>
 <tr><td><code>L2_noBlockedDetector</code><br><span class="fn2">special/L2_noBlockedDetector.html</span></td><td><code>L2</code> without the blocked-position detector: it recognises a dead position from material alone.</td><td>Clicking</td><td>1,908</td></tr>
@@ -10769,7 +10833,7 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
 <tr><td><code>DOM_1023.html</code></td><td class="num">1</td><td class="num">0,5</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td><code>DOM_minimum.html</code></td><td class="num">0,5</td><td class="num">0</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td><code>Lichess-equivalent_numerical.html</code></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td><code>Chesscom-equivalent_numerical.html</code></td><td class="num">0,5</td><td class="num">0,5</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td><code>Chesscom-equivalent_numerical.html</code></td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
 </tbody>
 </table></div>
 <div class="tw" lang="en"><table class="">
@@ -10780,7 +10844,7 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
 <tr><td><code>DOM_1023.html</code></td><td class="num">1</td><td class="num">0.5</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td><code>DOM_minimum.html</code></td><td class="num">0.5</td><td class="num">0</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td><code>Lichess-equivalent_numerical.html</code></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td><code>Chesscom-equivalent_numerical.html</code></td><td class="num">0.5</td><td class="num">0.5</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td><code>Chesscom-equivalent_numerical.html</code></td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
 </tbody>
 </table></div>
     <div class="prose" lang="tr">
@@ -12114,7 +12178,7 @@ var DIR = 'builds/';
 var ROOT = DIR.slice(0, -'builds/'.length);
 /* k/ks yalnizca paketlenmis hali gonderilen surumlerde var. Yoksa oynatici
    plain'i acar ve 'Packed indir' dugmesi soluk kalir. */
-var ART = {"L3": {"p": "L3.html", "ps": 3193, "k": "L3_packed.html", "ks": 2702}, "L3_light": {"p": "L3_light.html", "ps": 2974}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2113, "k": "L3_numerical_packed.html", "ks": 1792}, "L3_prompt": {"p": "L3_prompt.html", "ps": 2450}, "L3_prompt_blindfold": {"p": "L3_prompt_blindfold.html", "ps": 2314}, "L3_input": {"p": "L3_input.html", "ps": 2582}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2437}, "L3_prompt_string": {"p": "L3_prompt_string.html", "ps": 2565}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2508}, "L1": {"p": "builds/L1/L1.html", "ps": 1581}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1240}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 879}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1178}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1149}, "L1_1250elo": {"p": "builds/L1/L1_1250elo.html", "ps": 2278}, "L2": {"p": "builds/L2/L2.html", "ps": 2265}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1839}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1539}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1865}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1876}, "L2_aybars_2500": {"p": "builds/L2/L2_aybars_2500.html", "ps": 8038}, "Chesscom-equivalent": {"p": "special/Chesscom-equivalent.html", "ps": 2838}, "Chesscom-equivalent_numerical": {"p": "special/Chesscom-equivalent_numerical.html", "ps": 1144}, "Lichess-equivalent": {"p": "special/Lichess-equivalent.html", "ps": 3043}, "Lichess-equivalent_numerical": {"p": "special/Lichess-equivalent_numerical.html", "ps": 1228}, "L2_noBlockedDetector": {"p": "special/L2_noBlockedDetector.html", "ps": 1908}, "L2_string_flip_noBlockedDetector": {"p": "special/L2_string_flip_noBlockedDetector.html", "ps": 1999}, "DOM_1023": {"p": "special/DOM_1023.html", "ps": 1023}, "DOM_minimum": {"p": "special/DOM_minimum.html", "ps": 830}, "LUX_inProgress": {"p": "special/LUX_inProgress.html", "ps": 7697}, "Toledos-ES6-optimized": {"p": "special/Toledos-ES6-optimized.html", "ps": 2013}, "ToledosOpponentbyMe": {"p": "special/ToledosOpponentbyMe.html", "ps": 2042}, "engine": {"p": "engine.js", "ps": 1882}, "engine_4x": {"p": "engine_4x.js", "ps": 1963}, "engine_string": {"p": "engine_string.js", "ps": 1999}, "engine_onlyMoveGenerator": {"p": "special/engine_onlyMoveGenerator.js", "ps": 723}};
+var ART = {"L3": {"p": "L3.html", "ps": 3193, "k": "L3_packed.html", "ks": 2702}, "L3_light": {"p": "L3_light.html", "ps": 2974}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2113, "k": "L3_numerical_packed.html", "ks": 1792}, "L3_prompt": {"p": "L3_prompt.html", "ps": 2450}, "L3_prompt_blindfold": {"p": "L3_prompt_blindfold.html", "ps": 2314}, "L3_input": {"p": "L3_input.html", "ps": 2582}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2437}, "L3_prompt_string": {"p": "L3_prompt_string.html", "ps": 2565}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2508}, "L1": {"p": "builds/L1/L1.html", "ps": 1581}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1240}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 879}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1178}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1149}, "L1_1250elo": {"p": "builds/L1/L1_1250elo.html", "ps": 2278}, "L2": {"p": "builds/L2/L2.html", "ps": 2265}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1839}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1539}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1865}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1876}, "L2_aybars_2500": {"p": "builds/L2/L2_aybars_2500.html", "ps": 8038}, "Chesscom-equivalent": {"p": "special/Chesscom-equivalent.html", "ps": 2878}, "Chesscom-equivalent_numerical": {"p": "special/Chesscom-equivalent_numerical.html", "ps": 1175}, "Lichess-equivalent": {"p": "special/Lichess-equivalent.html", "ps": 3043}, "Lichess-equivalent_numerical": {"p": "special/Lichess-equivalent_numerical.html", "ps": 1228}, "L2_noBlockedDetector": {"p": "special/L2_noBlockedDetector.html", "ps": 1908}, "L2_string_flip_noBlockedDetector": {"p": "special/L2_string_flip_noBlockedDetector.html", "ps": 1999}, "DOM_1023": {"p": "special/DOM_1023.html", "ps": 1023}, "DOM_minimum": {"p": "special/DOM_minimum.html", "ps": 830}, "LUX_inProgress": {"p": "special/LUX_inProgress.html", "ps": 7697}, "Toledos-ES6-optimized": {"p": "special/Toledos-ES6-optimized.html", "ps": 2013}, "ToledosOpponentbyMe": {"p": "special/ToledosOpponentbyMe.html", "ps": 2042}, "engine": {"p": "engine.js", "ps": 1882}, "engine_4x": {"p": "engine_4x.js", "ps": 1963}, "engine_string": {"p": "engine_string.js", "ps": 1999}, "engine_onlyMoveGenerator": {"p": "special/engine_onlyMoveGenerator.js", "ps": 723}};
 
 /* Paketli sürümler kendilerini eval ile açıyor. unsafe-eval içermeyen bir CSP
    altında bu imkânsız; iframe aynı sunucudan yüklendiği için aynı politikayı
