@@ -789,6 +789,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     <button type="button" role="tab" id="tabrules" data-panel="panelrules" aria-controls="panelrules" aria-selected="false" tabindex="-1"><span lang="tr">Kurallar ve uygulanışı</span><span lang="en">Rules and their application</span></button>
     <button type="button" role="tab" id="tabbuilds" data-panel="panelbuilds" aria-controls="panelbuilds" aria-selected="false" tabindex="-1"><span lang="tr">Varyantlar ve oynanış</span><span lang="en">Builds and how to play</span></button>
     <button type="button" role="tab" id="tabengine" data-panel="panelengine" aria-controls="panelengine" aria-selected="false" tabindex="-1"><span lang="tr">Motorun kendisi</span><span lang="en">The engine itself</span></button>
+    <button type="button" role="tab" id="tabspecial" data-panel="panelspecial" aria-controls="panelspecial" aria-selected="false" tabindex="-1"><span lang="tr">Özel sürümler</span><span lang="en">Special builds</span></button>
     <button type="button" role="tab" id="tabtech" data-panel="paneltech" aria-controls="paneltech" aria-selected="false" tabindex="-1"><span lang="tr">Ayrıntılı teknik bilgiler</span><span lang="en">Technical detail</span></button>
   </div>
 </nav>
@@ -823,7 +824,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
         <span class="cta-btns">
           <a class="go" id="ctaplay" href="#play"><span lang="tr">OYNA!</span><span lang="en">Play now</span></a>
           <a id="ctasrc" href="#play"><span lang="tr">Kodu gör</span><span lang="en">View the code</span></a>
-          <a class="dl" href="special/L3_packed.html" download="L3_packed.html"><span lang="tr">Hemen indir · 2,7 KB</span><span lang="en">Download · 2.7 KB</span></a>
+          <a class="dl" href="builds/L3_packed.html" download="L3_packed.html"><span lang="tr">Hemen indir · 2,7 KB</span><span lang="en">Download · 2.7 KB</span></a>
           <a href="https://github.com/cuneytinann/FideLite" target="_blank" rel="noopener">GitHub</a>
         </span>
         <a class="seal" href="#tests" title="Geçtiği testler" data-en-title="Tests it passes">
@@ -1214,7 +1215,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       değişen yalnızca hamleyi nasıl girdiğin ve tahtanın nasıl çizildiği. <code>L1</code> ve
       <code>L2</code> kural seviyesi daha düşük olanlar, botlu sürümler de onların altında; ikisi
       de iddianın dışında. <code>special</code> seviyelere sığmayanları topluyor: platform
-      eşdeğerleri, deneysel arayüzler, Toledo'nun programı ve ona rakip olarak yazdığım bot.
+      eşdeğerleri, deneysel arayüzler, Toledo'nun programı ve ona rakip olarak yazdığım bot;
+      ayrıntısı <a href="#special">Özel sürümler</a> sekmesinde.
       <a href="#builds">Varyantlar</a> sekmesinde anlatılan terminal sürümleri tarayıcıya
       girmediği için listede yok.</p>
       <p><code>default</code>, <code>prompt</code> ve <code>input</code> sürümlerinde tahta küçük geliyorsa
@@ -1231,7 +1233,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <code>L1</code> and <code>L2</code> are the lower rule levels, and the builds with a bot sit
       under them; both are outside the claim. <code>special</code> collects what does not fit a
       level: the platform equivalents, experimental interfaces, Toledo's program and the bot I
-      wrote as its opponent. The terminal builds described on the <a href="#builds">Builds</a>
+      wrote as its opponent; the details are on the <a href="#special">Special builds</a> tab.
+      The terminal builds described on the <a href="#builds">Builds</a>
       tab do not run in a browser, so they are not in the list.</p>
       <p>If the board feels small in the <code>default</code>, <code>prompt</code> and
       <code>input</code> builds, use the
@@ -1287,7 +1290,6 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <label class="rd" data-lv="L3" title="UCI, metin alanı, tahta çizilmiyor" data-en-title="UCI, text field, no board"><input type="radio" name="build" value="L3_input_blindfold"> <code>input_blindfold</code></label>
 <label class="rd" data-lv="L3" title="Tahta harf dizgisi olarak tutuluyor" data-en-title="The board is held as a string of letters"><input type="radio" name="build" value="L3_prompt_string"> <code>prompt_string</code></label>
 <label class="rd" data-lv="L3" title="Harf dizgisi, indeks sırası ters" data-en-title="String board, flipped index order"><input type="radio" name="build" value="L3_prompt_string_flip"> <code>prompt_string_flip</code></label>
-<label class="rd" data-lv="special" hidden title="Tam hakem, zengin arayüz — sürükle bırak, sağ tıkla işaretleme, başlarken süre ve FEN seçimi" data-en-title="Full arbiter with a rich interface — drag and drop, right-click marking, time control and FEN picked at the start"><input type="radio" name="build" value="LUX"> <code>LUX</code></label>
 <label class="rd" data-lv="special" hidden title="Tıklanabilir tahta, kurallar Chess.com'un uyguladığı gibi" data-en-title="Clickable board, with the rules as Chess.com applies them"><input type="radio" name="build" value="Chesscom-equivalent"> <code>Chesscom-equivalent</code></label>
 <label class="rd" data-lv="special" hidden title="Chess.com kuralları, sayısal arayüz, prompt penceresi" data-en-title="Chess.com rules, numeric interface, prompt dialog"><input type="radio" name="build" value="Chesscom-equivalent_numerical"> <code>Chesscom-equivalent_numerical</code></label>
 <label class="rd" data-lv="special" hidden title="Tıklanabilir tahta, kurallar Lichess'in uyguladığı gibi" data-en-title="Clickable board, with the rules as Lichess applies them"><input type="radio" name="build" value="Lichess-equivalent"> <code>Lichess-equivalent</code></label>
@@ -1296,6 +1298,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <label class="rd" data-lv="special" hidden title="Aynısı, harf dizgisi tahta ve ters indeksle" data-en-title="The same on a string board with flipped index order"><input type="radio" name="build" value="L2_string_flip_noBlockedDetector"> <code>L2_string_flip_noBlockedDetector</code></label>
 <label class="rd" data-lv="special" hidden title="1.023 baytlık tıklanabilir tahta — yalnızca legallik" data-en-title="A clickable board in 1,023 bytes — legality only"><input type="radio" name="build" value="DOM_1023"> <code>DOM_1023</code></label>
 <label class="rd" data-lv="special" hidden title="830 bayt; taşlar onaltılık rakamlarla, terfi metin alanından" data-en-title="830 bytes; pieces shown as hexadecimal digits, promotion typed into a text field"><input type="radio" name="build" value="DOM_minimum"> <code>DOM_minimum</code></label>
+<label class="rd" data-lv="special" hidden title="Tam hakem, zengin arayüz — sürükle bırak, sağ tıkla işaretleme, başlarken süre ve FEN seçimi — yapım aşamasında" data-en-title="Full arbiter with a rich interface — drag and drop, right-click marking, time control and FEN picked at the start — in progress"><input type="radio" name="build" value="LUX_inProgress"> <code>LUX_inProgress</code></label>
 <label class="rd bot" data-lv="special" hidden title="Oscar Toledo G.'nin satrancı, ES6 yeniden yazımı — bota karşı" data-en-title="Oscar Toledo G.'s chess in an ES6 rewrite — against its bot"><input type="radio" name="build" value="Toledos-ES6-optimized"> <code>Toledos-ES6-optimized</code></label>
 <label class="rd bot" data-lv="special" hidden title="Toledo'nun programına rakip olarak yazdığım bot, bu motorun üstünde" data-en-title="The bot I wrote as an opponent for Toledo's program, on this engine"><input type="radio" name="build" value="ToledosOpponentbyMe"> <code>ToledosOpponentbyMe</code></label>
         </fieldset>
@@ -4860,15 +4863,16 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 
     <div class="prose" lang="tr">
       <p>Sürümler iki ayrı eksende çoğalıyor, ve ikisini karıştırmamak gerekiyor.</p>
-      <p><b><code>L3</code> ailesi arayüz ekseni.</b> Kural katmanı onunda da aynı — tam hakem,
+      <p><b><code>L3</code> ailesi arayüz ekseni.</b> Kural katmanı on birinde de aynı — tam hakem,
       hiçbir madde eksik değil. Değişen yalnızca hamlenin nasıl girildiği, tahtanın nasıl
       çizildiği ve saatin nasıl gösterildiği. Bir <code>L3</code> sürümünde hangi hükmü
       alıyorsanız, hepsinde aynısını alırsınız.</p>
-      <p><b><code>L1</code> ve <code>L2</code> kural ekseni.</b> Orada arayüz sabit — hepsi
-      tıklanabilir tahta, hepsi aynı gövde — değişen <em>hangi kuralların uygulandığı</em>. Dört
-      sürüm var: iki insan oynayanı ve iki botlu hâli. Bunlar
-      <a href="#golfstack">iddianın dışında</a>; burada duruyorlar çünkü kuralların katman katman
-      nasıl eklendiğini görmenin en düz yolu onlar.</p>
+      <p><b><code>L1</code> ve <code>L2</code> kural ekseni.</b> Orada aynı arayüzler iki seviyede
+      de var, değişen <em>hangi kuralların uygulandığı</em>. Her seviyenin altı arayüzü ve bir de
+      botlu sürümü var. Bunlar <a href="#golfstack">iddianın dışında</a>; burada duruyorlar çünkü
+      kuralların katman katman nasıl eklendiğini görmenin en düz yolu onlar.</p>
+      <p>Hiçbir seviyeye girmeyenler ayrı bir sekmede:
+      <a href="#special">Özel sürümler</a>.</p>
     </div>
     <div class="prose" lang="en">
       <p>The builds multiply along two separate axes, and the two should not be confused.</p>
@@ -4876,24 +4880,25 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       all of them — the full arbiter, not an article missing. What changes is only how a move is
       entered, how the board is drawn and how the clock is shown. Whatever ruling you get in one
       <code>L3</code> build, you get the same in every other.</p>
-      <p><b><code>L1</code> and <code>L2</code> are the rules axis.</b> There the interface is
-      fixed — all of them a clickable board, all of them the same body — and what changes is
-      <em>which rules are applied</em>. There are four: two where humans play each other and two
-      against a bot. These sit <a href="#golfstack">outside the claim</a>; they are here because
-      they are the plainest way to see how the rules are added layer by layer.</p>
+      <p><b><code>L1</code> and <code>L2</code> are the rules axis.</b> There the same interfaces
+      exist at both levels, and what changes is <em>which rules are applied</em>. Each level has six
+      interfaces and one build with a bot. These sit <a href="#golfstack">outside the claim</a>;
+      they are here because they are the plainest way to see how the rules are added layer by
+      layer.</p>
+      <p>What fits no level has a tab of its own: <a href="#special">Special builds</a>.</p>
     </div>
 
     <h3 id="l3" lang="tr"><code>L3</code> ailesi — arayüz ekseni</h3>
     <h3 lang="en" data-id="l3">The <code>L3</code> family — the interface axis</h3>
 
     <div class="prose" lang="tr">
-      <p>On sürüm, tek kural katmanı. Hepsi rok, geçerken alma, seçimli terfi, pat, ölü pozisyon,
+      <p>On bir sürüm, tek kural katmanı. Hepsi rok, geçerken alma, seçimli terfi, pat, ölü pozisyon,
       3'lü ve 5'li tekrar, 50 ve 75 hamle, anlaşmalı beraberlik, iddia, süre ve terki eksiksiz
       uyguluyor; hepsi aynı
       <a href="#codes">on beş sonuç kodunu</a> üretiyor.</p>
     </div>
     <div class="prose" lang="en">
-      <p>Ten builds, one rule layer. Every one of them implements castling, en passant, choice of
+      <p>Eleven builds, one rule layer. Every one of them implements castling, en passant, choice of
       promotion piece, stalemate, dead position, threefold and fivefold repetition, the 50- and
       75-move rules, draw by agreement, claims, flag fall and resignation in full; every one of
       them produces the same <a href="#codes">fifteen result codes</a>.</p>
@@ -4903,6 +4908,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <thead><tr><th>Sürüm</th><th>Giriş</th><th>Tahta</th><th>Saat</th><th>Süre</th><th>Plain</th><th>Packed</th></tr></thead>
 <tbody>
 <tr><td><code>L3</code><br><span class="fn2">builds/L3.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri</td><td>⏱ <b>DD:SS</b><span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>3.193</td><td>2.702</td></tr>
+<tr><td><code>light</code><br><span class="fn2">builds/L3_light.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri<span class="sub">koordinat, şah uyarısı ve hedef işareti yok</span></td><td>⏱ <b>DD:SS</b><span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>2.974</td><td><span class="none">—</span></td></tr>
 <tr><td><code>numerical</code><br><span class="fn2">builds/L3_numerical.html</span></td><td>Sayısal, prompt penceresi</td><td>Yok, yalnızca son hamle</td><td>Milisaniye<span class="sub">hamlede</span></td><td>900.000 ms<span class="sub">artış yok</span></td><td>2.113</td><td>1.792</td></tr>
 <tr><td><code>prompt</code><br><span class="fn2">builds/L3_prompt.html</span></td><td>UCI, prompt penceresi</td><td>Tam tahta, tam genişlik glifler</td><td>Saniye<span class="sub">hamlede</span></td><td>600 sn + 5 sn</td><td>2.450</td><td><span class="none">—</span></td></tr>
 <tr><td><code>prompt_blindfold</code><br><span class="fn2">builds/L3_prompt_blindfold.html</span></td><td>UCI, prompt penceresi</td><td>Yok, yalnızca son hamle</td><td>Saniye<span class="sub">hamlede</span></td><td>600 sn + 5 sn</td><td>2.314</td><td><span class="none">—</span></td></tr>
@@ -4910,8 +4916,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td><code>input_blindfold</code><br><span class="fn2">builds/L3_input_blindfold.html</span></td><td>UCI, metin alanı</td><td>Yok, yalnızca son hamle</td><td>Saniye<span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>2.437</td><td><span class="none">—</span></td></tr>
 <tr><td><code>nonbrowser</code><br><span class="fn2">builds/L3_nonbrowser.cjs</span></td><td>UCI, terminal</td><td>Tam tahta, ASCII</td><td>Saniye<span class="sub">hamlede</span></td><td>600 sn + 5 sn</td><td>2.698</td><td><span class="none">—</span></td></tr>
 <tr><td><code>nonbrowser_blindfold</code><br><span class="fn2">builds/L3_nonbrowser_blindfold.cjs</span></td><td>UCI, terminal</td><td>Yok, yalnızca son hamle</td><td>Saniye<span class="sub">hamlede</span></td><td>600 sn + 5 sn</td><td>2.557</td><td><span class="none">—</span></td></tr>
-<tr><td><code>prompt_string</code><br><span class="fn2">builds/L3_prompt_string.html</span></td><td>UCI, prompt penceresi</td><td>Tam tahta, ASCII</td><td>Saniye<span class="sub">hamlede</span></td><td>600 sn + 5 sn</td><td>2.565</td><td><span class="none">—</span></td></tr>
-<tr><td><code>prompt_string_flip</code><br><span class="fn2">builds/L3_prompt_string_flip.html</span></td><td>UCI, prompt penceresi</td><td>Tam tahta, ASCII<span class="sub">ters indeks</span></td><td>Saniye<span class="sub">hamlede</span></td><td>600 sn + 5 sn</td><td>2.508</td><td><span class="none">—</span></td></tr>
+<tr><td><code>prompt_string</code><br><span class="fn2">builds/L3_prompt_string.html</span></td><td>UCI, prompt penceresi</td><td>Tam tahta, tam genişlik harfler</td><td>Saniye<span class="sub">hamlede</span></td><td>600 sn + 5 sn</td><td>2.565</td><td><span class="none">—</span></td></tr>
+<tr><td><code>prompt_string_flip</code><br><span class="fn2">builds/L3_prompt_string_flip.html</span></td><td>UCI, prompt penceresi</td><td>Tam tahta, tam genişlik harfler<span class="sub">ters indeks</span></td><td>Saniye<span class="sub">hamlede</span></td><td>600 sn + 5 sn</td><td>2.508</td><td><span class="none">—</span></td></tr>
 </tbody>
 </table></div>
 
@@ -4919,6 +4925,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <thead><tr><th>Build</th><th>Input</th><th>Board</th><th>Clock</th><th>Time control</th><th>Plain</th><th>Packed</th></tr></thead>
 <tbody>
 <tr><td><code>L3</code><br><span class="fn2">builds/L3.html</span></td><td>Clicking</td><td>Full board, piece glyphs</td><td>⏱ <b>MM:SS</b><span class="sub">live</span></td><td>600 s + 5 s</td><td>3,193</td><td>2,702</td></tr>
+<tr><td><code>light</code><br><span class="fn2">builds/L3_light.html</span></td><td>Clicking</td><td>Full board, piece glyphs<span class="sub">no coordinates, check marker or target squares</span></td><td>⏱ <b>MM:SS</b><span class="sub">live</span></td><td>600 s + 5 s</td><td>2,974</td><td><span class="none">—</span></td></tr>
 <tr><td><code>numerical</code><br><span class="fn2">builds/L3_numerical.html</span></td><td>Numeric, prompt dialog</td><td>None, last move only</td><td>Milliseconds<span class="sub">on move</span></td><td>900,000 ms<span class="sub">no increment</span></td><td>2,113</td><td>1,792</td></tr>
 <tr><td><code>prompt</code><br><span class="fn2">builds/L3_prompt.html</span></td><td>UCI, prompt dialog</td><td>Full board, full-width glyphs</td><td>Seconds<span class="sub">on move</span></td><td>600 s + 5 s</td><td>2,450</td><td><span class="none">—</span></td></tr>
 <tr><td><code>prompt_blindfold</code><br><span class="fn2">builds/L3_prompt_blindfold.html</span></td><td>UCI, prompt dialog</td><td>None, last move only</td><td>Seconds<span class="sub">on move</span></td><td>600 s + 5 s</td><td>2,314</td><td><span class="none">—</span></td></tr>
@@ -4926,14 +4933,14 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td><code>input_blindfold</code><br><span class="fn2">builds/L3_input_blindfold.html</span></td><td>UCI, text field</td><td>None, last move only</td><td>Seconds<span class="sub">live</span></td><td>600 s + 5 s</td><td>2,437</td><td><span class="none">—</span></td></tr>
 <tr><td><code>nonbrowser</code><br><span class="fn2">builds/L3_nonbrowser.cjs</span></td><td>UCI, terminal</td><td>Full board, ASCII</td><td>Seconds<span class="sub">on move</span></td><td>600 s + 5 s</td><td>2,698</td><td><span class="none">—</span></td></tr>
 <tr><td><code>nonbrowser_blindfold</code><br><span class="fn2">builds/L3_nonbrowser_blindfold.cjs</span></td><td>UCI, terminal</td><td>None, last move only</td><td>Seconds<span class="sub">on move</span></td><td>600 s + 5 s</td><td>2,557</td><td><span class="none">—</span></td></tr>
-<tr><td><code>prompt_string</code><br><span class="fn2">builds/L3_prompt_string.html</span></td><td>UCI, prompt dialog</td><td>Full board, ASCII</td><td>Seconds<span class="sub">on move</span></td><td>600 s + 5 s</td><td>2,565</td><td><span class="none">—</span></td></tr>
-<tr><td><code>prompt_string_flip</code><br><span class="fn2">builds/L3_prompt_string_flip.html</span></td><td>UCI, prompt dialog</td><td>Full board, ASCII<span class="sub">flipped index</span></td><td>Seconds<span class="sub">on move</span></td><td>600 s + 5 s</td><td>2,508</td><td><span class="none">—</span></td></tr>
+<tr><td><code>prompt_string</code><br><span class="fn2">builds/L3_prompt_string.html</span></td><td>UCI, prompt dialog</td><td>Full board, full-width letters</td><td>Seconds<span class="sub">on move</span></td><td>600 s + 5 s</td><td>2,565</td><td><span class="none">—</span></td></tr>
+<tr><td><code>prompt_string_flip</code><br><span class="fn2">builds/L3_prompt_string_flip.html</span></td><td>UCI, prompt dialog</td><td>Full board, full-width letters<span class="sub">flipped index</span></td><td>Seconds<span class="sub">on move</span></td><td>600 s + 5 s</td><td>2,508</td><td><span class="none">—</span></td></tr>
 </tbody>
 </table></div>
 
     <div class="prose" lang="tr">
-      <p>Ölçü saat taşıyan sürümlerde aynı; fark yuvarlamada. <code>L3</code> kalan süreyi yukarı
-      yuvarlıyor, bu yüzden <code>0:00</code> ancak bayrak düştüğünde görünüyor; saniye gösteren
+      <p>Ölçü saat taşıyan sürümlerde aynı; fark yuvarlamada. <code>L3</code> ve <code>light</code> kalan
+      süreyi yukarı yuvarlıyor, bu yüzden <code>0:00</code> ancak bayrak düştüğünde görünüyor; saniye gösteren
       öbürleri aşağı kırpıyor. <code>input</code> ailesinde aynı yuvarlama 10 bayt tutuyordu, çünkü
       iki saat ayrı basılıyor.</p>
       <p>Paketlenmiş hâli yalnızca ikisinde var: <code>L3</code> ve <code>numerical</code>. Kalanı
@@ -4942,7 +4949,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     </div>
     <div class="prose" lang="en">
       <p>The measurement is the same across the builds that carry a clock; the difference is in the
-      rounding. <code>L3</code> rounds the remaining time up, so <code>0:00</code> appears only once
+      rounding. <code>L3</code> and <code>light</code> round the remaining time up, so <code>0:00</code> appears only once
       the flag has actually fallen, while the others that show seconds truncate. In the
       <code>input</code> family the same rounding cost 10 bytes, since the two clocks are printed
       separately.</p>
@@ -4981,18 +4988,18 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     <h3 lang="en" data-id="levels"><code>L1</code> and <code>L2</code> — the rules axis</h3>
 
     <div class="prose" lang="tr">
-      <p>Burada arayüz sabit: dördü de tıklanabilir tahta, taş glifleri, terfi seçici, aynı gövde.
-      Değişen tek şey kural katmanının nereye kadar götürüldüğü — ve iki sürümde buna bir de bot
-      ekleniyor.</p>
+      <p>Burada eksen kurallar. Arayüzler iki seviyede de aynı — tıklanan tahta, yalın hâli,
+      sayısal giriş, UCI, harf dizgisi, terminal — ve her seviyede bunlara bir de botlu sürüm
+      ekleniyor. Karşılaştırılan şey kural katmanının nereye kadar götürüldüğü.</p>
       <p>Seviyeler birbirinin üstüne biniyor. <code>L1</code> yalnızca <b>oynanabilirliği</b>
       biliyor: hamle legal mi, oyun matla ya da patla bitti mi. <code>L2</code> üstüne
       <b>tahtadan doğan beraberlikleri</b> koyuyor. <code>L3</code> ise tahtanın dışına çıkıyor —
       saat, terk, teklif, iddia.</p>
     </div>
     <div class="prose" lang="en">
-      <p>Here the interface is fixed: all four are a clickable board with piece glyphs and a promotion
-      picker, the same body. The only thing that changes is how far the rule layer is carried — and
-      in two of them a bot is added on top.</p>
+      <p>Here the axis is the rules. The interfaces are the same at both levels — the clickable
+      board, its pared-down form, numeric input, UCI, the string board, the terminal — and each level
+      adds a build with a bot. What is compared is how far the rule layer is carried.</p>
       <p>The levels stack. <code>L1</code> knows only <b>playability</b>: is the move legal, has the
       game ended in mate or stalemate. <code>L2</code> puts the <b>draws that arise from the
       board</b> on top of that. <code>L3</code> then steps off the board — the clock, resignation,
@@ -5070,37 +5077,48 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     </div>
 
     <div class="prose" lang="tr">
-      <p>Dört sürüm:</p>
+      <p>Sürümler, iki seviye yan yana. Dosyalar <code>builds/L1/</code> ve
+      <code>builds/L2/</code> altında; son iki sütun her seviyedeki boyutu bayt olarak veriyor, yani
+      aynı arayüzde kural katmanının bedeli satır boyunca okunuyor.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The four builds:</p>
+      <p>The builds, both levels side by side. The files live in <code>builds/L1/</code> and
+      <code>builds/L2/</code>; the last two columns give each level's size in bytes, so the cost of
+      the rule layer for a given interface reads along the row.</p>
     </div>
 
     <div class="tw" lang="tr"><table class="">
-<thead><tr><th>Sürüm</th><th>Kimle</th><th>Kural seviyesi</th><th>Bayt</th></tr></thead>
+<thead><tr><th>Sürüm</th><th>Giriş</th><th>Tahta</th><th><code>L1</code></th><th><code>L2</code></th></tr></thead>
 <tbody>
-<tr><td><code>L1</code><br><span class="fn2">builds/L1.html</span></td><td>İki insan</td><td>Yalnızca legallik</td><td>1.581</td></tr>
-<tr><td><code>L2</code><br><span class="fn2">builds/L2.html</span></td><td>İki insan</td><td>+ tahtadan doğan beraberlikler</td><td>2.265</td></tr>
-<tr><td><code>L1 · bot</code><br><span class="fn2">builds/L1_1250elo.html</span></td><td>Bota karşı</td><td><code>L1</code> kuralları</td><td>2.278</td></tr>
-<tr><td><code>L2 · bot</code><br><span class="fn2">builds/L2_aybars_2500.html</span></td><td>Bota karşı</td><td><code>L2</code> kuralları</td><td>8.038</td></tr>
+<tr><td><code>default</code><br><span class="fn2">L1.html · L2.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri</td><td>1.581</td><td>2.265</td></tr>
+<tr><td><code>light</code><br><span class="fn2">L1_light.html · L2_light.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri<span class="sub">gösterge yok, sonucu bildirmiyor</span></td><td>1.240</td><td>1.839</td></tr>
+<tr><td><code>numerical</code><br><span class="fn2">L1_numerical.html · L2_numerical.html</span></td><td>Sayısal, prompt penceresi</td><td>Yok, yalnızca son hamle</td><td>879</td><td>1.539</td></tr>
+<tr><td><code>input</code><br><span class="fn2">L1_input.html · L2_input.html</span></td><td>UCI, metin alanı</td><td>Tam tahta, ASCII</td><td>1.178</td><td>1.865</td></tr>
+<tr><td><code>prompt_string_flip</code><br><span class="fn2">L1_prompt_string_flip.html · L2_prompt_string_flip.html</span></td><td>UCI, prompt penceresi</td><td>Tam tahta, tam genişlik harfler<span class="sub">ters indeks</span></td><td>1.149</td><td>1.876</td></tr>
+<tr><td><code>nonbrowser</code><br><span class="fn2">L1_nonbrowser.cjs · L2_nonbrowser.cjs</span></td><td>UCI, terminal</td><td>Tam tahta, ASCII</td><td>1.327</td><td>2.014</td></tr>
+<tr class="alt"><td><code>bot</code><br><span class="fn2">L1_1250elo.html · L2_aybars_2500.html</span></td><td>Tıklama, bota karşı</td><td>Tam tahta, taş glifleri</td><td>2.278</td><td>8.038</td></tr>
 </tbody>
 </table></div>
 
     <div class="tw" lang="en"><table class="">
-<thead><tr><th>Build</th><th>Against whom</th><th>Rule level</th><th>Bytes</th></tr></thead>
+<thead><tr><th>Build</th><th>Input</th><th>Board</th><th><code>L1</code></th><th><code>L2</code></th></tr></thead>
 <tbody>
-<tr><td><code>L1</code><br><span class="fn2">builds/L1.html</span></td><td>Two humans</td><td>Legality only</td><td>1,581</td></tr>
-<tr><td><code>L2</code><br><span class="fn2">builds/L2.html</span></td><td>Two humans</td><td>+ draws arising from the board</td><td>2,265</td></tr>
-<tr><td><code>L1 · bot</code><br><span class="fn2">builds/L1_1250elo.html</span></td><td>Against a bot</td><td><code>L1</code> rules</td><td>2,278</td></tr>
-<tr><td><code>L2 · bot</code><br><span class="fn2">builds/L2_aybars_2500.html</span></td><td>Against a bot</td><td><code>L2</code> rules</td><td>8,038</td></tr>
+<tr><td><code>default</code><br><span class="fn2">L1.html · L2.html</span></td><td>Clicking</td><td>Full board, piece glyphs</td><td>1,581</td><td>2,265</td></tr>
+<tr><td><code>light</code><br><span class="fn2">L1_light.html · L2_light.html</span></td><td>Clicking</td><td>Full board, piece glyphs<span class="sub">no indicators, no result shown</span></td><td>1,240</td><td>1,839</td></tr>
+<tr><td><code>numerical</code><br><span class="fn2">L1_numerical.html · L2_numerical.html</span></td><td>Numeric, prompt dialog</td><td>None, last move only</td><td>879</td><td>1,539</td></tr>
+<tr><td><code>input</code><br><span class="fn2">L1_input.html · L2_input.html</span></td><td>UCI, text field</td><td>Full board, ASCII</td><td>1,178</td><td>1,865</td></tr>
+<tr><td><code>prompt_string_flip</code><br><span class="fn2">L1_prompt_string_flip.html · L2_prompt_string_flip.html</span></td><td>UCI, prompt dialog</td><td>Full board, full-width letters<span class="sub">flipped index</span></td><td>1,149</td><td>1,876</td></tr>
+<tr><td><code>nonbrowser</code><br><span class="fn2">L1_nonbrowser.cjs · L2_nonbrowser.cjs</span></td><td>UCI, terminal</td><td>Full board, ASCII</td><td>1,327</td><td>2,014</td></tr>
+<tr class="alt"><td><code>bot</code><br><span class="fn2">L1_1250elo.html · L2_aybars_2500.html</span></td><td>Clicking, against a bot</td><td>Full board, piece glyphs</td><td>2,278</td><td>8,038</td></tr>
 </tbody>
 </table></div>
 
     <div class="prose" lang="tr">
-      <p>Bot ne kadar tutuyor, iki satırdan okunuyor: <code>L1</code> 1.581'den 2.278'a çıkıyor,
-      yani <b>698 bayt</b>; <code>L2</code> 2.265'dan 8.038'e, yani <b>5.775</b>. Aynı kural
-      katmanı, arada sekiz kata yakın fark — arama derinliği ve değerlendirme arttıkça bayt da
-      öyle artıyor.</p>
+      <p>Aynı arayüzde <code>L1</code>'den <code>L2</code>'ye çıkmak 599 ile 727 bayt arası
+      tutuyor. Bot ne kadar tutuyor, <code>default</code> ile <code>bot</code> satırlarından
+      okunuyor: <code>L1</code> 1.581'den 2.278'a çıkıyor, yani <b>697 bayt</b>;
+      <code>L2</code> 2.265'dan 8.038'e, yani <b>5.773</b>. Aynı kural katmanı, arada sekiz kata
+      yakın fark — arama derinliği ve değerlendirme arttıkça bayt da öyle artıyor.</p>
       <p>Bu iki sürüm iddianın dışında, ve bu bir çekince değil bir tasarım sonucu. Bot
       öncelenseydi <a href="#board">tahta temsili</a> baştan başka türlü yazılırdı: kare merkezli
       düz bir dizi, “bu karede ne var” sorusunu ucuzlatıyor ama küme işlemlerini pahalılaştırıyor,
@@ -5111,10 +5129,11 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       oyuncular arası etkileşimler dışarıda kalıyor, kural tarafı olduğu gibi duruyor.</p>
     </div>
     <div class="prose" lang="en">
-      <p>What the bot costs is readable from two rows: <code>L1</code> goes from 1,581 to 2,278, that
-      is <b>698 bytes</b>; <code>L2</code> from 2,265 to 8,038, that is <b>5,775</b>. The same rule
-      layer, and nearly eightfold between them — as search depth and evaluation grow, so do the
-      bytes.</p>
+      <p>Moving from <code>L1</code> to <code>L2</code> costs between 599 and 727 bytes for the same
+      interface. What the bot costs is readable from the <code>default</code> and <code>bot</code>
+      rows: <code>L1</code> goes from 1,581 to 2,278, that is <b>697 bytes</b>; <code>L2</code> from
+      2,265 to 8,038, that is <b>5,773</b>. The same rule layer, and nearly eightfold
+      between them — as search depth and evaluation grow, so do the bytes.</p>
       <p>These two sit outside the claim, and that is a consequence of the design rather than a
       caveat. Had the bot been the priority, the <a href="#board">board representation</a> itself
       would have been written differently from the start: a flat, square-centric array makes “what
@@ -8417,6 +8436,74 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 
 </div>
 
+<div class="panel" id="panelspecial" role="tabpanel" aria-labelledby="tabspecial" tabindex="0" hidden>
+
+<section id="special">
+  <div class="wrap">
+    <p class="eyebrow" lang="tr">Özel sürümler</p>
+    <p class="eyebrow" lang="en">Special builds</p>
+    <h2 lang="tr">Seviyelere sığmayanlar</h2>
+    <h2 lang="en">What fits no level</h2>
+    <div class="prose" lang="tr">
+      <p><code>special/</code> klasörü <code>L1</code>–<code>L3</code> merdiveninin dışında kalan
+      dosyaları tutuyor: büyük platformların kurallarını izleyen eşdeğerler, bir parçası çıkarılmış
+      ya da uca kadar küçültülmüş denemeler, ve bu projenin kendini ölçtüğü Toledo'nun programı.
+      Hiçbiri iddianın parçası değil; karşılaştırma ve kayıt için duruyorlar.</p>
+      <p>Oyun dosyalarının hepsi oynatıcıda <a href="#play"><code>special</code></a> seviyesinden
+      açılıyor. Platformların kuralları neden böyle uyguladığı
+      <a href="#federations">federasyonlar bölümünde</a>.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The <code>special/</code> folder holds the files that sit outside the
+      <code>L1</code>–<code>L3</code> ladder: equivalents that follow the large platforms' rules,
+      experiments with a part removed or shrunk to the limit, and Toledo's program, the benchmark
+      this project measured itself against. None of them is part of the claim; they are kept for
+      comparison and for the record.</p>
+      <p>Every game file opens in the player under the <a href="#play"><code>special</code></a>
+      level. Why the platforms apply the rules the way they do is in the
+      <a href="#federations">federations section</a>.</p>
+    </div>
+
+    <div class="tw" lang="tr"><table class="">
+<thead><tr><th>Sürüm</th><th>Ne</th><th>Giriş</th><th>Bayt</th></tr></thead>
+<tbody>
+<tr><td><code>Chesscom-equivalent</code><br><span class="fn2">special/Chesscom-equivalent.html</span></td><td>Kurallar Chess.com'un uyguladığı gibi: 3'lü tekrar ve 50 hamle oyunu kendiliğinden bitiriyor, süre bitiminde yalnızca taş sayılıyor.</td><td>Tıklama</td><td>2.838</td></tr>
+<tr><td><code>Chesscom-equivalent_numerical</code><br><span class="fn2">special/Chesscom-equivalent_numerical.html</span></td><td>Aynı kurallar, sayısal arayüzle; paketli.</td><td>Sayısal, prompt penceresi</td><td>1.144</td></tr>
+<tr><td><code>Lichess-equivalent</code><br><span class="fn2">special/Lichess-equivalent.html</span></td><td>Kurallar Lichess'in uyguladığı gibi: 5'li tekrar ve 50 hamle kendiliğinden, 3'lü tekrar iddiayla; süre bitiminde ve terkte hızlı bir mat imkânı testi.</td><td>Tıklama</td><td>3.043</td></tr>
+<tr><td><code>Lichess-equivalent_numerical</code><br><span class="fn2">special/Lichess-equivalent_numerical.html</span></td><td>Aynı kurallar, sayısal arayüzle; paketli.</td><td>Sayısal, prompt penceresi</td><td>1.228</td></tr>
+<tr><td><code>L2_noBlockedDetector</code><br><span class="fn2">special/L2_noBlockedDetector.html</span></td><td><code>L2</code>, kilitli pozisyon dedektörü olmadan: ölü pozisyonu yalnızca materyalden tanıyor.</td><td>Tıklama</td><td>1.908</td></tr>
+<tr><td><code>L2_string_flip_noBlockedDetector</code><br><span class="fn2">special/L2_string_flip_noBlockedDetector.html</span></td><td>Aynısı, <a href="#letters">harf tahtası</a> ve ters indeksle.</td><td>Tıklama</td><td>1.999</td></tr>
+<tr><td><code>DOM_1023</code><br><span class="fn2">special/DOM_1023.html</span></td><td>1 KB'nin altında tıklanabilir tahta; yalnızca legallik, paketli.</td><td>Tıklama</td><td>1.023</td></tr>
+<tr><td><code>DOM_minimum</code><br><span class="fn2">special/DOM_minimum.html</span></td><td>Taşlar onaltılık rakamlarla çiziliyor; yalnızca legallik, paketli.</td><td>Tıklama, terfi metin alanından</td><td>830</td></tr>
+<tr><td><code>LUX_inProgress</code><br><span class="fn2">special/LUX_inProgress.html</span></td><td>Tam hakem, zengin arayüzle: sürükle bırak, sağ tıkla işaretleme, başlarken süre ve FEN seçimi. Yapım aşamasında.</td><td>Sürükle bırak, tıklama</td><td>7.697</td></tr>
+<tr class="alt"><td><code>Toledos-ES6-optimized</code><br><span class="fn2">special/Toledos-ES6-optimized.html</span></td><td>Oscar Toledo G.'nin satrancı, ES6 ile yeniden yazılmış — en bilinen küçük satranç programı, bu projenin kendini ölçtüğü eşik.</td><td>Tıklama, bota karşı</td><td>2.013</td></tr>
+<tr><td><code>ToledosOpponentbyMe</code><br><span class="fn2">special/ToledosOpponentbyMe.html</span></td><td>Toledo'nun programına rakip olarak bu motorla yazdığım bot.</td><td>Tıklama, bota karşı</td><td>2.042</td></tr>
+<tr class="alt"><td><code>engine_onlyMoveGenerator</code><br><span class="fn2">special/engine_onlyMoveGenerator.js</span></td><td>Motorun yalnızca hamle üreten yarısı, test süiti için. <a href="#engine">Motor sekmesinde</a> <code>perft</code> düğmesiyle açılıyor.</td><td><span class="none">—</span></td><td>723</td></tr>
+</tbody>
+</table></div>
+
+    <div class="tw" lang="en"><table class="">
+<thead><tr><th>Build</th><th>What it is</th><th>Input</th><th>Bytes</th></tr></thead>
+<tbody>
+<tr><td><code>Chesscom-equivalent</code><br><span class="fn2">special/Chesscom-equivalent.html</span></td><td>The rules as Chess.com applies them: threefold repetition and the 50-move rule end the game by themselves, and flag fall is judged by piece count alone.</td><td>Clicking</td><td>2,838</td></tr>
+<tr><td><code>Chesscom-equivalent_numerical</code><br><span class="fn2">special/Chesscom-equivalent_numerical.html</span></td><td>The same rules with the numeric interface; packed.</td><td>Numeric, prompt dialog</td><td>1,144</td></tr>
+<tr><td><code>Lichess-equivalent</code><br><span class="fn2">special/Lichess-equivalent.html</span></td><td>The rules as Lichess applies them: fivefold repetition and the 50-move rule are automatic, threefold is claimed; flag fall and resignation use a quick mating-material test.</td><td>Clicking</td><td>3,043</td></tr>
+<tr><td><code>Lichess-equivalent_numerical</code><br><span class="fn2">special/Lichess-equivalent_numerical.html</span></td><td>The same rules with the numeric interface; packed.</td><td>Numeric, prompt dialog</td><td>1,228</td></tr>
+<tr><td><code>L2_noBlockedDetector</code><br><span class="fn2">special/L2_noBlockedDetector.html</span></td><td><code>L2</code> without the blocked-position detector: it recognises a dead position from material alone.</td><td>Clicking</td><td>1,908</td></tr>
+<tr><td><code>L2_string_flip_noBlockedDetector</code><br><span class="fn2">special/L2_string_flip_noBlockedDetector.html</span></td><td>The same on the <a href="#letters">letter board</a>, with the index flipped.</td><td>Clicking</td><td>1,999</td></tr>
+<tr><td><code>DOM_1023</code><br><span class="fn2">special/DOM_1023.html</span></td><td>A clickable board under 1 KB; legality only, packed.</td><td>Clicking</td><td>1,023</td></tr>
+<tr><td><code>DOM_minimum</code><br><span class="fn2">special/DOM_minimum.html</span></td><td>Pieces drawn as hexadecimal digits; legality only, packed.</td><td>Clicking, promotion typed into a text field</td><td>830</td></tr>
+<tr><td><code>LUX_inProgress</code><br><span class="fn2">special/LUX_inProgress.html</span></td><td>The full arbiter with a rich interface: drag and drop, right-click marking, time control and FEN picked at the start. In progress.</td><td>Drag and drop, clicking</td><td>7,697</td></tr>
+<tr class="alt"><td><code>Toledos-ES6-optimized</code><br><span class="fn2">special/Toledos-ES6-optimized.html</span></td><td>Oscar Toledo G.'s chess in an ES6 rewrite — the best-known tiny chess program, and the benchmark this project measured itself against.</td><td>Clicking, against a bot</td><td>2,013</td></tr>
+<tr><td><code>ToledosOpponentbyMe</code><br><span class="fn2">special/ToledosOpponentbyMe.html</span></td><td>The bot I wrote on this engine as an opponent for Toledo's program.</td><td>Clicking, against a bot</td><td>2,042</td></tr>
+<tr class="alt"><td><code>engine_onlyMoveGenerator</code><br><span class="fn2">special/engine_onlyMoveGenerator.js</span></td><td>Only the move-generating half of the engine, for the test suite. It opens under the <code>perft</code> switch on the <a href="#engine">engine</a> tab.</td><td><span class="none">—</span></td><td>723</td></tr>
+</tbody>
+</table></div>
+  </div>
+</section>
+
+</div>
+
 <div class="panel" id="paneltech" role="tabpanel" aria-labelledby="tabtech" tabindex="0" hidden>
 
 <section id="speed">
@@ -9045,8 +9132,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
     <div class="tw" lang="tr"><table class="">
 <thead><tr><th>Sürüm</th><th>Arayüz</th><th>Düzen</th><th>Bayt</th></tr></thead>
 <tbody>
-<tr><td><code>L1_prompt_string_flip</code><br><span class="fn2">builds/</span></td><td>prompt</td><td>a8=0</td><td>1.149</td></tr>
-<tr><td><code>L2_prompt_string_flip</code><br><span class="fn2">builds/</span></td><td>prompt</td><td>a8=0</td><td>1.877</td></tr>
+<tr><td><code>L1_prompt_string_flip</code><br><span class="fn2">builds/L1/</span></td><td>prompt</td><td>a8=0</td><td>1.149</td></tr>
+<tr><td><code>L2_prompt_string_flip</code><br><span class="fn2">builds/L2/</span></td><td>prompt</td><td>a8=0</td><td>1.876</td></tr>
 <tr><td><code>prompt_string</code><br><span class="fn2">builds/</span></td><td>prompt</td><td>a1=0</td><td>2.565</td></tr>
 <tr><td><code>prompt_string_flip</code><br><span class="fn2">builds/</span></td><td>prompt</td><td>a8=0</td><td>2.508</td></tr>
 <tr><td><code>L2_string_flip_noBlockedDetector</code><br><span class="fn2">special/</span></td><td>tıklama</td><td>a8=0</td><td>1.999</td></tr>
@@ -9056,8 +9143,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
     <div class="tw" lang="en"><table class="">
 <thead><tr><th>Build</th><th>Interface</th><th>Layout</th><th>Bytes</th></tr></thead>
 <tbody>
-<tr><td><code>L1_prompt_string_flip</code><br><span class="fn2">builds/</span></td><td>prompt</td><td>a8=0</td><td>1,149</td></tr>
-<tr><td><code>L2_prompt_string_flip</code><br><span class="fn2">builds/</span></td><td>prompt</td><td>a8=0</td><td>1,877</td></tr>
+<tr><td><code>L1_prompt_string_flip</code><br><span class="fn2">builds/L1/</span></td><td>prompt</td><td>a8=0</td><td>1,149</td></tr>
+<tr><td><code>L2_prompt_string_flip</code><br><span class="fn2">builds/L2/</span></td><td>prompt</td><td>a8=0</td><td>1,876</td></tr>
 <tr><td><code>prompt_string</code><br><span class="fn2">builds/</span></td><td>prompt</td><td>a1=0</td><td>2,565</td></tr>
 <tr><td><code>prompt_string_flip</code><br><span class="fn2">builds/</span></td><td>prompt</td><td>a8=0</td><td>2,508</td></tr>
 <tr><td><code>L2_string_flip_noBlockedDetector</code><br><span class="fn2">special/</span></td><td>clicking</td><td>a8=0</td><td>1,999</td></tr>
@@ -11772,7 +11859,7 @@ var DIR = 'builds/';
 var ROOT = DIR.slice(0, -'builds/'.length);
 /* k/ks yalnizca paketlenmis hali gonderilen surumlerde var. Yoksa oynatici
    plain'i acar ve 'Packed indir' dugmesi soluk kalir. */
-var ART = {"L3": {"p": "L3.html", "k": "special/L3_packed.html", "ps": 3193, "ks": 2702}, "L3_light": {"p": "L3_light.html", "ps": 2974}, "L3_numerical": {"p": "L3_numerical.html", "k": "special/L3_numerical_packed.html", "ps": 2113, "ks": 1792}, "L3_prompt": {"p": "L3_prompt.html", "ps": 2450}, "L3_prompt_blindfold": {"p": "L3_prompt_blindfold.html", "ps": 2314}, "L3_input": {"p": "L3_input.html", "ps": 2582}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2437}, "L3_prompt_string": {"p": "L3_prompt_string.html", "ps": 2565}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2508}, "L1": {"p": "L1.html", "ps": 1581}, "L1_light": {"p": "L1_light.html", "ps": 1240}, "L1_numerical": {"p": "L1_numerical.html", "ps": 879}, "L1_input": {"p": "L1_input.html", "ps": 1178}, "L1_prompt_string_flip": {"p": "L1_prompt_string_flip.html", "ps": 1149}, "L1_1250elo": {"p": "L1_1250elo.html", "ps": 2278}, "L2": {"p": "L2.html", "ps": 2265}, "L2_light": {"p": "L2_light.html", "ps": 1839}, "L2_numerical": {"p": "L2_numerical.html", "ps": 1539}, "L2_input": {"p": "L2_input.html", "ps": 1865}, "L2_prompt_string_flip": {"p": "L2_prompt_string_flip.html", "ps": 1876}, "L2_aybars_2500": {"p": "L2_aybars_2500.html", "ps": 8038}, "LUX": {"p": "special/LUX.html", "ps": 7688}, "Chesscom-equivalent": {"p": "special/Chesscom-equivalent.html", "ps": 2766}, "Chesscom-equivalent_numerical": {"p": "special/Chesscom-equivalent_numerical.html", "ps": 1144}, "Lichess-equivalent": {"p": "special/Lichess-equivalent.html", "ps": 2900}, "Lichess-equivalent_numerical": {"p": "special/Lichess-equivalent_numerical.html", "ps": 1228}, "L2_noBlockedDetector": {"p": "special/L2_noBlockedDetector.html", "ps": 1908}, "L2_string_flip_noBlockedDetector": {"p": "special/L2_string_flip_noBlockedDetector.html", "ps": 1999}, "DOM_1023": {"p": "special/DOM_1023.html", "ps": 1023}, "DOM_minimum": {"p": "special/DOM_minimum.html", "ps": 830}, "Toledos-ES6-optimized": {"p": "special/Toledos-ES6-optimized.html", "ps": 2013}, "ToledosOpponentbyMe": {"p": "special/ToledosOpponentbyMe.html", "ps": 2042}, "engine": {"p": "engine.js", "ps": 1882}, "engine_4x": {"p": "engine_4x.js", "ps": 1963}, "engine_string": {"p": "engine_string.js", "ps": 1999}, "engine_onlyMoveGenerator": {"p": "engine_onlyMoveGenerator.js", "ps": 723}};
+var ART = {"L3": {"p": "L3.html", "ps": 3193, "k": "L3_packed.html", "ks": 2702}, "L3_light": {"p": "L3_light.html", "ps": 2974}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2113, "k": "L3_numerical_packed.html", "ks": 1792}, "L3_prompt": {"p": "L3_prompt.html", "ps": 2450}, "L3_prompt_blindfold": {"p": "L3_prompt_blindfold.html", "ps": 2314}, "L3_input": {"p": "L3_input.html", "ps": 2582}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2437}, "L3_prompt_string": {"p": "L3_prompt_string.html", "ps": 2565}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2508}, "L1": {"p": "builds/L1/L1.html", "ps": 1581}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1240}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 879}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1178}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1149}, "L1_1250elo": {"p": "builds/L1/L1_1250elo.html", "ps": 2278}, "L2": {"p": "builds/L2/L2.html", "ps": 2265}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1839}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1539}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1865}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1876}, "L2_aybars_2500": {"p": "builds/L2/L2_aybars_2500.html", "ps": 8038}, "Chesscom-equivalent": {"p": "special/Chesscom-equivalent.html", "ps": 2838}, "Chesscom-equivalent_numerical": {"p": "special/Chesscom-equivalent_numerical.html", "ps": 1144}, "Lichess-equivalent": {"p": "special/Lichess-equivalent.html", "ps": 3043}, "Lichess-equivalent_numerical": {"p": "special/Lichess-equivalent_numerical.html", "ps": 1228}, "L2_noBlockedDetector": {"p": "special/L2_noBlockedDetector.html", "ps": 1908}, "L2_string_flip_noBlockedDetector": {"p": "special/L2_string_flip_noBlockedDetector.html", "ps": 1999}, "DOM_1023": {"p": "special/DOM_1023.html", "ps": 1023}, "DOM_minimum": {"p": "special/DOM_minimum.html", "ps": 830}, "LUX_inProgress": {"p": "special/LUX_inProgress.html", "ps": 7697}, "Toledos-ES6-optimized": {"p": "special/Toledos-ES6-optimized.html", "ps": 2013}, "ToledosOpponentbyMe": {"p": "special/ToledosOpponentbyMe.html", "ps": 2042}, "engine": {"p": "engine.js", "ps": 1882}, "engine_4x": {"p": "engine_4x.js", "ps": 1963}, "engine_string": {"p": "engine_string.js", "ps": 1999}, "engine_onlyMoveGenerator": {"p": "special/engine_onlyMoveGenerator.js", "ps": 723}};
 
 /* Paketli sürümler kendilerini eval ile açıyor. unsafe-eval içermeyen bir CSP
    altında bu imkânsız; iframe aynı sunucudan yüklendiği için aynı politikayı
@@ -12181,7 +12268,7 @@ var engKey = 'engine',
 function engLabels() {
   var a = ART[engKey], on = engKey === 'engine_4x', st = engKey === 'engine_string',
       pf = engKey === 'engine_onlyMoveGenerator';
-  engFn.textContent = a.p;
+  engFn.textContent = a.p.split('/').pop();
   engMeta.textContent = on
     ? fmt(a.ps) + FL('bytes') + ' \u00b7 ' + fmt(ART.engine.ps) + ' + ' + fmt(engDelta) +
       FL('oneLine')
