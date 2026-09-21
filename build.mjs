@@ -3,8 +3,8 @@
  *
  *   index.html  (master, iki dil bir arada)
  *        |
- *        +--> dist/index.html      Turkce  — canonical /
- *        +--> dist/en/index.html   Ingilizce — canonical /en
+ *        +--> dist/index.html      Ingilizce — canonical /    (ana surum)
+ *        +--> dist/tr/index.html   Turkce    — canonical /tr
  *
  * Her ciktida karsi dilin blogu DOM'dan tamamen cikarilir. Boylece:
  *   - <title>, <meta description> ve <html lang> sunucudan dogru gelir
@@ -214,8 +214,8 @@ for (const t of TARGETS) {
     if (!seen.has(m[1])) throw new Error(t.lang + ': kirik ic baglanti #' + m[1]);
   }
 
-  /* Varlik yollarini koke sabitle. /en URL'i bir dizin gibi ele alinirsa
-     goreli yollar /en/images/... olur ve 404 verir; koke sabitlemek bu
+  /* Varlik yollarini koke sabitle. /tr URL'i bir dizin gibi ele alinirsa
+     goreli yollar /tr/images/... olur ve 404 verir; koke sabitlemek bu
      riski tamamen kaldirir. */
   let paths = 0;
   h = h.replace(/(\s(?:src|href)=")(images\/|icons\/|builds\/|special\/|extra\/|test\.zip)/g,

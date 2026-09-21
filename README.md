@@ -2,8 +2,8 @@
 
 *[Türkçe ↓](#türkçe)*
 
-A full-FIDE chess arbiter in **1,872 bytes** of plain JavaScript — no dependencies, no install,
-no server. Packed into a playable game it comes to **1,790 bytes**; with a clickable board, a
+A full-FIDE chess arbiter in **1,882 bytes** of plain JavaScript — no dependencies, no install,
+no server. Packed into a playable game it comes to **1,792 bytes**; with a clickable board, a
 clock and indicators, **2.7 KB**.
 
 **→ [www.fidelite.art](https://www.fidelite.art)** — playable builds, the rulebook, a line-by-line
@@ -44,18 +44,21 @@ the book asks what that board is forced to become.**
 
 | File | Bytes | What it is |
 | --- | --- | --- |
-| `builds/engine.js` | 1,872 | The rule engine. One line, no front end. |
-| `builds/engine_4x.js` | 1,940 | The same rules, +68 bytes, two to ten times the speed. |
+| `builds/engine.js` | 1,882 | The rule engine. One line, no front end. |
+| `builds/engine_4x.js` | 1,963 | The same rules, +81 bytes, two to ten times the speed. |
+| `builds/engine_string.js` | 1,999 | The same rules on a board of FEN letters instead of numbers. |
 | `builds/engine_onlyMoveGenerator.js` | 723 | Move generation only, for the test suite. |
 
 Every file under `builds/` and `special/` runs on its own — download an HTML file and double-click
 it. The `.cjs` builds run in a terminal with `node`.
 
-**Ten front ends carry the full arbiter.** `L3` is played by clicking; `numerical`, `prompt`,
-`prompt_blindfold`, `input`, `input_blindfold`, `prompt_string`, `prompt_string_flip` and two
-terminal builds take moves as text. The rule layer is identical in all ten. Four further builds —
-`L1`, `L2` and their two bot versions — vary the *rules* instead of the interface, and sit outside
-the claim. [Details.](https://www.fidelite.art/#builds)
+**Eleven front ends carry the full arbiter.** `L3` and `L3_light` are played by clicking;
+`numerical`, `prompt`, `prompt_blindfold`, `input`, `input_blindfold`, `prompt_string`,
+`prompt_string_flip` and two terminal builds take moves as text. The rule layer is identical in
+all eleven. `L1` and `L2` vary the *rules* instead of the interface; each has its own set of front
+ends and a build with a bot, and both sit outside the claim. `special/` holds what fits no level:
+the Chess.com and Lichess equivalents, experimental interfaces, and Toledo's program.
+[Details.](https://www.fidelite.art/#builds)
 
 ## Detailed documentation
 
@@ -83,20 +86,20 @@ The rule claims are checked with perft against published reference values: the C
 Kervinck's tricky list, the 6,838-position Vajolet corpus, and a move-list comparison against
 Stockfish — about **1.5 billion nodes, zero deviations**.
 
-You do not have to take my word for it. [`test.zip`](https://www.fidelite.art/test.zip) (243 KB)
-contains the suite, copies of the three engines, the Vajolet position list and eight clickable
+You do not have to take my word for it. [`test.zip`](https://www.fidelite.art/test.zip) (241 KB)
+contains the suite, copies of the four engines, the Vajolet position list and eight clickable
 `.bat` files. Five of the eight runs need only Node; two need Stockfish, which is not in the
 package. On any other platform, `node test.js <command>`.
 
 ## Also in the repository
 
-Five files that the site does not link to, kept here because they are part of how the engine got
-where it is.
+Five files kept here because they are part of how the engine got where it is. The first two can
+also be played on the site, under *special*.
 
 | File | What it is |
 | --- | --- |
-| [`special/L1/Toledos-ES6-optimized.html`](special/L1/Toledos-ES6-optimized.html) | Oscar Toledo G.'s chess in an ES6 rewrite — the best-known tiny chess program, and the benchmark this project measured itself against. |
-| [`special/L1/ToledosOpponentbyMe.html`](special/L1/ToledosOpponentbyMe.html) | The opponent I wrote for it, on this engine. Two tiny programs playing each other. |
+| [`special/Toledos-ES6-optimized.html`](special/Toledos-ES6-optimized.html) | Oscar Toledo G.'s chess in an ES6 rewrite — the best-known tiny chess program, and the benchmark this project measured itself against. |
+| [`special/ToledosOpponentbyMe.html`](special/ToledosOpponentbyMe.html) | The opponent I wrote for it, on this engine. Two tiny programs playing each other. |
 | [`extra/2kbfullfidejs.com_index.html`](extra/2kbfullfidejs.com_index.html) | A generator built on the same ideas: it emits standalone engines of roughly 0.6–2.7 KB across several rule levels. |
 | [`extra/2kbfullfidejs.com_README.md`](extra/2kbfullfidejs.com_README.md) | That generator's own documentation — architecture, option axes, the optimisation rules it follows. |
 | [`extra/Chess960_Skeletons.html`](extra/Chess960_Skeletons.html) | All 56 castling skeletons of Chess960, laid out. Where the castling rules go once the back rank is no longer fixed. |
@@ -110,8 +113,8 @@ ships something smaller. Until then it stands.
 
 # Türkçe
 
-Tam FIDE kurallı satranç hakem motoru, **1.872 bayt** saf JavaScript — bağımlılık yok, kurulum
-yok, sunucu yok. Paketlenip oynanabilir bir oyuna dönüştüğünde **1.790 bayt**; tıklanabilir
+Tam FIDE kurallı satranç hakem motoru, **1.882 bayt** saf JavaScript — bağımlılık yok, kurulum
+yok, sunucu yok. Paketlenip oynanabilir bir oyuna dönüştüğünde **1.792 bayt**; tıklanabilir
 tahtası, saati ve göstergeleriyle birlikte **2,7 KB**.
 
 **→ [www.fidelite.art/tr](https://www.fidelite.art/tr)** — oynanabilir sürümler, kural kitabı,
@@ -151,17 +154,20 @@ zorunlu olarak neye dönüşeceğini soruyor.**
 
 | Dosya | Bayt | Ne |
 | --- | --- | --- |
-| `builds/engine.js` | 1.872 | Kural motoru. Tek satır, önyüz yok. |
-| `builds/engine_4x.js` | 1.940 | Aynı kurallar, +68 bayt, iki ilâ on kat hız. |
+| `builds/engine.js` | 1.882 | Kural motoru. Tek satır, önyüz yok. |
+| `builds/engine_4x.js` | 1.963 | Aynı kurallar, +81 bayt, iki ilâ on kat hız. |
+| `builds/engine_string.js` | 1.999 | Aynı kurallar, tahta sayı yerine FEN harfleriyle. |
 | `builds/engine_onlyMoveGenerator.js` | 723 | Yalnız hamle üretimi, test süiti için. |
 
 `builds/` ve `special/` altındaki her dosya tek başına çalışır — HTML dosyasını indirip çift
 tıklamak yeterli. `.cjs` sürümleri terminalde `node` ile koşar.
 
-**On önyüz tam hakemi taşıyor.** `L3` tıklanarak oynanır; `numerical`, `prompt`,
-`prompt_blindfold`, `input`, `input_blindfold`, `prompt_string`, `prompt_string_flip` ve iki
-terminal sürümü hamleyi metin olarak alır. Kural katmanı onunda da aynıdır. Dört sürüm daha —
-`L1`, `L2` ve iki botlu hâlleri — arayüzü değil *kuralları* değiştirir ve iddianın dışındadır.
+**On bir önyüz tam hakemi taşıyor.** `L3` ve `L3_light` tıklanarak oynanır; `numerical`,
+`prompt`, `prompt_blindfold`, `input`, `input_blindfold`, `prompt_string`, `prompt_string_flip` ve
+iki terminal sürümü hamleyi metin olarak alır. Kural katmanı on birinde de aynıdır. `L1` ve `L2`
+arayüzü değil *kuralları* değiştirir; her birinin kendi önyüzleri ve botlu bir sürümü var, ikisi de
+iddianın dışındadır. `special/` hiçbir seviyeye girmeyenleri tutar: Chess.com ve Lichess
+eşdeğerleri, deneysel arayüzler ve Toledo'nun programı.
 [Ayrıntı.](https://www.fidelite.art/tr#builds)
 
 ## Ayrıntılı belge
@@ -190,20 +196,20 @@ Kural iddiaları perft ile, yayımlanmış referans değerlere karşı sınandı
 Kervinck'in zor listesi, 6.838 pozisyonluk Vajolet külliyatı ve Stockfish'e karşı hamle listesi
 karşılaştırması — yaklaşık **1,5 milyar düğüm, sıfır sapma**.
 
-Bana güvenmeniz gerekmiyor. [`test.zip`](https://www.fidelite.art/test.zip) (243 KB) içinde süit,
-üç motorun kopyası, Vajolet pozisyon listesi ve sekiz çift tıklanabilir `.bat` var. Sekiz koşunun
+Bana güvenmeniz gerekmiyor. [`test.zip`](https://www.fidelite.art/test.zip) (241 KB) içinde süit,
+dört motorun kopyası, Vajolet pozisyon listesi ve sekiz çift tıklanabilir `.bat` var. Sekiz koşunun
 beşi yalnızca Node istiyor; ikisi Stockfish gerektiriyor, o da pakette değil. Başka platformda
 `node test.js <komut>`.
 
 ## Repoda ayrıca
 
-Sitenin bağlantı vermediği beş dosya. Motorun bugünkü hâline nasıl geldiğinin parçası oldukları
-için burada duruyorlar.
+Motorun bugünkü hâline nasıl geldiğinin parçası oldukları için burada duran beş dosya. İlk ikisi
+sitede de, *special* altında oynanabiliyor.
 
 | Dosya | Ne |
 | --- | --- |
-| [`special/L1/Toledos-ES6-optimized.html`](special/L1/Toledos-ES6-optimized.html) | Oscar Toledo G.'nin satrancının ES6 ile yeniden yazımı — en bilinen küçük satranç programı, ve bu projenin kendini ölçtüğü eşik. |
-| [`special/L1/ToledosOpponentbyMe.html`](special/L1/ToledosOpponentbyMe.html) | Ona karşı bu motorla yazdığım rakip. İki küçük program birbiriyle oynuyor. |
+| [`special/Toledos-ES6-optimized.html`](special/Toledos-ES6-optimized.html) | Oscar Toledo G.'nin satrancının ES6 ile yeniden yazımı — en bilinen küçük satranç programı, ve bu projenin kendini ölçtüğü eşik. |
+| [`special/ToledosOpponentbyMe.html`](special/ToledosOpponentbyMe.html) | Ona karşı bu motorla yazdığım rakip. İki küçük program birbiriyle oynuyor. |
 | [`extra/2kbfullfidejs.com_index.html`](extra/2kbfullfidejs.com_index.html) | Aynı fikirler üzerine kurulu bir üretici: birkaç kural seviyesinde, kabaca 0,6–2,7 KB arası tek başına çalışan motorlar üretiyor. |
 | [`extra/2kbfullfidejs.com_README.md`](extra/2kbfullfidejs.com_README.md) | O üreticinin kendi belgesi — mimari, seçenek eksenleri, uyduğu optimizasyon kuralları. |
 | [`extra/Chess960_Skeletons.html`](extra/Chess960_Skeletons.html) | Chess960'ın 56 rok iskeletinin tamamı. Son yatay sabit olmaktan çıkınca rok kurallarının nereye gittiği. |
