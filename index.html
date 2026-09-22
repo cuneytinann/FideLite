@@ -1363,7 +1363,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <label class="rd str" data-lv="L2" hidden title="Harf dizgisi, indeks sırası ters" data-en-title="String board, flipped index order"><input type="radio" name="build" value="L2_prompt_string_flip"> <code>prompt_string_flip</code></label>
 <label class="rd bot" data-lv="L2" hidden title="Bota karşı — tek kişilik" data-en-title="Against a bot — single player"><input type="radio" name="build" value="L2_aybars_2500"> <code>aybars_2500</code></label>
 <label class="rd" data-lv="L3" title="Ana dosya — tıklanabilir tahta, canlı saat" data-en-title="Main file — clickable board, live clock"><input type="radio" name="build" value="L3" checked> <code>default</code></label>
-<label class="rd" data-lv="L3" title="Tıklanabilir tahta, yalın hâli" data-en-title="Clickable board, pared down"><input type="radio" name="build" value="L3_light"> <code>light</code></label>
+<label class="rd" data-lv="L3" title="Tıklanabilir tahta, en yalın hâli — yazı yok, sonuç tahtadan ve saatten okunur" data-en-title="Clickable board at its barest — no text; the result is read from the board and the clocks"><input type="radio" name="build" value="L3_light"> <code>light</code></label>
 <label class="rd" data-lv="L3" title="Sayısal arayüz, prompt penceresi" data-en-title="Numeric interface, prompt dialog"><input type="radio" name="build" value="L3_numerical"> <code>numerical</code></label>
 <label class="rd" data-lv="L3" title="UCI, prompt penceresi" data-en-title="UCI, prompt dialog"><input type="radio" name="build" value="L3_prompt"> <code>prompt</code></label>
 <label class="rd" data-lv="L3" title="UCI, prompt penceresi, tahta çizilmiyor" data-en-title="UCI, prompt dialog, no board"><input type="radio" name="build" value="L3_prompt_blindfold"> <code>prompt_blindfold</code></label>
@@ -5270,7 +5270,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <thead><tr><th>Sürüm</th><th>Giriş</th><th>Tahta</th><th>Saat</th><th>Süre</th><th>Düz</th><th>Paketli</th></tr></thead>
 <tbody>
 <tr><td><code>L3</code><br><span class="fn2">builds/L3.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri</td><td>⏱ <b>DD:SS</b><span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>3.193</td><td>2.702</td></tr>
-<tr><td><code>light</code><br><span class="fn2">builds/L3_light.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri<span class="sub">koordinat, şah uyarısı ve hedef işareti yok</span></td><td>⏱ <b>DD:SS</b><span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>2.978</td><td><span class="none">—</span></td></tr>
+<tr><td><code>light</code><br><span class="fn2">builds/L3_light.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri<span class="sub">durum satırı, koordinat, şah uyarısı ve hedef işareti yok; sonuç <a href="#lightread">tahtadan ve saatten okunuyor</a></span></td><td>⏱ <b>DD:SS</b><span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>2.676</td><td><span class="none">—</span></td></tr>
 <tr><td><code>numerical</code><br><span class="fn2">builds/L3_numerical.html</span></td><td>Sayısal, prompt penceresi</td><td>Yok, yalnızca son hamle</td><td>Milisaniye<span class="sub">hamlede</span></td><td>900.000 ms<span class="sub">artış yok</span></td><td>2.113</td><td>1.792</td></tr>
 <tr><td><code>prompt</code><br><span class="fn2">builds/L3_prompt.html</span></td><td>UCI, prompt penceresi</td><td>Tam tahta, tam genişlik glifler</td><td>Saniye<span class="sub">hamlede</span></td><td>600 sn + 5 sn</td><td>2.450</td><td><span class="none">—</span></td></tr>
 <tr><td><code>prompt_blindfold</code><br><span class="fn2">builds/L3_prompt_blindfold.html</span></td><td>UCI, prompt penceresi</td><td>Yok, yalnızca son hamle</td><td>Saniye<span class="sub">hamlede</span></td><td>600 sn + 5 sn</td><td>2.314</td><td><span class="none">—</span></td></tr>
@@ -5287,7 +5287,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <thead><tr><th>Build</th><th>Input</th><th>Board</th><th>Clock</th><th>Time control</th><th>Plain</th><th>Packed</th></tr></thead>
 <tbody>
 <tr><td><code>L3</code><br><span class="fn2">builds/L3.html</span></td><td>Clicking</td><td>Full board, piece glyphs</td><td>⏱ <b>MM:SS</b><span class="sub">live</span></td><td>600 s + 5 s</td><td>3,193</td><td>2,702</td></tr>
-<tr><td><code>light</code><br><span class="fn2">builds/L3_light.html</span></td><td>Clicking</td><td>Full board, piece glyphs<span class="sub">no coordinates, check marker or target squares</span></td><td>⏱ <b>MM:SS</b><span class="sub">live</span></td><td>600 s + 5 s</td><td>2,978</td><td><span class="none">—</span></td></tr>
+<tr><td><code>light</code><br><span class="fn2">builds/L3_light.html</span></td><td>Clicking</td><td>Full board, piece glyphs<span class="sub">no status line, coordinates, check marker or target squares; the result is <a href="#lightread">read from the board and the clocks</a></span></td><td>⏱ <b>MM:SS</b><span class="sub">live</span></td><td>600 s + 5 s</td><td>2,676</td><td><span class="none">—</span></td></tr>
 <tr><td><code>numerical</code><br><span class="fn2">builds/L3_numerical.html</span></td><td>Numeric, prompt dialog</td><td>None, last move only</td><td>Milliseconds<span class="sub">on move</span></td><td>900,000 ms<span class="sub">no increment</span></td><td>2,113</td><td>1,792</td></tr>
 <tr><td><code>prompt</code><br><span class="fn2">builds/L3_prompt.html</span></td><td>UCI, prompt dialog</td><td>Full board, full-width glyphs</td><td>Seconds<span class="sub">on move</span></td><td>600 s + 5 s</td><td>2,450</td><td><span class="none">—</span></td></tr>
 <tr><td><code>prompt_blindfold</code><br><span class="fn2">builds/L3_prompt_blindfold.html</span></td><td>UCI, prompt dialog</td><td>None, last move only</td><td>Seconds<span class="sub">on move</span></td><td>600 s + 5 s</td><td>2,314</td><td><span class="none">—</span></td></tr>
@@ -5454,7 +5454,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <thead><tr><th>Sürüm</th><th>Giriş</th><th>Tahta</th><th><code>L1</code></th><th><code>L2</code></th></tr></thead>
 <tbody>
 <tr><td><code>default</code><br><span class="fn2">L1.html · L2.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri</td><td>1.581</td><td>2.265</td></tr>
-<tr><td><code>light</code><br><span class="fn2">L1_light.html · L2_light.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri<span class="sub">gösterge yok, sonucu bildirmiyor</span></td><td>1.240</td><td>1.839</td></tr>
+<tr><td><code>light</code><br><span class="fn2">L1_light.html · L2_light.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri<span class="sub">gösterge yok, sonuç <a href="#lightread">tahtadan okunuyor</a></span></td><td>1.159</td><td>1.758</td></tr>
 <tr><td><code>numerical</code><br><span class="fn2">L1_numerical.html · L2_numerical.html</span></td><td>Sayısal, prompt penceresi</td><td>Yok, yalnızca son hamle</td><td>879</td><td>1.539</td></tr>
 <tr><td><code>input</code><br><span class="fn2">L1_input.html · L2_input.html</span></td><td>UCI, metin alanı</td><td>Tam tahta, ASCII</td><td>1.178</td><td>1.865</td></tr>
 <tr><td><code>prompt_string_flip</code><br><span class="fn2">L1_prompt_string_flip.html · L2_prompt_string_flip.html</span></td><td>UCI, prompt penceresi</td><td>Tam tahta, tam genişlik harfler<span class="sub">ters indeks</span></td><td>1.148</td><td>1.875</td></tr>
@@ -5467,7 +5467,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <thead><tr><th>Build</th><th>Input</th><th>Board</th><th><code>L1</code></th><th><code>L2</code></th></tr></thead>
 <tbody>
 <tr><td><code>default</code><br><span class="fn2">L1.html · L2.html</span></td><td>Clicking</td><td>Full board, piece glyphs</td><td>1,581</td><td>2,265</td></tr>
-<tr><td><code>light</code><br><span class="fn2">L1_light.html · L2_light.html</span></td><td>Clicking</td><td>Full board, piece glyphs<span class="sub">no indicators, no result shown</span></td><td>1,240</td><td>1,839</td></tr>
+<tr><td><code>light</code><br><span class="fn2">L1_light.html · L2_light.html</span></td><td>Clicking</td><td>Full board, piece glyphs<span class="sub">no indicators; the result is <a href="#lightread">read from the board</a></span></td><td>1,159</td><td>1,758</td></tr>
 <tr><td><code>numerical</code><br><span class="fn2">L1_numerical.html · L2_numerical.html</span></td><td>Numeric, prompt dialog</td><td>None, last move only</td><td>879</td><td>1,539</td></tr>
 <tr><td><code>input</code><br><span class="fn2">L1_input.html · L2_input.html</span></td><td>UCI, text field</td><td>Full board, ASCII</td><td>1,178</td><td>1,865</td></tr>
 <tr><td><code>prompt_string_flip</code><br><span class="fn2">L1_prompt_string_flip.html · L2_prompt_string_flip.html</span></td><td>UCI, prompt dialog</td><td>Full board, full-width letters<span class="sub">flipped index</span></td><td>1,148</td><td>1,875</td></tr>
@@ -5692,6 +5692,103 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       to move. Since the clock only refreshes when the dialog opens,
       <a href="#notation">a numerically valid but unplayable input</a> is the only way to refresh
       the display without triggering an offer.</p>
+    </div>
+
+    <h3 id="lightread" lang="tr"><code>light</code> sürümlerinde sonuç nasıl okunur</h3>
+    <h3 lang="en" data-id="lightread">How the result is read in the <code>light</code> builds</h3>
+    <div class="prose" lang="tr">
+      <p>Üç <code>light</code> sürümü de sonucu yazmıyor; oyun bitince yalnızca duruyor. Ölçüt,
+      oyuncunun <b>kazancı beraberlikten kesin olarak ayırabilmesi</b> — hangi beraberlik olduğu
+      değil. Bunun için ekranda zaten duran şeyler kullanılıyor: tahta, saatler ve beraberlik
+      radyosu. Hiçbiri için fazladan bir işaret yazılmadı.</p>
+      <p><b><code>L1</code> ve <code>L2</code>'de tek kanal tahta.</b> Oyun bitince tıklamalar
+      karşılık bulmuyor. Sırası gelenin hiç hamlesi yoksa bitiş tahtada görünür: şahı tehdit
+      altındaysa mat, değilse pat. <code>L1</code> başka türlü bitmez. <code>L2</code>'de hamle
+      varken tahta donduysa bitiş tahtadan doğan bir beraberliktir — yetersiz materyal ya da ölü
+      pozisyon, 5'li tekrar, 75 hamle. Hangisi olduğu gösterilmez; beraberlik olduğu kesindir.</p>
+      <p><b><code>L3</code>'te saatler de konuşur.</b> Sırası gelenin hamlesi kalmadıysa sonuç
+      yine tahtadan okunur: mat ya da pat. Diğer bitişlerde kural tek cümle: oyun bitince saatler
+      durur; biri akmaya devam ediyorsa oyun, rakip mat edemediği için berabere bitmiştir.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>None of the three <code>light</code> builds writes the result; when the game ends they
+      simply stop. The measure is that the player can <b>tell a win from a draw beyond doubt</b> —
+      not which draw it was. For that they use what is already on screen: the board, the clocks and
+      the draw radio. Not a single extra mark was written for any of it.</p>
+      <p><b>In <code>L1</code> and <code>L2</code> the board is the only channel.</b> Once the
+      game is over, clicks meet no response. If the side to move has no move at all, the ending is
+      visible on the board: mate if its king is attacked, stalemate if not. <code>L1</code> ends in
+      no other way. In <code>L2</code>, a board that freezes while moves remain means a draw that
+      arises from the board — insufficient material or a dead position, fivefold repetition, the
+      75-move rule. Which one is not shown; that it is a draw is certain.</p>
+      <p><b>In <code>L3</code> the clocks speak too.</b> If the side to move has no move left, the
+      result is still read from the board: mate or stalemate. For every other ending the rule
+      fits in one sentence: when the game ends the clocks stop; if one keeps running, the game was
+      drawn because the opponent cannot mate.</p>
+    </div>
+    <div class="tw" lang="tr"><table class="">
+<thead><tr><th>Ekranda</th><th>Anlamı</th><th>Kod</th></tr></thead>
+<tbody>
+<tr><td>Tahta dondu, sırası gelenin hamlesi yok, şahı tehdit altında</td><td>Mat</td><td><code>W#</code> <code>B#</code></td></tr>
+<tr><td>Tahta dondu, hamle yok, şah tehdit altında değil</td><td>Pat, beraberlik</td><td><code>SM</code></td></tr>
+<tr><td>Tahta dondu, hamle var, iki saat durdu</td><td>Tahtadan doğan beraberlik</td><td><code>DP</code> <code>5R</code> <code>75</code></td></tr>
+<tr><td>Radyoya basınca oyun bitti</td><td>İddia ya da anlaşmayla beraberlik</td><td><code>3R</code> <code>50</code> <code>DA</code></td></tr>
+<tr><td>Bir saat <code>0:00</code>'da durdu</td><td>Süreden kayıp</td><td><code>WT</code> <code>BT</code></td></tr>
+<tr><td>Bir saat sıfırın altına akıyor</td><td>Süre bitti ama rakip mat edemez: beraberlik</td><td><code>TM</code></td></tr>
+<tr><td>⚐'den sonra iki saat durdu</td><td>Terk, kayıp</td><td><code>WR</code> <code>BR</code></td></tr>
+<tr><td>⚐'den sonra terk edenin saati akmaya devam ediyor</td><td>Terk ama rakip mat edemez: beraberlik</td><td><code>RM</code></td></tr>
+</tbody>
+</table></div>
+    <div class="tw" lang="en"><table class="">
+<thead><tr><th>On screen</th><th>Meaning</th><th>Code</th></tr></thead>
+<tbody>
+<tr><td>Board frozen, the side to move has no move, its king is attacked</td><td>Mate</td><td><code>W#</code> <code>B#</code></td></tr>
+<tr><td>Board frozen, no move, the king is not attacked</td><td>Stalemate, a draw</td><td><code>SM</code></td></tr>
+<tr><td>Board frozen with moves left, both clocks stopped</td><td>A draw that arises from the board</td><td><code>DP</code> <code>5R</code> <code>75</code></td></tr>
+<tr><td>The game ended when the radio was pressed</td><td>A draw by claim or agreement</td><td><code>3R</code> <code>50</code> <code>DA</code></td></tr>
+<tr><td>A clock stopped at <code>0:00</code></td><td>Lost on time</td><td><code>WT</code> <code>BT</code></td></tr>
+<tr><td>A clock running below zero</td><td>Time ran out but the opponent cannot mate: a draw</td><td><code>TM</code></td></tr>
+<tr><td>Both clocks stopped after ⚐</td><td>Resignation, a loss</td><td><code>WR</code> <code>BR</code></td></tr>
+<tr><td>The resigning side's clock keeps running after ⚐</td><td>Resigned, but the opponent cannot mate: a draw</td><td><code>RM</code></td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="tr">
+      <p><b>Mat ve pat ayrıca aranmıyor.</b> <code>L2</code>'deki gibi, hamlesi kalmayan tarafın
+      tahtası zaten donuk. Bunun tek bedeli, sırası gelenin saatinin hemen durmaması; bayrak
+      düşünce de sonuç tutarlı kalıyor: matta saat <code>0:00</code>'da durur, patta sıfırın altına
+      akar.</p>
+      <p><b>Beraberlik radyosu teklifin de göstergesi.</b> Sıra sana geldiğinde radyo işaretliyse
+      rakip beraberlik teklif etmiş demektir: basarsan kabul edersin, hamle yaparsan reddetmiş
+      olursun. Kendi teklifine bir daha basarsan geri çekersin.</p>
+      <p><b>Eksi süre</b> <code>0:-3</code>, <code>-1:-14</code> biçiminde yazılıyor; saat
+      yukarı yuvarlandığı için bayrak düştükten sonraki ilk bir iki saniye <code>0:00</code>
+      görünür, sonra eksiye geçer. <code>M=</code> ve <code>R=</code> sayaçları yok; onları
+      takip etmek <a href="#indicators">göstergesiz sürümlerde</a> olduğu gibi oyuncuda.</p>
+      <p>Üç sürüm de <code>DOCTYPE</code> ve <code>&lt;head&gt;</code> etiketleri olmadan
+      yazıldı; sayfa quirks modunda açılıyor. Stil yalnızca tahtaya verildi: kare rengi, kare boyu
+      ve büyütme (<code>L1</code>–<code>L2</code>'de üç, <code>L3</code>'te iki kat).
+      <code>L3</code>'teki tek kural ayrıca tahtayı ve yazıları ortalıyor, terfi düğmelerini de
+      büyütüyor. Düğmeler, radyo ve yazılar tarayıcının varsayılan görünümünde.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p><b>Mate and stalemate are not searched for separately.</b> As in <code>L2</code>, the
+      board of a side with no move left is frozen anyway. The only cost is that the clock of the
+      side to move does not stop at once; and once its flag falls the result stays consistent:
+      after mate the clock stops at <code>0:00</code>, after stalemate it runs below zero.</p>
+      <p><b>The draw radio doubles as the offer indicator.</b> If the radio is checked when your
+      turn comes, your opponent has offered a draw: press it to accept, or move to decline. Press
+      your own offer again to withdraw it.</p>
+      <p><b>Negative time</b> is written as <code>0:-3</code> or <code>-1:-14</code>; since the
+      clock rounds up, the first second or two after the flag falls still read <code>0:00</code>
+      before it turns negative. There are no <code>M=</code> or <code>R=</code> counters; keeping
+      track of them is up to the player, as in the <a href="#indicators">builds without
+      indicators</a>.</p>
+      <p>All three are written without a <code>DOCTYPE</code> and without the
+      <code>&lt;head&gt;</code> tags; the page opens in quirks mode. Styling is given to the board
+      alone: square colour, square size and magnification (three times in
+      <code>L1</code>–<code>L2</code>, twice in <code>L3</code>). The single rule in
+      <code>L3</code> also centres the board and the text and enlarges the promotion buttons. The
+      buttons, the radio and the text keep the browser's default look.</p>
     </div>
   </div>
 </section>
@@ -6020,7 +6117,9 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       iddianın parçası değil; karşılaştırma ve kayıt için duruyorlar.</p>
       <p>Oyun dosyalarının hepsi oynatıcıda <a href="#play"><code>special</code></a> seviyesinden
       açılıyor. Platformların kuralları neden böyle uyguladığı
-      <a href="#federations">federasyonlar bölümünde</a>.</p>
+      <a href="#federations">federasyonlar bölümünde</a>. Her dosyanın ya da dosya çiftinin
+      <a href="https://github.com/cuneytinann" target="_blank" rel="noopener">GitHub</a>'da kendi deposu var, ayrıntıları README'lerinde; paketli iki <code>L3</code>'ün
+      ayrıntısı ise bu sitede, <a href="#packing">paketleme bölümünde</a>.</p>
     </div>
     <div class="prose" lang="en">
       <p>The <code>special/</code> folder holds the files that sit outside the
@@ -6031,7 +6130,10 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       comparison and for the record.</p>
       <p>Every game file opens in the player under the <a href="#play"><code>special</code></a>
       level. Why the platforms apply the rules the way they do is in the
-      <a href="#federations">federations section</a>.</p>
+      <a href="#federations">federations section</a>. Each file, or pair of files, has a
+      repository of its own on <a href="https://github.com/cuneytinann" target="_blank" rel="noopener">GitHub</a>, with the details in its README; the details of the two
+      packed <code>L3</code> builds are on this site, in the <a href="#packing">packing
+      section</a>.</p>
     </div>
 
     <div class="tw" lang="tr"><table class="">
@@ -11041,8 +11143,7 @@ f = K[2] + K[3] - 1</pre></div>
       bölümü onlara bağlı. Eskimiş olmak çalışmamak demek değil; doğrulayıcının şikâyet etmesi
       demek.</p>
       <p><b>Yükün tamamı tek bir dosyada.</b> Düz sürümlerin hiçbirinde tek bir eskimiş öge ya da
-      nitelik yok; tahta çizenler işaretlemesini statik yazıp ölçüyü <code>&lt;style&gt;</code>'a
-      bırakıyor. Eskimiş yöntem bir tercih değil, yalnızca <b>yer kalmadığında</b> başvurulan bir
+      nitelik yok; tahta çizenler işaretlemesini statik yazıp ölçüyü CSS'e bırakıyor. Eskimiş yöntem bir tercih değil, yalnızca <b>yer kalmadığında</b> başvurulan bir
       şey — yer açılır açılmaz düz sürüm hepsini bıraktı.</p>
     </div>
     <div class="prose" lang="en">
@@ -11054,7 +11155,7 @@ f = K[2] + K[3] - 1</pre></div>
       mean not working; it means the validator complains.</p>
       <p><b>All of the weight is in a single file.</b> Not one of the plain builds carries a single
       obsolete element or attribute; those that draw a board write their markup statically and
-      leave the sizing to <code>&lt;style&gt;</code>. An obsolete technique is not a preference but
+      leave the sizing to CSS. An obsolete technique is not a preference but
       something reached for only <b>when there is no room left</b> — and the moment room appeared,
       the plain build dropped all of them.</p>
     </div>
@@ -11161,55 +11262,94 @@ f = K[2] + K[3] - 1</pre></div>
     <h3 lang="tr">Quirks modu</h3>
     <h3 lang="en">Quirks mode</h3>
     <div class="prose" lang="tr">
-      <p>Dokuz HTML dosyasının hiçbirinde <code>&lt;!DOCTYPE html&gt;</code> yok, dolayısıyla
-      hepsi quirks modunda açılıyor. Bu bir gözden kaçma değil, dosya başına 15 baytlık bir
-      tercih. Üç JavaScript dosyası — <code>engine.js</code>, <code>engine_4x.js</code> ve
-      <code>engine_onlyMoveGenerator.js</code> — için ne DOCTYPE'ın ne de render modunun bir karşılığı
-      var.</p>
+      <p><code>L1</code>–<code>L3</code> merdiveninde 21 HTML dosyası var ve iki gruba
+      ayrılıyorlar. Beşi — <code>L1.html</code>, <code>L2.html</code>, <code>L3.html</code> ve
+      iki botlu sürüm — <code>&lt;!DOCTYPE html&gt;</code> ile başlıyor, standart modda açılıyor
+      ve W3C Nu Html Checker'dan tek bir hata ya da uyarı almadan geçiyor: taşları ve gidilecek
+      kareleri boyayan, modern DOM'lu sürümler bunlar. Kalan on altısında DOCTYPE yok, dolayısıyla
+      hepsi quirks modunda açılıyor. Bu bir gözden kaçma değil, bayt tercihi; doğrulayıcı onlara
+      DOCTYPE, <code>&lt;title&gt;</code> ve kapanmamış ya da yerinde olmayan ögeler için hata veriyor, ama
+      <b>hiçbirinde eskimiş öge ya da nitelik yok</b>. Üç JavaScript dosyası —
+      <code>engine.js</code>, <code>engine_4x.js</code> ve <code>engine_onlyMoveGenerator.js</code>
+      — için ne DOCTYPE'ın ne de render modunun bir karşılığı var. <code>special/</code>
+      klasöründeki dosyalar bu sayımın dışında: her dosyanın ya da dosya çiftinin <a href="https://github.com/cuneytinann" target="_blank" rel="noopener">GitHub</a>'da kendi
+      deposu var ve ayrıntısı orada, README'sinde anlatılıyor. İstisna <code>L3</code>'ün paketli
+      iki hâli, <code>L3_packed</code> ve <code>L3_numerical_packed</code>; onlar bu sayfada,
+      <a href="#packing">paketleme bölümünde</a>.</p>
       <p>Yaygın bir yanılgıyı burada ayırmak gerekiyor: <b>eskimiş sunum nitelikleri quirks
       moduna ait değil.</b> <code>bgcolor</code>, <code>width</code> ve
       <code>cellspacing</code>, spesifikasyonun sunum ipucu olarak tanımladığı niteliklerdir ve
       standart modda birebir aynı çalışırlar. <code>&lt;!DOCTYPE html&gt;</code> eklemek
       yukarıdaki tablonun hiçbir satırını düzeltmez; ikisi bağımsız konular.</p>
-      <p>Sık anılan iki klasik quirks davranışı da burada hiçbir şeyi değiştirmiyor.
-      Birincisi <b>kutu modeli</b>: eski IE modelinin quirks'te hâlâ yürürlükte olduğu
-      yaygın bir inanış, ama modern tarayıcılarda tablo hücresi iki modda da içerik
-      kutusu. Ölçtüm: <code>&lt;th width=54&gt;</code> ve 1px varsayılan dolguyla hücre
-      <b>56×56</b> çıkıyor — yani 54 içerik artı iki yandan birer piksel, tam olarak
-      standart modun vereceği sayı. İkincisi tabloların gövdeden yazı tipi miras almaması;
-      o da etkisiz, çünkü dosyaların hepsi evrensel seçiciyle başlayıp hücrelere ayrıca
-      kendi kuralını veriyor.</p>
-      <p><b><code>L3.html</code> quirks modunda açılıyor ama ona dayanmıyor.</b> Dosyada
-      birimsiz uzunluk yok, <code>#</code>'siz renk yok, sunum niteliği yok; iki mod arasında tek bir fark bile yok: yukarıda ölçülen 56×56 iki modda da aynı çıkıyor, telafi edilecek bir
-      rakam bile kalmıyor. <code>&lt;!DOCTYPE html&gt;</code> istenirse 15 bayt
-      karşılığında bugün eklenebilir, tek bir pikseli bile oynatmadan.
-      Quirks'e gerçekten dayanan tek dosya <code>L3_packed.html</code>.</p>
+      <p>Sık anılan iki klasik quirks davranışından ilki <b>kutu modeli</b>. Eski IE modelinin
+      quirks'te hâlâ yürürlükte olduğu yaygın bir inanış; modern tarayıcılarda tablo hücresinin
+      <b>genişliği</b> iki modda da içerik kutusu. Ölçtüm: <code>&lt;th width=54&gt;</code> ve
+      1px varsayılan dolguyla hücre 56 piksel genişliğinde çıkıyor — 54 içerik artı iki yandan
+      birer piksel, tam olarak standart modun vereceği sayı. <b>Yükseklikte</b> ise quirks
+      gerçekten farklı: hücreye verilen <code>height</code> dolguyu da kapsıyor.
+      <code>light</code> sürümlerinde bunu yaşadık. <code>height:22</code> içeriğe 20 piksel
+      bırakınca, taşların satır yüksekliği 20'yi aşan bir yazı tipinde (Windows'un sembol yazı
+      tipi gibi) taşlı yataylar büyüyor, tahta her hamlede azıcık uzayıp kısalıyordu. Çözüm
+      <code>height:24</code>: dolguyla 24, içerik 22 — standart modun eski ölçüsü, ek bayt
+      olmadan. İkincisi tabloların gövdeden yazı tipi miras almaması; o da etkisiz: standart
+      dosyalar hücrelere kendi kuralını veriyor, <code>light</code> sürümleri ise gövdeye hiç yazı
+      tipi vermediği için miras alınacak farklı bir değer yok.</p>
+      <p><b>Quirks'e gerçekten dayanan dosyalar üç <code>light</code> sürümü ve
+      <code>L3_packed.html</code>.</b> <code>light</code> sürümleri iki quirks davranışına
+      yaslanıyor: <code>px</code>'siz yazılan uzunluklar (<code>width:22;height:24</code>) ve
+      yukarıdaki yükseklik kuralı; DOCTYPE eklenirse ikisi de bozulur. Ayrıştırmada da bir fark
+      var: standart modda <code>&lt;table&gt;</code> açık kalan bir <code>&lt;p&gt;</code>'yi
+      kendiliğinden kapatır, quirks'te kapatmaz. <code>L3_light</code>'ta terfi paragrafı bu
+      yüzden <code>&lt;/p&gt;</code> ile elle kapatılıyor; yoksa tahta o paragrafın içine düşüyor
+      ve terfi düğmeleri yazılırken siliniyor. Diğer quirks dosyalarında iki mod arasında görünür
+      bir fark yok: <code>numerical</code> ve <code>prompt</code> aileleri script dışında
+      hiç işaretleme taşımıyor, <code>input</code> ailesinin ise CSS'i yok.</p>
     </div>
     <div class="prose" lang="en">
-      <p>None of the nine HTML files contains <code>&lt;!DOCTYPE html&gt;</code>, so all of them
-      open in quirks mode. That is not an oversight but a 15-byte-per-file choice. For the
-      three JavaScript files — <code>engine.js</code>, <code>engine_4x.js</code> and
+      <p>The <code>L1</code>–<code>L3</code> ladder holds 21 HTML files, and they fall into two
+      groups. Five of them — <code>L1.html</code>, <code>L2.html</code>, <code>L3.html</code> and
+      the two builds with a bot — start with <code>&lt;!DOCTYPE html&gt;</code>, open in standards
+      mode and pass the W3C Nu Html Checker without a single error or warning: these are the
+      modern-DOM builds that colour the pieces and the target squares. The other sixteen carry no
+      DOCTYPE, so all of them open in quirks mode. That is not an oversight but a choice made for
+      bytes; the validator reports errors for the DOCTYPE, the <code>&lt;title&gt;</code> and
+      unclosed or misplaced elements, but <b>none of them contains an obsolete element or attribute</b>. For
+      the three JavaScript files — <code>engine.js</code>, <code>engine_4x.js</code> and
       <code>engine_onlyMoveGenerator.js</code> — neither a DOCTYPE nor a rendering mode means
-      anything.</p>
+      anything. The files in <code>special/</code> are outside this count: each file, or pair of
+      files, has a repository of its own on <a href="https://github.com/cuneytinann" target="_blank" rel="noopener">GitHub</a>, and its README tells the details. The
+      exception is the two packed forms of <code>L3</code>, <code>L3_packed</code> and
+      <code>L3_numerical_packed</code>; they are covered on this page, in the
+      <a href="#packing">packing section</a>.</p>
       <p>One common confusion is worth separating out here: <b>obsolete presentational attributes do
       not belong to quirks mode.</b> <code>bgcolor</code>, <code>width</code> and
       <code>cellspacing</code> are attributes the specification defines as presentational hints,
       and they behave identically in standards mode. Adding <code>&lt;!DOCTYPE html&gt;</code>
       fixes not one row of the table above; the two are independent matters.</p>
-      <p>The two classic quirks behaviours people reach for change nothing here either. The
-      first is the <b>box model</b>: it is widely believed that the old IE model still applies
-      in quirks, but in current browsers a table cell is content-box in both modes. Measured:
-      with <code>&lt;th width=54&gt;</code> and the default 1px padding the cell comes out
-      <b>56×56</b> — 54 of content plus one pixel on each side, exactly the number standards
-      mode would give. The second is tables not inheriting the font from the body; that one is
-      moot as well, since every file opens with the universal selector and gives the cells a
-      rule of their own.</p>
-      <p><b><code>L3.html</code> opens in quirks mode but does not depend on it.</b> The file
-      contains no unitless length, no hashless colour and no presentational attribute; there is not a single difference between the two modes: the 56×56 measured above comes out the
-      same either way, leaving not even a digit to compensate. A
-      <code>&lt;!DOCTYPE html&gt;</code> could therefore be added today for 15 bytes,
-      without shifting a single pixel.
-      The one file that genuinely depends on quirks is <code>L3_packed.html</code>.</p>
+      <p>The first of the two classic quirks behaviours people reach for is the <b>box
+      model</b>. It is widely believed that the old IE model still applies in quirks; in current
+      browsers a table cell's <b>width</b> is content-box in both modes. Measured: with
+      <code>&lt;th width=54&gt;</code> and the default 1px padding the cell comes out 56 pixels
+      wide — 54 of content plus one pixel on each side, exactly the number standards mode would
+      give. <b>Height</b> is where quirks really differs: a cell's <code>height</code> includes its
+      padding. The <code>light</code> builds ran into exactly this. With <code>height:22</code>
+      leaving 20 pixels for content, a font whose piece glyphs are taller than 20 (such as the
+      Windows symbol font) made the ranks holding pieces grow, and the board stretched and shrank a
+      little with every move. The fix is <code>height:24</code>: 24 with the padding, 22 of content
+      — the old standards-mode size, at no extra byte. The second behaviour is tables not
+      inheriting the font from the body; that one is moot: the standards files give the cells a
+      rule of their own, and the <code>light</code> builds give the body no font at all, so there
+      is no different value to inherit.</p>
+      <p><b>The files that genuinely depend on quirks are the three <code>light</code> builds and
+      <code>L3_packed.html</code>.</b> The <code>light</code> builds lean on two quirks
+      behaviours: lengths written without <code>px</code> (<code>width:22;height:24</code>) and
+      the height rule above; add a DOCTYPE and both break. Parsing differs too: in standards mode
+      a <code>&lt;table&gt;</code> closes an open <code>&lt;p&gt;</code> by itself, in quirks it
+      does not. That is why <code>L3_light</code> closes its promotion paragraph with an explicit
+      <code>&lt;/p&gt;</code>; without it the board falls inside that paragraph and is erased when
+      the promotion buttons are written. The other quirks files show no visible difference
+      between the two modes: the <code>numerical</code> and <code>prompt</code> families carry no
+      markup besides the script, and the <code>input</code> family has no CSS.</p>
     </div>
 
     <h3 lang="tr">Eskimiş sanılanlar</h3>
@@ -12553,7 +12693,7 @@ var ROOT = DIR.slice(0, -'builds/'.length);
    hicbir surumde yok; L3'un paketli halleri special'da kendi basina surum
    (L3_packed, L3_numerical_packed). start()'taki paket -> duz dusme yolu,
    ileride bir surume yeniden k verilirse diye duruyor. */
-var ART = {"L3": {"p": "L3.html", "ps": 3193}, "L3_light": {"p": "L3_light.html", "ps": 2978}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2113}, "L3_prompt": {"p": "L3_prompt.html", "ps": 2450}, "L3_prompt_blindfold": {"p": "L3_prompt_blindfold.html", "ps": 2314}, "L3_input": {"p": "L3_input.html", "ps": 2582}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2437}, "L3_prompt_string": {"p": "L3_prompt_string.html", "ps": 2565}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2507}, "L1": {"p": "builds/L1/L1.html", "ps": 1581}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1240}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 879}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1178}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1148}, "L1_1250elo": {"p": "builds/L1/L1_1250elo.html", "ps": 2278}, "L2": {"p": "builds/L2/L2.html", "ps": 2265}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1839}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1539}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1865}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1875}, "L2_aybars_2500": {"p": "builds/L2/L2_aybars_2500.html", "ps": 8038}, "L3_packed": {"p": "special/L3_packed.html", "ps": 2702}, "L3_numerical_packed": {"p": "special/L3_numerical_packed.html", "ps": 1792}, "Chesscom-equivalent": {"p": "special/Chesscom-equivalent.html", "ps": 2878}, "Chesscom-equivalent_numerical": {"p": "special/Chesscom-equivalent_numerical.html", "ps": 1175}, "Lichess-equivalent": {"p": "special/Lichess-equivalent.html", "ps": 3043}, "Lichess-equivalent_numerical": {"p": "special/Lichess-equivalent_numerical.html", "ps": 1228}, "L2_noBlockedDetector": {"p": "special/L2_noBlockedDetector.html", "ps": 1908}, "L2_string_flip_noBlockedDetector": {"p": "special/L2_string_flip_noBlockedDetector.html", "ps": 1998}, "DOM_1023": {"p": "special/DOM_1023.html", "ps": 1023}, "DOM_minimum": {"p": "special/DOM_minimum.html", "ps": 830}, "LUX_inProgress": {"p": "special/LUX_inProgress.html", "ps": 7985}, "Toledos-ES6-optimized": {"p": "special/Toledos-ES6-optimized.html", "ps": 2013}, "ToledosOpponentbyMe": {"p": "special/ToledosOpponentbyMe.html", "ps": 2042}, "engine": {"p": "engine.js", "ps": 1882}, "engine_4x": {"p": "engine_4x.js", "ps": 1963}, "engine_string": {"p": "engine_string.js", "ps": 1999}, "engine_onlyMoveGenerator": {"p": "special/engine_onlyMoveGenerator.js", "ps": 723}};
+var ART = {"L3": {"p": "L3.html", "ps": 3193}, "L3_light": {"p": "L3_light.html", "ps": 2676}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2113}, "L3_prompt": {"p": "L3_prompt.html", "ps": 2450}, "L3_prompt_blindfold": {"p": "L3_prompt_blindfold.html", "ps": 2314}, "L3_input": {"p": "L3_input.html", "ps": 2582}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2437}, "L3_prompt_string": {"p": "L3_prompt_string.html", "ps": 2565}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2507}, "L1": {"p": "builds/L1/L1.html", "ps": 1581}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1159}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 879}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1178}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1148}, "L1_1250elo": {"p": "builds/L1/L1_1250elo.html", "ps": 2278}, "L2": {"p": "builds/L2/L2.html", "ps": 2265}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1758}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1539}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1865}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1875}, "L2_aybars_2500": {"p": "builds/L2/L2_aybars_2500.html", "ps": 8038}, "L3_packed": {"p": "special/L3_packed.html", "ps": 2702}, "L3_numerical_packed": {"p": "special/L3_numerical_packed.html", "ps": 1792}, "Chesscom-equivalent": {"p": "special/Chesscom-equivalent.html", "ps": 2878}, "Chesscom-equivalent_numerical": {"p": "special/Chesscom-equivalent_numerical.html", "ps": 1175}, "Lichess-equivalent": {"p": "special/Lichess-equivalent.html", "ps": 3043}, "Lichess-equivalent_numerical": {"p": "special/Lichess-equivalent_numerical.html", "ps": 1228}, "L2_noBlockedDetector": {"p": "special/L2_noBlockedDetector.html", "ps": 1908}, "L2_string_flip_noBlockedDetector": {"p": "special/L2_string_flip_noBlockedDetector.html", "ps": 1998}, "DOM_1023": {"p": "special/DOM_1023.html", "ps": 1023}, "DOM_minimum": {"p": "special/DOM_minimum.html", "ps": 830}, "LUX_inProgress": {"p": "special/LUX_inProgress.html", "ps": 7985}, "Toledos-ES6-optimized": {"p": "special/Toledos-ES6-optimized.html", "ps": 2013}, "ToledosOpponentbyMe": {"p": "special/ToledosOpponentbyMe.html", "ps": 2042}, "engine": {"p": "engine.js", "ps": 1882}, "engine_4x": {"p": "engine_4x.js", "ps": 1963}, "engine_string": {"p": "engine_string.js", "ps": 1999}, "engine_onlyMoveGenerator": {"p": "special/engine_onlyMoveGenerator.js", "ps": 723}};
 
 /* Paketli sürümler kendilerini eval ile açıyor. unsafe-eval içermeyen bir CSP
    altında bu imkânsız; iframe aynı sunucudan yüklendiği için aynı politikayı
@@ -12721,8 +12861,8 @@ function measure() {
   var W = avail >= natW ? avail : natW;
   frame.style.width = W + 'px';
 
-  /* Yukseklik body'den okunamaz: dokuz dosyanin hicbirinde DOCTYPE yok, yani
-     hepsi quirks modunda ve body gorunume yayiliyor. Onu olcup geri yazmak her
+  /* Yukseklik body'den okunamaz: DOCTYPE'siz (quirks) surumlerde body gorunume
+     yayiliyor. Onu olcup geri yazmak her
      tikte buyuyen bir geri besleme dongusu kurar. Icerigin kendi kutulari
      gorunum yuksekliginden bagimsiz. */
   var h = 0, gap = 0;
