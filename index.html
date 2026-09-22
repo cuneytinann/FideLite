@@ -172,6 +172,9 @@ if (FLOLD[location.hash.slice(1)]) {
   --hl-ui:   light-dark(#1f5fa8,  #86b6ef);
   --hl-html: light-dark(#a3246b,  #f08ccf);
   --hl-bot:  light-dark(#8c4e0c,  #dfa250);
+  /* kural ile botun ic ice oldugu kod (Toledo): kural yesili ile bot
+     kehribarinin tam ortasi. Acikta 8.7, koyuda 9.1. */
+  --hl-mix:  light-dark(#4c4e19,  #9cb467);
 
   --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
@@ -198,7 +201,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --card-w-bg:#fffdf6; --card-w-fg:#0f1626; --card-w-fg2:#2c384c; --card-w-fg3:#465268;
     --card-b-bg:#232a3a; --card-b-fg:#f2e6d8; --card-b-fg2:#c9bdb2; --card-b-fg3:#9a8d82;
     --code-bg:#ffffff; --code-fg:#0d4f26; --code-dim:#3f7a55; --code-ink:#16307a; --code-teal:#12595f;
-    --hl-ui:#1f5fa8; --hl-html:#a3246b; --hl-bot:#8c4e0c;
+    --hl-ui:#1f5fa8; --hl-html:#a3246b; --hl-bot:#8c4e0c; --hl-mix:#4c4e19;
     --pc-r:#8f1d13; --pc-n:#146a33; --pc-b:#6b3fa0; --pc-q:#7e5a05; --pc-k:#1f5fa8;
     --pc-p:#0f6b70; --pk:#3a2214; --pk-glow:rgba(204,170,120,.55); --pk-acc:#3a2214;
     --lg-grid:#cc9911; --lg-knight:#fffdf6; --lg-rook:#93cfe0;
@@ -217,7 +220,7 @@ if (FLOLD[location.hash.slice(1)]) {
       --dot-ring:rgba(255,255,255,.22); --card-w-bg:#d7ccbd; --card-w-fg:#241c17;
       --card-w-fg2:#4a3f36; --card-w-fg3:#6b5f54; --card-b-bg:#0b0908; --card-b-fg:#ece3d8;
       --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-dim:#3f8f5c; --code-ink:#7fc9cf; --code-teal:#7fc9cf;
-      --hl-ui:#86b6ef; --hl-html:#f08ccf; --hl-bot:#dfa250;
+      --hl-ui:#86b6ef; --hl-html:#f08ccf; --hl-bot:#dfa250; --hl-mix:#9cb467;
       --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
       --pc-p:#5fc3ca; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
       --lg-grid:#a8916b; --lg-knight:#1c1714; --lg-rook:#7ab6c9;
@@ -237,7 +240,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --dot-ring:rgba(255,255,255,.22); --card-w-bg:#d7ccbd; --card-w-fg:#241c17;
     --card-w-fg2:#4a3f36; --card-w-fg3:#6b5f54; --card-b-bg:#0b0908; --card-b-fg:#ece3d8;
     --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-dim:#3f8f5c; --code-ink:#7fc9cf; --code-teal:#7fc9cf;
-      --hl-ui:#86b6ef; --hl-html:#f08ccf; --hl-bot:#dfa250;
+      --hl-ui:#86b6ef; --hl-html:#f08ccf; --hl-bot:#dfa250; --hl-mix:#9cb467;
     --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
     --pc-p:#5fc3ca; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
     --lg-grid:#a8916b; --lg-knight:#1c1714; --lg-rook:#7ab6c9;
@@ -788,12 +791,22 @@ pre.src { margin:0; padding:1rem 1rem 1rem calc(1rem - 2px); overflow-x:auto;
    yesile aliniyor, ikisi de kendi zeminine karsi AA gecen degerler. */
 pre.src .fn2 { color:var(--code-dim) }
 pre.src[hidden] { display:none }
+/* Acik temada ince tek aralikli yazi beyaz kuyuda cilizlasiyor, renkten
+   bagimsiz okunmuyor: yatayda yarim piksel kaydirilmis kendi renginde bir
+   golge harfleri hafifce kalinlastirir. currentColor her span'de kendi
+   rengine cozulur. Koyuda gerek yok: parlak yazi siyah zeminde zaten dolgun. */
+pre.src, .hlkey { text-shadow:.35px 0 currentColor }
+@media (prefers-color-scheme:dark) {
+  :root:not([data-theme="light"]) pre.src, :root:not([data-theme="light"]) .hlkey { text-shadow:none }
+}
+:root[data-theme="dark"] pre.src, :root[data-theme="dark"] .hlkey { text-shadow:none }
 /* Kodu goster: katman renkleri. Siniflari srcLayers() veriyor; lejant ayni
    siniflari kullaniyor, kutucugun rengini currentColor tasiyor. Lejant kod
    kuyusunun basligi gibi durur: ayni zemin, ayni altin serit. */
 pre.src .hl-r, .hlkey .hl-r { color:var(--code-fg) }
 pre.src .hl-u, .hlkey .hl-u { color:var(--hl-ui) }
 pre.src .hl-b, .hlkey .hl-b { color:var(--hl-bot) }
+pre.src .hl-m, .hlkey .hl-m { color:var(--hl-mix) }
 pre.src .hl-h, .hlkey .hl-h { color:var(--hl-html) }
 /* paketli script: terminalin kendi rengi; kurallarla ayni dosyada hic bulunmaz */
 pre.src .hl-p, .hlkey .hl-p { color:var(--code-fg) }
@@ -1373,6 +1386,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
           <span class="hl-r" hidden><span lang="tr">kurallar</span><span lang="en">rules</span></span>
           <span class="hl-u" hidden><span lang="tr">arayüz</span><span lang="en">interface</span></span>
           <span class="hl-b" hidden>bot</span>
+          <span class="hl-m" hidden><span lang="tr">kural + bot</span><span lang="en">rules + bot</span></span>
           <span class="hl-p" hidden><span lang="tr">paketli script</span><span lang="en">packed script</span></span>
           <span class="hl-h" hidden>HTML</span>
         </p>
@@ -12829,7 +12843,9 @@ function start() {
 
 /* ---- Kodu goster: katman boyamasi ----
    2kbfullfidejs.com uretecinin mantigi, sadelestirilmis. Dort katman var:
-   kurallar (motor), arayuz (surucu), bot ve HTML. <script> etiketleri de script
+   kurallar (motor, 'r'), arayuz (surucu, 'u'), bot ('b') ve HTML ('h'). Iki
+   de ara sinif: kural ile botun ayrilmaz oldugu kod ('m') ve RegPack'li
+   dosyalarin paketli scripti ('p'). <script> etiketleri de script
    disindaki her sey de HTML. Katmani belirleyen tek sey sinir: dosyalar zaten
    keskin bir cizgiyle ayriliyor, o yuzden belirtec ayristirici yok.
    Bir ifadeyi bitiren virgul (ya da noktali virgul) o ifadenin katmanina aittir.
@@ -12853,16 +12869,19 @@ function start() {
    isleyicisine gomulu legallik ve oyun sonu testi. Botlu surumlerde A'nin
    icindeki bot kancalari (botu tetikleyen setTimeout, aybars'ta geri alma
    isaretcisi ve pozisyon gecmisi) bot rengine geri kesilir: kesimler sirayla
-   uygulanir, sonraki oncekinin icini ezer. Kesimler motor bittikten sonra
-   aranir (motorun kendi govdesinde ayni metin gecebilir: LUX'un H'si hamleyi
+   uygulanir, sonraki oncekinin icini ezer. Kesimler motorun son kural
+   bolgesinden sonra aranir (motorun kendi govdesinde ayni metin gecebilir: LUX'un H'si hamleyi
    c&=~C(i) ile dener); o noktadan sonra her isaret tek.
    Chess.com esdegerinde F ve D yok: sure dolunca tas sayan hukum ve terk ile
    anlasmali beraberlik hukmu surucude, onlar da kesilir. Toledo'nun programinda
-   ayri bir hakem katmani yok: hamle uretimi de arama da X'te, butunuyle bot.
+   ayri bir hakem katmani yok: hamle uretimi, legallik ve arama ayni X'te. O
+   yuzden ne kural ne bot: 'm' (kural + bot) katmani, iki rengin ortasi. Botu
+   tetikleyen setTimeout ise saf bot.
    Motor fonksiyonlarina yapilan cagrilar (A(...), F('R'), D(t)) ve saat sayimi
-   arayuzde kalir. aybars'ta motorun kendisi bot icin uyarlanmis (M tahtaya
-   S1 ile yaziyor, L hash ve degerlendirmeyi saklayip geri koyuyor); motor
-   oldugu gibi kural sayilir, S1 ve benzeri makine botun bolumunde tanimli.
+   arayuzde kalir. aybars'ta motorun iki fonksiyonu bot icin uyarlanmis: M
+   tahtaya botun S1'i uzerinden yaziyor, L botun hash, degerlendirme ve geri
+   alma durumunu saklayip geri koyuyor. Ikisi 'm' (kural + bot); G, V, J, C, I
+   ve l saf kural, S1 ve benzeri makine botun bolumunde saf bot.
    Ciftin sonundan hemen sonra gelen virgul ya da noktali virgul de ayni
    katmana gecer: bitis virgulu ifadenindir.
    RegPack'li surumlerde (PACKED) script tek bir sikistirilmis dizge; kural,
@@ -12878,14 +12897,16 @@ var PAINT = {
   L3_prompt_blindfold: PAINT_L3, L3_input: PAINT_L3, L3_input_blindfold: PAINT_L3,
   L3_prompt_string: PAINT_L3, L3_prompt_string_flip: PAINT_L3,
   L2: PAINT_L3, L2_numerical: PAINT_L3, L2_input: PAINT_L3, L2_light: PAINT_LIGHT,
-  L2_prompt_string_flip: PAINT_L3, L2_aybars_2500: ['r', ',l=(', 'u', ';d();U=0', 'b'],
+  L2_prompt_string_flip: PAINT_L3,
+  L2_aybars_2500: ['r', ',J=g=>', 'm', ',L=(', 'r', ',C=i=>', 'm', ',M=(', 'r', ',l=(', 'u',
+    ';d();U=0', 'b'],
   L1: PAINT_L1, L1_numerical: PAINT_L1, L1_input: PAINT_L1, L1_light: PAINT_LIGHT,
   L1_prompt_string_flip: PAINT_L1, L1_1250elo: ['r', ',M=(', 'u', ';d();P=[', 'b'],
   'Chesscom-equivalent': ['r', ',Z=Q=>', 'u'], 'Lichess-equivalent': ['r', ',F=k=>', 'u'],
   L2_noBlockedDetector: ['r', 'M=(i,f,u=', 'u'],
   L2_string_flip_noBlockedDetector: ['r', 'M=(i,f,u=', 'u'],
   LUX_inProgress: PAINT_L3,
-  'Toledos-ES6-optimized': ['b', ';while(B++<G)', 'u'],
+  'Toledos-ES6-optimized': ['m', ';while(B++<G)', 'u'],
   ToledosOpponentbyMe: ['r', ',M=(', 'u', ';d();P=[', 'b'],
   'Chesscom-equivalent_numerical': PACKED, 'Lichess-equivalent_numerical': PACKED,
   DOM_1023: PACKED, DOM_minimum: PACKED
@@ -13008,10 +13029,11 @@ function srcLayers(text, key) {
   if (!spec || a < 0 || z < a) return null;
   inner = text.slice(a + 8, z);
   for (i = 0; i + 1 < spec.length; i += 2) {
-    at = inner.indexOf(spec[i + 1], pos);
+    /* pos-1'den ara: isaretin bas virgulu onceki tanimin bitis virgulu olabilir */
+    at = inner.indexOf(spec[i + 1], pos && pos - 1);
     if (at < 0 || (at = defEnd(inner, at + /^[,;]/.test(spec[i + 1]))) < 0) return null;
     for (j = pos; j < at; j++) lay[j] = spec[i];
-    if (spec[i] == 'r' && !from) from = at;
+    if (spec[i] == 'r') from = at;
     pos = at;
   }
   for (j = pos; j < inner.length; j++) lay[j] = spec[i];
