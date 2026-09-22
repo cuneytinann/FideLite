@@ -795,6 +795,8 @@ pre.src .hl-r, .hlkey .hl-r { color:var(--code-fg) }
 pre.src .hl-u, .hlkey .hl-u { color:var(--hl-ui) }
 pre.src .hl-b, .hlkey .hl-b { color:var(--hl-bot) }
 pre.src .hl-h, .hlkey .hl-h { color:var(--hl-html) }
+/* paketli script: terminalin kendi rengi; kurallarla ayni dosyada hic bulunmaz */
+pre.src .hl-p, .hlkey .hl-p { color:var(--code-fg) }
 .hlkey { display:flex; flex-wrap:wrap; gap:.3rem 1.1rem; margin:0;
   padding:.6rem 1rem .6rem calc(1rem - 2px); font-family:var(--mono); font-size:.72rem;
   line-height:1.4; background:var(--code-bg); border-left:2px solid var(--acc-edge);
@@ -1371,6 +1373,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
           <span class="hl-r" hidden><span lang="tr">kurallar</span><span lang="en">rules</span></span>
           <span class="hl-u" hidden><span lang="tr">arayüz</span><span lang="en">interface</span></span>
           <span class="hl-b" hidden>bot</span>
+          <span class="hl-p" hidden><span lang="tr">paketli script</span><span lang="en">packed script</span></span>
           <span class="hl-h" hidden>HTML</span>
         </p>
         <pre class="src" id="src" hidden></pre>
@@ -12281,6 +12284,9 @@ var FLT = {
     dlOnly:   'İndir',
     dlPacked: 'Paketli sürümü indir',
     noPacked: 'Bu sürümün paketlenmiş hâli yok',
+    noPlain:  'Bu sürümün düz hâli yok',
+    srcPlain: ' \u00b7 düz',
+    srcPacked:' \u00b7 paketli',
     to2x:     'engine_4x.js kaynağına geç',
     toStr:    'engine_string.js kaynağına geç',
     toPerft:  'engine_onlyMoveGenerator.js kaynağına geç',
@@ -12314,6 +12320,9 @@ var FLT = {
     dlOnly:   'Download',
     dlPacked: 'Download packed',
     noPacked: 'This build has no packed form',
+    noPlain:  'This build has no plain form',
+    srcPlain: ' \u00b7 plain',
+    srcPacked:' \u00b7 packed',
     to2x:     'Switch to engine_4x.js source',
     toStr:    'Switch to engine_string.js source',
     toPerft:  'Switch to engine_onlyMoveGenerator.js source',
@@ -12582,11 +12591,16 @@ function paint() {
   viewBtn.classList.toggle('on', mode === 'src');
   viewBtn.setAttribute('aria-pressed', mode === 'src' ? 'true' : 'false');
   viewBtn.textContent = FL(mode === 'src' ? 'hideSrc' : 'showSrc');
-  /* Paketlenmis hali olmayan surumlerde dugme soluk ve tiklanamaz kalir. */
+  /* Paketlenmis hali olmayan surumlerde 'Paketli' dugmesi soluk ve tiklanamaz
+     kalir. Tersi de var: DOM_1023 gibi dosyanin kendisi paketliyse duz hali
+     yoktur; o zaman 'Paketli' o dosyayi indirir, 'Duz' soluklasir. */
   document.getElementById('copysrc').disabled = mode !== 'src';
-  var dlp = document.getElementById('dlpacked'), has = !!ART[current()].k;
+  var dlp = document.getElementById('dlpacked'), dll = document.getElementById('dlplain'),
+      po = packedOnly(current()), has = !!ART[current()].k || po;
   dlp.disabled = !has;
   if (has) dlp.removeAttribute('title'); else dlp.title = FL('noPacked');
+  dll.disabled = po;
+  if (po) dll.title = FL('noPlain'); else dll.removeAttribute('title');
   if (mode === 'idle') {
     idle.innerHTML = FL('idle').replace('%s', current()) + (NEWTAB[current()] ? FL('tabNote') : '');
   }
@@ -12824,13 +12838,81 @@ function start() {
    Script icinde HTML etiketi tasiyan dizge ya da sablon HTML rengini alir; bir
    etiketin icine dusen ${...} deligi de etiketin parcasi. Etiketi ureten JS'in
    kendisi (map dongusu, replace) kendi katmaninda kalir.
-   PAINT: surum -> motorun son taniminin basi. L3'te son tanim kilitli pozisyon
-   dedektoru l. Listede olmayan surum bugunku gibi tek renk akar; L1, L2, harf
-   dizgili ve botlu surumler seviye seviye eklenecek. */
-var PAINT_L3 = ',l=(';
+   PAINT: surum -> [katman, isaret, katman, isaret, ..., katman]. Her katman,
+   isaretle baslayan tanimin bitis virgulune kadar surer; son katman scriptin
+   sonuna kadar. Isaret virgulle ya da noktali virgulle basliyorsa o isaret
+   onceki tanimindir, tanim ondan sonra baslar. L3'te ve L2'de motorun son
+   tanimi kilitli pozisyon dedektoru l, L1'de M. light surumlerinde script tas
+   glifleri tablosu g ile acilir (arayuz), motor M ile biter. Botlu surumlerde
+   arayuz ilk cizimle (d();) biter, gerisi bot.
+   CARVE: surucunun icine gomulmus kod, [bas, son, katman] ucluleri; katman
+   yazilmazsa kural. Cizgi kurali bunlari arayuz sayardi ama kural kodudurlar:
+   hamleyi isleyen ve hukmu veren A govdesi (rok haklari, M, sira, tekrar
+   sayaci, sonuc ifadesi), prompt surumlerinde F'nin sure/terk hukmu, harf
+   dizgili flip'te D'nin teklif/talep govdesi, light surumlerinde tiklama
+   isleyicisine gomulu legallik ve oyun sonu testi. Botlu surumlerde A'nin
+   icindeki bot kancalari (botu tetikleyen setTimeout, aybars'ta geri alma
+   isaretcisi ve pozisyon gecmisi) bot rengine geri kesilir: kesimler sirayla
+   uygulanir, sonraki oncekinin icini ezer. Kesimler motor bittikten sonra
+   aranir (motorun kendi govdesinde ayni metin gecebilir: LUX'un H'si hamleyi
+   c&=~C(i) ile dener); o noktadan sonra her isaret tek.
+   Chess.com esdegerinde F ve D yok: sure dolunca tas sayan hukum ve terk ile
+   anlasmali beraberlik hukmu surucude, onlar da kesilir. Toledo'nun programinda
+   ayri bir hakem katmani yok: hamle uretimi de arama da X'te, butunuyle bot.
+   Motor fonksiyonlarina yapilan cagrilar (A(...), F('R'), D(t)) ve saat sayimi
+   arayuzde kalir. aybars'ta motorun kendisi bot icin uyarlanmis (M tahtaya
+   S1 ile yaziyor, L hash ve degerlendirmeyi saklayip geri koyuyor); motor
+   oldugu gibi kural sayilir, S1 ve benzeri makine botun bolumunde tanimli.
+   Ciftin sonundan hemen sonra gelen virgul ya da noktali virgul de ayni
+   katmana gecer: bitis virgulu ifadenindir.
+   RegPack'li surumlerde (PACKED) script tek bir sikistirilmis dizge; kural,
+   arayuz ve etiket parcalari icinde ic ice, ayristirmanin anlami yok. Aralik
+   secilir: <script> etiketleri ve disi HTML, ici tek renk paketli script. Bu
+   aralik hlCode'a hic girmez, cunku dizge etiket parcalari tasidigi icin
+   butunu HTML'e boyanirdi.
+   Listede olmayan surum ya da bulunamayan bir isaret: tek renk. */
+var PAINT_L3 = ['r', ',l=(', 'u'], PAINT_L1 = ['r', ',M=(', 'u'],
+    PAINT_LIGHT = ['u', 'g=', 'r', ',M=(', 'u'], PACKED = ['p'];
 var PAINT = {
   L3: PAINT_L3, L3_light: PAINT_L3, L3_numerical: PAINT_L3, L3_prompt: PAINT_L3,
-  L3_prompt_blindfold: PAINT_L3, L3_input: PAINT_L3, L3_input_blindfold: PAINT_L3
+  L3_prompt_blindfold: PAINT_L3, L3_input: PAINT_L3, L3_input_blindfold: PAINT_L3,
+  L3_prompt_string: PAINT_L3, L3_prompt_string_flip: PAINT_L3,
+  L2: PAINT_L3, L2_numerical: PAINT_L3, L2_input: PAINT_L3, L2_light: PAINT_LIGHT,
+  L2_prompt_string_flip: PAINT_L3, L2_aybars_2500: ['r', ',l=(', 'u', ';d();U=0', 'b'],
+  L1: PAINT_L1, L1_numerical: PAINT_L1, L1_input: PAINT_L1, L1_light: PAINT_LIGHT,
+  L1_prompt_string_flip: PAINT_L1, L1_1250elo: ['r', ',M=(', 'u', ';d();P=[', 'b'],
+  'Chesscom-equivalent': ['r', ',Z=Q=>', 'u'], 'Lichess-equivalent': ['r', ',F=k=>', 'u'],
+  L2_noBlockedDetector: ['r', 'M=(i,f,u=', 'u'],
+  L2_string_flip_noBlockedDetector: ['r', 'M=(i,f,u=', 'u'],
+  LUX_inProgress: PAINT_L3,
+  'Toledos-ES6-optimized': ['b', ';while(B++<G)', 'u'],
+  ToledosOpponentbyMe: ['r', ',M=(', 'u', ';d();P=[', 'b'],
+  'Chesscom-equivalent_numerical': PACKED, 'Lichess-equivalent_numerical': PACKED,
+  DOM_1023: PACKED, DOM_minimum: PACKED
+};
+/* Gosterilen dosyanin kendisi paketli mi (duz hali yok)? Tek kaynak PACKED.
+   PAINT henuz atanmadan cagrilirsa (dil ilk kurulurken) false doner. */
+function packedOnly(key) { return !!PAINT && PAINT[key] === PACKED; }
+var APPLY = [['c&=~C(i)', ":'SM'"]], APPLY_N = [['c&=~C(i)', 't+1:3']],
+    FLAG = [['(Hn=2e4', "'WB'[g]+F"]];
+var CARVE = {
+  L3: [['M(i,f,T),', 'o&&D()']], L3_light: [['M(i,f,T),', 'o&&D()']],
+  L3_prompt: FLAG, L3_prompt_blindfold: FLAG, L3_prompt_string: FLAG,
+  L3_prompt_string_flip: FLAG.concat([["M(i,f,~'rbn'", '-~R[s]'], ['z=b.some', ":'SM'"],
+    ['o^=2-g', "'DA':z"]]),
+  L2: APPLY, L2_input: APPLY, L2_numerical: APPLY_N, L2_prompt_string_flip: APPLY,
+  L2_light: [['b[s=b+t+e+c]', 't^=1'], ['n>148|', 'o<3|o==4)']],
+  L2_aybars_2500: APPLY.concat([['A1=0', 'A1=0', 'b'], ['PT[++Y3]', '=H2', 'b']]),
+  L1: APPLY, L1_input: APPLY, L1_numerical: APPLY_N, L1_prompt_string_flip: APPLY,
+  L1_light: [['c&=~C(i)', 't^=1'], ['!p|p&1^t&&G(i,u)', '[b,e]=p,q']],
+  L1_1250elo: APPLY.concat([['z||t==D', 'setTimeout(o,9)', 'b']]),
+  'Chesscom-equivalent': [['(I(!t)', "'WB'[t]+'T'"], ['c&=~C(i)', 'Z(o&=1+t)'],
+    ["T?'WB'", "&&'DA'"]],
+  'Lichess-equivalent': [['c&=~C(i)', 'o&&D()']],
+  L2_noBlockedDetector: APPLY, L2_string_flip_noBlockedDetector: APPLY,
+  LUX_inProgress: [['c&=~C(i)', 'Z(o&=12)']],
+  'Toledos-ES6-optimized': [['y&&setTimeout', ',250)', 'b']],
+  ToledosOpponentbyMe: [['c&=~C(i)', 't^=1']]
 };
 /* Gercek bir etiket acilisi: <x, </x, <!. Kiyaslamadaki '<' degil. */
 var MARK = /<[a-zA-Z!\/]/;
@@ -12920,15 +13002,33 @@ function hlCode(s, k, out) {
    yazilsa HTML ayristiricisi sayfanin scriptini orada kapatirdi.
    Surum PAINT'te yoksa ya da sinir bulunamazsa null: cagiran tek renge duser. */
 function srcLayers(text, key) {
-  var mark = PAINT[key], a = text.indexOf('<script>'), z = text.lastIndexOf('<\/script>'),
-      out = [], m = [], inner, cut;
-  if (!mark || a < 0 || z < a) return null;
+  var spec = PAINT[key], cut = CARVE[key] || [], a = text.indexOf('<script>'),
+      z = text.lastIndexOf('<\/script>'), out = [], m = [], lay = [], inner, pos = 0,
+      from = 0, i, j, at, end;
+  if (!spec || a < 0 || z < a) return null;
   inner = text.slice(a + 8, z);
-  cut = inner.indexOf(mark);
-  if (cut < 0 || (cut = defEnd(inner, cut + 1)) < 0) return null;
+  for (i = 0; i + 1 < spec.length; i += 2) {
+    at = inner.indexOf(spec[i + 1], pos);
+    if (at < 0 || (at = defEnd(inner, at + /^[,;]/.test(spec[i + 1]))) < 0) return null;
+    for (j = pos; j < at; j++) lay[j] = spec[i];
+    if (spec[i] == 'r' && !from) from = at;
+    pos = at;
+  }
+  for (j = pos; j < inner.length; j++) lay[j] = spec[i];
+  for (i = 0; i < cut.length; i++) {
+    at = inner.indexOf(cut[i][0], from);
+    end = at < 0 ? -1 : inner.indexOf(cut[i][1], at);
+    if (end < 0) return null;
+    end += cut[i][1].length;
+    if (inner[end] == ',' || inner[end] == ';') end++;
+    for (j = at; j < end; j++) lay[j] = cut[i][2] || 'r';
+  }
   out.push(['h', text.slice(0, a + 8)]);
-  hlCode(inner.slice(0, cut), 'r', out);
-  hlCode(inner.slice(cut), 'u', out);
+  for (i = 0; i < inner.length; i = j) {
+    for (j = i; j < inner.length && lay[j] == lay[i]; j++);
+    if (lay[i] == 'p') out.push(['p', inner.slice(i, j)]);
+    else hlCode(inner.slice(i, j), lay[i], out);
+  }
   out.push(['h', text.slice(z)]);
   out.forEach(function (x) {
     var p = m[m.length - 1];
@@ -12964,7 +13064,8 @@ function showSrc() {
   paint();
   hlkey.hidden = true;
   src.textContent = FL('loading');
-  statusEl.textContent = a.p + ' \u00b7 ' + fmt(a.ps) + FL('bytes') + ' \u00b7 plain';
+  statusEl.textContent = a.p + ' \u00b7 ' + fmt(a.ps) + FL('bytes') +
+    FL(packedOnly(key) ? 'srcPacked' : 'srcPlain');
   load(a.p).then(function (t) {
     if (tok === srcToken) showCode(t, key);
   }).catch(function () {
@@ -13082,10 +13183,10 @@ document.getElementById('copysrc').addEventListener('click', function () {
 
 document.getElementById('dlpacked').addEventListener('click', function () {
   var a = ART[current()];
-  if (a.k) save(a.k);
+  if (a.k) save(a.k); else if (packedOnly(current())) save(a.p);
 });
 document.getElementById('dlplain').addEventListener('click', function () {
-  save(ART[current()].p);
+  if (!packedOnly(current())) save(ART[current()].p);
 });
 
 /* ---- engine kaynağı: engine.js ile engine_4x.js aynı pencerede ---- */
