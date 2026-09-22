@@ -47,7 +47,6 @@ the book asks what that board is forced to become.**
 | `builds/engine.js` | 1,882 | The rule engine. One line, no front end. |
 | `builds/engine_4x.js` | 1,963 | The same rules, +81 bytes, two to ten times the speed. |
 | `builds/engine_string.js` | 1,999 | The same rules on a board of FEN letters instead of numbers. |
-| `special/engine_onlyMoveGenerator.js` | 723 | Move generation only, for the test suite. |
 
 Every file under `builds/` and `special/` runs on its own — download an HTML file and double-click
 it. The `.cjs` builds run in a terminal with `node`.
@@ -160,7 +159,6 @@ zorunlu olarak neye dönüşeceğini soruyor.**
 | `builds/engine.js` | 1.882 | Kural motoru. Tek satır, önyüz yok. |
 | `builds/engine_4x.js` | 1.963 | Aynı kurallar, +81 bayt, iki ilâ on kat hız. |
 | `builds/engine_string.js` | 1.999 | Aynı kurallar, tahta sayı yerine FEN harfleriyle. |
-| `special/engine_onlyMoveGenerator.js` | 723 | Yalnız hamle üretimi, test süiti için. |
 
 `builds/` ve `special/` altındaki her dosya tek başına çalışır — HTML dosyasını indirip çift
 tıklamak yeterli. `.cjs` sürümleri terminalde `node` ile koşar.
