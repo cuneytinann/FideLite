@@ -494,6 +494,8 @@ p { margin:0 0 1rem }
 
 .epi { margin:2.1rem 0 0; padding:0; border:0; max-width:40rem;
   font-size:1rem; line-height:1.5; color:var(--ink-2); font-style:italic }
+.hero-epi { margin-top:2.6rem; padding-top:1.8rem; border-top:1px solid var(--acc-edge) }
+.hero-epi .epi { max-width:none; margin:0; text-align:center; font-size:1.0625rem }
 .epi cite { display:block; margin-top:.45rem; font-style:normal;
   font-family:var(--mono); font-size:.7rem; letter-spacing:.06em; color:var(--ink-3) }
 
@@ -912,13 +914,14 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     <div>
       <h1 lang="tr">Her resmî kuralı uygulayan, <em>dünyanın en küçük satranç hakemi</em>.</h1>
       <h1 lang="en"><em>The world's smallest chess arbiter</em> to enforce every official rule.</h1>
-      <p class="lede" lang="tr">Kural motoru <b>1.882 bayt</b> düz kaynak. Oynanabilir bir oyun
-      olarak, arayüzünün UI/UX özelliklerine ve eski ya da modern HTML yazım kurallarına göre
-      <b>3.193</b> ile <b>1.792</b> bayt arasında değişiyor. Tarayıcıda çalışır, JavaScript ile yazılmıştır; kütüphane,
+      <p class="lede" lang="tr">Kural motoru <b>1.882 bayt</b> düz kaynak. Kural doğruluğu ve FIDE
+      uyumluluğu bakımından dünyanın en eksiksiz motorlarından biri; <b>işlev başına bayt</b>
+      oranında ise açık ara birinci — projenin temel iddiası da bu. Tarayıcıda çalışır, JavaScript ile yazılmıştır; kütüphane,
       kurulum ve sunucu istemez. İndirdiğin tek bir HTML dosyası neredeyse her cihazda açılır.</p>
-      <p class="lede" lang="en">The rule engine is <b>1,882 bytes</b> of plain source. As a playable
-      game it ranges from <b>3,193</b> to <b>1,792 bytes</b>, depending on the UI/UX of its
-      interface and on old or modern HTML authoring conventions. It is written in JavaScript and runs in the browser: no libraries, no install, no server. The single HTML file you download opens on almost any device.</p>
+      <p class="lede" lang="en">The rule engine is <b>1,882 bytes</b> of plain source. On rule
+      correctness and FIDE compliance it stands among the most complete engines anywhere; on
+      <b>function per byte</b> it is first by a wide margin — and that is the claim this project
+      rests on. It is written in JavaScript and runs in the browser: no libraries, no install, no server. The single HTML file you download opens on almost any device.</p>
 
       <div class="cta">
         <span class="cta-btns">
@@ -935,14 +938,14 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <ul class="chips" lang="tr">
         <li>Rok</li><li>Geçerken alma</li><li>Terfi</li><li>Canlı saat</li>
         <li>3'lü / 5'li tekrar</li><li>50 / 75 hamle</li><li>Yetersiz materyal</li>
-        <li>Beraberlik iddiası</li><li>Terk</li>
+        <li>Beraberlik teklifi</li><li>Terk</li>
         <li>Bayrak düşmesi + 6.9</li>
         <li><a href="#dead">Kilitli pozisyonlar %93</a></li>
       </ul>
       <ul class="chips" lang="en">
         <li>Castling</li><li>En passant</li><li>Promotion</li><li>Live clock</li>
         <li>3-fold &amp; 5-fold repetition</li><li>50 / 75-move rule</li><li>Insufficient material</li>
-        <li>Draw claim</li><li>Resignation</li>
+        <li>Draw offer</li><li>Resignation</li>
         <li>Flag fall + 6.9</li>
         <li><a href="#dead">Blocked positions 93%</a></li>
       </ul>
@@ -955,10 +958,6 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <p class="hexcap pclegend" lang="tr"><span><i class="pc-0"></i>Boş <b>0</b></span><span><i class="pc-b"></i>Fil <b>2/3</b></span><span><i class="pc-r"></i>Kale <b>4/5</b></span><span><i class="pc-q"></i>Vezir <b>6/7</b></span><span><i class="pc-p"></i>Piyon <b>8/9</b></span><span><i class="pc-k"></i>Şah <b>a/b</b></span><span><i class="pc-n"></i>At <b>c/d</b></span></p>
       <p class="hexcap pclegend" lang="en"><span><i class="pc-0"></i>Empty <b>0</b></span><span><i class="pc-b"></i>Bishop <b>2/3</b></span><span><i class="pc-r"></i>Rook <b>4/5</b></span><span><i class="pc-q"></i>Queen <b>6/7</b></span><span><i class="pc-p"></i>Pawn <b>8/9</b></span><span><i class="pc-k"></i>King <b>a/b</b></span><span><i class="pc-n"></i>Knight <b>c/d</b></span></p>
 
-      <blockquote class="epi" lang="tr">“Mükemmelliğe, ekleyecek bir şey kalmadığında değil,
-      çıkarılacak bir şey kalmadığında ulaşılır.”<cite>Antoine de Saint-Exupéry</cite></blockquote>
-      <blockquote class="epi" lang="en">“Perfection is reached not when there is nothing left to
-      add, but when there is nothing left to remove.”<cite>Antoine de Saint-Exupéry</cite></blockquote>
     </div>
     <div class="hero-side">
       <div class="hexboard" role="img" aria-label="Başlangıç pozisyonu; her karede kare adı, taşın onaltılık kodu ve motorun 0-63 indeksi" data-en-aria-label="Starting position; each square shows its name, the piece's hexadecimal code and the engine's 0-63 index">
@@ -1039,11 +1038,13 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <p class="hexcap" lang="en">The index starts at zero on a1, rises left to right, wraps from
       h1 to the a-file of the next rank up, and ends at 63 on h8. What that layout buys the engine
       is explained on <a href="#board">The engine itself</a> tab.</p>
-      <p class="hexcap" lang="tr"><code>numerical</code> sürümünde her indeks, oyuncunun sezgisine daha yakın olsun diye bir fazlasıyla yazılır: a1 = <code>01</code>,
-      e4 = <code>29</code>, h8 = <code>64</code>.</p>
-      <p class="hexcap" lang="en">In the <code>numerical</code> build every index is written one higher, to sit closer to a player's intuition:
-      a1 = <code>01</code>, e4 = <code>29</code>, h8 = <code>64</code>.</p>
     </div>
+  </div>
+  <div class="wrap hero-epi">
+      <blockquote class="epi" lang="tr">“Mükemmelliğe, ekleyecek bir şey kalmadığında değil,
+      çıkarılacak bir şey kalmadığında ulaşılır.”<cite>Antoine de Saint-Exupéry</cite></blockquote>
+      <blockquote class="epi" lang="en">“Perfection is reached not when there is nothing left to
+      add, but when there is nothing left to remove.”<cite>Antoine de Saint-Exupéry</cite></blockquote>
   </div>
 </div>
 
@@ -1055,10 +1056,11 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     <div class="prose" lang="tr">
       <p>Turnuva standartlarında eksiksiz bir satranç hakemi, 1.882 baytlık tek bir JavaScript
       dosyasına sığdı; oynanabilir tek bir HTML dosyası olarak da arayüzün UI/UX özelliklerine
-      ve eski ya da modern HTML yazım kurallarına göre 3,1 ile 1,8 KB
+      ve eski ya da modern HTML yazım kurallarına göre 3,1 ile 1,75 KB
       <span class="gloss">(bir dosyanın diskte kapladığı yerin ölçüsü; 1 KB = 1024 bayt)</span>
       arasında değişiyor. FideLite, en küçük boyutta en çok işlevi sunmayı hedefleyen bir
-      mühendislik çalışması; code golf'ün <b>Golfstack</b> dediğim koluyla yazıldı: kurallar dışındaki her şeyi yontarak.</p>
+      mühendislik çalışması; code golf ile yazıldı — işleve dokunmadan, gereksiz dolgu olan her
+      şeyi yontarak. Bu çalışma biçimine <b>Golfstack</b> diyorum.</p>
       <p>Ana sürümlerde iki oyuncu aynı cihazda karşılıklı oynar. Motor hamle önermez, oyunu
       yönetir; harici hiçbir kütüphaneye de ihtiyaç duymaz.</p>
       <p>Kural tarafında kestirme yok. Hangi maddenin nasıl işlediğini
@@ -1068,19 +1070,16 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       edilmeyen bir hamleyle düşüyor, mat bütün otomatik beraberlik koşullarının önüne geçiyor. Terk ve süre
       bitiminin yetersiz materyalle karşılaştığı çetrefil senaryolarda karar 5.1.2 ve 6.9'a
       birebir uyuyor. Büyük platformların çoğu bu maddelerde kendi kısayolunu uyguluyor.</p>
-      <p>Kısmi kalan tek yer 5.2.2'nin kilitli pozisyon hâli ve orada eksik olan yön değil
-      kapsam: motorun ölü dediği her pozisyon gerçekten ölüdür, tanımadığını oynatmaya devam
-      eder. Ölçülen kapsama %93 — büyük platformlarda ise bu tespit hiç yok.
-      <a href="#dead">Ayrıntısı burada</a>.</p>
     </div>
     <div class="prose" lang="en">
       <p>A complete, tournament-grade chess arbiter fits into a single JavaScript file of
-      1,882 bytes; as a single playable HTML file it ranges from 3.1 to 1.8 KB
+      1,882 bytes; as a single playable HTML file it ranges from 3.1 to 1.75 KB
       <span class="gloss">(the measure of how much room a file takes on disk;
       1 KB = 1024 bytes)</span>, depending on the UI/UX of its interface and on old or modern
       HTML authoring conventions. FideLite is an engineering exercise in getting the most
-      function into the least space, written in the strand of code golf I call
-      <b>Golfstack</b>: carving away everything except the rules.</p>
+      function into the least space, written with code golf — carving away every byte of filler
+      without touching what the program does. <b>Golfstack</b> is what I call that way of
+      working.</p>
       <p>In the main builds two people play on the same device. The engine never suggests a move;
       it runs the game, and it reaches for no external library to do so.</p>
       <p>There are no shortcuts on the rules side. You can find how each article behaves, one by
@@ -1090,186 +1089,136 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       played, an offer lapses on a move that does not accept it, and mate overrides every
       automatic draw condition. Where resignation and flag fall meet insufficient material, the
       ruling follows 5.1.2 and 6.9 exactly. Most large platforms take their own shortcut at these articles.</p>
-      <p>The one article left partial is the blocked-position case of 5.2.2, and what is missing
-      there is coverage, not direction: every position the engine calls dead really is dead, and
-      anything it does not recognise it plays on. Measured coverage is 93% — on the large
-      platforms this detection does not exist at all. <a href="#dead">The detail is here</a>.</p>
     </div>
 
     <h3 lang="tr">Teknik özellikler</h3>
     <h3 lang="en">Technical features</h3>
     <ul class="tight" lang="tr">
-      <li><b>Modern bir siteye yakın arayüz.</b> <code>L3</code> <span class="gloss">(tahtaya tıklanarak oynanan sürüm)</span> sürümünde seçili kare ve legal hedefler işaretlenir, terfi seçici açılır, şah göstergesi durum satırında, bekleyen beraberlik teklifi de beraberlik düğmesinde görünür. Her hamleden sonra tahta sıradaki oyuncunun bakış açısına döner — bu döndürme <code>input</code> ve <code>prompt</code>
-      sürümlerinde de var. <code>L3</code>'ün taş glifleri, saat işareti ve göstergeleri
-      Unicode'dan geliyor — tek bir görsel dosyası, font indirmesi ya da CDN isteği
-      olmadan. Öbür sürümler tahtayı ASCII ya da tam genişlik karakterlerle çiziyor;
-      körleme sürümüyle <code>numerical</code> hiç çizmiyor.</li>
+      <li><b>Modern bir siteye yakın arayüz.</b> Varsayılan sürümlerde seçili kare ve legal
+      hedefler işaretlenir, terfi seçici açılır, şah ve bekleyen beraberlik teklifi göstergelerden
+      okunur; her hamleden sonra tahta sıradaki oyuncunun bakış açısına döner. Taş glifleri, saat
+      işareti ve göstergeler Unicode'dan geliyor — tek bir görsel dosyası, font indirmesi ya da
+      CDN isteği olmadan. Daha yalın sürümler tahtayı metin karakterleriyle çiziyor, bir kısmı
+      hiç çizmiyor.</li>
       <li><b>Fischer zaman kontrolü ve okunaklı saat.</b> Saat taşıyan sürümlerde tempo
       <b>10+5</b>: on dakika, artı her hamlede oyuncunun süresine eklenen beş saniye. İki saat ekranda emojisiyle birlikte
       DAKİKA : SANİYE biçiminde işler, artış her hamlede görünür biçimde eklenir. Bayrak
       düştüğü anda sonuç kendiliğinden belirlenir.</li>
-      <li><b>Hamle üretimi.</b> Motor satranç mantığı bakımından tuhaflık yapmaz: legal
-      olmayan hamle geçmez, legal olan reddedilmez, sonuç kodu yanlış pozisyonda üretilmez.
-      İddia ölçüme dayanıyor: motor, <a href="#tests">satranç programlamanın standart test takımlarını</a> makul derinliklere kadar hatasız geçiyor — CPW pozisyonları, van Kervinck'in zor
-      listesi, 6.838 pozisyonluk Vajolet külliyatı.</li>
+      <li><b>Hamle üretimi ve sağlamlık.</b> Motor satranç mantığı bakımından tuhaflık yapmaz:
+      legal olmayan hamle geçmez, legal olan reddedilmez, sonuç kodu yanlış pozisyonda üretilmez.
+      İddia ölçüme dayanıyor: motor, <a href="#tests">satranç programlamanın standart test
+      takımlarını</a> makul derinliklere kadar hatasız geçiyor — CPW pozisyonları, van Kervinck'in
+      zor listesi, 6.838 pozisyonluk Vajolet külliyatı. Geçersiz girdi de motoru yoldan
+      çıkarmıyor: kabul edilmeyen her şey reddedilip aynı soru yeniden soruluyor, oyun
+      kilitlenmiyor, durum bozulmuyor.</li>
       <li><b>Kural doğruluğu ve bitişler.</b> Oyun bittiğinde “berabere” deyip geçmez;
       <a href="#codes">on beş sonucun</a> hangisi geldiyse onu adıyla bildirir. Kodlar iki karakterlik olmasına rağmen akılda kalıcı — hangi harfin neye karşılık geldiği bir bakışta
       oturuyor — ve on beşi FIDE kitapçığındaki maddelerle birebir örtüşüyor. Pat mı, 3'lü tekrar mı, ölü pozisyon mu: belirsiz kalmaz.</li>
-      <li><b>Beraberliğin zor yarısı.</b> Hamle üretiminin dışında bir hakemin cevaplaması
-      gereken iki soru var: <em>bu pozisyonda mat hâlâ kurulabilir mi?</em> ve <em>bayrak
-      düştüğünde ya da bir taraf terk ettiğinde rakip mat edebilecek durumda mıydı?</em> İkisinin de
-      ucuz yarısı taş saymak ve yaygın olan bu. Zor yarısı tahtanın kendisine bakmak: piyonlar
-      birbirini kilitlemişse, materyal fazlasıyla yeterliyken ve iki taraf iş birliği yapsa bile mat
-      kurulamaz; bayrak düştüğünde de soru taşların sayısı değil, bu tahtada bir mat kurulup
-      kurulamayacağıdır — kaybeden taraf kendi şahının kaçış karelerini kendi taşlarıyla
-      kapatabildiği için savunanın taşları da hesaba girer. Motor iki yarıyı da uyguluyor ve
-      <a href="#dead">kilitli pozisyon</a> tespiti bu kadar küçük bir motorda bile doğru çalışıyor:
-      hamle araması istemiyor, piyonların ve şahların ulaşabildiği kareler büyüme durana kadar
-      genişletiliyor; sonunda ne terfi ne alma erişilebilir kalıyorsa pozisyon ölü. Motor
-      tanımadığı hiçbir pozisyona “ölü” demiyor, yalnızca bazılarını görmüyor — kaçırdıklarının
-      neredeyse tamamında tahtada bir fil var. Ölçülen kapsama <b>%93</b> ve hepsi
-      <b>457 bayt</b>. Kalan %7'yi kapatan genişletme yazıldı ve ölçüldü: <b>782 bayt daha</b>
-      tutuyor, bayt başına getiriyi yirmi üç kat düşürüyor, üstelik hızı da aşağı çekiyor;
-      <a href="#dead">neden askıda bıraktığım</a> ayrı bir başlıkta.</li>
-      <li><b>Sağlamlık.</b> Ne bir hata ne geçersiz bir girdi ne de kasıtlı bir kötüye kullanım motoru yoldan çıkarabiliyor.
-      <code>L3</code>'te hatalı girdi zaten doğmuyor; hamle tıklayarak yapılıyor ve yalnızca
-      legal kareler işaretleniyor. Metin girişli sürümlerde motor kabul etmediği her şeyi
-      reddedip aynı soruyu tekrar soruyor — boş, saçma ya da kasten bozuk girdiler dahil.
-      Oyun kilitlenmiyor, durum bozulmuyor; notasyonu doğru ama terfi harfi geçersiz bir
-      girişte taş otomatik vezire terfi ediyor.</li>
-      <li><b>Modüler yapı.</b> Parçalar birbirine yapışık değil: kural katmanı bir yanda
-      durur, arayüzün yaptığı işler öbür yanda. Beraberlik teklifini, saati ya da terk
-      düğmesini çıkarmak istersen çıkarırsın, geri kalan aynen çalışmaya devam eder; 5'li
-      tekrar ve 75 hamle gibi otomatik beraberlik sınırları için de aynısı geçerli. Başlangıç
-      dizilişi — istersen bir FEN'den — süre, hatta tekrar sayacının eşiği bile ayarlanabilir.
-      Code golf satrançlarında bu ayrım genellikle yoktur: şah kontrolü ayrı bir sınama
-      değildir, hamle üretimiyle değerlendirme iç içe geçer ve kuralın nerede bitip oyun
-      oynamanın nerede başladığı okunamaz hâle gelir.</li>
-      <li><b>Okunabilirlik ve akılda kalıcılık.</b> Kaynak okunmak için değil çalışmak için yazıldı:
-      tek harfli isimler, tek satır, gömülmüş fonksiyonlar. Yine de isimlendirme rastgele
-      değil — bayt bütçesinin izin verdiği ölçüde her değişken ve fonksiyon adı İngilizce
-      karşılığını çağrıştıracak şekilde seçildi. Bunun için gerçekten özen gösterildi:
-      büyük-küçük harf ayrımına kadar, Golfstack'in izin verdiği her yerde okunabilirlik
-      gözetildi. Ne olup bittiği <a href="#flow">satır satır ayrı bir bölümde</a>
-      açılıyor.</li>
-      <li><b>Hız ve derinlik.</b> Hakemin işinin büyük kısmı tek bir yarım hamlede biter:
-      sıradaki oyuncunun legal hamleleri ve oyunun bitip bitmediği. Beraberliğin zor yarısı
-      bunun dışında kalıyor — orada motor gerçekten ileriye bakıyor, üstelik testte değil,
-      oyunun içinde, bayrak düştüğü anda. Hız bu yüzden süs değil. Hızın önem taşıdığı ikinci yer testler: perft
+      <li><b>Beraberliğin zor yarısı.</b> Federasyonların kitabında çoğu uygulamanın atladığı ya
+      da en basit hâliyle geçiştirdiği maddeler var; motor onları olduğu gibi uygulamayı deniyor.
+      Özellikle FIDE'nin meşhur <b>6.9</b> ve <b>5.2.2</b> maddeleri es geçilmeden, olabildiğince
+      algoritmaya dahil edildi. Kazancı somut: haksız sonuçların büyük bölümünün önüne geçiliyor.
+      <a href="#dead">Ayrıntısı burada</a>.</li>
+      <li><b>Modüler yapı.</b> Kural katmanı bir yanda durur, arayüzün yaptığı işler öbür yanda.
+      Beraberlik teklifini, saati ya da otomatik beraberlik sınırlarını çıkarırsan geri kalan aynen
+      çalışmaya devam eder; başlangıç dizilişi — istersen bir FEN'den — ve süre ayarlanabilir.
+      Code golf satrançlarında bu ayrım genellikle yoktur: kuralın nerede bitip oyun oynamanın
+      nerede başladığı okunamaz hâle gelir.</li>
+      <li><b>Okunabilirlik ve akılda kalıcılık.</b> Kaynak okunmak için değil çalışmak için
+      yazıldı: tek harfli isimler, tek satır, gömülmüş fonksiyonlar. Yine de isimlendirme rastgele
+      değil — bayt bütçesinin izin verdiği her yerde adlar İngilizce karşılıklarını çağrıştırıyor.
+      Ne olup bittiği <a href="#flow">satır satır ayrı bir bölümde</a> açılıyor.</li>
+      <li><b>Hız ve derinlik.</b> Hakemin işinin büyük kısmı tek bir yarım hamlede biter, ama
+      beraberliğin zor yarısında motor gerçekten ileriye bakıyor — üstelik testte değil, oyunun
+      içinde, bayrak düştüğü anda. Hız bu yüzden süs değil; ikinci yer testler, perft
       <span class="gloss">(bir pozisyondan çıkan bütün hamle dizilerini sayan standart doğruluk
-      sınaması)</span> milyonlarca düğüm sayar, orada saniyeler dakikaya döner.
-      <a href="#speed"><code>engine_4x</code></a> ikisine de hizmet ediyor — aynı kuralları uygulayan,
-      81 bayt daha uzun ve mantıksal olarak birebir aynı bir varyant; hamle üretiminde iş yüküne göre 2,4 ile 9,7 kat arası daha hızlı, hüküm katmanında çok daha fazlası. Baytın nereye gittiği ve
-      ölçümler <a href="#speed">ayrı bir başlıkta</a>.</li>
-      <li><b>Bot ayrı bir katman.</b> Ana sürümde oyunu iki insan oynuyor; motor hamle
-      önermiyor, oyunu yönetiyor. İddia bayt başına kural yoğunluğu üzerine kurulu olduğu için bot şart
-      değil — iki insanın oynadığı yapı, rastgele hamle seçen bir bottan bile ucuza çıkıyor.
-      Kural katmanı ayrı durduğu için üstüne arama koymak da çekirdeği bozmuyor: saati ve
-      oyuncular arası etkileşimleri dışarıda bırakıp kural tarafını yerinde tutan, botlu ayrı sürümler var. Bunlar iddianın dışında: bot öncelenseydi tahta temsili baştan farklı
-      yazılırdı. Güçleri ve ölçümleri <a href="#builds">Varyantlar</a> sekmesinde.</li>
+      sınaması)</span> milyonlarca düğüm sayıyor. <a href="#speed"><code>engine_4x</code></a> ikisine
+      de hizmet ediyor: aynı kuralları uygulayan, 81 bayt daha uzun, mantıksal olarak birebir aynı
+      ve belirgin biçimde daha hızlı bir varyant. Ölçümler
+      <a href="#speed">ayrı bir başlıkta</a>.</li>
+      <li><b>Bot ayrı bir katman.</b> İddia bayt başına kural yoğunluğu üzerine kurulu olduğu
+      için bot şart değil; kural katmanı ayrı durduğu için üstüne arama koymak da çekirdeği
+      bozmuyor. Botlu sürümler var, ama iddianın dışında: bot öncelenseydi tahta temsili baştan
+      farklı yazılırdı. Güçleri ve ölçümleri <a href="#builds">Varyantlar</a> sekmesinde.</li>
     </ul>
     <ul class="tight" lang="en">
-      <li><b>An interface close to a modern site.</b> In <code>L3</code> <span class="gloss">(the build you play by clicking the board)</span> the selected square and its legal targets are marked, a promotion picker opens,
-      the check indicator sits on the status line and a pending draw offer shows on the draw button. After each move the board turns to face the player to move — that flip is in the <code>input</code> and
-      <code>prompt</code> builds too. The piece glyphs, clock symbol and indicators in
-      <code>L3</code> all come from Unicode, with no image file, font download or CDN request.
-      The other builds draw the board in ASCII or full-width characters; the blindfold build and
-      <code>numerical</code> draw nothing at all.</li>
+      <li><b>An interface close to a modern site.</b> In the default builds the selected square
+      and its legal targets are marked, a promotion picker opens, and check and a pending draw
+      offer are read off indicators; after each move the board turns to the perspective of the side
+      to move. The glyphs, the clock symbol and the indicators all come from Unicode — no image
+      file, no font download, no CDN request. The plainer builds draw the board with text
+      characters, and some of them draw nothing at all.</li>
       <li><b>Fischer time control and a readable clock.</b> In the builds that carry a clock the time
       control is <b>10+5</b>: ten minutes, plus a five-second increment added to that player's
       clock on every move. Both clocks run on screen in
       MINUTES : SECONDS with their emoji, and the increment visibly lands on each move. The moment
       a flag falls, the result follows by itself.</li>
-      <li><b>Move generation.</b> The engine does nothing odd where chess logic is concerned: an
-      illegal move never passes, a legal one is never refused, and no result code fires in the
-      wrong position. The claim rests on measurement —
-      the engine passes
+      <li><b>Move generation and robustness.</b> The engine does nothing odd where chess logic is
+      concerned: an illegal move never passes, a legal one is never refused, and no result code
+      fires in the wrong position. The claim rests on measurement — the engine passes
       <a href="#tests">the standard chess-programming test suites</a> without error to reasonable
-      depths: the CPW positions, van Kervinck's tricky list, and the 6,838-position Vajolet
-      corpus.</li>
+      depths: the CPW positions, van Kervinck's tricky list, and the 6,838-position Vajolet corpus.
+      Invalid input does not derail it either: anything it does not accept is refused and the same
+      question is asked again, the game never locks up and the state is never corrupted.</li>
       <li><b>Rule accuracy and how games end.</b> When a game ends it does not just say “draw”; it
       names whichever of the <a href="#codes">fifteen results</a> actually occurred. The codes
       are two characters yet mnemonic — you can tell at a glance which letter stands for what — and all
       fifteen map one-to-one onto articles in the FIDE handbook. Stalemate, threefold repetition,
       a dead position: never left ambiguous.</li>
-      <li><b>The hard half of the draw.</b> Beyond move generation an arbiter has two questions
-      to answer: <em>can mate still be reached in this position at all?</em> and <em>when the flag
-      fell, or one side resigned, was the opponent in a position to mate?</em> The cheap half of
-      both is counting material, and that is what is common. The hard half is looking at the board
-      itself: with the pawns locked against each other, mate can be impossible with material to
-      spare and even with both sides cooperating; and at flag fall the question is not how many
-      pieces the opponent holds but whether a mating position can be built on this board — since
-      the losing side can help by shutting off its own king's escape squares with its own pieces,
-      the defender's material counts too. The engine implements both halves, and its
-      <a href="#dead">blocked-position</a> detection works correctly even in an engine this small:
-      it needs no move search — the squares the pawns and kings can reach are grown until they stop
-      growing, and if no promotion or capture is left within reach, the position is dead. The
-      engine never calls a position dead by mistake, it only misses some — nearly all of them with
-      a bishop on the board. Measured coverage is <b>93%</b>, and all of it fits in
-      <b>457 bytes</b>. An extension closing the remaining 7% was written and measured: it takes
-      <b>782 bytes more</b>, cuts the return per byte twenty-threefold and costs speed on top;
-      <a href="#dead">why it is shelved</a> is under a separate heading.</li>
-      <li><b>Robustness.</b> Neither a bug nor invalid input nor deliberate abuse can derail the
-      engine. In <code>L3</code> bad input never arises in the first place: moves are made by
-      clicking and only legal squares are marked. In the text-input builds the engine rejects
-      anything it does not accept and simply asks the same question again — including empty,
-      nonsensical or intentionally malformed input. The game never locks up and the state is never
-      corrupted; where the notation is valid but the promotion letter is not, the piece promotes to
-      a queen automatically.</li>
-      <li><b>A modular structure.</b> The parts are not fused together: the rule layer stands on
-      one side, what the interface does on the other. Take out the draw offer, the clock or the
-      resign button if you want to — everything else carries on working, and the same goes for
-      automatic draw limits like fivefold repetition and the 75-move rule. The starting position —
-      from a FEN, if you like — the time control, even the threshold of the repetition counter can
-      all be set. Code golf chess rarely draws these lines: check is not detected by a test of its own, move
-      generation and evaluation run through each other, and you can no longer tell where the rules
-      end and playing the game begins.</li>
+      <li><b>The hard half of the draw.</b> There are articles in the federations' book that most
+      implementations skip, or settle for the simplest subset of; this engine tries to apply them as
+      written. FIDE's well-known <b>6.9</b> and <b>5.2.2</b> in particular are not passed over but
+      carried into the algorithm as far as it could go. The gain is concrete: most of the unfair
+      results are headed off. <a href="#dead">The detail is here</a>.</li>
+      <li><b>A modular structure.</b> The rule layer stands on one side, what the interface does
+      on the other. Take out the draw offer, the clock or the automatic draw limits and everything
+      else carries on working; the starting position — from a FEN, if you like — and the time
+      control can be set. Code golf chess rarely draws that line: you can no longer tell where the
+      rules end and playing the game begins.</li>
       <li><b>Readability and mnemonics.</b> The source was written to run, not to be read:
-      single-letter names, one line, inlined functions. Even so the naming is not arbitrary — as
-      far as the byte budget allowed, every variable and function name was chosen to echo its
-      English counterpart. Real care went into this, down to the distinction between upper and
-      lower case: readability was preserved wherever Golfstack permitted it. What actually happens
-      is unpacked <a href="#flow">line by line in a separate section</a>.</li>
-      <li><b>Speed and depth.</b> Most of an arbiter's work is over in a single ply: the
-      legal moves of the side to move, and whether the game has ended. The hard half of the draw
-      falls outside that — there the engine really does look ahead, and it does so during the
-      game, at the moment a flag falls, not in testing. Speed is therefore not decoration. The
-      second place it counts is testing: perft <span class="gloss">(the standard correctness test
-      that counts every move sequence from a position)</span> counts millions of nodes, where
-      seconds turn into minutes. <a href="#speed"><code>engine_4x</code></a> serves both — a
-      variant that enforces the same rules, 81 bytes longer and logically identical; between 2.4× and 9.7× faster on move generation depending on the workload, and a great deal more on the
-      adjudication layer. Where those bytes go, and the measurements behind them, are
+      single-letter names, one line, inlined functions. Even so the naming is not arbitrary —
+      wherever the byte budget allowed, the names echo their English counterparts. What actually
+      happens is unpacked <a href="#flow">line by line in a separate section</a>.</li>
+      <li><b>Speed and depth.</b> Most of an arbiter's work is over in a single ply, but on the
+      hard half of the draw the engine really does look ahead — and it does so during the game, at
+      the moment a flag falls, not in testing. Speed is therefore not decoration; the second place
+      it counts is testing, where perft <span class="gloss">(the standard correctness test that
+      counts every move sequence from a position)</span> counts millions of nodes.
+      <a href="#speed"><code>engine_4x</code></a> serves both: a variant that enforces the same
+      rules, 81 bytes longer, logically identical and markedly faster. The measurements are
       <a href="#speed">under a separate heading</a>.</li>
-      <li><b>The bot is a separate layer.</b> In the main build two people play; the engine does
-      not suggest moves, it runs the game. The claim is about rule density per byte, so no bot is
-      required — a build where two people play comes out cheaper than one driven by a bot picking
-      moves at random. And because the rule layer stands apart, putting a search on top does not
-      disturb the core: there are separate builds with a bot, which leave the clock and the interactions between players out and keep the rule side in place. They sit outside the claim: had a bot been the priority, the board representation itself would have been written
-      differently from the start. Their strength and the measurements behind it are on the
-      <a href="#builds">Builds</a> tab.</li>
+      <li><b>The bot is a separate layer.</b> The claim is about rule density per byte, so no bot
+      is required; and because the rule layer stands apart, putting a search on top does not disturb
+      the core. There are builds with a bot, but they sit outside the claim: had a bot been the
+      priority, the board representation itself would have been written differently from the start.
+      Their strength and the measurements behind it are on the <a href="#builds">Builds</a> tab.</li>
       
     </ul>
     <div class="prose" lang="tr">
-      <p>Asıl iddia tek tek bu maddeler değil, oranın kendisi: hizmet başına düşen bayt. Kuralların
-      tamamı 1.882 baytlık tek bir dosyada duruyor; indirilebilir tek bir HTML olarak da
-      arayüzüne ve eski ya da modern HTML yazımına göre 3.193 ile 1.792 bayt arasında
-      kalıyor.</p>
+      <p>Asıl iddia tek tek bu maddeler değil, oranın kendisi: hizmet başına düşen bayt.
+      Kuralların tamamı tek bir dosyada duruyor — elmas kadar sert, karadelik kadar yoğun. Bu
+      hâliyle zanaatkâr ve sanatkâr egomun da bir yansıması. ;)</p>
     </div>
     <div class="prose" lang="en">
       <p>The real claim is not these items one by one, but the ratio itself: bytes per unit of
-      service. The whole rule set sits in a single file of 1,882 bytes; as one downloadable HTML
-      file it takes between 3,193 and 1,792 bytes, depending on its interface and on old or
-      modern HTML authoring.</p>
+      service. The whole rule set sits in a single file — hard as diamond, dense as a black hole.
+      As it stands it is also a reflection of my craftsman's, and artist's, ego. ;)</p>
     </div>
 
     <div class="prose" lang="tr">
-      <p>Motor geliştirme aşamasında uç durumlar dahil binlerce kez sınandı ve bilinen
-      hataların tamamı ayıklandı. Yine de oyun sırasında gözüne çarpan bir şey olursa bildir; geri bildirim motoru doğrudan iyileştirir.</p>
+      <p>Motor geliştirme aşamasında uç durumlar dahil binlerce kez sınandı ve bilinen hataların
+      tamamı ayıklandı. Yine de kendi prensiplerimi bozmadan daha da sertleştirmeye her zaman
+      açığım: bir baytı daha nasıl söküp atacağıma dair bir fikrin varsa, ya da daha tehlikelisi
+      bir hata, bozulma veya yanlış hüküm gördüysen
+      <a href="mailto:cuneytinan37@gmail.com">cuneytinan37@gmail.com</a>
+      üzerinden yaz.</p>
     </div>
     <div class="prose" lang="en">
       <p>The engine was tested thousands of times during development, edge cases included, and
-      every known bug was cleared. Even so, if something catches your eye during a game, report
-      it; feedback improves the engine directly.</p>
+      every known bug was cleared. Even so, I am always open to making it harder still, within my
+      own principles: if you see a way to strip one more byte — or, more dangerously, a bug, a
+      breakage or a wrong verdict — write to
+      <a href="mailto:cuneytinan37@gmail.com">cuneytinan37@gmail.com</a>.</p>
     </div>
   </div>
 </section>
@@ -1287,15 +1236,11 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       o seviyenin ana dosyası. <code>L3</code> tam hakem: bütün sürümlerinde kural tarafı aynı,
       değişen yalnızca hamleyi nasıl girdiğin ve tahtanın nasıl çizildiği. <code>L1</code> ve
       <code>L2</code> kural seviyesi daha düşük olanlar, botlu sürümler de onların altında; ikisi
-      de iddianın dışında. <code>special</code> seviyelere sığmayanları topluyor: platform
-      eşdeğerleri, deneysel arayüzler, Toledo'nun programı ve ona rakip olarak yazdığım bot;
-      ayrıntısı <a href="#builds">Varyantlar</a> sekmesinin sonundaki
-      <a href="#special">Özel sürümler</a> bölümünde. Aynı sekmede anlatılan terminal sürümleri
-      tarayıcıya girmediği için listede yok.</p>
-      <p><code>default</code>, <code>prompt</code> ve <code>input</code> sürümlerinde tahta küçük geliyorsa
-      tarayıcının yakınlaştırmasını kullan — <kbd>Ctrl</kbd> <kbd>+</kbd>, macOS'ta
-      <kbd>⌘</kbd> <kbd>+</kbd>. Oyun pencereyle birlikte ölçeklenir;
-      <kbd>Ctrl</kbd> <kbd>0</kbd> eski hâline döndürür.</p>
+      de iddianın dışında. <code>special</code> ayrı bir katman: bu seviyelerden türemiş ama
+      hiçbirine tam uymayan, kimi zaman projenin kendi ilkelerine ters düşen çok çeşitli sürümler.
+      Ayrıntısı <a href="#builds">Varyantlar</a> sekmesinin sonundaki
+      <a href="#special">Özel sürümler</a> bölümünde; aynı sekmede anlatılan terminal sürümleri
+      tarayıcıda çalışmadığı için listede yok.</p>
     </div>
     <div class="prose" lang="en">
       <p>Each build runs in its own frame, and the clocks only start ticking once you start it.
@@ -1304,41 +1249,26 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       is that level's main file. <code>L3</code> is the full arbiter: the rule layer is identical
       in all of its builds; what changes is how you enter a move and how the board is drawn.
       <code>L1</code> and <code>L2</code> are the lower rule levels, and the builds with a bot sit
-      under them; both are outside the claim. <code>special</code> collects what does not fit a
-      level: the platform equivalents, experimental interfaces, Toledo's program and the bot I
-      wrote as its opponent; the details are in the <a href="#special">Special builds</a> section
-      at the end of the <a href="#builds">Builds</a> tab. The terminal builds described on the
-      same tab do not run in a browser, so they are not in the list.</p>
-      <p>If the board feels small in the <code>default</code>, <code>prompt</code> and
-      <code>input</code> builds, use the
-      browser's zoom — <kbd>Ctrl</kbd> <kbd>+</kbd>, or <kbd>⌘</kbd> <kbd>+</kbd> on macOS. The
-      game scales along with the frame; <kbd>Ctrl</kbd> <kbd>0</kbd> restores it.</p>
+      under them; both are outside the claim. <code>special</code> is a layer of its own: builds derived from these
+      levels that fit none of them, some of them at odds with the project's own principles. The
+      details are in the <a href="#special">Special builds</a> section at the end of the
+      <a href="#builds">Builds</a> tab; the terminal builds described there are not in the list,
+      since they do not run in a browser.</p>
     </div>
 
     <div class="note" lang="tr">
-      <p>Adında <code>prompt</code> ya da <code>numerical</code> geçen sürümler hamleleri
-      <code>prompt()</code> penceresiyle alıyor; <code>L3</code>'te oyun sonucu <code>alert()</code>
-      ile geliyor. Tarayıcın bu pencereleri engelliyorsa — çoğu tarayıcı ikinciden sonra
-      “bu sayfanın iletişim kutularını engelle” seçeneği sunar — oyun sessizce durur.
-      Engellediysen sayfayı yenile ve kutuları geri aç. Diğer sürümler hiç iletişim kutusu kullanmaz.
-      <code>L1</code> ve <code>L2</code>'nin prompt sürümlerinde terk olmadığı için pencereden çıkış
-      yok; bu yüzden onlar yeni sekmede açılıyor ve oyun sekmeyle birlikte kapanıyor.
-      Bu dört sürüm sonucu da aynı pencerede yazıyor — <code>prompt_string_flip</code>
-      <code>C!</code>'nin yerinde, <code>numerical</code> son hamlenin yerinde. <code>alert()</code>
-      açılmıyor, pencere oyun bittikten sonra da sonucu göstererek açılmaya devam ediyor.</p>
+      <p>Tahta çizen sürümlerde tahta küçük geliyorsa tarayıcının yakınlaştırmasını kullan —
+      <kbd>Ctrl</kbd> <kbd>+</kbd>, macOS'ta <kbd>⌘</kbd> <kbd>+</kbd>; <kbd>Ctrl</kbd>
+      <kbd>0</kbd> eski hâline döndürür. <code>prompt()</code> penceresi açan sürümlerde
+      tarayıcın iletişim kutularını engelliyorsa hiçbir şey açılmaz; dosyayı indirip aç ya da
+      tarayıcıya izin ver.</p>
     </div>
     <div class="note" lang="en">
-      <p>The builds with <code>prompt</code> or <code>numerical</code> in their name take moves
-      through a <code>prompt()</code> dialog; in <code>L3</code> the result arrives in an
-      <code>alert()</code>. If
-      your browser blocks those dialogs — most offer a “prevent this page from creating dialogs”
-      option after the second one — the game stops silently. If you have blocked them, reload the
-      page and allow dialogs again. The rest use no dialogs at all. The prompt builds of
-      <code>L1</code> and <code>L2</code> have no resignation, so their dialog has no way out;
-      they open in a new tab instead, and the game closes with the tab. These four write the result
-      in that same dialog too — <code>prompt_string_flip</code> in place of <code>C!</code>,
-      <code>numerical</code> in place of the last move. No <code>alert()</code> opens, and once the
-      game is over the dialog keeps coming back with the result on it.</p>
+      <p>If the board feels small in the builds that draw one, use the browser's zoom —
+      <kbd>Ctrl</kbd> <kbd>+</kbd>, or <kbd>⌘</kbd> <kbd>+</kbd> on macOS; <kbd>Ctrl</kbd>
+      <kbd>0</kbd> restores it. In the builds that open a <code>prompt()</code> dialog, nothing
+      appears at all if your browser blocks dialogs; download the file and open it, or allow
+      dialogs.</p>
     </div>
 
     <div class="player">
@@ -1576,7 +1506,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       göstergeler için ayrı bir arayüz altyapısı yazmak gerekmiyor, dahası
       <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code> hiç
       yazılmasa bile dosya açılıyor. Motorun oyuncuya ulaşmak için kat etmesi gereken mesafe
-      bu kadar kısa olmasaydı, 3,1 ile 1,8 KB arasındaki iddianın pratikte bir karşılığı
+      bu kadar kısa olmasaydı, 3,1 ile 1,75 KB arasındaki iddianın pratikte bir karşılığı
       olmazdı.</p>
       <p>İkinci yarısı dilin kendisiyle ilgili. JavaScript Golfstack'e beklenenden çok daha
       elverişli: değişken bildirim anahtar kelimesi istemiyor, giriş noktası ve içe aktarma
@@ -1609,7 +1539,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       infrastructure is needed for the board, the clocks and the indicators, and the file even
       opens when <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code>
       are never written at all. If the distance the engine had to cover to reach a player were any
-      longer, the 3.1-to-1.8 KB claim would mean nothing in practice.</p>
+      longer, the 3.1-to-1.75 KB claim would mean nothing in practice.</p>
       <p>The second half is about the language itself. JavaScript suits Golfstack far better than
       you would expect: it requires no variable declaration keyword, it imposes no mandatory
       skeleton of entry point and imports, and implicit coercion means the board's numeric
@@ -1652,7 +1582,11 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <p>Asıl mesele ölçülebilirlik. Botun tanımı belirsiz: 100 baytın altına sığan, rastgele
       ama legal hamle yapan şey bot mudur? Materyal sayan bot mudur, yoksa eşik daha yukarıda
       mı? Bunu kim söyleyecek? Kurallar öyle değil, kesin ve net. Bir kodun kuralı uygulayıp
-      uygulamadığı bakıldığında görünüyor, tartışmaya yer bırakmıyor. Süreç boyunca ben de bot
+      uygulamadığı bakıldığında görünüyor, tartışmaya yer bırakmıyor. Ölçü eksik kapsamada bile
+      net: motorun verdiği her hüküm doğru (<i>soundness</i>), kaçırdığı hüküm olabilir
+      (<i>completeness</i>) — ve kaçırdığı, pratik tabloda kabaca iki milyonda bir oyuna
+      düşüyor. Birkaç maddede kapsamayı %100'e çıkarmak zor, ama bu bile bayt başına getirisi
+      hesaplanabilen kesin bir kavram; botun tanımı değil. Süreç boyunca ben de bot
       yazmayı denedim; sonra bütün enerjimi ölçülebilir olan tarafa verdim.</p>
       <p>İkisi kodda da ayrı duruyor ve bu tesadüf değil. Motor çekirdeği sürücüden hiçbir şey
       bilmiyor; üstüne bir arama koymak kural tarafına dokunmuyor. Botlu sürümler tam olarak böyle
@@ -1660,22 +1594,17 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       Bitmiş saymıyorum, çünkü bir botu iddianın içine almak için kendime koyduğum ölçüt hakem
       motorununkiyle aynı: bayt/kalite oranında şaheser olması. Bu daha uzun sürecek bir iş, ama
       çok keyif aldığım bir hobi olduğu için o tarafta da somut bir rekor denemesi yapacağım.</p>
-      <p>Geriye ölçülebilir tarafın ne satın aldığı kalıyor: 1.882 baytlık bu motor,
-      beraberliğin zor yarısında büyük platformların <b>ilerisinde</b>. Yaygın olan, saf FIDE
-      uygulayan yerlerde bile, <b>materyal testiyle</b> yetinmek: tahtada mat etmeye yetecek taş
-      var mı. Pozisyonun kendisine bakan taraf — bayrak düştüğünde mat pozisyonunun kurulup
-      kurulamayacağı ve <a href="#dead">kilitli pozisyonların</a> tespiti — yaygın değil.
-      Bunun bir de ölçüsü var: Miguel Ambrona'nın
-      <a href="https://chasolver.org/" target="_blank" rel="noopener">CHA-Solver</a>'ı
-      <span class="gloss">(algoritma <a href="https://chasolver.org/FUN22-full.pdf" target="_blank" rel="noopener">FUN 2022'de
-      yayımlandı</a>, açık kaynak)</span> Lichess açık veritabanını baştan sona tarayıp <b>201.060</b> yanlış sonuçlanmış oyun saydı —
-      <b>51.058'i</b> kilitli pozisyonlardan, kalan <b>150.002'si</b> bayrak düşmesinde
-      sorulmayan sorudan. Bu motor onların <b>197.493'ünü</b> doğru karara bağlıyor: <b>%98,2</b>. Kaçırdığı 3.567 oyunun
-      tamamı kilitli pozisyon — yukarıdaki <b>%93</b> bütünün değil, yalnızca o kolun kapsaması.
-      Chess.com bazı maddelerde
-      <a href="#federations">FIDE ile USCF'nin bir karmasını</a> uyguluyor; eksiklik değil tercih, iki
-      federasyonun kurallarını bilerek harmanlıyorlar. Buradaki tercih başka: tek kitap, tek
-      ölçü. Aynı maddelerde motor bu yüzden FIDE'ye daha sıkı bağlı.</p>
+      <p>Geriye ölçülebilir tarafın ne satın aldığı kalıyor: bu motor beraberliğin zor yarısında
+      büyük platformların <b>çok ilerisinde</b>. Bu konuda iddialıyım — en titiz duranlar bile
+      kitapçığa birebir bağlanmak yerine <b>materyal testiyle</b> yetiniyor: tahtada mat etmeye
+      yetecek taş var mı. Pozisyonun kendisine bakan taraf, yani bayrak düştüğünde mat kurulup
+      kurulamayacağı ve <a href="#dead">kilitli pozisyonların</a> tespiti, yaygın değil. Bunun bir
+      de ölçüsü var: Miguel Ambrona'nın
+      <a href="https://chasolver.org/" target="_blank" rel="noopener">CHA-Solver</a>'ı Lichess
+      açık veritabanında haksız sonuçlanmış <b>201.060</b> oyun saydı; bu motor onların
+      <b>%98,2</b>'sini doğru karara bağlıyor. Chess.com'un
+      <a href="#federations">FIDE–USCF karması</a> gibi bilinçli tercihler de var; buradaki tercih
+      başka: tek kitap, tek ölçü.</p>
     </div>
     <div class="prose" lang="en">
       <p>The second question is harder: there are builds with a bot right here on this page, so why
@@ -1690,7 +1619,11 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <p>The real issue is measurability. What counts as a bot is vague: is the thing that fits under 100 bytes and plays random but legal moves a bot? Is one that counts material a
       bot, or is the threshold higher? Who decides? Rules are not like that; they are exact.
       Whether a piece of code implements an article is visible on inspection and leaves no room
-      for argument. I tried writing a bot along the way too; then I put all my energy into the
+      for argument. Even where coverage falls short the measure stays exact: every verdict the
+      engine gives is correct (soundness) while some verdicts are missed (completeness) — and the
+      misses land on roughly one game in two million across the practical record. Pushing coverage
+      to 100% is hard in a few articles, but even that is a precise concept whose gain per byte can
+      be computed; the definition of a bot is not. I tried writing a bot along the way too; then I put all my energy into the
       side that can be measured.</p>
       <p>The two stand apart in the code as well, and that is no accident. The engine core knows
       nothing about the driver, so putting a search on top does not touch the rule side. That is
@@ -1699,24 +1632,17 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       I do not consider that side finished, because the criterion I have set for bringing a bot
       inside the claim is the same one the arbiter engine had to meet: it has to be a masterpiece in its ratio of quality to bytes. That is a longer job — but since it is a hobby I
       enjoy a great deal, I will make a concrete attempt at a record on that side too.</p>
-      <p>What remains is what the measurable side bought: at 1,882 bytes this engine is
-      <b>ahead of</b> the large platforms on the hard half of the draw. The common practice, even
-      where pure FIDE is applied, is to stop at the <b>material test</b>: is there enough left on
-      the board to mate with. The side that looks at the position itself — whether a mating
-      position can be constructed once the flag has fallen, and the detection of
-      <a href="#dead">blocked positions</a> — is not common. And that has been measured:
-      Miguel Ambrona's
-      <a href="https://chasolver.org/" target="_blank" rel="noopener">CHA-Solver</a>
-      <span class="gloss">(the algorithm was <a href="https://chasolver.org/FUN22-full.pdf" target="_blank" rel="noopener">published
-      at FUN 2022</a> and is open source)</span> scanned the
-      Lichess open database end to end and counted <b>201,060</b> wrongly decided games —
-      <b>51,058</b> of them from blocked positions, the remaining <b>150,002</b> from the question
-      that goes unasked at flag fall. This engine gets <b>197,493</b> of them right: <b>98.2%</b>. Every one of the 3,567 it misses is
-      a blocked position — the <b>93%</b> above is the coverage of that branch alone, not of the
-      whole. Chess.com applies a <a href="#federations">blend of FIDE and USCF</a> on some articles; not a shortcoming but a
-      choice, blending the rules of two federations deliberately. The choice here is a different
-      one: one book, one measure. On those same articles the engine is therefore bound more
-      tightly to FIDE.</p>
+      <p>What remains is what the measurable side bought: on the hard half of the draw this engine
+      is <b>far ahead of</b> the large platforms. I will stake a claim here — even the strictest of
+      them stop at the <b>material test</b> rather than follow the booklet to the letter: is there
+      enough left on the board to mate with. The side that looks at the position itself, whether a
+      mating position can be constructed once the flag has fallen and the detection of
+      <a href="#dead">blocked positions</a>, is not common. And that has been measured: Miguel
+      Ambrona's <a href="https://chasolver.org/" target="_blank" rel="noopener">CHA-Solver</a>
+      counted <b>201,060</b> wrongly decided games across the Lichess open database, and this
+      engine gets <b>98.2%</b> of them right. There are deliberate choices out there too, such as
+      Chess.com's <a href="#federations">blend of FIDE and USCF</a>; the choice here is a different
+      one: one book, one measure.</p>
     </div>
 
 
@@ -9193,7 +9119,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       Arayüzde ölçülemez — bir tıklama zaten mikrosaniyeler sürüyor — ama testte görünüyor ve
       “bedava” olmadığını söylüyor.</p>
       <p>Hayalet kodlamanın ayrıntılı anlatımı ve onun üzerine kurulu 1023 baytlık sürüm ayrı bir
-      repoda: <a href="https://github.com/cuneytinann/chess1023byte" target="_blank" rel="noopener">chess1023byte</a>.</p>
+      repoda: <a href="https://github.com/cuneytinann/chessinbytes" target="_blank" rel="noopener">chessinbytes</a>.</p>
       <p><b>Ana motora alınmadı</b> — ama bazı özel sürümlerde alındı. Paketleyicinin gördüğü
       tekrar dizileri değiştiği için hayalet kodlama orada daha iyi sıkışıyor ve o dosyalarda
       terazi artıya dönüyor. Yani yukarıdaki hesap <code>engine.js</code> içindir;
@@ -9223,7 +9149,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       idea is not free.</p>
       <p>A detailed account of the ghost encoding, and the 1023-byte build that rests on it, live in a
       repository of their own:
-      <a href="https://github.com/cuneytinann/chess1023byte" target="_blank" rel="noopener">chess1023byte</a>.</p>
+      <a href="https://github.com/cuneytinann/chessinbytes" target="_blank" rel="noopener">chessinbytes</a>.</p>
       <p><b>Not adopted into the main engine</b> — but it was adopted in some of the special
       builds. Because the repeat sequences the packer sees change, the ghost encoding compresses
       better there, and in those files the balance turns positive. So the arithmetic above is for
@@ -10577,6 +10503,9 @@ f = K[2] + K[3] - 1</pre></div>
     <h2 lang="tr">Paketlenmiş iki dosya</h2>
     <h2 lang="en">The two packed files</h2>
     <div class="prose" lang="tr">
+      <p>Oynanabilir dosyalar, arayüzlerine ve eski ya da modern işaretleme biçimine göre
+      <b>3,1 KB</b> ile <b>1,75 KB</b> arasında değişiyor
+      <span class="gloss">(1 KB = 1024 bayt)</span>; alt uçtaki dosya bu bölümden çıkıyor.</p>
       <p>Paketlenmiş sürüm iki tane: <code>L3_packed.html</code> 2.702 bayt,
       <code>L3_numerical_packed.html</code> 1.792. İkisi de kendi kendini açan RegPack
       çıktısı — dosyanın gövdesi bir açma döngüsü, son adımı <code>eval(_)</code>.
@@ -10584,6 +10513,9 @@ f = K[2] + K[3] - 1</pre></div>
       veriyor:</p>
     </div>
     <div class="prose" lang="en">
+      <p>The playable files range from <b>3.1 KB</b> to <b>1.75 KB</b>
+      <span class="gloss">(1 KB = 1024 bytes)</span>, depending on their interface and on old or
+      modern markup; the file at the bottom of that range comes out of this section.</p>
       <p>There are two packed builds: <code>L3_packed.html</code> at 2,702 bytes and
       <code>L3_numerical_packed.html</code> at 1,792. Both are self-extracting RegPack output — the
       body of the file is an unpacking loop whose last step is <code>eval(_)</code>. Put an
