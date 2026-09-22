@@ -12879,9 +12879,20 @@ function start() {
    tetikleyen setTimeout ise saf bot.
    Motor fonksiyonlarina yapilan cagrilar (A(...), F('R'), D(t)) ve saat sayimi
    arayuzde kalir. aybars'ta motorun iki fonksiyonu bot icin uyarlanmis: M
-   tahtaya botun S1'i uzerinden yaziyor, L botun hash, degerlendirme ve geri
-   alma durumunu saklayip geri koyuyor. Ikisi 'm' (kural + bot); G, V, J, C, I
-   ve l saf kural, S1 ve benzeri makine botun bolumunde saf bot.
+   tahtaya her yazisini botun S1'i uzerinden yapiyor, L legallik denemesinden
+   sonra tahtayi botun UN'u ile geri aliyor ve botun hash, degerlendirme ve
+   geri alma durumunu saklayip geri koyuyor. Ikisi 'm' (kural + bot). S1, geri
+   alma yigini (A1, A2) ve UN botun bolumunde tanimli ama tahtaya yazan ve
+   tahtayi geri alan onlar; bu blok da 'm'. A'daki A1=0 ayni yigini sifirlar,
+   'm'. Tahtanin Int8Array olarak tutulmasi (botun hizi icin) ile hiz icin
+   yeniden yazilmis G, V, J de 'm'. C, I ve l saf kural; hash tablosu,
+   degerlendirme, arama ve A'daki PT[++Y3]=H2 (botun pozisyon gecmisi) saf bot.
+   LUX'ta Go FEN'den pozisyon kuruyor: bicim denetimi (alan sayisi, 64 kare,
+   gecersiz harf, sure siniri, sira alani) arayuz; pozisyonun kurallara
+   uygunlugu (her tarafta tek sah, ilk/son yatayda piyon yok, rok hakki sah ve
+   kale yerindeyse, gecerken alma karesi ancak alis gercekten mumkunse, sirasi
+   olmayan taraf sahta degil) ve durumun kurulmasi kural. Yeni oyunda tekrar
+   tablosunun sifirlanmasi ve baslangic pozisyonunun hukmu (z=Z()) da kural.
    Ciftin sonundan hemen sonra gelen virgul ya da noktali virgul de ayni
    katmana gecer: bitis virgulu ifadenindir.
    RegPack'li surumlerde (PACKED) script tek bir sikistirilmis dizge; kural,
@@ -12898,8 +12909,8 @@ var PAINT = {
   L3_prompt_string: PAINT_L3, L3_prompt_string_flip: PAINT_L3,
   L2: PAINT_L3, L2_numerical: PAINT_L3, L2_input: PAINT_L3, L2_light: PAINT_LIGHT,
   L2_prompt_string_flip: PAINT_L3,
-  L2_aybars_2500: ['r', ',J=g=>', 'm', ',L=(', 'r', ',C=i=>', 'm', ',M=(', 'r', ',l=(', 'u',
-    ';d();U=0', 'b'],
+  L2_aybars_2500: ['r', ',t=1', 'm', ',b=Int8Array', 'r', ',a=Math.abs', 'm', ',L=(', 'r',
+    ',C=i=>', 'm', ',M=(', 'r', ',l=(', 'u', ';d();U=0', 'b'],
   L1: PAINT_L1, L1_numerical: PAINT_L1, L1_input: PAINT_L1, L1_light: PAINT_LIGHT,
   L1_prompt_string_flip: PAINT_L1, L1_1250elo: ['r', ',M=(', 'u', ';d();P=[', 'b'],
   'Chesscom-equivalent': ['r', ',Z=Q=>', 'u'], 'Lichess-equivalent': ['r', ',F=k=>', 'u'],
@@ -12923,7 +12934,8 @@ var CARVE = {
     ['o^=2-g', "'DA':z"]]),
   L2: APPLY, L2_input: APPLY, L2_numerical: APPLY_N, L2_prompt_string_flip: APPLY,
   L2_light: [['b[s=b+t+e+c]', 't^=1'], ['n>148|', 'o<3|o==4)']],
-  L2_aybars_2500: APPLY.concat([['A1=0', 'A1=0', 'b'], ['PT[++Y3]', '=H2', 'b']]),
+  L2_aybars_2500: APPLY.concat([['A1=0', 'A1=0', 'm'], ['PT[++Y3]', '=H2', 'b'],
+    ['S1=(', 'b[q>>4]=q&15}', 'm']]),
   L1: APPLY, L1_input: APPLY, L1_numerical: APPLY_N, L1_prompt_string_flip: APPLY,
   L1_light: [['c&=~C(i)', 't^=1'], ['!p|p&1^t&&G(i,u)', '[b,e]=p,q']],
   L1_1250elo: APPLY.concat([['z||t==D', 'setTimeout(o,9)', 'b']]),
@@ -12931,7 +12943,8 @@ var CARVE = {
     ["T?'WB'", "&&'DA'"]],
   'Lichess-equivalent': [['c&=~C(i)', 'o&&D()']],
   L2_noBlockedDetector: APPLY, L2_string_flip_noBlockedDetector: APPLY,
-  LUX_inProgress: [['c&=~C(i)', 'Z(o&=12)']],
+  LUX_inProgress: [['[10,11].some', 'V(t^1))'], ['R={[b+t+e+c]', 'z=Z()'],
+    ['c&=~C(i)', 'Z(o&=12)']],
   'Toledos-ES6-optimized': [['y&&setTimeout', ',250)', 'b']],
   ToledosOpponentbyMe: [['c&=~C(i)', 't^=1']]
 };
