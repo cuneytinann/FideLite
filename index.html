@@ -166,6 +166,12 @@ if (FLOLD[location.hash.slice(1)]) {
   --code-ink: light-dark(#16307a,  #7fc9cf);
   /* oynaticinin surum listesi eski camgobeginde kalir: orada renk kategori tasiyor */
   --code-teal: light-dark(#12595f,  #7fc9cf);
+  /* Kodu goster katmanlari. Kurallar terminalin kendi yesili (--code-fg) olarak
+     kalir; arayuz, HTML ve bot ondan ve birbirinden ayri uc ton. Dordu de
+     beyaz ve siyah kuyuda AA'nin rahatca ustunde (acikta 6.4+, koyuda 9.3+). */
+  --hl-ui:   light-dark(#1f5fa8,  #86b6ef);
+  --hl-html: light-dark(#a3246b,  #f08ccf);
+  --hl-bot:  light-dark(#8c4e0c,  #dfa250);
 
   --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
@@ -192,6 +198,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --card-w-bg:#fffdf6; --card-w-fg:#0f1626; --card-w-fg2:#2c384c; --card-w-fg3:#465268;
     --card-b-bg:#232a3a; --card-b-fg:#f2e6d8; --card-b-fg2:#c9bdb2; --card-b-fg3:#9a8d82;
     --code-bg:#ffffff; --code-fg:#0d4f26; --code-dim:#3f7a55; --code-ink:#16307a; --code-teal:#12595f;
+    --hl-ui:#1f5fa8; --hl-html:#a3246b; --hl-bot:#8c4e0c;
     --pc-r:#8f1d13; --pc-n:#146a33; --pc-b:#6b3fa0; --pc-q:#7e5a05; --pc-k:#1f5fa8;
     --pc-p:#0f6b70; --pk:#3a2214; --pk-glow:rgba(204,170,120,.55); --pk-acc:#3a2214;
     --lg-grid:#cc9911; --lg-knight:#fffdf6; --lg-rook:#93cfe0;
@@ -210,6 +217,7 @@ if (FLOLD[location.hash.slice(1)]) {
       --dot-ring:rgba(255,255,255,.22); --card-w-bg:#d7ccbd; --card-w-fg:#241c17;
       --card-w-fg2:#4a3f36; --card-w-fg3:#6b5f54; --card-b-bg:#0b0908; --card-b-fg:#ece3d8;
       --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-dim:#3f8f5c; --code-ink:#7fc9cf; --code-teal:#7fc9cf;
+      --hl-ui:#86b6ef; --hl-html:#f08ccf; --hl-bot:#dfa250;
       --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
       --pc-p:#5fc3ca; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
       --lg-grid:#a8916b; --lg-knight:#1c1714; --lg-rook:#7ab6c9;
@@ -229,6 +237,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --dot-ring:rgba(255,255,255,.22); --card-w-bg:#d7ccbd; --card-w-fg:#241c17;
     --card-w-fg2:#4a3f36; --card-w-fg3:#6b5f54; --card-b-bg:#0b0908; --card-b-fg:#ece3d8;
     --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-dim:#3f8f5c; --code-ink:#7fc9cf; --code-teal:#7fc9cf;
+      --hl-ui:#86b6ef; --hl-html:#f08ccf; --hl-bot:#dfa250;
     --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
     --pc-p:#5fc3ca; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
     --lg-grid:#a8916b; --lg-knight:#1c1714; --lg-rook:#7ab6c9;
@@ -283,6 +292,10 @@ h1,h2,h3 { font-family:var(--mono); font-weight:500; letter-spacing:-.02em; marg
 p { margin:0 0 1rem }
 .prose { max-width:44rem }
 .prose p:last-child { margin-bottom:0 }
+/* Ekstra: gelecek gorseller icin yer tutucu. Adi bilerek .ph degil: .fig.ph
+   diyagram tutucusu zaten var, cakismasin. Gorsel gelince <img> ile degisir. */
+.imgph { margin:1.75rem 0 0; max-width:44rem; aspect-ratio:16/9;
+  border:1.5px dashed var(--ink-3); border-radius:6px; background:var(--panel) }
 
 /* ---- masthead ---- */
 .mast { border-bottom:1px solid var(--rule); padding:1rem 0 }
@@ -775,6 +788,20 @@ pre.src { margin:0; padding:1rem 1rem 1rem calc(1rem - 2px); overflow-x:auto;
    yesile aliniyor, ikisi de kendi zeminine karsi AA gecen degerler. */
 pre.src .fn2 { color:var(--code-dim) }
 pre.src[hidden] { display:none }
+/* Kodu goster: katman renkleri. Siniflari srcLayers() veriyor; lejant ayni
+   siniflari kullaniyor, kutucugun rengini currentColor tasiyor. Lejant kod
+   kuyusunun basligi gibi durur: ayni zemin, ayni altin serit. */
+pre.src .hl-r, .hlkey .hl-r { color:var(--code-fg) }
+pre.src .hl-u, .hlkey .hl-u { color:var(--hl-ui) }
+pre.src .hl-b, .hlkey .hl-b { color:var(--hl-bot) }
+pre.src .hl-h, .hlkey .hl-h { color:var(--hl-html) }
+.hlkey { display:flex; flex-wrap:wrap; gap:.3rem 1.1rem; margin:0;
+  padding:.6rem 1rem .6rem calc(1rem - 2px); font-family:var(--mono); font-size:.72rem;
+  line-height:1.4; background:var(--code-bg); border-left:2px solid var(--acc-edge);
+  border-bottom:1px solid var(--rule) }
+.hlkey[hidden] { display:none }
+.hlkey > span::before { content:""; display:inline-block; width:.62rem; height:.62rem;
+  margin-right:.4rem; border-radius:2px; background:currentColor; vertical-align:-.06rem }
 dl.api { margin:1rem 0; display:grid; grid-template-columns:auto 1fr; gap:.4rem 1.25rem;
   font-size:.9375rem; align-items:baseline }
 dl.api dt { font-family:var(--mono); font-size:.85rem; white-space:nowrap }
@@ -1340,6 +1367,12 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       </div>
       <div class="stage" id="stage">
         <p class="idle" id="idle"><span lang="tr">Seçili sürüm <b>L3</b>. Oyunu başlat ya da kodunu göster.</span><span lang="en">Selected build <b>L3</b>. Start the game or show its code.</span></p>
+        <p class="hlkey" id="hlkey" hidden>
+          <span class="hl-r" hidden><span lang="tr">kurallar</span><span lang="en">rules</span></span>
+          <span class="hl-u" hidden><span lang="tr">arayüz</span><span lang="en">interface</span></span>
+          <span class="hl-b" hidden>bot</span>
+          <span class="hl-h" hidden>HTML</span>
+        </p>
         <pre class="src" id="src" hidden></pre>
       </div>
       <div class="pfoot">
@@ -11918,7 +11951,285 @@ f = K[2] + K[3] - 1</pre></div>
   <div class="wrap">
     <p class="eyebrow" lang="tr">Ekstra</p>
     <p class="eyebrow" lang="en">Extras</p>
-    <!-- icerik gelecek -->
+    <h2 lang="tr">Motorun dışında kalanlar</h2>
+    <h2 lang="en">Outside the engine</h2>
+    <div class="prose" lang="tr">
+      <p>Burada dört sayfa var: bir satranç bulmacası, tasarım sırasında yazılmış iki
+      simülasyon ve bir Chess960 çalışması. Hiçbiri iddianın parçası değil, hiçbiri motoru
+      kullanmıyor; her biri kendi başına duran tek bir HTML dosyası. Siteye gömülü değiller,
+      bağlantılar yeni sekmede açılıyor.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>Here are four pages: a chess puzzle, two simulations written during the
+      design, and a Chess960 study. None of them is part of the claim and none uses the engine;
+      each is a single standalone HTML file. They are not embedded here — the links open in a new
+      tab.</p>
+    </div>
+
+    <h3 id="parrot" lang="tr">ParrotPuzzle — papağana karşı bir bulmaca</h3>
+    <h3 lang="en" data-id="parrot">ParrotPuzzle — a puzzle against a parrot</h3>
+    <div class="prose" lang="tr">
+      <p>Tek kişilik bir satranç bulmacası. Beyazla oynuyorsun, rakibin bir papağan. İlk el serbest
+      bir ısınma: siyahı mat et, süre serbest. Papağanın nasıl oynadığını kimse söylemiyor; onu
+      çözmek bulmacanın ilk adımı, o yüzden burada da yazılmadı.</p>
+      <p>Isınma bitince on görev açılıyor. Hepsi aynı papağana karşı, değişen yalnızca amaç ve hamle
+      sınırı: dört hamlede mat, rok ve geçerken alma üstüne kurulu görevler, papağanı pat etmek,
+      hatta papağana kendini mat ettirmek. Başarısız her denemede bir ipucu daha açılıyor. Görev
+      çözülünce neden işe yaradığı anlatılıyor ve çözüm tahtada oynatılabiliyor; birkaçında daha
+      kısa bir yol olmadığı tam aramayla gösterilmiş. Arayüz Türkçe ve İngilizce, taşlar
+      sürükleyerek ya da dokunarak oynanıyor.</p>
+      <p><a href="/extra/ParrotPuzzle.html" target="_blank" rel="noopener">fidelite.art/extra/ParrotPuzzle.html</a></p>
+    </div>
+    <div class="prose" lang="en">
+      <p>A single-player chess puzzle. You play White; your opponent is a parrot. The first game is
+      a free warm-up: checkmate Black, and take your time. Nobody tells you how the parrot plays —
+      working that out is the first step of the puzzle, so it is not written here either.</p>
+      <p>Once the warm-up is over, ten missions open. They are all against the same parrot; what
+      changes is the goal and the move limit: mate in four, missions built on castling and en
+      passant, stalemating the parrot, even getting the parrot to mate you. Every failed attempt
+      unlocks one more hint. Once a mission is solved it explains why the solution works and can
+      play it back on the board; for a few of them an exhaustive search shows there is nothing
+      shorter. The interface is in English and Turkish, and pieces move by dragging or
+      tapping.</p>
+      <p><a href="/extra/ParrotPuzzle.html" target="_blank" rel="noopener">fidelite.art/extra/ParrotPuzzle.html</a></p>
+    </div>
+
+    <h3 id="distance" lang="tr">Absolute_Distance — uzaklıkla tanımlanan hamle</h3>
+    <h3 lang="en" data-id="distance">Absolute_Distance — moves defined by distance</h3>
+    <div class="prose" lang="tr">
+      <p>Hareketi mutlak uzaklıkla tanımlama fikrinden kalan simülasyon. 8×8 tahtada bir kareye
+      tıkla; bütün karelere olan Öklid uzaklığı hem ondalık hem kök biçiminde yazılıyor, √5 ya da
+      2√2 gibi. Kale, fil, vezir, at ve şah hazır gruplar olarak geliyor; her grup kendi uzaklık
+      değerlerini ve hareket kuralını taşıyor, istersen yenisini kuruyorsun.</p>
+      <p>Uzaklığı tutan ve taşın gerçekten gidebildiği kareler dolu renkle, uzaklığı tuttuğu hâlde
+      taşın gidemediği kareler taralı çıkıyor. Kalenin beşinci karesini taklit eden 3-4-5 üçgeni
+      ve filin beşinci karesini taklit eden (1,7) böyle tek bakışta görünüyor. Yaklaşımın neden
+      bırakıldığı <a href="#alternatives">Denenip elenen yollar</a> bölümünde.</p>
+      <p><a href="/extra/Absolute_Distance.html" target="_blank" rel="noopener">fidelite.art/extra/Absolute_Distance.html</a></p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The simulation left over from the idea of defining movement by absolute distance. Click a
+      square on the 8×8 board and the Euclidean distance to every square is written out, both as a
+      decimal and in radical form, like √5 or 2√2. Rook, bishop, queen, knight and king come as
+      ready-made groups; each group carries its own distance values and movement rule, and you can
+      build new ones.</p>
+      <p>Squares where the distance matches and the piece really can go are filled with colour;
+      squares where the distance matches but the piece cannot go are hatched. That is how the 3-4-5
+      triangle impersonating the rook's fifth square, and (1,7) impersonating the bishop's fifth,
+      show at a glance. Why the approach was dropped is in
+      <a href="#alternatives">Roads tried and eliminated</a>.</p>
+      <p><a href="/extra/Absolute_Distance.html" target="_blank" rel="noopener">fidelite.art/extra/Absolute_Distance.html</a></p>
+    </div>
+
+    <h3 id="delta" lang="tr">Board_Delta_Index — indeks farkıyla tanımlanan hamle</h3>
+    <h3 lang="en" data-id="delta">Board_Delta_Index — moves defined by index delta</h3>
+    <div class="prose" lang="tr">
+      <p>İndeks farkı ve dolgulu tahta denemesinden kalan ikinci simülasyon. Her kare kendi
+      indeksini taşıyor; bir kareye tıklayınca o kare referans oluyor ve tanımladığın farklar hangi
+      karelere düşüyorsa onlar yanıyor. Bir farkın eksisi (±) ve katları (n, 2n, 3n…) da hesaba
+      katılabiliyor, farklar gruplara ayrılabiliyor, indeksleme tersine çevrilebiliyor.</p>
+      <p>Düz 8×8'de <code>+1</code>'in h dikeyinde bir üst yatayın a'sına sardığı,
+      <code>+7</code> / <code>+9</code>'un ve atın farklarının kenarda nereye düştüğü burada
+      doğrudan görünüyor. Satır ve sütun sayısı da değiştirilebiliyor: tahtayı 10×12 mailbox'a
+      (12 satır, 10 sütun) ya da 0x88'in 8×16'sına çevirip içteki 8×8'i alan seçimiyle
+      çerçevelersen, kenardan taşan farkların dolguya düştüğünü görürsün. Ayarlar tarayıcıda
+      saklanıyor. Neden elendiği yine <a href="#alternatives">Denenip elenen yollar</a>'da.</p>
+      <p><a href="/extra/Board_Delta_Index.html" target="_blank" rel="noopener">fidelite.art/extra/Board_Delta_Index.html</a></p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The second simulation, left over from the index-delta and padded-board attempt. Every
+      square carries its own index; click one and it becomes the reference, and the squares your
+      deltas land on light up. A delta's negative (±) and its multiples (n, 2n, 3n…) can be
+      included, deltas can be split into groups, and the indexing can be reversed.</p>
+      <p>On a flat 8×8 you can see directly how <code>+1</code> wraps from the h-file to the a-file
+      of the rank above, and where <code>+7</code> / <code>+9</code> and the knight's deltas land
+      at the edge. The number of rows and columns can be changed too: turn the board into a 10×12
+      mailbox (12 rows, 10 columns) or 0x88's 8×16, frame the inner 8×8 with the area selection,
+      and you can watch the deltas that spill over an edge land in the padding. Your settings are
+      kept in the browser. Why it was eliminated is again in
+      <a href="#alternatives">Roads tried and eliminated</a>.</p>
+      <p><a href="/extra/Board_Delta_Index.html" target="_blank" rel="noopener">fidelite.art/extra/Board_Delta_Index.html</a></p>
+    </div>
+
+    <h3 id="chess960" lang="tr">Chess960_Skeletons — 56 rok iskeleti</h3>
+    <h3 lang="en" data-id="chess960">Chess960_Skeletons — the 56 castling skeletons</h3>
+    <div class="prose" lang="tr">
+      <p>Fischer satrancında (Chess960) rok yalnızca şahın ve iki kalesinin hangi dikeylerde
+      durduğuna bağlı, şah da her zaman iki kalenin arasında. Bu yüzden 960 başlangıç dizilişinin
+      tamamı C(8,3) = 56 şah–kale iskeletine iniyor. Sayfa her iskeleti bir kartta gösteriyor:
+      sekiz karelik şerit, <code>-R--K-R-</code> biçiminde yazılışı ve o iskelete düşen bütün
+      Scharnagl numaraları. Klasik başlangıç, #518 (RNBQKBNR), işaretli.</p>
+      <p>Kartların 48'inde 18, sekizinde 12 pozisyon var; toplam tam 960 ediyor. Nedeni, iskeletin
+      boş bıraktığı beş dikeyin kare rengine göre dağılımı: 3–2 bölünürse filler 3×2 biçimde,
+      vezir 3 karede yerleşiyor — 18; 4–1 bölünürse fillerden biri tek azınlık dikeyine mahkûm
+      kalıyor — 1×4×3 = 12. Liste sayfa açılırken tarayıcıda baştan üretiliyor.</p>
+      <p><a href="/extra/Chess960_Skeletons.html" target="_blank" rel="noopener">fidelite.art/extra/Chess960_Skeletons.html</a></p>
+    </div>
+    <div class="prose" lang="en">
+      <p>In Fischer random chess (Chess960) castling depends only on which files the king and its
+      two rooks stand on, and the king always stands between the rooks. So all 960 starting setups
+      reduce to C(8,3) = 56 king–rook skeletons. The page shows each skeleton on a card: an
+      eight-square strip, the skeleton written as <code>-R--K-R-</code>, and every Scharnagl number
+      built on it. The orthodox start, #518 (RNBQKBNR), is marked.</p>
+      <p>48 of the cards hold 18 positions and eight hold 12, which adds up to exactly 960. The
+      reason is how the five files a skeleton leaves free split by square colour: a 3–2 split
+      places the bishops 3×2 ways and the queen on 3 squares — 18; in a 4–1 split one bishop is
+      pinned to the lone minority file — 1×4×3 = 12. The list is generated from scratch in the
+      browser as the page opens.</p>
+      <p><a href="/extra/Chess960_Skeletons.html" target="_blank" rel="noopener">fidelite.art/extra/Chess960_Skeletons.html</a></p>
+    </div>
+  </div>
+</section>
+
+<section id="wishlist">
+  <div class="wrap">
+    <p class="eyebrow" lang="tr">Platformlar için</p>
+    <p class="eyebrow" lang="en">For the platforms</p>
+    <h2 lang="tr">Her platformda olması gerekenler</h2>
+    <h2 lang="en">What every platform should have</h2>
+    <div class="prose" lang="tr">
+      <p>Bu bölüm FideLite'tan bağımsız. İlk ikisi bugün kullanılabilen programlar, son ikisi büyük
+      platformlarda henüz görmediğim özellikler. Dördünün ortak noktası, ayrı bir araç ya da
+      eklenti olarak değil, satranç sitelerinin kendi içinde olması gerektiği.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>This section has nothing to do with FideLite. The first two are programs you can use
+      today; the last two are features I have not yet seen on the large platforms. What the four
+      share is that each belongs inside the chess sites themselves, not in a separate tool or
+      browser extension.</p>
+    </div>
+
+    <h3 id="chasolver" lang="tr">CHA-Solver — süre bitiminde doğru hüküm</h3>
+    <h3 lang="en" data-id="chasolver">CHA-Solver — the right ruling when a flag falls</h3>
+    <div class="prose" lang="tr">
+      <p>Miguel Ambrona'nın açık kaynaklı çözücüsü. Bir pozisyon ve kazanması beklenen taraf
+      verildiğinde ya o tarafın mat ettiği bir yardım matı dizisi buluyor ya da böyle bir dizinin
+      olmadığını kanıtlıyor. FIDE 6.9'un sorduğu
+      soru tam olarak bu: süresi biten oyuncu kaybeder, ama rakibi hiçbir yasal hamle dizisiyle mat
+      edemiyorsa oyun berabere biter. Terkte (5.1.2) aynı soru soruluyor, ölü pozisyonda (5.2.2) ise
+      iki taraf için birden. Algoritma hakemli bir makalede, FUN 2022'de yayımlandı; pozisyon girip
+      sonucu görebileceğin bir web sayfası da var. Aşağıdaki görsel nasıl çalıştığını
+      gösteriyor.</p>
+      <p>Platformlar bu kuralı uzun süre hesaplanamaz sayıp bir kenara bıraktı ve süre bitiminde
+      taş saymakla yetindi. CHA-Solver bu gerekçeyi ortadan kaldırıyor: Lichess'in standart
+      dereceli oyunlarındaki bütün süre bitimi pozisyonlarını tek tek çözmüş durumda. Her
+      platformda olmalı, çünkü süre bitiminde yanlış verilen hüküm oyun kapandıktan sonra geri
+      alınmıyor. Konunun ayrıntısı bu sitede <a href="#flag">Terk ve süre bitimi</a> bölümünde.</p>
+      <p><a href="https://chasolver.org/" target="_blank" rel="noopener">chasolver.org</a></p>
+    </div>
+    <div class="prose" lang="en">
+      <p>Miguel Ambrona's open-source solver. Given a position and the side expected to win, it
+      either finds a helpmate line ending in that side's mate or proves that no such line exists.
+      That is exactly the question FIDE 6.9 asks: the player
+      whose time runs out loses, but if the opponent cannot mate by any series of legal moves the
+      game is drawn. Resignation (5.1.2) asks the same question, and a dead position (5.2.2) asks it
+      for both sides at once. The algorithm was published in a peer-reviewed paper at FUN 2022, and
+      there is a web page where you can enter a position and see the verdict. The image below
+      shows how it works.</p>
+      <p>The platforms long set this rule aside as intractable and settled for counting material
+      at flag fall. CHA-Solver removes that excuse: it has resolved every timeout position in
+      Lichess's standard rated games, one by one. It belongs on every platform, because a wrong
+      ruling at flag fall is not taken back once the game is closed. The detail is on this site
+      under <a href="#flag">Resignation and flag fall</a>.</p>
+      <p><a href="https://chasolver.org/" target="_blank" rel="noopener">chasolver.org</a></p>
+    </div>
+    <figure class="imgph" aria-hidden="true"><!-- GORSEL: CHA-Solver --></figure>
+
+    <h3 id="chessvision" lang="tr">Chessvision.ai — görüntüden FEN'e</h3>
+    <h3 lang="en" data-id="chessvision">Chessvision.ai — from an image to a FEN</h3>
+    <div class="prose" lang="tr">
+      <p>Google Lens bir fotoğraftaki yazıyı nasıl okuyorsa, Chessvision.ai de bir ekran
+      görüntüsündeki, kitap sayfasındaki ya da video karesindeki tahtayı öyle okuyor: pozisyonu
+      FEN'e çevirip analiz tahtasında açıyor. Tarayıcı eklentisi, telefon uygulaması ve PDF kitaplar için bir okuyucusu var; bir pozisyonu
+      kare kare elle dizmek yerine tek tıkla tahtaya taşımak mümkün. Aşağıdaki görsel nasıl
+      çalıştığını gösteriyor.</p>
+      <p>Bunun ayrı bir eklenti değil, her platformun analiz tahtasında yerleşik bir düğme olması
+      gerekiyor: görüntüyü yapıştır, pozisyon gelsin. Bir ayrıntı da atlanmamalı: görüntü yalnızca
+      taşların yerini taşıyor. Sıranın kimde olduğu, rok hakları, geçerken alma karesi ve sayaçlar
+      resimde yok; iyi bir araç bunları tahmin etmek yerine kullanıcıya sormalı.</p>
+      <p><a href="https://chessvision.ai/" target="_blank" rel="noopener">chessvision.ai</a></p>
+    </div>
+    <div class="prose" lang="en">
+      <p>Just as Google Lens reads the text in a photo, Chessvision.ai reads the board in a
+      screenshot, a book page or a video frame: it turns the position into a FEN and opens it on an
+      analysis board. It comes as a browser extension, a phone
+      app and a reader for PDF books; instead of setting a position up square by square, one click
+      carries it onto the board. The image below shows how it works.</p>
+      <p>This should not be a separate extension but a button built into every platform's analysis
+      board: paste the image, get the position. One detail should not be skipped: an image carries
+      only where the pieces stand. The side to move, castling rights, the en passant square and the
+      counters are not in the picture; a good tool should ask the user for them rather than
+      guess.</p>
+      <p><a href="https://chessvision.ai/" target="_blank" rel="noopener">chessvision.ai</a></p>
+    </div>
+    <figure class="imgph" aria-hidden="true"><!-- GORSEL: Chessvision.ai --></figure>
+
+    <h3 id="rotation" lang="tr">Tahtayı 90° ve 270° döndürebilmek</h3>
+    <h3 lang="en" data-id="rotation">Turning the board 90° and 270°</h3>
+    <div class="prose" lang="tr">
+      <p>Büyük platformlarda tahta bugün yalnızca 180° çevrilebiliyor: beyazın ya da siyahın
+      tarafından bakıyorsun. Yan dönmüş bir görünüm, 90° ya da 270°, yok. Oysa piyon ve rok
+      dışında hiçbir hareket kuralı yöne bağlı değil: at her yönde aynı L'yi çiziyor, kale ve fil
+      dört yana da aynı biçimde gidiyor. Bu yüzden taşlarla kurulan bir mat deseni tahtanın dört
+      kenarından herhangi birinde aynı şekille kurulabiliyor; değişen yalnızca onu hangi açıdan
+      gördüğümüz. Aşağıdaki görsel bunu gösteriyor.</p>
+      <p>Mat desenleri çoğunlukla tek bir yönde öğreniliyor: şah karşı kenarda, arka yatayda. Aynı
+      desen a ya da h dikeyinde, yani yan kenarda kurulduğunda göz onu çoğu zaman geç tanıyor.
+      Anastasia matı bunun tipik örneği: at ile kale, şahı yan kenarla kendi taşı arasına
+      sıkıştırıyor ve tahta 90° çevrilince resim bildik bir arka yatay matına benziyor. Şahı kale ya
+      da vezirle kenara sıkıştırmak da öyle; iş dört kenarda da aynı, ama göz yalnızca birinde
+      rahat.</p>
+      <p>Döndürme bir kural değişikliği değil, bir bakış seçeneği. Piyonlar yana doğru yürüyor
+      görüneceği için en çok analizde ve bulmaca çözerken işe yarar. Desen arayan yazılım bunu
+      zaten yapıyor: satranç sorgu dili CQL, pozisyon ararken 90°, 180° ve 270° dönüşleri temel
+      dönüşümler arasında sayıyor. Ekranın da aynı serbestliği vermesi gerekiyor.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>On the large platforms the board can only be turned 180° today: you look from White's side
+      or from Black's. A sideways view, 90° or 270°, does not exist. Yet apart from the pawn and
+      castling, no rule of movement depends on direction: the knight draws the same L every way,
+      and the rook and bishop go the same way in all four directions. So a mating pattern built
+      with pieces can form with the same shape on any of the board's four edges; all that changes
+      is the angle we see it from. The image below shows this.</p>
+      <p>Mate patterns are mostly learned in one orientation: the king on the far edge, on the back
+      rank. When the same pattern forms on the a- or h-file, on a side edge, the eye is often slow
+      to recognise it. Anastasia's mate is the typical case: knight and rook trap the king between
+      the side edge and one of its own pieces, and with the board turned 90° the picture resembles
+      a familiar back-rank mate. Driving a king to the edge with a rook or a queen is the same: the
+      job is identical on all four edges, but the eye is at home on only one.</p>
+      <p>Rotation is not a change of rules but a way of looking. Since the pawns would appear to
+      walk sideways, it earns its keep mostly in analysis and in puzzle solving. Software that
+      searches for patterns already does this: the Chess Query Language, CQL, counts 90°, 180° and
+      270° turns among its basic transforms when it searches positions. The screen should offer
+      the same freedom.</p>
+    </div>
+    <figure class="imgph" aria-hidden="true"><!-- GORSEL: 90 / 270 derece dondurme --></figure>
+
+    <h3 id="skins" lang="tr">Kullanıcıya özel görünüm — custom skin</h3>
+    <h3 lang="en" data-id="skins">A look of your own — custom skins</h3>
+    <div class="prose" lang="tr">
+      <p>Platformlar hazır taş takımları ve tahta temaları arasından seçim yaptırıyor; kendi
+      çizdiğin taşları ya da tahtayı yüklemek ise bugün ancak tarayıcı eklentileriyle mümkün. Tam
+      da bunun için yazılmış eklentilerin çokluğu, talebin gerçek olduğunu gösteriyor. Yerleşik bir
+      destek olsa tasarım hesaba bağlı kalır, tarayıcıda da telefonda da aynı görünür, istenirse
+      başkalarıyla paylaşılır. Nasıl görünebileceği aşağıdaki görselde.</p>
+      <p>İşin bir erişilebilirlik tarafı da var: renk körlüğü, az görme ya da yüksek kontrast
+      ihtiyacı olan biri kendi rahat okuyabildiği taşları ve kare renklerini kurabilir. Görünüm
+      yalnızca sahibinin ekranında geçerli olduğu için oyunun adilliğine dokunmuyor; rakip her
+      zaman kendi seçtiği görünümü görür.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The platforms let you choose among ready-made piece sets and board themes; uploading
+      pieces or a board you drew yourself is possible today only through browser extensions. The
+      number of extensions written for exactly this shows the demand is real. With built-in support
+      the design would stay with your account, look the same in the browser and on the phone, and
+      could be shared with others if you wished. The image below shows how it could look.</p>
+      <p>There is an accessibility side too: someone with colour blindness, low vision or a need
+      for high contrast could build pieces and square colours they can read comfortably. Because a
+      skin applies only on its owner's screen, it does not touch the fairness of the game; the
+      opponent always sees the look they chose.</p>
+    </div>
+    <figure class="imgph" aria-hidden="true"><!-- GORSEL: Custom skin --></figure>
   </div>
 </section>
 
@@ -12238,6 +12549,7 @@ function unreadable(n) {
 var stage = document.getElementById('stage'),
     idle = document.getElementById('idle'),
     src = document.getElementById('src'),
+    hlkey = document.getElementById('hlkey'),
     statusEl = document.getElementById('status'),
     goBtn = document.getElementById('go'),
     viewBtn = document.getElementById('view'),
@@ -12262,6 +12574,7 @@ function live(key, name, bytes, note) {
 function paint() {
   idle.hidden = mode !== 'idle';
   src.hidden = mode !== 'src';
+  if (mode !== 'src') hlkey.hidden = true;
   stage.classList.toggle('is-src', mode === 'src');
   stage.classList.toggle('is-game', mode === 'game');
   goBtn.disabled = mode === 'game';
@@ -12500,15 +12813,160 @@ function start() {
   }, {once: true});
 }
 
+/* ---- Kodu goster: katman boyamasi ----
+   2kbfullfidejs.com uretecinin mantigi, sadelestirilmis. Dort katman var:
+   kurallar (motor), arayuz (surucu), bot ve HTML. <script> etiketleri de script
+   disindaki her sey de HTML. Katmani belirleyen tek sey sinir: dosyalar zaten
+   keskin bir cizgiyle ayriliyor, o yuzden belirtec ayristirici yok.
+   Bir ifadeyi bitiren virgul (ya da noktali virgul) o ifadenin katmanina aittir.
+   Kurallar motorun son tanimini kapatan virgulle biter, arayuz ondan sonra
+   baslar: baslangic virgulu degil, bitis virgulu sayilir.
+   Script icinde HTML etiketi tasiyan dizge ya da sablon HTML rengini alir; bir
+   etiketin icine dusen ${...} deligi de etiketin parcasi. Etiketi ureten JS'in
+   kendisi (map dongusu, replace) kendi katmaninda kalir.
+   PAINT: surum -> motorun son taniminin basi. L3'te son tanim kilitli pozisyon
+   dedektoru l. Listede olmayan surum bugunku gibi tek renk akar; L1, L2, harf
+   dizgili ve botlu surumler seviye seviye eklenecek. */
+var PAINT_L3 = ',l=(';
+var PAINT = {
+  L3: PAINT_L3, L3_light: PAINT_L3, L3_numerical: PAINT_L3, L3_prompt: PAINT_L3,
+  L3_prompt_blindfold: PAINT_L3, L3_input: PAINT_L3, L3_input_blindfold: PAINT_L3
+};
+/* Gercek bir etiket acilisi: <x, </x, <!. Kiyaslamadaki '<' degil. */
+var MARK = /<[a-zA-Z!\/]/;
+/* Bu parcadan sonra etiket hala acik mi? Kapanmamis bir '<', etiketin bir
+   ${...} deligi uzerinden bolundugunu gosterir. */
+function tagOpen(lit, was) {
+  return lit.indexOf('>') > -1 ? lit.lastIndexOf('<') > lit.lastIndexOf('>')
+                               : was || lit.indexOf('<') > -1;
+}
+/* ${ ... } deliginin sonu (dislanan indeks). Delik ic ice sablon ve dizge
+   tasiyabilir; onlarin icindeki parantezler sayilmaz. */
+function holeEnd(s, i) {
+  var d = 1, c;
+  while (i < s.length && d) {
+    c = s[i];
+    if (c == '\\') { i += 2; continue; }
+    if (c == "'" || c == '"' || c == '`') { i = litEnd(s, i); continue; }
+    if (c == '{') d++; else if (c == '}') d--;
+    i++;
+  }
+  return i;
+}
+/* s[p]'de baslayan dizgenin ya da sablonun sonu (dislanan indeks). */
+function litEnd(s, p) {
+  var q = s[p], i = p + 1, c;
+  while (i < s.length) {
+    c = s[i];
+    if (c == '\\') { i += 2; continue; }
+    if (c == q) return i + 1;
+    if (q == '`' && c == '$' && s[i + 1] == '{') { i = holeEnd(s, i + 2); continue; }
+    i++;
+  }
+  return s.length;
+}
+/* i'de baslayan tanimin bitis virgulunden hemen sonrasi; derinlik 0'daki ilk
+   virgul ya da noktali virgul. Virgul tanimin kendisine dahil. */
+function defEnd(s, i) {
+  var d = 0, c;
+  for (; i < s.length; i++) {
+    c = s[i];
+    if (c == "'" || c == '"' || c == '`') { i = litEnd(s, i) - 1; continue; }
+    if (c == '(' || c == '[' || c == '{') d++;
+    else if (c == ')' || c == ']' || c == '}') d--;
+    else if (!d && (c == ',' || c == ';')) return i + 1;
+  }
+  return -1;
+}
+/* Delikli sablon: duz parcalar dizge, delikler kod. Etiket aciksa ikisi de
+   HTML; etiket disindaki delik bolgenin rengini alir ve icine yeniden inilir. */
+function hlTpl(lit, k, tag, out) {
+  var i = 0, d, j, pre;
+  while ((d = lit.indexOf('${', i)) > -1) {
+    pre = lit.slice(i, d);
+    if (MARK.test(pre)) tag = true;
+    if (pre) { out.push([tag ? 'h' : k, pre]); tag = tagOpen(pre, tag); }
+    j = holeEnd(lit, d + 2);
+    if (tag) out.push(['h', lit.slice(d, j)]);
+    else { out.push([k, '${']); hlCode(lit.slice(d + 2, j - 1), k, out); out.push([k, '}']); }
+    i = j;
+  }
+  pre = lit.slice(i);
+  if (MARK.test(pre)) tag = true;
+  if (pre) out.push([tag ? 'h' : k, pre]);
+}
+/* Bir bolgeyi (k: 'r' kurallar, 'u' arayuz, 'b' bot) boyar; icindeki etiketli
+   dizgeleri HTML'e ayirir. Iki dizge arasindaki yapistirici, bolunmus bir
+   etiketin ortasindaysa o da HTML. */
+function hlCode(s, k, out) {
+  var i = 0, last = 0, c, e, lit, inTag = false;
+  while (i < s.length) {
+    c = s[i];
+    if (c != "'" && c != '"' && c != '`') { i++; continue; }
+    if (i > last) out.push([inTag ? 'h' : k, s.slice(last, i)]);
+    e = litEnd(s, i); lit = s.slice(i, e);
+    if (c == '`' && lit.indexOf('${') > -1) {
+      hlTpl(lit, k, inTag || MARK.test(lit.slice(0, lit.indexOf('${'))), out);
+      inTag = false;
+    } else if (inTag || MARK.test(lit)) {
+      out.push(['h', lit]); inTag = tagOpen(lit, inTag);
+    } else out.push([k, lit]);
+    i = last = e;
+  }
+  if (last < s.length) out.push([inTag ? 'h' : k, s.slice(last)]);
+}
+/* Dosyayi [katman, metin] parcalarina boler; birlesimi dosyanin kendisi.
+   Kapanis etiketi '<\/script>' diye yazili: satir ici script icinde duz
+   yazilsa HTML ayristiricisi sayfanin scriptini orada kapatirdi.
+   Surum PAINT'te yoksa ya da sinir bulunamazsa null: cagiran tek renge duser. */
+function srcLayers(text, key) {
+  var mark = PAINT[key], a = text.indexOf('<script>'), z = text.lastIndexOf('<\/script>'),
+      out = [], m = [], inner, cut;
+  if (!mark || a < 0 || z < a) return null;
+  inner = text.slice(a + 8, z);
+  cut = inner.indexOf(mark);
+  if (cut < 0 || (cut = defEnd(inner, cut + 1)) < 0) return null;
+  out.push(['h', text.slice(0, a + 8)]);
+  hlCode(inner.slice(0, cut), 'r', out);
+  hlCode(inner.slice(cut), 'u', out);
+  out.push(['h', text.slice(z)]);
+  out.forEach(function (x) {
+    var p = m[m.length - 1];
+    if (p && p[0] == x[0]) p[1] += x[1]; else if (x[1]) m.push([x[0], x[1]]);
+  });
+  return m;
+}
+/* Metin span'lere textContent ile girer, innerHTML hic kullanilmaz: kaynak '<'
+   dolu. Kopyala src.textContent'i okudugu icin duz metin aynen kopyalanir. */
+function showCode(t, key) {
+  var seg = srcLayers(t, key), f, seen = {};
+  if (!seg) { src.textContent = t; return; }
+  f = document.createDocumentFragment();
+  seg.forEach(function (x) {
+    var s = document.createElement('span');
+    s.className = 'hl-' + x[0];
+    s.textContent = x[1];
+    f.appendChild(s);
+    seen[x[0]] = 1;
+  });
+  src.textContent = '';
+  src.appendChild(f);
+  Array.prototype.forEach.call(hlkey.children, function (k) {
+    k.hidden = !seen[k.className.slice(3)];
+  });
+  hlkey.hidden = false;
+}
+
 function showSrc() {
-  var a = ART[current()], tok = ++srcToken;
+  var a = ART[current()], key = current(), tok = ++srcToken;
   killFrame();
   mode = 'src';
   paint();
+  hlkey.hidden = true;
   src.textContent = FL('loading');
   statusEl.textContent = a.p + ' \u00b7 ' + fmt(a.ps) + FL('bytes') + ' \u00b7 plain';
   load(a.p).then(function (t) {
-    if (tok === srcToken) src.textContent = t;
+    if (tok === srcToken) showCode(t, key);
   }).catch(function () {
     if (tok === srcToken) src.textContent = unreadable(a.p);
   });
