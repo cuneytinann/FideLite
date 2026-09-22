@@ -912,19 +912,19 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     <div>
       <h1 lang="tr">Her resmî kuralı uygulayan, <em>dünyanın en küçük satranç hakemi</em>.</h1>
       <h1 lang="en"><em>The world's smallest chess arbiter</em> to enforce every official rule.</h1>
-      <p class="lede" lang="tr">Kural motoru <b>1.882 bayt</b> düz kaynak. Paketlenip oynanabilir bir
-      oyuna dönüştüğünde <b>1.792</b>; tıklanabilir tahtası, saati ve göstergeleriyle
-      birlikte <b>2,7 KB</b>. Tarayıcıda çalışır, JavaScript ile yazılmıştır; kütüphane,
+      <p class="lede" lang="tr">Kural motoru <b>1.882 bayt</b> düz kaynak. Oynanabilir bir oyun
+      olarak, arayüzünün UI/UX özelliklerine ve eski ya da modern HTML yazım kurallarına göre
+      <b>3.193</b> ile <b>1.792</b> bayt arasında değişiyor. Tarayıcıda çalışır, JavaScript ile yazılmıştır; kütüphane,
       kurulum ve sunucu istemez. İndirdiğin tek bir HTML dosyası neredeyse her cihazda açılır.</p>
-      <p class="lede" lang="en">The rule engine is <b>1,882 bytes</b> of plain source. Packed into a
-      playable game it comes to <b>1,792</b>; with a clickable board, a clock and indicators,
-      <b>2.7 KB</b>. It is written in JavaScript and runs in the browser: no libraries, no install, no server. The single HTML file you download opens on almost any device.</p>
+      <p class="lede" lang="en">The rule engine is <b>1,882 bytes</b> of plain source. As a playable
+      game it ranges from <b>3,193</b> to <b>1,792 bytes</b>, depending on the UI/UX of its
+      interface and on old or modern HTML authoring conventions. It is written in JavaScript and runs in the browser: no libraries, no install, no server. The single HTML file you download opens on almost any device.</p>
 
       <div class="cta">
         <span class="cta-btns">
           <a class="go" id="ctaplay" href="#play"><span lang="tr">OYNA!</span><span lang="en">Play now</span></a>
           <a id="ctasrc" href="#play"><span lang="tr">Kodu gör</span><span lang="en">View the code</span></a>
-          <a class="dl" href="builds/L3_packed.html" download="L3_packed.html"><span lang="tr">Hemen indir · 2,7 KB</span><span lang="en">Download · 2.7 KB</span></a>
+          <a class="dl" href="special/L3_packed.html" download="L3_packed.html"><span lang="tr">Hemen indir · 2,7 KB</span><span lang="en">Download · 2.7 KB</span></a>
           <a href="https://github.com/cuneytinann/FideLite" target="_blank" rel="noopener">GitHub</a>
         </span>
         <a class="seal" href="#tests" title="Geçtiği testler" data-en-title="Tests it passes">
@@ -1054,9 +1054,10 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     <h2 lang="en">The code itself, its worth, and the craft of Golfstack</h2>
     <div class="prose" lang="tr">
       <p>Turnuva standartlarında eksiksiz bir satranç hakemi, 1.882 baytlık tek bir JavaScript
-      dosyasına sığdı — tıklanabilir tahtasıyla birlikte 2,7 KB'lık
+      dosyasına sığdı; oynanabilir tek bir HTML dosyası olarak da arayüzün UI/UX özelliklerine
+      ve eski ya da modern HTML yazım kurallarına göre 3,1 ile 1,8 KB
       <span class="gloss">(bir dosyanın diskte kapladığı yerin ölçüsü; 1 KB = 1024 bayt)</span>
-      tek bir HTML dosyasına. FideLite, en küçük boyutta en çok işlevi sunmayı hedefleyen bir
+      arasında değişiyor. FideLite, en küçük boyutta en çok işlevi sunmayı hedefleyen bir
       mühendislik çalışması; code golf'ün <b>Golfstack</b> dediğim koluyla yazıldı: kurallar dışındaki her şeyi yontarak.</p>
       <p>Ana sürümlerde iki oyuncu aynı cihazda karşılıklı oynar. Motor hamle önermez, oyunu
       yönetir; harici hiçbir kütüphaneye de ihtiyaç duymaz.</p>
@@ -1074,9 +1075,10 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     </div>
     <div class="prose" lang="en">
       <p>A complete, tournament-grade chess arbiter fits into a single JavaScript file of
-      1,882 bytes — or, with a clickable board, into a single HTML file of 2.7 KB
+      1,882 bytes; as a single playable HTML file it ranges from 3.1 to 1.8 KB
       <span class="gloss">(the measure of how much room a file takes on disk;
-      1 KB = 1024 bytes)</span>. FideLite is an engineering exercise in getting the most
+      1 KB = 1024 bytes)</span>, depending on the UI/UX of its interface and on old or modern
+      HTML authoring conventions. FideLite is an engineering exercise in getting the most
       function into the least space, written in the strand of code golf I call
       <b>Golfstack</b>: carving away everything except the rules.</p>
       <p>In the main builds two people play on the same device. The engine never suggests a move;
@@ -1249,13 +1251,15 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     </ul>
     <div class="prose" lang="tr">
       <p>Asıl iddia tek tek bu maddeler değil, oranın kendisi: hizmet başına düşen bayt. Kuralların
-      tamamı 1.882 baytlık tek bir dosyada duruyor; tahtası, saati ve göstergeleriyle birlikte
-      indirilebilir tek bir 2,7 KB'lık HTML'e sığıyor.</p>
+      tamamı 1.882 baytlık tek bir dosyada duruyor; indirilebilir tek bir HTML olarak da
+      arayüzüne ve eski ya da modern HTML yazımına göre 3.193 ile 1.792 bayt arasında
+      kalıyor.</p>
     </div>
     <div class="prose" lang="en">
       <p>The real claim is not these items one by one, but the ratio itself: bytes per unit of
-      service. The whole rule set sits in a single file of 1,882 bytes; with its board, clock and
-      indicators it fits into one downloadable HTML file of 2.7 KB.</p>
+      service. The whole rule set sits in a single file of 1,882 bytes; as one downloadable HTML
+      file it takes between 3,193 and 1,792 bytes, depending on its interface and on old or
+      modern HTML authoring.</p>
     </div>
 
     <div class="prose" lang="tr">
@@ -1358,15 +1362,17 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <label class="rd" data-lv="L2" hidden title="UCI, metin alanı" data-en-title="UCI, text field"><input type="radio" name="build" value="L2_input"> <code>input</code></label>
 <label class="rd str" data-lv="L2" hidden title="Harf dizgisi, indeks sırası ters" data-en-title="String board, flipped index order"><input type="radio" name="build" value="L2_prompt_string_flip"> <code>prompt_string_flip</code></label>
 <label class="rd bot" data-lv="L2" hidden title="Bota karşı — tek kişilik" data-en-title="Against a bot — single player"><input type="radio" name="build" value="L2_aybars_2500"> <code>aybars_2500</code></label>
-<label class="rd pk" data-lv="L3" title="Ana dosya — tıklanabilir tahta, canlı saat" data-en-title="Main file — clickable board, live clock"><input type="radio" name="build" value="L3" checked> <code>default</code></label>
+<label class="rd" data-lv="L3" title="Ana dosya — tıklanabilir tahta, canlı saat" data-en-title="Main file — clickable board, live clock"><input type="radio" name="build" value="L3" checked> <code>default</code></label>
 <label class="rd" data-lv="L3" title="Tıklanabilir tahta, yalın hâli" data-en-title="Clickable board, pared down"><input type="radio" name="build" value="L3_light"> <code>light</code></label>
-<label class="rd pk" data-lv="L3" title="Sayısal arayüz, prompt penceresi" data-en-title="Numeric interface, prompt dialog"><input type="radio" name="build" value="L3_numerical"> <code>numerical</code></label>
+<label class="rd" data-lv="L3" title="Sayısal arayüz, prompt penceresi" data-en-title="Numeric interface, prompt dialog"><input type="radio" name="build" value="L3_numerical"> <code>numerical</code></label>
 <label class="rd" data-lv="L3" title="UCI, prompt penceresi" data-en-title="UCI, prompt dialog"><input type="radio" name="build" value="L3_prompt"> <code>prompt</code></label>
 <label class="rd" data-lv="L3" title="UCI, prompt penceresi, tahta çizilmiyor" data-en-title="UCI, prompt dialog, no board"><input type="radio" name="build" value="L3_prompt_blindfold"> <code>prompt_blindfold</code></label>
 <label class="rd" data-lv="L3" title="UCI, metin alanı" data-en-title="UCI, text field"><input type="radio" name="build" value="L3_input"> <code>input</code></label>
 <label class="rd" data-lv="L3" title="UCI, metin alanı, tahta çizilmiyor" data-en-title="UCI, text field, no board"><input type="radio" name="build" value="L3_input_blindfold"> <code>input_blindfold</code></label>
 <label class="rd str" data-lv="L3" title="Tahta harf dizgisi olarak tutuluyor" data-en-title="The board is held as a string of letters"><input type="radio" name="build" value="L3_prompt_string"> <code>prompt_string</code></label>
 <label class="rd str" data-lv="L3" title="Harf dizgisi, indeks sırası ters" data-en-title="String board, flipped index order"><input type="radio" name="build" value="L3_prompt_string_flip"> <code>prompt_string_flip</code></label>
+<label class="rd pk" data-lv="special" hidden title="L3, RegPack ile paketli — tıklanabilir tahta, canlı saat" data-en-title="L3 packed with RegPack — clickable board, live clock"><input type="radio" name="build" value="L3_packed"> <code>L3_packed</code></label>
+<label class="rd pk" data-lv="special" hidden title="L3_numerical, RegPack ile paketli — oynanabilir en küçük L3" data-en-title="L3_numerical packed with RegPack — the smallest playable L3"><input type="radio" name="build" value="L3_numerical_packed"> <code>L3_numerical_packed</code></label>
 <label class="rd" data-lv="special" hidden title="Tıklanabilir tahta, kurallar Chess.com'un uyguladığı gibi" data-en-title="Clickable board, with the rules as Chess.com applies them"><input type="radio" name="build" value="Chesscom-equivalent"> <code>Chesscom-equivalent</code></label>
 <label class="rd pk" data-lv="special" hidden title="Chess.com kuralları, sayısal arayüz, prompt penceresi" data-en-title="Chess.com rules, numeric interface, prompt dialog"><input type="radio" name="build" value="Chesscom-equivalent_numerical"> <code>Chesscom-equivalent_numerical</code></label>
 <label class="rd" data-lv="special" hidden title="Tıklanabilir tahta, kurallar Lichess'in uyguladığı gibi" data-en-title="Clickable board, with the rules as Lichess applies them"><input type="radio" name="build" value="Lichess-equivalent"> <code>Lichess-equivalent</code></label>
@@ -1376,7 +1382,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <label class="rd pk" data-lv="special" hidden title="1.023 baytlık tıklanabilir tahta — yalnızca legallik" data-en-title="A clickable board in 1,023 bytes — legality only"><input type="radio" name="build" value="DOM_1023"> <code>DOM_1023</code></label>
 <label class="rd pk" data-lv="special" hidden title="830 bayt; taşlar onaltılık rakamlarla, terfi metin alanından" data-en-title="830 bytes; pieces shown as hexadecimal digits, promotion typed into a text field"><input type="radio" name="build" value="DOM_minimum"> <code>DOM_minimum</code></label>
 <label class="rd" data-lv="special" hidden title="Tam hakem, zengin arayüz — sürükle bırak, sağ tıkla işaretleme, başlarken süre ve FEN seçimi — yapım aşamasında" data-en-title="Full arbiter with a rich interface — drag and drop, right-click marking, time control and FEN picked at the start — in progress"><input type="radio" name="build" value="LUX_inProgress"> <code>LUX_inProgress</code></label>
-<label class="rd bot" data-lv="special" hidden title="Oscar Toledo G.'nin satrancı, ES6 yeniden yazımı — bota karşı" data-en-title="Oscar Toledo G.'s chess in an ES6 rewrite — against its bot"><input type="radio" name="build" value="Toledos-ES6-optimized"> <code>Toledos-ES6-optimized</code></label>
+<label class="rd bot" data-lv="special" hidden title="Oscar Toledo G.'nin satrancı, ES6 ile küçülttüğüm hâli — bota karşı" data-en-title="Oscar Toledo G.'s chess, shrunk further in ES6 by me — against its bot"><input type="radio" name="build" value="Toledos-ES6-optimized"> <code>Toledos-ES6-optimized</code></label>
 <label class="rd bot" data-lv="special" hidden title="Toledo'nun programına rakip olarak yazdığım bot, bu motorun üstünde" data-en-title="The bot I wrote as an opponent for Toledo's program, on this engine"><input type="radio" name="build" value="ToledosOpponentbyMe"> <code>ToledosOpponentbyMe</code></label>
         </fieldset>
       </div>
@@ -1388,7 +1394,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
           <span class="hl-b" hidden>bot</span>
           <span class="hl-m" hidden><span lang="tr">kural + bot</span><span lang="en">rules + bot</span></span>
           <span class="hl-p" hidden><span lang="tr">paketli script</span><span lang="en">packed script</span></span>
-          <span class="hl-h" hidden>HTML</span>
+          <span class="hl-h" hidden><span lang="tr">HTML (ortam)</span><span lang="en">HTML (environment)</span></span>
         </p>
         <pre class="src" id="src" hidden></pre>
       </div>
@@ -1396,8 +1402,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
         <span id="status"><span lang="tr">Hazır</span><span lang="en">Ready</span></span>
         <span class="pacts">
           <button id="copysrc" type="button" disabled><span lang="tr">Kopyala</span><span lang="en">Copy</span></button>
-          <button class="dl2" id="dlpacked" type="button"><span lang="tr">Paketli sürümü indir</span><span lang="en">Download packed</span></button>
-          <button class="dl1" id="dlplain" type="button"><span lang="tr">Düz sürümü indir</span><span lang="en">Download plain</span></button>
+          <button class="dl1" id="dlfile" type="button"><span lang="tr">İndir</span><span lang="en">Download</span></button>
         </span>
       </div>
     </div>
@@ -1533,8 +1538,9 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       kuralların gerektirdiği mantıksal veriden tek bir madde bile düşerse elde kalan şey daha
       küçük bir satranç olmaz, satranç olmayan bir şey olur.</p>
       <p>Sorunun cevabı bu yüzden tek bir sayı: <b>1.882 bayt.</b> <code>engine.js</code>, iki
-      insan oyuncu arasındaki resmî bir oyunu baştan sona yönetiyor; paketlenip bir arayüzle
-      birleştiğinde, oynanabilir tek bir dosya olarak <b>1.792 bayta</b> iniyor.</p>
+      insan oyuncu arasındaki resmî bir oyunu baştan sona yönetiyor; bir arayüzle birleşip
+      oynanabilir tek bir dosya olduğunda, arayüzüne ve eski ya da modern HTML yazımına göre
+      <b>3.193</b> ile <b>1.792 bayt</b> arasında kalıyor.</p>
     </div>
     <div class="prose" lang="en">
       <p>That is what I did in Golfstack. What the rules were was clear from the outset; the work was carving away every excess in the code that expressed them.</p>
@@ -1546,8 +1552,9 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       smaller chess; it is something that is not chess.</p>
       <p>The answer to the question is therefore a single number: <b>1,882 bytes.</b>
       <code>engine.js</code> arbitrates an official game between two human players from the first
-      move to the last; packed together with a front end, it comes down to <b>1,792 bytes</b> as
-      a single playable file.</p>
+      move to the last; joined to a front end as a single playable file, it takes between
+      <b>3,193</b> and <b>1,792 bytes</b>, depending on the interface and on old or modern HTML
+      authoring.</p>
     </div>
 
     <h3 lang="tr">Neden tarayıcı ve JavaScript</h3>
@@ -1561,7 +1568,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       göstergeler için ayrı bir arayüz altyapısı yazmak gerekmiyor, dahası
       <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code> hiç
       yazılmasa bile dosya açılıyor. Motorun oyuncuya ulaşmak için kat etmesi gereken mesafe
-      bu kadar kısa olmasaydı, 2,7 KB'lık iddianın pratikte bir karşılığı olmazdı.</p>
+      bu kadar kısa olmasaydı, 3,1 ile 1,8 KB arasındaki iddianın pratikte bir karşılığı
+      olmazdı.</p>
       <p>İkinci yarısı dilin kendisiyle ilgili. JavaScript Golfstack'e beklenenden çok daha
       elverişli: değişken bildirim anahtar kelimesi istemiyor, giriş noktası ve içe aktarma
       gibi zorunlu bir iskeleti yok, örtük tür dönüşümü sayesinde tahtanın sayısal kodlaması hiçbir yerde açık bir dönüşüm yazdırmıyor. Ok fonksiyonu, üçlü operatör ve virgül operatörü birlikte
@@ -1593,7 +1601,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       infrastructure is needed for the board, the clocks and the indicators, and the file even
       opens when <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code>
       are never written at all. If the distance the engine had to cover to reach a player were any
-      longer, the 2.7 KB claim would mean nothing in practice.</p>
+      longer, the 3.1-to-1.8 KB claim would mean nothing in practice.</p>
       <p>The second half is about the language itself. JavaScript suits Golfstack far better than
       you would expect: it requires no variable declaration keyword, it imposes no mandatory
       skeleton of entry point and imports, and implicit coercion means the board's numeric
@@ -5297,8 +5305,9 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       süreyi yukarı yuvarlıyor, bu yüzden <code>0:00</code> ancak bayrak düştüğünde görünüyor; saniye gösteren
       öbürleri aşağı kırpıyor. <code>input</code> ailesinde aynı yuvarlama 10 bayt tutuyordu, çünkü
       iki saat ayrı basılıyor.</p>
-      <p>Paketlenmiş hâli yalnızca ikisinde var: <code>L3</code> ve <code>numerical</code>. Kalanı
-      düz kaynak olarak duruyor — paketleme bir sıkıştırma değil, kendini açan bir sarmalayıcı ve
+      <p>Paketlenmiş hâli yalnızca ikisinin var: <code>L3</code> ve <code>numerical</code>. İkisi de
+      <a href="#special">özel sürümlerde</a> kendi başına bir sürüm: <code>L3_packed</code> ve
+      <code>L3_numerical_packed</code>. Kalanı düz kaynak olarak duruyor — paketleme bir sıkıştırma değil, kendini açan bir sarmalayıcı ve
       <a href="#packing">her sürümde kazandırmıyor</a>.</p>
     </div>
     <div class="prose" lang="en">
@@ -5307,8 +5316,9 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       the flag has actually fallen, while the others that show seconds truncate. In the
       <code>input</code> family the same rounding cost 10 bytes, since the two clocks are printed
       separately.</p>
-      <p>Only two of them ship packed: <code>L3</code> and <code>numerical</code>. The rest stand as
-      plain source — packing is not a compression but a self-extracting wrapper, and it
+      <p>Only two of them have a packed form: <code>L3</code> and <code>numerical</code>. Each is a
+      build of its own among the <a href="#special">special builds</a>: <code>L3_packed</code> and
+      <code>L3_numerical_packed</code>. The rest stand as plain source — packing is not a compression but a self-extracting wrapper, and it
       <a href="#packing">does not pay off in every build</a>.</p>
     </div>
 
@@ -6004,18 +6014,20 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     <h2 lang="en">What fits no level</h2>
     <div class="prose" lang="tr">
       <p><code>special/</code> klasörü <code>L1</code>–<code>L3</code> merdiveninin dışında kalan
-      dosyaları tutuyor: büyük platformların kurallarını izleyen eşdeğerler, bir parçası çıkarılmış
-      ya da uca kadar küçültülmüş denemeler ve bu projenin kendini ölçtüğü Toledo'nun programı.
-      Hiçbiri iddianın parçası değil; karşılaştırma ve kayıt için duruyorlar.</p>
+      dosyaları tutuyor: <code>L3</code>'ün paketlenmiş iki hâli, büyük platformların kurallarını
+      izleyen eşdeğerler, bir parçası çıkarılmış ya da uca kadar küçültülmüş denemeler ve bu
+      projenin kendini ölçtüğü Toledo'nun programı. Paketli iki <code>L3</code> dışında hiçbiri
+      iddianın parçası değil; karşılaştırma ve kayıt için duruyorlar.</p>
       <p>Oyun dosyalarının hepsi oynatıcıda <a href="#play"><code>special</code></a> seviyesinden
       açılıyor. Platformların kuralları neden böyle uyguladığı
       <a href="#federations">federasyonlar bölümünde</a>.</p>
     </div>
     <div class="prose" lang="en">
       <p>The <code>special/</code> folder holds the files that sit outside the
-      <code>L1</code>–<code>L3</code> ladder: equivalents that follow the large platforms' rules,
-      experiments with a part removed or shrunk to the limit, and Toledo's program, the benchmark
-      this project measured itself against. None of them is part of the claim; they are kept for
+      <code>L1</code>–<code>L3</code> ladder: the two packed forms of <code>L3</code>, equivalents
+      that follow the large platforms' rules, experiments with a part removed or shrunk to the
+      limit, and Toledo's program, the benchmark this project measured itself against. Apart from
+      the two packed <code>L3</code> builds, none of them is part of the claim; they are kept for
       comparison and for the record.</p>
       <p>Every game file opens in the player under the <a href="#play"><code>special</code></a>
       level. Why the platforms apply the rules the way they do is in the
@@ -6025,6 +6037,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     <div class="tw" lang="tr"><table class="">
 <thead><tr><th>Sürüm</th><th>Ne</th><th>Giriş</th><th>Bayt</th></tr></thead>
 <tbody>
+<tr><td><code>L3_packed</code><br><span class="fn2">special/L3_packed.html</span></td><td><code>L3</code>, RegPack ile paketli: tıklanabilir tahta, canlı saat.</td><td>Tıklama</td><td>2.702</td></tr>
+<tr><td><code>L3_numerical_packed</code><br><span class="fn2">special/L3_numerical_packed.html</span></td><td><code>L3_numerical</code>, RegPack ile paketli: oynanabilir en küçük <code>L3</code>, iddianın alt eşiği.</td><td>Sayısal, prompt penceresi</td><td>1.792</td></tr>
 <tr><td><code>Chesscom-equivalent</code><br><span class="fn2">special/Chesscom-equivalent.html</span></td><td>Kurallar Chess.com'un uyguladığı gibi: 3'lü tekrar ve 50 hamle oyunu kendiliğinden bitiriyor, süre bitiminde yalnızca taş sayılıyor, tekrarda geçerken alma pseudo-legal ölçülüyor.</td><td>Tıklama</td><td>2.878</td></tr>
 <tr><td><code>Chesscom-equivalent_numerical</code><br><span class="fn2">special/Chesscom-equivalent_numerical.html</span></td><td>Aynı kurallar, sayısal arayüzle; paketli.</td><td>Sayısal, prompt penceresi</td><td>1.175</td></tr>
 <tr><td><code>Lichess-equivalent</code><br><span class="fn2">special/Lichess-equivalent.html</span></td><td>Kurallar Lichess'in uyguladığı gibi: 5'li tekrar ve 50 hamle kendiliğinden, 3'lü tekrar iddiayla; süre bitiminde ve terkte hızlı bir mat imkânı testi.</td><td>Tıklama</td><td>3.043</td></tr>
@@ -6034,7 +6048,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td><code>DOM_1023</code><br><span class="fn2">special/DOM_1023.html</span></td><td>1 KB'nin altında tıklanabilir tahta; yalnızca legallik, paketli.</td><td>Tıklama</td><td>1.023</td></tr>
 <tr><td><code>DOM_minimum</code><br><span class="fn2">special/DOM_minimum.html</span></td><td>Taşlar onaltılık rakamlarla çiziliyor; yalnızca legallik, paketli.</td><td>Tıklama, terfi metin alanından</td><td>830</td></tr>
 <tr><td><code>LUX_inProgress</code><br><span class="fn2">special/LUX_inProgress.html</span></td><td>Tam hakem, zengin arayüzle: sürükle bırak, sağ tıkla işaretleme, başlarken süre ve FEN seçimi. Yapım aşamasında.</td><td>Sürükle bırak, tıklama</td><td>7.697</td></tr>
-<tr class="alt"><td><code>Toledos-ES6-optimized</code><br><span class="fn2">special/Toledos-ES6-optimized.html</span></td><td>Oscar Toledo G.'nin satrancı, ES6 ile yeniden yazılmış — en bilinen küçük satranç programı, bu projenin kendini ölçtüğü eşik.</td><td>Tıklama, bota karşı</td><td>2.013</td></tr>
+<tr class="alt"><td><code>Toledos-ES6-optimized</code><br><span class="fn2">special/Toledos-ES6-optimized.html</span></td><td>Oscar Toledo G.'nin satrancı: camiada en çok konuşulan küçük satranç programlarından biri, 2 KB içinde L1 seviyesinde kurallar ve 1200 Elo civarında makul bir bot. Eşdeğerliğini koruyarak ES6 yöntemleriyle biraz daha küçülttüm, arayüzünü de biraz yeniden yorumladım.</td><td>Tıklama, bota karşı</td><td>2.013</td></tr>
 <tr><td><code>ToledosOpponentbyMe</code><br><span class="fn2">special/ToledosOpponentbyMe.html</span></td><td>Toledo'nun programına rakip olarak bu motorla yazdığım bot.</td><td>Tıklama, bota karşı</td><td>2.042</td></tr>
 <tr class="alt"><td><code>engine_onlyMoveGenerator</code><br><span class="fn2">special/engine_onlyMoveGenerator.js</span></td><td>Motorun yalnızca hamle üreten yarısı, test süiti için. <a href="#engine">Motor sekmesinde</a> <code>perft</code> düğmesiyle açılıyor.</td><td><span class="none">—</span></td><td>723</td></tr>
 </tbody>
@@ -6043,6 +6057,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     <div class="tw" lang="en"><table class="">
 <thead><tr><th>Build</th><th>What it is</th><th>Input</th><th>Bytes</th></tr></thead>
 <tbody>
+<tr><td><code>L3_packed</code><br><span class="fn2">special/L3_packed.html</span></td><td><code>L3</code> packed with RegPack: clickable board, live clock.</td><td>Clicking</td><td>2,702</td></tr>
+<tr><td><code>L3_numerical_packed</code><br><span class="fn2">special/L3_numerical_packed.html</span></td><td><code>L3_numerical</code> packed with RegPack: the smallest playable <code>L3</code>, the lower bound of the claim.</td><td>Numeric, prompt dialog</td><td>1,792</td></tr>
 <tr><td><code>Chesscom-equivalent</code><br><span class="fn2">special/Chesscom-equivalent.html</span></td><td>The rules as Chess.com applies them: threefold repetition and the 50-move rule end the game by themselves, flag fall is judged by piece count alone, and en passant is counted pseudo-legally for repetition.</td><td>Clicking</td><td>2,878</td></tr>
 <tr><td><code>Chesscom-equivalent_numerical</code><br><span class="fn2">special/Chesscom-equivalent_numerical.html</span></td><td>The same rules with the numeric interface; packed.</td><td>Numeric, prompt dialog</td><td>1,175</td></tr>
 <tr><td><code>Lichess-equivalent</code><br><span class="fn2">special/Lichess-equivalent.html</span></td><td>The rules as Lichess applies them: fivefold repetition and the 50-move rule are automatic, threefold is claimed; flag fall and resignation use a quick mating-material test.</td><td>Clicking</td><td>3,043</td></tr>
@@ -6052,7 +6068,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td><code>DOM_1023</code><br><span class="fn2">special/DOM_1023.html</span></td><td>A clickable board under 1 KB; legality only, packed.</td><td>Clicking</td><td>1,023</td></tr>
 <tr><td><code>DOM_minimum</code><br><span class="fn2">special/DOM_minimum.html</span></td><td>Pieces drawn as hexadecimal digits; legality only, packed.</td><td>Clicking, promotion typed into a text field</td><td>830</td></tr>
 <tr><td><code>LUX_inProgress</code><br><span class="fn2">special/LUX_inProgress.html</span></td><td>The full arbiter with a rich interface: drag and drop, right-click marking, time control and FEN picked at the start. In progress.</td><td>Drag and drop, clicking</td><td>7,697</td></tr>
-<tr class="alt"><td><code>Toledos-ES6-optimized</code><br><span class="fn2">special/Toledos-ES6-optimized.html</span></td><td>Oscar Toledo G.'s chess in an ES6 rewrite — the best-known tiny chess program, and the benchmark this project measured itself against.</td><td>Clicking, against a bot</td><td>2,013</td></tr>
+<tr class="alt"><td><code>Toledos-ES6-optimized</code><br><span class="fn2">special/Toledos-ES6-optimized.html</span></td><td>Oscar Toledo G.'s chess: one of the most talked-about tiny chess programs in the community, with L1-level rules and a reasonable bot of around 1200 Elo in 2 KB. I shrank it a little further with ES6 techniques while keeping it equivalent, and reinterpreted its interface a little.</td><td>Clicking, against a bot</td><td>2,013</td></tr>
 <tr><td><code>ToledosOpponentbyMe</code><br><span class="fn2">special/ToledosOpponentbyMe.html</span></td><td>The bot I wrote on this engine as an opponent for Toledo's program.</td><td>Clicking, against a bot</td><td>2,042</td></tr>
 <tr class="alt"><td><code>engine_onlyMoveGenerator</code><br><span class="fn2">special/engine_onlyMoveGenerator.js</span></td><td>Only the move-generating half of the engine, for the test suite. It opens under the <code>perft</code> switch on the <a href="#engine">engine</a> tab.</td><td><span class="none">—</span></td><td>723</td></tr>
 </tbody>
@@ -12294,11 +12310,7 @@ var FLT = {
     bytes:    ' bayt',
     copy:     'Kopyala',
     copied:   'Kopyalandı \u2713',
-    dlPlain:  'Düz sürümü indir',
     dlOnly:   'İndir',
-    dlPacked: 'Paketli sürümü indir',
-    noPacked: 'Bu sürümün paketlenmiş hâli yok',
-    noPlain:  'Bu sürümün düz hâli yok',
     srcPlain: ' \u00b7 düz',
     srcPacked:' \u00b7 paketli',
     to2x:     'engine_4x.js kaynağına geç',
@@ -12330,11 +12342,7 @@ var FLT = {
     bytes:    ' bytes',
     copy:     'Copy',
     copied:   'Copied \u2713',
-    dlPlain:  'Download plain',
     dlOnly:   'Download',
-    dlPacked: 'Download packed',
-    noPacked: 'This build has no packed form',
-    noPlain:  'This build has no plain form',
     srcPlain: ' \u00b7 plain',
     srcPacked:' \u00b7 packed',
     to2x:     'Switch to engine_4x.js source',
@@ -12541,9 +12549,11 @@ var DIR = 'builds/';
    icin de gerekli: koku DIR'den turetiyoruz, boylece build.mjs'te ikinci bir
    kural tutmaya gerek kalmiyor. */
 var ROOT = DIR.slice(0, -'builds/'.length);
-/* k/ks yalnizca paketlenmis hali gonderilen surumlerde var. Yoksa oynatici
-   plain'i acar ve 'Packed indir' dugmesi soluk kalir. */
-var ART = {"L3": {"p": "L3.html", "ps": 3193, "k": "L3_packed.html", "ks": 2702}, "L3_light": {"p": "L3_light.html", "ps": 2978}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2113, "k": "L3_numerical_packed.html", "ks": 1792}, "L3_prompt": {"p": "L3_prompt.html", "ps": 2450}, "L3_prompt_blindfold": {"p": "L3_prompt_blindfold.html", "ps": 2314}, "L3_input": {"p": "L3_input.html", "ps": 2582}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2437}, "L3_prompt_string": {"p": "L3_prompt_string.html", "ps": 2565}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2507}, "L1": {"p": "builds/L1/L1.html", "ps": 1581}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1240}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 879}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1178}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1148}, "L1_1250elo": {"p": "builds/L1/L1_1250elo.html", "ps": 2278}, "L2": {"p": "builds/L2/L2.html", "ps": 2265}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1839}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1539}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1865}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1875}, "L2_aybars_2500": {"p": "builds/L2/L2_aybars_2500.html", "ps": 8038}, "Chesscom-equivalent": {"p": "special/Chesscom-equivalent.html", "ps": 2878}, "Chesscom-equivalent_numerical": {"p": "special/Chesscom-equivalent_numerical.html", "ps": 1175}, "Lichess-equivalent": {"p": "special/Lichess-equivalent.html", "ps": 3043}, "Lichess-equivalent_numerical": {"p": "special/Lichess-equivalent_numerical.html", "ps": 1228}, "L2_noBlockedDetector": {"p": "special/L2_noBlockedDetector.html", "ps": 1908}, "L2_string_flip_noBlockedDetector": {"p": "special/L2_string_flip_noBlockedDetector.html", "ps": 1998}, "DOM_1023": {"p": "special/DOM_1023.html", "ps": 1023}, "DOM_minimum": {"p": "special/DOM_minimum.html", "ps": 830}, "LUX_inProgress": {"p": "special/LUX_inProgress.html", "ps": 7697}, "Toledos-ES6-optimized": {"p": "special/Toledos-ES6-optimized.html", "ps": 2013}, "ToledosOpponentbyMe": {"p": "special/ToledosOpponentbyMe.html", "ps": 2042}, "engine": {"p": "engine.js", "ps": 1882}, "engine_4x": {"p": "engine_4x.js", "ps": 1963}, "engine_string": {"p": "engine_string.js", "ps": 1999}, "engine_onlyMoveGenerator": {"p": "special/engine_onlyMoveGenerator.js", "ps": 723}};
+/* k/ks: paketli hali ayni surumun ikinci dosyasi olarak oynatilacaksa. Su an
+   hicbir surumde yok; L3'un paketli halleri special'da kendi basina surum
+   (L3_packed, L3_numerical_packed). start()'taki paket -> duz dusme yolu,
+   ileride bir surume yeniden k verilirse diye duruyor. */
+var ART = {"L3": {"p": "L3.html", "ps": 3193}, "L3_light": {"p": "L3_light.html", "ps": 2978}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2113}, "L3_prompt": {"p": "L3_prompt.html", "ps": 2450}, "L3_prompt_blindfold": {"p": "L3_prompt_blindfold.html", "ps": 2314}, "L3_input": {"p": "L3_input.html", "ps": 2582}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2437}, "L3_prompt_string": {"p": "L3_prompt_string.html", "ps": 2565}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2507}, "L1": {"p": "builds/L1/L1.html", "ps": 1581}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1240}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 879}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1178}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1148}, "L1_1250elo": {"p": "builds/L1/L1_1250elo.html", "ps": 2278}, "L2": {"p": "builds/L2/L2.html", "ps": 2265}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1839}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1539}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1865}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1875}, "L2_aybars_2500": {"p": "builds/L2/L2_aybars_2500.html", "ps": 8038}, "L3_packed": {"p": "special/L3_packed.html", "ps": 2702}, "L3_numerical_packed": {"p": "special/L3_numerical_packed.html", "ps": 1792}, "Chesscom-equivalent": {"p": "special/Chesscom-equivalent.html", "ps": 2878}, "Chesscom-equivalent_numerical": {"p": "special/Chesscom-equivalent_numerical.html", "ps": 1175}, "Lichess-equivalent": {"p": "special/Lichess-equivalent.html", "ps": 3043}, "Lichess-equivalent_numerical": {"p": "special/Lichess-equivalent_numerical.html", "ps": 1228}, "L2_noBlockedDetector": {"p": "special/L2_noBlockedDetector.html", "ps": 1908}, "L2_string_flip_noBlockedDetector": {"p": "special/L2_string_flip_noBlockedDetector.html", "ps": 1998}, "DOM_1023": {"p": "special/DOM_1023.html", "ps": 1023}, "DOM_minimum": {"p": "special/DOM_minimum.html", "ps": 830}, "LUX_inProgress": {"p": "special/LUX_inProgress.html", "ps": 7697}, "Toledos-ES6-optimized": {"p": "special/Toledos-ES6-optimized.html", "ps": 2013}, "ToledosOpponentbyMe": {"p": "special/ToledosOpponentbyMe.html", "ps": 2042}, "engine": {"p": "engine.js", "ps": 1882}, "engine_4x": {"p": "engine_4x.js", "ps": 1963}, "engine_string": {"p": "engine_string.js", "ps": 1999}, "engine_onlyMoveGenerator": {"p": "special/engine_onlyMoveGenerator.js", "ps": 723}};
 
 /* Paketli sürümler kendilerini eval ile açıyor. unsafe-eval içermeyen bir CSP
    altında bu imkânsız; iframe aynı sunucudan yüklendiği için aynı politikayı
@@ -12605,16 +12615,7 @@ function paint() {
   viewBtn.classList.toggle('on', mode === 'src');
   viewBtn.setAttribute('aria-pressed', mode === 'src' ? 'true' : 'false');
   viewBtn.textContent = FL(mode === 'src' ? 'hideSrc' : 'showSrc');
-  /* Paketlenmis hali olmayan surumlerde 'Paketli' dugmesi soluk ve tiklanamaz
-     kalir. Tersi de var: DOM_1023 gibi dosyanin kendisi paketliyse duz hali
-     yoktur; o zaman 'Paketli' o dosyayi indirir, 'Duz' soluklasir. */
   document.getElementById('copysrc').disabled = mode !== 'src';
-  var dlp = document.getElementById('dlpacked'), dll = document.getElementById('dlplain'),
-      po = packedOnly(current()), has = !!ART[current()].k || po;
-  dlp.disabled = !has;
-  if (has) dlp.removeAttribute('title'); else dlp.title = FL('noPacked');
-  dll.disabled = po;
-  if (po) dll.title = FL('noPlain'); else dll.removeAttribute('title');
   if (mode === 'idle') {
     idle.innerHTML = FL('idle').replace('%s', current()) + (NEWTAB[current()] ? FL('tabNote') : '');
   }
@@ -12919,6 +12920,7 @@ var PAINT = {
   LUX_inProgress: PAINT_L3,
   'Toledos-ES6-optimized': ['m', ';while(B++<G)', 'u'],
   ToledosOpponentbyMe: ['r', ',M=(', 'u', ';d();P=[', 'b'],
+  L3_packed: PACKED, L3_numerical_packed: PACKED,
   'Chesscom-equivalent_numerical': PACKED, 'Lichess-equivalent_numerical': PACKED,
   DOM_1023: PACKED, DOM_minimum: PACKED
 };
@@ -13216,12 +13218,11 @@ document.getElementById('copysrc').addEventListener('click', function () {
   if (mode === 'src') copyText(this, src.textContent);
 });
 
-document.getElementById('dlpacked').addEventListener('click', function () {
-  var a = ART[current()];
-  if (a.k) save(a.k); else if (packedOnly(current())) save(a.p);
-});
-document.getElementById('dlplain').addEventListener('click', function () {
-  if (!packedOnly(current())) save(ART[current()].p);
+/* Her surum kendi dosyasi: Indir o dosyayi indirir. Paketli surumler (L3_packed,
+   DOM_1023 ...) special'da ayri surum olarak duruyor, ayri bir 'Paketli' dugmesine
+   gerek kalmadi. */
+document.getElementById('dlfile').addEventListener('click', function () {
+  save(ART[current()].p);
 });
 
 /* ---- engine kaynağı: engine.js ile engine_4x.js aynı pencerede ---- */
