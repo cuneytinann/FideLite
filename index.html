@@ -46,7 +46,9 @@ var FLOLD = {
   testler:'tests', paketleme:'packing', domistisna:'domexception',
   eskimis:'legacy', tuzaklar:'pitfalls', ayristirma:'parsing', isimler:'names',
   'p-giris':'panelintro', 'p-kurallar':'panelrules', 'p-varyantlar':'panelbuilds',
-  'p-motor':'panelengine', 'p-teknik':'paneltech'
+  'p-motor':'panelengine', 'p-teknik':'paneltech',
+  /* Ozel surumler sekmesi Varyantlar'a katildi; eski panel capasi bolume iner. */
+  panelspecial:'special'
 };
 if (FLOLD[location.hash.slice(1)]) {
   location.replace(location.pathname + location.search + '#' + FLOLD[location.hash.slice(1)]);
@@ -846,9 +848,9 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     <button type="button" role="tab" id="tabintro" data-panel="panelintro" aria-controls="panelintro" aria-selected="true"><span lang="tr">Tanıtım</span><span lang="en">Introduction</span></button>
     <button type="button" role="tab" id="tabrules" data-panel="panelrules" aria-controls="panelrules" aria-selected="false" tabindex="-1"><span lang="tr">Kurallar ve uygulanışı</span><span lang="en">Rules and their application</span></button>
     <button type="button" role="tab" id="tabbuilds" data-panel="panelbuilds" aria-controls="panelbuilds" aria-selected="false" tabindex="-1"><span lang="tr">Varyantlar ve oynanış</span><span lang="en">Builds and how to play</span></button>
-    <button type="button" role="tab" id="tabspecial" data-panel="panelspecial" aria-controls="panelspecial" aria-selected="false" tabindex="-1"><span lang="tr">Özel sürümler</span><span lang="en">Special builds</span></button>
     <button type="button" role="tab" id="tabengine" data-panel="panelengine" aria-controls="panelengine" aria-selected="false" tabindex="-1"><span lang="tr">Motorun kendisi</span><span lang="en">The engine itself</span></button>
     <button type="button" role="tab" id="tabtech" data-panel="paneltech" aria-controls="paneltech" aria-selected="false" tabindex="-1"><span lang="tr">Ayrıntılı teknik bilgiler</span><span lang="en">Technical detail</span></button>
+    <button type="button" role="tab" id="tabextra" data-panel="panelextra" aria-controls="panelextra" aria-selected="false" tabindex="-1"><span lang="tr">Ekstra</span><span lang="en">Extras</span></button>
   </div>
 </nav>
 
@@ -1241,9 +1243,9 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <code>L2</code> kural seviyesi daha düşük olanlar, botlu sürümler de onların altında; ikisi
       de iddianın dışında. <code>special</code> seviyelere sığmayanları topluyor: platform
       eşdeğerleri, deneysel arayüzler, Toledo'nun programı ve ona rakip olarak yazdığım bot;
-      ayrıntısı <a href="#special">Özel sürümler</a> sekmesinde.
-      <a href="#builds">Varyantlar</a> sekmesinde anlatılan terminal sürümleri tarayıcıya
-      girmediği için listede yok.</p>
+      ayrıntısı <a href="#builds">Varyantlar</a> sekmesinin sonundaki
+      <a href="#special">Özel sürümler</a> bölümünde. Aynı sekmede anlatılan terminal sürümleri
+      tarayıcıya girmediği için listede yok.</p>
       <p><code>default</code>, <code>prompt</code> ve <code>input</code> sürümlerinde tahta küçük geliyorsa
       tarayıcının yakınlaştırmasını kullan — <kbd>Ctrl</kbd> <kbd>+</kbd>, macOS'ta
       <kbd>⌘</kbd> <kbd>+</kbd>. Oyun pencereyle birlikte ölçeklenir;
@@ -1258,9 +1260,9 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <code>L1</code> and <code>L2</code> are the lower rule levels, and the builds with a bot sit
       under them; both are outside the claim. <code>special</code> collects what does not fit a
       level: the platform equivalents, experimental interfaces, Toledo's program and the bot I
-      wrote as its opponent; the details are on the <a href="#special">Special builds</a> tab.
-      The terminal builds described on the <a href="#builds">Builds</a>
-      tab do not run in a browser, so they are not in the list.</p>
+      wrote as its opponent; the details are in the <a href="#special">Special builds</a> section
+      at the end of the <a href="#builds">Builds</a> tab. The terminal builds described on the
+      same tab do not run in a browser, so they are not in the list.</p>
       <p>If the board feels small in the <code>default</code>, <code>prompt</code> and
       <code>input</code> builds, use the
       browser's zoom — <kbd>Ctrl</kbd> <kbd>+</kbd>, or <kbd>⌘</kbd> <kbd>+</kbd> on macOS. The
@@ -5003,8 +5005,9 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <a href="https://support.chess.com/en/articles/8557986" target="_blank" rel="noopener">yardım
       metni</a> ise bunun tersini söylüyor — rakibinde yalnız şah ve iki at varken süren biterse beraberlik değil mağlubiyet alıyorsun, gerekçe de matın zorlanamasa bile mümkün olması.
       Yani platform bu tek maddede FIDE'nin mantığına geçmiş durumda.</p>
-      <p>İki platformun davranışını izleyen eşdeğer sürümler <a href="#special">Özel sürümler</a>
-      sekmesinde; aynı pozisyonu FideLite'la ve onlarla yan yana oynamak mümkün.</p>
+      <p>İki platformun davranışını izleyen eşdeğer sürümler Varyantlar sekmesindeki
+      <a href="#special">Özel sürümler</a> bölümünde; aynı pozisyonu FideLite'la ve onlarla yan
+      yana oynamak mümkün.</p>
       <p>Buradaki tercih bir başkası: <b>tek kitap, tek ölçü.</b> Karşılaştırma yapılabilsin diye,
       hangi maddenin nereden geldiği hep görünür kalsın diye.</p>
     </div>
@@ -5015,8 +5018,9 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       page</a> says the opposite — if your opponent has only a king and two knights and you run out
       of time, you take a loss rather than a draw, on the grounds that mate is possible even though it
       cannot be forced. On that one article the platform has moved to FIDE’s logic.</p>
-      <p>Equivalents that follow both platforms' behaviour are on the <a href="#special">Special
-      builds</a> tab, so the same position can be played side by side in FideLite and in them.</p>
+      <p>Equivalents that follow both platforms' behaviour are in the <a href="#special">Special
+      builds</a> section of the Builds tab, so the same position can be played side by side in
+      FideLite and in them.</p>
       <p>The choice here is a different one: <b>one book, one measure</b> — so that comparison stays possible, and so that where each article comes from stays visible.</p>
     </div>
 
@@ -5170,7 +5174,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       de var, değişen <em>hangi kuralların uygulandığı</em>. Her seviyenin altı arayüzü ve bir de
       botlu sürümü var. Bunlar <a href="#golfstack">iddianın dışında</a>; burada duruyorlar çünkü
       kuralların katman katman nasıl eklendiğini görmenin en düz yolu onlar.</p>
-      <p>Hiçbir seviyeye girmeyenler ayrı bir sekmede:
+      <p>Hiçbir seviyeye girmeyenler bu sekmenin sonunda, kendi bölümlerinde:
       <a href="#special">Özel sürümler</a>.</p>
     </div>
     <div class="prose" lang="en">
@@ -5184,7 +5188,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       interfaces and one build with a bot. These sit <a href="#golfstack">outside the claim</a>;
       they are here because they are the plainest way to see how the rules are added layer by
       layer.</p>
-      <p>What fits no level has a tab of its own: <a href="#special">Special builds</a>.</p>
+      <p>What fits no level has a section of its own at the end of this tab:
+      <a href="#special">Special builds</a>.</p>
     </div>
 
     <h3 id="l3" lang="tr"><code>L3</code> ailesi — arayüz ekseni</h3>
@@ -5940,10 +5945,6 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 
   </div>
 </section>
-
-</div>
-
-<div class="panel" id="panelspecial" role="tabpanel" aria-labelledby="tabspecial" tabindex="0" hidden>
 
 <section id="special">
   <div class="wrap">
@@ -11906,6 +11907,18 @@ f = K[2] + K[3] - 1</pre></div>
       <p>Perft bu listede yok: hamle üretimine dokunulmadıysa gerekmiyor, dokunulduysa zaten
       yukarıdaki koşuların tamamı baştan çalışır.</p>
     </div>
+  </div>
+</section>
+
+</div>
+
+<div class="panel" id="panelextra" role="tabpanel" aria-labelledby="tabextra" tabindex="0" hidden>
+
+<section id="extra">
+  <div class="wrap">
+    <p class="eyebrow" lang="tr">Ekstra</p>
+    <p class="eyebrow" lang="en">Extras</p>
+    <!-- icerik gelecek -->
   </div>
 </section>
 

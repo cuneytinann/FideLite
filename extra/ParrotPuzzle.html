@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Chess</title>
+<style>
+  /* Macaw palette */
+  :root{
+    --jungle:#0f2e26; --jungle-2:#163b31; --line:#2a5646;
+    --banana:#f7df7c; --leaf:#46a655;
+    --scarlet:#e3342f; --sun:#ffc425; --macaw-blue:#1d5fc4; --sky:#35c4ea; --lime:#8fd14f;
+    --text:#f3f0dc; --dim:#9fc0ae;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0;overscroll-behavior:none}
+  body{background:var(--jungle);color:var(--text);
+    background-image:radial-gradient(ellipse at 15% -10%,rgba(143,209,79,.16),transparent 55%),
+                     radial-gradient(ellipse at 110% 110%,rgba(29,95,196,.22),transparent 55%);
+    background-attachment:fixed;min-height:100vh;
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    display:flex;justify-content:center;padding:14px 12px calc(28px + env(safe-area-inset-bottom))}
+  .wrap{width:100%;max-width:520px}
+
+  header{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
+  h1{font-size:26px;line-height:1;margin:0;letter-spacing:-.3px;font-weight:600;color:var(--sun)}
+  .parrot{font-size:26px;line-height:1;margin-left:-2px;display:inline-block;transform:rotate(-8deg)}
+  .round{margin-left:auto;font-size:13px;color:var(--dim);text-align:right}
+  .goal{margin:0 0 12px;font-size:14px;color:var(--dim);min-height:20px}
+  .pips{display:flex;gap:5px;margin:0 0 10px;min-height:8px}
+  .pip{width:26px;height:6px;border-radius:3px;background:var(--line)}
+  .pip.done:nth-child(4n+1){background:var(--scarlet)}
+  .pip.done:nth-child(4n+2){background:var(--sun)}
+  .pip.done:nth-child(4n+3){background:var(--sky)}
+  .pip.done:nth-child(4n+4){background:var(--lime)}
+
+  /* The one bold thing: a feathered frame, tail colours of a scarlet macaw */
+  .board-frame{position:relative;border-radius:10px;overflow:hidden;padding:7px;
+    background:linear-gradient(135deg,var(--scarlet) 0 24%,var(--sun) 24% 42%,var(--lime) 42% 58%,var(--sky) 58% 74%,var(--macaw-blue) 74% 100%);
+    box-shadow:0 14px 30px rgba(0,0,0,.35)}
+  .board{display:grid;grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(8,1fr);
+    aspect-ratio:1/1;width:100%;touch-action:none;border-radius:4px;overflow:hidden}
+  .sq{position:relative;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center;
+    line-height:1;cursor:pointer;user-select:none}
+  .sq.light{background:var(--banana)}
+  .sq.dark{background:var(--leaf)}
+  .pc,#ghost{paint-order:stroke fill;-webkit-text-stroke-width:.06em;text-stroke-width:.06em}
+  .pc{position:relative;z-index:2;pointer-events:none;transform:translateY(-2%)}
+  /* White side: scarlet feathers, sunny outline */
+  .pc.w,#ghost.w{color:var(--scarlet);-webkit-text-stroke-color:#fff6cf;text-stroke-color:#fff6cf;
+    text-shadow:0 2px 0 rgba(90,10,10,.35)}
+  /* Black side: deep macaw blue, dark outline */
+  .pc.b,#ghost.b{color:#1a4fb0;-webkit-text-stroke-color:#0b1d45;text-stroke-color:#0b1d45;
+    text-shadow:0 2px 0 rgba(8,20,50,.3)}
+  .sq.dragging .pc{opacity:.22}
+  .sq.sel::after{content:"";position:absolute;inset:0;z-index:1;box-shadow:inset 0 0 0 4px var(--sky)}
+  .sq.hover::after{content:"";position:absolute;inset:0;z-index:1;box-shadow:inset 0 0 0 4px rgba(255,255,255,.9)}
+  .sq.last::before{content:"";position:absolute;inset:0;z-index:0;background:rgba(255,140,30,.42)}
+  .sq.check::before{content:"";position:absolute;inset:0;z-index:0;background:radial-gradient(circle,rgba(227,52,47,.95),transparent 70%)}
+  .dot{position:absolute;z-index:1;pointer-events:none;width:26%;height:26%;border-radius:50%;background:rgba(15,46,38,.38)}
+  .dot.cap{width:86%;height:86%;background:none;box-shadow:inset 0 0 0 4px rgba(15,46,38,.38)}
+  .axis{position:absolute;left:7px;right:7px;top:50%;height:0;border-top:2px dashed var(--scarlet);pointer-events:none;z-index:3;display:none}
+  .axis.on{display:block}
+  .board-frame.flash{animation:shake .32s}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+  @media (prefers-reduced-motion:reduce){.board-frame.flash{animation:none;outline:3px solid var(--scarlet)}}
+  #ghost{position:fixed;z-index:20;pointer-events:none;display:none;align-items:center;justify-content:center;line-height:1;filter:drop-shadow(0 8px 10px rgba(0,0,0,.45))}
+
+  .status{display:flex;align-items:baseline;min-height:26px;margin-top:14px;font-size:16px}
+  .status b{font-weight:600}
+  .status.bad b{color:#ff6b5e}
+  .status.good b{color:var(--lime)}
+  .controls{display:flex;gap:8px;margin:12px 0 16px;flex-wrap:wrap}
+  button{font:inherit;font-size:15px;color:var(--text);background:var(--jungle-2);border:1px solid var(--line);
+    border-radius:999px;padding:10px 18px;cursor:pointer;flex:1;transition:border-color .15s,background .15s}
+  button:hover{border-color:var(--sun);background:#1c4a3c}
+  button:disabled{opacity:.4;cursor:default}
+  button:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+  .hint{margin:0 0 14px;font-size:14px;color:var(--sun);min-height:0}
+
+  .log{border-top:2px solid var(--line);padding-top:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:13px;max-height:28vh;overflow:auto}
+  .log .row{display:flex;gap:12px;padding:3px 0;align-items:center}
+  .log .n{color:var(--dim);width:26px;text-align:right}
+  .log .w{width:88px;color:#ff8a7a}
+  .log .bm{width:88px;color:#8fb8ff}
+  .log .mark{font-size:11px;color:var(--sun)}
+  .log .mark.broke{color:#ff6b5e}
+  .log .empty{color:var(--dim);font-family:inherit;font-size:14px}
+
+  .modal{position:fixed;inset:0;z-index:30;background:rgba(10,32,26,.9);display:none;align-items:center;justify-content:center;padding:18px}
+  .modal.on{display:flex}
+  .modal .card{background:var(--jungle-2);border:1px solid var(--line);border-top:5px solid var(--scarlet);padding:22px;border-radius:12px;max-width:420px;width:100%;max-height:88vh;overflow:auto}
+  .modal h2{margin:0 0 10px;font-size:21px;font-weight:600;color:var(--sun)}
+  .modal p{margin:0 0 12px;font-size:15px;line-height:1.55;color:var(--dim)}
+  .modal p.lead{color:var(--text)}
+  .modal .opts{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+  .modal .opts button{flex:1 1 44%}
+  .mlist button{display:block;width:100%;text-align:left;margin-bottom:6px;flex:none;padding:12px 16px;border-radius:12px}
+  .mlist button span{display:block;font-size:13px;color:var(--dim);margin-top:2px}
+  .promo .opts button{font-size:34px;padding:6px 12px;line-height:1;flex:0 0 auto;border-radius:12px;
+    background:var(--banana);color:var(--scarlet);border-color:transparent;
+    paint-order:stroke fill;-webkit-text-stroke:.05em #fff6cf}
+  .promo .opts button:hover{background:#ffe99a;border-color:var(--scarlet)}
+  .topbar{display:flex;justify-content:flex-end;margin:0 0 6px}
+  .lang{-webkit-appearance:none;appearance:none;font:inherit;font-size:13px;line-height:1.2;color:var(--dim);cursor:pointer;
+    background:var(--jungle-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%239fc0ae' stroke-width='1.4'/%3E%3C/svg%3E") no-repeat right 11px center;
+    border:1px solid var(--line);border-radius:999px;padding:6px 30px 6px 12px;color-scheme:dark}
+  .lang:hover{border-color:var(--sun);color:var(--text)}
+  .lang:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+  .lang option{background:var(--jungle-2);color:var(--text)}
+  @media (min-width:520px){body{padding-top:22px}h1{font-size:30px}.parrot{font-size:30px}.controls button{flex:0 0 auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <select class="lang" id="lang" aria-label="Language" autocomplete="off">
+      <option value="en" lang="en">English</option>
+      <option value="tr" lang="tr">Türkçe</option>
+    </select>
+  </div>
+  <header>
+    <h1 id="opp">Opponent:</h1><span class="parrot" aria-hidden="true">🦜</span>
+    <span class="round" id="round"></span>
+  </header>
+  <p class="goal" id="goal"></p>
+  <div class="pips" id="pips"></div>
+  <div class="board-frame" id="frame"><div class="board" id="board"></div><div class="axis" id="axis"></div></div>
+  <div class="status" id="status"></div>
+  <div class="controls" id="controls"></div>
+  <p class="hint" id="hint"></p>
+  <div class="log" id="log"></div>
+</div>
+<div id="ghost"></div>
+<div class="modal promo" id="promo"><div class="card"><p class="lead" id="promoLead">Your pawn is promoting. Which piece?</p>
+  <div class="opts"><button data-p="q">♛</button><button data-p="r">♜</button><button data-p="b">♝</button><button data-p="n">♞</button></div>
+</div></div>
+<div class="modal" id="modal"><div class="card"><h2 id="mTitle"></h2><div id="mBody"></div><div class="opts" id="mOpts"></div></div></div>
+
+<script>
+/* ===================== KURALLAR ===================== */
+const FILES="abcdefgh";
+const GLYPH={wk:"\u265A",wq:"\u265B",wr:"\u265C",wb:"\u265D",wn:"\u265E",wp:"\u265F",
+             bk:"\u265A",bq:"\u265B",br:"\u265C",bb:"\u265D",bn:"\u265E",bp:"\u265F"};
+const N_OFF=[[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]];
+const K_OFF=[[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
+const B_DIR=[[-1,-1],[-1,1],[1,-1],[1,1]];
+const R_DIR=[[-1,0],[1,0],[0,-1],[0,1]];
+const inside=(r,c)=>r>=0&&r<8&&c>=0&&c<8;
+const alg=(r,c)=>FILES[c]+(8-r);
+const clone=s=>JSON.parse(JSON.stringify(s));
+const other=c=>c==="w"?"b":"w";
+
+function initState(){
+  const e=()=>[null,null,null,null,null,null,null,null];
+  return {b:[["br","bn","bb","bq","bk","bb","bn","br"],["bp","bp","bp","bp","bp","bp","bp","bp"],
+             e(),e(),e(),e(),["wp","wp","wp","wp","wp","wp","wp","wp"],
+             ["wr","wn","wb","wq","wk","wb","wn","wr"]],
+          turn:"w",cr:{wK:true,wQ:true,bK:true,bQ:true},ep:null,half:0};
+}
+function isAttacked(st,r,c,by){
+  const b=st.b,pd=by==="w"?1:-1;
+  for(const dc of [-1,1]){const rr=r+pd,cc=c+dc;if(inside(rr,cc)&&b[rr][cc]===by+"p")return true;}
+  for(const o of N_OFF){const rr=r+o[0],cc=c+o[1];if(inside(rr,cc)&&b[rr][cc]===by+"n")return true;}
+  for(const o of K_OFF){const rr=r+o[0],cc=c+o[1];if(inside(rr,cc)&&b[rr][cc]===by+"k")return true;}
+  const scan=(dirs,types)=>{for(const d of dirs){let rr=r+d[0],cc=c+d[1];
+    while(inside(rr,cc)){const p=b[rr][cc];if(p){if(p[0]===by&&types.indexOf(p[1])>=0)return true;break;}rr+=d[0];cc+=d[1];}}return false;};
+  return scan(R_DIR,["r","q"])||scan(B_DIR,["b","q"]);
+}
+function findKing(st,color){for(let r=0;r<8;r++)for(let c=0;c<8;c++)if(st.b[r][c]===color+"k")return[r,c];return null;}
+function genPseudo(st,color){
+  const b=st.b,out=[];
+  const add=(fr,fc,tr,tc,x)=>out.push(Object.assign({from:[fr,fc],to:[tr,tc]},x||{}));
+  for(let r=0;r<8;r++)for(let c=0;c<8;c++){
+    const p=b[r][c];if(!p||p[0]!==color)continue;
+    const t=p[1];
+    if(t==="p"){
+      const dir=color==="w"?-1:1,start=color==="w"?6:1,last=color==="w"?0:7;
+      const pawnAdd=(tr,tc,ex)=>{if(tr===last)["q","r","b","n"].forEach(q=>add(r,c,tr,tc,Object.assign({promo:q},ex||{})));else add(r,c,tr,tc,ex);};
+      const nr=r+dir;
+      if(inside(nr,c)&&!b[nr][c]){pawnAdd(nr,c);if(r===start&&!b[r+2*dir][c])add(r,c,r+2*dir,c);}
+      for(const dc of [-1,1]){const nc=c+dc;if(!inside(nr,nc))continue;
+        const tgt=b[nr][nc];
+        if(tgt&&tgt[0]!==color)pawnAdd(nr,nc);
+        else if(!tgt&&st.ep&&st.ep[0]===nr&&st.ep[1]===nc)pawnAdd(nr,nc,{ep:true});}
+    } else if(t==="n"||t==="k"){
+      for(const o of (t==="n"?N_OFF:K_OFF)){const rr=r+o[0],cc=c+o[1];if(!inside(rr,cc))continue;
+        const tgt=b[rr][cc];if(!tgt||tgt[0]!==color)add(r,c,rr,cc);}
+    } else {
+      const dirs=t==="r"?R_DIR:t==="b"?B_DIR:R_DIR.concat(B_DIR);
+      for(const d of dirs){let rr=r+d[0],cc=c+d[1];
+        while(inside(rr,cc)){const tgt=b[rr][cc];
+          if(!tgt)add(r,c,rr,cc);else{if(tgt[0]!==color)add(r,c,rr,cc);break;}
+          rr+=d[0];cc+=d[1];}}
+    }
+  }
+  const row=color==="w"?7:0,en=other(color);
+  if(b[row][4]===color+"k"&&!isAttacked(st,row,4,en)){
+    const kS=color==="w"?st.cr.wK:st.cr.bK,qS=color==="w"?st.cr.wQ:st.cr.bQ;
+    if(kS&&b[row][7]===color+"r"&&!b[row][5]&&!b[row][6]&&!isAttacked(st,row,5,en)&&!isAttacked(st,row,6,en))add(row,4,row,6,{});
+    if(qS&&b[row][0]===color+"r"&&!b[row][1]&&!b[row][2]&&!b[row][3]&&!isAttacked(st,row,3,en)&&!isAttacked(st,row,2,en))add(row,4,row,2,{});
+  }
+  return out;
+}
+function isCapture(st,m){
+  const p=st.b[m.from[0]][m.from[1]];
+  return !!st.b[m.to[0]][m.to[1]]||(p[1]==="p"&&m.from[1]!==m.to[1]);
+}
+function makeMove(st,m){
+  const ns=clone(st);
+  const fr=m.from[0],fc=m.from[1],tr=m.to[0],tc=m.to[1];
+  const p=ns.b[fr][fc],color=p[0],type=p[1],captured=ns.b[tr][tc];
+  if(type==="p"&&fc!==tc&&!captured)ns.b[fr][tc]=null;
+  if(type==="k"&&Math.abs(tc-fc)===2){
+    if(tc===6){ns.b[fr][5]=ns.b[fr][7];ns.b[fr][7]=null;}else{ns.b[fr][3]=ns.b[fr][0];ns.b[fr][0]=null;}}
+  ns.b[tr][tc]=m.promo?color+m.promo:p;
+  ns.b[fr][fc]=null;
+  ns.ep=(type==="p"&&Math.abs(tr-fr)===2)?[(fr+tr)/2,fc]:null;
+  ns.half=(type==="p"||captured)?0:st.half+1;
+  if(type==="k"){if(color==="w"){ns.cr.wK=false;ns.cr.wQ=false;}else{ns.cr.bK=false;ns.cr.bQ=false;}}
+  const touch=(r,c)=>{if(r===7&&c===0)ns.cr.wQ=false;if(r===7&&c===7)ns.cr.wK=false;
+    if(r===0&&c===0)ns.cr.bQ=false;if(r===0&&c===7)ns.cr.bK=false;};
+  touch(fr,fc);touch(tr,tc);
+  ns.turn=other(color);
+  return ns;
+}
+function genLegal(st){
+  const color=st.turn,en=other(color);
+  return genPseudo(st,color).filter(m=>{const ns=makeMove(st,m);const k=findKing(ns,color);
+    return k&&!isAttacked(ns,k[0],k[1],en);});
+}
+function inCheck(st,color){const k=findKing(st,color);return !!k&&isAttacked(st,k[0],k[1],other(color));}
+function notate(st,m){
+  const p=st.b[m.from[0]][m.from[1]];
+  if(p[1]==="k"&&Math.abs(m.to[1]-m.from[1])===2)return m.to[1]===6?"O-O":"O-O-O";
+  const cap=isCapture(st,m),sym=p[1]==="p"?"":p[1].toUpperCase();
+  return sym+alg(m.from[0],m.from[1])+(cap?"x":"-")+alg(m.to[0],m.to[1])+(m.promo?"="+m.promo.toUpperCase():"");
+}
+function bareKings(st){
+  for(let r=0;r<8;r++)for(let c=0;c<8;c++){const p=st.b[r][c];if(p&&p[1]!=="k")return false;}
+  return true;
+}
+function posKey(st){let s="";for(let r=0;r<8;r++)for(let c=0;c<8;c++)s+=st.b[r][c]||".";
+  return s+"|"+st.turn+"|"+(st.cr.wK?1:0)+(st.cr.wQ?1:0)+(st.cr.bK?1:0)+(st.cr.bQ?1:0)+"|"+(st.ep?st.ep.join(","):"-");}
+function insufficient(st){
+  const w=[],bl=[];
+  for(let r=0;r<8;r++)for(let c=0;c<8;c++){const p=st.b[r][c];if(!p||p[1]==="k")continue;
+    if("pqr".indexOf(p[1])>=0)return false;(p[0]==="w"?w:bl).push({t:p[1],sc:(r+c)%2});}
+  const all=w.concat(bl);
+  if(all.length<=1)return true;
+  if(all.every(x=>x.t==="b"&&x.sc===all[0].sc))return true;
+  return false;
+}
+/* --- papağan: ayna; olmazsa en yakın yasal hamle, eşitlikte kanonik ilk --- */
+function botMove(st,wm){
+  const L=genLegal(st); if(!L.length) return null;
+  const wf=[7-wm.from[0],wm.from[1]],wt=[7-wm.to[0],wm.to[1]],pr=wm.promo||null;
+  const exact=L.find(m=>m.from[0]===wf[0]&&m.from[1]===wf[1]&&m.to[0]===wt[0]&&m.to[1]===wt[1]&&(m.promo||null)===pr);
+  if(exact) return {move:exact,mirrored:true};
+  const dist=m=>Math.abs(m.from[0]-wf[0])+Math.abs(m.from[1]-wf[1])+Math.abs(m.to[0]-wt[0])+Math.abs(m.to[1]-wt[1]);
+  const ord=L.slice().sort((a,b)=>a.from[0]-b.from[0]||a.from[1]-b.from[1]||a.to[0]-b.to[0]||a.to[1]-b.to[1]||
+    (a.promo||"").localeCompare(b.promo||""));
+  let best=ord[0],bd=dist(ord[0]);
+  for(const m of ord){const d=dist(m);if(d<bd){bd=d;best=m;}}
+  return {move:best,mirrored:false};
+}
+
+/* ===================== GÖREVLER ===================== */
+const MISSIONS=[
+{id:"warmup",kind:"free",limit:0,lines:[]},
+{id:"mate4",kind:"mate",limit:4,after:"white",
+ lines:[{mv:["d2d4","d1d3","d3h3","h3c8"]},{mv:["d2d4","d1d3","d3f5","f5c8"]},{mv:["c2c4","d1a4","a4c6","c6c8"]}]},
+{id:"break",kind:"break",limit:3,after:"black",lines:[{mv:["b1c3","c3d5","d5c7"]}]},
+{id:"king4",kind:"king4",limit:4,after:"black",lines:[{mv:["d2d3","e1d2","d2e3","e3d4"]}]},
+{id:"castle",kind:"castle",limit:6,after:"black",lines:[{mv:["e2e4","f2f4","f4e5","f1e2","g1h3","e1g1"]}]},
+{id:"ep",kind:"ep",limit:5,after:"white",lines:[{mv:["h2h4","g2g4","h4g5","f2f4","g5f6"]}]},
+{id:"botep",kind:"botep",limit:8,after:"black",lines:[{mv:["d2d4","c2c3","d1b3","b3b6","b6a7","a7a8","a8b8","a2a4"]}]},
+{id:"clean",kind:"clean",limit:5,after:"white",lines:[{mv:["f2f4","e2e4","f1c4","d1h5","h5f7"]}]},
+{id:"clear",kind:"clear",limit:0,
+ lines:[{mv:["h2h3","d2d3","c1h6","h6g7","f1g2","g2b7","b7a8","b1a3","d1a1","a1h8","h8f6","f6d6","d6c7","c7a7","a7a6","a6f6","g1f3","e2e4","f3e5","e5f7","e1f2"]}]},
+{id:"lose",kind:"lose",limit:0,
+ lines:[{mv:["g1f3","f3e5","e5g6","e2e4","f1c4","f2f3","c4e6","d2d4","d4e5","d1d5","e5f6","f6f7","f7f8b"]}]},
+{id:"stale",kind:"stale",limit:0,
+ lines:[{mv:["e2e3","d1f3","f3b7","b7c8","c1b2","f1a6","c2c4","b2e5","c8a8","e5g7","a8f8","f8g8","g7f6","g8h8","h8h7"]}]}
+];
+const key=m=>alg(m.from[0],m.from[1])+alg(m.to[0],m.to[1])+(m.promo||"");
+
+/* ===================== DİL ===================== */
+/* Her dil: ui metinleri + görev metinleri. missions[id].lines[i], MISSIONS'taki lines[i] ile eşleşir. */
+const TEXT={
+en:{
+ ui:{
+  title:"Chess",opponent:"Opponent:",langLabel:"Language",promo:"Your pawn is promoting. Which piece?",
+  warmup:"Warm-up",mission:n=>"Mission "+n,attempt:n=>"attempt "+n,
+  restart:"Restart",newGame:"New game",undo:"Undo",missions:"Missions",
+  yourMove:"Your move",thinking:"The parrot is thinking",moveLeft:(n,left)=>"Move "+n+" · "+left+" left",check:"check",
+  logEmpty:"Drag or tap a piece.",tagMirror:"mirror",tagBroken:"broken",
+  castleLost:"Your castling rights are gone.",youCaptured:"You captured a piece.",outOfMoves:"Out of moves.",gameOver:"Game over.",
+  parrotCaptured:"The parrot captured a piece.",kingNot4:"The mirror broke, but your king isn't on the 4th rank.",
+  notCastleBreak:"Something other than castling broke the mirror.",parrotCastled:"The parrot castled too. The mirror held.",
+  mirrorBroke:"The mirror broke.",
+  lostMate:"You got checkmated.",wonMate:"CHECKMATE — you win.",stalemate:"Stalemate. Draw.",
+  insufficient:"Insufficient material. Draw.",threefold:"Threefold repetition. Draw.",fifty:"50-move rule. Draw.",
+  restarting:"Restarting.",
+  threeSolutions:x=>"<p>There are three solutions — yours: <b>"+x+"</b></p>",
+  knownLine:x=>"<p>Known line: <b>"+x+"</b></p>",
+  allDone:"<p class='lead'>You've finished them all. You're done with the parrot.</p>",
+  watchAll:"Watch all three",watchSolution:"Watch the solution",tryOthers:"Try other challenges",startOver:"Start over",
+  warmedUp:"All right, you're warmed up.",warmupDone:"Warm-up's over.",
+  warmupBody:r=>"<p class='lead'>"+r+" Nice — I'll assume you've cracked the algorithm. The parrot mirrors every move you make across the horizontal axis.</p>"+
+    "<p>From now on you'll see a dashed line on the board: that's the mirror axis. The tags in the move list show where the mimicry held and where it snapped.</p>"+
+    "<p class='lead'>Missions unlocked. They're all against the same parrot; only the rules change. If you want to go in order, start with Mission 1.</p>",
+  openMissions:"Open missions",warmupAgain:"One more warm-up",
+  menuIntro:"<p>Same parrot, different rules.</p>",challenges:"Challenges",backToWarmup:"Back to warm-up",close:"Close",
+  thatsAll:"That's it.",
+  mateRecap:"<p class='lead'>All three end the same way: queen to c8. The first two open with d4; the third carries the same idea over to the c-file.</p>",
+  watchAgain:"Watch again",
+  demoPrefix:(n,mine)=>n+" / 3 · "+(mine?"the one you found":"another solution")+" · "
+ },
+ missions:{
+  warmup:{name:"Warm-up",short:"Free play",goal:"Checkmate Black. Take your time.",hints:[],lines:[]},
+
+  mate4:{name:"Mate in 4",short:"4 moves",
+   goal:"Mate on move 4. Not a move more.",
+   hints:["Don't waste time developing pieces. You have four moves — bring your queen out.",
+          "The parrot is mirroring you. Find the square whose mirror holds its own piece; that's where the mimicry breaks.",
+          "1.d4. The rest is up to you.",
+          "1.d4 d5 2.Qd3. You still have two moves; it shouldn't be hard.",
+          "3.Qh3 or 3.Qf5. Spelling out the rest would be embarrassing."],
+   lines:["1.d4 d5  2.Qd3 Qd6  3.Qh3 Qh6  4.Qxc8#",
+          "1.d4 d5  2.Qd3 Qd6  3.Qf5 Qf4  4.Qxc8#",
+          "1.c4 c5  2.Qa4 Qa5  3.Qc6 Qc3  4.Qxc8#"],
+   win:"Done. 7 plies.",
+   why:"<p class='lead'>The parrot was reflecting every move you made across the horizontal axis. The dashed line on the board is the mirror axis; the tags in the move list mark where the mimicry held.</p>"+
+       "<p>Once the queen lands on c8, the king has no way out: d7 and d8 are covered by the queen, e7 and f7 are its own pawns, f8 is its own bishop, and the knight on b8 blocks the rook on a8. Black's queen had followed the mirror and abandoned the defense.</p>"+
+       "<p>There's nothing shorter — an exhaustive search proves there's no mate in under 7 plies.</p>"},
+
+  break:{name:"Break the mirror",short:"3 moves",
+   timeout:"Three moves are up, and the mimicry is still going.",
+   goal:"Within 3 moves, leave the parrot unable to copy you.",
+   hints:["The parrot only drops the mimicry when the mirrored move is illegal.",
+          "Give it check. Its mirrored move would leave its own king exposed, so it can't play it.",
+          "A knight gets to c7 in three moves."],
+   lines:["1.Nc3 Nc6  2.Nd5 Nd4  3.Nxc7+"],
+   win:"The mimicry snapped.",
+   why:"<p class='lead'>Giving check always breaks the mirror: the mirrored move would leave Black's own king in check, which makes it illegal. The parrot has no choice but to fall back on its nearest legal move.</p>"+
+       "<p>The converse is true as well: as long as the mirror holds, <b>your</b> king can never come under attack. After Black moves, the position is symmetrical, so if your king were in check, Black's would be too — impossible for a side that has just moved.</p>"+
+       "<p>No break can happen before move 3. In the first two moves, every mirrored move is legal.</p>"},
+
+  king4:{name:"The king's prison",short:"4 moves",
+   timeout:"Four moves are up, and your king is still down below.",
+   goal:"Get your king to the 4th rank.",
+   hints:["Walk your king forward. The parrot mirrors that too — its own king comes toward you from the other side.",
+          "Two kings can never stand next to each other. If you're on rank n, it's on rank 9−n on the same file. Work out the gap between them.",
+          "The 3rd rank is the last safe stop: you on 3, it on 6. Take one more step and the mirrored king would land right next to yours, so it can't be played.",
+          "Before your king can get out, d2, e2 or f2 has to be cleared. Then three steps — exactly what you have left.",
+          "1.d3 d6 2.Kd2 Kd7 3.Ke3 Ke6. Now step onto the 4th rank."],
+   lines:["1.d3 d6  2.Kd2 Kd7  3.Ke3 Ke6  4.Kd4"],
+   win:"The king is out.",
+   why:"<p class='lead'>As long as the mirror holds, this is always true: if your king is on rank n, the parrot's king is on rank 9−n <b>on the same file</b>. Two kings can't stand side by side, so |n−(9−n)| ≥ 2 has to hold — and that rules out n = 4 and n = 5.</p>"+
+       "<p>So ranks 4 and 5 are a no-go band for the king, and it's two ranks thick. A king moves one square at a time, so it can't jump over it. Unless the mirror breaks, your king is serving a life sentence on ranks 1–3.</p>"+
+       "<p>The upshot: <b>stepping onto the 4th rank is the mirror break itself.</b> There's no other way. Three moves aren't enough, either — your king needs three steps to get from e1 to the 4th rank, but first you have to open up a square next to it; you have pieces on d1 and f1 and pawns on d2/e2/f2. An exhaustive search confirms there's no three-move solution.</p>"+
+       "<p>Rooks are jailed the same way: a rook's twin always stands directly opposite it on the same file, and every step the rook takes to cross the middle either captures the twin or blocks the twin's way back. A rook can't get past the 4th rank. That's why the two armies can never trade places against the parrot.</p>"},
+
+  castle:{name:"Break it by castling",short:"6 moves",
+   timeout:"Six moves are up, and still no castling.",
+   goal:"Make castling the first move that breaks the mirror.",
+   hints:["The mirror of castling is castling. As long as the parrot can mirror your castling, nothing breaks.",
+          "Castling moves two pieces: the king to g1, the rook from h1 to f1. The king can't touch anything on the 8th rank — but the rook sees the whole f-file.",
+          "If f8 is attacked, Black's king can't pass through it, so it can't castle. For the rook on f1 to see f8, not a single piece can be left on the f-file.",
+          "The f2 pawn can't leave the f-file by moving straight; it has to capture diagonally. On top of that, f1 and g1 need clearing — three jobs, five moves.",
+          "1.e4 e5 2.f4 f5 3.fxe5 fxe4. The f-file is wide open. Two moves left: f1 and g1."],
+   lines:["1.e4 e5  2.f4 f5  3.fxe5 fxe4  4.Be2 Be7  5.Nh3 Nh6  6.O-O"],
+   win:"Castling broke the mirror.",
+   why:"<p class='lead'>While the mirror holds, the position is symmetrical, so the parrot's castling rights always match yours. That means castling <b>itself</b> has to break the mirror: your castling has to make Black's castling illegal.</p>"+
+       "<p>Castling moves only two pieces. The king goes to g1, and from there it can't touch a single square on the 8th rank. That leaves the rook: arriving on f1 from h1, it sweeps the whole f-file. If the f-file is completely empty, the rook on f1 attacks f8, Black's king can't pass through f8, and castling becomes illegal. That's the only mechanism.</p>"+
+       "<p>The rest is counting: the f2 pawn can only leave the f-file by capturing (f4, then fxe5), and f1 and g1 have to be emptied. e4 does two jobs at once — it gives the f4 pawn a target on e5 and lets the bishop out via e2.</p>"+
+       "<p>Six moves is the minimum. Every mirror-preserving five-move sequence was searched (281,642 positions), and none breaks by castling. At six there are exactly 178 distinct solutions. Long castling doesn't work in any of them: for Rd1 to see the d-file you'd have to clear b1, c1 and d1 — one piece too many.</p>"+
+       "<p>A completely different route: 1.e3 e6 2.Bc4 Bc5 3.Bxe6 Bxe3 4.fxe3 fxe6 5.Nh3 Nh6 6.O-O. The bishop trade clears f1 and pulls the f-pawn onto the e-file in a single move.</p>"},
+
+  ep:{name:"En passant",short:"5 moves",
+   goal:"Capture en passant within 5 moves.",
+   hints:["To capture en passant, your pawn has to be on the 5th rank. You can't get there by marching straight up — the pawn facing it blocks the way.",
+          "Make a pawn trade — the parrot does the same, and two pawns cross paths on the neighboring file.",
+          "Then push a pawn two squares on the neighboring file. The parrot plays the mirror, and its pawn goes right past yours."],
+   lines:["1.h4 h5  2.g4 g5  3.hxg5 hxg4  4.f4 f5  5.gxf6 e.p."],
+   win:"Taken en passant.",
+   why:"<p class='lead'>You need a pawn on the 5th rank, and the only way there is through a trade. Then you trigger the double step yourself: when you play f4, the parrot has to play f5, and its pawn goes right past yours.</p>"+
+       "<p>Nothing shorter than 5 moves exists — I went through every four-move variation, and en passant doesn't arise in any of them.</p>"+
+       "<p>The reverse is closed to you, though: as long as the mirror holds, the parrot can't capture en passant against <b>you</b>. The next mission revolves around exactly that.</p>"},
+
+  botep:{name:"Make the parrot take",short:"8 moves",
+   timeout:"Eight moves are up, and the parrot didn't take en passant.",
+   goal:"Make the parrot capture en passant.",
+   hints:["The parrot can't capture en passant while it's following the mirror: your e.p. capture clears the flag, so the mirrored move never comes into being. You have to break the mirror first.",
+          "Once the mirror breaks, the parrot falls back on its nearest legal move. That's a remote control — on every move it can't copy, you can steer its pieces wherever you like.",
+          "For en passant, Black's pawn has to be on the 4th rank, right next to the pawn you'll double-step. The parrot won't go there on its own; you'll have to take it there.",
+          "Trade queens and break the mirror right there. Then roam the queenside with your queen — every time, the parrot's nearest move will be pushing its b- or c-pawn.",
+          "1.d4 d5 2.c3 c6 3.Qb3 Qb6 4.Qxb6. Walk your queen along a7-a8-b8 and watch where Black's b-pawn ends up."],
+   lines:["1.d4 d5  2.c3 c6  3.Qb3 Qb6  4.Qxb6 c5  5.Qxa7 c4  6.Qxa8 b5  7.Qxb8 b4  8.a4 bxa3 e.p."],
+   win:"The parrot took en passant.",
+   why:"<p class='lead'>As long as the mirror holds, the parrot can't capture en passant. En passant requires the previous move to be a double step, but your e.p. capture isn't one — if anything, it clears the flag. The mirrored move isn't even illegal; it's simply never generated.</p>"+
+       "<p>So the answer to this mission isn't in the mimicry but <b>where it breaks</b>: in the parrot's nearest-legal-move rule. It's the only mission in the game like that.</p>"+
+       "<p>Here's how the rule works: when you make a double step, what the parrot wants to play is the mirror of your move; if that's illegal, it scans all its legal moves and picks the one with the smallest coordinate difference. For en passant that difference is <b>always exactly 6</b>. Your job is to push all of Black's other moves further than 6 away — in practice, emptying the queenside and leaving the b-pawn as the closest thing.</p>"+
+       "<p>In the line shown, 4.Qxb6 breaks the mirror. After that, with every step your queen takes, the parrot's nearest legal move is to push a c- or b-pawn, and the pawn walks down step by step to b4 — right next to the square your a-pawn will pass. You marched the parrot there yourself.</p>"+
+       "<p>There's probably nothing shorter than 8: an exhaustive search up to 6 moves (8,022,961 positions) finds nothing, and it doesn't turn up in ~4.9 million random games capped at 7 moves either. Not proven, but a solid bet. For a sense of how narrow this is: across 69 million randomly played plies, Black had an en passant chance 32,901 times, and the parrot played only 222 of them.</p>"},
+
+  clean:{name:"Clean mate",short:"5 moves, no captures",
+   goal:"Mate in 5 — without a single capture.",
+   hints:["No piece may be captured. The mate has to come from the king running out of squares.",
+          "If the f7 square opens up, your queen can land there. Start with the f-pawns.",
+          "1.f4 f5 2.e4 e5 3.Bc4 Bc5. Now give check and see where the parrot runs."],
+   lines:["1.f4 f5  2.e4 e5  3.Bc4 Bc5  4.Qh5+ Kf8  5.Qf7#"],
+   win:"Clean job.",
+   why:"<p class='lead'>f4/f5 empties the f7 square. 4.Qh5+ breaks the mirror — the parrot can't play Qh4 without leaving its own king exposed — and its nearest legal move is Kf8.</p>"+
+       "<p>Qf7 is mate: the queen is protected by the bishop on c4, so the king can't take it, and e7, e8, g7 and g8 are all next to the queen. Not a single piece changed hands.</p>"+
+       "<p>And that's the minimum: there's no capture-free mate in four.</p>"},
+
+  clear:{name:"Sweep the board",short:"No limit · mirror intact",
+   goal:"Clear the board down to the two kings without ever breaking the mirror.",
+   hints:["Symmetry is on your side: every piece you take, the parrot takes too, so material always stays even. Just plan your own moves.",
+          "Don't give check. Check breaks the mirror instantly and the mission is over.",
+          "Start with the bishops: 1.h3 h6 2.d3 d6 3.Bxh6 — the corner rooks come for free.",
+          "You have to take the last piece with your king. Take it with any other piece and the parrot's mirrored piece is already off the board, so the mimicry snaps."],
+   lines:["21 moves · bishops, queen, knight, and finally the king"],
+   win:"Board's clear.",
+   why:"<p class='lead'>As long as the mirror lasts, the parrot hands back every trade you make, so you're really only playing one side — you capture its 15 pieces, and it captures yours.</p>"+
+       "<p>There are two subtleties. One: you can never give check, because check always breaks the mirror. Two: <b>you have to take the last piece with your king</b> — had you used any other piece, the parrot's mirrored piece wouldn't have been on the board at that moment, and the mimicry would have snapped right there.</p>"+
+       "<p>The line shown is 21 moves; it isn't proven minimal, so you may well find a shorter one.</p>"},
+
+  lose:{name:"Lose",short:"No limit",
+   goal:"Get the parrot to checkmate you. Take your time.",
+   hints:["As long as the mirror holds, your king can't be put in check. You have to break the symmetry first.",
+          "Once you break it, the parrot can't copy you anymore and owes you a tempo. Clear away the pieces in front of your own king.",
+          "Careful when you promote: a queen on f8 would come down the f-file and save you. Make a bishop."],
+   lines:["13 moves · ending with a BISHOP promotion on f8"],
+   win:"You got mated. Congratulations?",
+   why:"<p class='lead'>While the mirror held, your king was untouchable; so you broke it first, the parrot let go of the mimicry and started playing its nearest moves, and it never closed the gap.</p>"+
+       "<p>The last subtlety in the line shown is the promotion: promote to a queen on f8 and, with the f-file empty, it takes on f2 and you don't get mated. A bishop can't get there — hence the bishop.</p>"+
+       "<p>This 13-move line is what a beam search found; it isn't proven to be the minimum. If you find a shorter one, you're better than the parrot.</p>"},
+
+  stale:{name:"Stalemate the parrot",short:"15 moves",
+   goal:"Stalemate the parrot. Leave it with no moves while its king isn't in check.",
+   hints:["Stalemate isn't mate. The parrot's king won't be in check, but it won't have a single legal move left either.",
+          "As long as the mirror holds, material is always even — the symmetry guarantees it. To leave it without moves, you first have to break the mirror and win material.",
+          "Send the queens after each other's b-pawns: 2.Qf3 Qf6 3.Qxb7 Qxb2. The mirror still holds, but now both queens are in the enemy camp.",
+          "4.Qxc8 gives check and breaks the mirror at once — Black's mirrored reply Qxc1 would leave its own king in check. From here on, you're up material.",
+          "Round up its remaining pieces, but let Black lock up its own pawns as they advance. When the king can't find a square to run to, it's stalemate, not mate."],
+   lines:["1.e3 e6  2.Qf3 Qf6  3.Qxb7 Qxb2  4.Qxc8+ Ke7  5.Bxb2 Na6  6.Bxa6 c5  7.c4 d5  8.Be5 d4  9.Qxa8 d3  10.Bxg7 e5  11.Qxf8 Ke6  12.Qxg8 e4  13.Bf6 Kf5  14.Qxh8 Kg4  15.Qxh7 stalemate"],
+   win:"Stalemate. The parrot has no moves left.",
+   why:"<p class='lead'>As long as the mirror holds, material is always even — every piece you take, the parrot takes too. Stalemate, though, means wiping out all of its moves at once, and that takes a material edge. So breaking the mirror is a must.</p>"+
+       "<p>In the line, the queens invade each other's camps symmetrically (3.Qxb7 Qxb2 — the mirror still holds), then 4.Qxc8 gives check and breaks the mirror in one go: Black's mirrored reply would be Qxc1, but that would leave its own king in check. From then on the parrot can't copy you and falls back on its nearest legal move — and you drag its king to whatever square you like.</p>"+
+       "<p>The finishing subtlety is the difference between mate and stalemate. The parrot's pawns advance until they run into yours and lock up, its king gets stuck on g4, and when 15.Qxh7 takes its last mobile piece there's nothing left to play. But the king isn't in check — so it's stalemate, not mate.</p>"+
+       "<p>The 15 moves are what a beam search found; they aren't proven minimal. You might find a shorter line.</p>"}
+ }
+},
+tr:{
+ ui:{
+  title:"Satranç",opponent:"Rakip:",langLabel:"Dil",promo:"Piyon terfi ediyor. Hangi taş?",
+  warmup:"Isınma",mission:n=>"Görev "+n,attempt:n=>n+". deneme",
+  restart:"Baştan",newGame:"Yeni oyun",undo:"Geri al",missions:"Görevler",
+  yourMove:"Sıra sende",thinking:"Papağan düşünüyor",moveLeft:(n,left)=>n+". hamle · "+left+" hakkın kaldı",check:"şah",
+  logEmpty:"Bir taşı sürükleyin ya da dokunun.",tagMirror:"ayna",tagBroken:"kırık",
+  castleLost:"Rok hakkın gitti.",youCaptured:"Taş aldın.",outOfMoves:"Hamlen kalmadı.",gameOver:"Oyun bitti.",
+  parrotCaptured:"Papağan taş aldı.",kingNot4:"Ayna kırıldı ama şahın 4. yatayda değil.",
+  notCastleBreak:"Aynayı rok dışında bir hamle kırdı.",parrotCastled:"Papağan da rok yaptı. Ayna tuttu.",
+  mirrorBroke:"Ayna kırıldı.",
+  lostMate:"Mat oldun.",wonMate:"MAT — kazandın.",stalemate:"Pat. Berabere.",
+  insufficient:"Yetersiz materyal. Berabere.",threefold:"Üç tekrar. Berabere.",fifty:"50 hamle kuralı. Berabere.",
+  restarting:"Baştan.",
+  threeSolutions:x=>"<p>Çözüm üç tane — seninki: <b>"+x+"</b></p>",
+  knownLine:x=>"<p>Bilinen çizgi: <b>"+x+"</b></p>",
+  allDone:"<p class='lead'>Hepsini bitirdin. Papağanla işin kalmadı.</p>",
+  watchAll:"Üçünü de izle",watchSolution:"Çözümü izle",tryOthers:"Başka challenge'lar dene",startOver:"Baştan",
+  warmedUp:"Tamam, ısındın.",warmupDone:"Isınma bitti.",
+  warmupBody:r=>"<p class='lead'>"+r+" Güzel — algoritmayı çözdüğünü varsayıyorum. Papağan her hamleni yatay eksende yansıtıyor.</p>"+
+    "<p>Artık tahtada kesik bir çizgi göreceksin: ayna ekseni o. Hamle listesindeki etiketler de taklidin tuttuğu ve koptuğu yerleri gösteriyor.</p>"+
+    "<p class='lead'>Görevler açıldı. Hepsi aynı papağana karşı, sadece kurallar değişiyor. Sıradan gitmek istersen Görev 1 ile başla.</p>",
+  openMissions:"Görevleri aç",warmupAgain:"Bir el daha ısın",
+  menuIntro:"<p>Papağan aynı papağan, kurallar değişiyor.</p>",challenges:"Challenge'lar",backToWarmup:"Isınmaya dön",close:"Kapat",
+  thatsAll:"Bu kadar.",
+  mateRecap:"<p class='lead'>Üçünün de bitişi aynı: vezir c8. İlk ikisi d4 ile açılıyor, üçüncüsü aynı fikri c-hattına taşıyor.</p>",
+  watchAgain:"Tekrar izle",
+  demoPrefix:(n,mine)=>n+" / 3 · "+(mine?"senin bulduğun":"diğer çözüm")+" · "
+ },
+ missions:{
+  warmup:{name:"Isınma",short:"Serbest oyun",goal:"Siyahı mat et. Süre serbest.",hints:[],lines:[]},
+
+  mate4:{name:"4 hamlede mat",short:"4 hamle",
+   goal:"4. hamlede mat. Fazlası yok.",
+   hints:["Taş geliştirmekle vakit kaybetme. Dört hamlen var, vezirini çıkar.",
+          "Papağan seni yansıtıyor. Aynası kendi taşıyla dolu olan kareyi bul; taklit orada kırılır.",
+          "1.d4. Gerisi sende.",
+          "1.d4 d5 2.Vd3. Hâlâ iki hamlen var, zor olmamalı.",
+          "3.Vh3 veya 3.Vf5. Bundan sonrasını söylersem ayıp olur."],
+   lines:["1.d4 d5  2.Vd3 Vd6  3.Vh3 Vh6  4.Vxc8#",
+          "1.d4 d5  2.Vd3 Vd6  3.Vf5 Vf4  4.Vxc8#",
+          "1.c4 c5  2.Va4 Va5  3.Vc6 Vc3  4.Vxc8#"],
+   win:"Bitti. 7 ply.",
+   why:"<p class='lead'>Papağan her hamleni yatay eksende yansıtıyordu. Tahtadaki kesik çizgi ayna ekseni; listedeki etiketler taklidin tuttuğu yerler.</p>"+
+       "<p>Vezir c8'e indiğinde şahın kaçışı yok: d7 ve d8 vezirde, e7–f7 kendi piyonları, f8 kendi fili, a8 kalesinin önünde b8 atı. Siyah vezir de aynayı takip edip savunmayı terk etmişti.</p>"+
+       "<p>Daha kısası yok — tam arama 7 ply'den önce mat olmadığını kanıtlıyor.</p>"},
+
+  break:{name:"Aynayı kır",short:"3 hamle",
+   timeout:"Üç hamle bitti, taklit hâlâ sürüyor.",
+   goal:"3 hamlede papağanı taklit edemez hale getir.",
+   hints:["Papağan ancak aynadaki hamle yasadışıysa taklidi bırakır.",
+          "Ona şah çek. Aynası kendi şahını açıkta bırakırdı, oynayamaz.",
+          "At üç hamlede c7'ye ulaşıyor."],
+   lines:["1.Ac3 Ac6  2.Ad5 Ad4  3.Axc7+"],
+   win:"Taklit koptu.",
+   why:"<p class='lead'>Şah çekmek aynayı zorunlu olarak kırar: aynadaki hamle siyahın kendi şahını tehditte bırakırdı, yani yasadışı. Papağan mecburen en yakın yasal hamleye düşer.</p>"+
+       "<p>Bunun tersi de doğru: ayna tuttuğu sürece <b>senin</b> şahın asla tehdit altına giremez. Siyah hamlesini yaptıktan sonra pozisyon simetriktir, senin şahın tehditteyse siyahınki de tehditte olurdu — az önce oynamış bir taraf için imkansız.</p>"+
+       "<p>3 hamleden erken kırılma yok. İlk iki hamlede her ayna yasal.</p>"},
+
+  king4:{name:"Şahın hapsi",short:"4 hamle",
+   timeout:"Dört hamle bitti, şahın hâlâ aşağıda.",
+   goal:"Şahını 4. yataya çıkar.",
+   hints:["Şahını ilerlet. Papağan onu da aynalıyor — karşıdan kendi şahı sana doğru geliyor.",
+          "İki şah asla yan yana duramaz. Sen n. yataydaysan o aynı dikeyde 9−n'de. Aradaki mesafeyi hesapla.",
+          "3. yatay son güvenli durak: sen 3'te, o 6'da. Bir adım daha atarsan aynadaki şah tam yanına düşer ve oynayamaz.",
+          "Şahın çıkabilmesi için önce d2, e2 ya da f2 boşalmalı. Sonra üç adım, tam da bu kadar hakkın var.",
+          "1.d3 d6 2.Şd2 Şd7 3.Şe3 Şe6. Şimdi 4. yataya bas."],
+   lines:["1.d3 d6  2.Şd2 Şd7  3.Şe3 Şe6  4.Şd4"],
+   win:"Şah dışarı çıktı.",
+   why:"<p class='lead'>Ayna tuttuğu sürece şu geçerli: sen n. yataydaysan papağanın şahı <b>aynı dikeyde</b> 9−n. yataydadır. İki şah yan yana duramaz, yani |n−(9−n)| ≥ 2 olmak zorunda — bu da n'i 4 ve 5'ten men ediyor.</p>"+
+       "<p>Yani 4. ve 5. yataylar şah için yasak bir bant, üstelik iki yatay kalın. Şah tek adım attığına göre üstünden atlayamaz. Ayna kırılmadığı sürece şahın 1-2-3'e ömür boyu hapis.</p>"+
+       "<p>Buradan çıkan sonuç: <b>4. yataya adım atmak aynayı kırmanın ta kendisi.</b> Başka türlü olamaz. Üç hamle de yetmiyor — şahın e1'den 4. yataya üç adımda çıkıyor ama önce yanındaki bir kareyi açman gerek; d1 ve f1'de taşın, d2/e2/f2'de piyonun var. Tam arama üç hamlelik çözüm olmadığını doğruluyor.</p>"+
+       "<p>Aynı hapis kaleler için de var: kalenin ikizi hep aynı dikeyde tam karşısında durur, ortayı geçmek için attığı her adım ya ikizi alır ya da ikizin dönüş yolunu kapatır. Kale 4. yatayı geçemez. İşte bu yüzden iki ordu Papağan'da asla yer değiştiremez.</p>"},
+
+  castle:{name:"Rokla kır",short:"6 hamle",
+   timeout:"Altı hamle bitti, rok gelmedi.",
+   goal:"Aynayı kıran ilk hamle rok olsun.",
+   hints:["Rokun aynası da roktur. Papağan senin rokunu yansıtabildiği sürece hiçbir şey kırılmaz.",
+          "Rok iki taş oynatır: şah g1'e, kale h1'den f1'e. Şah 8. yatayda hiçbir şeye dokunamaz — ama kale bütün f-hattını görür.",
+          "f8 tehdit altındaysa siyah şah oradan geçemez, yani rok yapamaz. f1'deki kalenin f8'i görmesi için f-hattında tek bir taş bile kalmamalı.",
+          "f2 piyonu düz giderek f-hattından çıkamaz, çapraz almak zorunda. Bir de f1 ile g1 boşalacak — üç iş, beş hamle.",
+          "1.e4 e5 2.f4 f5 3.fxe5 fxe4. f-hattı bomboş. İki hamlen kaldı: f1 ve g1."],
+   lines:["1.e4 e5  2.f4 f5  3.fxe5 fxe4  4.Fe2 Fe7  5.Ah3 Ah6  6.O-O"],
+   win:"Rok aynayı kırdı.",
+   why:"<p class='lead'>Ayna tuttuğu sürece pozisyon simetrik, yani papağanın rok hakkı hep seninkiyle aynı. Öyleyse aynayı rokun <b>kendisi</b> kırmak zorunda: senin rokun, siyahın rokunu yasadışı hale getirmeli.</p>"+
+       "<p>Rok sadece iki taş oynatır. Şah g1'e gider, oradan 8. yataydaki hiçbir kareye dokunamaz. Geriye kale kalıyor: h1'den f1'e inince bütün f-hattını tarar. f-hattı tamamen boşsa f1'deki kale f8'i tehdit eder, siyah şah f8'den geçemez, rok yasadışı olur. Tek mekanizma bu.</p>"+
+       "<p>Gerisi hesap: f2 piyonu f-hattını ancak çapraz alarak terk eder (f4, sonra fxe5), f1 ve g1 boşalmalı. e4 iki işi birden görüyor — hem f4 piyonuna e5'te hedef veriyor hem fili e2'den çıkarıyor.</p>"+
+       "<p>Altı hamle minimum. Beş hamlelik bütün ayna-korur diziler tarandı (281.642 pozisyon), rokla kırılma yok. Altıda tam 178 farklı çözüm var. Uzun rok hiçbirinde işlemiyor: Kd1'in d-hattını görmesi için b1, c1 ve d1'i boşaltman gerekir — bir taş fazla.</p>"+
+       "<p>Bambaşka bir yol: 1.e3 e6 2.Fc4 Fc5 3.Fxe6 Fxe3 4.fxe3 fxe6 5.Ah3 Ah6 6.O-O. Fil takası tek hamlede hem f1'i boşaltıyor hem f-piyonunu e-hattına çekiyor.</p>"},
+
+  ep:{name:"En passant",short:"5 hamle",
+   goal:"5 hamlede geçerken alma yap.",
+   hints:["Geçerken alma için piyonun 5. yatayda olmalı. Düz giderek oraya çıkamazsın, karşındaki piyon yolunu kapatıyor.",
+          "Bir piyon alışverişi yap — papağan aynısını yapar, iki piyon yan hatta karşılıklı ilerler.",
+          "Sonra komşu hattan çift adım at. Papağan aynasını oynar ve piyonu tam senin yanından geçer."],
+   lines:["1.h4 h5  2.g4 g5  3.hxg5 hxg4  4.f4 f5  5.gxf6 e.p."],
+   win:"Geçerken alındı.",
+   why:"<p class='lead'>5. yatayda piyon lazım; oraya ancak bir alışverişle çıkıyorsun. Sonra çift adımı sen tetikliyorsun: f4 oynayınca papağan f5'i oynamak zorunda ve piyon tam senin yanından geçiyor.</p>"+
+       "<p>5 hamleden kısası yok — dört hamlelik bütün varyasyonları taradım, hiçbirinde geçerken alma doğmuyor.</p>"+
+       "<p>Tersi ise sana kapalı: ayna tuttuğu sürece papağan <b>sana</b> geçerken alma yapamaz. Bir sonraki görev tam olarak bunun etrafında dönüyor.</p>"},
+
+  botep:{name:"Papağana aldır",short:"8 hamle",
+   timeout:"Sekiz hamle bitti, papağan geçerken almadı.",
+   goal:"Papağana geçerken alma yaptır.",
+   hints:["Papağan aynayı takip ederken geçerken alma yapamaz: senin e.p. hamlen bayrağı siler, aynadaki hamle hiç doğmaz. Yani önce aynayı kırman şart.",
+          "Ayna kırılınca papağan en yakın yasal hamleye düşer. Bu bir kumanda — taklit edemediği her hamlede onun taşlarını istediğin yöne sürükleyebilirsin.",
+          "Geçerken alma için siyahın piyonu 4. yatayda, senin çift adım atacağın piyonun tam yanında olmalı. Papağan oraya kendiliğinden gitmez; sen götüreceksin.",
+          "Vezirleri takas et, aynayı orada kır. Sonra vezirinle vezir kanadında gezin — papağanın en yakın hamlesi her seferinde b ya da c piyonunu itmek olacak.",
+          "1.d4 d5 2.c3 c6 3.Vb3 Vb6 4.Vxb6. Vezirini a7-a8-b8 hattında yürüt ve siyahın b-piyonunun nereye indiğine bak."],
+   lines:["1.d4 d5  2.c3 c6  3.Vb3 Vb6  4.Vxb6 c5  5.Vxa7 c4  6.Vxa8 b5  7.Vxb8 b4  8.a4 bxa3 e.p."],
+   win:"Papağan geçerken aldı.",
+   why:"<p class='lead'>Ayna tuttuğu sürece papağan geçerken alma yapamaz. Geçerken alma için bir önceki hamlenin çift adım olması gerekir, ama senin e.p. hamlen çift adım değil — tam tersine bayrağı siler. Aynadaki hamle yasadışı bile değil, hiç üretilmiyor.</p>"+
+       "<p>Yani bu görevin cevabı taklitte değil, taklidin <b>kırıldığı yerde</b>: papağanın en yakın yasal hamle kuralında. Oyundaki tek böyle görev bu.</p>"+
+       "<p>Kural şöyle işliyor: çift adım attığında papağanın oynamak istediği şey senin hamlenin aynasıdır; o yasadışıysa bütün yasal hamlelerini tarayıp koordinat farkı en küçük olanı seçer. Geçerken almanın bu farkı <b>her zaman tam 6</b>. İşin, siyahın diğer bütün hamlelerini 6'dan uzağa itmek — pratikte tahtanın vezir kanadını boşaltıp b-piyonunu en yakın şey olarak bırakmak.</p>"+
+       "<p>Gösterilen hatta 4.Vxb6 aynayı kırıyor. Sonrasında vezirin her adımında papağanın en yakın yasal hamlesi bir c ya da b piyonunu itmek oluyor ve piyon adım adım b4'e iniyor — tam a-piyonunun geçeceği karenin yanına. Papağanı oraya sen yürüttün.</p>"+
+       "<p>8'den kısası muhtemelen yok: 6 hamleye kadar tam arama (8.022.961 pozisyon) hiçbir şey bulmuyor, 7 hamleyle sınırlı ~4,9 milyon rastgele oyunda da çıkmıyor. Kanıtlı değil ama sağlam bir bahis. Ne kadar dar bir şey olduğunu görmek için: rastgele oynanan 69 milyon ply'de siyahın önüne 32.901 kez geçerken alma fırsatı çıktı, papağan bunlardan sadece 222'sini oynadı.</p>"},
+
+  clean:{name:"Temiz mat",short:"5 hamle, taş yok",
+   goal:"5 hamlede mat — tek bir taş bile alınmadan.",
+   hints:["Hiçbir taş alınamaz. Mat, şahın kaçacak yeri kalmadığı için gelmeli.",
+          "f7 karesi boşalırsa vezirin oraya iner. f-piyonlarıyla başla.",
+          "1.f4 f5 2.e4 e5 3.Fc4 Fc5. Şimdi şah çek ve papağanın nereye kaçtığına bak."],
+   lines:["1.f4 f5  2.e4 e5  3.Fc4 Fc5  4.Vh5+ Şf8  5.Vf7#"],
+   win:"Temiz iş.",
+   why:"<p class='lead'>f4/f5 f7 karesini boşaltıyor. 4.Vh5+ aynayı kırıyor — papağan Vh4 oynayamaz, kendi şahı açıkta kalır — ve en yakın yasal hamlesi Şf8.</p>"+
+       "<p>Vf7 mat: vezir Fc4'ün koruması altında, şah onu alamıyor; e7, e8, g7, g8 karelerinin hepsi vezirin yanında. Tek bir taş bile el değiştirmedi.</p>"+
+       "<p>Bu da minimum: dört hamlede taş almadan mat yok.</p>"},
+
+  clear:{name:"Tahtayı süpür",short:"Sınırsız · ayna kırılmadan",
+   goal:"Aynayı hiç kırmadan iki şah kalana kadar tahtayı temizle.",
+   hints:["Simetri senin lehine: aldığın her taşı papağan da alıyor, materyal hep eşit. Sadece kendi hamlelerini planla.",
+          "Şah çekme. Şah çekmek aynayı anında kırar ve görev biter.",
+          "Fillerle başla: 1.h3 h6 2.d3 d6 3.Fxh6 — kanat kaleleri bedavaya gidiyor.",
+          "Son taşı şahınla almak zorundasın. Bir taşınla alırsan papağanın aynadaki taşı çoktan tahtada olmaz ve taklit kopar."],
+   lines:["21 hamle · filler, vezir, at, sonunda şah"],
+   win:"Tahta boş.",
+   why:"<p class='lead'>Ayna boyunca senin her alışverişini papağan aynen iade ediyor, o yüzden aslında tek taraf oynuyorsun — 15 taşını sen alıyorsun, o da seninkileri.</p>"+
+       "<p>İki incelik var. Bir: hiç şah çekemezsin, çünkü şah çekmek aynayı zorunlu olarak kırar. İki: <b>son taşı şahınla almak zorundasın</b> — başka bir taşınla alsaydın, papağanın aynadaki taşı o an tahtada olmazdı ve taklit orada kopardı.</p>"+
+       "<p>Gösterilen çizgi 21 hamle; minimum olduğu kanıtlı değil, daha kısasını bulabilirsin.</p>"},
+
+  lose:{name:"Kaybet",short:"Sınırsız",
+   goal:"Papağana kendini mat ettir. Süre serbest.",
+   hints:["Ayna tuttuğu sürece şahın tehdit altına giremez. Önce simetriyi sen kırmak zorundasın.",
+          "Kırdıktan sonra papağan taklidi kaybeder ve sana bir tempo borçlanır. Kendi şahının önündeki taşları dağıt.",
+          "Terfi edersen dikkat: f8'e vezir koyarsan f-hattından inip seni kurtarır. Fil yap."],
+   lines:["13 hamle · sonunda f8'e FİL terfisi"],
+   win:"Mat oldun. Tebrikler?",
+   why:"<p class='lead'>Ayna tuttuğu sürece şahın dokunulmazdı; bu yüzden önce sen kırdın, papağan taklidi bırakıp en yakın hamleleri oynamaya başladı ve arayı kapatamadı.</p>"+
+       "<p>Gösterilen çizgide son incelik terfide: f8'e vezir koyarsan f-hattı boş olduğu için f2'yi alır ve mat olmazsın. Fil oraya inemez — o yüzden fil.</p>"+
+       "<p>Bu 13 hamlelik çizgi ışın aramasının bulduğu; minimumun bu olduğu kanıtlı değil. Daha kısasını bulursan papağandan iyisin.</p>"},
+
+  stale:{name:"Papağanı pat et",short:"15 hamle",
+   goal:"Papağanı pat et. Şahı tehdit altında olmadan hamlesiz kalsın.",
+   hints:["Pat, mat değil. Papağanın şahı tehdit altında olmayacak ama tek bir yasal hamlesi de kalmayacak.",
+          "Ayna tuttuğu sürece materyal hep eşit — simetri bunu garanti ediyor. Onu hamlesiz bırakmak için önce aynayı kırıp taş kazanman lazım.",
+          "Vezirleri karşılıklı b-piyonlarına gönder: 2.Vf3 Vf6 3.Vxb7 Vxb2. Ayna hâlâ tutuyor ama artık iki vezir de karşı kampta.",
+          "4.Vxc8 hem şah çekiyor hem aynayı kırıyor — siyahın aynadaki Vxc1 cevabı kendi şahını tehditte bırakırdı. Bundan sonra taş üstünsün.",
+          "Kalan taşlarını topla ama siyahın piyonlarını kendi ilerleyişiyle kilitlemesine izin ver. Şah kaçacak kare bulamayınca mat değil pat gelir."],
+   lines:["1.e3 e6  2.Vf3 Vf6  3.Vxb7 Vxb2  4.Vxc8+ Şe7  5.Fxb2 Aa6  6.Fxa6 c5  7.c4 d5  8.Fe5 d4  9.Vxa8 d3  10.Fxg7 e5  11.Vxf8 Şe6  12.Vxg8 e4  13.Ff6 Şf5  14.Vxh8 Şg4  15.Vxh7 pat"],
+   win:"Pat. Papağanın oynayacak hamlesi kalmadı.",
+   why:"<p class='lead'>Ayna tuttuğu sürece materyal hep eşit — aldığın her taşı papağan da alıyor. Pat için ise onun bütün hamlelerini birden silmen gerek, bu da taş üstünlüğü ister. Yani aynayı kırmak zorunlu.</p>"+
+       "<p>Çizgide vezirler simetrik olarak birbirinin kampına giriyor (3.Vxb7 Vxb2 — ayna hâlâ tutuyor), sonra 4.Vxc8 hem şah çekiyor hem aynayı kırıyor: siyahın aynadaki cevabı Vxc1 olurdu ama bu kendi şahını tehditte bırakır. O andan sonra papağan taklit edemiyor, en yakın yasal hamleye düşüyor — ve sen onun şahını istediğin kareye sürüklüyorsun.</p>"+
+       "<p>Bitiş inceliği mat ile pat arasındaki farkta. Papağanın piyonları kendi ilerleyişiyle senin piyonlarına dayanıp kilitleniyor, şahı g4'te sıkışıyor, ve 15.Vxh7 son hareketli taşı da alınca oynanacak hiçbir şey kalmıyor. Ama şah tehdit altında değil — o yüzden mat değil, pat.</p>"+
+       "<p>15 hamle ışın aramasının bulduğu; minimum olduğu kanıtlı değil. Daha kısasını bulabilirsin.</p>"}
+ }
+}
+};
+let lang="en";
+const t=(k,...a)=>{const v=TEXT[lang].ui[k];return typeof v==="function"?v(...a):v;};
+const MT=m=>TEXT[lang].missions[(m||M()).id];
+const badge=i=>i?t("mission",i):t("warmup");
+const say=k=>k==="timeout"?(MT().timeout||t("outOfMoves")):t(k);
+
+/* ===================== DURUM ===================== */
+const boardEl=document.getElementById("board"),statusEl=document.getElementById("status"),
+      logEl=document.getElementById("log"),promoEl=document.getElementById("promo"),
+      ghostEl=document.getElementById("ghost"),modalEl=document.getElementById("modal"),
+      frameEl=document.getElementById("frame"),axisEl=document.getElementById("axis"),
+      goalEl=document.getElementById("goal"),roundEl=document.getElementById("round"),
+      pipsEl=document.getElementById("pips"),hintEl=document.getElementById("hint"),
+      controlsEl=document.getElementById("controls"),langEl=document.getElementById("lang");
+
+let st,sel=null,legal=[],last=null,hist=[],moves=[],over=null,busy=false;
+let pending=null,drag=null,hoverCell=null,rep={},cells=[];
+let mi=0,attempts={},completed={},unlocked=false,revealed=false,locked=false,flash="";
+let whiteKeys=[],caps=0,foundIdx=0,demo=false,demoQueue=[],demoPos=0,demoMission=0,demoCap=null,modalBuild=null;
+const M=()=>MISSIONS[mi];
+const tries=()=>attempts[M().id]||0;
+
+function newGame(){
+  st=initState();sel=null;legal=[];last=null;hist=[];moves=[];over=null;busy=false;
+  pending=null;drag=null;hoverCell=null;rep={};flash="";locked=false;whiteKeys=[];caps=0;
+  rep[posKey(st)]=1;promoEl.classList.remove("on");ghostEl.style.display="none";
+  renderChrome();render();
+}
+function startMission(i){mi=i;if(attempts[M().id]===undefined)attempts[M().id]=0;newGame();}
+
+function renderChrome(){
+  const m=M(),tx=MT(m);
+  roundEl.textContent=badge(mi)+(m.limit?" · "+t("attempt",tries()+1):"");
+  goalEl.textContent=tx.goal;
+  axisEl.classList.toggle("on",revealed);
+  pipsEl.innerHTML="";
+  for(let i=0;i<m.limit;i++){const d=document.createElement("div");d.className="pip"+(moves.length>i?" done":"");pipsEl.appendChild(d);}
+  hintEl.textContent=(demo&&demoCap)?demoCaption():(tries()>0&&tx.hints.length)?tx.hints[Math.min(tries(),tx.hints.length)-1]:"";
+  controlsEl.innerHTML="";
+  const mk=(l,fn,dis)=>{const b=document.createElement("button");b.textContent=l;b.disabled=!!dis;b.onclick=fn;controlsEl.appendChild(b);};
+  if(m.limit){mk(t("restart"),newGame,busy||demo);}
+  else{mk(t("newGame"),newGame,busy||demo);mk(t("undo"),undo,busy||demo||!hist.length);}
+  if(unlocked)mk(t("missions"),openMenu,busy||demo);
+}
+function sizeBoard(){const w=boardEl.clientWidth;if(w)boardEl.style.fontSize=(w/8*0.74)+"px";}
+function render(){
+  boardEl.innerHTML="";cells=[];
+  const chk=!over&&inCheck(st,st.turn)?findKing(st,st.turn):null;
+  for(let r=0;r<8;r++){cells.push([]);
+    for(let c=0;c<8;c++){
+      const d=document.createElement("div");
+      d.className="sq "+((r+c)%2?"dark":"light");
+      if(last&&((last.from[0]===r&&last.from[1]===c)||(last.to[0]===r&&last.to[1]===c)))d.classList.add("last");
+      if(chk&&chk[0]===r&&chk[1]===c)d.classList.add("check");
+      if(sel&&sel[0]===r&&sel[1]===c)d.classList.add("sel");
+      const t=legal.find(m=>m.to[0]===r&&m.to[1]===c);
+      if(t){const dot=document.createElement("div");dot.className="dot"+(st.b[r][c]||t.ep?" cap":"");d.appendChild(dot);}
+      const p=st.b[r][c];
+      if(p){const s=document.createElement("span");s.className="pc "+p[0];s.textContent=GLYPH[p];d.appendChild(s);}
+      cells[r].push(d);boardEl.appendChild(d);}}
+  sizeBoard();drawStatus();drawLog();
+}
+function drawStatus(){
+  statusEl.className="status";
+  if(flash){statusEl.className="status "+(flash[0]==="+"?"good":"bad");
+    statusEl.innerHTML="<b>"+say(flash.slice(1))+(flash[0]==="-"?" "+t("restarting"):"")+"</b>";return;}
+  if(over){statusEl.innerHTML="<b>"+t(over)+"</b>";return;}
+  let s=st.turn==="w"?t("yourMove"):t("thinking");
+  if(M().limit&&st.turn==="w")s=t("moveLeft",moves.length+1,M().limit-moves.length);
+  if(inCheck(st,st.turn))s+=" · "+t("check");
+  statusEl.innerHTML="<b>"+s+"</b>";
+}
+function drawLog(){
+  if(!moves.length){logEl.innerHTML='<div class="empty">'+t("logEmpty")+'</div>';return;}
+  logEl.innerHTML=moves.map((m,i)=>'<div class="row"><span class="n">'+(i+1)+'.</span><span class="w">'+m.white+
+    '</span><span class="bm">'+(m.black||"")+'</span>'+
+    (revealed&&m.black?'<span class="mark'+(m.mirrored?"":" broke")+'">'+(m.mirrored?t("tagMirror"):t("tagBroken"))+'</span>':'')+'</div>').join("");
+  logEl.scrollTop=logEl.scrollHeight;
+}
+/* ===================== GİRDİ ===================== */
+function sqFromPoint(x,y){const r0=boardEl.getBoundingClientRect();
+  const c=Math.floor((x-r0.left)/r0.width*8),r=Math.floor((y-r0.top)/r0.height*8);
+  return inside(r,c)?[r,c]:null;}
+function setHover(sq){const el=sq&&legal.some(m=>m.to[0]===sq[0]&&m.to[1]===sq[1])?cells[sq[0]][sq[1]]:null;
+  if(hoverCell===el)return;if(hoverCell)hoverCell.classList.remove("hover");hoverCell=el;if(hoverCell)hoverCell.classList.add("hover");}
+function showGhost(p,x,y){const s=boardEl.clientWidth/8;ghostEl.textContent=GLYPH[p];ghostEl.style.display="flex";
+  ghostEl.style.width=s+"px";ghostEl.style.height=s+"px";ghostEl.style.fontSize=(s*0.86)+"px";
+  ghostEl.className=p[0]==="w"?"w":"b";moveGhost(x,y);}
+function moveGhost(x,y){const s=boardEl.clientWidth/8;ghostEl.style.left=(x-s/2)+"px";ghostEl.style.top=(y-s/2)+"px";}
+function selectAt(r,c){sel=[r,c];legal=genLegal(st).filter(m=>m.from[0]===r&&m.from[1]===c);}
+function clearSel(){sel=null;legal=[];}
+function tryMoveTo(r,c){const opts=legal.filter(m=>m.to[0]===r&&m.to[1]===c);
+  if(!opts.length)return false;
+  if(opts[0].promo){pending=opts;promoEl.classList.add("on");return true;}
+  playWhite(opts[0]);return true;}
+boardEl.addEventListener("pointerdown",e=>{
+  if(over||busy||locked||st.turn!=="w"||pending)return;
+  const sq=sqFromPoint(e.clientX,e.clientY);if(!sq)return;
+  const r=sq[0],c=sq[1],p=st.b[r][c];
+  if(sel&&!(sel[0]===r&&sel[1]===c)&&legal.some(m=>m.to[0]===r&&m.to[1]===c)){e.preventDefault();tryMoveTo(r,c);return;}
+  if(!p||p[0]!=="w"){clearSel();render();return;}
+  e.preventDefault();try{boardEl.setPointerCapture(e.pointerId);}catch(_){}
+  selectAt(r,c);render();drag={r:r,c:c,piece:p,x:e.clientX,y:e.clientY,moving:false};});
+boardEl.addEventListener("pointermove",e=>{
+  if(!drag)return;
+  const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+  if(!drag.moving){if(Math.abs(dx)<6&&Math.abs(dy)<6)return;
+    drag.moving=true;cells[drag.r][drag.c].classList.add("dragging");showGhost(drag.piece,e.clientX,e.clientY);}
+  moveGhost(e.clientX,e.clientY);setHover(sqFromPoint(e.clientX,e.clientY));});
+function endDrag(e,cancelled){
+  if(!drag)return;const d=drag;drag=null;ghostEl.style.display="none";setHover(null);
+  if(cells[d.r]&&cells[d.r][d.c])cells[d.r][d.c].classList.remove("dragging");
+  if(!d.moving)return;
+  if(cancelled){render();return;}
+  const sq=sqFromPoint(e.clientX,e.clientY);
+  if(!sq||(sq[0]===d.r&&sq[1]===d.c)||!tryMoveTo(sq[0],sq[1]))render();}
+boardEl.addEventListener("pointerup",e=>endDrag(e,false));
+boardEl.addEventListener("pointercancel",e=>endDrag(e,true));
+promoEl.querySelectorAll("button").forEach(btn=>{btn.addEventListener("click",()=>{
+  if(!pending)return;const m=pending.find(o=>o.promo===btn.dataset.p);
+  promoEl.classList.remove("on");pending=null;if(m)playWhite(m);else render();});});
+
+/* ===================== AKIŞ ===================== */
+function playWhite(m){
+  const mm=M(),wasCap=isCapture(st,m),wasEp=!!m.ep,
+        wasCastle=st.b[m.from[0]][m.from[1]][1]==="k"&&Math.abs(m.to[1]-m.from[1])===2;
+  hist.push({st:clone(st),moves:clone(moves),last:last?clone(last):null,rep:clone(rep),caps:caps,wk:whiteKeys.slice()});
+  moves.push({white:notate(st,m),black:null,mirrored:null});whiteKeys.push(key(m));
+  if(wasCap)caps++;
+  st=makeMove(st,m);last={from:m.from,to:m.to};clearSel();flash="";bump();
+  render();renderChrome();
+  if(demo){
+    if(!genLegal(st).length){demoPos++;setTimeout(runVariant,1900);return;}
+    busy=true;setTimeout(()=>replyBlack(m),380);return;}
+  const mated=!genLegal(st).length&&inCheck(st,"b");
+  if(mm.kind==="castle"&&!wasCastle&&!st.cr.wK&&!st.cr.wQ)return fail("castleLost");
+  if(mm.kind==="clean"&&wasCap)return fail("youCaptured");
+  if(mm.kind==="ep"&&wasEp)return win();
+  if(mm.kind==="clear"&&bareKings(st))return win();
+  if((mm.kind==="mate"||mm.kind==="clean")&&mated)return win();
+  if(mm.kind==="stale"&&!genLegal(st).length&&!inCheck(st,"b"))return win();
+  const end=endReason();
+  if(end)return settle(end);
+  if(mm.after==="white"&&mm.limit&&moves.length>=mm.limit)return fail("outOfMoves");
+  busy=true;renderChrome();setTimeout(()=>replyBlack(m),320);
+}
+function replyBlack(wm){
+  const mm=M(),res=botMove(st,wm);busy=false;
+  if(!res)return settle(endReason()||"gameOver");
+  const e=moves[moves.length-1],wasCap=isCapture(st,res.move);
+  e.black=notate(st,res.move);e.mirrored=res.mirrored;
+  if(wasCap)caps++;
+  st=makeMove(st,res.move);last={from:res.move.from,to:res.move.to};bump();
+  render();renderChrome();
+  if(demo){
+    if(!genLegal(st).length){demoPos++;setTimeout(runVariant,1900);return;}
+    setTimeout(demoNext,700);return;}
+  if(mm.kind==="clean"&&wasCap)return fail("parrotCaptured");
+  if(mm.kind==="break"&&!res.mirrored)return win();
+  if(mm.kind==="botep"&&res.move.ep)return win();
+  if(mm.kind==="king4"&&!res.mirrored)
+    return findKing(st,"w")[0]===4?win():fail("kingNot4");
+  if(mm.kind==="castle"){
+    const wasRok=e.white.indexOf("O-O")===0;
+    if(!res.mirrored)return wasRok?win():fail("notCastleBreak");
+    if(wasRok)return fail("parrotCastled");}
+  if(mm.kind==="clear"){
+    if(!res.mirrored)return fail("mirrorBroke");
+    if(bareKings(st))return win();}
+  const end=endReason();
+  if(end)return settle(end);
+  if(mm.after==="black"&&mm.limit&&moves.length>=mm.limit)return fail("timeout");
+}
+function bump(){const k=posKey(st);rep[k]=(rep[k]||0)+1;}
+/* bitiş nedenleri metin değil anahtar döner; metin ekrana basılırken seçili dilde üretilir */
+function endReason(){
+  if(!genLegal(st).length){
+    if(inCheck(st,st.turn))return st.turn==="w"?"lostMate":"wonMate";
+    return "stalemate";}
+  if(M().kind!=="clear"&&insufficient(st))return "insufficient";
+  if(rep[posKey(st)]>=3)return "threefold";
+  if(st.half>=100)return "fifty";
+  return null;
+}
+function settle(reason){
+  over=reason;busy=false;render();renderChrome();
+  const mm=M();
+  if(mm.kind==="free")return setTimeout(()=>warmupOver(reason),600);
+  if(mm.kind==="lose")return setTimeout(()=>{reason==="lostMate"?win():fail(reason);},600);
+  if((mm.kind==="mate"||mm.kind==="clean")&&reason==="wonMate")return setTimeout(win,500);
+  setTimeout(()=>fail(reason),600);
+}
+function fail(msg){
+  attempts[M().id]=tries()+1;busy=false;flash="-"+msg;drawStatus();
+  frameEl.classList.add("flash");
+  setTimeout(()=>{frameEl.classList.remove("flash");newGame();},1500);
+}
+function win(){
+  const mm=M();completed[mm.id]=true;busy=false;
+  if(mm.kind==="mate"){revealed=true;unlocked=true;
+    foundIdx=mm.lines.findIndex(L=>L.mv.every((k,i)=>whiteKeys[i]===k));if(foundIdx<0)foundIdx=0;}
+  render();renderChrome();
+  const all=MISSIONS.every(x=>x.kind==="free"||completed[x.id]);
+  setTimeout(()=>showModal(()=>{
+    const tx=MT(mm);
+    const extra=mm.kind==="mate"?t("threeSolutions",tx.lines[foundIdx]):
+      (mm.lines.length?t("knownLine",tx.lines[0]):"");
+    const opts=[];
+    if(mm.lines.length)opts.push([mm.kind==="mate"?t("watchAll"):t("watchSolution"),()=>playVariants(mi)]);
+    if(unlocked)opts.push([t("tryOthers"),openMenu]);
+    opts.push([t("startOver"),()=>{hideModal();startMission(0);}]);
+    return [tx.win,tx.why+extra+(all?t("allDone"):""),opts];
+  }),400);
+}
+function warmupOver(reason){
+  unlocked=true;revealed=true;
+  showModal(()=>[reason==="wonMate"?t("warmedUp"):t("warmupDone"),t("warmupBody",t(reason)),
+    [[t("openMissions"),openMenu],[t("warmupAgain"),()=>{hideModal();newGame();}]]]);
+}
+function openMenu(){
+  showModal(()=>{
+    let html=t("menuIntro")+"<div class='mlist'>";
+    MISSIONS.forEach((m,i)=>{if(i===0)return;const tx=MT(m);
+      html+="<button data-i='"+i+"'>"+(completed[m.id]?"✓ ":"")+tx.name+"<span>"+tx.short+" · "+tx.goal+"</span></button>";});
+    html+="</div>";
+    return [t("challenges"),html,[[t("backToWarmup"),()=>{hideModal();startMission(0);}],[t("close"),hideModal]],
+      ()=>modalEl.querySelectorAll(".mlist button").forEach(b=>b.onclick=()=>{hideModal();startMission(+b.dataset.i);})];
+  });
+}
+/* --- çözüm oynatma --- */
+function playVariants(idx){
+  hideModal();demo=true;demoMission=idx;
+  if(MISSIONS[idx].kind==="mate"){revealed=true;demoQueue=[foundIdx].concat([0,1,2].filter(i=>i!==foundIdx));}
+  else demoQueue=[0];
+  demoPos=0;runVariant();
+}
+let demoStep=0,demoLine=null;
+function demoCaption(){
+  const mm=MISSIONS[demoMission],pos=demoCap[0],li=demoCap[1];
+  return (mm.kind==="mate"?t("demoPrefix",pos+1,li===foundIdx):"")+MT(mm).lines[li];
+}
+function runVariant(){
+  const mm=MISSIONS[demoMission];
+  if(demoPos>=demoQueue.length){
+    demo=false;demoCap=null;locked=false;busy=false;hintEl.textContent="";renderChrome();
+    showModal(()=>[t("thatsAll"),mm.kind==="mate"?t("mateRecap"):"<p class='lead'>"+MT(mm).lines[0]+"</p>",
+      [[t("watchAgain"),()=>playVariants(demoMission)],
+       [t("challenges"),openMenu],
+       [t("startOver"),()=>{hideModal();startMission(0);}]]]);
+    return;}
+  const li=demoQueue[demoPos];demoCap=[demoPos,li];
+  const keep=attempts[mm.id];mi=demoMission;newGame();attempts[mm.id]=keep;
+  locked=true;busy=true;demo=true;renderChrome();
+  demoLine=mm.lines[li].mv;demoStep=0;
+  setTimeout(demoNext,600);
+}
+function demoNext(){
+  if(demoStep>=demoLine.length){demoPos++;setTimeout(runVariant,1800);return;}
+  const want=demoLine[demoStep++];
+  const m=genLegal(st).find(x=>key(x)===want);
+  if(!m){demoPos++;setTimeout(runVariant,600);return;}
+  locked=false;playWhite(m);locked=true;
+}
+/* --- modal --- */
+/* modal içeriği bir fonksiyondan üretilir; dil değişince açık modal yeniden çizilir */
+function showModal(build){modalBuild=build;drawModal();modalEl.classList.add("on");}
+function drawModal(){
+  const [title,html,opts,after]=modalBuild();
+  document.getElementById("mTitle").textContent=title;
+  document.getElementById("mBody").innerHTML=html;
+  const o=document.getElementById("mOpts");o.innerHTML="";
+  opts.forEach(([l,fn])=>{const b=document.createElement("button");b.textContent=l;b.onclick=fn;o.appendChild(b);});
+  if(after)after();
+}
+function hideModal(){modalEl.classList.remove("on");modalBuild=null;}
+function undo(){
+  if(busy||demo||!hist.length||M().limit)return;
+  const h=hist.pop();
+  st=h.st;moves=h.moves;last=h.last;rep=h.rep;caps=h.caps;whiteKeys=h.wk;over=null;flash="";clearSel();
+  render();renderChrome();
+}
+/* --- dil seçimi --- */
+function applyLang(){
+  document.documentElement.lang=lang;
+  document.title=t("title");
+  document.getElementById("opp").textContent=t("opponent");
+  document.getElementById("promoLead").textContent=t("promo");
+  langEl.setAttribute("aria-label",t("langLabel"));
+  langEl.value=lang;
+}
+langEl.addEventListener("change",()=>{
+  lang=TEXT[langEl.value]?langEl.value:"en";
+  applyLang();render();renderChrome();if(modalBuild)drawModal();
+});
+window.addEventListener("resize",sizeBoard);
+applyLang();
+startMission(0);
+</script>
+</body>
+</html>
