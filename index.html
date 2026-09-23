@@ -96,6 +96,12 @@ if (FLOLD[location.hash.slice(1)]) {
   --acc:     light-dark(#c99111,  #e3ad35);
   --acc-tx:  light-dark(#7e5a05,  #e8b641);
   --on-acc:  #1a1512;
+  /* LUX_inProgress: sari boya ve parilti. Acik temada sari kagitta
+     kaybolmasin diye koyu altin; koyu temada dogrudan sari. */
+  --lux-a:    light-dark(#c99111,  #f5c518);
+  --lux-b:    light-dark(#8f6a06,  #e0a21c);
+  --lux-hi:   light-dark(#ffd23f,  #fff8d6);
+  --lux-glow: light-dark(rgba(201,145,17,.40), rgba(255,210,70,.60));
   /* Kagit zaten sariya calistigi icin acik temadaki altin yikamalar
      beyaz zemindeki degerlerde kayboluyordu: alfalar yukari alindi. */
   --acc-wash:  light-dark(rgba(201,145,17,.11), rgba(227,173,53,.10));
@@ -206,6 +212,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --pc-p:#0f6b70; --pk:#3a2214; --pk-glow:rgba(204,170,120,.55); --pk-acc:#3a2214;
     --lg-grid:#cc9911; --lg-knight:#fffdf6; --lg-rook:#93cfe0;
     --lg-bishop:#e0a3da; --lg-start:#0f1626; --lg-king:#8f1d13; --lg-pawn:#1a3970; --lg-chip:#fffdf6;
+    --lux-a:#c99111; --lux-b:#8f6a06; --lux-hi:#ffd23f; --lux-glow:rgba(201,145,17,.40);
   }
   @media (prefers-color-scheme:dark) {
     :root:not([data-theme="light"]) {
@@ -224,7 +231,8 @@ if (FLOLD[location.hash.slice(1)]) {
       --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
       --pc-p:#5fc3ca; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
       --lg-grid:#a8916b; --lg-knight:#1c1714; --lg-rook:#7ab6c9;
-      --lg-bishop:#c895c4; --lg-start:#ece3d8; --lg-king:#5c1a10; --lg-pawn:#1a3970; --lg-chip:#d7ccbd;
+      --lg-bishop:#c895c4; --lg-start:#ece3d8; --lg-king:#5c1a10; --lg-pawn:#1a3970; --lg-chip:#d7ccbd; --lux-a:#f5c518;
+    --lux-b:#e0a21c; --lux-hi:#fff8d6; --lux-glow:rgba(255,210,70,.60);
     }
   }
   :root[data-theme="dark"] {
@@ -244,7 +252,8 @@ if (FLOLD[location.hash.slice(1)]) {
     --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
     --pc-p:#5fc3ca; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
     --lg-grid:#a8916b; --lg-knight:#1c1714; --lg-rook:#7ab6c9;
-    --lg-bishop:#c895c4; --lg-start:#ece3d8; --lg-king:#5c1a10; --lg-pawn:#1a3970; --lg-chip:#d7ccbd;
+    --lg-bishop:#c895c4; --lg-start:#ece3d8; --lg-king:#5c1a10; --lg-pawn:#1a3970; --lg-chip:#d7ccbd; --lux-a:#f5c518;
+    --lux-b:#e0a21c; --lux-hi:#fff8d6; --lux-glow:rgba(255,210,70,.60);
   }
 }
 
@@ -720,6 +729,37 @@ fieldset.levels { gap:0 }
 /* paketli calisan surumler */
 .rd.pk input { accent-color:var(--pk-acc) }
 .rd.pk code { color:var(--pk); text-shadow:0 0 1px var(--pk-glow), 0 0 2px var(--pk-glow), 0 0 3px var(--pk-glow) }
+/* LUX_inProgress: sari boya, uzerinden kayan bir isik bandi ve goz kirpan bir
+   yildiz. Harfler gradyanla boyanir (background-clip:text); gradyanin iki ucu
+   ayni renkte bittigi icin dongu basa sararken sicrama gorunmez. Golge
+   text-shadow degil drop-shadow: saydam harfin altindaki golge harfin icinden
+   gorunup rengi bulandirir. background-clip:text yoksa duz altin kalir. */
+code.lux { color:var(--lux-b); text-shadow:none; font-weight:600; white-space:nowrap }
+@supports ((-webkit-background-clip:text) or (background-clip:text)) {
+  code.lux {
+    background:linear-gradient(100deg, var(--lux-a) 0%, var(--lux-b) 20%, var(--lux-a) 40%,
+               var(--lux-hi) 50%, var(--lux-a) 60%, var(--lux-b) 80%, var(--lux-a) 100%);
+    background-size:250% 100%; background-position:100% 0;
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:transparent;
+    filter:drop-shadow(0 0 1px var(--lux-glow));
+    animation:lux-sheen 3.6s ease-in-out infinite, lux-glow 3.6s ease-in-out infinite;
+  }
+}
+code.lux::after { content:"\2726"; content:"\2726" / ""; display:inline-block; margin-left:.25em;
+  font-size:.95em; line-height:1; vertical-align:.3em; color:var(--lux-a); -webkit-text-fill-color:var(--lux-a);
+  text-shadow:0 0 4px var(--lux-glow); animation:lux-twinkle 3.6s ease-in-out infinite }
+@keyframes lux-sheen { 0% { background-position:100% 0 } 55%, 100% { background-position:0 0 } }
+@keyframes lux-glow {
+  0%, 100% { filter:drop-shadow(0 0 1px var(--lux-glow)) }
+  30%      { filter:drop-shadow(0 0 5px var(--lux-glow)) } }
+@keyframes lux-twinkle {
+  0%, 45%, 100% { opacity:.7; transform:scale(.85) rotate(0deg) }
+  58%           { opacity:1;  transform:scale(1.25) rotate(30deg) }
+  72%           { opacity:.85; transform:scale(1)   rotate(12deg) } }
+@media (prefers-reduced-motion:reduce) { code.lux, code.lux::after { animation:none } }
+/* special tablosunda LUX, Toledo grubunun altina dustu: ayirici cizgiyle ayrilsin. */
+tbody tr.luxrow > td { border-top:2px solid var(--rule) }
 .pacts { display:flex; flex-wrap:wrap; gap:.5rem; margin-left:auto }
 button { font:500 .8125rem/1 var(--mono); padding:.55rem .8rem; background:var(--paper);
   color:var(--ink); border:1px solid var(--ink); cursor:pointer; letter-spacing:.02em }
@@ -1310,18 +1350,18 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <label class="rd str" data-lv="L3" title="Tahta harf dizgisi olarak tutuluyor" data-en-title="The board is held as a string of letters"><input type="radio" name="build" value="L3_prompt_string"> <code>prompt_string</code></label>
 <label class="rd pk" data-lv="special" hidden title="L3, RegPack ile paketli — tıklanabilir tahta, canlı saat" data-en-title="L3 packed with RegPack — clickable board, live clock"><input type="radio" name="build" value="L3_packed"> <code>L3_packed</code></label>
 <label class="rd pk" data-lv="special" hidden title="L3_numerical, RegPack ile paketli — oynanabilir en küçük L3" data-en-title="L3_numerical packed with RegPack — the smallest playable L3"><input type="radio" name="build" value="L3_numerical_packed"> <code>L3_numerical_packed</code></label>
-<label class="rd" data-lv="special" hidden title="Tıklanabilir tahta, kurallar Chess.com'un uyguladığı gibi" data-en-title="Clickable board, with the rules as Chess.com applies them"><input type="radio" name="build" value="Chesscom-equivalent"> <code>Chesscom-equivalent</code></label>
-<label class="rd pk" data-lv="special" hidden title="Chess.com kuralları, sayısal arayüz, prompt penceresi" data-en-title="Chess.com rules, numeric interface, prompt dialog"><input type="radio" name="build" value="Chesscom-equivalent_numerical"> <code>Chesscom-equivalent_numerical</code></label>
 <label class="rd" data-lv="special" hidden title="Tıklanabilir tahta, kurallar Lichess'in uyguladığı gibi" data-en-title="Clickable board, with the rules as Lichess applies them"><input type="radio" name="build" value="Lichess-equivalent"> <code>Lichess-equivalent</code></label>
 <label class="rd pk" data-lv="special" hidden title="Lichess kuralları, sayısal arayüz, prompt penceresi" data-en-title="Lichess rules, numeric interface, prompt dialog"><input type="radio" name="build" value="Lichess-equivalent_numerical"> <code>Lichess-equivalent_numerical</code></label>
+<label class="rd" data-lv="special" hidden title="Tıklanabilir tahta, kurallar Chess.com'un uyguladığı gibi" data-en-title="Clickable board, with the rules as Chess.com applies them"><input type="radio" name="build" value="Chesscom-equivalent"> <code>Chesscom-equivalent</code></label>
+<label class="rd pk" data-lv="special" hidden title="Chess.com kuralları, sayısal arayüz, prompt penceresi" data-en-title="Chess.com rules, numeric interface, prompt dialog"><input type="radio" name="build" value="Chesscom-equivalent_numerical"> <code>Chesscom-equivalent_numerical</code></label>
 <label class="rd" data-lv="special" hidden title="L2, kilitli pozisyon dedektörü olmadan" data-en-title="L2 without the blocked-position detector"><input type="radio" name="build" value="L2_noBlockedDetector"> <code>L2_noBlockedDetector</code></label>
 <label class="rd str" data-lv="special" hidden title="Aynısı, harf dizgisi tahta ve ters indeksle" data-en-title="The same on a string board with flipped index order"><input type="radio" name="build" value="L2_string_flip_noBlockedDetector"> <code>L2_string_flip_noBlockedDetector</code></label>
 <label class="rd pk" data-lv="special" hidden title="1.023 baytlık tıklanabilir tahta — yalnızca legallik" data-en-title="A clickable board in 1,023 bytes — legality only"><input type="radio" name="build" value="DOM_1023"> <code>DOM_1023</code></label>
 <label class="rd pk" data-lv="special" hidden title="830 bayt; taşlar onaltılık rakamlarla, terfi metin alanından" data-en-title="830 bytes; pieces shown as hexadecimal digits, promotion typed into a text field"><input type="radio" name="build" value="DOM_minimum"> <code>DOM_minimum</code></label>
 <label class="rd pk" data-lv="special" hidden title="766 bayt; hamle sayıyla girilir, tahta yok, oyun hiç bitmez — yalnızca legallik, paketli" data-en-title="766 bytes; moves typed as numbers, no board, the game never ends — legality only, packed"><input type="radio" name="build" value="Lowest"> <code>Lowest</code></label>
-<label class="rd" data-lv="special" hidden title="Tam hakem, zengin arayüz — sürükle bırak, sağ tıkla işaretleme, başlarken süre, saat modu ve FEN seçimi — yapım aşamasında" data-en-title="Full arbiter with a rich interface — drag and drop, right-click marking, time control, clock mode and FEN picked at the start — in progress"><input type="radio" name="build" value="LUX_inProgress"> <code>LUX_inProgress</code></label>
 <label class="rd bot" data-lv="special" hidden title="Oscar Toledo G.'nin satrancı, ES6 ile küçülttüğüm hâli — bota karşı" data-en-title="Oscar Toledo G.'s chess, shrunk further in ES6 by me — against its bot"><input type="radio" name="build" value="Toledos-ES6-optimized"> <code>Toledos-ES6-optimized</code></label>
 <label class="rd bot" data-lv="special" hidden title="Toledo'nun programına rakip olarak yazdığım bot, bu motorun üstünde" data-en-title="The bot I wrote as an opponent for Toledo's program, on this engine"><input type="radio" name="build" value="ToledosOpponentbyMe"> <code>ToledosOpponentbyMe</code></label>
+<label class="rd" data-lv="special" hidden title="Tam hakem, zengin arayüz — sürükle bırak, sağ tıkla işaretleme, başlarken süre, saat modu ve FEN seçimi — yapım aşamasında" data-en-title="Full arbiter with a rich interface — drag and drop, right-click marking, time control, clock mode and FEN picked at the start — in progress"><input type="radio" name="build" value="LUX_inProgress"> <code class="lux">LUX_inProgress</code></label>
         </fieldset>
       </div>
       <div class="stage" id="stage">
@@ -6085,17 +6125,17 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tbody>
 <tr><td><code>L3_packed</code><br><span class="fn2">special/L3_packed.html</span></td><td><code>L3</code>, RegPack ile paketli: tıklanabilir tahta, canlı saat.</td><td>Tıklama</td><td>2.702</td></tr>
 <tr><td><code>L3_numerical_packed</code><br><span class="fn2">special/L3_numerical_packed.html</span></td><td><code>L3_numerical</code>, RegPack ile paketli: oynanabilir en küçük <code>L3</code>, iddianın alt eşiği.</td><td>Sayısal, prompt penceresi</td><td>1.792</td></tr>
-<tr><td><code>Chesscom-equivalent</code><br><span class="fn2">special/Chesscom-equivalent.html</span></td><td>Kurallar Chess.com'un uyguladığı gibi: 3'lü tekrar ve 50 hamle oyunu kendiliğinden bitiriyor, süre bitiminde yalnızca taş sayılıyor, tekrarda geçerken alma pseudo-legal ölçülüyor.</td><td>Tıklama</td><td>2.878</td></tr>
-<tr><td><code>Chesscom-equivalent_numerical</code><br><span class="fn2">special/Chesscom-equivalent_numerical.html</span></td><td>Aynı kurallar, sayısal arayüzle; paketli.</td><td>Sayısal, prompt penceresi</td><td>1.175</td></tr>
 <tr><td><code>Lichess-equivalent</code><br><span class="fn2">special/Lichess-equivalent.html</span></td><td>Kurallar Lichess'in uyguladığı gibi: 5'li tekrar ve 50 hamle kendiliğinden, 3'lü tekrar iddiayla; süre bitiminde ve terkte hızlı bir mat imkânı testi.</td><td>Tıklama</td><td>3.044</td></tr>
 <tr><td><code>Lichess-equivalent_numerical</code><br><span class="fn2">special/Lichess-equivalent_numerical.html</span></td><td>Aynı kurallar, sayısal arayüzle; paketli.</td><td>Sayısal, prompt penceresi</td><td>1.228</td></tr>
+<tr><td><code>Chesscom-equivalent</code><br><span class="fn2">special/Chesscom-equivalent.html</span></td><td>Kurallar Chess.com'un uyguladığı gibi: 3'lü tekrar ve 50 hamle oyunu kendiliğinden bitiriyor, süre bitiminde yalnızca taş sayılıyor, tekrarda geçerken alma pseudo-legal ölçülüyor.</td><td>Tıklama</td><td>2.878</td></tr>
+<tr><td><code>Chesscom-equivalent_numerical</code><br><span class="fn2">special/Chesscom-equivalent_numerical.html</span></td><td>Aynı kurallar, sayısal arayüzle; paketli.</td><td>Sayısal, prompt penceresi</td><td>1.175</td></tr>
 <tr><td><code>L2_noBlockedDetector</code><br><span class="fn2">special/L2_noBlockedDetector.html</span></td><td><code>L2</code>, kilitli pozisyon dedektörü olmadan: ölü pozisyonu yalnızca materyalden tanıyor.</td><td>Tıklama</td><td>1.909</td></tr>
 <tr><td><code>L2_string_flip_noBlockedDetector</code><br><span class="fn2">special/L2_string_flip_noBlockedDetector.html</span></td><td>Aynısı, <a href="#letters">harf tahtası</a> ve ters indeksle.</td><td>Tıklama</td><td>1.999</td></tr>
 <tr><td><code>DOM_1023</code><br><span class="fn2">special/DOM_1023.html</span></td><td>1 KB'nin altında tıklanabilir tahta; yalnızca legallik, paketli.</td><td>Tıklama</td><td>1.023</td></tr>
 <tr><td><code>DOM_minimum</code><br><span class="fn2">special/DOM_minimum.html</span></td><td>Taşlar onaltılık rakamlarla çiziliyor; yalnızca legallik, paketli.</td><td>Tıklama, terfi metin alanından</td><td>830</td></tr>
-<tr><td><code>LUX_inProgress</code><br><span class="fn2">special/LUX_inProgress.html</span></td><td>Tam hakem, zengin arayüzle: sürükle bırak, sağ tıkla işaretleme, başlarken süre, saat modu (Fischer, Bronstein ya da gecikme) ve FEN seçimi. Yapım aşamasında.</td><td>Sürükle bırak, tıklama</td><td>7.985</td></tr>
 <tr class="alt"><td><code>Toledos-ES6-optimized</code><br><span class="fn2">special/Toledos-ES6-optimized.html</span></td><td>Oscar Toledo G.'nin satrancı: camiada en çok konuşulan küçük satranç programlarından biri, 2 KB içinde L1 seviyesinde kurallar ve 1200 Elo civarında makul bir bot. Eşdeğerliğini koruyarak ES6 yöntemleriyle biraz daha küçülttüm, arayüzünü de biraz yeniden yorumladım.</td><td>Tıklama, bota karşı</td><td>2.013</td></tr>
 <tr><td><code>ToledosOpponentbyMe</code><br><span class="fn2">special/ToledosOpponentbyMe.html</span></td><td>Toledo'nun programına rakip olarak bu motorla yazdığım bot.</td><td>Tıklama, bota karşı</td><td>2.042</td></tr>
+<tr class="luxrow"><td><code class="lux">LUX_inProgress</code><br><span class="fn2">special/LUX_inProgress.html</span></td><td>Tam hakem, zengin arayüzle: sürükle bırak, sağ tıkla işaretleme, başlarken süre, saat modu (Fischer, Bronstein ya da gecikme) ve FEN seçimi. Yapım aşamasında.</td><td>Sürükle bırak, tıklama</td><td>7.985</td></tr>
 </tbody>
 </table></div>
 
@@ -6104,17 +6144,17 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tbody>
 <tr><td><code>L3_packed</code><br><span class="fn2">special/L3_packed.html</span></td><td><code>L3</code> packed with RegPack: clickable board, live clock.</td><td>Clicking</td><td>2,702</td></tr>
 <tr><td><code>L3_numerical_packed</code><br><span class="fn2">special/L3_numerical_packed.html</span></td><td><code>L3_numerical</code> packed with RegPack: the smallest playable <code>L3</code>, the lower bound of the claim.</td><td>Numeric, prompt dialog</td><td>1,792</td></tr>
-<tr><td><code>Chesscom-equivalent</code><br><span class="fn2">special/Chesscom-equivalent.html</span></td><td>The rules as Chess.com applies them: threefold repetition and the 50-move rule end the game by themselves, flag fall is judged by piece count alone, and en passant is counted pseudo-legally for repetition.</td><td>Clicking</td><td>2,878</td></tr>
-<tr><td><code>Chesscom-equivalent_numerical</code><br><span class="fn2">special/Chesscom-equivalent_numerical.html</span></td><td>The same rules with the numeric interface; packed.</td><td>Numeric, prompt dialog</td><td>1,175</td></tr>
 <tr><td><code>Lichess-equivalent</code><br><span class="fn2">special/Lichess-equivalent.html</span></td><td>The rules as Lichess applies them: fivefold repetition and the 50-move rule are automatic, threefold is claimed; flag fall and resignation use a quick mating-material test.</td><td>Clicking</td><td>3,044</td></tr>
 <tr><td><code>Lichess-equivalent_numerical</code><br><span class="fn2">special/Lichess-equivalent_numerical.html</span></td><td>The same rules with the numeric interface; packed.</td><td>Numeric, prompt dialog</td><td>1,228</td></tr>
+<tr><td><code>Chesscom-equivalent</code><br><span class="fn2">special/Chesscom-equivalent.html</span></td><td>The rules as Chess.com applies them: threefold repetition and the 50-move rule end the game by themselves, flag fall is judged by piece count alone, and en passant is counted pseudo-legally for repetition.</td><td>Clicking</td><td>2,878</td></tr>
+<tr><td><code>Chesscom-equivalent_numerical</code><br><span class="fn2">special/Chesscom-equivalent_numerical.html</span></td><td>The same rules with the numeric interface; packed.</td><td>Numeric, prompt dialog</td><td>1,175</td></tr>
 <tr><td><code>L2_noBlockedDetector</code><br><span class="fn2">special/L2_noBlockedDetector.html</span></td><td><code>L2</code> without the blocked-position detector: it recognises a dead position from material alone.</td><td>Clicking</td><td>1,909</td></tr>
 <tr><td><code>L2_string_flip_noBlockedDetector</code><br><span class="fn2">special/L2_string_flip_noBlockedDetector.html</span></td><td>The same on the <a href="#letters">letter board</a>, with the index flipped.</td><td>Clicking</td><td>1,999</td></tr>
 <tr><td><code>DOM_1023</code><br><span class="fn2">special/DOM_1023.html</span></td><td>A clickable board under 1 KB; legality only, packed.</td><td>Clicking</td><td>1,023</td></tr>
 <tr><td><code>DOM_minimum</code><br><span class="fn2">special/DOM_minimum.html</span></td><td>Pieces drawn as hexadecimal digits; legality only, packed.</td><td>Clicking, promotion typed into a text field</td><td>830</td></tr>
-<tr><td><code>LUX_inProgress</code><br><span class="fn2">special/LUX_inProgress.html</span></td><td>The full arbiter with a rich interface: drag and drop, right-click marking, time control, clock mode (Fischer, Bronstein or delay) and FEN picked at the start. In progress.</td><td>Drag and drop, clicking</td><td>7,985</td></tr>
 <tr class="alt"><td><code>Toledos-ES6-optimized</code><br><span class="fn2">special/Toledos-ES6-optimized.html</span></td><td>Oscar Toledo G.'s chess: one of the most talked-about tiny chess programs in the community, with L1-level rules and a reasonable bot of around 1200 Elo in 2 KB. I shrank it a little further with ES6 techniques while keeping it equivalent, and reinterpreted its interface a little.</td><td>Clicking, against a bot</td><td>2,013</td></tr>
 <tr><td><code>ToledosOpponentbyMe</code><br><span class="fn2">special/ToledosOpponentbyMe.html</span></td><td>The bot I wrote on this engine as an opponent for Toledo's program.</td><td>Clicking, against a bot</td><td>2,042</td></tr>
+<tr class="luxrow"><td><code class="lux">LUX_inProgress</code><br><span class="fn2">special/LUX_inProgress.html</span></td><td>The full arbiter with a rich interface: drag and drop, right-click marking, time control, clock mode (Fischer, Bronstein or delay) and FEN picked at the start. In progress.</td><td>Drag and drop, clicking</td><td>7,985</td></tr>
 </tbody>
 </table></div>
   </div>
