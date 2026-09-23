@@ -36,6 +36,9 @@ shelved, not lost. [The full argument is on the site.](https://www.fidelite.art/
 Across the Lichess open database, Miguel Ambrona's CHA-Solver counted **201,060** games that were
 decided wrongly. This engine gets **197,493** of them right. The 3,567
 it misses are all blocked positions, and nearly every one of them has a bishop on the board.
+[Chess LUX](https://github.com/cuneytinann/Chess-LUX), a sibling project on `engine_4x` with a looser byte budget, extends
+the lock detector to bishops and closes all but 11 of them: the right verdict in 201,049 of the
+201,060 games (99.99%).
 
 The difference fits in one sentence: **the platforms look at the board at the moment the flag fell;
 the book asks what that board is forced to become.**
@@ -53,10 +56,13 @@ it. The `.cjs` builds run in a terminal with `node`.
 
 **Eleven front ends carry the full arbiter.** `L3` and `L3_light` are played by clicking;
 `numerical`, `prompt`, `prompt_blindfold`, `input`, `input_blindfold`, `prompt_string`,
-`prompt_string_flip` and two terminal builds take moves as text. The rule layer is identical in
-all eleven. `L1` and `L2` vary the *rules* instead of the interface; each has its own set of front
-ends and a build with a bot, and both sit outside the claim. `special/` holds what fits no level:
-the Chess.com and Lichess equivalents, experimental interfaces, and Toledo's program.
+`prompt_string_flip` and two terminal builds take moves as text. The rules are identical in all
+eleven. `L1` and `L2` vary the *rules* instead of the interface; each has its own set of front
+ends and a build with a bot, and both sit outside the claim. `special/` holds what fits no level: the builds of five sibling projects, each with a
+repository of its own — [lichess-equivalent](https://github.com/cuneytinann/lichess-equivalent), [chesscom-equivalent](https://github.com/cuneytinann/chesscom-equivalent),
+[chessarbiter2kb](https://github.com/cuneytinann/chessarbiter2kb), [chessinbytes](https://github.com/cuneytinann/chessinbytes) and [Chess-LUX](https://github.com/cuneytinann/Chess-LUX) — and Toledo's program. The two
+packed `L3` builds live there too; they are `L3` itself, but open under *special* because their
+unpacker relies on `with` and `eval`.
 [Details.](https://www.fidelite.art/#builds)
 
 ## Detailed documentation
@@ -68,9 +74,11 @@ Everything below is on the site, in English and Turkish.
 | How the rules read, article by article | [/#rules](https://www.fidelite.art/#rules) |
 | Dead position — 5.2.2 and its two branches | [/#dead](https://www.fidelite.art/#dead) |
 | Resignation and flag fall — 5.1.2 and 6.9 | [/#flag](https://www.fidelite.art/#flag) |
-| The builds, and how to play them | [/#builds](https://www.fidelite.art/#builds) |
+| The builds — two axes and the `L3` family | [/#builds](https://www.fidelite.art/#builds) |
+| How the main-axis builds are played | [/#gameplay](https://www.fidelite.art/#gameplay) |
 | The fifteen result codes | [/#codes](https://www.fidelite.art/#codes) |
-| Special builds — platform equivalents, experimental interfaces, Toledo | [/#special](https://www.fidelite.art/#special) |
+| `L1` and `L2` — the rules axis | [/#levels](https://www.fidelite.art/#levels) |
+| Special builds — five sibling projects and Toledo | [/#special](https://www.fidelite.art/#special) |
 | Engine structure, board representation, driver API | [/#engine](https://www.fidelite.art/#engine) |
 | Line-by-line source analysis | [/#flow](https://www.fidelite.art/#flow) |
 | The pipeline of endings — which result wins when two coincide | [/#endings](https://www.fidelite.art/#endings) |
@@ -147,7 +155,9 @@ dönüştürdüğü için motorun tek ispatlı özelliğini riske atıyor. Askı
 Miguel Ambrona'nın CHA-Solver'ı Lichess açık veritabanını baştan sona tarayıp **201.060** haksız
 sonuçlanmış oyun saydı. Bu motor onların **197.493'ünü** doğru karara
 bağlıyor. Kaçırdığı 3.567 oyunun tamamı kilitli pozisyon ve neredeyse hepsinde tahtada bir fil
-var.
+var. `engine_4x` üzerine, daha gevşek bir bayt bütçesiyle kurulu kardeş proje
+[Chess LUX](https://github.com/cuneytinann/Chess-LUX) kilitli pozisyon dedektörünü fillere genişletip bunların 11'i dışında
+hepsini kapatıyor: 201.060 oyunun 201.049'unda doğru hüküm (%99,99).
 
 Fark tek cümleye sığıyor: **platformlar bayrak düştüğü andaki tahtaya bakıyor, kitap ise o tahtanın
 zorunlu olarak neye dönüşeceğini soruyor.**
@@ -165,10 +175,13 @@ tıklamak yeterli. `.cjs` sürümleri terminalde `node` ile koşar.
 
 **On bir önyüz tam hakemi taşıyor.** `L3` ve `L3_light` tıklanarak oynanır; `numerical`,
 `prompt`, `prompt_blindfold`, `input`, `input_blindfold`, `prompt_string`, `prompt_string_flip` ve
-iki terminal sürümü hamleyi metin olarak alır. Kural katmanı on birinde de aynıdır. `L1` ve `L2`
+iki terminal sürümü hamleyi metin olarak alır. Kurallar on birinde de aynıdır. `L1` ve `L2`
 arayüzü değil *kuralları* değiştirir; her birinin kendi önyüzleri ve botlu bir sürümü var, ikisi de
-iddianın dışındadır. `special/` hiçbir seviyeye girmeyenleri tutar: Chess.com ve Lichess
-eşdeğerleri, deneysel arayüzler ve Toledo'nun programı.
+iddianın dışındadır. `special/` hiçbir seviyeye girmeyenleri tutar: her birinin kendi deposu olan beş kardeş projenin
+sürümleri — [lichess-equivalent](https://github.com/cuneytinann/lichess-equivalent), [chesscom-equivalent](https://github.com/cuneytinann/chesscom-equivalent), [chessarbiter2kb](https://github.com/cuneytinann/chessarbiter2kb),
+[chessinbytes](https://github.com/cuneytinann/chessinbytes) ve [Chess-LUX](https://github.com/cuneytinann/Chess-LUX) — ve Toledo'nun programı. Paketli iki `L3` sürümü de
+orada; kural seviyeleri `L3`, ama açıcıları `with` ve `eval`'e dayandığı için *special*
+altından açılıyorlar.
 [Ayrıntı.](https://www.fidelite.art/tr#builds)
 
 ## Ayrıntılı belge
@@ -180,9 +193,11 @@ Aşağıdakilerin hepsi sitede, Türkçe ve İngilizce.
 | Kuralların okunuşu, madde madde | [/tr#rules](https://www.fidelite.art/tr#rules) |
 | Ölü pozisyon — 5.2.2 ve iki kolu | [/tr#dead](https://www.fidelite.art/tr#dead) |
 | Terk ve süre bitimi — 5.1.2 ve 6.9 | [/tr#flag](https://www.fidelite.art/tr#flag) |
-| Varyantlar ve oynanış | [/tr#builds](https://www.fidelite.art/tr#builds) |
+| Varyantlar — iki eksen ve `L3` ailesi | [/tr#builds](https://www.fidelite.art/tr#builds) |
+| Asıl eksen varyantları nasıl oynanır | [/tr#gameplay](https://www.fidelite.art/tr#gameplay) |
 | On beş sonuç kodu | [/tr#codes](https://www.fidelite.art/tr#codes) |
-| Özel sürümler — platform eşdeğerleri, deneysel arayüzler, Toledo | [/tr#special](https://www.fidelite.art/tr#special) |
+| `L1` ve `L2` — kural ekseni | [/tr#levels](https://www.fidelite.art/tr#levels) |
+| Özel sürümler — beş kardeş proje ve Toledo | [/tr#special](https://www.fidelite.art/tr#special) |
 | Motorun yapısı, tahta temsili, sürücü API'si | [/tr#engine](https://www.fidelite.art/tr#engine) |
 | Satır satır kaynak çözümlemesi | [/tr#flow](https://www.fidelite.art/tr#flow) |
 | Bitişin boru hattı — iki sonuç çakışınca hangisi kazanır | [/tr#endings](https://www.fidelite.art/tr#endings) |

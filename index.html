@@ -169,7 +169,10 @@ if (FLOLD[location.hash.slice(1)]) {
   --code-bg:  light-dark(#ffffff,  #000000);
   --code-fg:  light-dark(#0d4f26,  #58c67e);
   --code-dim: light-dark(#3f7a55,  #3f8f5c);
-  --code-ink: light-dark(#16307a,  #7fc9cf);
+  --code-ink: light-dark(#16307a,  #ffffff);
+  /* koyuda satir ici kod bembeyaz ve hafif isikli; tablolarda da ayni. Acikta isik yok. */
+  --code-tbl: light-dark(#12595f,  #ffffff);
+  --code-glow: light-dark(transparent, rgba(255,255,255,.42));
   /* oynaticinin surum listesi eski camgobeginde kalir: orada renk kategori tasiyor */
   --code-teal: light-dark(#12595f,  #7fc9cf);
   /* Kodu goster katmanlari. Kurallar terminalin kendi yesili (--code-fg) olarak
@@ -206,7 +209,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --rule-2:rgba(41,58,95,.13); --zebra:rgba(41,58,95,.055); --dot-ring:rgba(0,0,0,.35);
     --card-w-bg:#fffdf6; --card-w-fg:#0f1626; --card-w-fg2:#2c384c; --card-w-fg3:#465268;
     --card-b-bg:#232a3a; --card-b-fg:#f2e6d8; --card-b-fg2:#c9bdb2; --card-b-fg3:#9a8d82;
-    --code-bg:#ffffff; --code-fg:#0d4f26; --code-dim:#3f7a55; --code-ink:#16307a; --code-teal:#12595f;
+    --code-bg:#ffffff; --code-fg:#0d4f26; --code-dim:#3f7a55; --code-ink:#16307a; --code-teal:#12595f; --code-tbl:#12595f; --code-glow:transparent;
     --hl-ui:#1f5fa8; --hl-html:#a3246b; --hl-bot:#8c4e0c; --hl-mix:#4c4e19;
     --pc-r:#8f1d13; --pc-n:#146a33; --pc-b:#6b3fa0; --pc-q:#7e5a05; --pc-k:#1f5fa8;
     --pc-p:#0f6b70; --pk:#3a2214; --pk-glow:rgba(204,170,120,.55); --pk-acc:#3a2214;
@@ -226,7 +229,7 @@ if (FLOLD[location.hash.slice(1)]) {
       --rule:rgba(214,178,140,.20); --rule-2:rgba(214,178,140,.10); --zebra:rgba(204,187,136,.05);
       --dot-ring:rgba(255,255,255,.22); --card-w-bg:#d7ccbd; --card-w-fg:#241c17;
       --card-w-fg2:#4a3f36; --card-w-fg3:#6b5f54; --card-b-bg:#0b0908; --card-b-fg:#ece3d8;
-      --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-dim:#3f8f5c; --code-ink:#7fc9cf; --code-teal:#7fc9cf;
+      --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-dim:#3f8f5c; --code-ink:#fff; --code-teal:#7fc9cf; --code-tbl:#fff; --code-glow:rgba(255,255,255,.42);
       --hl-ui:#86b6ef; --hl-html:#f08ccf; --hl-bot:#dfa250; --hl-mix:#9cb467;
       --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
       --pc-p:#5fc3ca; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
@@ -247,7 +250,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --rule:rgba(214,178,140,.20); --rule-2:rgba(214,178,140,.10); --zebra:rgba(204,187,136,.05);
     --dot-ring:rgba(255,255,255,.22); --card-w-bg:#d7ccbd; --card-w-fg:#241c17;
     --card-w-fg2:#4a3f36; --card-w-fg3:#6b5f54; --card-b-bg:#0b0908; --card-b-fg:#ece3d8;
-    --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-dim:#3f8f5c; --code-ink:#7fc9cf; --code-teal:#7fc9cf;
+    --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-dim:#3f8f5c; --code-ink:#fff; --code-teal:#7fc9cf; --code-tbl:#fff; --code-glow:rgba(255,255,255,.42);
       --hl-ui:#86b6ef; --hl-html:#f08ccf; --hl-bot:#dfa250; --hl-mix:#9cb467;
     --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
     --pc-p:#5fc3ca; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
@@ -281,10 +284,10 @@ a.ext { color:var(--pc-k) }
    kopya ve ince bir dagilma, kagida mürekkep oturmus gibi. Rengi currentColor
    izledigi icin baglanti icindeki kod da kendi rengiyle koyulasiyor. */
 code { font-family:var(--mono); font-size:var(--code-lift,1.05em); font-weight:500;
-       color:var(--code-ink); text-shadow:.25px 0 0 currentColor, 0 0 .6px currentColor }
+       color:var(--code-ink); text-shadow:.25px 0 0 currentColor, 0 0 .6px currentColor, 0 0 7px var(--code-glow) }
 /* Tablolar kendi stilini korur: lacivert murekkep ve golge yalnizca akan metinde.
    Baglanti icindeki kod asagidaki kuralla yine baglanti renginde kalir. */
-table code { color:var(--code-teal); text-shadow:none }
+table code { color:var(--code-tbl); text-shadow:0 0 7px var(--code-glow) }
 /* Baslik satirinda kod basligin kendi rengini alir. Buyuk harfe cevrilmez:
    kodda harfin boyu anlam tasiyor — l ile L, i%56 ile I%56 ayri seyler. */
 thead th code { color:inherit; text-transform:none; letter-spacing:0 }
@@ -5508,8 +5511,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
   <div class="wrap">
     <p class="eyebrow" lang="tr">Oynanış</p>
     <p class="eyebrow" lang="en">Gameplay</p>
-    <h2 lang="tr"><code class="vn">L3</code> nasıl oynanır</h2>
-    <h2 lang="en">How <code class="vn">L3</code> is played</h2>
+    <h2 lang="tr"><code class="vn">L3</code> (asıl eksen varyantları) nasıl oynanır</h2>
+    <h2 lang="en">How <code class="vn">L3</code> (the main-axis builds) is played</h2>
     <div class="prose" lang="tr">
       <p>Bu bölüm <code class="vn">L3</code> ailesinin nasıl oynandığını anlatıyor. <code class="vn">L1</code> ve
       <code class="vn">L2</code>'de oynanış değişmiyor, yalnızca yalınlaşıyor: oyuncu katmanı olmadığı için
@@ -5661,12 +5664,14 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       rakibe teklif olarak geçer. Ortaya dört durum çıkıyor:</p>
     </div>
     <ul class="tight" lang="tr">
-      <li><b>Hamleyle birlikte istek.</b> <code>5664asd</code> — hamle normal oynanır, isteği
-      de yanına alır.</li>
+      <li><b>Hamleyle birlikte istek.</b> <code>5664asd</code> ya da <code>5664?</code> — eklenen karakterlerin ne olduğu fark etmez; hamle normal oynanır, isteği de yanına alır.</li>
       <li><b>Hamlesiz istek.</b> <code>asd</code>, hatta tek karakterlik <code>g</code> —
       tahtanın o anki durumu için doğrudan iddia, geçerli değilse teklif.</li>
-      <li><b>Bekleyen teklifin kabulü.</b> Rakip de sayısal olmayan bir şey yazar; iki bit
-      birden yandığı anda oyun karşılıklı anlaşmayla biter.</li>
+      <li><b>Bekleyen teklifin kabulü.</b> Rakip de sayısal olmayan bir şey yazar. Kabul hamle
+      yapmadan da oluyor ve karakterin ne olduğu fark etmiyor: <code>dssdf</code> gibi hamlesiz
+      bir giriş teklifi hemen kabul ediyor; <code>1329x</code> gibi hamleli bir giriş önce hamleyi
+      oynuyor, sonra teklifi kabul ediyor. İki bit birden yandığı anda oyun karşılıklı anlaşmayla
+      biter.</li>
       <li><b>Sayısal ama geçersiz giriş.</b> <code>6500</code> — ne iddia ne teklif; hamle
       reddedilir, aynı soru yeniden sorulur.</li>
     </ul>
@@ -5684,8 +5689,10 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <code>0</code>, <code>00</code> ve boşluk etmez — üçü de sayısal olarak sıfır, yani
       yalnızca geçersiz hamle. <code>r</code> de terk değil; harf içerdiği için beraberlik
       kanalına düşer.</p>
-      <p>Bu arayüzün rahatsız ediciliği kasıtlıdır. Sürüm bayt için yazıldı, konfor için
-      değil.</p>
+      <p>Bu arayüzün rahatsız ediciliği kasıtlıdır. Amaç rahat bir kullanım değil: iyi niyetli
+      girdiyle her şeyin diğer sürümlerden farksız yapılabilmesini en az baytla sağlamak. Motoru
+      bozmadan oynanabilen en düşük yol buydu ve bu bir tercih. Sürüm bayt için yazıldı, konfor
+      için değil.</p>
     </div>
     <div class="prose" lang="en">
       <p>The promotion input is a digit: <code>0</code> bishop, <code>1</code> rook,
@@ -5698,12 +5705,14 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       it passes to the opponent as an offer. Four cases follow:</p>
     </div>
     <ul class="tight" lang="en">
-      <li><b>A request alongside a move.</b> <code>5664asd</code> — the move is played as
-      normal and carries the request with it.</li>
+      <li><b>A request alongside a move.</b> <code>5664asd</code> or <code>5664?</code> — what the added characters are does not matter; the move is played as normal and carries the request with it.</li>
       <li><b>A request with no move.</b> <code>asd</code>, or even the single character
       <code>g</code> — a claim on the board as it stands, and an offer if the claim does not
       hold.</li>
-      <li><b>Accepting a pending offer.</b> The opponent types something non-numeric too; the
+      <li><b>Accepting a pending offer.</b> The opponent types something non-numeric too.
+      Accepting works without a move as well, and what the characters are does not matter: an
+      input with no move, such as <code>dssdf</code>, accepts the offer at once; an input with a
+      move, such as <code>1329x</code>, plays the move first and then accepts the offer. The
       moment both bits are lit the game ends by agreement.</li>
       <li><b>Numeric but illegal input.</b> <code>6500</code> — neither claim nor offer; the
       move is rejected and the same question comes round again.</li>
@@ -5721,8 +5730,10 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       resign. <code>0</code>, <code>00</code> and a space do not — all three are numerically
       zero, which makes them merely illegal moves. Typing <code>r</code> is not a resignation
       either; it contains a letter, so it falls into the draw channel.</p>
-      <p>The awkwardness of this interface is deliberate. The build was written for bytes, not for
-      comfort.</p>
+      <p>The awkwardness of this interface is deliberate. The aim is not comfortable use but
+      making everything possible, with good-faith input, just as in the other builds, in the fewest
+      bytes. This was the lowest road on which the game can be played without breaking the engine,
+      and it is a choice. The build was written for bytes, not for comfort.</p>
     </div>
 
     <h3 lang="tr">Terfi, terk ve beraberlik</h3>
@@ -5860,7 +5871,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       olarak düşer, gerçekten neye terfi ettiğini tahtayı kafanda tutmadan
       doğrulayabilirsin. Sırayı <code class="vn">input_blindfold</code>'da işleyen saatten, <code class="vn">prompt_blindfold</code>'da iki saatin arasındaki oktan okursun; <code class="vn">nonbrowser_blindfold</code>'da saat yalnızca hamlede güncellendiği için son azalan saat sırayı söyler.</p>
       <p><code class="vn">numerical</code>'da kayıt ham girdinin kendisi, o yüzden rakibin beraberlik
-      isteği oradaki sayısal olmayan karakterlerden okunur: <code>1229asd</code> hem geçerli bir hamledir hem beraberlik isteğidir. Hamlesiz istek iz bırakmaz. Saat iki etiketsiz
+      isteği oradaki sayısal olmayan karakterlerden okunur; hangileri olduğu fark etmez: <code>1329asd</code> de <code>1329x</code> de hem e2e4 hamlesidir hem beraberlik isteği. Hamlesiz istek iz bırakmaz. Saat iki etiketsiz
       milisaniye sayısı — soldaki beyaz, sağdaki siyah — ve hangisinin azaldığı sırayı
       söyler. Saat yalnızca pencere açıldığında yenilendiği için, <a href="#notation">geçerli
       ama oynanamaz bir sayısal giriş</a> teklifi tetiklemeden ekranı tazelemenin tek
@@ -5876,8 +5887,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <code>e7e8n</code> lands in the log as <code>[e7e8N]</code>, letting you verify what they
       actually promoted to without holding the board in your head. You read the side to move off the running clock in <code class="vn">input_blindfold</code> and off the arrow between the two clocks in <code class="vn">prompt_blindfold</code>; in <code class="vn">nonbrowser_blindfold</code> the clock only updates on a move, so whichever clock fell last tells you.</p>
       <p>In <code class="vn">numerical</code> the log is the raw input itself, so an opponent's draw request
-      is read from the non-numeric characters in it: <code>1229asd</code> is both a legal move and
-      a request. A request without a move leaves no trace. The clock is two unlabelled millisecond
+      is read from the non-numeric characters in it, whatever they are: <code>1329asd</code> and <code>1329x</code> alike are both the move e2e4 and a request. A request without a move leaves no trace. The clock is two unlabelled millisecond
       counts — White on the left, Black on the right — and whichever is falling tells you who is
       to move. Since the clock only refreshes when the dialog opens,
       <a href="#notation">a numerically valid but unplayable input</a> is the only way to refresh
@@ -5907,7 +5917,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tbody>
 <tr><td>Tahta dondu, sırası gelenin hamlesi yok, şahı tehdit altında</td><td>Mat</td><td><code>W#</code> <code>B#</code></td></tr>
 <tr><td>Tahta dondu, hamle yok, şah tehdit altında değil</td><td>Pat, beraberlik</td><td><code>SM</code></td></tr>
-<tr><td>Tahta dondu, hamle var, iki saat durdu</td><td>Tahtadan doğan beraberlik</td><td><code>DP</code> <code>5R</code> <code>75</code></td></tr>
+<tr><td>Tahta dondu, hamle var, iki saat durdu; son hamle geri alınabilir bir hamleydi<span class="sub">istisna: çift adımla doğan bir kilit bir yarım hamle geç, geri alınabilir bir hamlenin ardından DP olarak görünür</span></td><td>Beşli tekrar ya da 75 hamle: beraberlik</td><td><code>5R</code> <code>75</code></td></tr>
+<tr><td>Tahta dondu, hamle var, iki saat durdu; son hamle geri alınamaz bir hamleydi (piyon sürme ya da taş alımı)</td><td>Ölü pozisyon: beraberlik</td><td><code>DP</code></td></tr>
 <tr><td>Radyoya basınca oyun bitti</td><td>İddia ya da anlaşmayla beraberlik</td><td><code>3R</code> <code>50</code> <code>DA</code></td></tr>
 <tr><td>Bir saat <code>0:00</code>'da durdu</td><td>Süreden kayıp</td><td><code>WT</code> <code>BT</code></td></tr>
 <tr><td>Bir saat sıfırın altına akıyor</td><td>Süre bitti ama rakip mat edemez: beraberlik</td><td><code>TM</code></td></tr>
@@ -5920,7 +5931,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tbody>
 <tr><td>Board frozen, the side to move has no move, its king is attacked</td><td>Mate</td><td><code>W#</code> <code>B#</code></td></tr>
 <tr><td>Board frozen, no move, the king is not attacked</td><td>Stalemate, a draw</td><td><code>SM</code></td></tr>
-<tr><td>Board frozen with moves left, both clocks stopped</td><td>A draw that arises from the board</td><td><code>DP</code> <code>5R</code> <code>75</code></td></tr>
+<tr><td>Board frozen with moves left, both clocks stopped; the last move was reversible<span class="sub">exception: a lock born of a double step shows up one ply late, after a reversible move, as DP</span></td><td>Fivefold repetition or the 75-move rule: a draw</td><td><code>5R</code> <code>75</code></td></tr>
+<tr><td>Board frozen with moves left, both clocks stopped; the last move was irreversible (a pawn move or a capture)</td><td>Dead position: a draw</td><td><code>DP</code></td></tr>
 <tr><td>The game ended when the radio was pressed</td><td>A draw by claim or agreement</td><td><code>3R</code> <code>50</code> <code>DA</code></td></tr>
 <tr><td>A clock stopped at <code>0:00</code></td><td>Lost on time</td><td><code>WT</code> <code>BT</code></td></tr>
 <tr><td>A clock running below zero</td><td>Time ran out but the opponent cannot mate: a draw</td><td><code>TM</code></td></tr>
