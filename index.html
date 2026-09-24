@@ -1130,130 +1130,6 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
   </div>
 </div>
 
-<section id="play">
-  <div class="wrap">
-    <p class="eyebrow" lang="tr">Oyna</p>
-    <p class="eyebrow" lang="en">Play</p>
-    <h2 lang="tr">Sürümü seç, oyna</h2>
-    <h2 lang="en">Pick a build, play it</h2>
-    <div class="prose" lang="tr">
-      <p>Her sürüm kendi penceresinde çalışır, saatler ancak başlattığında işlemeye
-      başlar. Sürüm değiştirmek çalışan oyunu kapatır.</p>
-      <p>Önce kural seviyesini, sonra sürümü seç. Her seviyenin ilk sürümü, <code class="vn">default</code>,
-      o seviyenin ana dosyası. <code class="vn">L3</code> tam hakem: bütün sürümlerinde kural tarafı aynı,
-      değişen yalnızca hamleyi nasıl girdiğin ve tahtanın nasıl çizildiği. <code class="vn">L1</code> ve
-      <code class="vn">L2</code> kural seviyesi daha düşük olanlar, botlu sürümler de onların altında; ikisi
-      de iddianın dışında. <code class="vn">special</code> ayrı bir katman: bu seviyelerden türemiş ama
-      hiçbirine tam uymayan, kimi zaman projenin kendi ilkelerine ters düşen çok çeşitli sürümler.
-      Ayrıntısı <a href="#builds">Varyantlar</a> sekmesinin sonundaki
-      <a href="#special">Özel sürümler</a> bölümünde; aynı sekmede anlatılan terminal sürümleri
-      tarayıcıda çalışmadığı için listede yok.</p>
-    </div>
-    <div class="prose" lang="en">
-      <p>Each build runs in its own frame, and the clocks only start ticking once you start it.
-      Changing builds closes the running game.</p>
-      <p>Pick a rule level first, then a build. In each level the first build, <code class="vn">default</code>,
-      is that level's main file. <code class="vn">L3</code> is the full arbiter: the rule layer is identical
-      in all of its builds; what changes is how you enter a move and how the board is drawn.
-      <code class="vn">L1</code> and <code class="vn">L2</code> are the lower rule levels, and the builds with a bot sit
-      under them; both are outside the claim. <code class="vn">special</code> is a layer of its own: builds derived from these
-      levels that fit none of them, some of them at odds with the project's own principles. The
-      details are in the <a href="#special">Special builds</a> section at the end of the
-      <a href="#builds">Builds</a> tab; the terminal builds described there are not in the list,
-      since they do not run in a browser.</p>
-    </div>
-
-    <div class="note" lang="tr">
-      <p>Tahta çizen sürümlerde tahta küçük geliyorsa tarayıcının yakınlaştırmasını kullan —
-      <kbd>Ctrl</kbd> <kbd>+</kbd>, macOS'ta <kbd>⌘</kbd> <kbd>+</kbd>; <kbd>Ctrl</kbd>
-      <kbd>0</kbd> eski hâline döndürür. <code>prompt()</code> penceresi açan sürümlerde
-      tarayıcın iletişim kutularını engelliyorsa hiçbir şey açılmaz; dosyayı indirip aç ya da
-      tarayıcıya izin ver.</p>
-    </div>
-    <div class="note" lang="en">
-      <p>If the board feels small in the builds that draw one, use the browser's zoom —
-      <kbd>Ctrl</kbd> <kbd>+</kbd>, or <kbd>⌘</kbd> <kbd>+</kbd> on macOS; <kbd>Ctrl</kbd>
-      <kbd>0</kbd> restores it. In the builds that open a <code>prompt()</code> dialog, nothing
-      appears at all if your browser blocks dialogs; download the file and open it, or allow
-      dialogs.</p>
-    </div>
-
-    <div class="player">
-      <div class="pbar">
-        <fieldset class="builds levels">
-          <legend class="grp"><span lang="tr">Seviye</span><span lang="en">Level</span></legend>
-<label class="lv" title="Tam hakem — saat, terk, teklif ve talep dahil" data-en-title="Full arbiter — clock, resignation, offers and claims included"><input type="radio" name="level" value="L3" checked><span><code class="vn">L3</code><small lang="tr">(asıl)</small><small lang="en">(main)</small></span></label>
-<label class="lv" title="Sayaçlar ve kendiliğinden gelen beraberlikler — saat yok" data-en-title="Counters and automatic draws — no clock"><input type="radio" name="level" value="L2"><span><code class="vn">L2</code></span></label>
-<label class="lv" title="Yalnızca legallik — beraberlik kuralları yok" data-en-title="Legality only — no draw rules"><input type="radio" name="level" value="L1"><span><code class="vn">L1</code></span></label>
-<label class="lv" title="Seviyelerin dışında kalanlar" data-en-title="Builds outside the rule levels"><input type="radio" name="level" value="special"><span><code class="vn">special</code></span></label>
-        </fieldset>
-        <div class="pacts">
-          <button class="play" id="go" type="button"><span lang="tr">Oyna</span><span lang="en">Play</span></button>
-          <button id="view" type="button" aria-pressed="false"><span lang="tr">Kodu göster</span><span lang="en">Show code</span></button>
-          <button class="halt" id="stop" type="button" disabled><span lang="tr">Kapat</span><span lang="en">Close</span></button>
-        </div>
-        <fieldset class="builds blist">
-          <legend class="grp"><span lang="tr">Sürüm</span><span lang="en">Build</span></legend>
-<label class="rd" data-lv="L1" hidden title="Ana dosya — tıklanabilir tahta" data-en-title="Main file — clickable board"><input type="radio" name="build" value="L1"> <code>default</code></label>
-<label class="rd" data-lv="L1" hidden title="Tıklanabilir tahta, en yalın hâli — gösterge yok, oyun bitince sessizce durur" data-en-title="Clickable board at its barest — no indicators; the game stops silently when it ends"><input type="radio" name="build" value="L1_light"> <code>light</code></label>
-<label class="rd" data-lv="L1" hidden title="UCI, metin alanı" data-en-title="UCI, text field"><input type="radio" name="build" value="L1_input"> <code>input</code></label>
-<label class="rd str" data-lv="L1" hidden title="Harf dizgisi, indeks sırası ters" data-en-title="String board, flipped index order"><input type="radio" name="build" value="L1_prompt_string_flip"> <code>prompt_string_flip</code></label>
-<label class="rd" data-lv="L1" hidden title="Sayısal arayüz, prompt penceresi" data-en-title="Numeric interface, prompt dialog"><input type="radio" name="build" value="L1_numerical"> <code>numerical</code></label>
-<label class="rd bot" data-lv="L1" hidden title="Bota karşı — tek kişilik" data-en-title="Against a bot — single player"><input type="radio" name="build" value="L1_1250elo"> <code>1250elo</code></label>
-<label class="rd" data-lv="L2" hidden title="Ana dosya — tıklanabilir tahta" data-en-title="Main file — clickable board"><input type="radio" name="build" value="L2"> <code>default</code></label>
-<label class="rd" data-lv="L2" hidden title="Tıklanabilir tahta, en yalın hâli — gösterge yok, oyun bitince sessizce durur" data-en-title="Clickable board at its barest — no indicators; the game stops silently when it ends"><input type="radio" name="build" value="L2_light"> <code>light</code></label>
-<label class="rd" data-lv="L2" hidden title="UCI, metin alanı" data-en-title="UCI, text field"><input type="radio" name="build" value="L2_input"> <code>input</code></label>
-<label class="rd str" data-lv="L2" hidden title="Harf dizgisi, indeks sırası ters" data-en-title="String board, flipped index order"><input type="radio" name="build" value="L2_prompt_string_flip"> <code>prompt_string_flip</code></label>
-<label class="rd" data-lv="L2" hidden title="Sayısal arayüz, prompt penceresi" data-en-title="Numeric interface, prompt dialog"><input type="radio" name="build" value="L2_numerical"> <code>numerical</code></label>
-<label class="rd bot" data-lv="L2" hidden title="Bota karşı — tek kişilik" data-en-title="Against a bot — single player"><input type="radio" name="build" value="L2_aybars_2500"> <code>aybars_2500</code></label>
-<label class="rd" data-lv="L3" title="Ana dosya — tıklanabilir tahta, canlı saat" data-en-title="Main file — clickable board, live clock"><input type="radio" name="build" value="L3" checked> <code>default</code></label>
-<label class="rd" data-lv="L3" title="Tıklanabilir tahta, en yalın hâli — yazı yok, sonuç tahtadan ve saatten okunur" data-en-title="Clickable board at its barest — no text; the result is read from the board and the clocks"><input type="radio" name="build" value="L3_light"> <code>light</code></label>
-<label class="rd" data-lv="L3" title="UCI, metin alanı" data-en-title="UCI, text field"><input type="radio" name="build" value="L3_input"> <code>input</code></label>
-<label class="rd str" data-lv="L3" title="Harf dizgisi, indeks sırası ters" data-en-title="String board, flipped index order"><input type="radio" name="build" value="L3_prompt_string_flip"> <code>prompt_string_flip</code></label>
-<label class="rd" data-lv="L3" title="Sayısal arayüz, prompt penceresi" data-en-title="Numeric interface, prompt dialog"><input type="radio" name="build" value="L3_numerical"> <code>numerical</code></label>
-<label class="rd" data-lv="L3" title="UCI, metin alanı, tahta çizilmiyor" data-en-title="UCI, text field, no board"><input type="radio" name="build" value="L3_input_blindfold"> <code>input_blindfold</code></label>
-<label class="rd" data-lv="L3" title="UCI, prompt penceresi, tahta çizilmiyor" data-en-title="UCI, prompt dialog, no board"><input type="radio" name="build" value="L3_prompt_blindfold"> <code>prompt_blindfold</code></label>
-<label class="rd" data-lv="L3" title="UCI, prompt penceresi" data-en-title="UCI, prompt dialog"><input type="radio" name="build" value="L3_prompt"> <code>prompt</code></label>
-<label class="rd str" data-lv="L3" title="Tahta harf dizgisi olarak tutuluyor" data-en-title="The board is held as a string of letters"><input type="radio" name="build" value="L3_prompt_string"> <code>prompt_string</code></label>
-<label class="rd pk" data-lv="special" hidden title="L3, RegPack ile paketli — tıklanabilir tahta, canlı saat" data-en-title="L3 packed with RegPack — clickable board, live clock"><input type="radio" name="build" value="L3_packed"> <code>L3_packed</code></label>
-<label class="rd pk" data-lv="special" hidden title="L3_numerical, RegPack ile paketli — oynanabilir en küçük L3" data-en-title="L3_numerical packed with RegPack — the smallest playable L3"><input type="radio" name="build" value="L3_numerical_packed"> <code>L3_numerical_packed</code></label>
-<label class="rd" data-lv="special" hidden title="Tıklanabilir tahta, kurallar Lichess'in uyguladığı gibi" data-en-title="Clickable board, with the rules as Lichess applies them"><input type="radio" name="build" value="Lichess-equivalent"> <code>Lichess-equivalent</code></label>
-<label class="rd pk" data-lv="special" hidden title="Lichess kuralları, sayısal arayüz, prompt penceresi" data-en-title="Lichess rules, numeric interface, prompt dialog"><input type="radio" name="build" value="Lichess-equivalent_numerical"> <code>Lichess-equivalent_numerical</code></label>
-<label class="rd" data-lv="special" hidden title="Tıklanabilir tahta, kurallar Chess.com'un uyguladığı gibi" data-en-title="Clickable board, with the rules as Chess.com applies them"><input type="radio" name="build" value="Chesscom-equivalent"> <code>Chesscom-equivalent</code></label>
-<label class="rd pk" data-lv="special" hidden title="Chess.com kuralları, sayısal arayüz, prompt penceresi" data-en-title="Chess.com rules, numeric interface, prompt dialog"><input type="radio" name="build" value="Chesscom-equivalent_numerical"> <code>Chesscom-equivalent_numerical</code></label>
-<label class="rd" data-lv="special" hidden title="L2, kilitli pozisyon dedektörü olmadan" data-en-title="L2 without the blocked-position detector"><input type="radio" name="build" value="L2_noBlockedDetector"> <code>L2_noBlockedDetector</code></label>
-<label class="rd str" data-lv="special" hidden title="Aynısı, harf dizgisi tahta ve ters indeksle" data-en-title="The same on a string board with flipped index order"><input type="radio" name="build" value="L2_string_flip_noBlockedDetector"> <code>L2_string_flip_noBlockedDetector</code></label>
-<label class="rd pk" data-lv="special" hidden title="1.023 baytlık tıklanabilir tahta — yalnızca legallik" data-en-title="A clickable board in 1,023 bytes — legality only"><input type="radio" name="build" value="DOM_1023"> <code>DOM_1023</code></label>
-<label class="rd pk" data-lv="special" hidden title="830 bayt; taşlar onaltılık rakamlarla, terfi metin alanından" data-en-title="830 bytes; pieces shown as hexadecimal digits, promotion typed into a text field"><input type="radio" name="build" value="DOM_minimum"> <code>DOM_minimum</code></label>
-<label class="rd pk" data-lv="special" hidden title="766 bayt; hamle sayıyla girilir, tahta yok, oyun hiç bitmez — yalnızca legallik, paketli" data-en-title="766 bytes; moves typed as numbers, no board, the game never ends — legality only, packed"><input type="radio" name="build" value="Lowest"> <code>Lowest</code></label>
-<label class="rd bot" data-lv="special" hidden title="Oscar Toledo G.'nin satrancı, ES6 ile küçülttüğüm hâli — bota karşı" data-en-title="Oscar Toledo G.'s chess, shrunk further in ES6 by me — against its bot"><input type="radio" name="build" value="Toledos-ES6-optimized"> <code>Toledos-ES6-optimized</code></label>
-<label class="rd bot" data-lv="special" hidden title="Toledo'nun programına rakip olarak yazdığım bot, bu motorun üstünde" data-en-title="The bot I wrote as an opponent for Toledo's program, on this engine"><input type="radio" name="build" value="ToledosOpponentbyMe"> <code>ToledosOpponentbyMe</code></label>
-<label class="rd" data-lv="special" hidden title="Tam hakem, zengin arayüz — sürükle bırak, sağ tıkla işaretleme, başlarken süre, saat modu ve FEN seçimi — yapım aşamasında" data-en-title="Full arbiter with a rich interface — drag and drop, right-click marking, time control, clock mode and FEN picked at the start — in progress"><input type="radio" name="build" value="LUX_inProgress"> <code class="lux">LUX_inProgress</code></label>
-        </fieldset>
-      </div>
-      <div class="stage" id="stage">
-        <p class="idle" id="idle"><span lang="tr">Seçili sürüm <b>L3</b>. Oyunu başlat ya da kodunu göster.</span><span lang="en">Selected build <b>L3</b>. Start the game or show its code.</span></p>
-        <p class="hlkey" id="hlkey" hidden>
-          <span class="hl-r" hidden><span lang="tr">kurallar</span><span lang="en">rules</span></span>
-          <span class="hl-u" hidden><span lang="tr">arayüz</span><span lang="en">interface</span></span>
-          <span class="hl-b" hidden>bot</span>
-          <span class="hl-m" hidden><span lang="tr">kural + bot</span><span lang="en">rules + bot</span></span>
-          <span class="hl-p" hidden><span lang="tr">paketli script</span><span lang="en">packed script</span></span>
-          <span class="hl-h" hidden><span lang="tr">HTML (ortam)</span><span lang="en">HTML (environment)</span></span>
-        </p>
-        <pre class="src" id="src" hidden></pre>
-      </div>
-      <div class="pfoot">
-        <span id="status"><span lang="tr">Hazır</span><span lang="en">Ready</span></span>
-        <span class="pacts">
-          <button id="copysrc" type="button" disabled><span lang="tr">Kopyala</span><span lang="en">Copy</span></button>
-          <button class="dl1" id="dlfile" type="button"><span lang="tr">İndir</span><span lang="en">Download</span></button>
-        </span>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section id="golfstack">
   <div class="wrap">
     <p class="eyebrow">Golfstack</p>
@@ -1300,7 +1176,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     <h3 lang="tr">Teknik özellikler</h3>
     <h3 lang="en">Technical features</h3>
     <ul class="tight" lang="tr">
-      <li><b>Modern bir siteye yakın arayüz.</b> Varsayılan sürümlerde seçili kare ve legal
+      <li><b>Modern bir siteye yakın arayüz.</b> Varsayılan sürümlerde seçili kare ve geçerli
       hedefler işaretlenir, terfi seçici açılır, şah ve bekleyen beraberlik teklifi göstergelerden
       okunur; her hamleden sonra tahta sıradaki oyuncunun bakış açısına döner. Taş glifleri, saat
       işareti ve göstergeler Unicode'dan geliyor — tek bir görsel dosyası, font indirmesi ya da
@@ -1311,7 +1187,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       DAKİKA : SANİYE biçiminde işler, artış her hamlede görünür biçimde eklenir. Bayrak
       düştüğü anda sonuç kendiliğinden belirlenir.</li>
       <li><b>Hamle üretimi ve sağlamlık.</b> Motor satranç mantığı bakımından tuhaflık yapmaz:
-      legal olmayan hamle geçmez, legal olan reddedilmez, sonuç kodu yanlış pozisyonda üretilmez.
+      geçerli olmayan hamle geçmez, geçerli olan reddedilmez, sonuç kodu yanlış pozisyonda üretilmez.
       İddia ölçüme dayanıyor: motor, <a href="#tests">satranç programlamanın standart test
       takımlarını</a> makul derinliklere kadar hatasız geçiyor — CPW pozisyonları, van Kervinck'in
       zor listesi, 6.838 pozisyonluk Vajolet külliyatı. Geçersiz girdi de motoru yoldan
@@ -1429,6 +1305,145 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
   </div>
 </section>
 
+<section id="play">
+  <div class="wrap">
+    <p class="eyebrow" lang="tr">Canlı sergi</p>
+    <p class="eyebrow" lang="en">Live exhibit</p>
+    <h2 lang="tr">Sürümü seç, oyna</h2>
+    <h2 lang="en">Pick a build, play it</h2>
+    <div class="prose" lang="tr">
+      <p><b>Tek oyun değil, bir sergi.</b> Burada 39 oynanabilir dosya duruyor ve çeşitlilik
+      üç yönde açılıyor: kurallarda yalnızca oynanabilirliği bilen sürümden tam FIDE hakemine,
+      arayüzde tıklanan tahtadan UCI notasyonuna ve hiç tahta çizmeyen körleme sürümlere, özel
+      sürümlerde de botlara, daha özenli arayüzlere ve Lichess ile Chess.com kurallarıyla oynayan
+      eşdeğerlere kadar. Bu çeşitlilik Theseus'un Gemisi'nden esinlendi: neyin tam satranç
+      olduğu, neyin olmadığı sınırda tartışılsın ve düşünülsün diye. Kuralları dinamik olarak
+      ekleyip çıkarabilen üreticiye de bu yüzden Chesseus diyorum!</p>
+      <p>Her sürüm kendi penceresinde çalışır, saatler ancak başlattığında işlemeye
+      başlar. Sürüm değiştirmek çalışan oyunu kapatır.</p>
+      <p>Önce kural seviyesini, sonra sürümü seç. Her seviyenin ilk sürümü, <code class="vn">default</code>,
+      o seviyenin ana dosyası. <code class="vn">L3</code> tam hakem: bütün sürümlerinde kural tarafı aynı,
+      değişen yalnızca hamleyi nasıl girdiğin ve tahtanın nasıl çizildiği. <code class="vn">L1</code> ve
+      <code class="vn">L2</code> kural seviyesi daha düşük olanlar, botlu sürümler de onların altında; ikisi
+      de iddianın dışında. <code class="vn">special</code> ayrı bir katman: bu seviyelerden türemiş ama
+      hiçbirine tam uymayan, kimi zaman projenin kendi ilkelerine ters düşen çok çeşitli sürümler.
+      Ayrıntısı <a href="#builds">Varyantlar</a> sekmesinin sonundaki
+      <a href="#special">Özel sürümler</a> bölümünde; aynı sekmede anlatılan terminal sürümleri
+      tarayıcıda çalışmadığı için listede yok.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p><b>Not one game but an exhibition.</b> There are 39 playable files here, and the variety
+      opens in three directions: in the rules, from a build that knows only playability to a full
+      FIDE arbiter; in the interface, from a clickable board to UCI notation and blindfold builds
+      that draw no board at all; and in the special builds, out to bots, more polished interfaces
+      and equivalents that play by the rules of Lichess and Chess.com. The variety takes its cue
+      from the Ship of Theseus: it is there so that the line between what is full chess and what
+      is not gets argued over and thought about. That is also why I call the generator that adds
+      and removes rules on the fly Chesseus!</p>
+      <p>Each build runs in its own frame, and the clocks only start ticking once you start it.
+      Changing builds closes the running game.</p>
+      <p>Pick a rule level first, then a build. In each level the first build, <code class="vn">default</code>,
+      is that level's main file. <code class="vn">L3</code> is the full arbiter: the rule layer is identical
+      in all of its builds; what changes is how you enter a move and how the board is drawn.
+      <code class="vn">L1</code> and <code class="vn">L2</code> are the lower rule levels, and the builds with a bot sit
+      under them; both are outside the claim. <code class="vn">special</code> is a layer of its own: builds derived from these
+      levels that fit none of them, some of them at odds with the project's own principles. The
+      details are in the <a href="#special">Special builds</a> section at the end of the
+      <a href="#builds">Builds</a> tab; the terminal builds described there are not in the list,
+      since they do not run in a browser.</p>
+    </div>
+
+    <div class="note" lang="tr">
+      <p>Tahta çizen sürümlerde tahta küçük geliyorsa tarayıcının yakınlaştırmasını kullan —
+      <kbd>Ctrl</kbd> <kbd>+</kbd>, macOS'ta <kbd>⌘</kbd> <kbd>+</kbd>; <kbd>Ctrl</kbd>
+      <kbd>0</kbd> eski hâline döndürür. <code>prompt()</code> penceresi açan sürümlerde
+      tarayıcın iletişim kutularını engelliyorsa hiçbir şey açılmaz; dosyayı indirip aç ya da
+      tarayıcıya izin ver.</p>
+    </div>
+    <div class="note" lang="en">
+      <p>If the board feels small in the builds that draw one, use the browser's zoom —
+      <kbd>Ctrl</kbd> <kbd>+</kbd>, or <kbd>⌘</kbd> <kbd>+</kbd> on macOS; <kbd>Ctrl</kbd>
+      <kbd>0</kbd> restores it. In the builds that open a <code>prompt()</code> dialog, nothing
+      appears at all if your browser blocks dialogs; download the file and open it, or allow
+      dialogs.</p>
+    </div>
+
+    <div class="player">
+      <div class="pbar">
+        <fieldset class="builds levels">
+          <legend class="grp"><span lang="tr">Seviye</span><span lang="en">Level</span></legend>
+<label class="lv" title="Tam hakem — saat, terk, teklif ve talep dahil" data-en-title="Full arbiter — clock, resignation, offers and claims included"><input type="radio" name="level" value="L3" checked><span><code class="vn">L3</code><small lang="tr">(asıl)</small><small lang="en">(main)</small></span></label>
+<label class="lv" title="Sayaçlar ve kendiliğinden gelen beraberlikler — saat yok" data-en-title="Counters and automatic draws — no clock"><input type="radio" name="level" value="L2"><span><code class="vn">L2</code></span></label>
+<label class="lv" title="Yalnızca geçerlilik — beraberlik kuralları yok" data-en-title="Legality only — no draw rules"><input type="radio" name="level" value="L1"><span><code class="vn">L1</code></span></label>
+<label class="lv" title="Seviyelerin dışında kalanlar" data-en-title="Builds outside the rule levels"><input type="radio" name="level" value="special"><span><code class="vn">special</code></span></label>
+        </fieldset>
+        <div class="pacts">
+          <button class="play" id="go" type="button"><span lang="tr">Oyna</span><span lang="en">Play</span></button>
+          <button id="view" type="button" aria-pressed="false"><span lang="tr">Kodu göster</span><span lang="en">Show code</span></button>
+          <button class="halt" id="stop" type="button" disabled><span lang="tr">Kapat</span><span lang="en">Close</span></button>
+        </div>
+        <fieldset class="builds blist">
+          <legend class="grp"><span lang="tr">Sürüm</span><span lang="en">Build</span></legend>
+<label class="rd" data-lv="L1" hidden title="Ana dosya — tıklanabilir tahta" data-en-title="Main file — clickable board"><input type="radio" name="build" value="L1"> <code>default</code></label>
+<label class="rd" data-lv="L1" hidden title="Tıklanabilir tahta, en yalın hâli — gösterge yok, oyun bitince sessizce durur" data-en-title="Clickable board at its barest — no indicators; the game stops silently when it ends"><input type="radio" name="build" value="L1_light"> <code>light</code></label>
+<label class="rd" data-lv="L1" hidden title="UCI, metin alanı" data-en-title="UCI, text field"><input type="radio" name="build" value="L1_input"> <code>input</code></label>
+<label class="rd str" data-lv="L1" hidden title="Harf dizgisi, indeks sırası ters" data-en-title="String board, flipped index order"><input type="radio" name="build" value="L1_prompt_string_flip"> <code>prompt_string_flip</code></label>
+<label class="rd" data-lv="L1" hidden title="Sayısal arayüz, prompt penceresi" data-en-title="Numeric interface, prompt dialog"><input type="radio" name="build" value="L1_numerical"> <code>numerical</code></label>
+<label class="rd bot" data-lv="L1" hidden title="Bota karşı — tek kişilik" data-en-title="Against a bot — single player"><input type="radio" name="build" value="L1_1250elo"> <code>1250elo</code></label>
+<label class="rd" data-lv="L2" hidden title="Ana dosya — tıklanabilir tahta" data-en-title="Main file — clickable board"><input type="radio" name="build" value="L2"> <code>default</code></label>
+<label class="rd" data-lv="L2" hidden title="Tıklanabilir tahta, en yalın hâli — gösterge yok, oyun bitince sessizce durur" data-en-title="Clickable board at its barest — no indicators; the game stops silently when it ends"><input type="radio" name="build" value="L2_light"> <code>light</code></label>
+<label class="rd" data-lv="L2" hidden title="UCI, metin alanı" data-en-title="UCI, text field"><input type="radio" name="build" value="L2_input"> <code>input</code></label>
+<label class="rd str" data-lv="L2" hidden title="Harf dizgisi, indeks sırası ters" data-en-title="String board, flipped index order"><input type="radio" name="build" value="L2_prompt_string_flip"> <code>prompt_string_flip</code></label>
+<label class="rd" data-lv="L2" hidden title="Sayısal arayüz, prompt penceresi" data-en-title="Numeric interface, prompt dialog"><input type="radio" name="build" value="L2_numerical"> <code>numerical</code></label>
+<label class="rd bot" data-lv="L2" hidden title="Bota karşı — tek kişilik" data-en-title="Against a bot — single player"><input type="radio" name="build" value="L2_aybars_2500"> <code>aybars_2500</code></label>
+<label class="rd" data-lv="L3" title="Ana dosya — tıklanabilir tahta, canlı saat" data-en-title="Main file — clickable board, live clock"><input type="radio" name="build" value="L3" checked> <code>default</code></label>
+<label class="rd" data-lv="L3" title="Tıklanabilir tahta, en yalın hâli — yazı yok, sonuç tahtadan ve saatten okunur" data-en-title="Clickable board at its barest — no text; the result is read from the board and the clocks"><input type="radio" name="build" value="L3_light"> <code>light</code></label>
+<label class="rd" data-lv="L3" title="UCI, metin alanı" data-en-title="UCI, text field"><input type="radio" name="build" value="L3_input"> <code>input</code></label>
+<label class="rd str" data-lv="L3" title="Harf dizgisi, indeks sırası ters" data-en-title="String board, flipped index order"><input type="radio" name="build" value="L3_prompt_string_flip"> <code>prompt_string_flip</code></label>
+<label class="rd" data-lv="L3" title="Sayısal arayüz, prompt penceresi" data-en-title="Numeric interface, prompt dialog"><input type="radio" name="build" value="L3_numerical"> <code>numerical</code></label>
+<label class="rd" data-lv="L3" title="UCI, metin alanı, tahta çizilmiyor" data-en-title="UCI, text field, no board"><input type="radio" name="build" value="L3_input_blindfold"> <code>input_blindfold</code></label>
+<label class="rd" data-lv="L3" title="UCI, prompt penceresi, tahta çizilmiyor" data-en-title="UCI, prompt dialog, no board"><input type="radio" name="build" value="L3_prompt_blindfold"> <code>prompt_blindfold</code></label>
+<label class="rd" data-lv="L3" title="UCI, prompt penceresi" data-en-title="UCI, prompt dialog"><input type="radio" name="build" value="L3_prompt"> <code>prompt</code></label>
+<label class="rd str" data-lv="L3" title="Tahta harf dizgisi olarak tutuluyor" data-en-title="The board is held as a string of letters"><input type="radio" name="build" value="L3_prompt_string"> <code>prompt_string</code></label>
+<label class="rd pk" data-lv="special" hidden title="L3, RegPack ile paketli — tıklanabilir tahta, canlı saat" data-en-title="L3 packed with RegPack — clickable board, live clock"><input type="radio" name="build" value="L3_packed"> <code>L3_packed</code></label>
+<label class="rd pk" data-lv="special" hidden title="L3_numerical, RegPack ile paketli — oynanabilir en küçük L3" data-en-title="L3_numerical packed with RegPack — the smallest playable L3"><input type="radio" name="build" value="L3_numerical_packed"> <code>L3_numerical_packed</code></label>
+<label class="rd" data-lv="special" hidden title="Tıklanabilir tahta, kurallar Lichess'in uyguladığı gibi" data-en-title="Clickable board, with the rules as Lichess applies them"><input type="radio" name="build" value="Lichess-equivalent"> <code>Lichess-equivalent</code></label>
+<label class="rd pk" data-lv="special" hidden title="Lichess kuralları, sayısal arayüz, prompt penceresi" data-en-title="Lichess rules, numeric interface, prompt dialog"><input type="radio" name="build" value="Lichess-equivalent_numerical"> <code>Lichess-equivalent_numerical</code></label>
+<label class="rd" data-lv="special" hidden title="Tıklanabilir tahta, kurallar Chess.com'un uyguladığı gibi" data-en-title="Clickable board, with the rules as Chess.com applies them"><input type="radio" name="build" value="Chesscom-equivalent"> <code>Chesscom-equivalent</code></label>
+<label class="rd pk" data-lv="special" hidden title="Chess.com kuralları, sayısal arayüz, prompt penceresi" data-en-title="Chess.com rules, numeric interface, prompt dialog"><input type="radio" name="build" value="Chesscom-equivalent_numerical"> <code>Chesscom-equivalent_numerical</code></label>
+<label class="rd" data-lv="special" hidden title="L2, kilitli pozisyon dedektörü olmadan" data-en-title="L2 without the blocked-position detector"><input type="radio" name="build" value="L2_noBlockedDetector"> <code>L2_noBlockedDetector</code></label>
+<label class="rd str" data-lv="special" hidden title="Aynısı, harf dizgisi tahta ve ters indeksle" data-en-title="The same on a string board with flipped index order"><input type="radio" name="build" value="L2_string_flip_noBlockedDetector"> <code>L2_string_flip_noBlockedDetector</code></label>
+<label class="rd pk" data-lv="special" hidden title="1.023 baytlık tıklanabilir tahta — yalnızca geçerlilik" data-en-title="A clickable board in 1,023 bytes — legality only"><input type="radio" name="build" value="DOM_1023"> <code>DOM_1023</code></label>
+<label class="rd pk" data-lv="special" hidden title="830 bayt; taşlar onaltılık rakamlarla, terfi metin alanından" data-en-title="830 bytes; pieces shown as hexadecimal digits, promotion typed into a text field"><input type="radio" name="build" value="DOM_minimum"> <code>DOM_minimum</code></label>
+<label class="rd pk" data-lv="special" hidden title="766 bayt; hamle sayıyla girilir, tahta yok, oyun hiç bitmez — yalnızca geçerlilik, paketli" data-en-title="766 bytes; moves typed as numbers, no board, the game never ends — legality only, packed"><input type="radio" name="build" value="Lowest"> <code>Lowest</code></label>
+<label class="rd bot" data-lv="special" hidden title="Oscar Toledo G.'nin satrancı, ES6 ile küçülttüğüm hâli — bota karşı" data-en-title="Oscar Toledo G.'s chess, shrunk further in ES6 by me — against its bot"><input type="radio" name="build" value="Toledos-ES6-optimized"> <code>Toledos-ES6-optimized</code></label>
+<label class="rd bot" data-lv="special" hidden title="Toledo'nun programına rakip olarak yazdığım bot, bu motorun üstünde" data-en-title="The bot I wrote as an opponent for Toledo's program, on this engine"><input type="radio" name="build" value="ToledosOpponentbyMe"> <code>ToledosOpponentbyMe</code></label>
+<label class="rd" data-lv="special" hidden title="Tam hakem, zengin arayüz — sürükle bırak, sağ tıkla işaretleme, başlarken süre, saat modu ve FEN seçimi — yapım aşamasında" data-en-title="Full arbiter with a rich interface — drag and drop, right-click marking, time control, clock mode and FEN picked at the start — in progress"><input type="radio" name="build" value="LUX_inProgress"> <code class="lux">LUX_inProgress</code></label>
+        </fieldset>
+      </div>
+      <div class="stage" id="stage">
+        <p class="idle" id="idle"><span lang="tr">Seçili sürüm <b>L3</b>. Oyunu başlat ya da kodunu göster.</span><span lang="en">Selected build <b>L3</b>. Start the game or show its code.</span></p>
+        <p class="hlkey" id="hlkey" hidden>
+          <span class="hl-r" hidden><span lang="tr">kurallar</span><span lang="en">rules</span></span>
+          <span class="hl-u" hidden><span lang="tr">arayüz</span><span lang="en">interface</span></span>
+          <span class="hl-b" hidden>bot</span>
+          <span class="hl-m" hidden><span lang="tr">kural + bot</span><span lang="en">rules + bot</span></span>
+          <span class="hl-p" hidden><span lang="tr">paketli script</span><span lang="en">packed script</span></span>
+          <span class="hl-h" hidden><span lang="tr">HTML (ortam)</span><span lang="en">HTML (environment)</span></span>
+        </p>
+        <pre class="src" id="src" hidden></pre>
+      </div>
+      <div class="pfoot">
+        <span id="status"><span lang="tr">Hazır</span><span lang="en">Ready</span></span>
+        <span class="pacts">
+          <button id="copysrc" type="button" disabled><span lang="tr">Kopyala</span><span lang="en">Copy</span></button>
+          <button class="dl1" id="dlfile" type="button"><span lang="tr">İndir</span><span lang="en">Download</span></button>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="story">
   <div class="wrap">
     <p class="eyebrow" lang="tr">Hikâye</p>
@@ -1459,8 +1474,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       word “complete” begins.</p>
     </div>
 
-    <h3 lang="tr">Neyi çıkarırsak hâlâ satranç kalır</h3>
-    <h3 lang="en">What can we remove and still have chess</h3>
+    <h3 lang="tr">Neyi çıkarırsak hâlâ satranç kalır (Chesseus problemi)</h3>
+    <h3 lang="en">What can we remove and still have chess (the Chesseus problem)</h3>
     <div class="prose" lang="tr">
       <p>Motoru yazarken kendimi bir anda Theseus'un Gemisi paradoksunun ortasında buldum:
       bir satranç oyunundan neleri söküp atabiliriz ki geriye yine satranç kalsın?</p>
@@ -1662,7 +1677,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       şişirir; iki insanın oynadığı yapı bayt bütçesi açısından çok daha ucuz. Üstelik bir bot
       eklemek FIDE uyumluluğuna hiçbir şey katmıyor.</p>
       <p>Asıl mesele ölçülebilirlik. Botun tanımı belirsiz: 100 baytın altına sığan, rastgele
-      ama legal hamle yapan şey bot mudur? Materyal sayan bot mudur, yoksa eşik daha yukarıda
+      ama geçerli hamle yapan şey bot mudur? Materyal sayan bot mudur, yoksa eşik daha yukarıda
       mı? Bunu kim söyleyecek? Kurallar öyle değil, kesin ve net. Bir kodun kuralı uygulayıp
       uygulamadığı bakıldığında görünüyor, tartışmaya yer bırakmıyor. Ölçü eksik kapsamada bile
       net: motorun verdiği her hüküm doğru (<i>soundness</i>), kaçırdığı hüküm olabilir
@@ -2427,11 +2442,200 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 </table></div>
 
     <div class="prose" lang="tr">
-      <p>FIDE iki hakkı iki ayrı satırdan ölçüyor: geçerken almayı <b>imkân</b>, roku <b>hak</b> olarak sayıyor ve bunu 9.2.3.1 ile 9.2.3.2'de açıkça yazıyor. İlk bakışta tutarsız görünüyor — ikisi de “şu an oynanabilir mi” sorusuna bağlıymış gibi duruyor — ve konu tartışmasız da değil. Kitabın gerekçesi, ikinci bölümde gördüğümüz <em>hak kaybı</em> ile <em>geçici engel</em> ayrımı: geçerken almada geçici engel diye bir şey yok — hak ya vardır ya yoktur ve bir hamle sonra kalıcı olarak düşer; rokta ise ikisi ayrı şeyler ve kitap yalnızca kalıcı olanı sayıyor. Yaygın kabul gören görüş de roku hak olarak saymak: hem daha az maliyetli, hem de bu yoruma göre pozisyonları daha hassas ayırdığı için değerlendirmenin daha iyi yolu. Ben aksini
-      düşünüyorum; ayrıntısı <a href="#hybrid">önerdiğim karma sistemde</a>. Bu ayrımın gerçek bir
+      <p>FIDE iki hakkı iki ayrı satırdan ölçüyor: geçerken almayı <b>imkân</b>, roku <b>hak</b> olarak sayıyor ve bunu 9.2.3.1 ile 9.2.3.2'de açıkça yazıyor. İlk bakışta tutarsız görünüyor — ikisi de “şu an oynanabilir mi” sorusuna bağlıymış gibi duruyor — ve konu tartışmasız da değil. Kitabın gerekçesi, ikinci bölümde gördüğümüz <em>hak kaybı</em> ile <em>geçici engel</em> ayrımı: geçerken almada geçici engel diye bir şey yok — hak ya vardır ya yoktur ve bir hamle sonra kalıcı olarak düşer; rokta ise ikisi ayrı şeyler ve kitap yalnızca kalıcı olanı sayıyor. Yaygın kabul gören görüş de roku hak olarak saymak: hem daha az maliyetli, hem de bu yoruma göre pozisyonları daha hassas ayırdığı için değerlendirmenin daha iyi yolu. Bu ayrımın gerçek bir
       oyunda bedeli de olmuştur:
       Karpov–Miles, 1986'da Karpov üçlü tekrar iddia etti, pozisyonların rok hakları bakımından
       farklı olduğu gösterildi ve iddia reddedildi. Aradaki fark tahtaya bakınca görünmüyordu.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>FIDE measures the two rights on two different rows: it counts en passant as <b>availability</b> and castling as a <b>right</b>, and says so plainly in 9.2.3.1 and 9.2.3.2. At first glance it looks inconsistent — both seem tied to the question “can it be played right now” — and the point is not undisputed. The book's reasoning is the distinction between <em>losing a right</em> and <em>temporary prevention</em> that we met in section two: en passant has no temporary prevention — the right either exists or it does not, and one move later it is permanently gone — while for castling the two are separate things, and the book counts only the permanent one. The widely accepted view, too, is to count castling as a right: it is cheaper, and on that reading it separates positions more precisely and is the
+      better way to assess them. The distinction has cost someone a real game: in Karpov–Miles, 1986, Karpov claimed a threefold repetition,
+      the positions were shown to differ in castling rights, and the claim was refused. The
+      difference was invisible on the board.</p>
+    </div>
+
+    <div class="sidefig">
+      <figure class="fig fig-wide" lang="tr">
+        <div class="mb et el eb er" style="--c:8" role="img" aria-label="Beyaz şah e1, kale h1, at g1; siyah şah e8. g1'deki at kısa rokun yolunu tıkıyor; f3'teki soluk at Ag1–f3 hamlesinin varış karesi.">
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i><b class="b">♚</b></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="8"></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i data-r="7"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="6"></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i data-r="5"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="4"></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i class="p"><b class="w g">♞</b></i>
+<i class="d"></i>
+<i data-r="3"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="2"></i>
+<i class="d" data-f="a"></i>
+<i data-f="b"></i>
+<i class="d" data-f="c"></i>
+<i data-f="d"></i>
+<i class="d" data-f="e"><b class="w">♚</b></i>
+<i data-f="f"></i>
+<i class="p d" data-f="g"><b class="w">♞</b></i>
+<i data-f="h" data-r="1"><b class="w">♜</b></i>
+</div>
+        <figcaption>X ile Y: tahta birebir aynı. X'te şah hiç oynamadı, Y'de f1'e gidip geri döndü. İkisinde de g1'deki at rokun yolunu tıkıyor. <b>Ag1–f3</b> yolu açınca X'te rok oynanabilir hâle geliyor, Y'de gelmiyor. Yeşil çerçeveler atın çıkış ve varış karesi, soluk at varış.</figcaption>
+      </figure>
+      <figure class="fig fig-wide" lang="en">
+        <div class="mb et el eb er" style="--c:8" role="img" aria-label="White king e1, rook h1, knight g1; black king e8. The knight on g1 blocks kingside castling; the faded knight on f3 marks where Ng1–f3 lands.">
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i><b class="b">♚</b></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="8"></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i data-r="7"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="6"></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i data-r="5"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="4"></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i class="p"><b class="w g">♞</b></i>
+<i class="d"></i>
+<i data-r="3"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="2"></i>
+<i class="d" data-f="a"></i>
+<i data-f="b"></i>
+<i class="d" data-f="c"></i>
+<i data-f="d"></i>
+<i class="d" data-f="e"><b class="w">♚</b></i>
+<i data-f="f"></i>
+<i class="p d" data-f="g"><b class="w">♞</b></i>
+<i data-f="h" data-r="1"><b class="w">♜</b></i>
+</div>
+        <figcaption>X and Y: the board is identical. In X the king has never moved; in Y it went to f1 and came back. In both, the knight on g1 blocks castling. Once <b>Ng1–f3</b> clears the way, castling becomes playable in X but not in Y. The green frames mark the knight's start and destination, the faded knight its arrival.</figcaption>
+      </figure>
+      <div class="prose" lang="tr">
+        <p><b>Neden o anki geçerlilik değil de hak.</b> Bir durum makinesinin temel şartı
+        hafızasızlıktır: bir sonraki durum yalnızca şimdiki duruma ve yapılan hamleye bağlı
+        olmalı, geçmişe bakmaya gerek kalmamalı. Rok o anki geçerlilikle sayılsaydı bu şart
+        bozulurdu. Yandaki tahtayı iki ayrı oyunda düşünelim. X'te beyaz şah hiç oynamadı; Y'de
+        f1'e gidip geri döndü. İkisinde de g1'deki at yolu tıkadığı için rok şu an oynanamıyor.
+        Taşlar aynı karelerde, sıra aynı tarafta ve iki pozisyonun geçerli hamle listesi birebir
+        aynı; geçerli ölçüyle X ile Y aynı pozisyon sayılır. Şimdi ikisinde de aynı hamleyi
+        oynayalım: Ag1–f3. X'ten çıkan pozisyonda beyaz bir sonraki hamlesinde rok yapabilir,
+        Y'den çıkanda yapamaz. Aynı pozisyona aynı hamle uygulanınca iki farklı pozisyon
+        çıkıyorsa, başta aynı oldukları varsayımı yanlıştır. Demek ki pozisyonun içinde tahtada
+        görünmeyen bir hafıza var: rok hakkı. FEN onu <code>KQkq</code> alanında tutuyor.</p>
+        <p>Aynı sınama geçerken almada geçerli ölçünün neden yettiğini de gösteriyor. Hak
+        yalnızca bir yarım hamle yaşıyor: alış o an geçerli değilse, hangi hamle oynanırsa
+        oynansın bir sonraki pozisyonda hak zaten yok. Geçerli ölçüyle aynı sayılan iki pozisyonun
+        geleceği ayrışamıyor, yani gizli bir hafızaya gerek kalmıyor. Kitabın iki hakkı iki ayrı
+        satırdan ölçmesinin nedeni bu: her hak, pozisyonun geleceğini kaybetmeden en az ayıran
+        ölçüyle sayılıyor.</p>
+      </div>
+      <div class="prose" lang="en">
+        <p><b>Why the right, and not playability at the moment.</b> The basic requirement of a
+        state machine is memorylessness: the next state should depend only on the current state
+        and the move made, with no need to look back at the past. Had castling been counted by
+        whether it can be played right now, that requirement would break. Take the board alongside
+        in two different games. In X the white king has never moved; in Y it went to f1 and came
+        back. In both, castling cannot be played right now, because the knight on g1 blocks the
+        way. The pieces stand on the same squares, the same side is to move, and the two positions
+        have exactly the same list of legal moves; by the legal measure X and Y count as the same
+        position. Now play the same move in both: Ng1–f3. In the position that follows X, White
+        can castle on its next move; in the one that follows Y, it cannot. If the same move applied
+        to the same position yields two different positions, the assumption that they were the
+        same was wrong. So the position holds a memory that the board does not show: the castling
+        right. FEN keeps it in its <code>KQkq</code> field.</p>
+        <p>The same test shows why the legal measure is enough for en passant. The right lives for
+        a single ply: if the capture is not legal now, the right is gone in the next position
+        whatever move is played. Two positions the legal measure counts as the same cannot have
+        different futures, so no hidden memory is needed. That is why the book measures the two
+        rights on two different rows: each right is counted by the measure that tells positions
+        apart the least without losing their future.</p>
+      </div>
+    </div>
+
+    <div class="prose" lang="tr">
       <p>Uygulamalar geçerken alma karesini farklı biçimlerde yazıyor. Hepsinde alışın kendisi
       eninde sonunda geçerlilik süzgecinden geçtiği için fark tahtada görünmüyor, yalnızca tekrar
       sayımında çıkıyor. En basit hâlinde kare, iki kare ilerleyen her piyon için yazılıyor. Bu
@@ -2445,11 +2649,6 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       gören FIDE yorumu ise <a href="https://github.com/lichess-org/scalachess" target="_blank" rel="noopener">Lichess</a>'in de yaptığı gibi kareyi yalnızca alış geçerliyse saymak.</p>
     </div>
     <div class="prose" lang="en">
-      <p>FIDE measures the two rights on two different rows: it counts en passant as <b>availability</b> and castling as a <b>right</b>, and says so plainly in 9.2.3.1 and 9.2.3.2. At first glance it looks inconsistent — both seem tied to the question “can it be played right now” — and the point is not undisputed. The book's reasoning is the distinction between <em>losing a right</em> and <em>temporary prevention</em> that we met in section two: en passant has no temporary prevention — the right either exists or it does not, and one move later it is permanently gone — while for castling the two are separate things, and the book counts only the permanent one. The widely accepted view, too, is to count castling as a right: it is cheaper, and on that reading it separates positions more precisely and is the
-      better way to assess them. I think otherwise; the details are in <a href="#hybrid">the
-      hybrid I propose</a>. The distinction has cost someone a real game: in Karpov–Miles, 1986, Karpov claimed a threefold repetition,
-      the positions were shown to differ in castling rights, and the claim was refused. The
-      difference was invisible on the board.</p>
       <p>Implementations write the en passant square in different ways. In all of them the capture
       itself passes the legality filter in the end, so the difference never shows on the board —
       only in the repetition count. In its simplest form the square is written after every
@@ -2464,10 +2663,10 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     </div>
 
     <div class="prose fl" lang="tr">
-      <p><b>FideLite'ta.</b> Geçerken alma karesi yalnızca alış geçerliyse yazılıyor — yanında bir rakip piyon var ve alış, iki piyonu birden yerinden oynattığı hâlde kendi şahını tehdide açmıyor. Rok ise kalıcı hak olarak tutuluyor. Yani FideLite, FIDE'nin iki satırını birebir uyguluyor.</p>
+      <p><b>FideLite'ta.</b> Geçerken alma karesi yalnızca alış geçerliyse yazılıyor — yanında bir rakip piyon var ve alış, iki piyonu birden yerinden oynattığı hâlde kendi şahını tehdide açmıyor. Rok ise kalıcı hak olarak tutuluyor: dört bitlik <code>c</code> maskesi, tekrar anahtarının da parçası. Yani FideLite, FIDE'nin iki satırını birebir uyguluyor.</p>
     </div>
     <div class="prose fl" lang="en">
-      <p><b>In FideLite.</b> The en passant square is written only if the capture is legal — an opposing pawn stands alongside, and the capture, though it moves two pawns at once, does not expose its own king. Castling is kept as the permanent right. FideLite thus applies FIDE's two rows exactly.</p>
+      <p><b>In FideLite.</b> The en passant square is written only if the capture is legal — an opposing pawn stands alongside, and the capture, though it moves two pawns at once, does not expose its own king. Castling is kept as the permanent right: the four-bit mask <code>c</code>, which is also part of the repetition key. FideLite thus applies FIDE's two rows exactly.</p>
     </div>
 
     <h4 lang="tr">Sayaç neden en dışta duruyor</h4>
@@ -2479,7 +2678,9 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <p>Sebebi şu: <b>piyon hamlesi ile alma geri alınamaz.</b> Bir piyon geri gitmez, alınan taş
       geri gelmez. İkisi de bir oyunda ancak sonlu sayıda olabilir — piyonlar sonlu, taşlar sonlu.
       Ve sayacı sıfırlayan tek şey bu ikisi. Öyleyse ikisi de tükendikten sonra sayaç durmadan
-      artar ve 150 yarım hamlede oyunu kendiliğinden bitirir.</p>
+      artar ve 150 yarım hamlede oyunu kendiliğinden bitirir. Kitap sayacı yalnızca bu ikisine bağlıyor;
+      aynı sınıftan iki olayın daha, rok hakkının ve geçerken alma hakkının düşmesinin de ona
+      bağlanması gerektiğini <a href="#reset">9. bölümde</a> tartışıyorum.</p>
       <p>Bundan çıkan sonuç şu: <b>ölü pozisyon tespiti de, tekrar sayımı da oyunu bitiren kurallar
       değil — erken bitiren kurallar.</b> İkisi de olmasaydı, kilitli bir pozisyonda oyuncular hamleleri yinelemeyi sürdürdükçe oyun zorunlu olarak 75 hamle sınırına dayanırdı. beşli tekrar oraya giden yolun kestirmesi, çünkü kilitlilik hareketliliği düşürür ve aynı pozisyon daha erken geri gelir. Ölü pozisyon da tekrarın kestirmesi, çünkü pozisyonu ilk hamlede tanır.</p>
       <p>Aynı akıl yürütme tersten okunduğunda, <b>sonluluğun</b> ne kadar az kuralla garanti edildiğini gösteriyor. Geçerlilik, mat, pat ve 50/75 hamle yeter: bu dört şeyi uygulayan bir
@@ -2506,7 +2707,9 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       captured piece does not return. Each can happen only finitely often in a game — the pawns are
       finite, the pieces are finite. And those two are the only things that reset the counter. So
       once both are exhausted the counter climbs without interruption and ends the game by itself
-      at 150 plies.</p>
+      at 150 plies. The book ties the counter to these two alone; that two more events of the same
+      class, the loss of a castling right and the lapse of an en passant right, should be tied to
+      it as well is something I argue in <a href="#reset">section nine</a>.</p>
       <p>What follows is this: <b>neither dead-position detection nor the repetition count is a
       rule that ends the game — they are rules that end it early.</b> Without either of them, a
       blocked position would inevitably run into the 75-move limit as long as the players kept repeating moves. Fivefold repetition short-circuits that, because being
@@ -2533,17 +2736,68 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       there is no tournament chess.</p>
     </div>
 
+    <h4 lang="tr">Geri alınamaz hamle geçmişi budar</h4>
+    <h4 lang="en">An irreversible move prunes the past</h4>
+    <div class="prose" lang="tr">
+      <p>Yarım hamle sayacını sıfırlayan bir hamle (piyon hamlesi ya da alış) ve bir rok hakkının
+      düşmesi, tekrar tablosunu o andan itibaren budar: öncesindeki pozisyonların hiçbiri bir daha
+      ortaya çıkamaz. Piyon geri gitmez, alınan taş geri gelmez; rok hakkı da pozisyonun tanımının
+      parçası olduğu için, hak düştükten sonra hakkın durduğu pozisyonlar yeniden doğamaz.
+      Tablonun o ana kadarki kısmı artık kesin olarak ölü veri.</p>
+      <p>Bu budamanın asıl işe yaradığı yer arama yapan motorlar. Bot tekrar kontrolünü aramanın
+      her düğümünde, saniyede milyonlarca kez yapıyor; geçmişi yalnızca son geri alınamaz hamleye
+      kadar taramak orada doğrudan hız demek. Hakemde ise kontrol yarım hamlede bir kez yapılıyor
+      ve pozisyonlar bir karma tablosunda tutulduğu için bakmanın süresi tablonun boyuna bağlı
+      değil.</p>
+      <p>Tablonun büyümesinin kesin bir üst sınırı da var: 75 hamle kuralı kendiliğinden işlediği
+      için bir oyun en fazla <a class="ext" href="https://www.wismuth.com/chess/longest-game.html" target="_blank" rel="noopener">17.697 yarım hamle, yani 8.848,5 hamle ↗️</a> sürebilir.
+      Yukarıdaki sonluluk argümanının somut sayısı bu; tablo bundan fazla pozisyon tutamaz.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>A move that resets the ply counter (a pawn move or a capture) and the loss of a castling
+      right both prune the repetition table from that moment on: none of the positions before it
+      can ever arise again. A pawn does not go back and a captured piece does not return; and since
+      a castling right is part of what defines a position, positions that held the right cannot
+      come back once it is lost. Everything the table holds up to that point is now dead data for
+      certain.</p>
+      <p>Where this pruning really pays is in engines that search. A bot checks for repetition at
+      every node of its search, millions of times a second; scanning the history only back to the
+      last irreversible move is raw speed there. In an arbiter the check runs once per ply, and
+      since the positions sit in a hash table, a lookup takes the same time however large the
+      table grows.</p>
+      <p>How large it can grow has a hard ceiling too: because the 75-move rule applies by itself,
+      a game can last at most <a class="ext" href="https://www.wismuth.com/chess/longest-game.html" target="_blank" rel="noopener">17,697 plies — 8,848.5 moves ↗️</a>. That is the concrete
+      number behind the finiteness argument above; the table can never hold more positions than
+      that.</p>
+    </div>
+    <div class="prose fl" lang="tr">
+      <p><b>FideLite'ta.</b> Motor kitaba uyuyor: sayaç yalnızca piyon hamlesinde ve alışta
+      sıfırlanıyor. Tekrar tablosu da hiç budanmıyor, oyun boyunca büyüyor. Pozisyonu 140 karakter
+      civarında bir metin anahtarıyla tutmasına rağmen en uzun oyunun sonunda bile yaklaşık
+      3,5 MB yer kaplıyor. Hissedilmeyecek bir yük; budamayı yazmak ise boşuna bayt harcamak
+      olurdu.</p>
+    </div>
+    <div class="prose fl" lang="en">
+      <p><b>In FideLite.</b> The engine follows the book: the counter resets only on a pawn move
+      and a capture. The repetition table is never pruned either; it grows for the whole game. Even
+      though it keys each position by a string of about 140 characters, at the end of the longest
+      possible game it takes up only about 3.5 MB. A load no one will feel; writing the pruning
+      would have been bytes spent for nothing.</p>
+    </div>
+
     <h4 lang="tr">Hamle listesi yerine sayaçlar <span class="dtag">8.1 · dijitalde sayaçlara dönüşür</span></h4>
     <h4 lang="en">Counters instead of a scoresheet <span class="dtag">8.1 · becomes counters digitally</span></h4>
 
     <div class="prose" lang="tr">
       <p>Bu sayaçların tahta başındaki karşılığı oyuncunun kendi tuttuğu kayıt: FIDE oyuncudan
-      hamleleri kaydetmesini istiyor (8.1) ve iddianın dayanağı o kayıt. 50 hamlenin dolup dolmadığını, bir pozisyonun kaçıncı kez geldiğini oyuncu kayıttan
-      çıkarıyor; 9.2 ve 9.3'te iddia da hamleyi kayda yazarak yapılıyor, hakem de kayıttan
-      doğruluyor. Kayıt orada bir delil: geçersiz bir hamlenin de yanlış bir iddianın da bedeli ona
-      bakılarak kesiliyor.</p>
+      hamleleri kaydetmesini istiyor (8.1) ve iddianın dayanağı o kayıt. 50 hamlenin dolup
+      dolmadığını, bir pozisyonun kaçıncı kez geldiğini oyuncu yalnızca kayıttan çıkarabiliyor;
+      onun dışında not tutmak bile yasak (11.3.1). Kural oldukça katı. 9.2 ve 9.3'te iddia da
+      hamleyi kayda yazarak yapılıyor, hakem de kayıttan doğruluyor. Kayıt orada bir delil, çünkü
+      masa başında geçersiz hamle de yanlış iddia da mümkün; ikisinin bedeli de ona bakılarak
+      kesiliyor (7.5, 9.5).</p>
       <p>Dijitalde bu yükün hiçbiri kalmıyor. Geçersiz hamle yapmak imkânsız, dolayısıyla cezası
-      da yok; platformlarda iddianın ve teklifin ne kısıtı ne cezası var. Kaydın delil olarak
+      da yok; yanlış bir iddia da anında denetleniyor ve kimseye bir şey kaybettirmiyor. Kaydın delil olarak
       taşıdığı iş kalkınca, oyuncunun ondan çıkarmak zorunda kaldığı iki sayı kalıyor: yarım hamle
       sayacı ve tekrar sayısı.</p>
       <p>Bu hesap otomatikleştirilmeli: iki sayı her hamlede ekranda güncel durmalı. Sayaç tam hamle değil <b>yarım hamle</b> saymalı; bence doğrusu bu. İddia oynanacak hamle
@@ -2554,20 +2808,32 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       bir düğmeyi yakarak bildiren yaklaşımlardan daha tutarlı: kitap iddiayı oynanacak hamle
       üzerinden de tanıyor, düğme ise yalnızca oynanmış olanı görüyor.</p>
       <p>FIDE'yi, hatta USCF'yi baz alan sistemleri dijitale uyarlamanın en mantıklı yolu da bence
-      bu ve yukarıdaki uyarlamalarla tamamen tutarlı: kaydın yükü kalktıysa, kayıttan çıkarılan
-      hesabın yükü de kalkmalı.</p>
+      bu. Geçersiz hamlenin ve yanlış iddianın imkânsız olduğu bir ortamda sayıları otomatik veren
+      sayaçlar, yukarıdaki uyarlamalarla tamamen tutarlı: kaydın yükü kalktıysa, kayıttan
+      çıkarılan hesabın yükü de kalkmalı.</p>
+      <p>Not yasağı düşünüldüğünde bu FIDE'ye aykırı sayılabilir mi? Sayılırsa motor en baştan
+      aykırı olur: yalnızca geçerli hamleye izin veriyor, geçersiz hamleye 7.5'in cezasını hiç
+      uygulamıyor, iddiayı da kayıt yerine anında denetliyor. Kayıt, not yasağı ve ceza maddeleri
+      oyunun değil masa başının kuralları; delil üretmek ve dürüstlüğü korumak için varlar ve
+      dijitalde o işi platform kendisi görüyor. FIDE'nin kendi <a class="ext" href="https://handbook.fide.com/files/handbook/OnlineChessRegulations.pdf" target="_blank" rel="noopener">çevrimiçi yönetmeliği ↗️</a>
+      de aynı yönde: oyun alanı yalnızca geçerli hamleleri kabul ediyor, bütün hamleler ve saatler
+      otomatik kaydedilip iki oyuncuya da gösteriliyor (3.3, 3.7). Not yasağı orada da geçerli
+      (9.6), ama platformun iki tarafa birden gösterdiği kayıt not sayılmıyor; sayaçlar da o
+      kaydın özeti.</p>
       <p>Bunun platformlar arasında standart hâle gelmesi iyi olur. Hakkı olan bir oyuncu, o hakkı
       kullanabilmek için hamle listesini geriye doğru saymak zorunda kalmamalı.</p>
     </div>
     <div class="prose" lang="en">
       <p>Over the board, what stands behind these counters is the players' own record: FIDE requires
-      them to record the moves (8.1), and the record is what a claim stands on. Whether fifty moves have passed, how many times a position has
-      occurred — the player works both out from the scoresheet; under 9.2 and 9.3 the claim itself
-      is made by writing the move on it, and the arbiter checks it against the scoresheet. There the
-      record is evidence: the price of an illegal move and of an incorrect claim alike is set by
-      looking at it.</p>
+      them to record the moves (8.1), and the record is what a claim stands on. Whether fifty moves
+      have passed, how many times a position has occurred — the player can work both out only from
+      the scoresheet; keeping any other notes is forbidden (11.3.1). The rule is strict. Under 9.2
+      and 9.3 the claim itself is made by writing the move on the scoresheet, and the arbiter checks
+      it against the scoresheet. There the record is evidence, because over the board both an
+      illegal move and an incorrect claim are possible, and the price of each is set by looking at
+      it (7.5, 9.5).</p>
       <p>Digitally none of that load remains. An illegal move is impossible, so it carries no
-      penalty; on the platforms, claims and offers carry neither a restriction nor a penalty. With
+      penalty; an incorrect claim is checked on the spot and costs nobody anything. With
       the record no longer needed as evidence, what is left are the two numbers the player had to
       work out of it: the ply counter and the repetition count.</p>
       <p>That sum should be automated: both numbers should stay current on screen after every move. The counter should count <b>plies</b>, not full moves, and I think that is the right choice. Because a
@@ -2579,8 +2845,18 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       a button: the book recognises a claim on the move about to be played as well, while a button
       sees only the move already made.</p>
       <p>I think this is also the most sensible way to bring systems based on FIDE, or even on USCF,
-      into digital play, and it is fully consistent with the adaptations above: once the record
-      carries no burden, neither should the arithmetic done from it.</p>
+      into digital play. Where an illegal move and an incorrect claim are both impossible, counters
+      that give the numbers automatically are fully consistent with the adaptations above: once the
+      record carries no burden, neither should the arithmetic done from it.</p>
+      <p>Given the ban on notes, could this be called a breach of FIDE? If it were, the engine would
+      be in breach from the very start: it allows only legal moves, never applies the penalty of
+      7.5, and checks a claim on the spot instead of against a scoresheet. The articles on
+      recording, notes and penalties are rules of the table, not of the game; they exist to produce
+      evidence and keep play honest, and digitally the platform does that job itself. FIDE's own
+      <a class="ext" href="https://handbook.fide.com/files/handbook/OnlineChessRegulations.pdf" target="_blank" rel="noopener">online regulations ↗️</a> point the same way: the playing zone accepts only legal moves,
+      and every move and clock time is recorded automatically and shown to both players (3.3, 3.7).
+      The ban on notes holds there too (9.6), but a record the platform shows to both sides is not
+      a note, and the counters are a summary of that record.</p>
       <p>It would be good for this to become standard across platforms. A player who holds a right
       should not have to count back through the move list to be able to use it.</p>
     </div>
@@ -4773,7 +5049,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       Örneğin:</p>
     </div>
     <figure class="fig fig-wide" lang="tr">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="Siyah şah a8, kendi fili b8 ve kendi piyonu a7. Beyaz fil c6 şah çekiyor, beyaz piyon a6 b7 karesini tehdit ediyor. Siyahın hiçbir legal hamlesi yok — mat.">
+        <div class="mb et el eb er" style="--c:8" role="img" aria-label="Siyah şah a8, kendi fili b8 ve kendi piyonu a7. Beyaz fil c6 şah çekiyor, beyaz piyon a6 b7 karesini tehdit ediyor. Siyahın hiçbir geçerli hamlesi yok — mat.">
 <i><b class="b">♚</b></i>
 <i class="d"><b class="b">♝</b></i>
 <i></i>
@@ -5296,7 +5572,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <li><b>75 hamle ve beşli tekrar — açık.</b> Sayaç 75 hamleye ulaştığında ya da pozisyon beşinci kez doğduğunda oyun kendiliğinden berabere biter. FIDE'nin tavanı; oyunun <a href="#counters">sonlu kalmasını</a> garanti eden en dış ağ bu.</li>
       <li><b>Anlaşmalı beraberlik — ilk hamleden itibaren.</b> FIDE anlaşmayı iki tarafın da en az bir hamle yapmış olmasına bağlıyor (5.2.3). USCF asgari bir hamle sayısı koymuyor, yalnızca teklifin zamanlamasını düzenliyor: hamle belirlendikten sonra, saate basmadan önce (14B1). Karma sistem de şart koymuyor: anlaşma ilk hamleden itibaren mümkün. Teklif yine hamleye bağlı gittiği için zamanlama iki kitaptakiyle aynı kalıyor.</li>
       <li><b>Ölü pozisyon — hemen biter.</b> 5.2.2'deki gibi, kilitli pozisyonlar dahil.</li>
-      <li><b>Tekrar kimliği — geçerken alma da rok da geçerli ölçüyle.</b> Geçerken alma FIDE'deki gibi sayılıyor. Rok ise iki kitaptan da ayrılıyor: kalıcı hak değil, o an oynanabilir olması sayılıyor; iki taraf için de aynı soru soruluyor — sıra o tarafta olsaydı rok şu an oynanabilir miydi. Bu ölçüyle aynı sayılan iki pozisyonun geçerli hamle listesi birebir aynı oluyor, ki 9.2.3'ün “mümkün hamleler aynı olmalı” şartının doğrudan karşılığı bu. Hak ve ham-geçerli ölçüler bu kadar isabetli değil: hamle listesi aynı olan pozisyonları ayrı sayabiliyorlar. İki hak da böylece <a href="#counters">aynı satırdan</a> ölçülüyor.</li>
+      <li><b>Yarım hamle sayacı — her geri alınamaz olayda sıfırlanır.</b> Karma sistem <a href="#reset">aşağıda önerdiğim</a> sayacı kullanıyor: piyon hamlesi ve alışın yanında rok hakkının ve geçerken alma hakkının düşmesi de sayacı sıfırlıyor.</li>
       <li><b>Bayrak düşmesi — zorlamalı mat.</b> USCF'deki gibi: rakipte yalnızca çıplak şah, tek at, tek renk karelerde fil ya da filler, ya da — süresi bitenin piyonu yokken — iki at kaldıysa ve zorlamalı mat yoksa, sonuç yetersiz materyalden beraberlik. Süresi bitenin piyonu varsa iki at kazanıyor. Tek fark fil sınıfının genişliği: USCF'nin metni tek bir fil sayıyor, karma sistem terfiyle gelenler dahil tek renkteki bütün filleri aynı sınıfa koyuyor.</li>
       <li><b>Terk — zorlamalı mat, bayrakla aynı ölçü.</b> FIDE 2023'ten beri terkte de yardımlı mat ölçüsünü kullanıyor (5.1.2); USCF'de terk her zaman kayıp. Karma sistem terki bayraktaki zorlamalı mat ölçüsüne bağlıyor: rakip aynı sınıftaysa ve zorlamalı mat yoksa, terk eden kaybetmiyor. Gerekçesi şu: terk de bayrak da oyunu tahtada bitmeden kapatıyor ve ikisinde de sorulması gereken soru aynı — rakip bu oyunu zorla kazanabilir miydi? Rakibin elinde olmayan bir galibiyeti ne düşen bayrak vermeli ne de terk.</li>
     </ul>
@@ -5305,7 +5581,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <li><b>75 moves and fivefold repetition — on.</b> When the counter reaches 75 moves or the position arises for the fifth time, the game ends in a draw by itself. This is FIDE's ceiling, the outermost net that <a href="#counters">keeps the game finite</a>.</li>
       <li><b>Draw by agreement — from the very first move.</b> FIDE allows an agreement only once both sides have made at least one move (5.2.3). USCF sets no minimum number of moves; it regulates only the timing of the offer: after the move is determined and before the clock is pressed (14B1). The hybrid sets no condition either: agreement is possible from the very first move. Since the offer still travels with the move, the timing stays as it is in both books.</li>
       <li><b>Dead position — ends at once.</b> As in 5.2.2, blocked positions included.</li>
-      <li><b>Identity for repetition — en passant and castling both by the legal measure.</b> En passant is counted as under FIDE. Castling departs from both books: what counts is not the permanent right but whether castling can be played at that moment; the same question is asked for both sides — had it been that side's turn, could it castle right now. Two positions that count as the same under this measure have exactly the same list of legal moves, which is the direct counterpart of 9.2.3's condition that the possible moves be the same. The right and pseudo-legal measures are not as precise: they can count apart positions whose move lists are identical. Both rights are thereby measured <a href="#counters">on the same row</a>.</li>
+      <li><b>The ply counter — reset by every irreversible event.</b> The hybrid uses <a href="#reset">the counter I propose below</a>: besides a pawn move and a capture, the loss of a castling right and the lapse of an en passant right reset it too.</li>
       <li><b>Flag fall — forced mate.</b> As under USCF: if the opponent is left with only a bare king, a lone knight, bishops on squares of one colour, or — when the player out of time has no pawn — two knights, and there is no forced mate, the result is a draw by insufficient material. If the player out of time has a pawn, the two knights win. The one difference is the width of the bishop class: USCF's text counts a single bishop, the hybrid puts every bishop of one colour, promoted ones included, in the same class.</li>
       <li><b>Resignation — forced mate, the same measure as the flag.</b> Since 2023 FIDE applies the helpmate measure to resignation as well (5.1.2); under USCF a resignation is always a loss. The hybrid ties resignation to the forced-mate measure used at flag fall: if the opponent falls into the same class and there is no forced mate, the player who resigns does not lose. The reasoning: resignation and flag fall both close a game before it ends on the board, and the question to ask is the same in both — could the opponent have won this game by force? Neither a fallen flag nor a resignation should hand over a win the opponent did not have in hand.</li>
     </ul>
@@ -5318,7 +5594,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td>Anlaşmalı beraberlik</td><td>Açık<span class="sub">iki taraf da en az bir hamle yaptıktan sonra</span></td><td>Açık<span class="sub">asgari hamle şartı yok</span></td><td>Açık<span class="sub">ilk hamleden itibaren</span></td></tr>
 <tr><td>Ölü pozisyon</td><td>Hemen biter</td><td>Hemen biter</td><td>Hemen biter</td></tr>
 <tr><td>Tekrarda geçerken alma</td><td>Geçerli</td><td>Geçerli</td><td>Geçerli</td></tr>
-<tr><td>Tekrarda rok</td><td>Hak</td><td>Hak</td><td><b>Geçerli</b></td></tr>
+<tr><td>Tekrarda rok</td><td>Hak</td><td>Hak</td><td>Hak</td></tr>
+<tr><td>Sayacı sıfırlayan</td><td>Piyon hamlesi, alış</td><td>Piyon hamlesi, alış</td><td><b>Her geri alınamaz olay</b><span class="sub">+ rok ve geçerken alma hakkının düşmesi</span></td></tr>
 <tr><td>Bayrak düşmesinde ölçüt</td><td>Yardımlı mat</td><td>Zorlamalı mat</td><td>Zorlamalı mat</td></tr>
 <tr><td>Yetersiz materyal sayılan filler</td><td>Tek renkteki bütün filler</td><td>Tek fil</td><td>Tek renkteki bütün filler</td></tr>
 <tr><td>İki at, süresi bitenin piyonu varken</td><td>Kazanç</td><td>Kazanç</td><td>Kazanç</td></tr>
@@ -5334,7 +5611,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td>Draw by agreement</td><td>On<span class="sub">once both sides have made at least one move</span></td><td>On<span class="sub">no minimum number of moves</span></td><td>On<span class="sub">from the very first move</span></td></tr>
 <tr><td>Dead position</td><td>Ends at once</td><td>Ends at once</td><td>Ends at once</td></tr>
 <tr><td>En passant in repetition</td><td>Legal</td><td>Legal</td><td>Legal</td></tr>
-<tr><td>Castling in repetition</td><td>Right</td><td>Right</td><td><b>Legal</b></td></tr>
+<tr><td>Castling in repetition</td><td>Right</td><td>Right</td><td>Right</td></tr>
+<tr><td>What resets the counter</td><td>Pawn move, capture</td><td>Pawn move, capture</td><td><b>Every irreversible event</b><span class="sub">+ loss of a castling or en passant right</span></td></tr>
 <tr><td>Criterion at flag fall</td><td>Helpmate</td><td>Forced mate</td><td>Forced mate</td></tr>
 <tr><td>Bishops counted as insufficient material</td><td>Every bishop of one colour</td><td>A single bishop</td><td>Every bishop of one colour</td></tr>
 <tr><td>Two knights, player out of time has a pawn</td><td>Win</td><td>Win</td><td>Win</td></tr>
@@ -5352,6 +5630,56 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <p>One note on the implementation side: the forced-mate search does not have to wait for the
       flag. It can run in the background in every minor-piece position, so the result is ready when
       the flag falls and the players never wait for it.</p>
+    </div>
+
+    <h4 id="reset" lang="tr">Sayacı ne sıfırlamalı</h4>
+    <h4 lang="en" data-id="reset">What should reset the counter</h4>
+    <div class="prose" lang="tr">
+      <p>9.3 ve 9.6.2 sayacı yalnızca iki olaya bağlıyor: piyon hareketi ve taş alma. İkisinin ortak
+      noktası geri alınamaz olmaları; sayacın bütün anlamı da buradan geliyor. Ama kitabın kendi
+      mantığı harfinden ileri gidiyor. Aynı sınıfa iki olay daha giriyor: bir rok hakkının düşmesi
+      ve geçerken alma hakkının düşmesi. İkisi de geri gelmiyor ve ikisini de pozisyonun kimliğine
+      9.2.3'te kitabın kendisi katıyor. Bence sayaç dördünde de sıfırlanmalı. Bu bir okuma değil,
+      kural değişikliği: sayaç 140'tayken bir kale hamlesiyle rok hakkı düşerse FIDE oyunu on yarım
+      hamle sonra berabere bitirir, bu sayaçla oyun sürer.</p>
+      <p>Geçerken almanın düşmesi pratikte nadiren fark yaratır: hak ancak sayacı zaten sıfırlayan
+      bir çift adımla doğuyor, düştüğünde de sayaç yalnızca bir yarım hamle geç sıfırlanmış olur.
+      Fark küçük, ama doğru ve hassas okuma bu. Hak burada 9.2.3.1'in ölçüsüyle sayılıyor: alış
+      gerçekten geçerli değilse düşecek bir hak da yok.</p>
+      <p>Bu kadar ince düşünmemin nedeni üç kuralın birbirine oturması. Böyle tanımlanan sayaç
+      “son geri alınamaz olaydan bu yana geçen yarım hamle” demek olur ve üç kural aynı sinyalde
+      buluşur: 75 hamle onu sayar; beşli tekrara yalnızca o
+      pencerenin içine bakmak yeter, çünkü öncesi bir daha doğamaz; ölü pozisyon taraması da onun
+      sıfırlandığı anda çalışır. <a href="#dead">5. bölümdeki</a> bileşik koşul — (sayaç sıfırlandı
+      ya da bir rok hakkı düştü) ve geçerken alma karesi yok — sadeleşir: sayaç sıfırlandı ve
+      geçerken alma karesi yok. Çift adımın bir yarım hamle susturduğu kilit de hak düştüğü anda
+      yakalanır, çünkü o an da bir sıfırlanma. Sonluluk korunur: rok hakkı dört, geçerken alma
+      hakkı en fazla on altı tane; en uzun oyun en fazla birkaç yüz yarım hamle uzar.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>9.3 and 9.6.2 tie the counter to two events only: the movement of a pawn and a capture.
+      What the two share is that neither can be undone, and that is where the counter's whole
+      meaning comes from. But the book's own logic reaches further than its letter. Two more events
+      belong to the same class: the loss of a castling right and the lapse of an en passant right.
+      Neither comes back, and the book itself makes both part of a position's identity in 9.2.3. I
+      think the counter should reset on all four. This is not a reading but a change to the rule:
+      if a rook move costs a castling right while the counter stands at 140, FIDE ends the game in
+      a draw ten plies later, while under this counter play goes on.</p>
+      <p>The en passant lapse rarely makes a difference in practice: the right is born only of a
+      double step, which has already reset the counter, so when it lapses the counter simply
+      resets one ply later. The gap is small, but this is the correct, precise reading. The right
+      is counted here by the measure of 9.2.3.1: if the capture is not genuinely legal, there is no
+      right to lapse.</p>
+      <p>The reason I think about it this finely is that three rules then fit together. A counter
+      defined this way means “plies since the last irreversible event”, and all three rules meet on one
+      signal: the 75-move rule counts it; fivefold repetition need
+      only look inside that window, because nothing before it can recur; and the dead-position scan
+      runs at the moment it resets. The compound condition of <a href="#dead">section five</a> —
+      (the counter was reset or a castling right was lost) and there is no en passant square —
+      simplifies to: the counter was reset and there is no en passant square. A lock that a double
+      step silences for one ply is caught the moment the right lapses, because that moment is a
+      reset too. Finiteness survives: there are four castling rights and at most sixteen en passant
+      rights, so the longest game grows by at most a few hundred plies.</p>
     </div>
 
     </div>
@@ -6441,7 +6769,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td><b>50 hamle</b></td><td>İddiayla</td><td>Kendiliğinden</td><td>Kendiliğinden</td></tr>
 <tr><td><b>Beşli tekrar</b></td><td>Kendiliğinden</td><td>Kendiliğinden</td><td><span class="none">—</span><span class="sub">üçlüde biter</span></td></tr>
 <tr><td><b>75 hamle</b></td><td>Kendiliğinden</td><td><span class="none">—</span><span class="sub">50'de biter</span></td><td><span class="none">—</span><span class="sub">50'de biter</span></td></tr>
-<tr><td><b>Ölü pozisyon</b></td><td>Materyal ve kilitli</td><td>Yalnızca materyal</td><td>Yalnızca materyal, ama USCF'ye yakın</td></tr>
+<tr><td><b>Ölü pozisyon</b></td><td>Materyal ve kilitli<span class="sub">kod DP</span></td><td>Yalnızca materyal<span class="sub">kod IM</span></td><td>Yalnızca materyal, ama USCF'ye yakın<span class="sub">kod IM</span></td></tr>
 <tr><td><b>Süre bitiminde</b></td><td>6.9 kapsamlı araması<span class="sub">yardımlı mat</span></td><td>6.9, ama yalnızca materyal</td><td>Yalnızca rakibin taşları sayılıyor</td></tr>
 <tr><td><b>Terkte</b></td><td>6.9 kapsamlı araması<span class="sub">yardımlı mat</span></td><td>6.9, ama yalnızca materyal</td><td>Her zaman kayıp</td></tr>
 <tr><td><b>Tekrarda geçerken alma</b></td><td>Geçerli</td><td>Geçerli</td><td>Ham-geçerli</td></tr>
@@ -6454,12 +6782,23 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td><b>50 moves</b></td><td>By claim</td><td>Automatic</td><td>Automatic</td></tr>
 <tr><td><b>Fivefold repetition</b></td><td>Automatic</td><td>Automatic</td><td><span class="none">—</span><span class="sub">ends at threefold</span></td></tr>
 <tr><td><b>75 moves</b></td><td>Automatic</td><td><span class="none">—</span><span class="sub">ends at 50</span></td><td><span class="none">—</span><span class="sub">ends at 50</span></td></tr>
-<tr><td><b>Dead position</b></td><td>Material and blocked</td><td>Material only</td><td>Material only, but close to USCF</td></tr>
+<tr><td><b>Dead position</b></td><td>Material and blocked<span class="sub">code DP</span></td><td>Material only<span class="sub">code IM</span></td><td>Material only, but close to USCF<span class="sub">code IM</span></td></tr>
 <tr><td><b>On flag fall</b></td><td>The full 6.9 search<span class="sub">helpmate</span></td><td>6.9, but material only</td><td>Only the opponent's pieces are counted</td></tr>
 <tr><td><b>On resignation</b></td><td>The full 6.9 search<span class="sub">helpmate</span></td><td>6.9, but material only</td><td>Always a loss</td></tr>
 <tr><td><b>En passant in repetition</b></td><td>Legal</td><td>Legal</td><td>Pseudo-legal</td></tr>
 </tbody>
 </table></div>
+    <div class="prose" lang="tr">
+      <p>İki eşdeğerde ölü pozisyonun yalnızca materyal kolu var. Bu yüzden iki harfli sonuç kodu,
+      akılda kalıcılık için <code>DP</code> değil <code>IM</code> (insufficient material, yetersiz
+      materyal). Tetiklendiği durum ana sürümlerde <code>DP</code> veren materyal testinin aynısı.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>Both equivalents carry only the material branch of dead position, so for the mnemonic's
+      sake their two-letter result code is <code>IM</code> (insufficient material) rather than
+      <code>DP</code>. What triggers it is the same material test that reports <code>DP</code> in
+      the main builds.</p>
+    </div>
 
     <h3 lang="tr"><a class="ext" href="https://github.com/cuneytinann/chessarbiter2kb" target="_blank" rel="noopener">chessarbiter2kb ↗️</a></h3>
     <h3 lang="en"><a class="ext" href="https://github.com/cuneytinann/chessarbiter2kb" target="_blank" rel="noopener">chessarbiter2kb ↗️</a></h3>
@@ -6510,6 +6849,14 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td><code class="vn">L2_noBlockedDetector</code><br><span class="fn2">special/L2_noBlockedDetector.html</span><br><span class="fn2">in the repo: hexadecimal.html</span></td><td>In numbers</td><td>Clicking</td><td>1,909</td></tr>
 </tbody>
 </table></div>
+    <div class="prose" lang="tr">
+      <p>Ölü pozisyon yalnızca materyalden tanındığı için bu iki sürümde de sonuç kodu
+      <code>DP</code> değil <code>IM</code>.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>Since dead position is recognised from material alone, these two builds also report
+      <code>IM</code> rather than <code>DP</code>.</p>
+    </div>
 
     <h3 lang="tr"><a class="ext" href="https://github.com/cuneytinann/chessinbytes" target="_blank" rel="noopener">chessinbytes ↗️</a></h3>
     <h3 lang="en"><a class="ext" href="https://github.com/cuneytinann/chessinbytes" target="_blank" rel="noopener">chessinbytes ↗️</a></h3>
@@ -6587,7 +6934,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       bir hamle yapmadan anlaşmalı beraberlik olmuyor. Beraberlik radyosu, rakibin açık teklifinde
       olduğu gibi, 50 hamle ya da üçlü tekrar iddiası geçerli olduğunda da sarıya dönüyor. Sağ tuşa
       basılı tutup sürükleyerek tahtada çemberlerle desenler çizilebiliyor: düz ya da çapraz bir hat
-      boyunca bütün kareler, öbür durumlarda iki uç kare işaretleniyor. Taşın gidebileceği legal
+      boyunca bütün kareler, öbür durumlarda iki uç kare işaretleniyor. Taşın gidebileceği geçerli
       kareler, Lichess ve Chess.com eşdeğerlerinde olduğu gibi daha hoş bir stille gösteriliyor ve
       bunun için iki ayrı stil var: boş karede ortada bir nokta, rakip taşın durduğu karede kenarda bir
       halka. Şah çekildiğinde, eşdeğerlerde olduğu gibi, şahın karesi kırmızı bir ışıkla
@@ -6856,12 +7203,12 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       for the ways a game can end away from the board.</p>
     </div>
     <dl class="api" lang="tr">
-      <dt>L(kare)</dt><dd>Kare bir <a href="#board">0–63 indeksi</a>. O karedeki taşın <b>legal</b> varış karelerinin dizisi — şahı açıkta bırakan hamleler zaten elenmiş hâlde. Boş dizi: o taş oynayamıyor.</dd>
+      <dt>L(kare)</dt><dd>Kare bir <a href="#board">0–63 indeksi</a>. O karedeki taşın <b>geçerli</b> varış karelerinin dizisi — şahı açıkta bırakan hamleler zaten elenmiş hâlde. Boş dizi: o taş oynayamıyor.</dd>
       <dt>A(başlangıç, varış, terfi)</dt><dd>Hamleyi gerçekten oynar: rok haklarını günceller, sırayı çevirir, tekrar tablosuna yazar ve <a href="#codes">sonuç kodunu</a> döndürür. Terfi türü <code>1</code> fil, <code>2</code> kale, <code>3</code> vezir, <code>6</code> at; verilmezse vezir.</dd>
       <dt>Z()</dt><dd>Yalnızca pozisyondan doğan <a href="#codes">sonuç</a>: mat, pat, ölü pozisyon, 5'li tekrar, 75 hamle. Oyun sürerken <code>0</code>. <code>A</code> zaten dönüşünde bunu çağırır; ayrıca çağırmak gerekmez.</dd>
       <dt>D(taraf)</dt><dd>O taraf beraberlik teklif eder ya da bekleyen teklifi kabul eder; iddiaya bağlı beraberlikleri de burada döner. Argümansız <code>D()</code> teklif bitlerine dokunmadan yalnızca değerlendirir.</dd>
       <dt>F(taraf, tür)</dt><dd>Tür <code>0</code>: o tarafın bayrağı düştü. Tür <code>1</code>: o taraf terk etti. Rakibinin mat etmesi imkânsızsa sonucu beraberliğe çevirir — FIDE 6.9 ve 5.1.2.</dd>
-      <dt>V(taraf)</dt><dd>O taraf şahta mı? Tek argümanla çağrıldığında şahın karesini kendisi bulup sorar. Yalnızca gösterge için; legallik <code>L</code>'nin işi.</dd>
+      <dt>V(taraf)</dt><dd>O taraf şahta mı? Tek argümanla çağrıldığında şahın karesini kendisi bulup sorar. Yalnızca gösterge için; geçerlilik <code>L</code>'nin işi.</dd>
     </dl>
     <dl class="api" lang="en">
       <dt>L(square)</dt><dd>The square is a <a href="#board">0–63 index</a>. Returns the array of <b>legal</b> destination squares for the piece on it — moves that would leave the king exposed are already filtered out. An empty array means that piece cannot move.</dd>
@@ -6885,7 +7232,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <code>F(taraf,0)</code> çağır.</p>
       <p>Üç şeyi daha bilmek gerekiyor. <b>Motor kendini kuruyor:</b> dosya yüklendiği anda tahta,
       sıra, rok hakları ve sayaçlar başlangıç pozisyonunda; ayrı bir kurulum çağrısı yok.
-      <b>Geri alma yok:</b> <code>A</code> tek yönlü. <code>L</code> kendi legallik denemesi için
+      <b>Geri alma yok:</b> <code>A</code> tek yönlü. <code>L</code> kendi geçerlilik denemesi için
       tahtanın bir kopyasını alıp geri koyuyor, ama bunu dışarıya açmıyor. Geri alma isteyen sürücü
       hamleden önce <code>b</code>, <code>e</code>, <code>n</code>, <code>t</code>, <code>c</code> ve
       <code>$</code>'ı saklamalı, tekrar tablosu <code>R</code>'yi de hamle öncesindeki hâline
@@ -6990,12 +7337,12 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tbody>
 <tr><td><code>G</code></td><td><code>G(i, f, T)</code></td><td>263</td><td>Geometri. <code>i</code>'deki taş <code>f</code>'ye gidebilir mi — şah güvenliğine bakmadan. <code>T</code> tehdit modu: açıkken piyonun yalnızca alma hamlelerini sayar.</td></tr>
 <tr><td><code>V</code></td><td><code>V(s, u)</code></td><td>50</td><td><code>u</code> karesi <code>s</code>'nin rakibi tarafından tehdit ediliyor mu. <code>u</code> verilmezse <code>s</code>'nin şahının karesi kullanılır, yani <code>V(s)</code> doğrudan şah testidir.</td></tr>
-<tr><td><code>L</code></td><td><code>L(i)</code></td><td>104</td><td>Legal varış listesi. Her adayı <code>M</code> ile oynayıp <code>V</code> ile bakar, sonra geri alır.</td></tr>
+<tr><td><code>L</code></td><td><code>L(i)</code></td><td>104</td><td>Geçerli varış listesi. Her adayı <code>M</code> ile oynayıp <code>V</code> ile bakar, sonra geri alır.</td></tr>
 <tr><td><code>C</code></td><td><code>C(i)</code></td><td>27</td><td>Kare → hangi rok hakkını düşürdüğü. Şah ve kale kareleri dışında <code>0</code>.</td></tr>
 <tr><td><code>M</code></td><td><code>M(i, f, u)</code></td><td>237</td><td>Ham hamle. Tahtayı klonlar, taşı taşır, rok kalesini oynatır, geçerken alınanı siler, terfi eder. <b>Rok haklarını düşürür; sıraya ve tekrar tablosuna dokunmaz</b> — çünkü <code>L</code>'nin deneme döngüsü içinde de çalışır.</td></tr>
 <tr><td><code>I</code></td><td><code>I(g)</code></td><td>85</td><td>Yetersiz materyal: 5.2.2’nin <b>materyal yarısı</b>, kilitli yarısını <code>l</code> taşıyor. <code>g&gt;1</code> ile çağrılırsa renk süzgeci düşer ve iki tarafa birden bakar.</td></tr>
 <tr><td><code>Im</code></td><td><code>Im(g)</code></td><td>75</td><td>FIDE 6.9’un materyal yarısı: <code>g</code> bayrağı düşen ya da terk eden taraf; <b>rakibinin</b> elindeki taşlarla mat kurması <b>imkânsız</b> mı. <code>H</code>'nin ilk kapısı — doğru dönerse arama hiç başlamaz.</td></tr>
-<tr><td><code>Z</code></td><td><code>Z()</code></td><td>73</td><td>Pozisyon sonucu. Önce legal hamle var mı diye bakar; yoksa mat mı pat mı ayırır. Varsa <code>I</code> ile <code>l</code>'ye danışıp ölü pozisyonu, ardından tekrar ve hamle sayaçlarını yoklar.</td></tr>
+<tr><td><code>Z</code></td><td><code>Z()</code></td><td>73</td><td>Pozisyon sonucu. Önce geçerli hamle var mı diye bakar; yoksa mat mı pat mı ayırır. Varsa <code>I</code> ile <code>l</code>'ye danışıp ölü pozisyonu, ardından tekrar ve hamle sayaçlarını yoklar.</td></tr>
 <tr><td><code>A</code></td><td><code>A(i, f, u)</code></td><td>52</td><td>Gerçek hamle — <code>L</code>'nin yalnızca denediğini uygular: <code>M</code>'yi çağırır (hakları o kırpar), sırayı çevirir, <code>R</code>'ye yazar, <code>Z</code> döndürür.</td></tr>
 <tr><td><code>D</code></td><td><code>D(g)</code></td><td>36</td><td>Beraberlik teklifi, kabulü ve iddiası.</td></tr>
 <tr><td><code>H</code></td><td><code>H(g, d)</code></td><td>219</td><td>6.9’un aramalı yarısı. <code>g</code> yardım etse bile rakibi <code>d</code> yarım hamle içinde bir mat pozisyonu kurabiliyor mu; doğru dönüş <b>kuramıyor</b> demek. Zorlamalı mat değil <b>yardımlı mat</b> arar.</td></tr>
@@ -7206,7 +7553,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     <div class="prose" lang="tr">
       <p>Motor beş kattan oluşuyor. En altta <b>saf geometri</b>: bir taş şu kareden şu kareye gidebilir mi —
       hedefte ne olduğunu ve şahın açıkta kalıp kalmadığını hiç sormadan. Üstünde <b>tehdit</b>:
-      bir kare tehdit ediliyor mu. Sonra <b>legallik</b>: hamleyi gerçekten yapıp şahı sınayan, sonra
+      bir kare tehdit ediliyor mu. Sonra <b>geçerlilik</b>: hamleyi gerçekten yapıp şahı sınayan, sonra
       tahtayı geri alan kat. Sonra <b>hüküm</b>: pozisyon bitti mi, bittiyse nasıl. En üstte
       <b>işlem</b>: hamleyi kalıcı hâle getiren, hakları düşüren, sayaçları yürüten ve sonucu
       döndüren üç fonksiyon. Sürücü yalnızca bu son kata dokunuyor.</p>
@@ -7222,7 +7569,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     </div>
 
     <figure class="diagram" lang="tr">
-      <img class="lt" src="images/process-map-tr.svg" width="700" height="430" alt="Motorun kat haritası: geometri, tehdit, legallik, hüküm ve işlem katları ve iki istisnai çağrı — rokta G→V, geçerken almada M→L"><img class="dk" src="images/process-map-tr-dark.svg" width="700" height="430" alt="Motorun kat haritası: geometri, tehdit, legallik, hüküm ve işlem katları ve iki istisnai çağrı — rokta G→V, geçerken almada M→L">
+      <img class="lt" src="images/process-map-tr.svg" width="700" height="430" alt="Motorun kat haritası: geometri, tehdit, geçerlilik, hüküm ve işlem katları ve iki istisnai çağrı — rokta G→V, geçerken almada M→L"><img class="dk" src="images/process-map-tr-dark.svg" width="700" height="430" alt="Motorun kat haritası: geometri, tehdit, geçerlilik, hüküm ve işlem katları ve iki istisnai çağrı — rokta G→V, geçerken almada M→L">
       <figcaption>Düz oklar kat sırası: her kat yalnızca kendinden aşağıdakini çağırır.
       Kesikli altın oklar iki istisna — ikisi de satranç kuralının kendisinden doğuyor.</figcaption>
     </figure>
@@ -7243,7 +7590,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
         <code>V</code>'yi çağırıyor.</li>
         <li><b><code>M</code> → <code>L</code>.</b> Hamleyi tahtaya yazan <code>M</code>, geçerken
         alma karesini kurarken hamle üretimine geri dönüyor: kareyi ancak komşu piyon o almayı
-        gerçekten <em>legal olarak</em> yapabiliyorsa yazıyor.</li>
+        gerçekten <em>geçerli olarak</em> yapabiliyorsa yazıyor.</li>
       </ul>
       <p>Üçüncü bir özyineleme daha var ama katı aşmıyor: <code>G</code>, rok dalında kalenin
       yolunun boş olup olmadığını sınamak için kendini çağırıyor.</p>
@@ -7270,8 +7617,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td><code>G</code></td><td><code>S</code> · <code>C</code> · <code>V</code> · <code>a</code> · <code>G</code></td><td>Geometri</td></tr>
 <tr><td><code>C</code></td><td>—</td><td>Geometri</td></tr>
 <tr><td><code>V</code></td><td><code>G</code></td><td>Tehdit</td></tr>
-<tr><td><code>L</code></td><td><code>G</code> · <code>M</code> · <code>V</code></td><td>Legallik</td></tr>
-<tr><td><code>M</code></td><td><code>C</code> · <code>L</code> · <code>a</code></td><td>Legallik</td></tr>
+<tr><td><code>L</code></td><td><code>G</code> · <code>M</code> · <code>V</code></td><td>Geçerlilik</td></tr>
+<tr><td><code>M</code></td><td><code>C</code> · <code>L</code> · <code>a</code></td><td>Geçerlilik</td></tr>
 <tr><td><code>I</code></td><td>—</td><td>Hüküm</td></tr>
 <tr><td><code>Im</code></td><td><code>I</code></td><td>Hüküm</td></tr>
 <tr><td><code>l</code></td><td>—<span class="sub">yalnız kendi yerelleri</span></td><td>Hüküm</td></tr>
@@ -7527,7 +7874,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       boş olduğunu — özyineleme ve uzun rokta <code>b1</code>'in de boşluğu bu sayede sınanıyor —
       <code>!V(t,i)</code> şahın şahta olmadığını, <code>!V(t,i+k)</code> geçtiği karenin
       tehdit edilmediğini sınıyor. <a href="#rules">Şahın vardığı kare</a> burada yok, çünkü onu zaten
-      <code>L</code>'nin legallik süzgeci yakalıyor.</p>
+      <code>L</code>'nin geçerlilik süzgeci yakalıyor.</p>
       <p><b>Piyon.</b> Önce yön: <code>f&lt;i^g&amp;1</code>. Beyaz indeksi büyütmek zorunda, yani
       <code>f&lt;i</code> yanlış olmalı ve XOR bir verir; siyahta tersi. Sonra iki dal, ayıracı
       <code>h*v==1</code>: tam bir çapraz adımsa alma, değilse itiş.</p>
@@ -7663,14 +8010,14 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       comes back in <a href="#speed">the speed section</a> — harmless, but not free.</p>
     </div>
 
-    <h3 lang="tr">Legallik — <code>L</code> ve <code>M</code></h3>
+    <h3 lang="tr">Geçerlilik — <code>L</code> ve <code>M</code></h3>
     <h3 lang="en">Legality — <code>L</code> and <code>M</code></h3>
 
     <h4 lang="tr"><code>L</code> — üret, dene, geri al</h4>
     <h4 lang="en"><code>L</code> — generate, try, take back</h4>
 
     <div class="prose" lang="tr">
-      <p>Geometri bir hamlenin şekline bakıyor, legallik sonucuna. Aradaki fark tek bir kural:
+      <p>Geometri bir hamlenin şekline bakıyor, geçerlilik sonucuna. Aradaki fark tek bir kural:
       kendi şahını açıkta bırakan hamle oynanamaz. Bunu statik olarak sınamanın kısa bir yolu yok,
       o yüzden <code>L</code> hamleyi <b>gerçekten yapıyor</b>, şahı soruyor ve tahtayı geri
       alıyor.</p>
@@ -7713,7 +8060,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <code>M</code> içeride <code>b</code>'yi başka bir diziye bağladığı için döngü hamle öncesi
       tahta üzerinde ilerlemeye devam ediyor. İstenen de bu.</p>
       <p><code>M(i,f)</code> terfi türünü belirtmeden çağrılıyor, yani varsayılan vezir
-      kullanılıyor — legallik açısından fark etmez, çünkü şahın açıkta kalıp kalmadığı varış
+      kullanılıyor — geçerlilik açısından fark etmez, çünkü şahın açıkta kalıp kalmadığı varış
       karesinin <em>dolu</em> olmasına bağlı, üzerindeki taşın türüne değil.</p>
     </div>
     <div class="prose" lang="en">
@@ -7802,7 +8149,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
         zorunlu, çünkü aşağıdaki <code>L(x)</code> çağrısı içinde <code>G</code>'nin piyon dalı tam
         olarak <code>f==e</code> karşılaştırmasını yapıyor. Sonra varış karesinin iki komşusuna
         bakılıyor: <code>17-p</code> renk çevirmesi ve <code>~L(x)[N](e)</code> o piyonun almayı
-        <b>gerçekten legal olarak</b> yapabildiğini soruyor. Yapamıyorsa kare <code>-1</code>'e
+        <b>gerçekten geçerli olarak</b> yapabildiğini soruyor. Yapamıyorsa kare <code>-1</code>'e
         dönüyor.</li>
       </ol>
       <p>Beşinci adımın bu kadar titiz olmasının sebebi <a href="#counters">tekrar sayımı</a>.
@@ -8116,7 +8463,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       değil <b>derinlik</b> duruyor, yoksa sığ bir sonuç derin bir sorguyu karşılar ve arama sessizce yanlış sonuç verirdi. <code>l()</code> pozisyon kilitliyse çıkıyor.</p>
       <p>En zarif yeri üçüncü parametre. <code>v=t^g|!V(g)</code> bir yaprak testi: sıra
       <code>g</code>'de değilse ya da <code>g</code> şahta değilse burada mat yoktur. İkisi de
-      yanlışsa ve tahtada hiç legal hamle üretilmemişse <code>v</code> varsayılanında kalıp sıfır
+      yanlışsa ve tahtada hiç geçerli hamle üretilmemişse <code>v</code> varsayılanında kalıp sıfır
       çıkıyor: mat bulunmuş demektir. Mat tespiti ayrı bir dal olarak hiç yazılmamış, <b>parametre
       varsayılanına katlanmış</b>. Aynı satır patı da ayırıyor.</p>
       <p>Geri alma da ifadenin içinde. <code>H(g,d-1)|([b,e,n,t,c]=w)</code> — dizi ataması
@@ -8633,7 +8980,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       dalının içinde yaşadığı için o istisna hiç yazılmamış: 75 hamle sayacı dolu bir matta motor
       sayaca bakmaz bile, çünkü o dala hiç girmez. Öncelik kodlanmış değil, <b>şeklin
       sonucu</b>.</p>
-      <p>Ayrımın maliyeti asimetrik. “Oyun sürüyor” demek ilk legal hamleyi bulunca biter; “mat”
+      <p>Ayrımın maliyeti asimetrik. “Oyun sürüyor” demek ilk geçerli hamleyi bulunca biter; “mat”
       demek bütün hamleleri deneyip hiçbirinin olmadığını kanıtlamayı gerektirir. Ve süzgeç
       <code>p%2==t</code> boş kareleri de geçirdiği için, maliyet sıranın kimde olduğuna da bağlı —
       ölçümü <a href="#trace">aşağıda</a>.</p>
@@ -8761,7 +9108,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       hangi aşamada belirlendiğini, sütunlar kimin kazandığını gösteriyor. Mat, pat ve kendiliğinden
       gelen beraberlikleri <code>Z</code>, iddia ve teklifi <code>D</code>, süre ve terki
       <code>F</code> ile <code>H</code> üretiyor.</p>
-      <p>Aşamaların sırası bir öncelik sırası ve kitaptan geliyor. <code>Z</code> önce legal hamle
+      <p>Aşamaların sırası bir öncelik sırası ve kitaptan geliyor. <code>Z</code> önce geçerli hamle
       olup olmadığına bakıyor; mat bu yüzden 75 hamlenin ve 5'li tekrarın önüne geçiyor —
       <a href="#counters">9.6</a>'nın “son hamle mat etmediyse” kaydı. Aynı aşamanın içinde de ilk
       tutan kazanıyor. Ölü pozisyon öbür ikisiyle hiç çakışamaz: pozisyon ancak alma, piyon hamlesi
@@ -8804,7 +9151,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
     </div>
 
     <figure class="diagram" lang="tr">
-      <img class="lt" src="images/result-flow-tr.svg" width="700" height="520" alt="Bitişin boru hattı: hamleden sonra legal hamle sorusu (mat ya da pat), otomatik beraberlikler (ölü pozisyon, 5'li tekrar, 75 hamle), istek kapısı (50 hamle, 3'lü tekrar, anlaşma); oyun sürerken süre ve terk kolu"><img class="dk" src="images/result-flow-tr-dark.svg" width="700" height="520" alt="Bitişin boru hattı: hamleden sonra legal hamle sorusu (mat ya da pat), otomatik beraberlikler (ölü pozisyon, 5'li tekrar, 75 hamle), istek kapısı (50 hamle, 3'lü tekrar, anlaşma); oyun sürerken süre ve terk kolu">
+      <img class="lt" src="images/result-flow-tr.svg" width="700" height="520" alt="Bitişin boru hattı: hamleden sonra geçerli hamle sorusu (mat ya da pat), otomatik beraberlikler (ölü pozisyon, 5'li tekrar, 75 hamle), istek kapısı (50 hamle, 3'lü tekrar, anlaşma); oyun sürerken süre ve terk kolu"><img class="dk" src="images/result-flow-tr-dark.svg" width="700" height="520" alt="Bitişin boru hattı: hamleden sonra geçerli hamle sorusu (mat ya da pat), otomatik beraberlikler (ölü pozisyon, 5'li tekrar, 75 hamle), istek kapısı (50 hamle, 3'lü tekrar, anlaşma); oyun sürerken süre ve terk kolu">
       <figcaption>Soldaki kutu aşamanın sorusu, sağdaki kartlar çıkışları. › aynı aşamada önce
       gelenin kazandığını gösteriyor; kartların renkleri sonuç tablosundakilerle aynı.</figcaption>
     </figure>
@@ -9700,7 +10047,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 <tr><td>Tekrar anahtarı, iki yerde</td><td class="num">−4</td></tr>
 <tr><td>Taramayı susturan muhafız</td><td class="num">−3</td></tr>
 <tr><td><code>G</code>'nin piyon çaprazındaki <code>f==e</code></td><td class="num">−5</td></tr>
-<tr><td>Legallik denemesinin yedeği, iki yerde</td><td class="num">−4</td></tr>
+<tr><td>Geçerlilik denemesinin yedeği, iki yerde</td><td class="num">−4</td></tr>
 <tr><td>Ep karesini kuran satır</td><td class="num">−5</td></tr>
 <tr class="alt"><td><b>Kazanç</b></td><td class="num"><b>−28</b></td></tr>
 <tr><td>Zorlama bitini kurtaran satır</td><td class="num">+9</td></tr>
@@ -9747,7 +10094,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       hedeflerini soldan sağa çözüp sağdan sola atıyor, yani <code>indexOf</code> ve
       <code>b[f]</code> hâlâ eski değerleri görüyor. Temizliğin ham hamlenin <b>içinde</b> olması
       da şart: kareyi dışarıdan verip bir üst katmanda bir kez arayan varyant 2 bayt daha
-      kazandırıyor, ama ham hamleyi o katmandan geçmeden çağıran her yol — ki legallik denemesi
+      kazandırıyor, ama ham hamleyi o katmandan geçmeden çağıran her yol — ki geçerlilik denemesi
       tam olarak öyle çağırıyor — bayat hayalet bırakıyor.</p>
       <p><b>+9 — zorlama bitini kurtarmak.</b> Ölü pozisyon taramasının tetikleyicisi üç iş
       birden yapıyor: ep açıkken taramayı <b>sustur</b>, ep düştükten sonra <b>zorla</b>, şah
@@ -9930,7 +10277,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       tehdit haritası tutulup şah güvenliği ve rok kontrolü kısaltılabilir mi? Üç ayrı sebeple
       hayır. Birincisi ve öldürücü olanı: bayrak hamleden <b>önceki</b> pozisyonu anlatıyor, oysa
       şahın kendi gövdesi ışını kesiyor — “şah, şah çeken taşın ışınında geri kaçamaz” kuralı
-      önbellekte çöküyor. Ölçüldü: aday şah hamlelerinin %0,2’sinde harita hatalı izin veriyor. Mevcut kod aynı işi legallik denemesinin yap-dene-geri al'ı sayesinde bedavaya ve
+      önbellekte çöküyor. Ölçüldü: aday şah hamlelerinin %0,2’sinde harita hatalı izin veriyor. Mevcut kod aynı işi geçerlilik denemesinin yap-dene-geri al'ı sayesinde bedavaya ve
       doğru yapıyor. İkincisi: şahın kendi karesi dolu, yani şah testinin ve rokun ihtiyaç
       duyduğu kareler haritanın kapsadığı kareler değil. Üçüncüsü: boş kare artık
       <code>0</code> olmayınca koddaki sekiz ayrı boşluk testi kırılıyor — harita bakım kodu yazılmadan önce 16 bayt.</p>
@@ -10454,7 +10801,7 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       <b>asimetri</b>. Boş karenin kodu <code>0</code> ve <code>engine.js</code>'te tarama
       koşulları <code>p%2==t</code> ile <code>p&amp;1^s</code>. Sıfırın ikiye bölümünden kalan
       da en düşük biti de sıfır olduğu için bu koşullar boş kareleri <b>siyahın taşı sayıyor</b>. Sonuç:
-      <code>Z()</code> siyahın sırasındayken tahtadaki her boş kare için tam bir legal hamle
+      <code>Z()</code> siyahın sırasındayken tahtadaki her boş kare için tam bir geçerli hamle
       üretimi çalışıyor, beyazın sırasındayken çalışmıyor.</p>
       <p>Ölçüldüğünde fark bu kadar keskin:</p>
     </div>
@@ -10574,7 +10921,7 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
 <div class="tw" lang="tr"><table class="">
 <thead><tr><th>Fonksiyon</th><th>Ne ölçüldü</th><th class="num"><code>engine.js</code></th><th class="num"><code>engine_4x.js</code></th><th class="num">Kazanç</th></tr></thead>
 <tbody>
-<tr><td><code>L</code></td><td>Başlangıç pozisyonunda tüm legal hamleler, 1.999 tur</td><td class="num">2.050 ms</td><td class="num">885 ms</td><td class="num">2,3×</td></tr>
+<tr><td><code>L</code></td><td>Başlangıç pozisyonunda tüm geçerli hamleler, 1.999 tur</td><td class="num">2.050 ms</td><td class="num">885 ms</td><td class="num">2,3×</td></tr>
 <tr><td><code>H</code></td><td>6.9 araması, açık pozisyon, 3.000 tur</td><td class="num">5.398 ms</td><td class="num">2.039 ms</td><td class="num">2,6×</td></tr>
 <tr><td><b><code>l</code></b></td><td>Kilitli piyon duvarı, 20.000 çağrı</td><td class="num">9.419 ms</td><td class="num"><b>255 ms</b></td><td class="num"><b>37×</b></td></tr>
 </tbody>
@@ -11040,14 +11387,14 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
     </div>
 
     <div class="prose" lang="tr">
-      <p><b>Legal hedefler bedavaya çıkıyor.</b> Seçili taşın gidebileceği kareler altın rengine
+      <p><b>Geçerli hedefler bedavaya çıkıyor.</b> Seçili taşın gidebileceği kareler altın rengine
       dönüyor, ama bunu ayrı bir mekanizma yapmıyor — render zaten <code>L</code>'yi çağırıyor.
       Tek incelik çağrının altmış dörtlük döngünün <em>dışında</em> durması; içeride bırakılsaydı
       <a href="#speed">motorun en sıcak yolu</a> her karede baştan çalışırdı.</p>
       <p>Hiçbir şey seçili değilken <code>L(-1)</code> boş dizi dönüyor — <code>b[-1]</code>
       <code>undefined</code>, taş türü sıfır, hiçbir hedef geçmiyor. Yani “seçim yok” durumu için
       ayrı bir dal gerekmiyor; boş liste zaten hiçbir kareyi boyamıyor.</p>
-      <p><b>Terfi hamleyi askıya alıyor.</b> Hamle legalse ve seçili taş son yataya varan bir piyonsa, <code>A()</code> çağrılmıyor: panel açılıyor ve hamle orada bekliyor.
+      <p><b>Terfi hamleyi askıya alıyor.</b> Hamle geçerliyse ve seçili taş son yataya varan bir piyonsa, <code>A()</code> çağrılmıyor: panel açılıyor ve hamle orada bekliyor.
       <code>f</code> zaten yazılmış; panel düğmeleri taş türünü getirip hamleyi tamamlıyor.
       Askıya alma ayrı bir durum değişkeni istemiyor ama tahtayı kilitlemeyi istiyor — ifadenin
       başındaki <code>p.hidden &amp;&amp;</code> muhafızı bunun için duruyor.</p>
@@ -12344,7 +12691,7 @@ f = K[2] + K[3] - 0</pre></div>
       doğmuyor. Gerçek bir oyunda şah hep tahtada, ama <code>b</code> dizisine doğrudan yazarak
       pozisyon kuran bir sürücü bunu görebilir.</li>
       <li><b><code>M</code>'nin yan etkisi dar kalmalı.</b> Sıraya ve tekrar tablosuna
-      dokunmaz, çünkü <code>L</code>'nin legallik denemesinin <em>içinde</em> de çalışıyor —
+      dokunmaz, çünkü <code>L</code>'nin geçerlilik denemesinin <em>içinde</em> de çalışıyor —
       <code>L</code> her adayı <code>M</code> ile oynayıp <code>V</code> ile bakıyor, sonra geri
       alıyor. Tek istisna rok hakları: onları <code>M</code> düşürüyor ve <code>L</code> tahtayla
       birlikte onları da yedekleyip geri koyuyor. Gerçek hamle için sürücü daima <code>A</code>'yı
@@ -12484,7 +12831,7 @@ f = K[2] + K[3] - 0</pre></div>
       Kenar denetimi eklemek gereksiz: taşan karede doğru renkte bir piyon dursa bile
       <code>~L(x)[N](e)</code> onu eliyor, çünkü yedi karelik yatay fark
       <code>G</code>'nin piyon dalındaki <code>h*v==1</code> şartını hiçbir zaman
-      sağlamıyor. Güvenlik komşu hesabında değil ardındaki legallik sınamasında; kenar
+      sağlamıyor. Güvenlik komşu hesabında değil ardındaki geçerlilik sınamasında; kenar
       kontrolü ekleyen yalnızca bayt kaybeder.</li>
     </ul>
     <ul class="tight" lang="en">
@@ -12883,7 +13230,7 @@ f = K[2] + K[3] - 0</pre></div>
 <tr><td><code>C</code> <code>O</code></td><td>Rok biti fonksiyonu / <code>Im</code>'nin yokluk testi</td><td><code class="vn">input</code> ve <code class="vn">prompt</code> tahta render'ındaki <code>b.map((C,O)=&gt;)</code></td></tr>
 <tr><td><code>V</code></td><td>Motorun tehdit fonksiyonu</td><td><code>l</code> içinde beyaz şahın karesi; <code>Sk</code>'nin ve <code>onkeyup</code>'ın parametresi</td></tr>
 <tr><td><code>z</code></td><td>Sonuç globali</td><td><code>w</code>'nin parametresi</td></tr>
-<tr><td><code>s</code></td><td><code>A</code>'nın kurduğu pozisyon anahtarı</td><td><code>V</code>'nin renk parametresi; <code class="vn">main</code>'in render'ında legal hedef listesi — <code>s=L(i)</code></td></tr>
+<tr><td><code>s</code></td><td><code>A</code>'nın kurduğu pozisyon anahtarı</td><td><code>V</code>'nin renk parametresi; <code class="vn">main</code>'in render'ında geçerli hedef listesi — <code>s=L(i)</code></td></tr>
 <tr><td><code>N</code></td><td>Motorun <code>'indexOf'</code> takma adı</td><td><code class="vn">L2</code> ailesinde <code>'innerHTML'</code> takma adı; <code>L3_packed.html</code>'de <code>'innerText'</code>, <code>L3_numerical_packed.html</code>'de siyahın saati</td></tr>
 </tbody>
 </table></div>
