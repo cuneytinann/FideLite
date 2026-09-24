@@ -2449,7 +2449,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     </div>
     <div class="prose" lang="en">
       <p>FIDE measures the two rights on two different rows: it counts en passant as <b>availability</b> and castling as a <b>right</b>, and says so plainly in 9.2.3.1 and 9.2.3.2. At first glance it looks inconsistent — both seem tied to the question “can it be played right now” — and the point is not undisputed. The book's reasoning is the distinction between <em>losing a right</em> and <em>temporary prevention</em> that we met in section two: en passant has no temporary prevention — the right either exists or it does not, and one move later it is permanently gone — while for castling the two are separate things, and the book counts only the permanent one. The widely accepted view, too, is to count castling as a right: it is cheaper, and on that reading it separates positions more precisely and is the
-      better way to assess them. The distinction has cost someone a real game: in Karpov–Miles, 1986, Karpov claimed a threefold repetition,
+      better way to assess them. The distinction has already had a price in a real game: in Karpov–Miles, 1986, Karpov claimed a threefold repetition,
       the positions were shown to differ in castling rights, and the claim was refused. The
       difference was invisible on the board.</p>
     </div>
@@ -2663,10 +2663,10 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     </div>
 
     <div class="prose fl" lang="tr">
-      <p><b>FideLite'ta.</b> Geçerken alma karesi yalnızca alış geçerliyse yazılıyor — yanında bir rakip piyon var ve alış, iki piyonu birden yerinden oynattığı hâlde kendi şahını tehdide açmıyor. Rok ise kalıcı hak olarak tutuluyor: dört bitlik <code>c</code> maskesi, tekrar anahtarının da parçası. Yani FideLite, FIDE'nin iki satırını birebir uyguluyor.</p>
+      <p><b>FideLite'ta.</b> Geçerken alma karesi yalnızca alış geçerliyse yazılıyor — yanında bir rakip piyon var ve alış, iki piyonu birden yerinden oynattığı hâlde kendi şahını tehdide açmıyor. Rok ise kalıcı hak olarak tutuluyor: tahta görüntüsü, sıra bilgisi ve geçerken alma karesiyle birlikte rok hakları da tekrar anahtarının parçası. Yani FideLite, FIDE'nin iki satırını birebir uyguluyor.</p>
     </div>
     <div class="prose fl" lang="en">
-      <p><b>In FideLite.</b> The en passant square is written only if the capture is legal — an opposing pawn stands alongside, and the capture, though it moves two pawns at once, does not expose its own king. Castling is kept as the permanent right: the four-bit mask <code>c</code>, which is also part of the repetition key. FideLite thus applies FIDE's two rows exactly.</p>
+      <p><b>In FideLite.</b> The en passant square is written only if the capture is legal — an opposing pawn stands alongside, and the capture, though it moves two pawns at once, does not expose its own king. Castling is kept as the permanent right: together with the board, the side to move and the en passant square, the castling rights are part of the repetition key. FideLite thus applies FIDE's two rows exactly.</p>
     </div>
 
     <h4 lang="tr">Sayaç neden en dışta duruyor</h4>
@@ -2815,9 +2815,9 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       aykırı olur: yalnızca geçerli hamleye izin veriyor, geçersiz hamleye 7.5'in cezasını hiç
       uygulamıyor, iddiayı da kayıt yerine anında denetliyor. Kayıt, not yasağı ve ceza maddeleri
       oyunun değil masa başının kuralları; delil üretmek ve dürüstlüğü korumak için varlar ve
-      dijitalde o işi platform kendisi görüyor. FIDE'nin kendi <a class="ext" href="https://handbook.fide.com/files/handbook/OnlineChessRegulations.pdf" target="_blank" rel="noopener">çevrimiçi yönetmeliği ↗️</a>
+      dijitalde o işi platform kendisi görüyor. FIDE'nin kendi <a class="ext" href="https://handbook.fide.com/chapter/OnlineChessRegulations" target="_blank" rel="noopener">çevrimiçi yönetmeliği ↗️</a>
       de aynı yönde: oyun alanı yalnızca geçerli hamleleri kabul ediyor, bütün hamleler ve saatler
-      otomatik kaydedilip iki oyuncuya da gösteriliyor (3.3, 3.7). Not yasağı orada da geçerli
+      otomatik kaydedilip iki oyuncuya da gösteriliyor (3.1.2, 3.1.6). Not yasağı orada da geçerli
       (9.6), ama platformun iki tarafa birden gösterdiği kayıt not sayılmıyor; sayaçlar da o
       kaydın özeti.</p>
       <p>Bunun platformlar arasında standart hâle gelmesi iyi olur. Hakkı olan bir oyuncu, o hakkı
@@ -2853,8 +2853,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       7.5, and checks a claim on the spot instead of against a scoresheet. The articles on
       recording, notes and penalties are rules of the table, not of the game; they exist to produce
       evidence and keep play honest, and digitally the platform does that job itself. FIDE's own
-      <a class="ext" href="https://handbook.fide.com/files/handbook/OnlineChessRegulations.pdf" target="_blank" rel="noopener">online regulations ↗️</a> point the same way: the playing zone accepts only legal moves,
-      and every move and clock time is recorded automatically and shown to both players (3.3, 3.7).
+      <a class="ext" href="https://handbook.fide.com/chapter/OnlineChessRegulations" target="_blank" rel="noopener">online regulations ↗️</a> point the same way: the playing zone accepts only legal moves,
+      and every move and clock time is recorded automatically and shown to both players (3.1.2, 3.1.6).
       The ban on notes holds there too (9.6), but a record the platform shows to both sides is not
       a note, and the counters are a summary of that record.</p>
       <p>It would be good for this to become standard across platforms. A player who holds a right
@@ -2865,6 +2865,73 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     </div>
     <div class="prose fl" lang="en">
       <p><b>In FideLite.</b> Both numbers stay current on the status line after every move; the <a href="#indicators">indicators section</a> explains how to read them.</p>
+    </div>
+
+    <h4 lang="tr">FIDE'nin çevrimiçi yönetmeliği <span class="dtag">dijitalde iddia kendiliğinden</span></h4>
+    <h4 lang="en">FIDE's online regulations <span class="dtag">claims become automatic digitally</span></h4>
+    <div class="prose" lang="tr">
+      <p>FIDE'nin tahta başı kurallarının yanında bir de <a class="ext" href="https://handbook.fide.com/chapter/OnlineChessRegulations" target="_blank" rel="noopener">çevrimiçi yönetmeliği ↗️</a> var:
+      resmî çevrimiçi turnuvalar ve oyuncuların bir hakemin gözetiminde bir arada ama ekranda
+      oynadığı hibrit turnuvalar için yazılmış. Hamle kurallarını (1–3. maddeler) olduğu gibi
+      alıyor; farklar az ve neredeyse hepsi arayüz tarafında.</p>
+      <p>Oyun alanı yalnızca geçerli hamleyi kabul ediyor; bu FideLite'ta da böyle. Hamlelerin ve
+      saatlerin kendiliğinden kaydedilmesi, ön hamle ve otomatik vezir terfisi ise oyuncunun ya da
+      arayüzün ayarı, kuralın değil. Buradaki iddia motorun kural doğruluğu üzerine, arayüzün
+      konforu üzerine değil.</p>
+      <p>Asıl fark iddiada. Yönetmelik üçlü tekrarı ve 50 hamleyi kimsenin iddiasını beklemeden,
+      kendiliğinden beraberlik sayıyor (5.4). Bu, iki oyuncunun da iddia düğmesinin hep açık
+      olduğunu varsaymakla aynı şey; amaç sadeleştirmek. Bu da özünde bir arayüz tercihi: eşik
+      dolduğu anda iddiayı oyuncu adına kendisi yapan bir arayüz, motora dokunmadan aynı davranışı
+      verir. Varyantlar arasında üçlü tekrarı ve 50 hamleyi kendiliğinden işleten bir sürüm de
+      zaten var: <a href="#special">Chess.com eşdeğeri</a>.</p>
+      <p>Kurala dokunan tek fark terkte. Yönetmelikte terk eden her durumda kaybediyor (5.2). Tahta
+      başında ise 2023'ten beri, rakip hiçbir geçerli hamle dizisiyle mat edemiyorsa terk
+      beraberlikle bitiyor (<a href="#flag">5.1.2</a>).</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>Alongside its over-the-board Laws, FIDE has a set of <a class="ext" href="https://handbook.fide.com/chapter/OnlineChessRegulations" target="_blank" rel="noopener">online regulations ↗️</a>,
+      written for official online events and for hybrid events, where players sit together under an
+      arbiter's supervision but play on screens. They take over the rules of movement (Articles 1–3)
+      unchanged; the differences are few, and almost all of them sit on the interface side.</p>
+      <p>The playing zone accepts only legal moves, and so does FideLite. Automatic recording of
+      moves and clock times, premoves and automatic promotion to a queen are settings of the player
+      or the interface, not rules. The claim made here is about the engine's rule correctness, not
+      the interface's comfort.</p>
+      <p>The real difference is in claims. The regulations declare threefold repetition and the
+      50-move rule drawn automatically, without waiting for anyone to claim (5.4). That is the same
+      as assuming both players always have the claim switched on; the aim is simplification. At
+      heart this too is an interface choice: an interface that makes the claim on the player's
+      behalf the moment a threshold is reached gives the same behaviour without touching the
+      engine. Among the builds there is already one that ends the game automatically at threefold
+      repetition and at fifty moves: the <a href="#special">Chess.com equivalent</a>.</p>
+      <p>The only difference that touches a rule is resignation. Under the regulations a player who
+      resigns always loses (5.2); over the board, since 2023, a resignation is a draw if the
+      opponent cannot mate by any series of legal moves (<a href="#flag">5.1.2</a>).</p>
+    </div>
+    <div class="prose fl" lang="tr">
+      <p><b>FideLite'ta.</b> İlke, ana federasyonun kurallarını dijitale olabildiğince aslına sadık
+      taşımak; tahta başı kitabı bu yüzden uygulanıyor. Adı da bu ilkeyi taşıyor: <i>fidélité</i>,
+      sadakat. İddia ile kendiliğinden beraberlik bilerek ayrı tutuluyor: 50 hamle ve üçlü tekrar
+      iddiayla, 75 hamle ve beşli tekrar kendiliğinden. Biri oyuncunun hakkı, öbürü kuralın hükmü;
+      kitap da ikisini ayrı maddelere yazıyor. FideLite bu ayrımın dijitale sürtünmesiz
+      taşınabildiğini savunuyor: iddia <a href="#claims">hamlenin kendi kanalıyla</a> gidiyor,
+      sayılar ekranda duruyor; oyuncu ne hakkını kaçırıyor ne de onu kullanmak için hamle listesini
+      geriye doğru sayıyor. Lichess de kısmen aynı yoldan gidiyor: üçlü tekrarı iddiaya bırakıyor,
+      terkte de rakibin mat edip edemeyeceğine bakıyor; ama 50 hamlede oyunu kendiliğinden
+      bitiriyor ve terkte yalnızca materyali sayıyor.</p>
+    </div>
+    <div class="prose fl" lang="en">
+      <p><b>In FideLite.</b> The principle is to carry the main federation's rules into digital play
+      as faithfully as possible, which is why the over-the-board book is the one applied. The name
+      carries the principle too: <i>fidélité</i>, fidelity. Claims and automatic draws are kept apart
+      on purpose: the 50-move rule and threefold repetition by claim, the 75-move rule and fivefold
+      repetition automatically. One is the player's right, the other the rule's verdict, and the
+      book writes them in separate articles. FideLite holds that this distinction carries into
+      digital play without friction: the claim travels on <a href="#claims">the move's own
+      channel</a> and the numbers stay on screen, so a player neither misses a right nor has to
+      count back through the move list to use it. Lichess partly takes the same road: it leaves
+      threefold repetition to a claim and, on resignation, checks whether the opponent can mate; but
+      it ends the game automatically at fifty moves, and on resignation it counts only material.</p>
     </div>
 
     <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Tekrar, kitabın tahtanın dışında bilgi tutmayı gerektiren ilk maddesi. Pozisyonu tanımlayan şey yalnızca taşların yeri değil: sıra, rok hakları ve geçerken alma imkânı da o tanımın parçası. Bunlardan birini yanlış saymak, sayacı sessizce bozar.</p>
