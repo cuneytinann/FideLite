@@ -4613,8 +4613,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       CHA-Solver does not count.</p>
     </div>
 
-    <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Bu maddeyi uygulamamanın gerekçesi hep aynı olmuştur: hesaplanamayacağı. Gerekçe sanıldığı kadar sağlam değil — ileriye bakmak gerekiyor, ama zorunlu dallar tanım gereği dar ve pratikte karar mikrosaniyeler içinde veriliyor; ölçülen en kötü durum bile milisaniye mertebesinde. Bir insanın hamle düşünme süresinin yanında fark edilmiyor bile.</p>
-    <p class="cost" lang="en"><b>What it costs to apply.</b> The standing reason for not applying this article has always been the same: it is intractable. The reason is less solid than it looks. Looking ahead is required, but forced branches are narrow by definition, and in practice the ruling lands within microseconds; even the measured worst case is on the order of a millisecond. Set against a human thinking about a move, it does not register.</p>
+    <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Bu maddeyi uygulamamanın gerekçesi hep aynı olmuştur: hesaplanamayacağı. Gerekçe sanıldığı kadar sağlam değil — ileriye bakmak gerekiyor, ama zorunlu dallar tanım gereği dar ve pratikte karar birkaç milisaniye içinde veriliyor. Bütçeyi sonuna kadar harcayan uç örnekler saniyeler sürebiliyor, ama milyonlarda bir görülüyorlar; <a href="#hbudget">bütçenin kendisi</a> motor sekmesinde. Pratikteki karar bir insanın hamle düşünme süresinin yanında fark edilmiyor bile.</p>
+    <p class="cost" lang="en"><b>What it costs to apply.</b> The standing reason for not applying this article has always been the same: it is intractable. The reason is less solid than it looks. Looking ahead is required, but forced branches are narrow by definition, and in practice the ruling lands within a few milliseconds. The extremes that spend the whole budget can take seconds, but they turn up once in millions; <a href="#hbudget">the budget itself</a> is on the engine tab. Set against a human thinking about a move, the practical ruling does not register.</p>
 
     <h4 lang="tr">Kenar not: yarı kilitli pozisyon</h4>
     <h4 lang="en">A note in the margin: the half-blocked position</h4>
@@ -7056,28 +7056,37 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <b>nineteen</b> parameters on its own, eight of which are letters that are globals elsewhere
       in the source.</p>
     </div>
-<pre class="snip">l = ( f  y  <b>S</b>  <b>W</b>  <b>B</b>  <b>V</b>  v  K  <b>L</b>  <b>C</b>  <b>Z</b>  q  P  Q  l  u  w  <b>N</b>  <b>H</b> )
+<pre class="snip">l = ( f  y  S  <b>W</b>  <b>B</b>  <b>V</b>  v  K  <b>L</b>  <b>C</b>  <b>Z</b>  q  P  Q  <b>l</b>  u  w  <b>N</b>  X )
       <i>koyu olanlar globali gölgeliyor · bold ones shadow a global</i></pre>
     <div class="prose" lang="tr">
-      <p>Bunların arasında bir tanesi özellikle dikkat çekiyor: <code>l</code>'nin içindeki
-      <code>H</code>, maskeleri doyana kadar büyüten yerel yardımcının adı — yani 6.9 aramasını
-      taşıyan global <code>H</code>'yi gölgeliyor. İki <code>H</code> aynı kaynakta, biri ötekinin içinde ve birbirleriyle ilgisiz.</p>
+      <p>Bunların arasında bir tanesi özellikle dikkat çekiyor: <code>l</code>'nin kendisi. Doyma
+      döngüsünün her turda kalıcı beyaz piyonları tuttuğu geçici küme de <code>l</code> adını
+      taşıyor, yani fonksiyon kendi adını içeriden gölgeliyor; gövdede <code>l</code> dendiğinde
+      kastedilen o küme. Maskeleri doyana kadar büyüten yerel yardımcının adı ise <code>X</code>.
+      Bir dönem <code>H</code>'ydi ve 6.9 aramasını taşıyan global <code>H</code>'yi gölgeliyordu;
+      bugün <code>X</code> kaynağın başka hiçbir yerinde geçmediği için o gölgeleme kalmadı.</p>
       <p>Gölgeleme burada bir tasarım tercihi değil, bayt bütçesinin doğal sonucu: boşta yalnızca
       üç harf kaldığı için <code>l</code> kendi adlarını kullanılmış harflerden seçmek zorundaydı.
-      Parametre listesinde doğdukları için de dışarıya sızmıyorlar — fonksiyon bittiğinde global
-      değerler olduğu gibi duruyor. <a href="#pitfalls">Tuzaklar</a> bölümünde bunun nerede
-      kırılgan hâle geldiğini anlatıyorum.</p>
+      Parametre listesinde doğanlar dışarıya sızmıyor — fonksiyon bittiğinde global değerler
+      olduğu gibi duruyor. İki atama bu kuralın dışında kalıyor; onları
+      <a href="#saturation">doyma döngüsünün açıklamasında</a> anlatıyorum.
+      <a href="#pitfalls">Tuzaklar</a> bölümünde de bunun nerede kırılgan hâle geldiğini
+      anlatıyorum.</p>
     </div>
     <div class="prose" lang="en">
-      <p>One of them is worth pointing at: the <code>H</code> inside <code>l</code> is the name of
-      the local helper that grows the masks until they saturate — so it shadows the global
-      <code>H</code> that carries the 6.9 search. Two <code>H</code>s in one source, one inside the
-      other, unrelated.</p>
+      <p>One of them is worth pointing at: <code>l</code> itself. The temporary set that holds
+      the fixed white pawns on each turn of the saturation loop is also called <code>l</code>, so
+      the function shadows its own name from the inside; within the body, <code>l</code> means that
+      set. The local helper that grows the masks until they saturate is called <code>X</code>. For
+      a while it was <code>H</code> and shadowed the global <code>H</code> that carries the 6.9
+      search; today <code>X</code> appears nowhere else in the source, so that shadowing is
+      gone.</p>
       <p>The shadowing here is not a design choice but a consequence of the byte budget: with only
       three letters left free, <code>l</code> had to take its names from letters already in use.
-      And because they are born in the parameter list they never leak — when the function returns,
-      the globals stand as they were. <a href="#pitfalls">Pitfalls</a> covers where this turns
-      fragile.</p>
+      What is born in the parameter list never leaks — when the function returns, the globals
+      stand as they were. Two assignments fall outside that rule; they are covered in
+      <a href="#saturation">the saturation loop</a>. <a href="#pitfalls">Pitfalls</a> covers where
+      this turns fragile.</p>
     </div>
   </div>
 </section>
@@ -7540,12 +7549,12 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <p>The geometry layer knows one piece. The attack layer asks the whole board — in 50 bytes.</p>
     </div>
 
-    <pre class="snip">V=(s,u=b[N](10+s))=&gt;b.some((p,i)=&gt;p%2^s&amp;&amp;G(i,u,1))</pre>
+    <pre class="snip">V=(s,u=b[N](10+s))=&gt;b.some((p,i)=&gt;p&amp;1^s&amp;&amp;G(i,u,1))</pre>
 
     <div class="prose" lang="tr">
       <p><code>V(s,u)</code> şunu soruyor: <code>u</code> karesi, <code>s</code>'nin
-      <em>karşısındaki</em> taraf tarafından tehdit ediliyor mu? Süzgeç <code>p%2^s</code> — taşın renk
-      biti ile <code>s</code>'nin özel veyası, yani renkler farklıysa bir. Ardından
+      <em>karşısındaki</em> taraf tarafından tehdit ediliyor mu? Süzgeç <code>p&amp;1^s</code> — taşın renk
+      biti, yani en düşük biti, ile <code>s</code>'nin özel veyası, yani renkler farklıysa bir. Ardından
       <code>G(i,u,1)</code>, tehdit kipiyle. <code>some</code> ilk saldırganı bulduğu anda duruyor;
       tam bir tarama yalnızca kare gerçekten güvenliyse yapılıyor.</p>
       <p>Asıl incelik ikinci parametrenin varsayılanında: <code>u=b[N](10+s)</code> şahı arayıp
@@ -7555,7 +7564,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <p>Şahın yeri hiçbir yerde saklanmıyor; her çağrıda yeniden aranıyor. Bir önbellek her
       hamlede güncellenmek zorunda kalırdı ve o güncelleme <code>L</code>'nin geri aldığı
       hamlelerde de doğru olmak zorunda kalırdı. Aramak daha ucuz.</p>
-      <p>Boş kareler süzgeçten sızıyor — <code>0%2</code> sıfırdır ve <code>s=1</code> iken özel
+      <p>Boş kareler süzgeçten sızıyor — <code>0&amp;1</code> sıfırdır ve <code>s=1</code> iken özel
       veya bir verir. Zararsız oluşunun sebebi bir kat aşağıda: boş karede <code>P</code> sıfır
       olduğu için <code>G</code> son dala düşer, <code>&amp; P</code> her koşulda sıfırdır ve
       sonuç değişmez. Bu sızıntı <a href="#speed">hız bölümünde</a> geri gelecek — zararsız ama
@@ -7563,7 +7572,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
     </div>
     <div class="prose" lang="en">
       <p><code>V(s,u)</code> asks: is square <code>u</code> attacked by the side <em>opposing</em>
-      <code>s</code>? The filter is <code>p%2^s</code> — the XOR of the piece's colour bit with
+      <code>s</code>? The filter is <code>p&amp;1^s</code> — the XOR of the piece's colour bit, its lowest bit, with
       <code>s</code>, which is one when the colours differ. Then <code>G(i,u,1)</code>, in attack
       mode. <code>some</code> stops the moment it finds the first attacker; a full scan happens only
       when the square really is safe.</p>
@@ -7574,7 +7583,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <p>The king's position is stored nowhere; it is searched for afresh on every call. A cache
       would have to be updated on every move, and that update would also have to stay correct
       across the moves <code>L</code> takes back. Searching is cheaper.</p>
-      <p>Empty squares leak through the filter — <code>0%2</code> is zero, and with
+      <p>Empty squares leak through the filter — <code>0&amp;1</code> is zero, and with
       <code>s=1</code> the XOR gives one. The reason this is harmless lies a layer below: on an
       empty square <code>P</code> is zero, so <code>G</code> falls into its last branch,
       <code>&amp; P</code> is zero under every condition and the result does not change. This leak
@@ -8007,26 +8016,26 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 
     <pre class="snip" lang="tr">H=(g,d,v=t^g|!V(g))=&gt;
   Im(g) || Ht[s=b+t+e+c]&gt;=d || l()            <i>üç kapı</i>
-  || (Ht[s]=d, b.every((p,i)=&gt;p%2^t
+  || (Ht[s]=d, b.every((p,i)=&gt;p&amp;1^t
      || L(i).every(f=&gt; v = n&gt;149            <i>75 hamle dolduysa nasılsa berabere</i>
         || d &amp;&amp; Hn--&gt;0                      <i>derinlik ve bütçe</i>
         &amp;&amp; [3,2,1,6].every((u,x,w)=&gt;
            x &amp;&amp; p&gt;&gt;1^4|f%56&gt;7               <i>terfi değilse tek tur</i>
            || (w=[b,e,n,t,c],
                M(i,f,u), t^=1,
-               H(g,d-1)|([b,e,n,t,c]=w))))))   <i>özyinele, sonra geri al</i>
-  &amp;&amp; v)                                     <i>yaprak: g mat edilmiş mi</i></pre>
+               H(g,d-1)|([b,e,n,t,c]=w)))))    <i>özyinele, sonra geri al</i>
+  &amp; v)                                      <i>yaprak: g mat edilmiş mi</i></pre>
     <pre class="snip" lang="en">H=(g,d,v=t^g|!V(g))=&gt;
   Im(g) || Ht[s=b+t+e+c]&gt;=d || l()            <i>three gates</i>
-  || (Ht[s]=d, b.every((p,i)=&gt;p%2^t
+  || (Ht[s]=d, b.every((p,i)=&gt;p&amp;1^t
      || L(i).every(f=&gt; v = n&gt;149            <i>75-move counter full → drawn anyway</i>
         || d &amp;&amp; Hn--&gt;0                      <i>depth and budget</i>
         &amp;&amp; [3,2,1,6].every((u,x,w)=&gt;
            x &amp;&amp; p&gt;&gt;1^4|f%56&gt;7               <i>one pass unless promoting</i>
            || (w=[b,e,n,t,c],
                M(i,f,u), t^=1,
-               H(g,d-1)|([b,e,n,t,c]=w))))))   <i>recurse, then undo</i>
-  &amp;&amp; v)                                     <i>leaf: has g been mated</i></pre>
+               H(g,d-1)|([b,e,n,t,c]=w)))))    <i>recurse, then undo</i>
+  &amp; v)                                      <i>leaf: has g been mated</i></pre>
 
     <div class="prose" lang="tr">
       <p>Sorduğu soru tam olarak maddenin sorduğu soru: bayrağı düşen ya da terk eden taraf,
@@ -8048,7 +8057,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       sayaç yok, ama <code>Ht</code> aynı pozisyona dönen dalı kesiyor — ve bu, <a href="#xs">aramanın
       kapanabilmesinin tek sebebi</a>. Bütçe biterse
       <code>v</code> sıfırlanıyor ve cevap <b>mat mümkün</b> oluyor: kanıtlanamayan imkânsızlık beraberlik sayılmıyor. Hata payı böylece hep güvenli tarafta kalıyor.</p>
-      <p>Tarama süzgeci <code>p%2^t</code> boş kareleri de geçiriyor — <code>V</code>'dekiyle aynı
+      <p>Tarama süzgeci <code>p&amp;1^t</code> boş kareleri de geçiriyor — <code>V</code>'dekiyle aynı
       sızıntı, aynı sebeple zararsız.</p>
     </div>
     <div class="prose" lang="en">
@@ -8077,7 +8086,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <a href="#xs">the only reason the search can ever close</a>. If the budget runs out, <code>v</code> is zeroed and the answer becomes
       <b>mate is possible</b>: an impossibility that cannot be proved does not count as a draw. The
       margin of error therefore always falls on the safe side.</p>
-      <p>The scan filter <code>p%2^t</code> lets empty squares through as well — the same leak as in
+      <p>The scan filter <code>p&amp;1^t</code> lets empty squares through as well — the same leak as in
       <code>V</code>, harmless for the same reason.</p>
     </div>
 
@@ -8143,6 +8152,74 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       it.</p>
     </div>
 
+    <h4 id="hbudget" lang="tr">Bütçe — 20.000 deneme, 15 yarım hamle</h4>
+    <h4 lang="en" data-id="hbudget">The budget — 20,000 tries, 15 plies</h4>
+    <div class="prose" lang="tr">
+      <p><code>F</code>, <code>H</code>'yi her çağırışında iki sınır çiziyor: <code>Hn=2e4</code> ve
+      <code>H(g,15)</code>. İlki bütün ağacın ortak bütçesi: denenen her hamle <code>Hn--</code> ile
+      ondan bir düşüyor, yani 20.000 dal başına değil aramanın tamamı için. İkincisi tek bir hattın
+      derinliği: on beş yarım hamle. Hangisi önce biterse o hat kapanmadan kalıyor, yaprakta
+      <code>v</code> sıfırlanıyor ve cevap <b>mat mümkün</b> oluyor. Sınır hiçbir zaman beraberlik
+      uydurmuyor; yalnızca beraberliği ispatlama fırsatını kısıyor.</p>
+      <p>İki sınırın işi farklı. <b>Derinlik sıradan pozisyonların maliyetini belirliyor.</b>
+      Taşların bol, oyunun açık olduğu bir pozisyonda matın mümkün olduğu belli, ama
+      <code>H</code> bunu bir mat bularak değil, imkânsızlığı ispatlayamayarak söylüyor: tek bir
+      hattı on beş yarım hamle aşağı iniyor, yaprakta kapatamayınca <code>every</code> ilk
+      <code>false</code>'ta duruyor ve cevap yukarı taşınıyor. Başlangıç pozisyonunda bayrak düşerse
+      arama tam 15 hamle deniyor, sıradan bir orta oyun pozisyonunda 18. <b>Bütçe ise uç durumların
+      tavanı:</b> dar ama uzun zorunlu ağaçlarda aramanın en fazla ne kadar iş yapacağını
+      sınırlıyor.</p>
+      <p>Pratikte ikisi de nadiren sınıra dayanıyor. Zorunlu bir alış tek denemede kapanıyor;
+      rakibin bir yarım hamle sonra tekrara ya da sayaç sınırına ulaşacağı pozisyonlar bir avuç
+      denemede. Ölçtüğüm süreler <code>engine.js</code>'de 0,4 ile 6, <code>engine_4x</code>'te
+      0,1 ile 2 milisaniye arasında. Kapsam da bununla uyumlu: CHA-Solver'ın taradığı Lichess
+      kaydında zorunlu dal sınıfındaki <b>150.002</b> haksız oyunun hepsi bu sınırlar içinde doğru
+      hükme bağlanıyor; motorun kaçırdığı 3.567 oyunun tamamı <a href="#dead">kilitli ve geniş
+      şeritte</a>, kaydın bütününde kabaca iki milyon oyunda bir. Yani süre bitimi ve terkte
+      karşılaşılan durumların <b>%99,9'undan fazlasında</b> bu sınırlar yetiyor ve hüküm
+      milisaniyeler içinde geliyor.</p>
+      <p>Tavana dayanan örnekler ise hem seyrek hem pahalı. <a href="#flag">Kurallar
+      sekmesindeki</a> iki atlı pozisyon sayaç 145'teyken beraberliği 19.701 denemede ispatlıyor,
+      144'te bütçeyi tüketip mat mümkün diyor; ikisi de <code>engine.js</code>'de beş ila on
+      saniye, <code>engine_4x</code>'te bir saniye kadar sürüyor. 20.000'in sebebi bu denge: daha
+      büyük bir bütçe milyonlarda bir görülen şeridi biraz daha daraltırdı, ama tavana dayanan her
+      pozisyonda bekleme de aynı oranda uzardı. Bayt bütçesi daha gevşek olan
+      <a href="#special">Chess-LUX</a> 50.000 deneme ve 99 yarım hamleyle çalışıyor.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>Every time <code>F</code> calls <code>H</code> it sets two limits: <code>Hn=2e4</code> and
+      <code>H(g,15)</code>. The first is a budget shared by the whole tree: each move tried takes
+      one off it through <code>Hn--</code>, so the 20,000 covers the entire search, not each branch.
+      The second is the depth of any single line: fifteen plies. Whichever runs out first leaves
+      that line unclosed, <code>v</code> drops to zero at the leaf and the answer is <b>mate is
+      possible</b>. A limit never invents a draw; it only narrows the chance to prove one.</p>
+      <p>The two limits do different jobs. <b>Depth sets the cost of ordinary positions.</b> With
+      plenty of material and an open game, mate is plainly possible, but <code>H</code> does not
+      say so by finding one; it says so by failing to prove the opposite. It walks one line fifteen
+      plies down, cannot close it at the leaf, and <code>every</code> stops at the first
+      <code>false</code> and carries it back up. A flag that falls in the starting position costs
+      exactly 15 tries; an ordinary middlegame position costs 18. <b>The budget is the ceiling for
+      the extremes:</b> it caps how much work the search can do in narrow but long forced
+      trees.</p>
+      <p>In practice neither limit is reached very often. A forced capture closes in a single try,
+      and positions where the opponent is one ply away from a repetition or the counter limit close
+      in a handful. The times I measured run from 0.4 to 6 milliseconds in <code>engine.js</code>
+      and from 0.1 to 2 in <code>engine_4x</code>. The coverage agrees: in the Lichess record
+      scanned by CHA-Solver, all <b>150,002</b> wrongly decided games in the forced-line class get
+      the right verdict within these limits, and every one of the 3,567 games the engine misses lies
+      in <a href="#dead">the blocked-and-roomy strip</a> — roughly one game in two million across
+      the whole record. So in <b>more than 99.9%</b> of the positions met at a flag fall or a
+      resignation these limits are enough, and the verdict arrives within milliseconds.</p>
+      <p>The positions that do reach the ceiling are rare and expensive. The two-knight position
+      from <a href="#flag">the rules tab</a> proves the draw in 19,701 tries with the counter at
+      145, and at 144 exhausts the budget and answers mate is possible; both take five to ten
+      seconds in <code>engine.js</code> and about a second in <code>engine_4x</code>. That balance
+      is why the budget stops at 20,000: a larger one would narrow the one-in-millions strip a
+      little further, and lengthen the wait by the same proportion in every position that hits the
+      ceiling. <a href="#special">Chess-LUX</a>, with a looser byte budget, runs on 50,000 tries
+      and 99 plies.</p>
+    </div>
+
     <h3 lang="tr">Ölü pozisyon — <code>l</code></h3>
     <h3 lang="en">Dead position — <code>l</code></h3>
 
@@ -8174,9 +8251,9 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
    N=s=&gt;(s|=S(s),s|s&lt;&lt;8n|s&gt;&gt;8n)&amp;f,        <i>şah adımı: sekiz komşu</i>
    X=k=&gt;k&amp;&amp;( … X(k-1)))=&gt;                 <i>doyana kadar büyüt</i>
   ~e ? 0 :                                <i>kapı: geçerken alma hakkı duruyor mu</i>
-  ( b.map(p=&gt;(p &amp;&amp; (p-8&gt;&gt;2 ? w=1          <i>piyon ve şah dışı → kapsam dışı</i>
+  ( b.map(p=&gt;(p-8&gt;&gt;2 ? w|=p&gt;1             <i>piyon ve şah dışı → kapsam dışı</i>
       : p&gt;9 ? p&amp;1?K=V=u:L=v=u                <i>şahlar</i>
-            : p&amp;1?W|=u:B|=u), u*=2n)),       <i>piyonlar</i>
+            : p&amp;1?W|=u:B|=u, u+=u)),         <i>piyonlar</i>
     C=P=W, Z=Q=B,
     !w &amp;&amp; V*v &amp;&amp; !(X(600),                <i>600 tur, sonra altı soru</i>
       C&gt;&gt;56n | Z&amp;255n                        <i>terfi kaldı mı</i>
@@ -8186,9 +8263,9 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
    N=s=&gt;(s|=S(s),s|s&lt;&lt;8n|s&gt;&gt;8n)&amp;f,        <i>a king step: eight neighbours</i>
    X=k=&gt;k&amp;&amp;( … X(k-1)))=&gt;                 <i>grow until saturated</i>
   ~e ? 0 :                                <i>gate: is an en passant right standing</i>
-  ( b.map(p=&gt;(p &amp;&amp; (p-8&gt;&gt;2 ? w=1          <i>anything but pawn or king → out of scope</i>
+  ( b.map(p=&gt;(p-8&gt;&gt;2 ? w|=p&gt;1             <i>anything but pawn or king → out of scope</i>
       : p&gt;9 ? p&amp;1?K=V=u:L=v=u                <i>kings</i>
-            : p&amp;1?W|=u:B|=u), u*=2n)),       <i>pawns</i>
+            : p&amp;1?W|=u:B|=u, u+=u)),         <i>pawns</i>
     C=P=W, Z=Q=B,
     !w &amp;&amp; V*v &amp;&amp; !(X(600),                <i>600 rounds, then six questions</i>
       C&gt;&gt;56n | Z&amp;255n                        <i>is a promotion left</i>
@@ -8206,7 +8283,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       göremediği bir sıçrama, çünkü ilerleyiş kümesi yalnız dikey büyüyor; o yüzden hüküm vermesine
       hiç izin verilmiyor.</p>
       <p>Kapsamı <code>w</code> çiziyor. <code>p-8&gt;&gt;2</code> piyon ve şah kodlarının
-      (8–11) dışında kalan her şeyde yanıyor — at, kale, vezir, fil, hepsi. <code>!w</code> koşulu
+      (8–11) dışında kalan her kodda sıfırdan farklı, boş kare de dahil; <code>w|=p&gt;1</code>
+      boş kareyi (0) eliyor ve <code>w</code>'yi at, kale, vezir ve filde yakıyor. <code>!w</code> koşulu
       da aramayı hiç başlatmıyor. <a href="#rules">Filli kilitli pozisyonların</a> kaçmasının tek
       satırlık sebebi bu; ama sebep filde değil, kapsamda.</p>
       <p>Doldurma renge değil <b>yöne</b> bağlanıyor: <code>W</code> artan indekse giden piyonlar,
@@ -8233,8 +8311,9 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       pawn lands on the file the opponent has just vacated, and its path there is permanently clear
       — promotion is possible, mate is possible. This model cannot see that sideways jump, because
       its advance set grows vertically only; so it is not allowed to rule at all.</p>
-      <p>Its scope is drawn by <code>w</code>. <code>p-8&gt;&gt;2</code> lights up on anything
-      outside the pawn and king codes (8–11) — knight, rook, queen, bishop, all of them. And the
+      <p>Its scope is drawn by <code>w</code>. <code>p-8&gt;&gt;2</code> is non-zero for every code
+      outside the pawn and king codes (8–11), the empty square included; <code>w|=p&gt;1</code> lets
+      the empty square (0) through and lights <code>w</code> on knight, rook, queen and bishop. And the
       <code>!w</code> condition then keeps the search from starting. That single line is the whole
       reason <a href="#rules">blocked positions containing a bishop</a> get away; but the reason is
       not specific to the bishop, it is specific to the scope.</p>
@@ -8251,6 +8330,165 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       can Black reach the first. Four are about capture: do the diagonal neighbours of the advance
       squares touch an enemy pawn or the ground an enemy king holds. If all six answer no, the
       position cannot breathe.</p>
+    </div>
+
+    <h4 id="saturation" lang="tr">Doyma döngüsü, satır satır</h4>
+    <h4 lang="en" data-id="saturation">The saturation loop, line by line</h4>
+    <div class="prose" lang="tr">
+      <p>Yukarıdaki kodda <code>X</code>'in gövdesi kısaltılmıştı. Açık hâli on atama ve bir
+      özyineleme. Her tur onunu da sırayla yapıyor ve her satır bir öncekinin aynı turdaki sonucunu
+      okuyor.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>In the code above the body of <code>X</code> was abbreviated. Spelled out, it is ten
+      assignments and a recursion. Every turn performs all ten in order, and each line reads what
+      the one before it produced on the same turn.</p>
+    </div>
+    <pre class="snip" lang="tr">X=k=&gt;k&amp;&amp;(
+  l=W&amp;~r,                     <i>kalıcı beyaz piyonlar</i>
+  m=B&amp;~q,                     <i>kalıcı siyah piyonlar</i>
+  P=l&amp;(m|P)&gt;&gt;8n,              <i>önü kapalı beyaz piyonlar</i>
+  Q=m&amp;(l|Q)&lt;&lt;8n,              <i>önü kapalı siyah piyonlar</i>
+  C|=C&lt;&lt;8n&amp;~m,                <i>beyazın ilerleyişi: bir yatay yukarı</i>
+  Z|=Z&gt;&gt;8n&amp;~l,                <i>siyahın ilerleyişi: bir yatay aşağı</i>
+  K|=N(K)&amp;~(P|S(Q)&gt;&gt;8n),      <i>beyaz şah: bir adım daha</i>
+  L|=N(L)&amp;~(Q|S(P)&lt;&lt;8n),      <i>siyah şah: bir adım daha</i>
+  r|=L|(r&amp;~m)&gt;&gt;8n,            <i>beyaz piyonun güvende olmadığı yer</i>
+  q|=K|(q&amp;~l)&lt;&lt;8n,            <i>siyah piyonun güvende olmadığı yer</i>
+  X(k-1))                     <i>bir tur daha</i></pre>
+    <pre class="snip" lang="en">X=k=&gt;k&amp;&amp;(
+  l=W&amp;~r,                     <i>fixed white pawns</i>
+  m=B&amp;~q,                     <i>fixed black pawns</i>
+  P=l&amp;(m|P)&gt;&gt;8n,              <i>white pawns with the way ahead shut</i>
+  Q=m&amp;(l|Q)&lt;&lt;8n,              <i>black pawns with the way ahead shut</i>
+  C|=C&lt;&lt;8n&amp;~m,                <i>White's advance: one rank up</i>
+  Z|=Z&gt;&gt;8n&amp;~l,                <i>Black's advance: one rank down</i>
+  K|=N(K)&amp;~(P|S(Q)&gt;&gt;8n),      <i>the white king: one more step</i>
+  L|=N(L)&amp;~(Q|S(P)&lt;&lt;8n),      <i>the black king: one more step</i>
+  r|=L|(r&amp;~m)&gt;&gt;8n,            <i>where a white pawn is not safe</i>
+  q|=K|(q&amp;~l)&lt;&lt;8n,            <i>where a black pawn is not safe</i>
+  X(k-1))                     <i>one more turn</i></pre>
+    <div class="prose" lang="tr">
+      <p><b>Kalıcılık.</b> <code>l=W&amp;~r</code> beyaz piyonlardan <code>r</code>'nin dışında
+      kalanları seçiyor. <code>r</code>, siyah şahın ulaşabildiği her kare ile böyle bir karenin
+      altında, aynı dikeyde kalan yer; orada duran bir beyaz piyon ya alınabilir ya da önündeki
+      piyon alınınca yolu açılır, yani kalıcı sayılamaz. <code>m=B&amp;~q</code> aynısını siyah
+      piyonlar için beyaz şahın alanına göre yapıyor. İlk turda <code>r</code> ile <code>q</code>
+      boş olduğu için bütün piyonlar kalıcı başlıyor; şahlar yayıldıkça küme daralıyor. Buradaki
+      <code>l</code> fonksiyonun kendi adı; turluk küme onu içeriden gölgeliyor.</p>
+      <p><b>Tıkanıklık.</b> <code>P=l&amp;(m|P)&gt;&gt;8n</code>: kalıcı bir beyaz piyon, önündeki
+      karede kalıcı bir siyah piyon ya da zaten tıkalı sayılan bir beyaz piyon varsa tıkalıdır.
+      <code>&gt;&gt;8n</code> önündeki kareyi bir yatay aşağı, piyonun kendi karesine indiriyor;
+      ikinci koşul da üst üste duran piyonları zincir hâlinde yakalıyor. <code>Q</code> siyah için
+      aynası; siyah aşağı yürüdüğü için kaydırma <code>&lt;&lt;8n</code>. İkisi bütün piyonlar
+      olarak başlıyor ve yalnız daralıyor: tıkalılar arasından düşen bir piyon, bir sonraki turda
+      arkasındakini de düşürüyor.</p>
+      <p><b>İlerleyiş.</b> <code>C|=C&lt;&lt;8n&amp;~m</code>: beyazın ilerleyiş kümesi piyonların
+      kendi karelerinden başlayıp her turda bir yatay yukarı uzuyor, ama kalıcı bir siyah piyonun
+      karesine giremiyor. <code>Z</code> aynı şeyi siyah için aşağı doğru, kalıcı beyaz piyonlarda
+      durarak yapıyor. Bu kümeler piyonun oraya gerçekten gidebileceğini değil, yolunda kalıcı bir
+      engel olmadığını söylüyor.</p>
+      <p><b>Şahlar.</b> <code>K|=N(K)&amp;~(P|S(Q)&gt;&gt;8n)</code>: beyaz şahın erişimi kendi
+      karesinden başlayıp her turda bir şah adımı büyüyor. İki yere giremiyor: kendi tıkalı
+      piyonlarının karelerine ve tıkalı siyah piyonların alış karelerine. <code>S(Q)&gt;&gt;8n</code>
+      bu kareleri, siyahın alış yönünde, piyonun bir yatay altında çapraz olarak buluyor.
+      <code>L</code> aynı hesabı siyah şah için ayna olarak yapıyor.</p>
+      <p><b>Güvensiz alan.</b> <code>r|=L|(r&amp;~m)&gt;&gt;8n</code>: siyah şahın ulaşabildiği
+      her kare <code>r</code>'ye giriyor, ardından <code>r</code> her turda dikey boyunca bir yatay
+      aşağı iniyor. Kalıcı bir siyah piyonun karesinde duruyor ve altına geçmiyor, çünkü oradaki
+      beyaz piyonları o siyah piyon tutuyor. <code>q</code> beyaz şah için aynısını yukarı doğru
+      yapıyor. Bu iki küme bir sonraki turun <code>l</code> ve <code>m</code>'sini daraltarak
+      döngüyü kapatıyor.</p>
+      <p>Hiçbir küme bir engeli kanıtlanmadan kabul etmiyor. Şah ve piyon erişimi yalnız kalıcı
+      engellerde duruyor, kalıcılık da şahın ulaşamadığı yerlere ayrılmış; belirsiz kalan her şey
+      “mümkün” tarafına düşüyor. Ölü hükmünün tek yönlü güvencesi buradan geliyor — ama yalnız
+      maskeler doyduysa. Aşağıdaki 600 turun konusu da bu.</p>
+      <p><b>Başlangıç değerleri</b> parametre listesinde: <code>W</code>, <code>B</code>,
+      <code>V</code>, <code>v</code>, <code>q</code> ve <code>r</code> <code>0n</code>,
+      <code>u</code> <code>1n</code>, <code>w</code> sıfır; <code>K</code>, <code>L</code>,
+      <code>C</code>, <code>Z</code>, <code>P</code>, <code>Q</code> ve <code>l</code> varsayılansız.
+      <code>b.map</code> her kareye bir kez uğruyor: <code>u</code> o karenin biti ve
+      <code>u+=u</code> ile bir sonrakine kayıyor. Piyonlar <code>W</code> ya da <code>B</code>'ye
+      yazılıyor, şahlar <code>K=V=u</code> ve <code>L=v=u</code> ile hem erişim kümesinin
+      başlangıcına hem kendi karelerine. <code>V</code> ile <code>v</code> döngüde hiç değişmiyor;
+      şahların durduğu kare olarak <code>V*v</code> kapısında — iki şah da tahtada mı — ve çıkış
+      sorularında kullanılıyor. Tarama bitince <code>C=P=W</code> ile <code>Z=Q=B</code>: ilerleyiş
+      kümeleri piyonların kendi karelerinden, tıkalı kümeleri bütün piyonlardan başlıyor.</p>
+      <p><b>Çıkıştaki altı terim.</b> <code>C&gt;&gt;56n</code> beyazın ilerleyişi sekizinci yataya
+      (56–63. bitler) değiyor mu; <code>Z&amp;255n</code> siyahınki birinci yataya (0–7. bitler)
+      değiyor mu. <code>S(C)&lt;&lt;8n&amp;(Z|v)</code> bir beyaz piyonun ilerleyişinin herhangi bir
+      karesinden çapraz alabileceği bir kare, bir siyah piyonun bulunabileceği bir kareye ya da siyah
+      şahın karesine düşüyor mu. <code>S(C^W)&lt;&lt;8n&amp;L</code> aynı soruyu yerinden oynamış
+      beyaz piyonlar için, siyah şahın erişimine karşı soruyor; <code>C^W</code> ilerleyişten
+      başlangıç karelerini çıkarıyor. Son iki terim bunların siyah için aynası.</p>
+      <p><b>İki sızıntı.</b> <code>q=r=W</code>'deki <code>r</code> bir parametre değil,
+      <code>q</code>'nun varsayılan değerinin içindeki bir atama; döngüdeki <code>m</code> de hiçbir
+      yerde bildirilmiyor. İkisi de global <code>r</code>'ye ve <code>m</code>'ye yazıyor.
+      Zararsızlar, çünkü o globallerin öbür bütün kullanımları önce kendi değerini kuruyor:
+      <code>r</code>'yi <code>G</code> ile <code>M</code>, <code>m</code>'yi <code>I</code>.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p><b>Permanence.</b> <code>l=W&amp;~r</code> picks the white pawns that lie outside
+      <code>r</code>. <code>r</code> is every square the black king can reach, together with
+      everything below such a square on the same file; a white pawn standing there can either be
+      captured or have its way opened when the pawn in front of it is captured, so it cannot count
+      as fixed. <code>m=B&amp;~q</code> does the same for Black's pawns against the white king's
+      ground. On the first turn <code>r</code> and <code>q</code> are empty, so every pawn starts
+      out fixed; the set shrinks as the kings spread. The <code>l</code> here is the function's own
+      name; the per-turn set shadows it from the inside.</p>
+      <p><b>Blockage.</b> <code>P=l&amp;(m|P)&gt;&gt;8n</code>: a fixed white pawn is blocked if
+      the square in front of it holds a fixed black pawn or a white pawn already counted as
+      blocked. <code>&gt;&gt;8n</code> brings the square in front down one rank, onto the pawn's
+      own square, and the second condition catches pawns stacked on one file as a chain.
+      <code>Q</code> is its mirror for Black; Black walks downward, so the shift is
+      <code>&lt;&lt;8n</code>. Both start out as every pawn and only ever shrink: a pawn that drops
+      out of the blocked set takes the one behind it along on the next turn.</p>
+      <p><b>Advance.</b> <code>C|=C&lt;&lt;8n&amp;~m</code>: White's advance set starts on the
+      pawns' own squares and reaches one rank further up on every turn, but it cannot enter a
+      square held by a fixed black pawn. <code>Z</code> does the same for Black going down, stopping
+      at fixed white pawns. These sets do not say a pawn really can get there; they say nothing
+      permanent stands in its way.</p>
+      <p><b>The kings.</b> <code>K|=N(K)&amp;~(P|S(Q)&gt;&gt;8n)</code>: the white king's reach
+      starts on its own square and grows by one king step per turn. It may enter neither the squares
+      of its own blocked pawns nor the capture squares of Black's blocked pawns;
+      <code>S(Q)&gt;&gt;8n</code> finds those diagonally one rank below each pawn, in Black's
+      direction of capture. <code>L</code> makes the mirror calculation for the black king.</p>
+      <p><b>Unsafe ground.</b> <code>r|=L|(r&amp;~m)&gt;&gt;8n</code>: every square the black king
+      can reach goes into <code>r</code>, and <code>r</code> then drops one rank down its file on
+      every turn. It stops on the square of a fixed black pawn and does not pass beneath it, because
+      the white pawns down there are held by that black pawn. <code>q</code> does the same for the
+      white king, going up. These two sets close the loop by narrowing the next turn's
+      <code>l</code> and <code>m</code>.</p>
+      <p>No set takes an obstacle for granted without proof. King and pawn reach stop only at
+      permanent obstacles, and permanence is reserved for places the enemy king cannot get to;
+      anything left in doubt falls on the “possible” side. That is where the one-way guarantee of
+      the dead verdict comes from — but only once the masks have saturated, which is what the 600
+      rounds below are about.</p>
+      <p><b>The starting values</b> live in the parameter list: <code>W</code>, <code>B</code>,
+      <code>V</code>, <code>v</code>, <code>q</code> and <code>r</code> are <code>0n</code>,
+      <code>u</code> is <code>1n</code>, <code>w</code> is zero; <code>K</code>, <code>L</code>,
+      <code>C</code>, <code>Z</code>, <code>P</code>, <code>Q</code> and <code>l</code> have no
+      default. <code>b.map</code> visits every square once: <code>u</code> is that square's bit and
+      <code>u+=u</code> moves it on to the next. Pawns are written into <code>W</code> or
+      <code>B</code>; kings, through <code>K=V=u</code> and <code>L=v=u</code>, into both the start
+      of their reach and their own square. <code>V</code> and <code>v</code> never change inside the
+      loop; as the squares the kings stand on, they serve the <code>V*v</code> gate — are both kings
+      on the board — and the exit questions. Once the scan is done, <code>C=P=W</code> and
+      <code>Z=Q=B</code>: the advance sets start on the pawns' own squares, the blocked sets as every
+      pawn.</p>
+      <p><b>The six terms at the exit.</b> <code>C&gt;&gt;56n</code> asks whether White's advance
+      touches the eighth rank (bits 56–63); <code>Z&amp;255n</code> whether Black's touches the first
+      (bits 0–7). <code>S(C)&lt;&lt;8n&amp;(Z|v)</code> asks whether a square a white pawn could
+      capture on from anywhere in its advance falls on a square a black pawn could occupy, or on the
+      black king's square. <code>S(C^W)&lt;&lt;8n&amp;L</code> asks the same for white pawns that have
+      left their starting squares, against the black king's reach; <code>C^W</code> strips the
+      starting squares out of the advance. The last two terms mirror these for Black.</p>
+      <p><b>Two leaks.</b> The <code>r</code> in <code>q=r=W</code> is not a parameter but an
+      assignment inside <code>q</code>'s default value, and the <code>m</code> in the loop is
+      declared nowhere. Both write to the globals <code>r</code> and <code>m</code>. They are
+      harmless, because every other use of those globals sets its own value first:
+      <code>G</code> and <code>M</code> for <code>r</code>, <code>I</code> for
+      <code>m</code>.</p>
     </div>
 
     <div class="note" lang="tr">
@@ -10130,8 +10368,8 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       a total of <b>3 bytes</b> across the packed files of the day.</p>
       <p>The third row is the most interesting on the list, because what it fixes is not
       slowness but <b>asymmetry</b>. The code for an empty square is <code>0</code>, and in
-      <code>engine.js</code> the scan conditions are <code>p%2==t</code> and <code>p%2^s</code>.
-      Since zero modulo two is zero, those conditions <b>count empty squares as Black's
+      <code>engine.js</code> the scan conditions are <code>p%2==t</code> and <code>p&amp;1^s</code>.
+      Since zero modulo two is zero, and so is its lowest bit, those conditions <b>count empty squares as Black's
       pieces</b>. The consequence: with Black to move, <code>Z()</code> runs a full legal move
       generation for every empty square on the board, and with White to move it does not.</p>
       <p>Measured, the difference is stark:</p>
@@ -10154,8 +10392,8 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       tutmuştu.</p>
       <p>Üçüncü satır listenin en ilginci, çünkü düzelttiği şey bir yavaşlık değil bir
       <b>asimetri</b>. Boş karenin kodu <code>0</code> ve <code>engine.js</code>'te tarama
-      koşulları <code>p%2==t</code> ile <code>p%2^s</code>. Sıfırın ikiye bölümünden kalan
-      sıfır olduğu için bu koşullar boş kareleri <b>siyahın taşı sayıyor</b>. Sonuç:
+      koşulları <code>p%2==t</code> ile <code>p&amp;1^s</code>. Sıfırın ikiye bölümünden kalan
+      da en düşük biti de sıfır olduğu için bu koşullar boş kareleri <b>siyahın taşı sayıyor</b>. Sonuç:
       <code>Z()</code> siyahın sırasındayken tahtadaki her boş kare için tam bir legal hamle
       üretimi çalışıyor, beyazın sırasındayken çalışmıyor.</p>
       <p>Ölçüldüğünde fark bu kadar keskin:</p>
@@ -10552,8 +10790,8 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       bile. <code>V(g)</code> ise tahtayı tarayan bir test. 4x sürüm <code>v=0</code> yazıp
       bedava geçiyor ve ifadeyi sona, <code>&amp;&amp;(v||t^g|!V(g))</code> içine alıyor. Erken
       çıkan her düğümde şah testi hiç çalışmıyor. <b>+5 bayt</b>.</p>
-      <p><b>Boş kare kısa devreye alınıyor.</b> <code>p%2^t</code> yerine
-      <code>!p||p%2^t</code>. Kare boşsa renk karşılaştırması hiç yapılmıyor — ve boş kare,
+      <p><b>Boş kare kısa devreye alınıyor.</b> <code>p&amp;1^t</code> yerine
+      <code>!p||p&amp;1^t</code>. Kare boşsa renk karşılaştırması hiç yapılmıyor — ve boş kare,
       siyahın sırasında süzgeçten geçen tek şey. <b>+4 bayt</b>.</p>
       <p><b>Terfi testi ucuzdan başlıyor.</b> <code>p&gt;&gt;1^4|f%56&gt;7</code> yerine
       <code>(f%56&gt;7||p&gt;&gt;1^4)</code>. Hedefin son yatayda olmaması hem daha ucuz hem
@@ -10576,8 +10814,8 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       <code>v=0</code>, which costs nothing, and moves the expression to the end, inside
       <code>&amp;&amp;(v||t^g|!V(g))</code>. On every early exit the check test never runs at
       all. <b>+5 bytes</b>.</p>
-      <p><b>The empty square short-circuits.</b> <code>!p||p%2^t</code> instead of a bare
-      <code>p%2^t</code>. When the square is empty the colour comparison is never made — and with Black to move the empty square is the only thing that passes the filter at all.
+      <p><b>The empty square short-circuits.</b> <code>!p||p&amp;1^t</code> instead of a bare
+      <code>p&amp;1^t</code>. When the square is empty the colour comparison is never made — and with Black to move the empty square is the only thing that passes the filter at all.
       <b>+4 bytes</b>.</p>
       <p><b>The promotion test starts with the cheap half.</b>
       <code>(f%56&gt;7||p&gt;&gt;1^4)</code> instead of <code>p&gt;&gt;1^4|f%56&gt;7</code>. The
@@ -11421,7 +11659,7 @@ f = K[2] + K[3] - 0</pre></div>
 <tr><td><code>DOM_1023.html</code></td><td class="num">1</td><td class="num">0,5</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td><code>DOM_minimum.html</code></td><td class="num">0,5</td><td class="num">0</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td><code>Lichess-equivalent_numerical.html</code></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td><code>Chesscom-equivalent_numerical.html</code></td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td><code>Chesscom-equivalent_numerical.html</code></td><td class="num">1</td><td class="num">0</td><td class="num">0,5</td><td class="num">0</td></tr>
 </tbody>
 </table></div>
 <div class="tw" lang="en"><table class="">
@@ -11432,7 +11670,7 @@ f = K[2] + K[3] - 0</pre></div>
 <tr><td><code>DOM_1023.html</code></td><td class="num">1</td><td class="num">0.5</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td><code>DOM_minimum.html</code></td><td class="num">0.5</td><td class="num">0</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td><code>Lichess-equivalent_numerical.html</code></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td><code>Chesscom-equivalent_numerical.html</code></td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td><code>Chesscom-equivalent_numerical.html</code></td><td class="num">1</td><td class="num">0</td><td class="num">0.5</td><td class="num">0</td></tr>
 </tbody>
 </table></div>
     <div class="prose" lang="tr">
@@ -13422,8 +13660,17 @@ function start() {
    Chess.com esdegerinde F ve D yok: sure dolunca tas sayan hukum ve terk ile
    anlasmali beraberlik hukmu surucude, onlar da kesilir. Toledo'nun programinda
    ayri bir hakem katmani yok: hamle uretimi, legallik ve arama ayni X'te. O
-   yuzden ne kural ne bot: 'm' (kural + bot) katmani, iki rengin ortasi. Botu
-   tetikleyen setTimeout ise saf bot.
+   yuzden X'in govdesi ne kural ne bot: 'm' (kural + bot) katmani, iki rengin
+   ortasi. Olcut hizmet: yalniz hakeme hizmet eden kural, yalniz bota hizmet
+   eden bot, ikisine birden hizmet eden (hamle uretimi, ozyineleme, sah ve rok
+   denetimi, yon vektorleri) 'm'. X'ten oyulan saf parcalar: malzeme ve konum
+   degerlendirmesi, en iyi hamle blogu (alfa-beta kesmesi yalniz s>1'de, zar,
+   bilgisayarin hamlesinin kaydi) ve yaprak puanlamasi bot -- kokteki legallik
+   yalniz cevabin sahi alip almadigina (K) bakar, bunlarin degeri hukmu
+   degistirmez; kokte hamleyi yazan kapi (h=0, s=1: esleme, legallik, 50 hamle,
+   gecerken alma karesi) kural, icindeki W() arayuz. l dizisinde baslangic
+   dizilisi kural, tas degerleri ile konum tablosu bot. Tahtanin kurulumu ve
+   50 hamle sayacinin baslangici kural. Botu tetikleyen setTimeout saf bot.
    Motor fonksiyonlarina yapilan cagrilar (A(...), F('R'), D(t)) ve saat sayimi
    arayuzde kalir. aybars'ta motorun iki fonksiyonu bot icin uyarlanmis: M
    tahtaya her yazisini botun S1'i uzerinden yapiyor, L legallik denemesinden
@@ -13498,8 +13745,11 @@ var CARVE = {
   L2_noBlockedDetector: APPLY, L2_string_flip_noBlockedDetector: APPLY,
   LUX_inProgress: [['[10,11].some', 'V(t^1))'], ['o=0', 'o=0'], ['R={[b+t+e+c]', 'z=Z()'],
     ['c&=~C(i)', 'M(i,f,u)'], ['t^=1', 't^=1'], ['o|=4<<t', 'Z(o&=12)']],
-  'Toledos-ES6-optimized': [['y&&setTimeout', ',250)', 'b']],
-  ToledosOpponentbyMe: [['c&=~C(i)', 't^=1']]
+  'Toledos-ES6-optimized': [['F=0', 'F=0'], ['5,3,4,6,2', '10,12,11,13'], ['0,99,0,306', '1,0,-1', 'b'],
+    ['L=r&&', '-h-q', 'b'], ['if(s)L+=', '!(E^y^9)', 'b'], ['if(!(h|s-1', 'u=J'], ['W(),G--', 'W()', 'u'],
+    ['if(L>N||', 'N=L}', 'b'], ['N+M*M&&', 'd?N:0', 'b'], ['while(B++<G)', ':7'],
+    ['y&&setTimeout', ',250)', 'b']],
+  ToledosOpponentbyMe: [['n<100', 'n<100'], ['c&=~C(i)', 't^=1']]
 };
 /* Gercek bir etiket acilisi: <x, </x, <!. Kiyaslamadaki '<' degil. */
 var MARK = /<[a-zA-Z!\/]/;
