@@ -108,7 +108,7 @@ also be played on the site, under *special*.
 
 | File | What it is |
 | --- | --- |
-| [`special/Toledos-ES6-optimized.html`](special/Toledos-ES6-optimized.html) | Oscar Toledo G.'s chess in an ES6 rewrite — the best-known tiny chess program, and the benchmark this project measured itself against. |
+| [`special/Toledos-ES6-optimized.html`](special/Toledos-ES6-optimized.html) | Oscar Toledo G.'s chess in an ES6 rewrite — the best-known tiny chess program. Together with the opponent bot beside it, it is the answer to a question: “could a more capable build — a stronger bot, a better interface — be written at the same rule level with a byte count close to Toledo's?” |
 | [`special/ToledosOpponentbyMe.html`](special/ToledosOpponentbyMe.html) | The opponent I wrote for it, on this engine. Two tiny programs playing each other. |
 | [`extra/2kbfullfidejs.com_index.html`](extra/2kbfullfidejs.com_index.html) | A generator built on the same ideas: it emits standalone engines of roughly 0.6–2.7 KB across several rule levels. |
 | [`extra/2kbfullfidejs.com_README.md`](extra/2kbfullfidejs.com_README.md) | That generator's own documentation — architecture, option axes, the optimisation rules it follows. |
@@ -227,7 +227,7 @@ sitede de, *special* altında oynanabiliyor.
 
 | Dosya | Ne |
 | --- | --- |
-| [`special/Toledos-ES6-optimized.html`](special/Toledos-ES6-optimized.html) | Oscar Toledo G.'nin satrancının ES6 ile yeniden yazımı — en bilinen küçük satranç programı, ve bu projenin kendini ölçtüğü eşik. |
+| [`special/Toledos-ES6-optimized.html`](special/Toledos-ES6-optimized.html) | Oscar Toledo G.'nin satrancının ES6 ile yeniden yazımı — en bilinen küçük satranç programı. Yanındaki rakip botla birlikte “aynı kural seviyesinde, Toledo'nunkine yakın bir bayt sayısıyla daha işlevsel — daha güçlü botlu, daha iyi arayüzlü — bir sürüm yazılabilir mi acaba?” sorusunun cevabı. |
 | [`special/ToledosOpponentbyMe.html`](special/ToledosOpponentbyMe.html) | Ona karşı bu motorla yazdığım rakip. İki küçük program birbiriyle oynuyor. |
 | [`extra/2kbfullfidejs.com_index.html`](extra/2kbfullfidejs.com_index.html) | Aynı fikirler üzerine kurulu bir üretici: birkaç kural seviyesinde, kabaca 0,6–2,7 KB arası tek başına çalışan motorlar üretiyor. |
 | [`extra/2kbfullfidejs.com_README.md`](extra/2kbfullfidejs.com_README.md) | O üreticinin kendi belgesi — mimari, seçenek eksenleri, uyduğu optimizasyon kuralları. |
