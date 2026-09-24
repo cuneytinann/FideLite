@@ -5898,6 +5898,28 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <a href="#notation">a numerically valid but unplayable input</a> is the only way to refresh
       the display without triggering an offer.</p>
     </div>
+    <div class="note" lang="tr">
+      <p><b>Tahtayı görmek istersen.</b> <code class="vn">L3</code>'ün <code>prompt()</code> ile
+      oynanan sürümlerinde oyun bitince tahta gösterilmez, yalnızca sonuç bildirisi
+      (<code>alert</code>) çıkar. Son durum yine de bellekte: geliştirici konsolunda
+      <a href="#state">Motorun kendisi'nde anlatılan değişkenleri</a> yazarak bakabilirsin.
+      <code>z</code> sonucu, <code>b</code> tahtayı kendi temsiliyle verir; <code>t</code>,
+      <code>e</code>, <code>c</code>, <code>n</code>, <code>$</code> ve <code>o</code> da aynı
+      şekilde okunur. Oynatıcıda sürüm bir çerçevede açıldığı için konsolda o çerçeveyi seç.
+      <code class="vn">L1</code> ve <code class="vn">L2</code>'de buna gerek yok:
+      <a href="#levels">pencere hiç kapanmıyor</a> ve sonuç aynı pencerenin içinde kalıyor.</p>
+    </div>
+    <div class="note" lang="en">
+      <p><b>If you want to see the board.</b> In the <code class="vn">L3</code> builds played
+      through <code>prompt()</code>, the board is not shown when the game ends; only a result notice
+      (<code>alert</code>) comes up. The final state is still in memory: type the
+      <a href="#state">variables described on the engine tab</a> into the developer console.
+      <code>z</code> gives the result, <code>b</code> the board in its own representation, and
+      <code>t</code>, <code>e</code>, <code>c</code>, <code>n</code>, <code>$</code> and
+      <code>o</code> read the same way. In the player the build opens in a frame, so select that
+      frame in the console. <code class="vn">L1</code> and <code class="vn">L2</code> do not need
+      this: <a href="#levels">the dialog never closes</a> and the result stays inside it.</p>
+    </div>
 
     <h3 id="lightread" lang="tr"><code class="vn">light</code>'ta sonuç nasıl okunur</h3>
     <h3 lang="en" data-id="lightread">How the result is read in <code class="vn">light</code></h3>
@@ -6908,7 +6930,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td><code>V</code></td><td><code>V(s, u)</code></td><td>50</td><td><code>u</code> karesi <code>s</code>'nin rakibi tarafından tehdit ediliyor mu. <code>u</code> verilmezse <code>s</code>'nin şahının karesi kullanılır, yani <code>V(s)</code> doğrudan şah testidir.</td></tr>
 <tr><td><code>L</code></td><td><code>L(i)</code></td><td>104</td><td>Legal varış listesi. Her adayı <code>M</code> ile oynayıp <code>V</code> ile bakar, sonra geri alır.</td></tr>
 <tr><td><code>C</code></td><td><code>C(i)</code></td><td>27</td><td>Kare → hangi rok hakkını düşürdüğü. Şah ve kale kareleri dışında <code>0</code>.</td></tr>
-<tr><td><code>M</code></td><td><code>M(i, f, u)</code></td><td>236</td><td>Ham hamle. Tahtayı klonlar, taşı taşır, rok kalesini oynatır, geçerken alınanı siler, terfi eder. <b>Rok haklarını düşürür; sıraya ve tekrar tablosuna dokunmaz</b> — çünkü <code>L</code>'nin deneme döngüsü içinde de çalışır.</td></tr>
+<tr><td><code>M</code></td><td><code>M(i, f, u)</code></td><td>237</td><td>Ham hamle. Tahtayı klonlar, taşı taşır, rok kalesini oynatır, geçerken alınanı siler, terfi eder. <b>Rok haklarını düşürür; sıraya ve tekrar tablosuna dokunmaz</b> — çünkü <code>L</code>'nin deneme döngüsü içinde de çalışır.</td></tr>
 <tr><td><code>I</code></td><td><code>I(g)</code></td><td>85</td><td>Yetersiz materyal: 5.2.2’nin <b>materyal yarısı</b>, kilitli yarısını <code>l</code> taşıyor. <code>g&gt;1</code> ile çağrılırsa renk süzgeci düşer ve iki tarafa birden bakar.</td></tr>
 <tr><td><code>Im</code></td><td><code>Im(g)</code></td><td>75</td><td>FIDE 6.9’un materyal yarısı: <code>g</code> bayrağı düşen ya da terk eden taraf; <b>rakibinin</b> elindeki taşlarla mat kurması <b>imkânsız</b> mı. <code>H</code>'nin ilk kapısı — doğru dönerse arama hiç başlamaz.</td></tr>
 <tr><td><code>Z</code></td><td><code>Z()</code></td><td>73</td><td>Pozisyon sonucu. Önce legal hamle var mı diye bakar; yoksa mat mı pat mı ayırır. Varsa <code>I</code> ile <code>l</code>'ye danışıp ölü pozisyonu, ardından tekrar ve hamle sayaçlarını yoklar.</td></tr>
@@ -6928,7 +6950,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td><code>V</code></td><td><code>V(s, u)</code></td><td>50</td><td>Is square <code>u</code> <b>v</b>ulnerable to the opponent of <code>s</code>? Omit <code>u</code> and the square of <code>s</code>'s king is used, so <code>V(s)</code> is the check test itself.</td></tr>
 <tr><td><code>L</code></td><td><code>L(i)</code></td><td>104</td><td>The list of <b>l</b>egal destinations. Plays each candidate with <code>M</code>, checks with <code>V</code>, then takes it back.</td></tr>
 <tr><td><code>C</code></td><td><code>C(i)</code></td><td>27</td><td>Square → which <b>c</b>astling right it forfeits. <code>0</code> for anything but the king and rook squares.</td></tr>
-<tr><td><code>M</code></td><td><code>M(i, f, u)</code></td><td>236</td><td>The raw <b>m</b>ove. Clones the board, moves the piece, moves the castling rook, removes the en passant victim, promotes. <b>It clips the castling rights; it does not touch the side to move or the repetition table</b> — because it also runs inside <code>L</code>'s trial loop.</td></tr>
+<tr><td><code>M</code></td><td><code>M(i, f, u)</code></td><td>237</td><td>The raw <b>m</b>ove. Clones the board, moves the piece, moves the castling rook, removes the en passant victim, promotes. <b>It clips the castling rights; it does not touch the side to move or the repetition table</b> — because it also runs inside <code>L</code>'s trial loop.</td></tr>
 <tr><td><code>I</code></td><td><code>I(g)</code></td><td>85</td><td><b>I</b>nsufficient material: the <b>material half</b> of 5.2.2, whose blocked half is carried by <code>l</code>. Called with <code>g&gt;1</code> the colour filter drops away and it looks at both sides at once.</td></tr>
 <tr><td><code>Im</code></td><td><code>Im(g)</code></td><td>75</td><td>The material half of FIDE 6.9: <code>g</code> is the side that flagged or resigned; is it <b>impossible</b> for its <b>opponent</b> to mate with the pieces that opponent holds? It is <code>H</code>'s first gate — when it returns true the search never starts.</td></tr>
 <tr><td><code>Z</code></td><td><code>Z()</code></td><td>73</td><td>The result from the position. First checks whether a legal move exists; if not, it tells checkmate from stalemate. If one does, it consults <code>I</code> and <code>l</code> for a dead position, then the repetition and move counters.</td></tr>
@@ -6942,21 +6964,21 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 </table></div>
 
     <div class="prose" lang="tr">
-      <p>On üç fonksiyon 1.722 bayt tutuyor, yani dosyanın <b>%91,5</b>'i. Geri kalan 160 bayt
+      <p>On üç fonksiyon 1.723 bayt tutuyor, yani dosyanın <b>%91,5</b>'i. Geri kalan 160 bayt
       başlangıç durumu ve iki takma ad.</p>
       <p>Dağılım eşit değil ve eşitsizliğin kendisi bir şey anlatıyor. <code>l</code> tek başına
       <b>457 bayt</b> — dosyanın neredeyse dörtte biri ve en uzun fonksiyon. Onu
-      <code>G</code> (263) ve <code>M</code> (236) izliyor. Yani motorun en pahalı üç parçası
+      <code>G</code> (263) ve <code>M</code> (237) izliyor. Yani motorun en pahalı üç parçası
       sırasıyla <a href="#rules">kilitli pozisyon tespiti</a>, taş geometrisi ve hamlenin tahtaya
       yazılması. Kuralların geri kalanının tamamı — hüküm, sayaçlar, materyal, iddia, süre —
       366 bayt.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The thirteen functions come to 1,722 bytes, that is <b>91.5%</b> of the file. The
+      <p>The thirteen functions come to 1,723 bytes, that is <b>91.5%</b> of the file. The
       remaining 160 are the initial state and the two aliases.</p>
       <p>The distribution is uneven, and the unevenness says something. <code>l</code> alone is
       <b>457 bytes</b> — close to a quarter of the file, and the longest function in it. Behind it
-      come <code>G</code> (263) and <code>M</code> (236). So the three most expensive parts of the
+      come <code>G</code> (263) and <code>M</code> (237). So the three most expensive parts of the
       engine are, in order, <a href="#rules">blocked-position detection</a>, piece geometry and
       writing a move to the board. Everything else the rules require — the verdict, the counters,
       material, claims, the clock — is 366 bytes.</p>
@@ -7066,7 +7088,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       Bir dönem <code>H</code>'ydi ve 6.9 aramasını taşıyan global <code>H</code>'yi gölgeliyordu;
       bugün <code>X</code> kaynağın başka hiçbir yerinde geçmediği için o gölgeleme kalmadı.</p>
       <p>Gölgeleme burada bir tasarım tercihi değil, bayt bütçesinin doğal sonucu: boşta yalnızca
-      üç harf kaldığı için <code>l</code> kendi adlarını kullanılmış harflerden seçmek zorundaydı.
+      dört harf kaldığı için <code>l</code> kendi adlarını kullanılmış harflerden seçmek zorundaydı.
       Parametre listesinde doğanlar dışarıya sızmıyor — fonksiyon bittiğinde global değerler
       olduğu gibi duruyor. İki atama bu kuralın dışında kalıyor; onları
       <a href="#saturation">doyma döngüsünün açıklamasında</a> anlatıyorum.
@@ -7082,7 +7104,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       search; today <code>X</code> appears nowhere else in the source, so that shadowing is
       gone.</p>
       <p>The shadowing here is not a design choice but a consequence of the byte budget: with only
-      three letters left free, <code>l</code> had to take its names from letters already in use.
+      four letters left free, <code>l</code> had to take its names from letters already in use.
       What is born in the parameter list never leaks — when the function returns, the globals
       stand as they were. Two assignments fall outside that rule; they are covered in
       <a href="#saturation">the saturation loop</a>. <a href="#pitfalls">Pitfalls</a> covers where
@@ -7677,7 +7699,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       çoktan kaybedilmiş bir rok hâlâ mümkün görünüyor. Geri alma işi çağıranın:
       <code>L</code> denemeden önce <code>[b,e,n,c]</code>'yi saklıyor, arama da
       <code>[b,e,n,t,c]</code>'yi. Kalan her kalıcı şey bir kat üstte, <code>A</code>'da.
-      <b>236 bayt.</b></p>
+      <b>237 bayt.</b></p>
     </div>
     <div class="prose" lang="en">
       <p><code>M</code> writes the move to the board and forfeits castling rights; nothing else — it
@@ -7687,7 +7709,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       the tree. Taking the move back is the caller's job: <code>L</code> saves
       <code>[b,e,n,c]</code> before the trial, the search saves <code>[b,e,n,t,c]</code>.
       Everything permanent that is left lives one layer up, in <code>A</code>.
-      <b>236 bytes.</b></p>
+      <b>237 bytes.</b></p>
     </div>
 
     <pre class="snip">M=(i,f,u=3,p=b[i],P=p&gt;&gt;1==4,d=a(i-f),q=i+f&gt;&gt;1)=&gt;(
@@ -9410,7 +9432,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       differences apart. The engine's present <a href="#flow"><code>h</code> and
       <code>v</code></a> come from here, and one move closed both problems at once — the
       collision, because (3,4) and (0,5) are now two different pairs; and the direction, because
-      <code>f&lt;i^g</code> carries a signed comparison. The residue of the abandoned approach is
+      <code>f&lt;i^g&amp;1</code> carries a signed comparison. The residue of the abandoned approach is
       still visible: <code>h*v==2</code> is the knight, <code>h|v&lt;2</code> the king,
       <code>h==v</code> the bishop, <code>h*v==0</code> the rook. The distance went, the shape
       stayed.</p>
@@ -9428,7 +9450,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <p>Çözüm karekökü atmak oldu: yatay ve dikey farkı ayrı tutmak. Motorun bugünkü
       <a href="#flow"><code>h</code> ve <code>v</code></a>'si buradan geliyor ve tek hamlede
       iki sorun birden kapandı — çarpışma, çünkü (3,4) ile (0,5) artık farklı iki çift; yön,
-      çünkü <code>f&lt;i^g</code> işaretli bir karşılaştırma taşıyor. Vazgeçilen yaklaşımın kalıntısı
+      çünkü <code>f&lt;i^g&amp;1</code> işaretli bir karşılaştırma taşıyor. Vazgeçilen yaklaşımın kalıntısı
       hâlâ görünür: <code>h*v==2</code> at, <code>h|v&lt;2</code> şah, <code>h==v</code> fil,
       <code>h*v==0</code> kale. Uzaklık gitti, şekil kaldı.</p>
       <p>Çöküşün nerede olduğunu kareye tıklayarak görmek için o günkü simülasyon hâlâ duruyor:
@@ -9929,25 +9951,25 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
     <h3 lang="en">A signed variable for pawn direction — tried, gained nothing</h3>
     <div class="prose" lang="tr">
       <p>Renk başına ±1'lik bir yön değişkeni tutup piyon hamlesini o çarpanla yazmak
-      denendi. Kazandırmadı. Sebebi seçilen temsilin daha ucuz olması değil, <b>daha çok iş görmesi</b>: renk bilgisi bir bit olarak duruyor ve motor onu aynı anda doğruluk
+      denendi. Kazandırmadı. Sebebi seçilen temsilin daha ucuz olması değil, <b>daha çok iş görmesi</b>: renk bilgisi bir bit olarak duruyor ve motor ile sürücüleri onu aynı anda doğruluk
       değeri (<code>p%2==g</code>), XOR operandı (<code>t^=1</code>), toplanan
       (<code>V(t)?t+1:3</code> mat kodunu, <code>10+2*k+g</code> sonuç kodunu verir), indeks
       (<code>'WB'[t]</code>) ve çarpan (<code>t*49+7</code> render çevirmesi) olarak
       kullanıyor. ±1 bunlardan yalnızca sonuncusunu yapabiliyor, üstelik işaretli yön
       yalnızca tek taşta anlamlı. Piyon bugün ayrı bir değişken taşımıyor:
-      <code>f&lt;i^g</code> varış indeksinin kaynaktan küçük olup olmadığını sorup bunu renk
+      <code>f&lt;i^g&amp;1</code> varış indeksinin kaynaktan küçük olup olmadığını sorup bunu renk
       bitiyle XOR'luyor, tek ifadede hem yön hem renk.</p>
     </div>
     <div class="prose" lang="en">
       <p>Keeping a ±1 direction variable per colour and writing the pawn's move with that
       multiplier was tried. It gained nothing. The reason is not that the chosen representation is
       cheaper but that it is <b>more versatile</b>: the colour information sits as a single bit
-      and the engine uses it simultaneously as a truth value (<code>p%2==g</code>), an XOR
+      and the engine and its drivers use it simultaneously as a truth value (<code>p%2==g</code>), an XOR
       operand (<code>t^=1</code>), an addend (<code>V(t)?t+1:3</code> gives the mate code,
       <code>10+2*k+g</code> the result code), an index (<code>'WB'[t]</code>) and a multiplier
       (<code>t*49+7</code>, the render flip). A ±1 can do only the last of these, and a signed
       direction is meaningful for one piece only. The pawn carries no separate variable today:
-      <code>f&lt;i^g</code> asks whether the destination index is lower than the source and XORs
+      <code>f&lt;i^g&amp;1</code> asks whether the destination index is lower than the source and XORs
       that with the colour bit — direction and colour in one expression.</p>
     </div>
 
@@ -11289,8 +11311,8 @@ f = K[2] + K[3] - 0</pre></div>
       kabul edilmiş bir şey; yeni olan, farkın <em>nesil</em> farkına dönüşmüş olması.</p>
       <p><b>Ne değişmiyor:</b> kural seti. İki paket de hüküm katmanının tamamını taşıyor ve aynı
       hükümleri veriyor. Aradaki kod farkları davranışı değiştirmeyen cinsten —
-      <code>y%5==1</code> ile <code>66&gt;&gt;y</code> aynı iki yatayı seçiyor,
-      <code>u*2+p%2</code> ile <code>u*2+t</code> gerçek bir hamlede aynı rengi veriyor.
+      örneğin <code>u*2+p%2</code> ile <code>u*2+t</code> gerçek bir hamlede aynı rengi
+      veriyor.
       <b>Ne değişiyor:</b> paketi açtığında eline gelen kaynak, <code>builds/</code> altındaki
       dosyanın bugünkü hâli değil.</p>
       <p>Doğru çözüm üçüncü bir yol: pakete kendi kaynağını yazmak — düz kaynak bayt için, paket
@@ -11316,9 +11338,8 @@ f = K[2] + K[3] - 0</pre></div>
       difference of <em>generation</em>.</p>
       <p><b>What does not change:</b> the rule set. Both packed builds carry the whole
       adjudication layer and return the same verdicts. The differences in the code are of a kind
-      that does not alter behaviour — <code>y%5==1</code> and <code>66&gt;&gt;y</code> select the
-      same two ranks, <code>u*2+p%2</code> and <code>u*2+t</code> give the same colour on a real
-      move. <b>What does change:</b> the source you get back when you unpack the file is not
+      that does not alter behaviour — <code>u*2+p%2</code> and <code>u*2+t</code>, for instance,
+      give the same colour on a real move. <b>What does change:</b> the source you get back when you unpack the file is not
       today's version of the file under <code>builds/</code>.</p>
       <p>The right answer is a third route: give the packed build its own source — the plain one
       tuned for bytes, the packed one for repetition. That round has not been run. Until it is,
@@ -11497,33 +11518,33 @@ f = K[2] + K[3] - 0</pre></div>
 <div class="tw" lang="tr"><table class="">
 <thead><tr><th>Dosya</th><th>Boşta harfler</th><th class="num">Sayı</th></tr></thead>
 <tbody>
-<tr><td><code>engine.js</code></td><td><code>E</code> <code>j</code> <code>_</code></td><td class="num">3</td></tr>
-<tr><td><code>engine_4x.js</code></td><td><code>E</code> <code>j</code></td><td class="num">2</td></tr>
-<tr><td><code class="vn">numerical</code></td><td><code>E</code> <code>j</code> <code>_</code></td><td class="num">3</td></tr>
-<tr><td><code class="vn">prompt</code></td><td><code>E</code> <code>j</code> <code>_</code></td><td class="num">3</td></tr>
-<tr><td><code class="vn">input</code></td><td><code>E</code> <code>j</code></td><td class="num">2</td></tr>
-<tr><td><code class="vn">input_blindfold</code></td><td><code>j</code></td><td class="num">1</td></tr>
-<tr><td><code class="vn">L3</code></td><td><code>j</code></td><td class="num">1</td></tr>
+<tr><td><code>engine.js</code></td><td><code>E</code> <code>J</code> <code>j</code> <code>_</code></td><td class="num">4</td></tr>
+<tr><td><code>engine_4x.js</code></td><td><code>E</code> <code>J</code> <code>j</code></td><td class="num">3</td></tr>
+<tr><td><code class="vn">numerical</code></td><td><code>E</code> <code>J</code> <code>j</code> <code>_</code></td><td class="num">4</td></tr>
+<tr><td><code class="vn">prompt</code></td><td><code>E</code> <code>J</code> <code>j</code> <code>_</code></td><td class="num">4</td></tr>
+<tr><td><code class="vn">input</code></td><td><code>E</code> <code>J</code> <code>j</code></td><td class="num">3</td></tr>
+<tr><td><code class="vn">input_blindfold</code></td><td><code>J</code> <code>j</code></td><td class="num">2</td></tr>
+<tr><td><code class="vn">L3</code></td><td><code>J</code></td><td class="num">1</td></tr>
 </tbody>
 </table></div>
 <div class="tw" lang="en"><table class="">
 <thead><tr><th>File</th><th>Free letters</th><th class="num">Count</th></tr></thead>
 <tbody>
-<tr><td><code>engine.js</code></td><td><code>E</code> <code>j</code> <code>_</code></td><td class="num">3</td></tr>
-<tr><td><code>engine_4x.js</code></td><td><code>E</code> <code>j</code></td><td class="num">2</td></tr>
-<tr><td><code class="vn">numerical</code></td><td><code>E</code> <code>j</code> <code>_</code></td><td class="num">3</td></tr>
-<tr><td><code class="vn">prompt</code></td><td><code>E</code> <code>j</code> <code>_</code></td><td class="num">3</td></tr>
-<tr><td><code class="vn">input</code></td><td><code>E</code> <code>j</code></td><td class="num">2</td></tr>
-<tr><td><code class="vn">input_blindfold</code></td><td><code>j</code></td><td class="num">1</td></tr>
-<tr><td><code class="vn">L3</code></td><td><code>j</code></td><td class="num">1</td></tr>
+<tr><td><code>engine.js</code></td><td><code>E</code> <code>J</code> <code>j</code> <code>_</code></td><td class="num">4</td></tr>
+<tr><td><code>engine_4x.js</code></td><td><code>E</code> <code>J</code> <code>j</code></td><td class="num">3</td></tr>
+<tr><td><code class="vn">numerical</code></td><td><code>E</code> <code>J</code> <code>j</code> <code>_</code></td><td class="num">4</td></tr>
+<tr><td><code class="vn">prompt</code></td><td><code>E</code> <code>J</code> <code>j</code> <code>_</code></td><td class="num">4</td></tr>
+<tr><td><code class="vn">input</code></td><td><code>E</code> <code>J</code> <code>j</code></td><td class="num">3</td></tr>
+<tr><td><code class="vn">input_blindfold</code></td><td><code>J</code> <code>j</code></td><td class="num">2</td></tr>
+<tr><td><code class="vn">L3</code></td><td><code>J</code></td><td class="num">1</td></tr>
 </tbody>
 </table></div>
     <div class="prose" lang="en">
       <p>The count falls as you move from the engine without a front end to a complete driver:
-      <code>engine.js</code> has no interface and three letters free; one remains in
+      <code>engine.js</code> has no interface and four letters free; one remains in
       <code class="vn">L3</code>. Exactly one letter is free in all seven files:
-      <b><code>j</code></b>.</p>
-      <p>Even that one is not usable outright, and the reason lies in the
+      <b><code>J</code></b>.</p>
+      <p>Being free as an identifier is not enough on its own, and the reason lies in the
       <a href="#packing">packer</a>. RegPack wants a letter for the unpacking loop's wrapper,
       but it also picks its token characters from characters that occur <em>nowhere</em> in the
       source. So there are two separate tests: the letter must be free as an identifier,
@@ -11532,9 +11553,9 @@ f = K[2] + K[3] - 0</pre></div>
     </div>
     <div class="prose" lang="tr">
       <p>Sayı motorsuz sürücüden tam sürücüye doğru düşüyor: <code>engine.js</code>'in
-      arayüzü yok, üç harfi boşta; <code class="vn">L3</code>'te tek harf kalıyor. Yedi dosyanın hepsinde
-      ortak boşta olan tek harf var: <b><code>j</code></b>.</p>
-      <p>O harf de doğrudan kullanılabilir değil ve sebebi
+      arayüzü yok, dört harfi boşta; <code class="vn">L3</code>'te tek harf kalıyor. Yedi dosyanın hepsinde
+      ortak boşta olan tek harf var: <b><code>J</code></b>.</p>
+      <p>Tanımlayıcı olarak boşta olmak tek başına yetmiyor ve sebebi
       <a href="#packing">paketleyicide</a>. RegPack açma döngüsünün sarmalayıcısı için
       bir harf istiyor, ama token karakterlerini de kaynakta <em>hiç geçmeyen</em>
       karakterlerden seçiyor. Yani iki ayrı test var: harf tanımlayıcı olarak boşta
@@ -11544,7 +11565,8 @@ f = K[2] + K[3] - 0</pre></div>
 <div class="tw" lang="tr"><table class="">
 <thead><tr><th>Harf</th><th class="num">Kaç dosyada boşta</th><th>Boşta olduğu dosyalarda karakter olarak</th></tr></thead>
 <tbody>
-<tr><td><code>j</code></td><td class="num">7</td><td>Üçünde var — <code>join</code> çağrısı: <code class="vn">L3</code>, <code class="vn">input</code>, <code class="vn">prompt</code></td></tr>
+<tr><td><code>J</code></td><td class="num">7</td><td>Hiçbirinde yok</td></tr>
+<tr><td><code>j</code></td><td class="num">6</td><td>İkisinde var — <code>join</code> çağrısı: <code class="vn">input</code>, <code class="vn">prompt</code></td></tr>
 <tr><td><code>E</code></td><td class="num">5</td><td>Üçünde var — <code>engine_4x</code>, <code class="vn">input</code>, <code class="vn">numerical</code></td></tr>
 <tr><td><code>_</code></td><td class="num">3</td><td>Hiçbirinde yok</td></tr>
 </tbody>
@@ -11552,39 +11574,45 @@ f = K[2] + K[3] - 0</pre></div>
 <div class="tw" lang="en"><table class="">
 <thead><tr><th>Letter</th><th class="num">Free in how many files</th><th>As a character, in the files where it is free</th></tr></thead>
 <tbody>
-<tr><td><code>j</code></td><td class="num">7</td><td>In three — the <code>join</code> call: <code class="vn">L3</code>, <code class="vn">input</code>, <code class="vn">prompt</code></td></tr>
+<tr><td><code>J</code></td><td class="num">7</td><td>In none of them</td></tr>
+<tr><td><code>j</code></td><td class="num">6</td><td>In two — the <code>join</code> call: <code class="vn">input</code>, <code class="vn">prompt</code></td></tr>
 <tr><td><code>E</code></td><td class="num">5</td><td>In three — <code>engine_4x</code>, <code class="vn">input</code>, <code class="vn">numerical</code></td></tr>
 <tr><td><code>_</code></td><td class="num">3</td><td>In none of them</td></tr>
 </tbody>
 </table></div>
     <div class="prose" lang="en">
-      <p>No letter passes both tests. <code>j</code> is free as an identifier in all seven files
-      but fails the second: the <code>join</code> call puts it into the source, as a character, in
-      <code class="vn">L3</code>, <code class="vn">input</code> and <code class="vn">prompt</code>. <code>_</code> passes the
-      second test — it does not occur even once in the three files where it is free — but it can
-      only be used in those three; for a single name across all seven it does not qualify.
-      <code>E</code> is narrower still: free in five files, present as a character in three.</p>
-      <p>The space was not always this tight. <code>H</code> used to be free in all seven files,
-      and that is exactly why it was held in reserve; when the <a href="#rules">6.9 search</a>
-      arrived it took the letter. <code>l</code> went to the <a href="#dead">dead position</a>
-      scan in the same round, and <code>K</code> and <code>w</code> to the locals of those two
-      functions. What was once the extreme case — <code>k</code>, the direction vector in
+      <p>One letter passes both tests: <b><code>J</code></b>. It is free as an identifier in all
+      seven files and does not occur in any of them even as a character, so a single name that
+      works across all seven exists. <code>j</code> is free in six files but fails the second test:
+      the <code>join</code> call puts it into <code class="vn">input</code> and <code class="vn">prompt</code> as a
+      character, and <code class="vn">L3</code> now uses it as an identifier. <code>_</code> passes
+      the second test — it does not occur even once in the three files where it is free — but it
+      can only be used in those three. <code>E</code> is narrower still: free in five files, present
+      as a character in three.</p>
+      <p><code>J</code> fell free in the latest round of renaming. The <a href="#rules">6.9
+      search</a>, which had been called <code>X</code>, took <code>H</code>; the old
+      <code>H</code>, the material gate, became <code>Im</code>; and the <a href="#dead">dead
+      position</a> scan moved from <code>J</code> to <code>l</code> — a letter that had come free
+      two days earlier, when the one-line check wrapper was folded into the default of
+      <code>V</code>'s second parameter. What was once the extreme case — <code>k</code>, the direction vector in
       <code>G</code>, free in no file and present as a character in all seven — is now the rule
       rather than the exception: <code>H</code>, <code>l</code>, <code>K</code> and
       <code>w</code> lose both tests as well.</p>
     </div>
     <div class="prose" lang="tr">
-      <p>İki testi birden geçen harf yok. <code>j</code> yedi dosyanın hepsinde tanımlayıcı
-      olarak boşta ama ikinci testten düşüyor: <code class="vn">L3</code>, <code class="vn">input</code> ve
-      <code class="vn">prompt</code>'ta <code>join</code> çağrısı harfi kaynağa sokuyor.
-      <code>_</code> ikinci testi geçiyor — boşta olduğu üç dosyada tek bir karakter olarak
-      bile bulunmuyor — ama yalnızca o üç dosyada kullanılabilir; yedisi için tek bir ad
-      isteniyorsa ele gelmiyor. <code>E</code> daha da dar: beş dosyada boşta, üçünde
-      karakter olarak var.</p>
-      <p>Boşluk her zaman bu kadar dar değildi. <code>H</code> yedi dosyanın hepsinde boştaydı
-      ve tam bu yüzden ayrılmış tutuluyordu; <a href="#rules">6.9 araması</a> gelince o harfi
-      aldı. Aynı turda <code>l</code> <a href="#dead">ölü pozisyon</a> taramasına,
-      <code>K</code> ile <code>w</code> de bu iki fonksiyonun yerellerine gitti. Bir zamanlar uç
+      <p>İki testi birden geçen bir harf var: <b><code>J</code></b>. Yedi dosyanın hepsinde
+      tanımlayıcı olarak boşta ve hiçbirinde karakter olarak bile geçmiyor; yani yedisinde birden
+      çalışan tek bir ad mümkün. <code>j</code> altı dosyada boşta ama ikinci testten düşüyor:
+      <code class="vn">input</code> ve <code class="vn">prompt</code>'ta <code>join</code> çağrısı
+      harfi kaynağa sokuyor, <code class="vn">L3</code> ise onu artık tanımlayıcı olarak
+      kullanıyor. <code>_</code> ikinci testi geçiyor — boşta olduğu üç dosyada tek bir karakter
+      olarak bile bulunmuyor — ama yalnızca o üç dosyada kullanılabilir. <code>E</code> daha da dar:
+      beş dosyada boşta, üçünde karakter olarak var.</p>
+      <p><code>J</code> son yeniden adlandırma turunda boşa çıktı. <code>X</code> adını taşıyan
+      <a href="#rules">6.9 araması</a> <code>H</code>'yi aldı; eski <code>H</code>, yani materyal
+      kapısı, <code>Im</code> oldu; <a href="#dead">ölü pozisyon</a> taraması da <code>J</code>'den
+      <code>l</code>'ye geçti. <code>l</code> iki gün önce, tek satırlık şah testi sarmalayıcısı
+      <code>V</code>'nin ikinci parametresinin varsayılanına katlanınca boşalmıştı. Bir zamanlar uç
       örnek olan <code>k</code> — <code>G</code>'de yön vektörü olduğu için hiçbir dosyada boşta
       değil, karakter olarak yedisinde birden geçiyor — artık istisna değil kural:
       <code>H</code>, <code>l</code>, <code>K</code> ve <code>w</code> de iki testi birden
@@ -12106,7 +12134,19 @@ f = K[2] + K[3] - 0</pre></div>
       <code>L(-1)</code>, <code>L(64)</code>, <code>L(NaN)</code> gibi uç girdiler boş dizi
       döndürüyor. Yani UCI'de <code>e2e2</code> yazmak hamleyi reddettiriyor, patlatmıyor.
       Risk yalnızca motoru kütüphane gibi kullanıp <code>G</code> ya da iki argümanlı
-      <code>V(s,u)</code> çağıran üçüncü bir sürücü için.</li>
+      <code>V(s,u)</code> çağıran üçüncü bir sürücü için.
+      Aynı kısaltmanın ikinci bir deliği daha var: <b>tahtada şah yoksa</b> <code>V</code>'nin
+      varsayılanı <code>u=b[N](10+s)</code> <code>-1</code> döndürüyor ve ışınlar tahtanın dışındaki
+      bu kareye yürüyor. Adım tam sayı çıkan yerlerde yürüyüş <code>-1</code>'e tam basıp duruyor;
+      ama <b>c3, e5, f6 ve g7</b>'deki bir fil ya da vezirde adım kesirli — c3'te
+      <code>k=-19/3</code> — ve <code>i+=k</code> birkaç kez toplandığında kayan noktanın biriken
+      hatası yüzünden <code>-1</code>'e tam düşmüyor: c3'ten üç adımda −0,9999999999999982, f6'dan
+      −1,0000000000000018. Kesirli indekste <code>b[i]</code> yine <code>undefined</code>,
+      <code>!undefined</code> yine doğru ve yürüyüş bitmiyor. Bütün kareleri taradım; patlayan
+      yalnız bu dördü. Oyun sırasında erişilemez, çünkü tahtada her zaman iki şah var; ama şahsız
+      bir pozisyon kurup <code>V</code>'yi çağıran bir sürücü ya da test düzeneği buraya düşer.
+      Eski <code>b[i]&lt;1</code> iki deliği birden kapatıyordu, çünkü
+      <code>undefined&lt;1</code> yanlıştır.</li>
       <li><b>Tahtada şah yoksa <code>l</code> sayı değil BigInt döndürür.</b> Kapsamında
       yalnızca şah ve piyon varken <code>l</code> iki şahın varlığını <code>V*v</code> ile
       sınıyor; şah yoksa ikisi de <code>0n</code> kalıyor ve ifade <code>false</code> değil
@@ -12156,7 +12196,19 @@ f = K[2] + K[3] - 0</pre></div>
       like <code>L(-1)</code>, <code>L(64)</code> or <code>L(NaN)</code> return an empty array.
       So typing <code>e2e2</code> in UCI has the move refused, not the engine blown up. The risk
       is only for a third-party driver that uses the engine as a library and calls
-      <code>G</code> or the two-argument <code>V(s,u)</code>.</li>
+      <code>G</code> or the two-argument <code>V(s,u)</code>. The same shortcut has a second hole:
+      <b>with no king on the board</b>, <code>V</code>'s default <code>u=b[N](10+s)</code> returns
+      <code>-1</code> and the rays walk towards that off-board square. Where the step is a whole
+      number the walk lands on <code>-1</code> exactly and stops; but for a bishop or queen on
+      <b>c3, e5, f6 or g7</b> the step is fractional — <code>k=-19/3</code> on c3 — and adding it
+      with <code>i+=k</code> accumulates floating-point error, so the walk never lands on
+      <code>-1</code> exactly: −0.9999999999999982 after three steps from c3,
+      −1.0000000000000018 from f6. At a fractional index <code>b[i]</code> is again
+      <code>undefined</code>, <code>!undefined</code> is again true, and the walk never ends. I
+      scanned every square; only those four blow up. It cannot be reached in play, because there
+      are always two kings on the board, but a driver or a test harness that sets up a kingless
+      position and calls <code>V</code> falls straight in. The old <code>b[i]&lt;1</code> closed
+      both holes at once, because <code>undefined&lt;1</code> is false.</li>
       <li><b>With no king on the board, <code>l</code> returns a BigInt, not a number.</b> When
       only kings and pawns are in scope, <code>l</code> tests for the presence of two kings with
       <code>V*v</code>; with no king both stay <code>0n</code> and the expression yields not
@@ -12198,8 +12250,10 @@ f = K[2] + K[3] - 0</pre></div>
       <li><b>Argümansız <code>D()</code> teklif bitlerine dokunmaz.</b> Fonksiyon
       <code>D=g=&gt;(o^=2-g,…)</code> ile başlıyor; <code>g</code> verilmezse
       <code>2-undefined</code> <code>NaN</code> oluyor, <code>o^=NaN</code> ise
-      <code>o^0</code>, yani <code>o</code>. Sonuç “bitleri bozmadan yalnızca değerlendir” demek ve kasıtlı: <code class="vn">L3</code> hamle sırasında
-      <code>x.checked?D():Z(o=0)</code> ile bunu kullanıyor.</li>
+      <code>o^0</code>, yani <code>o</code>. Sonuç “bitleri bozmadan yalnızca değerlendir” demek ve kasıtlı: <code class="vn">L3</code> hamleden sonra
+      <code>Z(o&amp;=1+t)||o&amp;&amp;D()</code> ile bunu kullanıyor — rakibin teklif biti hamleyle
+      düşüyor, hamleyi yapanın biti duruyorsa <code>D()</code> onu bitlere dokunmadan iddia olarak
+      değerlendiriyor.</li>
       <li><b><code>O</code>'nun argümanı taş kodu, tür değil.</b> <code>Im</code> içinde
       <code>O=u=&gt;!~b[N](u+g)</code> — “tahtada <code>u+g</code> kodlu taş yok” demek. Kod <code>tür*2+renk</code> olduğu için <code>O(4)</code> kale,
       <code>O(8)</code> piyon, <code>O(12)</code> at yokluğunu sınıyor. Vezir ve fil bu
@@ -12225,8 +12279,10 @@ f = K[2] + K[3] - 0</pre></div>
       opens with <code>D=g=&gt;(o^=2-g,…)</code>; if <code>g</code> is not supplied,
       <code>2-undefined</code> is <code>NaN</code>, and <code>o^=NaN</code> is <code>o^0</code>,
       that is <code>o</code>. The effect is “evaluate only, without disturbing the bits”, and it
-      is deliberate: during a move <code class="vn">L3</code> uses it as
-      <code>x.checked?D():Z(o=0)</code>.</li>
+      is deliberate: after a move <code class="vn">L3</code> uses it as
+      <code>Z(o&amp;=1+t)||o&amp;&amp;D()</code> — the opponent's offer bit falls with the move, and
+      if the mover's bit is still set, <code>D()</code> weighs it as a claim without touching the
+      bits.</li>
       <li><b><code>O</code>'s argument is a piece code, not a type.</b> Inside <code>Im</code>,
       <code>O=u=&gt;!~b[N](u+g)</code> means “there is no piece with code <code>u+g</code> on
       the board”. Since the code is <code>type*2+colour</code>, <code>O(4)</code> tests for the
@@ -12466,30 +12522,47 @@ f = K[2] + K[3] - 0</pre></div>
       <code>z</code>, the <code>-1</code> would collide with their results.</p>
     </div>
 
-    <h3 lang="tr"><code>L3.html</code>: BOM ve kırılmaz boşluk</h3>
-    <h3 lang="en"><code>L3.html</code>: the BOM and the non-breaking space</h3>
+    <h3 lang="tr"><code>L3_packed.html</code>: BOM ve kırılmaz boşluk</h3>
+    <h3 lang="en"><code>L3_packed.html</code>: the BOM and the non-breaking space</h3>
     <div class="prose" lang="tr">
-      <p>ASCII dışı glif taşıyan dosyalar var: tahta çizenler satranç taşlarını,
-      <code>prompt.html</code> tam genişlikli harfleri kullanıyor. Hepsinin başında BOM
-      duruyor ve gerekli — dosyalar <code>&lt;meta charset&gt;</code> taşımıyor, kodlamayı
-      bildiren tek şey o.</p>
-      <p>İkinci tuzak daha ince. Tahta çizen sürümlerin render dizisinde boş karenin
-      karakteri normal boşluk değil, <b>kırılmaz boşluk</b> — <code>' ♝♜♛♟♚♞'</code>
-      dizisinin ilk karakteri U+00A0. <code>0x20</code>'ye çevrilirse işaretlemede
-      daraltılabilir boşluğa dönüşür, hücre boş sayılır ve tahta çöker. Bir editörün
-      “gereksiz karakteri temizlemesi” bunu tek başına yapar.</p>
+      <p>ASCII dışı glif taşıyan dosyalar kodlamayı aynı yoldan bildirmiyor. Tahta çizen düz
+      sürümler — <code>L1.html</code>, <code>L2.html</code>, <code>L3.html</code> ve botlu ikisi —
+      <code>&lt;!DOCTYPE html&gt;</code> ile açılıp <code>&lt;meta charset=utf-8&gt;</code>
+      taşıyor; BOM'a ihtiyaçları yok, taşımıyorlar da. <code>prompt</code> ailesinin tam
+      genişlikli harfleri dosyada durmuyor, çalışırken <code>fromCharCode(…+65248)</code> ile
+      üretiliyor; dosyanın kendisi tamamen ASCII. <b>Paketli <code>L3_packed.html</code></b> ise
+      glif taşıyor ama ne DOCTYPE ne meta taşıyor: kodlamayı bildiren tek şey dosyanın başındaki
+      BOM ve o yüzden gerekli. Silinirse doğru okuma tarayıcının sezmesine kalır.
+      <code>special/</code> altındaki iki Toledo dosyası da aynı durumda. <code>light</code>
+      sürümleri glif taşıyıp kodlamayı hiç bildirmiyor, baştan sezmeye yaslanıyor; Chromium yerel
+      dosyada UTF-8'i doğru seziyor.</p>
+      <p>İkinci tuzak daha ince. Render dizisinde boş karenin karakteri normal boşluk değil,
+      <b>kırılmaz boşluk</b>. Düz sürümlerde bu kaçışla yazılıyor — <code>'\xA0♝♜♛♟♚♞'</code> —
+      ve dosyada tek bir çıplak U+00A0 yok. Paketli sürümde ise karakterin kendisi duruyor: kaçış
+      dört bayt, karakter iki. <code>0x20</code>'ye çevrilirse işaretlemede daraltılabilir boşluğa
+      dönüşür, hücre boş sayılır ve tahta çöker. Bir editörün “gereksiz karakteri temizlemesi” bunu
+      tek başına yapar — ama yalnızca paketli dosyada; düz sürümleri kaçış koruyor.</p>
     </div>
     <div class="prose" lang="en">
-      <p>Some files carry non-ASCII glyphs: the ones that draw a board use the chess pieces, and
-      <code>prompt.html</code> full-width letters. Every one of them begins with a BOM, and it is
-      necessary —
-      the files carry no <code>&lt;meta charset&gt;</code>, and the BOM is the only thing
-      declaring the encoding.</p>
-      <p>The second trap is subtler. In the render string of the board-drawing builds, the character for an
-      empty square is not an ordinary space but a <b>non-breaking space</b> — the first character
-      of the string <code>' ♝♜♛♟♚♞'</code> is U+00A0. Convert it to <code>0x20</code> and it
-      becomes collapsible whitespace in the markup, the cell counts as empty and the board
-      collapses. An editor that “cleans up an unnecessary character” does this all by itself.</p>
+      <p>The files that carry non-ASCII glyphs do not all declare their encoding the same way. The
+      plain board-drawing builds — <code>L1.html</code>, <code>L2.html</code>, <code>L3.html</code>
+      and the two with a bot — open with <code>&lt;!DOCTYPE html&gt;</code> and carry
+      <code>&lt;meta charset=utf-8&gt;</code>; they need no BOM and have none. The full-width
+      letters of the <code>prompt</code> family are not in the file at all but generated at run
+      time with <code>fromCharCode(…+65248)</code>; the file itself is pure ASCII.
+      <b>The packed <code>L3_packed.html</code></b>, on the other hand, carries glyphs but neither a
+      DOCTYPE nor a meta: the BOM at the head of the file is the only thing declaring the encoding,
+      and that is why it is needed. Remove it and a correct reading is left to the browser's
+      guesswork. The two Toledo files under <code>special/</code> are in the same position. The
+      <code>light</code> builds carry glyphs and declare no encoding at all, relying on detection
+      from the start; Chromium detects UTF-8 correctly for a local file.</p>
+      <p>The second trap is subtler. In the render string the character for an empty square is not
+      an ordinary space but a <b>non-breaking space</b>. The plain builds write it as an escape —
+      <code>'\xA0♝♜♛♟♚♞'</code> — and the file holds not a single bare U+00A0. The packed build
+      holds the character itself: the escape is four bytes, the character two. Convert it to
+      <code>0x20</code> and it becomes collapsible whitespace in the markup, the cell counts as empty
+      and the board collapses. An editor that “cleans up an unnecessary character” does this all by
+      itself — but only in the packed file; the escape protects the plain builds.</p>
     </div>
 
     <h3 lang="tr"><code>Y</code> ve imza</h3>
