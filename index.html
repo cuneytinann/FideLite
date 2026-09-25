@@ -62,6 +62,8 @@ if (FLOLD[location.hash.slice(1)]) {
   /* yuzeyler: acik temada beyaz degil, sarimsi organik kagit */
   --paper:   light-dark(#faf4e4,  #14100e);
   --panel:   light-dark(#f2ead6,  #1c1714);
+  /* sekme seridi: sayfadan bir ton koyu */
+  --tabs-bg: light-dark(#e6dabd,  #0c0907);
 
   /* murekkep: acik temada mavi, koyu temada sicak bej */
   --ink:     light-dark(#0f1626,  #ece3d8);
@@ -83,8 +85,6 @@ if (FLOLD[location.hash.slice(1)]) {
   --on-halt:  light-dark(#fff,     #2a0d08);
   --dl1:      light-dark(#2a64ad,  #7fb0ea);
   --on-dl1:   light-dark(#fff,     #0b1a2c);
-  --dl2:      light-dark(#173a6a,  #3a6aa6);
-  --on-dl2:   light-dark(#fff,     #fff);
 
   /* tahta: iki kare rengi ve uzerlerindeki metin */
   --lt:      light-dark(#ccbb88,  #a8916b);
@@ -135,7 +135,6 @@ if (FLOLD[location.hash.slice(1)]) {
      dusmesin diye tek kaynaktan besleniyorlar. Degerler images/logo.svg ve
      images/logo-dark.svg ile birebir ayni. Piyon iki temada da ayni: o renk
      logoda kareler uzerinde duruyor, sayfa zeminine hic degmiyor. */
-  --lg-grid:   light-dark(#cc9911, #a8916b);
   --lg-knight: light-dark(#fffdf6, #1c1714);
   --lg-rook:   light-dark(#93cfe0, #7ab6c9);
   --lg-bishop: light-dark(#e0a3da, #c895c4);
@@ -168,7 +167,6 @@ if (FLOLD[location.hash.slice(1)]) {
      koyuda kagittan da koyu — blok icerlek bir kuyu gibi okunsun. */
   --code-bg:  light-dark(#ffffff,  #000000);
   --code-fg:  light-dark(#0d4f26,  #58c67e);
-  --code-dim: light-dark(#3f7a55,  #3f8f5c);
   --code-ink: light-dark(#16307a,  #ffffff);
   /* koyuda satir ici kod bembeyaz ve hafif isikli; tablolarda da ayni. Acikta isik yok. */
   --code-tbl: light-dark(#12595f,  #ffffff);
@@ -198,10 +196,10 @@ if (FLOLD[location.hash.slice(1)]) {
    gelmeli: kaydirma son gecerli bildirimi secer. */
 @supports not (color: light-dark(#000,#fff)) {
   :root {
-    --paper:#faf4e4; --panel:#f2ead6; --ink:#0f1626; --ink-2:#2c384c; --ink-3:#465268;
+    --paper:#faf4e4; --panel:#f2ead6; --tabs-bg:#e6dabd; --ink:#0f1626; --ink-2:#2c384c; --ink-3:#465268;
     --head:#1a3970; --dl-bg:#e6eefa; --dl-tx:#1a3970;
     --dl-edge:rgba(35,74,143,.38); --dl-hover:#d3e2f7;
-    --halt:#9b2c22; --on-halt:#fff; --dl1:#2a64ad; --on-dl1:#fff; --dl2:#173a6a; --on-dl2:#fff; --lt:#ccbb88;
+    --halt:#9b2c22; --on-halt:#fff; --dl1:#2a64ad; --on-dl1:#fff; --lt:#ccbb88;
     --dk:#885544; --on-lt:#2a1d12; --on-dk:#f2e6d8; --acc:#c99111; --acc-tx:#7e5a05;
     --acc-wash:rgba(201,145,17,.11); --acc-tint:rgba(201,145,17,.17);
     --acc-edge:rgba(201,145,17,.46); --acc-hover:rgba(201,145,17,.17);--x:#b3261e; --link:#8f1d13;
@@ -209,40 +207,40 @@ if (FLOLD[location.hash.slice(1)]) {
     --rule-2:rgba(41,58,95,.13); --zebra:rgba(41,58,95,.055); --dot-ring:rgba(0,0,0,.35);
     --card-w-bg:#fffdf6; --card-w-fg:#0f1626; --card-w-fg2:#2c384c; --card-w-fg3:#465268;
     --card-b-bg:#232a3a; --card-b-fg:#f2e6d8; --card-b-fg2:#c9bdb2; --card-b-fg3:#9a8d82;
-    --code-bg:#ffffff; --code-fg:#0d4f26; --code-dim:#3f7a55; --code-ink:#16307a; --code-teal:#12595f; --code-tbl:#12595f; --code-glow:transparent;
+    --code-bg:#ffffff; --code-fg:#0d4f26; --code-ink:#16307a; --code-teal:#12595f; --code-tbl:#12595f; --code-glow:transparent;
     --hl-ui:#1f5fa8; --hl-html:#a3246b; --hl-bot:#8c4e0c; --hl-mix:#4c4e19;
     --pc-r:#8f1d13; --pc-n:#146a33; --pc-b:#6b3fa0; --pc-q:#7e5a05; --pc-k:#1f5fa8;
     --pc-p:#0f6b70; --pk:#3a2214; --pk-glow:rgba(204,170,120,.55); --pk-acc:#3a2214;
-    --lg-grid:#cc9911; --lg-knight:#fffdf6; --lg-rook:#93cfe0;
+    --lg-knight:#fffdf6; --lg-rook:#93cfe0;
     --lg-bishop:#e0a3da; --lg-start:#0f1626; --lg-king:#8f1d13; --lg-pawn:#1a3970; --lg-chip:#fffdf6;
     --lux-a:#c99111; --lux-b:#8f6a06; --lux-hi:#ffd23f; --lux-glow:rgba(201,145,17,.40);
   }
   @media (prefers-color-scheme:dark) {
     :root:not([data-theme="light"]) {
-      --paper:#14100e; --panel:#1c1714; --ink:#ece3d8; --ink-2:#b9ab9c; --ink-3:#8e8175;
+      --paper:#14100e; --panel:#1c1714; --tabs-bg:#0c0907; --ink:#ece3d8; --ink-2:#b9ab9c; --ink-3:#8e8175;
       --head:#9fbfe8; --dl-bg:#1e2b45; --dl-tx:#a8c6ee;
       --dl-edge:rgba(168,198,238,.34); --dl-hover:#27374f;
-      --halt:#e0806f; --on-halt:#2a0d08; --dl1:#7fb0ea; --on-dl1:#0b1a2c; --dl2:#3a6aa6; --on-dl2:#fff; --lt:#a8916b; --dk:#6b4433; --on-lt:#221a12; --on-dk:#f6ede2; --acc:#e3ad35;
+      --halt:#e0806f; --on-halt:#2a0d08; --dl1:#7fb0ea; --on-dl1:#0b1a2c; --lt:#a8916b; --dk:#6b4433; --on-lt:#221a12; --on-dk:#f6ede2; --acc:#e3ad35;
       --acc-tx:#e8b641; --acc-wash:rgba(227,173,53,.10); --acc-tint:rgba(227,173,53,.14);
       --acc-edge:rgba(227,173,53,.42); --acc-hover:rgba(227,173,53,.13);--x:#f28a80; --link:#ec8a75;
       --live:#58c67e; --warn:#dfa250; --on-live:#0d2415; --warn-bg:#241a10;
       --rule:rgba(214,178,140,.20); --rule-2:rgba(214,178,140,.10); --zebra:rgba(204,187,136,.05);
       --dot-ring:rgba(255,255,255,.22); --card-w-bg:#d7ccbd; --card-w-fg:#241c17;
       --card-w-fg2:#4a3f36; --card-w-fg3:#6b5f54; --card-b-bg:#0b0908; --card-b-fg:#ece3d8;
-      --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-dim:#3f8f5c; --code-ink:#fff; --code-teal:#7fc9cf; --code-tbl:#fff; --code-glow:rgba(255,255,255,.42);
+      --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-ink:#fff; --code-teal:#7fc9cf; --code-tbl:#fff; --code-glow:rgba(255,255,255,.42);
       --hl-ui:#86b6ef; --hl-html:#f08ccf; --hl-bot:#dfa250; --hl-mix:#9cb467;
       --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
       --pc-p:#5fc3ca; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
-      --lg-grid:#a8916b; --lg-knight:#1c1714; --lg-rook:#7ab6c9;
+      --lg-knight:#1c1714; --lg-rook:#7ab6c9;
       --lg-bishop:#c895c4; --lg-start:#ece3d8; --lg-king:#5c1a10; --lg-pawn:#1a3970; --lg-chip:#d7ccbd; --lux-a:#f5c518;
     --lux-b:#e0a21c; --lux-hi:#fff8d6; --lux-glow:rgba(255,210,70,.60);
     }
   }
   :root[data-theme="dark"] {
-    --paper:#14100e; --panel:#1c1714; --ink:#ece3d8; --ink-2:#b9ab9c; --ink-3:#8e8175;
+    --paper:#14100e; --panel:#1c1714; --tabs-bg:#0c0907; --ink:#ece3d8; --ink-2:#b9ab9c; --ink-3:#8e8175;
     --head:#9fbfe8; --dl-bg:#1e2b45; --dl-tx:#a8c6ee;
     --dl-edge:rgba(168,198,238,.34); --dl-hover:#27374f;
-      --halt:#e0806f; --on-halt:#2a0d08; --dl1:#7fb0ea; --on-dl1:#0b1a2c; --dl2:#3a6aa6; --on-dl2:#fff;
+      --halt:#e0806f; --on-halt:#2a0d08; --dl1:#7fb0ea; --on-dl1:#0b1a2c; 
     --lt:#a8916b; --dk:#6b4433; --on-lt:#221a12; --on-dk:#f6ede2; --acc:#e3ad35; --acc-tx:#e8b641;
     --acc-wash:rgba(227,173,53,.10); --acc-tint:rgba(227,173,53,.14);
     --acc-edge:rgba(227,173,53,.42); --acc-hover:rgba(227,173,53,.13);--x:#f28a80; --link:#ec8a75;
@@ -250,11 +248,11 @@ if (FLOLD[location.hash.slice(1)]) {
     --rule:rgba(214,178,140,.20); --rule-2:rgba(214,178,140,.10); --zebra:rgba(204,187,136,.05);
     --dot-ring:rgba(255,255,255,.22); --card-w-bg:#d7ccbd; --card-w-fg:#241c17;
     --card-w-fg2:#4a3f36; --card-w-fg3:#6b5f54; --card-b-bg:#0b0908; --card-b-fg:#ece3d8;
-    --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-dim:#3f8f5c; --code-ink:#fff; --code-teal:#7fc9cf; --code-tbl:#fff; --code-glow:rgba(255,255,255,.42);
+    --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-ink:#fff; --code-teal:#7fc9cf; --code-tbl:#fff; --code-glow:rgba(255,255,255,.42);
       --hl-ui:#86b6ef; --hl-html:#f08ccf; --hl-bot:#dfa250; --hl-mix:#9cb467;
     --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
     --pc-p:#5fc3ca; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
-    --lg-grid:#a8916b; --lg-knight:#1c1714; --lg-rook:#7ab6c9;
+    --lg-knight:#1c1714; --lg-rook:#7ab6c9;
     --lg-bishop:#c895c4; --lg-start:#ece3d8; --lg-king:#5c1a10; --lg-pawn:#1a3970; --lg-chip:#d7ccbd; --lux-a:#f5c518;
     --lux-b:#e0a21c; --lux-hi:#fff8d6; --lux-glow:rgba(255,210,70,.60);
   }
@@ -263,10 +261,50 @@ if (FLOLD[location.hash.slice(1)]) {
 * { box-sizing:border-box }
 html { -webkit-text-size-adjust:100% }
 body {
-  margin:0; background:var(--paper); color:var(--ink);
+  margin:0; background:var(--paper); color:var(--ink); overflow-wrap:break-word;
   font:400 16px/1.65 var(--sans); font-variant-numeric:tabular-nums;
 }
 .wrap { max-width:78rem; margin:0 auto; padding:0 1.5rem }
+/* Icerik sutunu: genis ekranda metin ve tablolar ortada durur. Sarmalayici
+   3:10:3 bolunur: iki yanda 3/16, ortada 10/16. Yuzde bolumun genisligine gore
+   cozulur; min() onu sarmalayicinin gercek genisligine indirir. Hero bolum
+   degil, bu duzene girmez. Oynatici sutunun iki yanina tasip eski genisligine
+   doner: yan bosluk sutunun %30'u kadar.
+   Kenarlar 45 derece donmus bir satranc tahtasi. Kareler temanin kendi tahta
+   renklerinden, kagida karistirilip kisilmis. Her kare iki yuze bolunur: sol ust
+   yarisi isik alir, sag alt yarisi golgede kalir; bir de sol ustten sag alta
+   genel bir isik. Kagit sutun tahtanin ustunde durur ve iki yanina golge
+   duser. Tahta ekrana sabit: icerik kaydikca yerinde kalir, bolum sinirlarinda
+   desen kopmaz. */
+@media (min-width:64rem) {
+  section > .wrap { padding-inline:calc(min(100%, 78rem) * 3 / 16) }
+  /* Okuma genisligi sinirlari sutunun kendisine birakilir; yoksa metin
+     sutunun solunda kalir, sag bosluk soldakinden genis gorunurdu. */
+  section :is(.prose, .imgph, .epi, .diagram, .snip, .codes, .cost, .fl, .note,
+    ul.tight, ol.tight) { max-width:none }
+  #play .player { margin-inline:calc(-30% + 1.5rem) }
+  section {
+    --col: calc(min(100%, 78rem) * 5 / 16 + 1.5rem);
+    --sq-a: color-mix(in oklab, var(--lt) 50%, var(--paper));
+    --sq-b: color-mix(in oklab, var(--dk) 58%, var(--paper));
+    --shade: light-dark(rgba(70,45,20,.24), rgba(0,0,0,.6));
+    /* Kare yuzleri: sol ust yari isikta, sag alt yari golgede. Yumusak durak
+       gecisleri koseli kenarlardaki merdiven kirilmalarini siliyor. */
+    --sq-lit: light-dark(rgba(255,255,255,.12), rgba(255,255,255,.05));
+    --sq-dim: light-dark(rgba(70,45,20,.07), rgba(0,0,0,.18));
+    background:
+      linear-gradient(90deg,
+        transparent calc(50% - var(--col) - 1.2rem), var(--shade) calc(50% - var(--col)),
+        var(--paper) 0 calc(50% + var(--col)),
+        var(--shade) 0, transparent calc(50% + var(--col) + 1.2rem)) fixed,
+      linear-gradient(150deg, light-dark(rgba(255,255,255,.3), rgba(255,255,255,.06)),
+        transparent 50%, light-dark(rgba(70,45,20,.14), rgba(0,0,0,.35))) fixed,
+      conic-gradient(from 45deg, var(--sq-lit) 0 49.6%, var(--sq-dim) 50.4% 99.6%, var(--sq-lit))
+        0 0 / 64px 64px fixed,
+      conic-gradient(from 45deg, var(--sq-a) 0 24.6%, var(--sq-b) 25.4% 49.6%,
+        var(--sq-a) 50.4% 74.6%, var(--sq-b) 75.4% 99.6%, var(--sq-a)) 0 0 / 64px 64px fixed;
+  }
+}
 a { color:var(--link); text-decoration-thickness:1px; text-underline-offset:2px }
 a:hover { text-decoration-thickness:2px }
 /* Dis kaynak baglantisi: govdedeki kirmizi baglantilardan ayrilsin diye mavi. */
@@ -309,8 +347,7 @@ h1,h2,h3 { font-family:var(--mono); font-weight:500; letter-spacing:-.02em; marg
 p { margin:0 0 1rem }
 .prose { max-width:44rem }
 .prose p:last-child { margin-bottom:0 }
-/* Ekstra: gelecek gorseller icin yer tutucu. Adi bilerek .ph degil: .fig.ph
-   diyagram tutucusu zaten var, cakismasin. Gorsel gelince <img> ile degisir. */
+/* Ekstra: gelecek gorseller icin yer tutucu. Gorsel gelince <img> ile degisir. */
 .imgph { margin:1.75rem 0 0; max-width:44rem; aspect-ratio:16/9;
   border:1.5px dashed var(--ink-3); border-radius:6px; background:var(--panel) }
 
@@ -387,17 +424,22 @@ p { margin:0 0 1rem }
 .theme button + button { margin-left:-1px }
 .theme button.on { position:relative; z-index:1 }
 
-/* ---- sekmeler ---- */
-.tabs { border-bottom:1px solid var(--rule); background:var(--panel) }
-.tabs .wrap { display:flex; flex-wrap:wrap; padding-inline:1.5rem }
-.tabs button { border:0; border-bottom:2px solid transparent; background:none;
-  padding:.85rem 1.05rem; font:500 .8125rem/1.3 var(--mono); letter-spacing:.02em;
-  color:var(--ink-3) }
+/* ---- sekmeler ----
+   Serit sayfadan bir ton koyu. Secili sekme sayfanin kagidina donup altindaki
+   icerikle birlesiyor; altin cizgi hangisinin acik oldugunu soyluyor. */
+.tabs { border-bottom:1px solid var(--rule); background:var(--tabs-bg) }
+.tabs .wrap { display:flex; flex-wrap:wrap; gap:.2rem; padding:.45rem 1.5rem 0 }
+.tabs button { border:0; border-bottom:3px solid transparent; border-radius:.45rem .45rem 0 0;
+  background:none; padding:.72rem 1.05rem .66rem; font:700 .8125rem/1.3 var(--mono);
+  letter-spacing:.02em; color:var(--ink-2) }
 .tabs button:hover { background:var(--acc-hover); color:var(--ink) }
-.tabs button.on, .tabs button.on:hover { background:none; color:var(--ink);
-  border-color:transparent; border-bottom-color:var(--acc) }
+.tabs button.on, .tabs button.on:hover { background:var(--paper); color:var(--ink);
+  border-bottom-color:var(--acc) }
 .tabs button:active { transform:none }
-@media (max-width:34rem) { .tabs button { padding:.7rem .75rem; font-size:.75rem } }
+@media (max-width:34rem) {
+  .tabs .wrap { padding-inline:.75rem }
+  .tabs button { padding:.58rem .68rem .52rem; font-size:.75rem }
+}
 .panel[hidden] { display:none }
 .panel:focus { outline:none }
 
@@ -461,8 +503,9 @@ p { margin:0 0 1rem }
   border:1px solid var(--rule-2); background:var(--paper); color:var(--ink);
   text-decoration:none; display:inline-block }
 .cta a:hover { background:var(--lt); color:var(--on-lt) }
-.cta a.go { background:var(--ink); color:var(--paper); border-color:var(--ink) }
-.cta a.go:hover { background:var(--acc); border-color:var(--acc); color:var(--on-acc) }
+/* Dolu birincil gorunum: hero'daki OYNA! ve basili duran dugmeler. */
+.cta a.go, button.on { background:var(--ink); color:var(--paper); border-color:var(--ink) }
+.cta a.go:hover, button.on:hover { background:var(--acc); border-color:var(--acc); color:var(--on-acc) }
 .cta a.dl { background:var(--dl-bg); color:var(--dl-tx); border-color:var(--dl-edge) }
 .cta a.dl:hover { background:var(--dl-hover); color:var(--dl-tx);
   border-color:var(--dl-edge) }
@@ -488,8 +531,6 @@ p { margin:0 0 1rem }
 .chips li { font-family:var(--mono); font-size:.7rem; letter-spacing:.03em;
   padding:.32rem .6rem; border:1px solid var(--acc-edge); border-radius:999px;
   background:var(--acc-wash); color:var(--ink-2) }
-.chips li.out { border-color:var(--rule-2); background:none; color:var(--ink-3) }
-.chips li.out a { color:inherit; text-decoration-color:var(--rule-2) }
 
 /* tas kodu: renk = tur, kalinlik = taraf */
 .pc-r { color:var(--pc-r) } .pc-n { color:var(--pc-n) } .pc-b { color:var(--pc-b) }
@@ -504,10 +545,6 @@ p { margin:0 0 1rem }
 .pclegend i { width:.58rem; height:.58rem; border-radius:50%;
   background:currentColor; display:inline-block; flex:none }
 .pclegend b { font-weight:400; color:var(--ink-2) }
-
-.notbox { margin:1.9rem 0 0; padding:.2rem 0 .2rem 1rem; max-width:44rem;
-  border-left:2px solid var(--acc-edge); font-size:.9375rem; color:var(--ink-2) }
-.notbox b { color:var(--ink); font-weight:600 }
 
 .epi { margin:2.1rem 0 0; padding:0; border:0; max-width:40rem;
   font-size:1rem; line-height:1.5; color:var(--ink-2); font-style:italic }
@@ -578,33 +615,35 @@ h3:first-of-type { margin-top:1.5rem }
 h4 { font:700 1.15rem/1.4 var(--mono); color:var(--live); margin:2rem 0 .6rem }
 
 /* ---- tables ---- */
-.tw { overflow-x:auto; margin:1.25rem 0 1.5rem }
-table { border-collapse:collapse; font-size:.9375rem; background:var(--paper);
-  border:1px solid var(--rule) }
+/* Tablo kendi kutusunda durur: koseleri yuvarlak, kutu tablonun genisligine
+   oturur ve sutunda ortalanir. Tablo sayfadan genisse kutunun icinde yatay
+   kayar, sayfa kaymaz. */
+.tw { width:fit-content; max-width:100%; overflow-x:auto; margin:1.25rem auto 1.5rem;
+  border:1px solid var(--rule); border-radius:.6rem; background:var(--paper) }
+table { border-collapse:collapse; font-size:.9375rem }
 thead th { background:var(--lt); color:var(--on-lt);
-  font:500 .78rem/1.35 var(--mono); letter-spacing:.05em; text-transform:uppercase;
-  text-align:left; padding:.65rem .85rem; border-bottom:1px solid var(--dk);
-  white-space:nowrap }
-td { padding:.6rem .85rem; border-bottom:1px solid var(--rule-2); vertical-align:top }
+  font:600 .75rem/1.35 var(--mono); letter-spacing:.05em; text-transform:uppercase;
+  text-align:left; padding:.7rem .9rem; white-space:nowrap }
+td { padding:.62rem .9rem; border-top:1px solid var(--rule-2); vertical-align:top }
+tbody tr:first-child td { border-top:0 }
 tbody tr:nth-child(even) { background:var(--zebra) }
 tbody tr:hover { background:var(--acc-hover) }
-tbody tr:last-child td { border-bottom:0 }
+@media (max-width:34rem) {
+  table { font-size:.875rem }
+  thead th { padding:.6rem .7rem }
+  td { padding:.55rem .7rem }
+}
 .num { text-align:center; font-family:var(--mono); white-space:nowrap }
 .numr { text-align:right; font-family:var(--mono); white-space:nowrap }
 .none { font-family:var(--mono); font-size:.75rem; color:var(--ink-3) }
-/* Iki dosyayi karsilastiran ayar tablosu. Deger sutunlarinin tamami ortalanir:
-   boylece iki sutuna birden yayilan ortak ayarlar ikisinin ortasinda durur ve
-   ilk dosyaya aitmis gibi okunmaz; sayi ile kisa metin ayni eksende hizalanir. */
-table.cfg thead th:not(:first-child),
-table.cfg td:not(:first-child) { text-align:center }
 table.ctr th, table.ctr td { text-align:center }
 .sub { font-family:var(--mono); font-size:.7rem; color:var(--ink-3); display:block }
 /* Terimin ilk gectigi yerde kisa aciklama. Bilen okurun gozu atlasin diye
    kucuk ve soluk; bilmeyen okur icin gorunur — tooltip degil, cunku mobilde
    hover yok ve aciklama gerekli bilgi. Yalnizca tanitim sekmesinde. */
 .gloss { font-size:.88em; color:var(--ink-3) }
-/* botlu surum: tabloda da kendi rengiyle ve ustunde bir ayirici cizgiyle durur. */
-tbody tr.alt > td { border-top:2px solid var(--rule) }
+/* Botlu surum ve LUX satiri: ustlerinde bir ayirici cizgi; botlu surum kendi rengiyle. */
+tbody tr.alt > td, tbody tr.luxrow > td { border-top:2px solid var(--rule) }
 tbody tr.alt code { color:var(--pc-b) }
 /* ---- tahta diyagramlari ----
    PNG degil isaretleme: kareler grid, taslar Unicode. Diyagram boylece tema
@@ -614,9 +653,11 @@ tbody tr.alt code { color:var(--pc-b) }
    Kirpilmis tahtada gercek tahta kenari duz kalin cizgi, kesilen kenar kesik
    cizgi. Sahin gercekten kosede durup durmadigi bu ayrimdan okunuyor;
    koordinatlar ayrica mutlak konumu veriyor. */
-.mb { display:grid; grid-template-columns:repeat(var(--c),1fr); width:100%;
+.mb { --c:8; display:grid; grid-template-columns:repeat(var(--c),1fr); width:100%;
   container-type:inline-size; font-family:var(--mono);
   border:1px dashed var(--rule) }
+/* Ucluk mini tahta: kurulabilen mat tablosundaki kose kesitleri. */
+.mb.mini { --c:3; width:110px }
 .mb.et { border-top:2px solid var(--ink) }
 .mb.er { border-right:2px solid var(--ink) }
 .mb.eb { border-bottom:2px solid var(--ink) }
@@ -624,11 +665,8 @@ tbody tr.alt code { color:var(--pc-b) }
 .mb i { position:relative; aspect-ratio:1; display:flex; font-style:normal;
   align-items:center; justify-content:center; background:var(--lt) }
 .mb i.d { background:var(--dk) }
-/* Isaretli kare: altin yikama kare renginin uzerine biniyor, ayri dugum yok.
-   .t hedef karesi: ortada nokta, bos ama anlamli kareler icin.
-   .x gecersiz kare: kirmizi carpi, "hedef gibi duruyor ama degil" demek icin. Ikisi farkli ozellik kullandigi icin ayni karede birlesebilir. */
+/* Isaretli kare: altin yikama kare renginin uzerine biniyor, ayri dugum yok. */
 .mb i.m { box-shadow:inset 0 0 0 99px var(--acc-tint) }
-.mb i.t { background-image:radial-gradient(circle,var(--acc-edge) 0 17%,transparent 18%) }
 /* .x gecersiz kare: ortada kirmizi carpi. Nokta "burasi hedef" der,
    carpi "burasi hedef gibi duruyor ama degil" der. */
 .mb i.x { background-image:
@@ -652,7 +690,7 @@ tbody tr.alt code { color:var(--pc-b) }
 .mb i[data-f]::before { content:attr(data-f); bottom:.3em; left:.34em }
 .mb i[data-r]::after  { content:attr(data-r); top:.3em; right:.34em }
 .sidefig { display:flex; gap:2rem; align-items:flex-start; flex-wrap:wrap; margin:1rem 0 }
-.sidefig .prose { flex:1 1 24rem; min-width:0 }
+.sidefig .prose { flex:1 1 18rem; min-width:0 }
 .fig { margin:0; flex:0 0 auto; width:150px }
 .fig-wide { width:260px }
 .fig figcaption { font-family:var(--mono); font-size:.68rem; line-height:1.5;
@@ -691,27 +729,25 @@ th.numr { text-align:right }
 .sw.rc-d { border-color:var(--acc-edge) }
 
 /* ---- player ---- */
-.player { border:1px solid var(--ink); margin:1.5rem 0 }
+.player { border:1px solid var(--ink); margin:1.5rem 0; background:var(--paper) }
 .pbar { display:flex; flex-wrap:wrap; gap:.5rem 1.25rem; align-items:center;
   padding:.85rem 1rem; border-bottom:1px solid var(--rule); background:var(--panel) }
 fieldset.builds { border:0; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:.4rem .9rem;
   align-items:center; flex:1 1 100% }
 /* Seviye satiri: solda seviye serisi, sagda Oyna / Kodu goster / Kapat. Surum
    listesi alttaki tam genislik satirda, ince bir cizgiyle ayrilarak. */
-fieldset.levels { flex:0 1 auto }
+fieldset.levels { flex:0 1 auto; gap:0 }
 /* Cizgi kenarlik degil golge: fieldset'in ust kenarligi legend'i icine alir,
    dar ekranda etiket cizginin ortasina oturuyordu. */
 .pbar > .blist { margin-top:.1rem; padding-top:.6rem; box-shadow:0 -1px 0 var(--rule) }
 .builds legend.grp { position:static; width:auto; height:auto; overflow:visible; clip-path:none;
   float:left; margin:0 .85rem 0 0; padding:0; font-size:.75rem; letter-spacing:.04em;
-  text-transform:uppercase; color:var(--dim) }
-.builds legend.grp code { font-size:.8rem; text-transform:none; letter-spacing:0 }
+  text-transform:uppercase; color:var(--ink-3) }
 fieldset.builds legend { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%) }
 .rd { display:flex; align-items:center; gap:.35rem; font-size:.875rem; cursor:pointer }
 .rd[hidden] { display:none }
 /* seviye secici: dort radyo tek parca bir dugme serisi gibi durur, secili
    olan dugmelerin .on hali gibi dolar. Radyo gizli ama klavyeyle hala gezilir. */
-fieldset.levels { gap:0 }
 .lv { position:relative; display:flex; cursor:pointer }
 .lv input { position:absolute; opacity:0; width:1px; height:1px; margin:0; pointer-events:none }
 .lv > span { display:flex; align-items:baseline; gap:.4rem; font:500 .8125rem/1 var(--mono);
@@ -737,10 +773,9 @@ fieldset.levels { gap:0 }
 /* Genel code rengi lacivert; listedeki duz surumler camgobeginde kalsin ki
    harf dizgisi mavisiyle (--pc-k) karismasin. */
 .rd code { color:var(--code-teal) }
-/* botlu surum digerlerinden ayri okunsun: once bosluk, sonra kendi rengi. */
-.rd.alt { margin-left:1.1rem }
-.rd.alt input, .rd.bot input { accent-color:var(--pc-b) }
-.rd.alt code, .rd.bot code { color:var(--pc-b) }
+/* botlu surum digerlerinden kendi rengiyle ayri okunsun. */
+.rd.bot input { accent-color:var(--pc-b) }
+.rd.bot code { color:var(--pc-b) }
 /* tahtayi harf dizgisi olarak tutan surumler: botlar gibi kendi renkleriyle okunsun.
    Listedeki duz surumler camgobegi (--code-teal), o yuzden sahin mavisi (--pc-k). */
 .rd.str input { accent-color:var(--pc-k) }
@@ -778,32 +813,27 @@ code.lux::after { content:"\2726"; content:"\2726" / ""; display:inline-block; m
   72%           { opacity:.85; transform:scale(1)   rotate(12deg) } }
 @media (prefers-reduced-motion:reduce) { code.lux, code.lux::after { animation:none } }
 /* special tablosunda LUX, Toledo grubunun altina dustu: ayirici cizgiyle ayrilsin. */
-tbody tr.luxrow > td { border-top:2px solid var(--rule) }
 .pacts { display:flex; flex-wrap:wrap; gap:.5rem; margin-left:auto }
 button { font:500 .8125rem/1 var(--mono); padding:.55rem .8rem; background:var(--paper);
   color:var(--ink); border:1px solid var(--ink); cursor:pointer; letter-spacing:.02em }
 button:hover { background:var(--lt) }
 button:active { transform:translateY(1px) }
-button.go, button.on { background:var(--ink); color:var(--paper); border-color:var(--ink) }
-button.go:hover, button.on:hover { background:var(--acc); border-color:var(--acc); color:var(--on-acc) }
 button.sw2.on, button.sw2.on:hover { background:var(--live); border-color:var(--live);
   color:var(--on-live) }
 button[disabled] { opacity:.38; cursor:not-allowed }
 button[disabled]:hover { background:var(--paper) }
-button.go[disabled]:hover { background:var(--ink) }
 button[disabled]:active { transform:none }
 /* Renkli oynatici dugmeleri: rengi isinden aliyor. Zemin --bg'de durur ki soluk
    (disabled) hali de ayni renkte kalsin, ustteki genel kural onu kagida cevirmesin. */
 button.play { --bg:var(--live); --fg:var(--on-live) }
 button.halt { --bg:var(--halt); --fg:var(--on-halt) }
 button.dl1  { --bg:var(--dl1);  --fg:var(--on-dl1) }
-button.dl2  { --bg:var(--dl2);  --fg:var(--on-dl2) }
-button.play, button.halt, button.dl1, button.dl2 { background:var(--bg); color:var(--fg);
+button.play, button.halt, button.dl1 { background:var(--bg); color:var(--fg);
   border-color:var(--bg) }
-button.play:hover, button.halt:hover, button.dl1:hover, button.dl2:hover {
+button.play:hover, button.halt:hover, button.dl1:hover {
   background:var(--bg); filter:brightness(1.12) }
 button.play[disabled]:hover, button.halt[disabled]:hover,
-button.dl1[disabled]:hover, button.dl2[disabled]:hover { background:var(--bg); filter:none }
+button.dl1[disabled]:hover { background:var(--bg); filter:none }
 .stage { min-height:22rem; display:flex; align-items:center; justify-content:center;
   background:var(--paper) }
 .stage.is-src { display:block }
@@ -822,10 +852,6 @@ button.dl1[disabled]:hover, button.dl2[disabled]:hover { background:var(--bg); f
 .live { display:inline-flex; align-items:center; gap:.4rem }
 .dot { width:.5rem; height:.5rem; border-radius:50%; background:var(--live);
   box-shadow:0 0 0 1px var(--dot-ring) }
-.soon { border-left:3px solid var(--acc); background:var(--acc-wash);
-  padding:.85rem 1.15rem; margin:1.5rem 0; max-width:44rem; font-size:.9375rem }
-.soon .eyebrow { margin-bottom:.35rem }
-.soon p:last-child { margin-bottom:0 }
 .cost { font-size:.875rem; line-height:1.6; color:var(--ink-3); max-width:44rem;
   margin:.9rem 0 1.4rem; padding-left:.85rem; border-left:2px solid var(--rule) }
 .cost b { color:var(--ink-2) }
@@ -852,8 +878,6 @@ h3 + .layer, h4 + .layer, h3 + .layer + .layer, h4 + .layer + .layer { margin-to
   padding:.8rem 1.1rem; margin:1.3rem 0 1.5rem; max-width:44rem }
 .fl > p:last-child { margin-bottom:0 }
 .fl > p:first-child > b:first-child { color:var(--live) }
-.fig.ph .mb { opacity:.4 }
-.fig.ph figcaption { color:var(--warn-tx, var(--ink-3)); font-style:italic }
 .note { border-left:3px solid var(--warn); background:var(--warn-bg); padding:.75rem 1rem;
   margin:1.25rem 0; font-size:.9375rem; max-width:44rem }
 .note p:last-child { margin-bottom:0 }
@@ -871,9 +895,6 @@ pre.src { margin:0; padding:1rem 1rem 1rem calc(1rem - 2px); overflow-x:auto;
   font-family:var(--mono); font-size:.8125rem; line-height:1.7; white-space:pre-wrap;
   overflow-wrap:anywhere; color:var(--code-fg); background:var(--code-bg);
   border-left:2px solid var(--acc-edge); max-height:32rem; overflow-y:auto }
-/* Yorumlar --ink-3 ile kalsaydi yesil zeminde gri-kahve bir leke olurdu; kisik
-   yesile aliniyor, ikisi de kendi zeminine karsi AA gecen degerler. */
-pre.src .fn2 { color:var(--code-dim) }
 pre.src[hidden] { display:none }
 /* Acik temada ince tek aralikli yazi beyaz kuyuda cilizlasiyor, renkten
    bagimsiz okunmuyor: yatayda yarim piksel kaydirilmis kendi renginde bir
@@ -936,8 +957,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     <span class="tag" lang="tr">code golf · satranç hakemi · bayt · FIDE · 5.2.2 · 6.9 · JavaScript · tek dosya</span><span class="tag" lang="en">code golf · chess arbiter · bytes · FIDE · 5.2.2 · 6.9 · JavaScript · single file</span>
     <div class="lang">
       <select id="lang" aria-label="Dil / Language">
-        <option value="en">English</option>
-        <option value="tr">Türkçe</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="tr">🇹🇷 Türkçe</option>
       </select>
     </div>
     <div class="theme" role="group" aria-label="Renk teması" data-en-aria-label="Colour theme">
@@ -1018,14 +1039,14 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       </div>
 
       <ul class="chips" lang="tr">
-        <li>Rok</li><li>Geçerken alma</li><li>Terfi</li><li>Canlı saat</li>
+        <li>Tüm taş hareketleri</li><li>Geçerlilik</li><li>Rok</li><li>Geçerken alma</li><li>Terfi</li><li>Canlı saat</li>
         <li>3'lü / 5'li tekrar</li><li>50 / 75 hamle</li><li>Yetersiz materyal</li>
         <li>Beraberlik teklifi</li><li>Terk</li>
         <li>Bayrak düşmesi + 6.9</li>
         <li><a href="#dead">Kilitli pozisyonlar %93</a></li>
       </ul>
       <ul class="chips" lang="en">
-        <li>Castling</li><li>En passant</li><li>Promotion</li><li>Live clock</li>
+        <li>All piece moves</li><li>Legality</li><li>Castling</li><li>En passant</li><li>Promotion</li><li>Live clock</li>
         <li>3-fold &amp; 5-fold repetition</li><li>50 / 75-move rule</li><li>Insufficient material</li>
         <li>Draw offer</li><li>Resignation</li>
         <li>Flag fall + 6.9</li>
@@ -1962,9 +1983,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <li><b>If the king moves, both rights go.</b> A king move forfeits the right on both sides; a rook move forfeits only the right on that rook's side.</li>
     </ul>
 
-        <!-- ===== POZİSYON 1 · rok-b1 ===== doldurulacak -->
       <figure class="fig fig-wide" lang="tr">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="Beyaz şah e1 ve kale a1, siyah kale b8 ve şah e8. b dikeyi boş, yani b1 siyah kale tarafından tehdit ediliyor; c1, d1 ve e1 edilmiyor. Şah e1'de; c1'deki soluk şah rokla varacağı kareyi gösteriyor.">
+        <div class="mb et el eb er" role="img" aria-label="Beyaz şah e1 ve kale a1, siyah kale b8 ve şah e8. b dikeyi boş, yani b1 siyah kale tarafından tehdit ediliyor; c1, d1 ve e1 edilmiyor. Şah e1'de; c1'deki soluk şah rokla varacağı kareyi gösteriyor.">
 <i class="a"></i>
 <i class="d"><b class="b">♜</b></i>
 <i class="a"></i>
@@ -2032,9 +2052,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 </div>
         <figcaption>Uzun rok, <b>b1 tehdit ediliyorken</b>. Rok geçerli — üç kare şartı şahın kareleri için (e1, d1, c1), kalenin geçtiği kare için değil. Şah e1'den d1 üzerinden c1'e gidiyor: yeşil çerçeveler çıkış ve varış karesi, ok geçtiği kare, soluk şah varış. Kırmızımsı kareler siyah kalenin tehdit ettikleri.</figcaption>
       </figure>
-      <!-- ===== POZİSYON 1 · rok-b1 ===== doldurulacak -->
       <figure class="fig fig-wide" lang="en">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="White king e1 and rook a1, black rook b8 and king e8. The b-file is clear, so b1 is attacked by the black rook; c1, d1 and e1 are not. The king stands on e1; the faded king on c1 shows where castling takes it.">
+        <div class="mb et el eb er" role="img" aria-label="White king e1 and rook a1, black rook b8 and king e8. The b-file is clear, so b1 is attacked by the black rook; c1, d1 and e1 are not. The king stands on e1; the faded king on c1 shows where castling takes it.">
 <i class="a"></i>
 <i class="d"><b class="b">♜</b></i>
 <i class="a"></i>
@@ -2422,7 +2441,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       apart the least; the more positions are told apart, the later a repetition arrives.</p>
     </div>
 
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Ölçü</th><th>Geçerken alma</th><th>Rok</th></tr></thead>
 <tbody>
 <tr><td><b>Hak</b><span class="sub">iz</span></td><td>İki kare ilerleme yetiyor; alacak piyon olmasa da iz kalıyor</td><td>Kalıcı hak: şah ya da o kale oynamadıkça duruyor</td></tr>
@@ -2431,7 +2450,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr class="alt"><td>FIDE'nin seçtiği</td><td>Geçerli<span class="sub">9.2.3.1</span></td><td>Hak<span class="sub">9.2.3.2</span></td></tr>
 </tbody>
 </table></div>
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Measure</th><th>En passant</th><th>Castling</th></tr></thead>
 <tbody>
 <tr><td><b>Right</b><span class="sub">trace</span></td><td>A two-square advance is enough; the trace stays even with no pawn to capture</td><td>The permanent right: it stands as long as the king and that rook have not moved</td></tr>
@@ -2456,7 +2475,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 
     <div class="sidefig">
       <figure class="fig fig-wide" lang="tr">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="Beyaz şah e1, kale h1, at g1; siyah şah e8. g1'deki at kısa rokun yolunu tıkıyor; f3'teki soluk at Ag1–f3 hamlesinin varış karesi.">
+        <div class="mb et el eb er" role="img" aria-label="Beyaz şah e1, kale h1, at g1; siyah şah e8. g1'deki at kısa rokun yolunu tıkıyor; f3'teki soluk at Ag1–f3 hamlesinin varış karesi.">
 <i></i>
 <i class="d"></i>
 <i></i>
@@ -2525,7 +2544,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
         <figcaption>X ile Y: tahta birebir aynı. X'te şah hiç oynamadı, Y'de f1'e gidip geri döndü. İkisinde de g1'deki at rokun yolunu tıkıyor. <b>Ag1–f3</b> yolu açınca X'te rok oynanabilir hâle geliyor, Y'de gelmiyor. Yeşil çerçeveler atın çıkış ve varış karesi, soluk at varış.</figcaption>
       </figure>
       <figure class="fig fig-wide" lang="en">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="White king e1, rook h1, knight g1; black king e8. The knight on g1 blocks kingside castling; the faded knight on f3 marks where Ng1–f3 lands.">
+        <div class="mb et el eb er" role="img" aria-label="White king e1, rook h1, knight g1; black king e8. The knight on g1 blocks kingside castling; the faded knight on f3 marks where Ng1–f3 lands.">
 <i></i>
 <i class="d"></i>
 <i></i>
@@ -2986,7 +3005,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       bishop on the board, on both sides, stands on one colour, no number of them can mate.</p>
     </div>
 
-        <div class="tw" lang="tr"><table class="">
+        <div class="tw" lang="tr"><table>
 <thead><tr><th>Materyal</th><th>Karar</th></tr></thead>
 <tbody>
 <tr><td>Çıplak şah</td><td>Yetersiz</td></tr>
@@ -2999,7 +3018,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td>Herhangi bir kale, vezir veya piyon</td><td>Yeterli</td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Material</th><th>Ruling</th></tr></thead>
 <tbody>
 <tr><td>Lone king</td><td>Insufficient</td></tr>
@@ -3031,7 +3050,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 
         <div class="sidefig" lang="tr">
       <figure class="fig fig-wide">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="Beyaz piyonlar b4, e4, h4; siyah piyonlar b5, e5, h5 karşılıklı kilitli. Beyaz şah d2, siyah şah e7. Şahlar serbest dolaşıyor ama hiçbir piyon oynayamıyor.">
+        <div class="mb et el eb er" role="img" aria-label="Beyaz piyonlar b4, e4, h4; siyah piyonlar b5, e5, h5 karşılıklı kilitli. Beyaz şah d2, siyah şah e7. Şahlar serbest dolaşıyor ama hiçbir piyon oynayamıyor.">
 <i></i>
 <i class="d"></i>
 <i></i>
@@ -3102,7 +3121,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     </div>
     <div class="sidefig" lang="en">
       <figure class="fig fig-wide">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="White pawns on b4, e4 and h4 face black pawns on b5, e5 and h5, locked head to head. White king d2, black king e7. The kings roam freely but no pawn can move.">
+        <div class="mb et el eb er" role="img" aria-label="White pawns on b4, e4 and h4 face black pawns on b5, e5 and h5, locked head to head. White king d2, black king e7. The kings roam freely but no pawn can move.">
 <i></i>
 <i class="d"></i>
 <i></i>
@@ -3185,7 +3204,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       captured.</p>
     </div>
     <figure class="fig fig-wide" lang="tr">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="Beyaz piyonlar a4, c4, e4, g4; siyah piyonlar a5, c5, e5, g5 karşılıklı kilitli. Beyaz şah a1 ve fil f1, siyah şah a8 ve fil f8. Filler kendi yarılarında hapis, şahlar dördüncü yatayı aşamıyor.">
+        <div class="mb et el eb er" role="img" aria-label="Beyaz piyonlar a4, c4, e4, g4; siyah piyonlar a5, c5, e5, g5 karşılıklı kilitli. Beyaz şah a1 ve fil f1, siyah şah a8 ve fil f8. Filler kendi yarılarında hapis, şahlar dördüncü yatayı aşamıyor.">
 <i><b class="b">♚</b></i>
 <i class="d"></i>
 <i></i>
@@ -3254,7 +3273,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
         <figcaption>Fillerin neden geçemediği kare renklerinde: beyazın piyonları 4. yatayın bütün açık karelerinde, siyahınkiler 5. yatayın bütün koyu karelerinde. Açık kareli beyaz fil 4. yatayı, koyu kareli siyah fil 5. yatayı hiçbir zaman aşamıyor — kalan kareleri de karşı piyonlar tehdit ediyor.</figcaption>
       </figure>
     <figure class="fig fig-wide" lang="en">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="White pawns on a4, c4, e4 and g4 face black pawns on a5, c5, e5 and g5, locked head to head. White king a1 and bishop f1, black king a8 and bishop f8. Each bishop is confined to its own half and neither king can pass the fourth rank.">
+        <div class="mb et el eb er" role="img" aria-label="White pawns on a4, c4, e4 and g4 face black pawns on a5, c5, e5 and g5, locked head to head. White king a1 and bishop f1, black king a8 and bishop f8. Each bishop is confined to its own half and neither king can pass the fourth rank.">
 <i><b class="b">♚</b></i>
 <i class="d"></i>
 <i></i>
@@ -3329,7 +3348,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       fikrin sıkışık hâli — iki şah da kendi filiyle köşeye kapatılmış, iki tarafın da <b>tek</b>
       hamlesi var:</p>
       <figure class="fig fig-wide" lang="tr">
-          <div class="mb et el eb er" style="--c:8" role="img" aria-label="Beyaz şah a1 ve fil c1, siyah şah h8 ve fil f8. Piyonlar b2-b3, d2-d3, e6-e7, g6-g7 karşılıklı kilitli. Şahlar kendi filleriyle köşeye kapatılmış; her iki tarafın da tek hamlesi var.">
+          <div class="mb et el eb er" role="img" aria-label="Beyaz şah a1 ve fil c1, siyah şah h8 ve fil f8. Piyonlar b2-b3, d2-d3, e6-e7, g6-g7 karşılıklı kilitli. Şahlar kendi filleriyle köşeye kapatılmış; her iki tarafın da tek hamlesi var.">
   <i></i>
   <i class="d"></i>
   <i></i>
@@ -3400,7 +3419,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <p>Kilitli pozisyon taraması yine susuyor, çünkü tahtada fil var. Ama arama bütün devam
       yollarını tüketip hepsinin beraberliğe — ya da bayrağı düşenin lehine — çıktığını görüyor.
       Hüküm doğru geliyor, yalnızca başka bir kapıdan. İki pozisyon yan yana; tablodaki düğüm, aramanın incelediği tek bir pozisyon:</p>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Pozisyon</th><th class="num">Geçerli hamle</th><th>Kilitli taraması</th><th>6.9 araması</th><th>Hüküm</th></tr></thead>
 <tbody>
 <tr><td>Şahlar serbest <span class="sub">filli, geniş</span></td><td class="num">7</td><td>kapsam dışı</td><td>pes ediyor</td><td><b>yanlış</b> — galibiyet</td></tr>
@@ -3417,7 +3436,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       narrows</b>. The tight version of the same idea — both kings shut into their corners by their
       own bishops, each side with <b>exactly one</b> move:</p>
       <figure class="fig fig-wide" lang="en">
-          <div class="mb et el eb er" style="--c:8" role="img" aria-label="White king a1 and bishop c1, black king h8 and bishop f8. The pawns on b2-b3, d2-d3, e6-e7 and g6-g7 are locked head to head. Each king is shut into its corner by its own bishop; each side has exactly one move.">
+          <div class="mb et el eb er" role="img" aria-label="White king a1 and bishop c1, black king h8 and bishop f8. The pawns on b2-b3, d2-d3, e6-e7 and g6-g7 are locked head to head. Each king is shut into its corner by its own bishop; each side has exactly one move.">
   <i></i>
   <i class="d"></i>
   <i></i>
@@ -3489,7 +3508,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       the search exhausts every continuation and finds that all of them end in a draw — or in
       favour of the side whose flag fell. The ruling comes out right, only through a different door.
       The two positions side by side; a node in the table is a single position the search examines:</p>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Position</th><th class="num">Legal moves</th><th>Blocked scan</th><th>6.9 search</th><th>Ruling</th></tr></thead>
 <tbody>
 <tr><td>Kings free <span class="sub">with bishops, roomy</span></td><td class="num">7</td><td>out of scope</td><td>gives up</td><td><b>wrong</b> — a win</td></tr>
@@ -3735,7 +3754,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       shutting in.</p>
     </div>
 
-        <div class="tw" lang="tr"><table class="">
+        <div class="tw" lang="tr"><table>
 <thead><tr><th>Mat eden</th><th>Savunan</th><th>Mat</th><th>Kurulabilen pozisyon</th></tr></thead>
 <tbody>
 <tr><td>Ş</td><td>Ş + herhangi bir taş</td><td>Yok</td><td><span class="none">kurulamaz</span></td></tr>
@@ -3745,7 +3764,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td>Ş + Fil</td><td>Ş + Vezir</td><td>Yok</td><td><span class="none">kurulamaz</span></td></tr>
 <tr><td>Ş + At</td><td>Ş</td><td>Yok</td><td><span class="none">kurulamaz</span></td></tr>
 <tr><td>Ş + At</td><td>Ş + Vezir</td><td>Yok</td><td><span class="none">kurulamaz</span></td></tr>
-<tr><td>Ş + At</td><td>Ş + Kale</td><td>Var</td><td><div class="mb et el" style="--c:3;width:110px" role="img" aria-label="şah ve at tarafına karşı şah ve kale: yardımlı mat pozisyonu">
+<tr><td>Ş + At</td><td>Ş + Kale</td><td>Var</td><td><div class="mb et el mini" role="img" aria-label="şah ve at tarafına karşı şah ve kale: yardımlı mat pozisyonu">
 <i><b class="b">♚</b></i>
 <i class="d"><b class="b">♜</b></i>
 <i data-r="8"></i>
@@ -3756,7 +3775,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <i class="d" data-f="b"></i>
 <i data-f="c" data-r="6"></i>
 </div></td></tr>
-<tr><td>Ş + At</td><td>Ş + Fil</td><td>Var</td><td><div class="mb et el" style="--c:3;width:110px" role="img" aria-label="şah ve at tarafına karşı şah ve fil: yardımlı mat pozisyonu">
+<tr><td>Ş + At</td><td>Ş + Fil</td><td>Var</td><td><div class="mb et el mini" role="img" aria-label="şah ve at tarafına karşı şah ve fil: yardımlı mat pozisyonu">
 <i><b class="b">♚</b></i>
 <i class="d"><b class="b">♝</b></i>
 <i data-r="8"></i>
@@ -3767,7 +3786,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <i class="d" data-f="b"><b class="w">♞</b></i>
 <i data-f="c" data-r="6"></i>
 </div></td></tr>
-<tr><td>Ş + At</td><td>Ş + At</td><td>Var</td><td><div class="mb et el" style="--c:3;width:110px" role="img" aria-label="şah ve at tarafına karşı şah ve at: yardımlı mat pozisyonu">
+<tr><td>Ş + At</td><td>Ş + At</td><td>Var</td><td><div class="mb et el mini" role="img" aria-label="şah ve at tarafına karşı şah ve at: yardımlı mat pozisyonu">
 <i><b class="b">♚</b></i>
 <i class="d"><b class="b">♞</b></i>
 <i data-r="8"></i>
@@ -3779,7 +3798,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <i data-f="c" data-r="6"></i>
 </div></td></tr>
 <tr><td>Ş + At</td><td>Ş + Piyon</td><td>Var</td><td>Terfiden sonra</td></tr>
-<tr><td>Ş + Fil</td><td>Ş + At</td><td>Var</td><td><div class="mb et el" style="--c:3;width:110px" role="img" aria-label="şah ve fil tarafına karşı şah ve at: yardımlı mat pozisyonu">
+<tr><td>Ş + Fil</td><td>Ş + At</td><td>Var</td><td><div class="mb et el mini" role="img" aria-label="şah ve fil tarafına karşı şah ve at: yardımlı mat pozisyonu">
 <i><b class="b">♚</b></i>
 <i class="d"><b class="b">♞</b></i>
 <i data-r="8"></i>
@@ -3790,7 +3809,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <i class="d" data-f="b"><b class="w">♚</b></i>
 <i data-f="c" data-r="6"></i>
 </div></td></tr>
-<tr><td>Ş + Fil</td><td>Ş + Fil <span class="sub">zıt renk</span></td><td>Var</td><td><div class="mb et el" style="--c:3;width:110px" role="img" aria-label="şah ve fil tarafına karşı zıt renk kareli şah ve fil: yardımlı mat pozisyonu">
+<tr><td>Ş + Fil</td><td>Ş + Fil <span class="sub">zıt renk</span></td><td>Var</td><td><div class="mb et el mini" role="img" aria-label="şah ve fil tarafına karşı zıt renk kareli şah ve fil: yardımlı mat pozisyonu">
 <i><b class="b">♚</b></i>
 <i class="d"><b class="b">♝</b></i>
 <i data-r="8"></i>
@@ -3802,7 +3821,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <i data-f="c" data-r="6"><b class="w">♝</b></i>
 </div></td></tr>
 <tr><td>Ş + Fil</td><td>Ş + Piyon</td><td>Var</td><td>Terfiden sonra</td></tr>
-<tr><td>Ş + At + At</td><td>Ş</td><td>Var</td><td><div class="mb eb er" style="--c:3;width:110px" role="img" aria-label="şah ve iki at tarafına karşı çıplak şah: yardımlı mat pozisyonu">
+<tr><td>Ş + At + At</td><td>Ş</td><td>Var</td><td><div class="mb eb er mini" role="img" aria-label="şah ve iki at tarafına karşı çıplak şah: yardımlı mat pozisyonu">
 <i><b class="w">♞</b></i>
 <i class="d"><b class="w">♚</b></i>
 <i data-r="3"></i>
@@ -3815,7 +3834,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 </div></td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Mating side</th><th>Defender</th><th>Mate</th><th>Constructible position</th></tr></thead>
 <tbody>
 <tr><td>K</td><td>K + any piece</td><td>No</td><td><span class="none">not constructible</span></td></tr>
@@ -3825,7 +3844,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td>K + B</td><td>K + Q</td><td>No</td><td><span class="none">not constructible</span></td></tr>
 <tr><td>K + N</td><td>K</td><td>No</td><td><span class="none">not constructible</span></td></tr>
 <tr><td>K + N</td><td>K + Q</td><td>No</td><td><span class="none">not constructible</span></td></tr>
-<tr><td>K + N</td><td>K + R</td><td>Yes</td><td><div class="mb et el" style="--c:3;width:110px" role="img" aria-label="king and knight against king and rook: helpmate position">
+<tr><td>K + N</td><td>K + R</td><td>Yes</td><td><div class="mb et el mini" role="img" aria-label="king and knight against king and rook: helpmate position">
 <i><b class="b">♚</b></i>
 <i class="d"><b class="b">♜</b></i>
 <i data-r="8"></i>
@@ -3836,7 +3855,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <i class="d" data-f="b"></i>
 <i data-f="c" data-r="6"></i>
 </div></td></tr>
-<tr><td>K + N</td><td>K + B</td><td>Yes</td><td><div class="mb et el" style="--c:3;width:110px" role="img" aria-label="king and knight against king and bishop: helpmate position">
+<tr><td>K + N</td><td>K + B</td><td>Yes</td><td><div class="mb et el mini" role="img" aria-label="king and knight against king and bishop: helpmate position">
 <i><b class="b">♚</b></i>
 <i class="d"><b class="b">♝</b></i>
 <i data-r="8"></i>
@@ -3847,7 +3866,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <i class="d" data-f="b"><b class="w">♞</b></i>
 <i data-f="c" data-r="6"></i>
 </div></td></tr>
-<tr><td>K + N</td><td>K + N</td><td>Yes</td><td><div class="mb et el" style="--c:3;width:110px" role="img" aria-label="king and knight against king and knight: helpmate position">
+<tr><td>K + N</td><td>K + N</td><td>Yes</td><td><div class="mb et el mini" role="img" aria-label="king and knight against king and knight: helpmate position">
 <i><b class="b">♚</b></i>
 <i class="d"><b class="b">♞</b></i>
 <i data-r="8"></i>
@@ -3859,7 +3878,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <i data-f="c" data-r="6"></i>
 </div></td></tr>
 <tr><td>K + N</td><td>K + P</td><td>Yes</td><td>After promotion</td></tr>
-<tr><td>K + B</td><td>K + N</td><td>Yes</td><td><div class="mb et el" style="--c:3;width:110px" role="img" aria-label="king and bishop against king and knight: helpmate position">
+<tr><td>K + B</td><td>K + N</td><td>Yes</td><td><div class="mb et el mini" role="img" aria-label="king and bishop against king and knight: helpmate position">
 <i><b class="b">♚</b></i>
 <i class="d"><b class="b">♞</b></i>
 <i data-r="8"></i>
@@ -3870,7 +3889,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <i class="d" data-f="b"><b class="w">♚</b></i>
 <i data-f="c" data-r="6"></i>
 </div></td></tr>
-<tr><td>K + B</td><td>K + B <span class="sub">opposite colour</span></td><td>Yes</td><td><div class="mb et el" style="--c:3;width:110px" role="img" aria-label="king and bishop against king and opposite-coloured bishop: helpmate position">
+<tr><td>K + B</td><td>K + B <span class="sub">opposite colour</span></td><td>Yes</td><td><div class="mb et el mini" role="img" aria-label="king and bishop against king and opposite-coloured bishop: helpmate position">
 <i><b class="b">♚</b></i>
 <i class="d"><b class="b">♝</b></i>
 <i data-r="8"></i>
@@ -3882,7 +3901,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <i data-f="c" data-r="6"><b class="w">♝</b></i>
 </div></td></tr>
 <tr><td>K + B</td><td>K + P</td><td>Yes</td><td>After promotion</td></tr>
-<tr><td>K + N + N</td><td>K</td><td>Yes</td><td><div class="mb eb er" style="--c:3;width:110px" role="img" aria-label="king and two knights against a lone king: helpmate position">
+<tr><td>K + N + N</td><td>K</td><td>Yes</td><td><div class="mb eb er mini" role="img" aria-label="king and two knights against a lone king: helpmate position">
 <i><b class="w">♞</b></i>
 <i class="d"><b class="w">♚</b></i>
 <i data-r="3"></i>
@@ -3936,9 +3955,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     </div>
 
     <div class="sidefig">
-      <!-- ===== ZORUNLU DAL 1 · zorunlu-yetersiz-materyal ===== pozisyon doldurulacak -->
       <figure class="fig fig-wide" lang="tr">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="Beyaz şah b1, siyah şah d3, siyah vezir b2. Beyaz şahta ve tek geçerli hamlesi Şxb2 — veziri alıyor.">
+        <div class="mb et el eb er" role="img" aria-label="Beyaz şah b1, siyah şah d3, siyah vezir b2. Beyaz şahta ve tek geçerli hamlesi Şxb2 — veziri alıyor.">
 <i></i>
 <i class="d"></i>
 <i></i>
@@ -4007,7 +4025,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
         <figcaption>Beyaz şahta ve süresi bitmiş, ama tek hamlesi <b>Şxb2</b>: alım yapılınca tahtada iki şahtan başka bir şey kalmıyor.</figcaption>
       </figure>
       <figure class="fig fig-wide" lang="en">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="White king b1, black king d3, black queen b2. White is in check and its only legal move is Kxb2, capturing the queen.">
+        <div class="mb et el eb er" role="img" aria-label="White king b1, black king d3, black queen b2. White is in check and its only legal move is Kxb2, capturing the queen.">
 <i></i>
 <i class="d"></i>
 <i></i>
@@ -4084,9 +4102,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     </div>
 
     <div class="sidefig">
-      <!-- ===== ZORUNLU DAL 2 · zorunlu-pat ===== pozisyon doldurulacak -->
       <figure class="fig fig-wide" lang="tr">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="Siyah şah g8, kendi piyonları f7 ve h7, beyaz piyonlar g7 f6 h6 ve a2, beyaz şah d3. Siyahın tek oynayabileceği taş a7 piyonu.">
+        <div class="mb et el eb er" role="img" aria-label="Siyah şah g8, kendi piyonları f7 ve h7, beyaz piyonlar g7 f6 h6 ve a2, beyaz şah d3. Siyahın tek oynayabileceği taş a7 piyonu.">
 <i></i>
 <i class="d"></i>
 <i></i>
@@ -4155,7 +4172,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
         <figcaption>Siyahın şahı kendi ve rakip piyonlarla gömülü: g7 piyonu f8 ile h8'i tehdit ediyor. Geriye yalnız a7 piyonunun iki hamlesi kalıyor; tükendiğinde pat — süre hangi tarafta biterse bitsin.</figcaption>
       </figure>
       <figure class="fig fig-wide" lang="en">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="Black king g8 with its own pawns on f7 and h7, white pawns on g7, f6, h6 and a2, white king d3. The only black piece that can move is the a7 pawn.">
+        <div class="mb et el eb er" role="img" aria-label="Black king g8 with its own pawns on f7 and h7, white pawns on g7, f6, h6 and a2, white king d3. The only black piece that can move is the a7 pawn.">
 <i></i>
 <i class="d"></i>
 <i></i>
@@ -4232,9 +4249,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     </div>
 
     <div class="sidefig">
-      <!-- ===== ZORUNLU DAL 3 · zorunlu-karsi-mat ===== pozisyon doldurulacak -->
       <figure class="fig fig-wide" lang="tr">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="Beyaz şah h4 şahta, tek hamlesi Be3xg5. Siyah şah h6, vezir g5, fil g6, piyonlar g7 ve h7.">
+        <div class="mb et el eb er" role="img" aria-label="Beyaz şah h4 şahta, tek hamlesi Be3xg5. Siyah şah h6, vezir g5, fil g6, piyonlar g7 ve h7.">
 <i></i>
 <i class="d"></i>
 <i></i>
@@ -4303,7 +4319,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
         <figcaption>Beyaz şahta ve tek hamlesi <b>Fxg5</b> — ve o hamle siyahı <b>mat ediyor</b>. Ama oynayacak vakit yok.</figcaption>
       </figure>
       <figure class="fig fig-wide" lang="en">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="White king h4 is in check and its only move is Be3xg5. Black king h6, queen g5, bishop g6, pawns g7 and h7.">
+        <div class="mb et el eb er" role="img" aria-label="White king h4 is in check and its only move is Be3xg5. Black king h6, queen g5, bishop g6, pawns g7 and h7.">
 <i></i>
 <i class="d"></i>
 <i></i>
@@ -4380,9 +4396,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     </div>
 
     <div class="sidefig">
-      <!-- ===== ZORUNLU DAL 4 · zorunlu-kilitli ===== pozisyon doldurulacak -->
       <figure class="fig fig-wide" lang="tr">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="Siyah şah c6 şahta, tek hamlesi Şxb7 — b7'deki beyaz veziri alıyor. Geriye kilitli piyon yapısı ve iki şah kalıyor.">
+        <div class="mb et el eb er" role="img" aria-label="Siyah şah c6 şahta, tek hamlesi Şxb7 — b7'deki beyaz veziri alıyor. Geriye kilitli piyon yapısı ve iki şah kalıyor.">
 <i></i>
 <i class="d"></i>
 <i></i>
@@ -4451,7 +4466,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
         <figcaption>Siyah şahta ve süresi bitmiş, ama tek hamlesi <b>Şxb7</b>. Vezir gidince geriye kilitli piyon duvarı kalıyor: hiçbir piyon ilerleyemiyor, hiçbir şah karşıya geçemiyor.</figcaption>
       </figure>
       <figure class="fig fig-wide" lang="en">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="Black king c6 is in check and its only move is Kxb7, capturing the white queen on b7. What remains is a locked pawn structure and the two kings.">
+        <div class="mb et el eb er" role="img" aria-label="Black king c6 is in check and its only move is Kxb7, capturing the white queen on b7. What remains is a locked pawn structure and the two kings.">
 <i></i>
 <i class="d"></i>
 <i></i>
@@ -4545,9 +4560,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     </div>
 
     <div class="sidefig">
-      <!-- ===== ZORUNLU DAL 5 · zorunlu-75 ===== pozisyon doldurulacak -->
       <figure class="fig fig-wide" lang="tr">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="Beyaz şah e1 ve at g1, siyah şah e8 ve at g8. Taşlar simetrik; hükmü belirleyen tahta değil yarım hamle sayacı.">
+        <div class="mb et el eb er" role="img" aria-label="Beyaz şah e1 ve at g1, siyah şah e8 ve at g8. Taşlar simetrik; hükmü belirleyen tahta değil yarım hamle sayacı.">
 <i></i>
 <i class="d"></i>
 <i></i>
@@ -4616,7 +4630,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
         <figcaption>Materyal mat için yeterli — iki at tahtada. Hükmü belirleyen şey sayacın kaçta olduğu ve diyagram onu taşımıyor.</figcaption>
       </figure>
       <figure class="fig fig-wide" lang="en">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="White king e1 and knight g1, black king e8 and knight g8. The pieces are symmetrical; what decides the ruling is not the board but the ply counter.">
+        <div class="mb et el eb er" role="img" aria-label="White king e1 and knight g1, black king e8 and knight g8. The pieces are symmetrical; what decides the ruling is not the board but the ply counter.">
 <i></i>
 <i class="d"></i>
 <i></i>
@@ -4745,9 +4759,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     </div>
 
     <div class="sidefig">
-      <!-- ===== ZORUNLU DAL 6 · zorunlu-tekrar ===== pozisyon doldurulacak -->
       <figure class="fig fig-wide" lang="tr">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="Beyaz şah b1 ve fil c1, siyah şah h8 ve fil f8. Piyonlar b2-b3, d2-d3, e6-e7, g6-g7 karşılıklı kilitli. Her iki tarafın da tek hamlesi şahın mekiği.">
+        <div class="mb et el eb er" role="img" aria-label="Beyaz şah b1 ve fil c1, siyah şah h8 ve fil f8. Piyonlar b2-b3, d2-d3, e6-e7, g6-g7 karşılıklı kilitli. Her iki tarafın da tek hamlesi şahın mekiği.">
 <i></i>
 <i class="d"></i>
 <i></i>
@@ -4816,7 +4829,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
         <figcaption>Her iki tarafın da <b>tek hamlesi</b> var: şah mekiği. Filler kendi köşelerinde kilitli, piyonlar karşılıklı tıkalı. Pozisyon iki tam hamlede geri geliyor.</figcaption>
       </figure>
       <figure class="fig fig-wide" lang="en">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="White king b1 and bishop c1, black king h8 and bishop f8. The pawns on b2-b3, d2-d3, e6-e7 and g6-g7 are locked head to head. Each side has exactly one move: the king shuttling.">
+        <div class="mb et el eb er" role="img" aria-label="White king b1 and bishop c1, black king h8 and bishop f8. The pawns on b2-b3, d2-d3, e6-e7 and g6-g7 are locked head to head. Each side has exactly one move: the king shuttling.">
 <i></i>
 <i class="d"></i>
 <i></i>
@@ -4973,7 +4986,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       separate article from 5.2.2.</p>
     </div>
     <figure class="fig fig-wide" lang="tr">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="Beyaz şah d1 ve fil f7, piyonlar a6, b5, d5, f5, g4. Siyah şah d7 ve fil f8, piyonlar a7, b6, d6, f6, g5. Bütün piyonlar karşılıklı kilitli; beyaz piyonlar açık karelerde, siyah piyonlar koyu karelerde, filler zıt renkte.">
+        <div class="mb et el eb er" role="img" aria-label="Beyaz şah d1 ve fil f7, piyonlar a6, b5, d5, f5, g4. Siyah şah d7 ve fil f8, piyonlar a7, b6, d6, f6, g5. Bütün piyonlar karşılıklı kilitli; beyaz piyonlar açık karelerde, siyah piyonlar koyu karelerde, filler zıt renkte.">
 <i></i>
 <i class="d"></i>
 <i></i>
@@ -5042,7 +5055,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
         <figcaption>Piyonlar donmuş: beyazınkiler açık karelerde, siyahınkiler koyu karelerde, filler zıt renkte — hiçbir alım mümkün değil. Şahlar da karşı tarafa geçemiyor. Ama pozisyon <b>ölü değil</b>: beyaz hâlâ mat edebiliyor, siyah edemiyor.</figcaption>
       </figure>
     <figure class="fig fig-wide" lang="en">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="White king d1 and bishop f7, pawns a6, b5, d5, f5, g4. Black king d7 and bishop f8, pawns a7, b6, d6, f6, g5. All the pawns are locked head to head; the white pawns stand on light squares, the black pawns on dark, and the bishops are of opposite colours.">
+        <div class="mb et el eb er" role="img" aria-label="White king d1 and bishop f7, pawns a6, b5, d5, f5, g4. Black king d7 and bishop f8, pawns a7, b6, d6, f6, g5. All the pawns are locked head to head; the white pawns stand on light squares, the black pawns on dark, and the bishops are of opposite colours.">
 <i></i>
 <i class="d"></i>
 <i></i>
@@ -5116,7 +5129,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       Örneğin:</p>
     </div>
     <figure class="fig fig-wide" lang="tr">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="Siyah şah a8, kendi fili b8 ve kendi piyonu a7. Beyaz fil c6 şah çekiyor, beyaz piyon a6 b7 karesini tehdit ediyor. Siyahın hiçbir geçerli hamlesi yok — mat.">
+        <div class="mb et el eb er" role="img" aria-label="Siyah şah a8, kendi fili b8 ve kendi piyonu a7. Beyaz fil c6 şah çekiyor, beyaz piyon a6 b7 karesini tehdit ediyor. Siyahın hiçbir geçerli hamlesi yok — mat.">
 <i><b class="b">♚</b></i>
 <i class="d"><b class="b">♝</b></i>
 <i></i>
@@ -5201,7 +5214,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       For instance:</p>
     </div>
     <figure class="fig fig-wide" lang="en">
-        <div class="mb et el eb er" style="--c:8" role="img" aria-label="Black king a8 with its own bishop on b8 and its own pawn on a7. The white bishop on c6 gives check and the white pawn on a6 covers b7. Black has no legal move — mate.">
+        <div class="mb et el eb er" role="img" aria-label="Black king a8 with its own bishop on b8 and its own pawn on a7. The white bishop on c6 gives check and the white pawn on a6 covers b7. Black has no legal move — mate.">
 <i><b class="b">♚</b></i>
 <i class="d"><b class="b">♝</b></i>
 <i></i>
@@ -5486,7 +5499,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <p>In the table below, “win” means a win for the side whose clock is still running.</p>
     </div>
 
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Süresi biten · rakip</th><th>FIDE</th><th>USCF</th></tr></thead>
 <tbody>
 <tr><td>Ş+K · Ş+A</td><td>Kazanç<span class="sub">yardımlı mat kurulabiliyor</span></td><td>Beraberlik<span class="sub">zorlamalı mat yoksa</span></td></tr>
@@ -5496,7 +5509,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td>Ş+P · Ş+A+A</td><td>Kazanç</td><td>Kazanç<span class="sub">süresi bitenin piyonu var</span></td></tr>
 </tbody>
 </table></div>
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Out of time · opponent</th><th>FIDE</th><th>USCF</th></tr></thead>
 <tbody>
 <tr><td>K+R · K+N</td><td>Win<span class="sub">a helpmate can be built</span></td><td>Draw<span class="sub">unless a forced mate exists</span></td></tr>
@@ -5653,7 +5666,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <li><b>Resignation — forced mate, the same measure as the flag.</b> Since 2023 FIDE applies the helpmate measure to resignation as well (5.1.2); under USCF a resignation is always a loss. The hybrid ties resignation to the forced-mate measure used at flag fall: if the opponent falls into the same class and there is no forced mate, the player who resigns does not lose. The reasoning: resignation and flag fall both close a game before it ends on the board, and the question to ask is the same in both — could the opponent have won this game by force? Neither a fallen flag nor a resignation should hand over a win the opponent did not have in hand.</li>
     </ul>
 
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Parametre</th><th>FIDE</th><th>USCF</th><th>Karma</th></tr></thead>
 <tbody>
 <tr><td>50 hamle · üçlü tekrar iddiası</td><td>Açık</td><td>Açık</td><td><b>Kapalı</b></td></tr>
@@ -5670,7 +5683,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td>Terk</td><td>Yardımlı mat<span class="sub">rakip mat edemiyorsa beraberlik</span></td><td>Her zaman kayıp</td><td>Zorlamalı mat<span class="sub">bayrakla aynı ölçü</span></td></tr>
 </tbody>
 </table></div>
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Parameter</th><th>FIDE</th><th>USCF</th><th>Hybrid</th></tr></thead>
 <tbody>
 <tr><td>50-move · threefold claim</td><td>On</td><td>On</td><td><b>Off</b></td></tr>
@@ -5806,7 +5819,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       them produces the same <a href="#codes">fifteen result codes</a>.</p>
     </div>
 
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th>Giriş</th><th>Tahta</th><th>Saat</th><th>Süre</th><th>Düz</th><th>Paketli</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">main</code><br><span class="fn2">builds/L3.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri</td><td>⏱ <b>D:SS</b><span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>3.194</td><td>2.702<br><span class="fn2">L3_packed</span></td></tr>
@@ -5821,7 +5834,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 </tbody>
 </table></div>
 
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>Input</th><th>Board</th><th>Clock</th><th>Time control</th><th>Plain</th><th>Packed</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">main</code><br><span class="fn2">builds/L3.html</span></td><td>Clicking</td><td>Full board, piece glyphs</td><td>⏱ <b>M:SS</b><span class="sub">live</span></td><td>600 s + 5 s</td><td>3,194</td><td>2,702<br><span class="fn2">L3_packed</span></td></tr>
@@ -6148,7 +6161,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     <div class="prose" lang="en">
       <p>Anything other than playing a move is done differently in each build. In <code class="vn">main</code> and <code class="vn">light</code> each is a separate control; in the rest they all go through the channel the move is typed into.</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th>Terfi</th><th>Terk</th><th>Beraberlik</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">main</code> · <code class="vn">light</code></td><td>Panel açılır, taş seçilene kadar hamle tamamlanmaz</td><td>⚐ düğmesi</td><td>Beraberlik radyo düğmesi</td></tr>
@@ -6156,7 +6169,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td><code class="vn">numerical</code></td><td>Hamlenin 5. karakteri: <code>0</code> fil, <code>1</code> kale, <code>2</code> at, diğer her şey vezir</td><td>İptal, Esc, boş Enter, sekmeden çıkmak</td><td>Sayısal olmayan karakter içeren her giriş</td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>Promotion</th><th>Resignation</th><th>Draw</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">main</code> · <code class="vn">light</code></td><td>A picker opens; the move is not completed until a piece is chosen</td><td>⚐ button</td><td>Draw radio button</td></tr>
@@ -6175,7 +6188,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <p>In no build does the engine narrate the state; what gets displayed is entirely the
       driver's choice, and the indicators multiply as the byte budget grows. Six builds report the state in text: <code class="vn">main</code>, <code class="vn">input</code>, <code class="vn">nonbrowser</code> and the three prompt builds. <code class="vn">light</code> shows only the clocks and the draw radio; the three blindfold builds and <code class="vn">numerical</code> say almost nothing.</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th>Koordinat</th><th><code>D?</code></th><th><code>C!</code></th><th><code>M=</code> <code>R=</code></th><th>Saat</th><th>Son hamle</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">main</code></td><td><code>a8-h8</code> / <code>h1-a1</code><span class="sub">tahtanın yönü</span></td><td><span class="none">—</span><span class="sub">yerine radyoda sarı çerçeve</span></td><td>Var</td><td>Var</td><td><code>⏱ 10:00</code><span class="sub">canlı · alt sıradaki</span></td><td>Yeşil çerçeve<span class="sub">varış karesinde</span></td></tr>
@@ -6187,7 +6200,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td><code class="vn">numerical</code></td><td><span class="none">—</span></td><td><span class="none">—</span></td><td><span class="none">—</span></td><td><span class="none">—</span></td><td><code>900000 900000</code><span class="sub">hamlede · ham ms, etiketsiz</span></td><td>Ham girdi</td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>Coordinates</th><th><code>D?</code></th><th><code>C!</code></th><th><code>M=</code> <code>R=</code></th><th>Clock</th><th>Last move</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">main</code></td><td><code>a8-h8</code> / <code>h1-a1</code><span class="sub">board orientation</span></td><td><span class="none">—</span><span class="sub">an amber outline on the radio instead</span></td><td>Yes</td><td>Yes</td><td><code>⏱ 10:00</code><span class="sub">live · bottom row is to move</span></td><td>Green outline<span class="sub">on the destination square</span></td></tr>
@@ -6338,7 +6351,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       fits in one sentence: when the game ends the clocks stop; if one keeps running, the game was
       drawn because the opponent cannot mate.</p>
     </div>
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Ekranda</th><th>Anlamı</th><th>Kod</th></tr></thead>
 <tbody>
 <tr><td>Tahta dondu, sırası gelenin hamlesi yok, şahı tehdit altında</td><td>Mat</td><td><code>W#</code> <code>B#</code></td></tr>
@@ -6352,7 +6365,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td>⚐'den sonra terk edenin saati akmaya devam ediyor</td><td>Terk ama rakip mat edemez: beraberlik</td><td><code>RM</code></td></tr>
 </tbody>
 </table></div>
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>On screen</th><th>Meaning</th><th>Code</th></tr></thead>
 <tbody>
 <tr><td>Board frozen, the side to move has no move, its king is attacked</td><td>Mate</td><td><code>W#</code> <code>B#</code></td></tr>
@@ -6540,7 +6553,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       offers, claims.</p>
     </div>
 
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Kural / sürücü parçası</th><th><code class="vn">L1</code></th><th><code class="vn">L2</code></th><th><code class="vn">L3</code></th></tr></thead>
 <tbody>
 <tr><td><b>Hamle üretimi ve şah güvenliği</b></td><td><b>✓</b></td><td><b>✓</b></td><td><b>✓</b></td></tr>
@@ -6561,7 +6574,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 </tbody>
 </table></div>
 
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Rule / driver part</th><th><code class="vn">L1</code></th><th><code class="vn">L2</code></th><th><code class="vn">L3</code></th></tr></thead>
 <tbody>
 <tr><td><b>Move generation and king safety</b></td><td><b>✓</b></td><td><b>✓</b></td><td><b>✓</b></td></tr>
@@ -6621,7 +6634,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       the rule layer for a given interface reads along the row.</p>
     </div>
 
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th>Giriş</th><th>Tahta</th><th><code class="vn">L1</code></th><th><code class="vn">L2</code></th></tr></thead>
 <tbody>
 <tr><td><code class="vn">default</code><br><span class="fn2">L1.html · L2.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri</td><td>1.581</td><td>2.266</td></tr>
@@ -6634,7 +6647,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 </tbody>
 </table></div>
 
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>Input</th><th>Board</th><th><code class="vn">L1</code></th><th><code class="vn">L2</code></th></tr></thead>
 <tbody>
 <tr><td><code class="vn">default</code><br><span class="fn2">L1.html · L2.html</span></td><td>Clicking</td><td>Full board, piece glyphs</td><td>1,581</td><td>2,266</td></tr>
@@ -6784,14 +6797,14 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     <div class="prose" lang="en">
       <p>An arbiter that plays by Lichess's rules: 3,044 bytes with the clickable board, 1,228 in its numeric form with the board stripped away. In the clicking build the gameplay resembles Lichess too — the platform's colours, markers on reachable squares, the last move and a king in check highlighted, promotion chosen on the board itself; the clock is 600 + 5 seconds, as in <code class="vn">L3</code>. The numeric form uses the <code class="vn">L3_numerical</code> interface and is packed.</p>
     </div>
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th>Arayüz</th><th>Giriş</th><th>Bayt</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">Lichess-equivalent</code><br><span class="fn2">special/Lichess-equivalent.html</span><br><span class="fn2">repoda index.html</span></td><td>Lichess'in renkleri ve işaretleri; canlı saat, ½ ve ⚐</td><td>Tıklama</td><td>3.044</td></tr>
 <tr><td><code class="vn">Lichess-equivalent_numerical</code><br><span class="fn2">special/Lichess-equivalent_numerical.html</span><br><span class="fn2">repoda numerical_packed.html</span></td><td><code class="vn">L3_numerical</code>'ın arayüzü; paketli</td><td>Sayısal, prompt penceresi</td><td>1.228</td></tr>
 </tbody>
 </table></div>
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>Interface</th><th>Input</th><th>Bytes</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">Lichess-equivalent</code><br><span class="fn2">special/Lichess-equivalent.html</span><br><span class="fn2">in the repo: index.html</span></td><td>Lichess's colours and markers; live clock, ½ and ⚐</td><td>Clicking</td><td>3,044</td></tr>
@@ -6807,14 +6820,14 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     <div class="prose" lang="en">
       <p>The same idea with Chess.com's rules: 2,878 bytes with the clickable board, 1,175 in numeric form. The clicking build carries Chess.com's colours and markers; otherwise the gameplay matches the Lichess equivalent. The numeric form again uses the <code class="vn">L3_numerical</code> interface and is packed.</p>
     </div>
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th>Arayüz</th><th>Giriş</th><th>Bayt</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">Chesscom-equivalent</code><br><span class="fn2">special/Chesscom-equivalent.html</span><br><span class="fn2">repoda index.html</span></td><td>Chess.com'un renkleri ve işaretleri; canlı saat, ½ ve ⚐</td><td>Tıklama</td><td>2.878</td></tr>
 <tr><td><code class="vn">Chesscom-equivalent_numerical</code><br><span class="fn2">special/Chesscom-equivalent_numerical.html</span><br><span class="fn2">repoda numerical_packed.html</span></td><td><code class="vn">L3_numerical</code>'ın arayüzü; paketli</td><td>Sayısal, prompt penceresi</td><td>1.175</td></tr>
 </tbody>
 </table></div>
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>Interface</th><th>Input</th><th>Bytes</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">Chesscom-equivalent</code><br><span class="fn2">special/Chesscom-equivalent.html</span><br><span class="fn2">in the repo: index.html</span></td><td>Chess.com's colours and markers; live clock, ½ and ⚐</td><td>Clicking</td><td>2,878</td></tr>
@@ -6829,7 +6842,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     <div class="prose" lang="en">
       <p>Why the platforms apply the rules the way they do is in <a href="#federations">the federations section</a>; in short, the two equivalents differ like this:</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Kural</th><th>FIDE · <code class="vn">L3</code></th><th>Lichess</th><th>Chess.com</th></tr></thead>
 <tbody>
 <tr><td><b>Üçlü tekrar</b></td><td>İddiayla</td><td>İddiayla</td><td>Kendiliğinden</td></tr>
@@ -6842,7 +6855,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td><b>Tekrarda geçerken alma</b></td><td>Geçerli</td><td>Geçerli</td><td>Ham-geçerli</td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Rule</th><th>FIDE · <code class="vn">L3</code></th><th>Lichess</th><th>Chess.com</th></tr></thead>
 <tbody>
 <tr><td><b>Threefold repetition</b></td><td>By claim</td><td>By claim</td><td>Automatic</td></tr>
@@ -6902,14 +6915,14 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       in practically every chess engine and can be grasped quickly; the choice was made in that
       direction.</p>
     </div>
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th>Tahta içeride</th><th>Giriş</th><th>Bayt</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">L2_string_flip_noBlockedDetector</code><br><span class="fn2">special/L2_string_flip_noBlockedDetector.html</span><br><span class="fn2">repoda index.html</span></td><td>Harflerle, FEN gibi<span class="sub">ters indeks</span></td><td>Tıklama</td><td>1.999</td></tr>
 <tr><td><code class="vn">L2_noBlockedDetector</code><br><span class="fn2">special/L2_noBlockedDetector.html</span><br><span class="fn2">repoda hexadecimal.html</span></td><td>Sayılarla</td><td>Tıklama</td><td>1.909</td></tr>
 </tbody>
 </table></div>
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>Board inside</th><th>Input</th><th>Bytes</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">L2_string_flip_noBlockedDetector</code><br><span class="fn2">special/L2_string_flip_noBlockedDetector.html</span><br><span class="fn2">in the repo: index.html</span></td><td>In letters, like a FEN<span class="sub">flipped index</span></td><td>Clicking</td><td>1,999</td></tr>
@@ -6933,7 +6946,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     <div class="prose" lang="en">
       <p>Two-player chess in bytes: three builds, each a single HTML file under 1 KB, all three packed. All three enforce the same rules — full legality, castling with every condition, en passant, promotion to any piece. There is no clock, no counter, no repetition, no material test, no offer and no result code; mate and stalemate are not told apart. Its name comes from the byte levels that are its budget: it steps down from the 1,023-byte main build to the 830-byte intermediate build and on to the smallest, at 766 bytes.</p>
     </div>
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th>Giriş</th><th>Tahta</th><th>Oyunun sonu</th><th>Bayt</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">DOM_1023</code><br><span class="fn2">special/DOM_1023.html</span><br><span class="fn2">repoda index.html</span></td><td>Tıklama<span class="sub">terfi tahtanın üstündeki düğmelerden</span></td><td>Tam tahta, taş glifleri<span class="sub">sırası gelen altta</span></td><td>Hamle kalmayınca bütün kareler tek renge döner<span class="sub">mat ya da pat, hangisi olduğu gösterilmez</span></td><td>1.023</td></tr>
@@ -6941,7 +6954,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td><code class="vn">Lowest</code><br><span class="fn2">special/Lowest.html</span><br><span class="fn2">repoda Lowest.html</span></td><td>Sayısal, prompt penceresi</td><td>Yok, yalnızca son hamle</td><td>Tanınmıyor<span class="sub">hiçbir hamle girdisi kabul edilmiyor, pencerede son hamle yazılı kalıyor</span></td><td>766</td></tr>
 </tbody>
 </table></div>
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>Input</th><th>Board</th><th>End of game</th><th>Bytes</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">DOM_1023</code><br><span class="fn2">special/DOM_1023.html</span><br><span class="fn2">in the repo: index.html</span></td><td>Clicking<span class="sub">promotion from buttons above the board</span></td><td>Full board, piece glyphs<span class="sub">side to move at the bottom</span></td><td>Every square turns one colour when no move is left<span class="sub">mate or stalemate, which one is not shown</span></td><td>1,023</td></tr>
@@ -6960,14 +6973,14 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <p>Oscar Toledo G.'s program and the bot written as its opponent are the answer to one question: “could a more capable build — a stronger bot, a better interface — be written at the same rule level with a byte count close to Toledo's?” These two have no repository of their own; they live in the <code>special/</code> folder of the FideLite repository.</p>
       <p>Both have been given the same rule: <b>the 50-move rule</b>. After 100 plies with no capture and no pawn move the game freezes silently, just as it does at mate and stalemate — no move reaches the board and nothing is written on screen. The point is that comparative matches between the two bots do not run forever or fall into a loop. The counter is updated only where a played move is written to the board, and the gate sits there too; the search never looks at it, so neither bot's strength has changed.</p>
     </div>
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th>Ne</th><th>Giriş</th><th>Bayt</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">Toledos-ES6-optimized</code><br><span class="fn2">special/Toledos-ES6-optimized.html</span></td><td>Oscar Toledo G.'nin satrancı: camiada en çok konuşulan küçük satranç programlarından biri, 2 KB içinde L1 seviyesinde kurallar ve 1200 Elo civarında makul bir bot. Eşdeğerliğini koruyarak ES6 yöntemleriyle biraz daha küçülttüm, arayüzünü de biraz yeniden yorumladım. Eklediğim tek kural 50 hamle.</td><td>Tıklama, bota karşı<span class="sub">terfi tahtanın altındaki listeden, hamleden önce seçilir</span></td><td>2.032</td></tr>
 <tr><td><code class="vn">ToledosOpponentbyMe</code><br><span class="fn2">special/ToledosOpponentbyMe.html</span></td><td>Toledo'nun programına rakip olarak bu motorla yazdığım bot: <code class="vn">L1</code> seviyesinde kurallar artı 50 hamle, iteratif derinleştirmeli alfa-beta araması ve hamle başına çeyrek saniye civarında bir zaman bütçesi. Bot beyazla başlıyor.</td><td>Tıklama, bota karşı</td><td>2.077</td></tr>
 </tbody>
 </table></div>
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>What it is</th><th>Input</th><th>Bytes</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">Toledos-ES6-optimized</code><br><span class="fn2">special/Toledos-ES6-optimized.html</span></td><td>Oscar Toledo G.'s chess: one of the most talked-about tiny chess programs in the community, with L1-level rules and a reasonable bot of around 1200 Elo in 2 KB. I shrank it a little further with ES6 techniques while keeping it equivalent, and reinterpreted its interface a little. The one rule I added is the 50-move rule.</td><td>Clicking, against a bot<span class="sub">promotion chosen beforehand from the list below the board</span></td><td>2,032</td></tr>
@@ -7039,13 +7052,13 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       piece. When a king is in check its square lights up in red, as in the equivalents. The
       end-of-game indicators and the whole layout are more spacious.</p>
     </div>
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th>Ne</th><th>Giriş</th><th>Bayt</th></tr></thead>
 <tbody>
 <tr class="luxrow"><td><code class="lux">LUX_inProgress</code><br><span class="fn2">special/LUX_inProgress.html</span></td><td>Tam hakem, zengin arayüzle: sürükle bırak, sağ tıkla işaretleme, başlarken süre, saat modu (Fischer, Bronstein ya da basit gecikme) ve FEN seçimi. Yapım aşamasında.</td><td>Sürükle bırak, tıklama</td><td>7.985</td></tr>
 </tbody>
 </table></div>
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>What it is</th><th>Input</th><th>Bytes</th></tr></thead>
 <tbody>
 <tr class="luxrow"><td><code class="lux">LUX_inProgress</code><br><span class="fn2">special/LUX_inProgress.html</span></td><td>The full arbiter with a rich interface: drag and drop, right-click marking, time control, clock mode (Fischer, Bronstein or simple delay) and FEN picked at the start. In progress.</td><td>Drag and drop, clicking</td><td>7,985</td></tr>
@@ -7105,7 +7118,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       Bit zero is the colour — <b>1 white, 0 black</b> — the rest is the type. An empty square is
       <code>0</code>.</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Tür</th><th class="num"><code>P</code></th><th class="num">Kod · siyah</th><th class="num">Kod · beyaz</th><th class="num">İkili · siyah</th><th class="num">İkili · beyaz</th></tr></thead>
 <tbody>
 <tr><td>Fil</td><td class="num">1</td><td class="num">2</td><td class="num">3</td><td class="num"><code>0010</code></td><td class="num"><code>0011</code></td></tr>
@@ -7116,7 +7129,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td>At</td><td class="num">6</td><td class="num">12</td><td class="num">13</td><td class="num"><code>1100</code></td><td class="num"><code>1101</code></td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Type</th><th class="num"><code>P</code></th><th class="num">Code · black</th><th class="num">Code · white</th><th class="num">Binary · black</th><th class="num">Binary · white</th></tr></thead>
 <tbody>
 <tr><td>Bishop</td><td class="num">1</td><td class="num">2</td><td class="num">3</td><td class="num"><code>0010</code></td><td class="num"><code>0011</code></td></tr>
@@ -7337,7 +7350,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       write is the clock.</p>
     </div>
 
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Ad</th><th>Ne tutar</th><th>Ayrıntı</th></tr></thead>
 <tbody>
 <tr><td><code>b</code></td><td>Tahta</td><td>64 elemanlı sayı dizisi — <a href="#board">temsil yukarıda</a>. Sürücü doğrudan okuyabilir; yazması gerekmez.</td></tr>
@@ -7356,7 +7369,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 </tbody>
 </table></div>
 
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Name</th><th>Holds</th><th>Detail</th></tr></thead>
 <tbody>
 <tr><td><code>b</code></td><td><b>B</b>oard</td><td>A 64-element numeric array — <a href="#board">representation above</a>. A driver may read it directly; it never needs to write.</td></tr>
@@ -7389,7 +7402,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       function’s size in bytes — the quickest way to see where the bytes go.</p>
     </div>
 
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Ad</th><th>İmza</th><th>Bayt</th><th>İşi</th></tr></thead>
 <tbody>
 <tr><td><code>G</code></td><td><code>G(i, f, T)</code></td><td>263</td><td>Geometri. <code>i</code>'deki taş <code>f</code>'ye gidebilir mi — şah güvenliğine bakmadan. <code>T</code> tehdit modu: açıkken piyonun yalnızca alma hamlelerini sayar.</td></tr>
@@ -7409,7 +7422,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 </tbody>
 </table></div>
 
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Name</th><th>Signature</th><th>Bytes</th><th>What it does</th></tr></thead>
 <tbody>
 <tr><td><code>G</code></td><td><code>G(i, f, T)</code></td><td>263</td><td><b>G</b>eometry. Can the piece on <code>i</code> reach <code>f</code> — without regard to king safety. <code>T</code> is attack mode: when set, only the pawn's capturing moves count.</td></tr>
@@ -7484,7 +7497,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       globals. The <b>Where</b> column shows which functions each letter appears in.</p>
     </div>
 
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Ad</th><th>Nerede</th><th>Rol</th></tr></thead>
 <tbody>
 <tr><td><code>i</code></td><td><code>G V L C M I Z A</code></td><td>Başlangıç karesi ya da tahtayı tarayan döngünün indeksi.</td></tr>
@@ -7508,7 +7521,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 </tbody>
 </table></div>
 
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Name</th><th>Where</th><th>Role</th></tr></thead>
 <tbody>
 <tr><td><code>i</code></td><td><code>G V L C M I Z A</code></td><td>The <b>i</b>nitial square, or the index of the loop scanning the board.</td></tr>
@@ -7668,7 +7681,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <code>G</code> calls itself to test whether the rook's path is clear.</p>
     </div>
 
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Fonksiyon</th><th>Çağırdıkları</th><th>Kat</th></tr></thead>
 <tbody>
 <tr><td><code>G</code></td><td><code>S</code> · <code>C</code> · <code>V</code> · <code>a</code> · <code>G</code></td><td>Geometri</td></tr>
@@ -7687,7 +7700,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 </tbody>
 </table></div>
 
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Function</th><th>Calls</th><th>Layer</th></tr></thead>
 <tbody>
 <tr><td><code>G</code></td><td><code>S</code> · <code>C</code> · <code>V</code> · <code>a</code> · <code>G</code></td><td>Geometry</td></tr>
@@ -8295,7 +8308,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       comes out 0 on the first rank and 2 on the eighth.</p>
     </div>
 
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Kare</th><th><code>i%56</code></th><th>Karakter</th><th>Kaydırma</th><th>Bit</th></tr></thead>
 <tbody>
 <tr><td>h1</td><td>7</td><td><code>1</code></td><td>0</td><td>1</td></tr>
@@ -8308,7 +8321,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 </tbody>
 </table></div>
 
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Square</th><th><code>i%56</code></th><th>Character</th><th>Shift</th><th>Bit</th></tr></thead>
 <tbody>
 <tr><td>h1</td><td>7</td><td><code>1</code></td><td>0</td><td>1</td></tr>
@@ -8384,7 +8397,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       and not pieces.</p>
     </div>
 
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Materyal</th><th><code>W</code></th><th><code>m</code></th><th><code>W*2+m</code></th><th>Sonuç</th></tr></thead>
 <tbody>
 <tr><td>Yalnız şahlar</td><td>0</td><td>0</td><td>0</td><td>Yetersiz</td></tr>
@@ -8397,7 +8410,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 </tbody>
 </table></div>
 
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Material</th><th><code>W</code></th><th><code>m</code></th><th><code>W*2+m</code></th><th>Result</th></tr></thead>
 <tbody>
 <tr><td>Kings only</td><td>0</td><td>0</td><td>0</td><td>Insufficient</td></tr>
@@ -8592,14 +8605,14 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       head, the bishops are confined to their own halves and the kings to a narrow area:</p>
     </div>
     <pre class="snip">1kb5/1p1p4/1P1P4/8/8/4p1p1/4P1P1/5BK1 w - - 0 1</pre>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th><code>F(0,0)</code> — siyahın süresi bitiyor</th><th class="num">Düğüm</th><th class="num">Bellek girdisi</th><th>Sonuç</th></tr></thead>
 <tbody>
 <tr><td>Motorun kendisi</td><td class="num"><b>5</b></td><td class="num">4</td><td><b>14 · berabere</b></td></tr>
 <tr><td><code>Ht</code> devre dışı</td><td class="num">16</td><td class="num">—</td><td>10 · beyaz kazanır</td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th><code>F(0,0)</code> — Black's flag falls</th><th class="num">Nodes</th><th class="num">Memo entries</th><th>Result</th></tr></thead>
 <tbody>
 <tr><td>The engine as it stands</td><td class="num"><b>5</b></td><td class="num">4</td><td><b>14 · draw</b></td></tr>
@@ -9255,14 +9268,14 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       pawn beside it, would have written the square — I measured both.</p>
     </div>
 
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Fonksiyon</th><th><code>G</code></th><th><code>L</code></th><th><code>M</code></th><th><code>V</code></th><th><code>C</code></th><th><code>I</code></th><th><code>l</code></th><th><code>Z</code></th><th><code>a</code></th></tr></thead>
 <tbody>
 <tr><td><code>A(12,28)</code> boyunca</td><td>1.616</td><td>33</td><td>3</td><td>2</td><td>2</td><td>1</td><td>1</td><td>1</td><td>3.235</td></tr>
 </tbody>
 </table></div>
 
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Function</th><th><code>G</code></th><th><code>L</code></th><th><code>M</code></th><th><code>V</code></th><th><code>C</code></th><th><code>I</code></th><th><code>l</code></th><th><code>Z</code></th><th><code>a</code></th></tr></thead>
 <tbody>
 <tr><td>over <code>A(12,28)</code></td><td>1,616</td><td>33</td><td>3</td><td>2</td><td>2</td><td>1</td><td>1</td><td>1</td><td>3,235</td></tr>
@@ -9294,7 +9307,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       but it is not free. I measured the same <code>Z</code> call for each colour:</p>
     </div>
 
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th><code>Z()</code> başlangıç pozisyonunda</th><th><code>G</code></th><th><code>L</code></th><th>Oran</th></tr></thead>
 <tbody>
 <tr><td>Beyaz sırada</td><td>192</td><td>2</td><td>—</td></tr>
@@ -9302,7 +9315,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 </tbody>
 </table></div>
 
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th><code>Z()</code> at the starting position</th><th><code>G</code></th><th><code>L</code></th><th>Ratio</th></tr></thead>
 <tbody>
 <tr><td>White to move</td><td>192</td><td>2</td><td>—</td></tr>
@@ -9354,7 +9367,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       g1, h1 empty.</p>
     </div>
 
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Çağrı</th><th><code>G</code></th><th><code>L</code></th><th><code>M</code></th><th><code>V</code></th><th><code>C</code></th><th><code>l</code></th><th><code>Z</code></th></tr></thead>
 <tbody>
 <tr><td><code>L(4)</code></td><td>289</td><td>1</td><td>3</td><td>5</td><td>1</td><td>—</td><td>—</td></tr>
@@ -9362,7 +9375,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 </tbody>
 </table></div>
 
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Call</th><th><code>G</code></th><th><code>L</code></th><th><code>M</code></th><th><code>V</code></th><th><code>C</code></th><th><code>l</code></th><th><code>Z</code></th></tr></thead>
 <tbody>
 <tr><td><code>L(4)</code></td><td>289</td><td>1</td><td>3</td><td>5</td><td>1</td><td>—</td><td>—</td></tr>
@@ -9400,7 +9413,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       double step, the fifth step does not fire and <code>e</code> reverts to minus one.</p>
     </div>
 
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Çağrı</th><th><code>G</code></th><th><code>L</code></th><th><code>M</code></th><th><code>V</code></th><th><code>C</code></th><th><code>l</code></th><th><code>Z</code></th></tr></thead>
 <tbody>
 <tr><td><code>A(51,35)</code> d7-d5</td><td>336</td><td>3</td><td>5</td><td>4</td><td>2</td><td>1</td><td>1</td></tr>
@@ -9408,7 +9421,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 </tbody>
 </table></div>
 
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Call</th><th><code>G</code></th><th><code>L</code></th><th><code>M</code></th><th><code>V</code></th><th><code>C</code></th><th><code>l</code></th><th><code>Z</code></th></tr></thead>
 <tbody>
 <tr><td><code>A(51,35)</code> d7-d5</td><td>336</td><td>3</td><td>5</td><td>4</td><td>2</td><td>1</td><td>1</td></tr>
@@ -9464,7 +9477,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       has nothing to say. That leaves the search itself.</p>
     </div>
 
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Derinlik</th><th>Cevap</th><th>Düğüm</th></tr></thead>
 <tbody>
 <tr><td>9</td><td>mat mümkün</td><td>10</td></tr>
@@ -9474,7 +9487,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 </tbody>
 </table></div>
 
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Depth</th><th>Answer</th><th>Nodes</th></tr></thead>
 <tbody>
 <tr><td>9</td><td>mate is possible</td><td>10</td></tr>
@@ -9567,7 +9580,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <p>Seven positions, including the colour mirror of the fourth. The mirror is not incidental:
       an error that breaks colour symmetry shows up only there.</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Pozisyon</th><th class="num">Derinlik</th><th class="numr">Düğüm</th><th>Karşılaştırma</th></tr></thead>
 <tbody>
 <tr><td>Başlangıç</td><td class="num">d6</td><td class="numr">119.060.324</td><td>CPW yayımlanmış değerleri</td></tr>
@@ -9579,7 +9592,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 <tr><td>Pozisyon 6</td><td class="num">d5</td><td class="numr">164.075.551</td><td>CPW yayımlanmış değerleri</td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Position</th><th class="num">Depth</th><th class="numr">Nodes</th><th>Compared against</th></tr></thead>
 <tbody>
 <tr><td>Starting position</td><td class="num">d6</td><td class="numr">119,060,324</td><td>CPW published values</td></tr>
@@ -9607,7 +9620,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       since no published value exists at those layers, verification was done against
       Stockfish.</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Pozisyon</th><th class="numr">Yayımlanmış</th><th class="num">Ulaşılan</th><th>Doğrulama</th></tr></thead>
 <tbody>
 <tr><td>Geçersiz geçerken alma #1</td><td class="numr">d6 · 1.134.888</td><td class="num">d6</td><td>Yayımlanmış değer, Stockfish teyitli</td></tr>
@@ -9627,7 +9640,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 <tr><td>Fil açmazından kaçınma</td><td class="numr">d5 · 1.063.513</td><td class="num"><b>d6</b></td><td>Stockfish</td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Position</th><th class="numr">Published</th><th class="num">Reached</th><th>Verification</th></tr></thead>
 <tbody>
 <tr><td>Illegal en passant #1</td><td class="numr">d6 · 1,134,888</td><td class="num">d6</td><td>Published value, Stockfish-confirmed</td></tr>
@@ -9658,14 +9671,14 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <p>Hand-picked positions catch the edge cases; bulk runs catch what turns up in ordinary
       play.</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Koşu</th><th>Kapsam</th><th>Yöntem</th></tr></thead>
 <tbody>
 <tr><td>Vajolet külliyatı<br><span class="fn2">gerçek oyun pozisyonları</span></td><td>100 pozisyon × d4 kapsama için, ilk 10 pozisyon × d5 derinlik için — 450 perft kontrolü</td><td>Külliyatın kendi referans değerleri</td></tr>
 <tr><td>Rastgele oyun<br><span class="fn2">perft değil</span></td><td>Kiwipete'ten 20 deterministik-rastgele oyun, oyun başına en çok 80 yarım hamle</td><td>Her pozisyonda geçerli hamle listesinin tamamı, sıralı hâlde Stockfish ile birebir</td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Run</th><th>Coverage</th><th>Method</th></tr></thead>
 <tbody>
 <tr><td>Vajolet corpus<br><span class="fn2">real game positions</span></td><td>100 positions × d4 for coverage, the first 10 positions × d5 for depth — 450 perft checks</td><td>The corpus's own reference values</td></tr>
@@ -9806,7 +9819,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       which put four extra bytes on the base of <code>1x</code>. The remaining 72 bytes go to
       <a href="#speed"><code>H</code> and <code>l</code></a>.</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Değişiklik</th><th>Ne yapıyor</th><th class="num">Bayt</th><th class="num">Kazanç</th></tr></thead>
 <tbody>
 <tr><td><code>&amp;</code> → <code>&amp;&amp;</code> ve piyon dalı</td><td>İki kalem. Rok satırındaki <code>!V(t,i)&amp;!V(t,i+k)</code> kısa devre yapmıyordu, yani <b>şah zaten şahtayken bile</b> ikinci tehdit taraması çalışıyordu. Ve piyon dalı <code>h*v==1?</code> ile başlıyordu; 4x sürüm <code>h?</code> ile başlıyor, yani dikey değişmediyse çarpma hiç yapılmıyor.</td><td class="num">+2</td><td class="num">1,58×</td></tr>
@@ -9814,7 +9827,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 <tr><td><code>map</code> → <code>forEach</code></td><td><code>L</code> her çağrıda 64 elemanlık bir sonuç dizisi ayırıp atıyordu.</td><td class="num">+4</td><td class="num">1,02×</td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Change</th><th>What it does</th><th class="num">Bytes</th><th class="num">Gain</th></tr></thead>
 <tbody>
 <tr><td><code>&amp;</code> → <code>&amp;&amp;</code>, and the pawn branch</td><td>Two items. <code>!V(t,i)&amp;!V(t,i+k)</code> on the castling line did not short-circuit, so the second attack scan ran <b>even when the king was already in check</b>. And the pawn branch opened with <code>h*v==1?</code>; the 4x version opens with <code>h?</code>, so the multiplication never happens when the file has not changed.</td><td class="num">+2</td><td class="num">1.58×</td></tr>
@@ -9872,14 +9885,14 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       üretimi çalışıyor, beyazın sırasındayken çalışmıyor.</p>
       <p>Ölçüldüğünde fark bu kadar keskin:</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Başlangıç pozisyonunda <code>Z()</code></th><th class="numr">Beyaz sırada</th><th class="numr">Siyah sırada</th><th class="num">Oran</th></tr></thead>
 <tbody>
 <tr><td><code>engine.js</code><br><span class="fn2">geometri çağrısı</span></td><td class="numr">192</td><td class="numr">1.616</td><td class="num">8,4×</td></tr>
 <tr><td><code>engine_4x.js</code><br><span class="fn2">geometri çağrısı</span></td><td class="numr">128</td><td class="numr">80</td><td class="num">0,6×</td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th><code>Z()</code> in the starting position</th><th class="numr">White to move</th><th class="numr">Black to move</th><th class="num">Ratio</th></tr></thead>
 <tbody>
 <tr><td><code>engine.js</code><br><span class="fn2">geometry calls</span></td><td class="numr">192</td><td class="numr">1,616</td><td class="num">8.4×</td></tr>
@@ -9985,7 +9998,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       table above and the table below therefore measure different things — the speed of the move
       generator on one hand, of the arbitration layer on the other.</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Fonksiyon</th><th>Ne ölçüldü</th><th class="num"><code>engine.js</code></th><th class="num"><code>engine_4x.js</code></th><th class="num">Kazanç</th></tr></thead>
 <tbody>
 <tr><td><code>L</code></td><td>Başlangıç pozisyonunda tüm geçerli hamleler, 1.999 tur</td><td class="num">2.050 ms</td><td class="num">885 ms</td><td class="num">2,3×</td></tr>
@@ -9993,7 +10006,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 <tr><td><b><code>l</code></b></td><td>Kilitli piyon duvarı, 20.000 çağrı</td><td class="num">9.419 ms</td><td class="num"><b>255 ms</b></td><td class="num"><b>37×</b></td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Function</th><th>What was measured</th><th class="num"><code>engine.js</code></th><th class="num"><code>engine_4x.js</code></th><th class="num">Gain</th></tr></thead>
 <tbody>
 <tr><td><code>L</code></td><td>Every legal move from the starting position, 1,999 rounds</td><td class="num">2,050 ms</td><td class="num">885 ms</td><td class="num">2.3×</td></tr>
@@ -10036,7 +10049,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       layers — their cost is the same whichever generation they are added to. All four were
       rejected, and the reasons have not changed since.</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th class="num">Bayt</th><th class="num">Medyan</th><th class="num"><code>4x</code>'e göre</th></tr></thead>
 <tbody>
 <tr><td><code>engine.js</code></td><td class="num">1.883</td><td class="num">12.385 ms</td><td class="num">0,10×</td></tr>
@@ -10047,7 +10060,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 <tr><td><span class="sub">+</span> gerçek unmake</td><td class="num">2.025</td><td class="num">1.349 ms</td><td class="num">0,87×</td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th class="num">Bytes</th><th class="num">Median</th><th class="num">vs <code>4x</code></th></tr></thead>
 <tbody>
 <tr><td><code>engine.js</code></td><td class="num">1,883</td><td class="num">12,385 ms</td><td class="num">0.10×</td></tr>
@@ -10238,7 +10251,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       below, plus the 16-byte castling line that <code>engine_4x</code> carries in the search — that is, <b>90%</b> of the bytes go to the adjudication layer, not to move
       generation.</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Katman</th><th class="num"><code>engine.js</code></th><th class="num"><code>engine_4x.js</code></th><th class="num">Fark</th></tr></thead>
 <tbody>
 <tr><td>Taban</td><td class="num">1.207</td><td class="num">1.215</td><td class="num">+8</td></tr>
@@ -10247,7 +10260,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 <tr><td><b>Toplam</b></td><td class="num"><b>1.883</b></td><td class="num"><b>1.963</b></td><td class="num"><b>+80</b></td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Layer</th><th class="num"><code>engine.js</code></th><th class="num"><code>engine_4x.js</code></th><th class="num">Difference</th></tr></thead>
 <tbody>
 <tr><td>Base</td><td class="num">1,207</td><td class="num">1,215</td><td class="num">+8</td></tr>
@@ -10396,7 +10409,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       comparison possible.</p>
     </div>
 
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th>Arayüz</th><th>Düzen</th><th>Bayt</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">L1_prompt_string_flip</code><br><span class="fn2">builds/L1/</span></td><td>prompt</td><td>a8=0</td><td>1.141</td></tr>
@@ -10407,7 +10420,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 </tbody>
 </table></div>
 
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>Interface</th><th>Layout</th><th>Bytes</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">L1_prompt_string_flip</code><br><span class="fn2">builds/L1/</span></td><td>prompt</td><td>a8=0</td><td>1,141</td></tr>
@@ -10489,7 +10502,7 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       <p>The same interface, the same rule layer, two board representations. Measured:</p>
     </div>
 
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th><code class="vn">prompt</code> ailesi</th><th>Tahta</th><th>Bayt</th><th>Tam tarama</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">prompt</code></td><td>Sayı dizisi</td><td>2.451</td><td><b>1.332 µs</b></td></tr>
@@ -10497,7 +10510,7 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
 </tbody>
 </table></div>
 
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>The <code class="vn">prompt</code> family</th><th>Board</th><th>Bytes</th><th>Full scan</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">prompt</code></td><td>Numeric array</td><td>2,451</td><td><b>1,332 µs</b></td></tr>
@@ -10654,14 +10667,14 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       <p>The rook and bishop are not. In the whole distance space there are exactly two
       collisions:</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th class="num">Uzaklık</th><th>Şekil</th><th>Çarpışan şekil</th></tr></thead>
 <tbody>
 <tr><td class="num">5</td><td>(0,5) — beş kare kale</td><td>(3,4) — hiçbir taşın hamlesi değil</td></tr>
 <tr><td class="num">5√2</td><td>(5,5) — beş kare fil</td><td>(1,7) — hiçbir taşın hamlesi değil</td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th class="num">Distance</th><th>Shape</th><th>Colliding shape</th></tr></thead>
 <tbody>
 <tr><td class="num">5</td><td>(0,5) — rook, five squares</td><td>(3,4) — no piece's move</td></tr>
@@ -10924,7 +10937,7 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       scattered and small — each is one use of the letter <code>e</code> disappearing. The cost
       collects in two items.</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Kalem</th><th class="num">Bayt</th></tr></thead>
 <tbody>
 <tr><td><code>e</code>'nin başlangıç değeri</td><td class="num">−7</td></tr>
@@ -10943,7 +10956,7 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
 <tr><td><b>Net</b></td><td class="num"><b>+5</b></td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Item</th><th class="num">Bytes</th></tr></thead>
 <tbody>
 <tr><td><code>e</code>'s initial value</td><td class="num">−7</td></tr>
@@ -11022,7 +11035,7 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       mistake: a single double step waiting at the edge of the chain queens through the file that
       the en passant capture opens.</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Kod tabanı</th><th>Ep yöntemi</th><th class="num">Bayt</th><th class="num">Fark</th></tr></thead>
 <tbody>
 <tr><td>Mat ve pat<span class="sub">ölü pozisyon yok</span></td><td><code>e</code> indeksi</td><td class="num">1.598</td><td class="num"><span class="none">—</span></td></tr>
@@ -11032,7 +11045,7 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
 <tr><td></td><td>hayalet + <code>indexOf</code> takma adı</td><td class="num">2.326</td><td class="num">+2</td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Code base</th><th>En passant method</th><th class="num">Bytes</th><th class="num">Difference</th></tr></thead>
 <tbody>
 <tr><td>Mate and stalemate<span class="sub">no dead position</span></td><td><code>e</code> index</td><td class="num">1,598</td><td class="num"><span class="none">—</span></td></tr>
@@ -11071,7 +11084,7 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       and it shows the real rule of the tool: <b>an alias is not a lever but a threshold, set by
       the number of uses.</b></p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th class="num"><code>indexOf</code> sayısı</th><th class="num">Takma adın etkisi</th></tr></thead>
 <tbody>
 <tr><td>Mat/pat, <code>e</code> indeksi</td><td class="num">1</td><td class="num">+7</td></tr>
@@ -11080,7 +11093,7 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
 <tr class="alt"><td>Sayaçlı, hayalet</td><td class="num"><b>3</b></td><td class="num"><b>−3</b></td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th class="num"><code>indexOf</code> uses</th><th class="num">Effect of the alias</th></tr></thead>
 <tbody>
 <tr><td>Mate/stalemate, <code>e</code> index</td><td class="num">1</td><td class="num">+7</td></tr>
@@ -11342,7 +11355,7 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       server. Anyone running it there should put the gate back; this page keeps how it was written
       and why it was sound.</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Kalem</th><th class="num">Bayt</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">L2</code> ailesi, altı dosya × −4</td><td class="num">−24</td></tr>
@@ -11352,7 +11365,7 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
 <tr><td>Taşlı pozisyonda hamle başına maliyet</td><td class="num">+0,004 ms</td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Item</th><th class="num">Bytes</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">L2</code> family, six files × −4</td><td class="num">−24</td></tr>
@@ -11652,7 +11665,7 @@ f = K[2] + K[3] - 0</pre></div>
       the clock is kept.</p>
     </div>
 
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th>Döngü</th><th>Kim çağırıyor</th><th>Saat</th></tr></thead>
 <tbody>
 <tr><td><b>Bloklayan</b><br><span class="fn2">modal pencere</span></td><td>Sürücü döngüsü, hamle beklerken duruyor</td><td>Pencere kapanınca geçen süre ölçülüp düşülüyor</td></tr>
@@ -11661,7 +11674,7 @@ f = K[2] + K[3] - 0</pre></div>
 </tbody>
 </table></div>
 
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th>Loop</th><th>Who calls it</th><th>Clock</th></tr></thead>
 <tbody>
 <tr><td><b>Blocking</b><br><span class="fn2">modal dialog</span></td><td>The driver loop, halted while awaiting a move</td><td>Measured and deducted once the dialog closes</td></tr>
@@ -11775,7 +11788,7 @@ f = K[2] + K[3] - 0</pre></div>
       not an oversight but a measured choice.</p>
       <p>Pack today's <code class="vn">numerical</code> source and this is the number that comes out:</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Kaynak</th><th class="num">Düz gövde</th><th class="num">Paketlenmiş</th><th class="num">Dosya</th></tr></thead>
 <tbody>
 <tr><td><b>Yayımlanan</b> <span class="sub">önceki nesil</span></td><td class="num">2.213</td><td class="num"><b>1.775</b></td><td class="num"><b>1.792</b></td></tr>
@@ -11783,7 +11796,7 @@ f = K[2] + K[3] - 0</pre></div>
 <tr><td><span class="sub">+</span> <code>l</code> geri ayrılmış</td><td class="num">2.107</td><td class="num">1.844</td><td class="num">1.861</td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Source</th><th class="num">Plain body</th><th class="num">Packed</th><th class="num">File</th></tr></thead>
 <tbody>
 <tr><td><b>What ships</b> <span class="sub">earlier generation</span></td><td class="num">2,213</td><td class="num"><b>1,775</b></td><td class="num"><b>1,792</b></td></tr>
@@ -11845,14 +11858,14 @@ f = K[2] + K[3] - 0</pre></div>
 
     <h3 lang="tr">Takma adlar ve gömülen fonksiyonlar</h3>
     <h3 lang="en">Aliases and inlined functions</h3>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Dosya</th><th>Açılan takma ad</th><th>Gömülen fonksiyon</th><th>Fonksiyon kalan</th></tr></thead>
 <tbody>
 <tr><td><code>L3_numerical_packed.html</code></td><td><code>a=Math.abs</code><span class="sub">3 yer</span><code>N='indexOf'</code><span class="sub">4 yer</span></td><td><code>Z</code> <code>A</code> <code>D</code> <code>F</code></td><td><code>G</code> <code>V</code> <code>L</code> <code>C</code> <code>M</code> <code>I</code> <code>Im</code> <code>H</code> <code>l</code></td></tr>
 <tr><td><code>L3_packed.html</code></td><td><code>a=Math.abs</code><span class="sub">3 yer</span><code>N='indexOf'</code><span class="sub">5 yer</span><span class="sub">N='innerText' açılmayan tek takma ad</span></td><td><code>Z</code> <code>Im</code></td><td><code>G</code> <code>V</code> <code>L</code> <code>C</code> <code>M</code> <code>I</code> <code>H</code> <code>l</code> <code>A</code> <code>F</code> <code>S</code> <code>d</code></td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>File</th><th>Alias expanded</th><th>Function inlined</th><th>Kept as a function</th></tr></thead>
 <tbody>
 <tr><td><code>L3_numerical_packed.html</code></td><td><code>a=Math.abs</code><span class="sub">3 sites</span><code>N='indexOf'</code><span class="sub">4 sites</span></td><td><code>Z</code> <code>A</code> <code>D</code> <code>F</code></td><td><code>G</code> <code>V</code> <code>L</code> <code>C</code> <code>M</code> <code>I</code> <code>Im</code> <code>H</code> <code>l</code></td></tr>
@@ -12019,7 +12032,7 @@ f = K[2] + K[3] - 0</pre></div>
       that never appear as identifiers in each file. The source of all seven plain files was
       parsed and every single-letter identifier collected; what follows is what was left.</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Dosya</th><th>Boşta harfler</th><th class="num">Sayı</th></tr></thead>
 <tbody>
 <tr><td><code>engine.js</code></td><td><code>E</code> <code>J</code> <code>j</code> <code>_</code></td><td class="num">4</td></tr>
@@ -12031,7 +12044,7 @@ f = K[2] + K[3] - 0</pre></div>
 <tr><td><code class="vn">main</code></td><td><code>J</code></td><td class="num">1</td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>File</th><th>Free letters</th><th class="num">Count</th></tr></thead>
 <tbody>
 <tr><td><code>engine.js</code></td><td><code>E</code> <code>J</code> <code>j</code> <code>_</code></td><td class="num">4</td></tr>
@@ -12066,7 +12079,7 @@ f = K[2] + K[3] - 0</pre></div>
       olacak <b>ve</b> dosyada karakter olarak da hiç bulunmayacak. İkisi aynı şey
       değil.</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Harf</th><th class="num">Kaç dosyada boşta</th><th>Boşta olduğu dosyalarda karakter olarak</th></tr></thead>
 <tbody>
 <tr><td><code>J</code></td><td class="num">7</td><td>Hiçbirinde yok</td></tr>
@@ -12075,7 +12088,7 @@ f = K[2] + K[3] - 0</pre></div>
 <tr><td><code>_</code></td><td class="num">3</td><td>Hiçbirinde yok</td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Letter</th><th class="num">Free in how many files</th><th>As a character, in the files where it is free</th></tr></thead>
 <tbody>
 <tr><td><code>J</code></td><td class="num">7</td><td>In none of them</td></tr>
@@ -12152,14 +12165,14 @@ f = K[2] + K[3] - 0</pre></div>
       escaping. A three-character fix does not stop at bytes: it takes a letter out of the token
       alphabet too.</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Dosya</th><th>Kaynakta geçmeyen yazdırılabilirler</th><th>Token sınıfı</th></tr></thead>
 <tbody>
 <tr><td><code>L3_numerical_packed.html</code></td><td><code>" # @ A E F J W \ _ j</code></td><td><code>[\u0001-\u001f E F @ A j _ W J # \\]</code><span class="sub">on birden onu</span></td></tr>
 <tr><td><code>L3_packed.html</code></td><td><code>" @ E H _</code></td><td><code>[\u0001-\u001f _ H E @]</code><span class="sub">beşten dördü</span></td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>File</th><th>Printables absent from the source</th><th>Token class</th></tr></thead>
 <tbody>
 <tr><td><code>L3_numerical_packed.html</code></td><td><code>" # @ A E F J W \ _ j</code></td><td><code>[\u0001-\u001f E F @ A j _ W J # \\]</code><span class="sub">ten of the eleven</span></td></tr>
@@ -12183,7 +12196,7 @@ f = K[2] + K[3] - 0</pre></div>
       varies is the crush tuple, and each file wants its own: the values below reproduce that file
       <b>byte for byte</b>.</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Dosya</th><th class="num">gain</th><th class="num">length</th><th class="num">copies</th><th class="num">tiebreaker</th></tr></thead>
 <tbody>
 <tr><td><code>L3_packed.html</code></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
@@ -12194,7 +12207,7 @@ f = K[2] + K[3] - 0</pre></div>
 <tr><td><code>Chesscom-equivalent_numerical.html</code></td><td class="num">1</td><td class="num">0</td><td class="num">0,5</td><td class="num">0</td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>File</th><th class="num">gain</th><th class="num">length</th><th class="num">copies</th><th class="num">tiebreaker</th></tr></thead>
 <tbody>
 <tr><td><code>L3_packed.html</code></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
@@ -12336,7 +12349,7 @@ f = K[2] + K[3] - 0</pre></div>
 
     <h3 lang="tr">Eskimiş olanlar</h3>
     <h3 lang="en">The obsolete ones</h3>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Ne</th><th>Kaynakta</th><th>Durumu</th><th>Modern karşılığı</th><th class="num">Bedeli</th></tr></thead>
 <tbody>
 <tr><td><code>&lt;center&gt;</code></td><td><code>&lt;center&gt;</code></td><td>Eskimiş öge</td><td><code>text-align:center</code>, <code>*</code> kuralına</td><td class="num">+10</td></tr>
@@ -12348,7 +12361,7 @@ f = K[2] + K[3] - 0</pre></div>
 <tr><td><code>with</code></td><td>yalnızca paketli dosyalarda, RegPack açıcısı</td><td>Katı kipte (strict mode) yasak</td><td>yok</td><td class="num">—</td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>What</th><th>In the source</th><th>Status</th><th>Modern equivalent</th><th class="num">Cost</th></tr></thead>
 <tbody>
 <tr><td><code>&lt;center&gt;</code></td><td><code>&lt;center&gt;</code></td><td>Obsolete element</td><td><code>text-align:center</code>, on the <code>*</code> rule</td><td class="num">+10</td></tr>
@@ -12538,7 +12551,7 @@ f = K[2] + K[3] - 0</pre></div>
       table that comes out. The error and warning column gives the counts from the W3C Nu Html
       Checker 26.9.16 with CSS checking on.</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Grup</th><th>Dosyalar</th><th>Belge modu</th><th>Hata / uyarı</th><th>Eskimiş öge ve nitelikler</th><th>JavaScript</th></tr></thead>
 <tbody>
 <tr><td>Ana DOM sürümleri</td><td><code>L1</code>, <code>L1_1250elo</code>, <code>L2</code>, <code>L2_aybars_2500</code>, <code>L3</code></td><td>standart</td><td>0 / 0</td><td>yok</td><td>modern</td></tr>
@@ -12550,7 +12563,7 @@ f = K[2] + K[3] - 0</pre></div>
 <tr><td>Toledo'nun rakibi</td><td><code>ToledosOpponentbyMe</code></td><td>quirks</td><td>8 / 3 — <code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>cellspacing</code>, kapanmamış ögeler</td><td><code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>cellspacing</code>; ürettiği hücrelerde <code>width</code></td><td><code>.bgColor</code></td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Group</th><th>Files</th><th>Document mode</th><th>Errors / warnings</th><th>Obsolete elements and attributes</th><th>JavaScript</th></tr></thead>
 <tbody>
 <tr><td>Main DOM builds</td><td><code>L1</code>, <code>L1_1250elo</code>, <code>L2</code>, <code>L2_aybars_2500</code>, <code>L3</code></td><td>standards</td><td>0 / 0</td><td>none</td><td>modern</td></tr>
@@ -12717,7 +12730,7 @@ f = K[2] + K[3] - 0</pre></div>
       Eski <code>b[i]&lt;1</code> iki deliği birden kapatıyordu, çünkü
       <code>undefined&lt;1</code> yanlıştır.</li>
     </ul>
-    <div class="tw" lang="tr"><table class="">
+    <div class="tw" lang="tr"><table>
 <thead><tr><th><code>b[i]</code></th><th><code>b[i]&lt;1</code> (eski)</th><th><code>!b[i]</code> (bugün)</th></tr></thead>
 <tbody>
 <tr><td><code>0</code> — boş kare</td><td>doğru → devam</td><td>doğru → devam</td></tr>
@@ -12805,7 +12818,7 @@ f = K[2] + K[3] - 0</pre></div>
       position and calls <code>V</code> falls straight in. The old <code>b[i]&lt;1</code> closed
       both holes at once, because <code>undefined&lt;1</code> is false.</li>
     </ul>
-    <div class="tw" lang="en"><table class="">
+    <div class="tw" lang="en"><table>
 <thead><tr><th><code>b[i]</code></th><th><code>b[i]&lt;1</code> (old)</th><th><code>!b[i]</code> (today)</th></tr></thead>
 <tbody>
 <tr><td><code>0</code> — an empty square</td><td>true → go on</td><td>true → go on</td></tr>
@@ -12966,7 +12979,7 @@ f = K[2] + K[3] - 0</pre></div>
       the wrong player, and the error is not quiet: it produces the <b>exact opposite</b> result.
       Measured:</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Durum</th><th>Motor <code>F(g,k)</code></th><th>Sürücü <code>H(t)</code></th></tr></thead>
 <tbody>
 <tr><td>Sıra beyazda, <b>beyaz</b> terk ediyor</td><td><code>RM</code></td><td><code>RM</code> ✓</td></tr>
@@ -12975,7 +12988,7 @@ f = K[2] + K[3] - 0</pre></div>
 <tr><td>Sıra beyazda, <b>siyah</b> terk ediyor</td><td><code>WR</code></td><td><code>RM</code> <b>✗</b></td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Case</th><th>Engine <code>F(g,k)</code></th><th>Driver <code>H(t)</code></th></tr></thead>
 <tbody>
 <tr><td>White to move, <b>White</b> resigns</td><td><code>RM</code></td><td><code>RM</code> ✓</td></tr>
@@ -13027,7 +13040,7 @@ f = K[2] + K[3] - 0</pre></div>
       <code class="vn">L2_aybars_2500</code> ends it on threefold repetition and 50 moves as well — the
       <a href="#indicators">indicators</a> section gives the reason.</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Ad</th><th>Genel hâli</th><th>Sapma</th></tr></thead>
 <tbody>
 <tr><td><code>U</code></td><td>Saatler, saniye — iki elemanlı dizi, indeks sırayla eşleşiyor: <code>U[0]</code> siyah, <code>U[1]</code> beyaz. <code>U=[600,600]</code><span class="sub">engine.js · engine_4x.js · prompt · prompt_blindfold · prompt_string · prompt_string_flip · nonbrowser</span></td><td><code class="vn">main</code> ve <code class="vn">light</code>: <code>U=[600,600,new Date]</code>, <code>U[2]</code> zaman damgası baştan dizide ve indeks ters — <code>U[0]</code> beyaz, <code>U[1]</code> siyah. <code class="vn">input</code> ve <code class="vn">input_blindfold</code>: damga yine <code>U[2]</code>'de, indeks genel hâldeki gibi. <code class="vn">nonbrowser</code> ailesi damgayı her okumadan önce <code>U[2]</code>'ye yazıyor. <code class="vn">numerical</code>: milisaniye, <code>U=[9E5,9E5]</code>. <code class="vn">L2</code> ve <code class="vn">L2_aybars_2500</code>: saat yok, <code>U</code> hiç doğmuyor</td></tr>
@@ -13036,7 +13049,7 @@ f = K[2] + K[3] - 0</pre></div>
 <tr><td><code>z</code></td><td>Oyun sonucu</td><td><code>engine</code>, <code>engine_4x</code> ve <code class="vn">numerical</code>'da <a href="#codes">sayı kodu</a>; kalan bütün sürümlerde iki harfli dizgi</td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Name</th><th>General form</th><th>Deviation</th></tr></thead>
 <tbody>
 <tr><td><code>U</code></td><td>The clocks, in seconds — a two-element array indexed by the side to move: <code>U[0]</code> black, <code>U[1]</code> white. <code>U=[600,600]</code><span class="sub">engine.js · engine_4x.js · prompt · prompt_blindfold · prompt_string · prompt_string_flip · nonbrowser</span></td><td><code class="vn">main</code> and <code class="vn">light</code>: <code>U=[600,600,new Date]</code>, the <code>U[2]</code> timestamp is in the array from the start and the index is reversed — <code>U[0]</code> white, <code>U[1]</code> black. <code class="vn">input</code> and <code class="vn">input_blindfold</code>: the stamp is in <code>U[2]</code> again, indexed as in the general form. The <code class="vn">nonbrowser</code> family writes the stamp into <code>U[2]</code> before every read. <code class="vn">numerical</code>: milliseconds, <code>U=[9E5,9E5]</code>. <code class="vn">L2</code> and <code class="vn">L2_aybars_2500</code>: no clock, <code>U</code> never comes into being</td></tr>
@@ -13273,7 +13286,7 @@ f = K[2] + K[3] - 0</pre></div>
       never reads what it shadows. The two are never live at the same time — by the time one sets
       its value, the other has long since finished its work.</p>
     </div>
-<div class="tw" lang="tr"><table class="">
+<div class="tw" lang="tr"><table>
 <thead><tr><th>Harf</th><th>Bir tarafta</th><th>Öbür tarafta</th></tr></thead>
 <tbody>
 <tr><td><code>g</code></td><td>Motorun taraf parametresi — <code>L I Im D F</code></td><td><code class="vn">main</code>'de alt saat ögesi; dört metin sürücüsünde hamleyi yapan taraf</td></tr>
@@ -13295,7 +13308,7 @@ f = K[2] + K[3] - 0</pre></div>
 <tr><td><code>N</code></td><td>Motorun <code>'indexOf'</code> takma adı</td><td><code class="vn">L2</code> ailesinde <code>'innerHTML'</code> takma adı; <code>L3_packed.html</code>'de <code>'innerText'</code>, <code>L3_numerical_packed.html</code>'de siyahın saati</td></tr>
 </tbody>
 </table></div>
-<div class="tw" lang="en"><table class="">
+<div class="tw" lang="en"><table>
 <thead><tr><th>Letter</th><th>On one side</th><th>On the other</th></tr></thead>
 <tbody>
 <tr><td><code>g</code></td><td>The engine's colour parameter — <code>L I Im D F</code></td><td>The bottom clock element in <code class="vn">main</code>; the side making the move in the four text drivers</td></tr>
@@ -13780,8 +13793,6 @@ var FLT = {
     tabNoteEndless: ' Bu sürüm yeni sekmede açılır: prompt penceresinden çıkış yok ve oyun hiç bitmez; pencere son hamleyi gösterir, sekmeyle birlikte kapanır.',
     newTab:   '%s yeni sekmede açıldı \u00b7 ',
     frame:    '%s sürümü',
-    noEval:   ' \u00b7 eval kapalı, düz',
-    noPack:   ' \u00b7 paket açılmadı, düz',
     oneLine:  ' \u00b7 tek satır',
     noWrap:   ' bayt \u00b7 tek satır \u00b7 sarmalayıcı yok',
     bytes:    ' bayt',
@@ -13812,8 +13823,6 @@ var FLT = {
     tabNoteEndless: ' This build opens in a new tab: its prompt dialog has no way out and the game never ends; the dialog shows the last move, and it closes with the tab.',
     newTab:   '%s opened in a new tab \u00b7 ',
     frame:    '%s build',
-    noEval:   ' \u00b7 eval blocked, plain',
-    noPack:   ' \u00b7 packed did not unpack, plain',
     oneLine:  ' \u00b7 one line',
     noWrap:   ' bytes \u00b7 one line \u00b7 no wrapper',
     bytes:    ' bytes',
@@ -14025,18 +14034,7 @@ var DIR = 'builds/';
    icin de gerekli: koku DIR'den turetiyoruz, boylece build.mjs'te ikinci bir
    kural tutmaya gerek kalmiyor. */
 var ROOT = DIR.slice(0, -'builds/'.length);
-/* k/ks: paketli hali ayni surumun ikinci dosyasi olarak oynatilacaksa. Su an
-   hicbir surumde yok; L3'un paketli halleri special'da kendi basina surum
-   (L3_packed, L3_numerical_packed). start()'taki paket -> duz dusme yolu,
-   ileride bir surume yeniden k verilirse diye duruyor. */
 var ART = {"L3": {"p": "L3.html", "ps": 3194}, "L3_light": {"p": "L3_light.html", "ps": 2677}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2114}, "L3_prompt": {"p": "L3_prompt.html", "ps": 2451}, "L3_prompt_blindfold": {"p": "L3_prompt_blindfold.html", "ps": 2315}, "L3_input": {"p": "L3_input.html", "ps": 2583}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2438}, "L3_prompt_string": {"p": "L3_prompt_string.html", "ps": 2566}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2508}, "L1": {"p": "builds/L1/L1.html", "ps": 1581}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1159}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 873}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1178}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1141}, "L1_1250elo": {"p": "builds/L1/L1_1250elo.html", "ps": 2278}, "L2": {"p": "builds/L2/L2.html", "ps": 2266}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1758}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1534}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1866}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1871}, "L2_aybars_2500": {"p": "builds/L2/L2_aybars_2500.html", "ps": 8038}, "L3_packed": {"p": "special/L3_packed.html", "ps": 2702}, "L3_numerical_packed": {"p": "special/L3_numerical_packed.html", "ps": 1792}, "Chesscom-equivalent": {"p": "special/Chesscom-equivalent.html", "ps": 2878}, "Chesscom-equivalent_numerical": {"p": "special/Chesscom-equivalent_numerical.html", "ps": 1175}, "Lichess-equivalent": {"p": "special/Lichess-equivalent.html", "ps": 3044}, "Lichess-equivalent_numerical": {"p": "special/Lichess-equivalent_numerical.html", "ps": 1228}, "L2_noBlockedDetector": {"p": "special/L2_noBlockedDetector.html", "ps": 1909}, "L2_string_flip_noBlockedDetector": {"p": "special/L2_string_flip_noBlockedDetector.html", "ps": 1999}, "DOM_1023": {"p": "special/DOM_1023.html", "ps": 1023}, "DOM_minimum": {"p": "special/DOM_minimum.html", "ps": 830}, "Lowest": {"p": "special/Lowest.html", "ps": 766}, "LUX_inProgress": {"p": "special/LUX_inProgress.html", "ps": 7985}, "Toledos-ES6-optimized": {"p": "special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "special/ToledosOpponentbyMe.html", "ps": 2077}, "engine": {"p": "engine.js", "ps": 1883}, "engine_4x": {"p": "engine_4x.js", "ps": 1963}, "engine_string": {"p": "engine_string.js", "ps": 1999}};
-
-/* Paketli sürümler kendilerini eval ile açıyor. unsafe-eval içermeyen bir CSP
-   altında bu imkânsız; iframe aynı sunucudan yüklendiği için aynı politikayı
-   alır, dolayısıyla buradaki testin cevabı iframe'in de cevabıdır. */
-var canEval = function () {
-  try { return eval('1') === 1; } catch (e) { return false; }
-}();
 
 function url(n) { return n.indexOf('/') > -1 ? ROOT + n : DIR + n; }
 function fmt(n) { return n.toLocaleString(FL('locale')); }
@@ -14337,33 +14335,8 @@ function start() {
   /* L3 saatini saniyede bir yaziyor, sonuc satiri uzayabiliyor. */
   fitTimer = setInterval(function () { if (mode === 'game') measure(); }, 350);
 
-  /* Paketi olmayan surum ile eval'in kapali olmasi ayni yere cikiyor: plain.
-     Ilkinde soylenecek bir sey yok, ikincisinde sebebi yaziyoruz. */
-  if (!a.k) {
-    frame.src = url(a.p);
-    live(key, a.p, a.ps);
-    return;
-  }
-  if (!canEval) {
-    frame.src = url(a.p);
-    live(key, a.p, a.ps, FL('noEval'));
-    return;
-  }
-  frame.src = url(a.k);
-  live(key, a.k, a.ks);
-
-  /* Paket açılmadıysa plain'e düş. Açılma başarılıysa oyunun globalleri
-     iframe'de durur; b 64 karelik tahtadır. Bloklayan prompt sürümlerinde
-     load geç ateşler ama o gecikme zaten paketin çalıştığı anlamına gelir. */
-  var mine = frame;
-  frame.addEventListener('load', function () {
-    if (frame !== mine) return;
-    var w;
-    try { w = mine.contentWindow; } catch (e) { return; }
-    if (w && Array.isArray(w.b) && w.b.length === 64) return;
-    mine.src = url(a.p);
-    live(key, a.p, a.ps, FL('noPack'));
-  }, {once: true});
+  frame.src = url(a.p);
+  live(key, a.p, a.ps);
 }
 
 /* ---- Kodu goster: katman boyamasi ----
