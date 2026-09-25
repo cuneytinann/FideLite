@@ -185,6 +185,17 @@ if (FLOLD[location.hash.slice(1)]) {
 
   --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+
+  /* tahta deseni: yan kolonlar ve sur tirtigi ayni kaynaktan beslenir. Kareler
+     temanin tahta renklerinden, kagida karistirilip kisilmis; --shade kagidin
+     desene dusurdugu golge. */
+  --sq-a:  color-mix(in oklab, var(--lt) 50%, var(--paper));
+  --sq-b:  color-mix(in oklab, var(--dk) 58%, var(--paper));
+  --shade: light-dark(rgba(70,45,20,.24), rgba(0,0,0,.6));
+  /* Kare yuzleri: sol ust yari isikta, sag alt yari golgede. Yumusak durak
+     gecisleri koseli kenarlardaki merdiven kirilmalarini siliyor. */
+  --sq-lit: light-dark(rgba(255,255,255,.12), rgba(255,255,255,.05));
+  --sq-dim: light-dark(rgba(70,45,20,.07), rgba(0,0,0,.18));
 }
 /* elle secim: color-scheme'i sabitler, light-dark() onu izler */
 :root[data-theme="light"] { color-scheme: light }
@@ -283,16 +294,17 @@ body {
   section :is(.prose, .epi, .diagram, .snip, .codes, .cost, .fl, .note,
     ul.tight, ol.tight) { max-width:none }
   #play .player { margin-inline:calc(-30% + 1.5rem) }
+  /* Bolum ayraci genis ekranda yalnizca kagit sutunun icinde. Tam genislikteki
+     alt kenar yan kolonlardaki tahtanin ustunden geciyor, desen ekrana sabit
+     oldugu icin de oraya ait olmayan ince bir cizgi gibi duruyordu. Ayni cizgi
+     artik sutun genisliginde bir arka plan katmani; kenarin kendisi saydam.
+     Her panelin son bolumunde kenar tam genislikte kalir: orada tahta bitiyor,
+     footer basliyor. */
   section {
     --col: calc(min(100%, 78rem) * 5 / 16 + 1.5rem);
-    --sq-a: color-mix(in oklab, var(--lt) 50%, var(--paper));
-    --sq-b: color-mix(in oklab, var(--dk) 58%, var(--paper));
-    --shade: light-dark(rgba(70,45,20,.24), rgba(0,0,0,.6));
-    /* Kare yuzleri: sol ust yari isikta, sag alt yari golgede. Yumusak durak
-       gecisleri koseli kenarlardaki merdiven kirilmalarini siliyor. */
-    --sq-lit: light-dark(rgba(255,255,255,.12), rgba(255,255,255,.05));
-    --sq-dim: light-dark(rgba(70,45,20,.07), rgba(0,0,0,.18));
+    --sep: var(--rule);
     background:
+      linear-gradient(var(--sep), var(--sep)) 50% 100% / calc(2 * var(--col)) 1px no-repeat,
       linear-gradient(90deg,
         transparent calc(50% - var(--col) - 1.2rem), var(--shade) calc(50% - var(--col)),
         var(--paper) 0 calc(50% + var(--col)),
@@ -304,6 +316,10 @@ body {
       conic-gradient(from 45deg, var(--sq-a) 0 24.6%, var(--sq-b) 25.4% 49.6%,
         var(--sq-a) 50.4% 74.6%, var(--sq-b) 75.4% 99.6%, var(--sq-a)) 0 0 / 64px 64px fixed;
   }
+  /* :not() ozgulugu asagidaki genel section kuralini gecmek icin: o kural
+     dosyada daha sonra geliyor ve kenari yeniden boyuyor. */
+  section:not(:last-child) { border-bottom-color:transparent }
+  section:last-child { --sep: transparent }
 }
 a { color:var(--link); text-decoration-thickness:1px; text-underline-offset:2px }
 a:hover { text-decoration-thickness:2px }
@@ -353,6 +369,32 @@ p { margin:0 0 1rem }
    ikisinde de yalnizca ayni dilin ardisikligini yakalar. Kutular kendi boslugunu tasir. */
 .prose[lang="tr"] + .prose[lang="tr"]:not(.fl),
 .prose[lang="en"] + .prose[lang="en"]:not(.fl) { margin-top:1rem }
+
+/* ---- sur tirtigi ----
+   Sayfanin ust kenari kale surunun tepesi: kagit renginde disler, aralarindaki
+   mazgallardan yan kolonlardaki tahta deseni gorunur. Desen yan kolonlardaki
+   gibi ekrana sabit (fixed), yani ayni tahtanin parcasi: her mazgal onun baska
+   bir dilimini gosteriyor ve serit, arkasinda tahta duran bir sur gibi okunuyor.
+   Bir dis ile bir mazgal birlikte 80px; desenin 64px'lik araligiyla ortusmedigi
+   icin mazgallar ayni sekli tekrar etmiyor. Yatayda round: serit her genislikte
+   tam sayida dise bolunur, iki kosede de dis kalir, simetrik durur. Kagit
+   sutunun yanlarda desene dusurdugu golge burada her mazgalin iki kenarinda.
+   Genel isik katmani konmadi: mazgallar kucuk, kontrast kalsin. HTML'e
+   dokunmamak icin body::before; header'dan once geldigi icin en tepede durur. */
+body::before {
+  content:""; display:block; height:2rem;
+  background:
+    linear-gradient(90deg, var(--paper) 25%, transparent 0 75%, var(--paper) 0)
+      0 0 / 80px 100% round repeat,
+    linear-gradient(90deg, transparent 25%, var(--shade) 0, transparent calc(25% + .6rem)
+      calc(75% - .6rem), var(--shade) 75%, transparent 0)
+      0 0 / 80px 100% round repeat,
+    conic-gradient(from 45deg, var(--sq-lit) 0 49.6%, var(--sq-dim) 50.4% 99.6%, var(--sq-lit))
+      0 0 / 64px 64px fixed,
+    conic-gradient(from 45deg, var(--sq-a) 0 24.6%, var(--sq-b) 25.4% 49.6%,
+      var(--sq-a) 50.4% 74.6%, var(--sq-b) 75.4% 99.6%, var(--sq-a))
+      0 0 / 64px 64px fixed;
+}
 
 /* ---- masthead ---- */
 .mast { border-bottom:1px solid var(--rule); padding:1rem 0 }
@@ -945,18 +987,24 @@ dl.api dd { margin:0; color:var(--ink-2) }
 .fn2 { font-family:var(--mono); font-size:.72rem; color:var(--ink-3) }
 ul.tight, ol.tight { margin:1rem 0; padding-left:1.25rem; max-width:44rem }
 ul.tight li, ol.tight li { margin-bottom:.5rem }
-footer { padding:3.25rem 0 4.25rem; font-family:var(--mono);
-  font-size:clamp(1rem,2.6vw,1.5rem); color:var(--ink-3) }
+/* Footer eskisinin yarisi kadar: dolgu, yazi boyu ve simge birlikte kuculdu.
+   Dar ekranda da simge metnin yaninda kaliyor, alta sarmiyor. */
+footer { padding:1.75rem 0; font-family:var(--mono); line-height:1.35;
+  font-size:clamp(.9375rem,1.8vw,1.125rem); color:var(--ink-3) }
 footer a { color:var(--ink-2) }
-footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
-/* Simge ve metin birlikte olceklensin diye ikisi de ayni clamp'e bagli. */
-.hole { flex:0 0 auto; width:clamp(4.25rem,11vw,6.5rem);
-  height:clamp(4.25rem,11vw,6.5rem); display:block }
+footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
+/* Simge ve metin birlikte olceklensin diye ikisi de ayni orandaki clamp'e bagli:
+   simge yazi boyunun yaklasik 3.2 kati. */
+.hole { flex:0 0 auto; width:clamp(3rem,5.75vw,3.6rem);
+  height:clamp(3rem,5.75vw,3.6rem); display:block }
 .hole .disk { fill:none; stroke:var(--acc); stroke-width:1.5; opacity:.75 }
 .hole .ring { fill:none; stroke:var(--acc); stroke-width:2.5 }
 .hole .core { fill:#05070c }   /* cekirdek her iki temada da siyah; onu ceviren
                                   halka ve disk --acc ile temaya gore degisiyor */
-.foot-txt { display:flex; flex-direction:column; gap:.6rem; min-width:0 }
+.foot-txt { display:flex; flex-direction:column; gap:.35rem; min-width:0 }
+/* Genel p alt boslugu burada metni simgeye gore yukari itip altta fazladan
+   bosluk birakiyordu. */
+.foot-txt p { margin:0 }
 .foot-txt b { color:var(--ink-2); font-weight:600; letter-spacing:.01em }
 @media (prefers-reduced-motion:reduce) { * { transition:none !important } }
 </style>
@@ -1356,7 +1404,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       başlar. Sürüm değiştirmek çalışan oyunu kapatır.</p>
       <p>Önce kural seviyesini, sonra sürümü seç. Her seviyenin ilk sürümü, <code class="vn">default</code>,
       o seviyenin ana dosyası. <code class="vn">L3</code> tam hakem: bütün sürümlerinde kural tarafı aynı,
-      değişen yalnızca hamleyi nasıl girdiğin ve tahtanın nasıl çizildiği. <code class="vn">L1</code> ve
+      değişen yalnızca hamleyi nasıl girdiğin, tahtanın nasıl çizildiği ve hangi göstergelerin
+      bulunduğu. <code class="vn">L1</code> ve
       <code class="vn">L2</code> kural seviyesi daha düşük olanlar, botlu sürümler de onların altında; ikisi
       de iddianın dışında. <code class="vn">special</code> ayrı bir katman: bu seviyelerden türemiş ama
       hiçbirine tam uymayan, kimi zaman projenin kendi ilkelerine ters düşen çok çeşitli sürümler.
@@ -1377,7 +1426,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       Changing builds closes the running game.</p>
       <p>Pick a rule level first, then a build. In each level the first build, <code class="vn">default</code>,
       is that level's main file. <code class="vn">L3</code> is the full arbiter: the rule layer is identical
-      in all of its builds; what changes is how you enter a move and how the board is drawn.
+      in all of its builds; what changes is how you enter a move, how the board is drawn and which
+      indicators are shown.
       <code class="vn">L1</code> and <code class="vn">L2</code> are the lower rule levels, and the builds with a bot sit
       under them; both are outside the claim. <code class="vn">special</code> is a layer of its own: builds derived from these
       levels that fit none of them, some of them at odds with the project's own principles. The
@@ -2910,8 +2960,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       arayüzün ayarı, kuralın değil. Buradaki iddia motorun kural doğruluğu üzerine, arayüzün
       konforu üzerine değil.</p>
       <p>Asıl fark iddiada. Yönetmelik üçlü tekrarı ve 50 hamleyi kimsenin iddiasını beklemeden,
-      kendiliğinden beraberlik sayıyor (5.4). Bu, iki oyuncunun da iddia düğmesinin hep açık
-      olduğunu varsaymakla aynı şey; amaç sadeleştirmek. Bu da özünde bir arayüz tercihi: eşik
+      kendiliğinden beraberlik sayıyor (5.4). Bu, iki oyuncunun da iddia düğmesinin karşıdakinin
+      aleyhine açık olduğunu varsaymakla aynı şey; amaç sadeleştirmek. Bu da özünde bir arayüz tercihi: eşik
       dolduğu anda iddiayı oyuncu adına kendisi yapan bir arayüz, motora dokunmadan aynı davranışı
       verir. Varyantlar arasında üçlü tekrarı ve 50 hamleyi kendiliğinden işleten bir sürüm de
       zaten var: <a href="#special">Chess.com eşdeğeri</a>.</p>
@@ -2930,7 +2980,8 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       the interface's comfort.</p>
       <p>The real difference is in claims. The regulations declare threefold repetition and the
       50-move rule drawn automatically, without waiting for anyone to claim (5.4). That is the same
-      as assuming both players always have the claim switched on; the aim is simplification. At
+      as assuming both players have the claim switched on against each other; the aim is
+      simplification. At
       heart this too is an interface choice: an interface that makes the claim on the player's
       behalf the moment a threshold is reached gives the same behaviour without touching the
       engine. Among the builds there is already one that ends the game automatically at threefold
@@ -5110,7 +5161,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <i class="d" data-f="g"></i>
 <i data-f="h" data-r="1"></i>
 </div>
-        <figcaption>Piyonlar donmuş: beyazınkiler açık karelerde, siyahınkiler koyu karelerde, filler zıt renkte — hiçbir alım mümkün değil. Şahlar da karşı tarafa geçemiyor. Ama pozisyon <b>ölü değil</b>: beyaz hâlâ mat edebiliyor, siyah edemiyor.</figcaption>
+        <figcaption>Piyonlar donmuş: beyazınkiler açık karelerde, siyahınkiler koyu karelerde, filler zıt renkte — tek mümkün alım, siyah şahın korumasız beyaz fili alması; o da pozisyonu ölü yapar. Şahlar da karşı tarafa geçemiyor. Ama şu hâliyle pozisyon <b>ölü değil</b>: beyaz hâlâ mat edebiliyor, siyah edemiyor.</figcaption>
       </figure>
     <figure class="fig fig-wide" lang="en">
         <div class="mb et el eb er" role="img" aria-label="White king d1 and bishop f7, pawns a6, b5, d5, f5, g4. Black king d7 and bishop f8, pawns a7, b6, d6, f6, g5. All the pawns are locked head to head; the white pawns stand on light squares, the black pawns on dark, and the bishops are of opposite colours.">
@@ -5179,12 +5230,12 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <i class="d" data-f="g"></i>
 <i data-f="h" data-r="1"></i>
 </div>
-        <figcaption>The pawns are frozen: White’s on light squares, Black’s on dark, the bishops of opposite colours — no capture is possible at all. Neither king can cross either. But the position is <b>not dead</b>: White can still mate, Black cannot.</figcaption>
+        <figcaption>The pawns are frozen: White’s on light squares, Black’s on dark, the bishops of opposite colours — the only possible capture is the black king taking the unprotected white bishop, and that makes the position dead. Neither king can cross either. But as it stands the position is <b>not dead</b>: White can still mate, Black cannot.</figcaption>
       </figure>
     <div class="prose" lang="tr">
       <p>Piyon yapısı donduğu için ulaşılabilir durum sayısı sonlu ve tamamı sayılabiliyor:
-      <b>75.168 durum</b>. Bunların hiçbirinde beyaz mat değil; <b>58'inde</b> siyah mat.
-      Örneğin:</p>
+      fil tahtada kaldığı sürece <b>68.672 durum</b>. Bunların hiçbirinde beyaz mat değil;
+      <b>58'inde</b> siyah mat. Örneğin:</p>
     </div>
     <figure class="fig fig-wide" lang="tr">
         <div class="mb et el eb er" role="img" aria-label="Siyah şah a8, kendi fili b8 ve kendi piyonu a7. Beyaz fil c6 şah çekiyor, beyaz piyon a6 b7 karesini tehdit ediyor. Siyahın hiçbir geçerli hamlesi yok — mat.">
@@ -5262,14 +5313,30 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       tek olur. Pozisyon ölü olmadığı için oyun da durmuyor ve durmaması gerekiyor.</p>
     </div>
     <div class="prose fl" lang="tr">
-      <p><b>FideLite'ta.</b> Motor bu pozisyonda bir tarafta doğru, öbür tarafta yanlış hüküm veriyor: siyahın bayrağı düştüğünde doğru hüküm veriyor, beyazınkinde kaçırıyor. Sebep tanıdık — alan geniş, arama bütçe içinde
-      kapatamıyor. Bütçe elli kat büyütüldüğünde de değişmiyor. Bu, yukarıda anlatılan
+      <p><b>FideLite'ta.</b> Kilitli pozisyon taraması, tahtada fil olan pozisyonlara hiç bakmıyor.
+      Bayrak düştüğünde ya da oyuncu terk ettiğinde devreye giren yardımlı mat araması da bu
+      genişlikte bir alanı kapatıp “mat imkânsız” diyemiyor. Bu yüzden motor, hangi taraf bayrağını
+      düşürür ya da terk ederse onu kaybetmiş sayıyor. Bu, güvenli tarafta kalmak: kanıtlanamayan bir
+      imkânsızlık beraberlik sayılmıyor. Siyah için hüküm dolaylı yoldan doğru çıkıyor, çünkü siyah
+      gerçekten mat edilebilir. Beyaz için yanlış, çünkü beyaz mat edilemez ve doğru hüküm
+      beraberlik. Bütçe elli kat büyütüldüğünde de değişmiyor. Bu, yukarıda anlatılan
       <a href="#dead">3.567 oyunluk şeridin</a> somut bir örneği.</p>
+      <p>Motorun bu pozisyonu algılayan gelişmiş sürümünde üç pozisyonu kendiniz deneyerek
+      görebilirsiniz: <a class="ext" href="https://cuneytinann.github.io/Chess-LUX/" target="_blank" rel="noopener">Chess LUX ↗️</a> sayfasını açın, açılan pencereye FEN'i girip Play ile oyunu
+      başlatın.</p>
+      <pre class="snip">5b2/p2k1B2/Pp1p1p2/1P1P1Pp1/6P1/8/8/3K4 w - - 0 1
+5b2/p2k1B2/Pp1p1p2/1P1P1Pp1/6P1/8/8/3K4 b - - 0 1
+3k1b2/p7/Pp1p1p2/1P1P1Pp1/6P1/8/8/3K4 b - - 0 1</pre>
+      <p>İlk ikisinde oyun devam ediyor: hiçbir hamle yapmadan ⚐ düğmesiyle terk edin. Terk eden,
+      sırası gelen taraf; terk de bayrak düşmesiyle aynı soruyla karara bağlanıyor. İlkinde beyaz
+      terk ediyor ve oyun berabere bitiyor (½‑½); ikincisinde siyah terk ediyor ve kaybediyor (1‑0).
+      Üçüncüsü fil alındıktan sonraki pozisyon: oyun tek hamle yapılmadan ölü pozisyonla berabere
+      bitiyor (½‑½).</p>
     </div>
     <div class="prose" lang="en">
       <p>Because the pawn structure is frozen, the number of reachable states is finite and can be
-      counted in full: <b>75,168 states</b>. In none of them is White mated; in <b>58</b> Black is.
-      For instance:</p>
+      counted in full: <b>68,672 states</b> while the white bishop stays on the board. In none of
+      them is White mated; in <b>58</b> Black is. For instance:</p>
     </div>
     <figure class="fig fig-wide" lang="en">
         <div class="mb et el eb er" role="img" aria-label="Black king a8 with its own bishop on b8 and its own pawn on a7. The white bishop on c6 gives check and the white pawn on a6 covers b7. Black has no legal move — mate.">
@@ -5348,9 +5415,25 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       and it should not.</p>
     </div>
     <div class="prose fl" lang="en">
-      <p><b>In FideLite.</b> On this position the engine gets one side right and one wrong: it rules correctly on
-      Black’s flag and misses White’s. The reason is the familiar one — the space is roomy and the
-      search cannot close it within its budget. Raising the budget fiftyfold does not change it. It is a concrete instance of the <a href="#dead">strip of 3,567 games</a> described above.</p>
+      <p><b>In FideLite.</b> The blocked-position scan does not look at positions with a bishop on
+      the board at all. The helpmate search that runs when a flag falls or a player resigns cannot
+      close a space this wide and say “mate is impossible” either, so the engine rules a loss for
+      whichever side flags or resigns. That is staying on the safe side: an impossibility that cannot
+      be proved does not count as a draw. For Black the ruling comes out right indirectly, because
+      Black really can be mated. For White it is wrong, because White cannot be mated and the correct
+      ruling is a draw. Raising the budget fiftyfold does not change it. It is a concrete instance of
+      the <a href="#dead">strip of 3,567 games</a> described above.</p>
+      <p>You can see all three positions for yourself on the engine’s advanced version, which does
+      recognise this position: open <a class="ext" href="https://cuneytinann.github.io/Chess-LUX/" target="_blank" rel="noopener">Chess LUX ↗️</a>, enter the FEN in the dialog that opens and press
+      Play.</p>
+      <pre class="snip">5b2/p2k1B2/Pp1p1p2/1P1P1Pp1/6P1/8/8/3K4 w - - 0 1
+5b2/p2k1B2/Pp1p1p2/1P1P1Pp1/6P1/8/8/3K4 b - - 0 1
+3k1b2/p7/Pp1p1p2/1P1P1Pp1/6P1/8/8/3K4 b - - 0 1</pre>
+      <p>In the first two the game goes on: without making a move, resign with the ⚐ button. The
+      side to move is the one resigning, and a resignation is decided by the same question as a flag
+      fall. In the first White resigns and the game is drawn (½‑½); in the second Black resigns and
+      loses (1‑0). The third is the position after the bishop is taken: the game ends in a draw by
+      dead position (½‑½) before a single move is played.</p>
     </div>
 
     <h3 id="claims" lang="tr">7. İddia ve anlaşma — 9.1 · 9.2 · 9.3 · 9.5</h3>
@@ -13721,13 +13804,6 @@ f = K[2] + K[3] - 0</pre></div>
       <p>Sayfa her iskeleti bir kartta gösteriyor: sekiz karelik şerit, <code>-R--K-R-</code>
       biçiminde yazılışı ve o iskelete düşen bütün Scharnagl numaraları. Klasik başlangıç, #518
       (RNBQKBNR), işaretli.</p>
-      <p>Filler farklı renk karelerde olmak zorunda olduğu için her iskelete düşen diziliş sayısı
-      iskeletin renklerine bağlı. Şah ve iki kale üçü de aynı renk karelerdeyse boş kalan beş
-      dikeyin dördü bir renkte, biri öbüründe: fillerden biri o tek kareye mahkûm, öbürü dört
-      kareden birine, vezir kalan üç kareden birine gidiyor, 1×4×3 = 12. Üçü aynı renkte değilse
-      boş dikeyler 3–2 bölünüyor: filler 3×2 biçimde, vezir 3 karede yerleşiyor, 18. Üçü aynı
-      renkte olan iskelet sekiz tane (dört açık ya da dört koyu kareden üçer seçim), gerisi 48:
-      8×12 + 48×18 = 960. Liste sayfa açılırken tarayıcıda baştan üretiliyor.</p>
       <p><a href="/extra/Chess960_Skeletons.html" target="_blank" rel="noopener">fidelite.art/extra/Chess960_Skeletons.html</a></p>
     </div>
     <div class="prose" lang="en">
@@ -13752,14 +13828,6 @@ f = K[2] + K[3] - 0</pre></div>
       <p>The page shows each skeleton on a card: an eight-square strip, the skeleton written as
       <code>-R--K-R-</code>, and every Scharnagl number built on it. The orthodox start, #518
       (RNBQKBNR), is marked.</p>
-      <p>Because the bishops must stand on opposite colours, the number of setups a skeleton holds
-      depends on its colours. If the king and both rooks all stand on squares of one colour, four
-      of the five free files are of the other colour and one of theirs: one bishop is confined to
-      that lone square, the other goes to one of four, the queen to one of the remaining three,
-      1×4×3 = 12. If the three are not all one colour, the free files split 3–2: the bishops go
-      3×2 ways and the queen onto 3 squares, 18. Eight skeletons have all three on one colour
-      (three of the four light or three of the four dark squares), the other 48 do not:
-      8×12 + 48×18 = 960. The list is generated from scratch in the browser as the page opens.</p>
       <p><a href="/extra/Chess960_Skeletons.html" target="_blank" rel="noopener">fidelite.art/extra/Chess960_Skeletons.html</a></p>
     </div>
   </div>
@@ -13784,9 +13852,11 @@ f = K[2] + K[3] - 0</pre></div>
     <h3 lang="en" data-id="parrot">ParrotPuzzle — a puzzle against a parrot</h3>
     <div class="prose" lang="tr">
       <p>Tek kişilik bir satranç bulmacası. Beyazla oynuyorsun, rakibin bir papağan. İlk el serbest
-      bir ısınma: siyahı mat et, süre serbest. Papağanın nasıl oynadığını kimse söylemiyor; onu
-      çözmek bulmacanın ilk adımı, o yüzden burada da yazılmadı.</p>
-      <p>Isınma bitince on görev açılıyor. Hepsi aynı papağana karşı, değişen yalnızca amaç ve hamle
+      bir ısınma: siyahı mat et, süre serbest. Papağanın nasıl oynadığını kimse söylemiyor, gerçi
+      epey belli :) Yine de onu çözmek bulmacanın ilk adımı, o yüzden burada da yazılmadı. Asıl
+      zorluk görevlerde başlıyor.</p>
+      <p>Isınma bitince on görev açılıyor. Zorlukları birbirinden farklı, her biri oyuna başka bir
+      açıdan baktırıyor; bazıları gerçekten zor. Hepsi aynı papağana karşı, değişen yalnızca amaç ve hamle
       sınırı: dört hamlede mat, rok ve geçerken alma üstüne kurulu görevler, papağanı pat etmek,
       hatta papağana kendini mat ettirmek. Başarısız her denemede bir ipucu daha açılıyor. Görev
       çözülünce neden işe yaradığı anlatılıyor ve çözüm tahtada oynatılabiliyor; birkaçında daha
@@ -13796,9 +13866,12 @@ f = K[2] + K[3] - 0</pre></div>
     </div>
     <div class="prose" lang="en">
       <p>A single-player chess puzzle. You play White; your opponent is a parrot. The first game is
-      a free warm-up: checkmate Black, and take your time. Nobody tells you how the parrot plays —
-      working that out is the first step of the puzzle, so it is not written here either.</p>
-      <p>Once the warm-up is over, ten missions open. They are all against the same parrot; what
+      a free warm-up: checkmate Black, and take your time. Nobody tells you how the parrot plays, though
+      it is fairly obvious :) Still, working that out is the first step of the puzzle, so it is not
+      written here either. The real challenge starts with the missions.</p>
+      <p>Once the warm-up is over, ten missions open. They vary in difficulty, each one makes you
+      look at the game from a different angle, and some are genuinely hard. They are all against
+      the same parrot; what
       changes is the goal and the move limit: mate in four, missions built on castling and en
       passant, stalemating the parrot, even getting the parrot to mate you. Every failed attempt
       unlocks one more hint. Once a mission is solved it explains why the solution works and can
