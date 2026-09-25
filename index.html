@@ -666,7 +666,10 @@ tbody tr.alt code { color:var(--pc-b) }
 .mb.mini { --c:3; width:110px }
 /* Ekstra: ekran goruntusu. Sutunda ortalanir, dar ekranda sutunu doldurur. */
 .shot { margin:1.5rem auto 0; max-width:22rem }
+.shot-wide { max-width:100% }
+.shot-mid { max-width:28rem }
 .shot img { display:block; width:100%; height:auto; border-radius:.6rem }
+.shot figcaption { margin-top:.4rem; text-align:center; font:.72rem/1.4 var(--mono); color:var(--ink-3) }
 .mb.et { border-top:2px solid var(--ink) }
 .mb.er { border-right:2px solid var(--ink) }
 .mb.eb { border-bottom:2px solid var(--ink) }
@@ -13833,16 +13836,25 @@ f = K[2] + K[3] - 0</pre></div>
       <p>Miguel Ambrona'nın açık kaynaklı çözücüsü. Bir pozisyon ve kazanması beklenen taraf
       verildiğinde ya o tarafın mat ettiği bir yardım matı dizisi buluyor ya da böyle bir dizinin
       olmadığını kanıtlıyor. FIDE 6.9'un sorduğu
-      soru tam olarak bu: süresi biten oyuncu kaybeder, ama rakibi hiçbir yasal hamle dizisiyle mat
+      soru tam olarak bu: süresi biten oyuncu kaybeder, ama rakibi hiçbir geçerli hamle dizisiyle mat
       edemiyorsa oyun berabere biter. Terkte (5.1.2) aynı soru soruluyor, ölü pozisyonda (5.2.2) ise
       iki taraf için birden. Algoritma hakemli bir makalede, FUN 2022'de yayımlandı; pozisyon girip
       sonucu görebileceğin bir web sayfası da var. Aşağıdaki görsel nasıl çalıştığını
       gösteriyor.</p>
-      <p>Platformlar bu kuralı uzun süre hesaplanamaz sayıp bir kenara bıraktı ve süre bitiminde
-      taş saymakla yetindi. CHA-Solver bu gerekçeyi ortadan kaldırıyor: Lichess'in standart
-      dereceli oyunlarındaki bütün süre bitimi pozisyonlarını tek tek çözmüş durumda. Her
-      platformda olmalı, çünkü süre bitiminde yanlış verilen hüküm oyun kapandıktan sonra geri
-      alınmıyor. Konunun ayrıntısı bu sitede <a href="#flag">Terk ve süre bitimi</a> bölümünde.</p>
+      <p>Platformlar da satranç motorlarının neredeyse hepsi de bu kuralı algoritmalarına dahil
+      etmiyor; süre bitiminde belirli, sabit bir taş listesine bakmakla yetiniyorlar. Oysa bu
+      listenin dışında, kilitli pozisyonlarda ve zorunlu olarak beraberliğe giden pozisyonlarda
+      kayda değer sayıda yanlış sonuçlanmış oyun tespit edildi. Ambrona aracı bir çözüm önerisi
+      olarak <a href="https://github.com/ornicar/lila/issues/9249" target="_blank" rel="noopener">Lichess'e sundu ↗️</a>; entegre edilmedi, bugün hâlâ bağımsız bir araç olarak
+      yayında.</p>
+      <p>Bence mesele yalnızca yanlış sonuçlanan oyunlar değil. Kilitli bir pozisyonda oyun
+      aslında bitmiştir, ama bunu algılayacak bir algoritma olmadığı için oyuncular oynamaya devam
+      ediyor ve vakitleri boşuna harcanıyor. Bu tespitin her hamlede, modern platformlarda hiçbir
+      sürtünme yaratmayacak biçimde optimize edilebileceğinden şüphem yok. Stockfish'i en üst
+      seviyede çalıştırabilen platformlar için buna harcanan işlemci bütçesi insan algısıyla fark
+      edilmeyecek kadar küçük kalır. Her platformda olmalı; süre bitiminde yanlış verilen hüküm oyun
+      kapandıktan sonra geri alınmıyor. Konunun ayrıntısı bu sitede
+      <a href="#flag">Terk ve süre bitimi</a> bölümünde.</p>
       <p><a href="https://chasolver.org/" target="_blank" rel="noopener">chasolver.org</a></p>
     </div>
     <div class="prose" lang="en">
@@ -13854,13 +13866,22 @@ f = K[2] + K[3] - 0</pre></div>
       for both sides at once. The algorithm was published in a peer-reviewed paper at FUN 2022, and
       there is a web page where you can enter a position and see the verdict. The image below
       shows how it works.</p>
-      <p>The platforms long set this rule aside as intractable and settled for counting material
-      at flag fall. CHA-Solver removes that excuse: it has resolved every timeout position in
-      Lichess's standard rated games, one by one. It belongs on every platform, because a wrong
-      ruling at flag fall is not taken back once the game is closed. The detail is on this site
-      under <a href="#flag">Resignation and flag fall</a>.</p>
+      <p>Platforms, and almost every chess engine, leave this rule out of their algorithms; at flag
+      fall they settle for looking at a fixed list of pieces. Yet outside that list, in blocked
+      positions and in positions that lead by force to a draw, a considerable number of wrongly
+      decided games have been found. Ambrona <a href="https://github.com/ornicar/lila/issues/9249" target="_blank" rel="noopener">offered the tool to Lichess ↗️</a> as a
+      solution; it was not integrated, and today it still stands on its own.</p>
+      <p>To my mind the problem is not only the games decided wrongly. In a blocked position the
+      game is in fact over, but with no algorithm to notice it, the players keep playing and their
+      time is spent for nothing. I have no doubt that detecting this on every move can be optimised
+      so that it causes no friction at all on a modern platform. For platforms that can run
+      Stockfish at its highest levels, the processor budget it takes would not even be noticeable to
+      a human. It belongs on every platform: a wrong ruling at flag fall is not taken back once the
+      game is closed. The detail is on this site under <a href="#flag">Resignation and flag
+      fall</a>.</p>
       <p><a href="https://chasolver.org/" target="_blank" rel="noopener">chasolver.org</a></p>
     </div>
+    <figure class="shot shot-wide"><img src="images/cha-solver-analyzer.webp" width="955" height="698" loading="lazy" alt="CHA-Solver analizörü: kilitli bir pozisyonda siyah için kazanılamaz, beyaz için kazanılabilir hükmü ve yardımlı mat bağlantısı" data-en-alt="The CHA-Solver analyzer: a blocked position ruled unwinnable for Black and winnable for White, with a link to the helpmate"></figure>
 
     <h3 id="chessvision" lang="tr">Chessvision.ai — görüntüden FEN'e</h3>
     <h3 lang="en" data-id="chessvision">Chessvision.ai — from an image to a FEN</h3>
@@ -13874,6 +13895,11 @@ f = K[2] + K[3] - 0</pre></div>
       gerekiyor: görüntüyü yapıştır, pozisyon gelsin. Bir ayrıntı da atlanmamalı: görüntü yalnızca
       taşların yerini taşıyor. Sıranın kimde olduğu, rok hakları, geçerken alma karesi ve sayaçlar
       resimde yok; iyi bir araç bunları tahmin etmek yerine kullanıcıya sormalı.</p>
+      <p>Sosyal medyada ve YouTube'da satranç içeriği izleyenler için bu özellikle pratik. Bu
+      sayfaların neredeyse hiçbiri pozisyonu FEN olarak vermiyor; YouTube ve Instagram gibi pek çok
+      uygulamada yazı kopyalanamıyor bile. FEN yazılı olsa bile onu önce Google Lens'le metne
+      çevirmek yerine görüntüden doğrudan FEN'e geçmek, birden fazla işi tek adımda bitiriyor. Art
+      arda bulmaca çözmek isteyen biri için fark daha da büyük. Kesinlikle eklenmeli.</p>
       <p><a href="https://chessvision.ai/" target="_blank" rel="noopener">chessvision.ai</a></p>
     </div>
     <div class="prose" lang="en">
@@ -13887,8 +13913,15 @@ f = K[2] + K[3] - 0</pre></div>
       only where the pieces stand. The side to move, castling rights, the en passant square and the
       counters are not in the picture; a good tool should ask the user for them rather than
       guess.</p>
+      <p>For anyone who follows chess on social media and YouTube this is especially practical.
+      Almost none of those pages give the position as a FEN, and in many apps, YouTube and
+      Instagram among them, the text cannot even be copied. Even where a FEN is written out, going
+      straight from the image to the FEN does in one step what would otherwise take several, such as
+      running Google Lens on the text first. For someone who wants to solve puzzles one after
+      another, the difference is bigger still. It should definitely be added.</p>
       <p><a href="https://chessvision.ai/" target="_blank" rel="noopener">chessvision.ai</a></p>
     </div>
+    <figure class="shot shot-wide"><img src="images/chessvision-scan.webp" width="985" height="548" loading="lazy" alt="Chessvision.ai: bir sosyal medya gönderisindeki tahta görüntüsünün analiz tahtasına aktarılmış hâli" data-en-alt="Chessvision.ai: a board image from a social media post, carried onto the analysis board"></figure>
 
     <h3 id="rotation" lang="tr">Tahtayı 90° ve 270° döndürebilmek</h3>
     <h3 lang="en" data-id="rotation">Turning the board 90° and 270°</h3>
@@ -13896,64 +13929,70 @@ f = K[2] + K[3] - 0</pre></div>
       <p>Büyük platformlarda tahta bugün yalnızca 180° çevrilebiliyor: beyazın ya da siyahın
       tarafından bakıyorsun. Yan dönmüş bir görünüm, 90° ya da 270°, yok. Oysa piyon ve rok
       dışında hiçbir hareket kuralı yöne bağlı değil: at her yönde aynı L'yi çiziyor, kale ve fil
-      dört yana da aynı biçimde gidiyor. Bu yüzden taşlarla kurulan bir mat deseni tahtanın dört
-      kenarından herhangi birinde aynı şekille kurulabiliyor; değişen yalnızca onu hangi açıdan
-      gördüğümüz. Aşağıdaki görsel bunu gösteriyor.</p>
-      <p>Mat desenleri çoğunlukla tek bir yönde öğreniliyor: şah karşı kenarda, arka yatayda. Aynı
-      desen a ya da h dikeyinde, yani yan kenarda kurulduğunda göz onu çoğu zaman geç tanıyor.
-      Anastasia matı bunun tipik örneği: at ile kale, şahı yan kenarla kendi taşı arasına
-      sıkıştırıyor ve tahta 90° çevrilince resim bildik bir arka yatay matına benziyor. Şahı kale ya
-      da vezirle kenara sıkıştırmak da öyle; iş dört kenarda da aynı, ama göz yalnızca birinde
-      rahat.</p>
-      <p>Döndürme bir kural değişikliği değil, bir bakış seçeneği. Piyonlar yana doğru yürüyor
-      görüneceği için en çok analizde ve bulmaca çözerken işe yarar. Desen arayan yazılım bunu
-      zaten yapıyor: satranç sorgu dili CQL, pozisyon ararken 90°, 180° ve 270° dönüşleri temel
-      dönüşümler arasında sayıyor. Ekranın da aynı serbestliği vermesi gerekiyor.</p>
+      dört yana da aynı biçimde gidiyor. Bu yüzden bir mat deseni tahtanın dört kenarından
+      herhangi birinde aynı şekille kurulabiliyor; değişen yalnızca onu hangi açıdan gördüğümüz.
+      Aşağıdaki görsel bunu gösteriyor.</p>
+      <p>Döndürme bir kural değişikliği değil, bir bakış seçeneği. Makineyi de kuralı da
+      değiştirmiyor; bu yüzden motorları hiçbir şekilde bağlamıyor. Kolaylaştırdığı şey insan
+      sezgisi: mat desenleri ve bazı pozisyon kalıpları çoğunlukla tek bir yönde öğreniliyor, göz
+      onları başka bir kenarda geç tanıyor. Anastasia matı gibi yan kenarda kurulan bir desen,
+      tahta 90° çevrilince bildik bir arka yatay matına benziyor. Bu yüzden faydalı buluyorum;
+      pek çok kişinin bu seçeneği tercih edeceğini düşünüyorum.</p>
     </div>
     <div class="prose" lang="en">
       <p>On the large platforms the board can only be turned 180° today: you look from White's side
       or from Black's. A sideways view, 90° or 270°, does not exist. Yet apart from the pawn and
       castling, no rule of movement depends on direction: the knight draws the same L every way,
-      and the rook and bishop go the same way in all four directions. So a mating pattern built
-      with pieces can form with the same shape on any of the board's four edges; all that changes
-      is the angle we see it from. The image below shows this.</p>
-      <p>Mate patterns are mostly learned in one orientation: the king on the far edge, on the back
-      rank. When the same pattern forms on the a- or h-file, on a side edge, the eye is often slow
-      to recognise it. Anastasia's mate is the typical case: knight and rook trap the king between
-      the side edge and one of its own pieces, and with the board turned 90° the picture resembles
-      a familiar back-rank mate. Driving a king to the edge with a rook or a queen is the same: the
-      job is identical on all four edges, but the eye is at home on only one.</p>
-      <p>Rotation is not a change of rules but a way of looking. Since the pawns would appear to
-      walk sideways, it earns its keep mostly in analysis and in puzzle solving. Software that
-      searches for patterns already does this: the Chess Query Language, CQL, counts 90°, 180° and
-      270° turns among its basic transforms when it searches positions. The screen should offer
-      the same freedom.</p>
+      and the rook and bishop go the same way in all four directions. So a mating pattern can form
+      with the same shape on any of the board's four edges; all that changes is the angle we see it
+      from. The image below shows this.</p>
+      <p>Rotation is not a change of rules but a way of looking. It changes neither the machine nor
+      the rules, so it places no demand on engines at all. What it eases is human intuition: mate
+      patterns and some positional shapes are mostly learned in one orientation, and the eye is
+      slow to recognise them on another edge. A pattern built on a side edge, like Anastasia's
+      mate, looks like a familiar back-rank mate once the board is turned 90°. That is why I find
+      it useful, and I think many people would choose it.</p>
     </div>
+    <figure class="shot shot-mid"><img src="images/board-rotate-90.webp" width="670" height="667" loading="lazy" alt="90° döndürülmüş bir tahta: beyaz solda, siyah sağda; taşlar ve koordinatlar dik duruyor" data-en-alt="A board turned 90°: White on the left, Black on the right; pieces and coordinates stay upright"></figure>
 
-    <h3 id="skins" lang="tr">Kullanıcıya özel görünüm — custom skin</h3>
-    <h3 lang="en" data-id="skins">A look of your own — custom skins</h3>
+    <h3 id="skins" lang="tr">Kullanıcıya özel tema</h3>
+    <h3 lang="en" data-id="skins">A theme of your own</h3>
     <div class="prose" lang="tr">
-      <p>Platformlar hazır taş takımları ve tahta temaları arasından seçim yaptırıyor; kendi
-      çizdiğin taşları ya da tahtayı yüklemek ise bugün ancak tarayıcı eklentileriyle mümkün. Tam
-      da bunun için yazılmış eklentilerin çokluğu, talebin gerçek olduğunu gösteriyor. Yerleşik bir
-      destek olsa tasarım hesaba bağlı kalır, tarayıcıda da telefonda da aynı görünür, istenirse
-      başkalarıyla paylaşılır. Nasıl görünebileceği aşağıdaki görselde.</p>
+      <p>Platformlar geniş bir seçenek sunuyor: taş takımları, tahta renkleri, üç boyutlu
+      görünümler, özel günlere göre temalar. Ama hepsi hazır, platformun seçip sunduğu temalar.
+      Kendi çizdiğin taşları ya da tahtayı kullanmak bugün ancak tarayıcı eklentileriyle mümkün;
+      tam da bunun için yazılmış eklentilerin çokluğu talebin gerçek olduğunu gösteriyor.
+      Oyuncular kendi yaratıcılığını konuşturabilmeli: kendi temasını üretip kullanabilmeli,
+      forumlarda başkalarıyla paylaşabilmeli. Yerleşik bir destek olsa tema hesaba bağlı kalır,
+      tarayıcıda da telefonda da aynı görünür.</p>
+      <p>Aşağıdaki görsel bir ekran teması değil, Yüzüklerin Efendisi konseptiyle yapılmış gerçek,
+      fiziksel bir satranç takımı. Ama aynı fikri anlatıyor: tahta ve taşlar yaratıcılıkla ne kadar
+      farklı yorumlanırsa, ortaya o kadar güzel, sanatsal ve fantastik işler çıkabiliyor. Bunların
+      hiçbiri satrancın kuralına ya da işleyişine dokunmuyor; oyuna yalnızca renk ve boyut
+      katıyor.</p>
       <p>İşin bir erişilebilirlik tarafı da var: renk körlüğü, az görme ya da yüksek kontrast
-      ihtiyacı olan biri kendi rahat okuyabildiği taşları ve kare renklerini kurabilir. Görünüm
-      yalnızca sahibinin ekranında geçerli olduğu için oyunun adilliğine dokunmuyor; rakip her
+      ihtiyacı olan biri kendi rahat okuyabildiği taşları ve kare renklerini kurabilir. Tema
+      yalnızca sahibinin ekranında geçerli olduğu için oyunun adilliğine de dokunmuyor; rakip her
       zaman kendi seçtiği görünümü görür.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The platforms let you choose among ready-made piece sets and board themes; uploading
-      pieces or a board you drew yourself is possible today only through browser extensions. The
-      number of extensions written for exactly this shows the demand is real. With built-in support
-      the design would stay with your account, look the same in the browser and on the phone, and
-      could be shared with others if you wished. The image below shows how it could look.</p>
+      <p>The platforms offer a wide choice: piece sets, board colours, 3D views, themes for special
+      days. But they are all ready-made, themes the platform picks and hands out. Using pieces or a
+      board you drew yourself is possible today only through browser extensions; the number of
+      extensions written for exactly this shows the demand is real. Players should be able to put
+      their own creativity to work: make a theme of their own, use it, and share it with others on
+      the forums. With built-in support the theme would stay with the account and look the same in
+      the browser and on the phone.</p>
+      <p>The image below is not a screen theme but a real, physical chess set made on a Lord of the
+      Rings concept. It makes the same point, though: the more creatively the board and pieces are
+      interpreted, the more beautiful, artistic and fantastic the work that can come of it. None of
+      this touches the rules of chess or how the game works; it only adds colour and depth.</p>
       <p>There is an accessibility side too: someone with colour blindness, low vision or a need
       for high contrast could build pieces and square colours they can read comfortably. Because a
-      skin applies only on its owner's screen, it does not touch the fairness of the game; the
-      opponent always sees the look they chose.</p>
+      theme applies only on its owner's screen, it does not touch the fairness of the game either;
+      the opponent always sees the look they chose.</p>
     </div>
+    <figure class="shot"><img src="images/lotr-chess-set.webp" width="436" height="458" loading="lazy" alt="Yüzüklerin Efendisi konseptiyle yapılmış fiziksel bir satranç takımı; taşlar karakter figürleri" data-en-alt="A physical chess set made on a Lord of the Rings concept; the pieces are character figures"><figcaption><span lang="tr">Görsel: Tolkien.Creations</span><span lang="en">Image: Tolkien.Creations</span></figcaption></figure>
   </div>
 </section>
 
