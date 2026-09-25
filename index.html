@@ -347,6 +347,12 @@ h1,h2,h3 { font-family:var(--mono); font-weight:500; letter-spacing:-.02em; marg
 p { margin:0 0 1rem }
 .prose { max-width:44rem }
 .prose p:last-child { margin-bottom:0 }
+/* Ayni dildeki iki metin blogu arka arkaya geldiginde aralarinda paragraf araligi
+   kadar bosluk olsun; yoksa iki paragraf birbirine yapisik okunur. Ikiz blok
+   (obur dil) iki dilli ana dosyada araya girer, derlenmis sayfada kalkar; secici
+   ikisinde de yalnizca ayni dilin ardisikligini yakalar. Kutular kendi boslugunu tasir. */
+.prose[lang="tr"] + .prose[lang="tr"]:not(.fl),
+.prose[lang="en"] + .prose[lang="en"]:not(.fl) { margin-top:1rem }
 /* Ekstra: gelecek gorseller icin yer tutucu. Gorsel gelince <img> ile degisir. */
 .imgph { margin:1.75rem 0 0; max-width:44rem; aspect-ratio:16/9;
   border:1.5px dashed var(--ink-3); border-radius:6px; background:var(--panel) }
@@ -436,6 +442,9 @@ p { margin:0 0 1rem }
 .tabs button.on, .tabs button.on:hover { background:var(--paper); color:var(--ink);
   border-bottom-color:var(--acc) }
 .tabs button:active { transform:none }
+/* Kurallar ve Ekstra projeden bagimsiz, blog yazisi niteliginde; sekmede kucuk
+   bir isaretle ayrilirlar. Emoji ekran okuyucuya okunmaz. */
+.tabs .temo { margin-right:.4em; font-size:1.05em }
 @media (max-width:34rem) {
   .tabs .wrap { padding-inline:.75rem }
   .tabs button { padding:.58rem .68rem .52rem; font-size:.75rem }
@@ -993,11 +1002,11 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <nav class="tabs" aria-label="Bölümler" data-en-aria-label="Sections">
   <div class="wrap" role="tablist">
     <button type="button" role="tab" id="tabintro" data-panel="panelintro" aria-controls="panelintro" aria-selected="true"><span lang="tr">Tanıtım</span><span lang="en">Introduction</span></button>
-    <button type="button" role="tab" id="tabrules" data-panel="panelrules" aria-controls="panelrules" aria-selected="false" tabindex="-1"><span lang="tr">Kurallar ve uygulanışı</span><span lang="en">Rules and their application</span></button>
+    <button type="button" role="tab" id="tabrules" data-panel="panelrules" aria-controls="panelrules" aria-selected="false" tabindex="-1"><span class="temo" aria-hidden="true">📖</span><span lang="tr">Kurallar ve uygulanışı</span><span lang="en">Rules and their application</span></button>
     <button type="button" role="tab" id="tabbuilds" data-panel="panelbuilds" aria-controls="panelbuilds" aria-selected="false" tabindex="-1"><span lang="tr">Varyantlar ve oynanış</span><span lang="en">Builds and how to play</span></button>
     <button type="button" role="tab" id="tabengine" data-panel="panelengine" aria-controls="panelengine" aria-selected="false" tabindex="-1"><span lang="tr">Motorun kendisi</span><span lang="en">The engine itself</span></button>
     <button type="button" role="tab" id="tabtech" data-panel="paneltech" aria-controls="paneltech" aria-selected="false" tabindex="-1"><span lang="tr">Ayrıntılı teknik</span><span lang="en">Technical detail</span></button>
-    <button type="button" role="tab" id="tabextra" data-panel="panelextra" aria-controls="panelextra" aria-selected="false" tabindex="-1"><span lang="tr">Ekstra</span><span lang="en">Extras</span></button>
+    <button type="button" role="tab" id="tabextra" data-panel="panelextra" aria-controls="panelextra" aria-selected="false" tabindex="-1"><span class="temo" aria-hidden="true">🧩</span><span lang="tr">Ekstra</span><span lang="en">Extras</span></button>
   </div>
 </nav>
 
@@ -5627,10 +5636,9 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 
     <div class="prose" lang="tr">
       <p>Dijital bir platformda iki kitaptan birini olduğu gibi uygulamak her zaman en iyi sonucu
-      vermiyor. FIDE'nin yardımlı mat ölçütü, matı hiçbir zaman zorlayamayacak tarafa kazanç
-      verebiliyor: kaleye karşı tek atla, yalnızca rakibin bayrağı düştü diye. USCF'de 75 hamle ve
-      beşli tekrar tavanı olmadığı için, kimse iddia etmezse bir oyun sunucuda sonsuza dek
-      sürebiliyor.</p>
+      vermiyor. USCF'de 75 hamle ve beşli tekrar tavanı olmadığı için, kimse iddia etmezse bir oyun
+      sunucuda sonsuza dek sürebiliyor. FIDE'de ise 50 hamle ve üçlü tekrar iddiası, kazanılmış
+      teknik oyun sonlarını tek bir hatayla beraberliğe çevirebiliyor.</p>
       <p>Aşağıdaki karma sistem iki kitabın en adil görünen parçalarını birleştiriyor. Bu bir
       öneri: FideLite'ın kendisi FIDE'yi uyguluyor ve bu sekmedeki her şey o kitaba göre yazıldı.
       Chess.com'un bazı maddelerde yaptığı karmadan farkı da burada: hangi maddenin hangi
@@ -5638,9 +5646,9 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     </div>
     <div class="prose" lang="en">
       <p>On a digital platform, applying either book as it stands does not always give the best
-      outcome. FIDE's helpmate criterion can hand the win to a side that could never force the
-      mate: a lone knight against a rook, only because the opponent's flag fell. USCF has no
-      75-move or fivefold ceiling, so if nobody claims, a game can run on a server forever.</p>
+      outcome. USCF has no 75-move or fivefold ceiling, so if nobody claims, a game can run on a
+      server forever. Under FIDE, the 50-move and threefold claims can turn a won technical
+      endgame into a draw over a single slip.</p>
       <p>The hybrid below combines what looks fairest in each book. It is a proposal: FideLite
       itself applies FIDE, and everything on this tab is written to that book. That is also where
       it differs from the blend Chess.com applies on some articles: which article comes from
@@ -5648,67 +5656,67 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
     </div>
 
     <ul class="tight" lang="tr">
-      <li><b>50 hamle ve üçlü tekrar iddiası — kapalı.</b> Oyuncular bu eşiklerde iddiayla oyunu bitiremiyor; anlaşmalı beraberlik açık kalıyor. Sınır iddiayla 50'de değil, kendiliğinden 75'te çiziliyor ve bu fark teknik oyun sonlarında kritik. Vezirin kaleye karşı Philidor pozisyonunda ya da fil ve atla matta mat dizisi uzundur — fil ve atla mat en iyi oyunla bile 33 hamleye kadar sürebilir — ve tek bir hata diziyi bozar. 50 hamle sınırında üstün taraf diziyi baştan kurmaya başladığında sayaca çarpar ve teorik olarak kazanılmış oyun beraberliğe döner. 75 hamle, aynı dizi için bir yerine iki deneme hakkı tanıyor; bu çok daha adil. Materyali üstün tarafa bir imtiyaz gibi görünse de yalnızca kazanılmış bir pozisyonda tek bir hatanın sonucu belirlemesini önlüyor; savunan taraf beşli tekrar ve 75 hamle sınırıyla yine korunuyor. İddia mekanizması da suistimal edilemiyor. Yan etkisi: <a href="#claims">yedinci bölümdeki</a> iddia penceresi sorunu — ön hamlenin kapattığı pencere — kökünden kalkıyor.</li>
-      <li><b>75 hamle ve beşli tekrar — açık.</b> Sayaç 75 hamleye ulaştığında ya da pozisyon beşinci kez doğduğunda oyun kendiliğinden berabere biter. FIDE'nin tavanı; oyunun <a href="#counters">sonlu kalmasını</a> garanti eden en dış ağ bu.</li>
+      <li><b>50 hamle ve üçlü tekrar iddiası — kapalı.</b> Oyuncular bu eşiklerde iddiayla oyunu bitiremiyor; anlaşmalı beraberlik açık kalıyor. Sınır iddiayla 50'de değil, kendiliğinden 60'ta çiziliyor ve bu fark teknik oyun sonlarında kritik. Vezirin kaleye karşı Philidor pozisyonunda ya da fil ve atla matta mat dizisi uzundur; fil ve atla mat en iyi oyunla bile 33 hamleye kadar sürebilir. 50 hamle bu dizinin üstüne yalnızca 17 hamlelik pay bırakıyor ve tek bir hata teorik olarak kazanılmış oyunu beraberliğe çevirebiliyor. 60 hamle bu payı 27'ye çıkarıyor; 75 ise 42 hamleyle bitmiş bir oyunu gereğinden uzatıyor. Materyali üstün tarafa bir imtiyaz gibi görünse de yalnızca kazanılmış bir pozisyonda tek bir hatanın sonucu belirlemesini önlüyor; savunan taraf dörtlü tekrar ve 60 hamle sınırıyla yine korunuyor. İddia mekanizması da suistimal edilemiyor. Yan etkisi: <a href="#claims">yedinci bölümdeki</a> iddia penceresi sorunu — ön hamlenin kapattığı pencere — kökünden kalkıyor.</li>
+      <li><b>60 hamle ve dörtlü tekrar — kendiliğinden.</b> Sayaç 60 hamleye ulaştığında ya da pozisyon dördüncü kez doğduğunda oyun kendiliğinden berabere biter. Eşikler iki kitabın eşiklerinin harmonik ortalaması: 50 ile 75'inki tam 60, 3 ile 5'inki 3,75, yuvarlanınca 4. 50 hamle yetersiz, 75 fazla; üçlü tekrar erken, beşli geç. Harmonik ortalama iki değerin arasında küçük olana daha yakın durur; sınır genişliyor ama ölçüsüzce değil. Oyunun <a href="#counters">sonlu kalmasını</a> garanti eden en dış ağ bu.</li>
       <li><b>Anlaşmalı beraberlik — ilk hamleden itibaren.</b> FIDE anlaşmayı iki tarafın da en az bir hamle yapmış olmasına bağlıyor (5.2.3). USCF asgari bir hamle sayısı koymuyor, yalnızca teklifin zamanlamasını düzenliyor: hamle belirlendikten sonra, saate basmadan önce (14B1). Karma sistem de şart koymuyor: anlaşma ilk hamleden itibaren mümkün. Teklif yine hamleye bağlı gittiği için zamanlama iki kitaptakiyle aynı kalıyor.</li>
       <li><b>Ölü pozisyon — hemen biter.</b> 5.2.2'deki gibi, kilitli pozisyonlar dahil.</li>
       <li><b>Yarım hamle sayacı — her geri alınamaz olayda sıfırlanır.</b> Karma sistem <a href="#reset">aşağıda önerdiğim</a> sayacı kullanıyor: piyon hamlesi ve alışın yanında rok hakkının ve geçerken alma hakkının düşmesi de sayacı sıfırlıyor.</li>
-      <li><b>Bayrak düşmesi — zorlamalı mat.</b> USCF'deki gibi: rakipte yalnızca çıplak şah, tek at, tek renk karelerde fil ya da filler, ya da — süresi bitenin piyonu yokken — iki at kaldıysa ve zorlamalı mat yoksa, sonuç yetersiz materyalden beraberlik. Süresi bitenin piyonu varsa iki at kazanıyor. Tek fark fil sınıfının genişliği: USCF'nin metni tek bir fil sayıyor, karma sistem terfiyle gelenler dahil tek renkteki bütün filleri aynı sınıfa koyuyor.</li>
-      <li><b>Terk — zorlamalı mat, bayrakla aynı ölçü.</b> FIDE 2023'ten beri terkte de yardımlı mat ölçüsünü kullanıyor (5.1.2); USCF'de terk her zaman kayıp. Karma sistem terki bayraktaki zorlamalı mat ölçüsüne bağlıyor: rakip aynı sınıftaysa ve zorlamalı mat yoksa, terk eden kaybetmiyor. Gerekçesi şu: terk de bayrak da oyunu tahtada bitmeden kapatıyor ve ikisinde de sorulması gereken soru aynı — rakip bu oyunu zorla kazanabilir miydi? Rakibin elinde olmayan bir galibiyeti ne düşen bayrak vermeli ne de terk.</li>
+      <li><b>Bayrak düşmesi — yardımlı mat, FIDE'deki gibi.</b> Süre bitince sorulan soru, rakibin herhangi bir geçerli hamle dizisiyle mat edip edemeyeceği (6.9). Rakibin matı zorla alıp alamayacağına bakılmıyor. Gerekçesi şu: süre oyunun dışında değil, içinde. Saati yönetmek de tahtayı yönetmek gibi oyunun bir parçası ve oyuncunun gücünün, baskınlığının bir ölçüsü. Tek atla ya da tek fille, karşısında ağır taşları olan birine karşı kazanmak ilk bakışta adil görünmeyebilir. Ama o galibiyeti tek at getirmiyor, rakibin süresini yönetememesi getiriyor. Süresi biten için acımasız görünebilir, değil: oyuncular süreyi de hesaba katmayı öğrenmeli. USCF'nin zorlamalı mat ölçüsü süresini tüketen tarafı koruyor; karma sistem bu korumayı vermiyor.</li>
+      <li><b>Terk — yardımlı mat, bayrakla aynı ölçü.</b> FIDE 2023'ten beri terkte de yardımlı mat ölçüsünü kullanıyor (5.1.2); USCF'de terk her zaman kayıp. Karma sistem FIDE'yi izliyor: rakip hiçbir geçerli hamle dizisiyle mat edemiyorsa terk eden kaybetmiyor. Terk de bayrak da oyunu tahtada bitmeden kapatıyor, ikisinde de aynı soru soruluyor.</li>
     </ul>
     <ul class="tight" lang="en">
-      <li><b>50-move and threefold claim — off.</b> Players cannot end the game by claiming at these thresholds; draw by agreement stays open. The line is drawn not by a claim at 50 but automatically at 75, and in technical endgames that difference is critical. In the Philidor position of queen against rook, or in the bishop-and-knight mate, the mating sequence is long — the bishop-and-knight mate can take up to 33 moves even with best play — and a single slip breaks it. With a 50-move limit, the stronger side that starts rebuilding the sequence runs into the counter, and a theoretically won game turns into a draw. Seventy-five moves give two attempts at the same sequence instead of one, which is far fairer. It may look like a privilege for the side with more material, but all it does is keep a single mistake from deciding a won position; the defender is still protected by fivefold repetition and the 75-move limit. Nor can the claim mechanism be abused. A side effect: the claim-window problem of <a href="#claims">section seven</a> — the window a premove closes — disappears at the root.</li>
-      <li><b>75 moves and fivefold repetition — on.</b> When the counter reaches 75 moves or the position arises for the fifth time, the game ends in a draw by itself. This is FIDE's ceiling, the outermost net that <a href="#counters">keeps the game finite</a>.</li>
+      <li><b>50-move and threefold claim — off.</b> Players cannot end the game by claiming at these thresholds; draw by agreement stays open. The line is drawn not by a claim at 50 but automatically at 60, and in technical endgames that difference is critical. In the Philidor position of queen against rook, or in the bishop-and-knight mate, the mating sequence is long; the bishop-and-knight mate can take up to 33 moves even with best play. Fifty moves leave a margin of only 17 on top of that sequence, and a single slip can turn a theoretically won game into a draw. Sixty moves raise the margin to 27; seventy-five, with 42, drag out a game that is already over. It may look like a privilege for the side with more material, but all it does is keep a single mistake from deciding a won position; the defender is still protected by fourfold repetition and the 60-move limit. Nor can the claim mechanism be abused. A side effect: the claim-window problem of <a href="#claims">section seven</a> — the window a premove closes — disappears at the root.</li>
+      <li><b>60 moves and fourfold repetition — automatic.</b> When the counter reaches 60 moves or the position arises for the fourth time, the game ends in a draw by itself. The thresholds are the harmonic means of the two books' thresholds: for 50 and 75 exactly 60, for 3 and 5 it is 3.75, rounded to 4. Fifty moves are too few and seventy-five too many; threefold comes too early and fivefold too late. The harmonic mean sits closer to the smaller of the two values, so the limit widens, but not without measure. This is the outermost net that <a href="#counters">keeps the game finite</a>.</li>
       <li><b>Draw by agreement — from the very first move.</b> FIDE allows an agreement only once both sides have made at least one move (5.2.3). USCF sets no minimum number of moves; it regulates only the timing of the offer: after the move is determined and before the clock is pressed (14B1). The hybrid sets no condition either: agreement is possible from the very first move. Since the offer still travels with the move, the timing stays as it is in both books.</li>
       <li><b>Dead position — ends at once.</b> As in 5.2.2, blocked positions included.</li>
       <li><b>The ply counter — reset by every irreversible event.</b> The hybrid uses <a href="#reset">the counter I propose below</a>: besides a pawn move and a capture, the loss of a castling right and the lapse of an en passant right reset it too.</li>
-      <li><b>Flag fall — forced mate.</b> As under USCF: if the opponent is left with only a bare king, a lone knight, bishops on squares of one colour, or — when the player out of time has no pawn — two knights, and there is no forced mate, the result is a draw by insufficient material. If the player out of time has a pawn, the two knights win. The one difference is the width of the bishop class: USCF's text counts a single bishop, the hybrid puts every bishop of one colour, promoted ones included, in the same class.</li>
-      <li><b>Resignation — forced mate, the same measure as the flag.</b> Since 2023 FIDE applies the helpmate measure to resignation as well (5.1.2); under USCF a resignation is always a loss. The hybrid ties resignation to the forced-mate measure used at flag fall: if the opponent falls into the same class and there is no forced mate, the player who resigns does not lose. The reasoning: resignation and flag fall both close a game before it ends on the board, and the question to ask is the same in both — could the opponent have won this game by force? Neither a fallen flag nor a resignation should hand over a win the opponent did not have in hand.</li>
+      <li><b>Flag fall — helpmate, as under FIDE.</b> When time runs out, the question is whether the opponent could mate by any series of legal moves (6.9), not whether they could force the mate. The reasoning: time is not outside the game but part of it. Managing the clock is part of the game just as managing the board is, and a measure of a player's strength and command. Winning with a lone knight or bishop against someone holding heavy pieces may not look fair at first sight. But the knight is not what brings that win; the opponent's failure to manage their time is. It may look harsh on the player whose time ran out, but it is not: players have to learn to count the clock too. USCF's forced-mate measure protects the side that used up its time; the hybrid does not.</li>
+      <li><b>Resignation — helpmate, the same measure as the flag.</b> Since 2023 FIDE applies the helpmate measure to resignation as well (5.1.2); under USCF a resignation is always a loss. The hybrid follows FIDE: if the opponent cannot mate by any series of legal moves, the player who resigns does not lose. Resignation and flag fall both close a game before it ends on the board, and the same question is asked in both.</li>
     </ul>
 
     <div class="tw" lang="tr"><table>
 <thead><tr><th>Parametre</th><th>FIDE</th><th>USCF</th><th>Karma</th></tr></thead>
 <tbody>
 <tr><td>50 hamle · üçlü tekrar iddiası</td><td>Açık</td><td>Açık</td><td><b>Kapalı</b></td></tr>
-<tr><td>75 hamle · beşli tekrar tavanı</td><td>Açık</td><td>Yok</td><td>Açık</td></tr>
+<tr><td>Kendiliğinden beraberlik</td><td>75 hamle · beşli tekrar</td><td>Yok</td><td><b>60 hamle · dörtlü tekrar</b></td></tr>
 <tr><td>Anlaşmalı beraberlik</td><td>Açık<span class="sub">iki taraf da en az bir hamle yaptıktan sonra</span></td><td>Açık<span class="sub">asgari hamle şartı yok</span></td><td>Açık<span class="sub">ilk hamleden itibaren</span></td></tr>
 <tr><td>Ölü pozisyon</td><td>Hemen biter</td><td>Hemen biter</td><td>Hemen biter</td></tr>
 <tr><td>Tekrarda geçerken alma</td><td>Geçerli</td><td>Geçerli</td><td>Geçerli</td></tr>
 <tr><td>Tekrarda rok</td><td>Hak</td><td>Hak</td><td>Hak</td></tr>
 <tr><td>Sayacı sıfırlayan</td><td>Piyon hamlesi, alış</td><td>Piyon hamlesi, alış</td><td><b>Her geri alınamaz olay</b><span class="sub">+ rok ve geçerken alma hakkının düşmesi</span></td></tr>
-<tr><td>Bayrak düşmesinde ölçüt</td><td>Yardımlı mat</td><td>Zorlamalı mat</td><td>Zorlamalı mat</td></tr>
+<tr><td>Bayrak düşmesinde ölçüt</td><td>Yardımlı mat</td><td>Zorlamalı mat</td><td>Yardımlı mat</td></tr>
 <tr><td>Yetersiz materyal sayılan filler</td><td>Tek renkteki bütün filler</td><td>Tek fil</td><td>Tek renkteki bütün filler</td></tr>
 <tr><td>İki at, süresi bitenin piyonu varken</td><td>Kazanç</td><td>Kazanç</td><td>Kazanç</td></tr>
-<tr><td>İki at, piyonsuz tarafa karşı</td><td>Kazanç<span class="sub">yardımlı mat varsa</span></td><td>Beraberlik<span class="sub">zorlamalı mat yoksa</span></td><td>Beraberlik<span class="sub">zorlamalı mat yoksa</span></td></tr>
-<tr><td>Terk</td><td>Yardımlı mat<span class="sub">rakip mat edemiyorsa beraberlik</span></td><td>Her zaman kayıp</td><td>Zorlamalı mat<span class="sub">bayrakla aynı ölçü</span></td></tr>
+<tr><td>İki at, piyonsuz tarafa karşı</td><td>Kazanç<span class="sub">yardımlı mat varsa</span></td><td>Beraberlik<span class="sub">zorlamalı mat yoksa</span></td><td>Kazanç<span class="sub">yardımlı mat varsa</span></td></tr>
+<tr><td>Terk</td><td>Yardımlı mat<span class="sub">rakip mat edemiyorsa beraberlik</span></td><td>Her zaman kayıp</td><td>Yardımlı mat<span class="sub">bayrakla aynı ölçü</span></td></tr>
 </tbody>
 </table></div>
     <div class="tw" lang="en"><table>
 <thead><tr><th>Parameter</th><th>FIDE</th><th>USCF</th><th>Hybrid</th></tr></thead>
 <tbody>
 <tr><td>50-move · threefold claim</td><td>On</td><td>On</td><td><b>Off</b></td></tr>
-<tr><td>75-move · fivefold ceiling</td><td>On</td><td>None</td><td>On</td></tr>
+<tr><td>Automatic draw</td><td>75 moves · fivefold</td><td>None</td><td><b>60 moves · fourfold</b></td></tr>
 <tr><td>Draw by agreement</td><td>On<span class="sub">once both sides have made at least one move</span></td><td>On<span class="sub">no minimum number of moves</span></td><td>On<span class="sub">from the very first move</span></td></tr>
 <tr><td>Dead position</td><td>Ends at once</td><td>Ends at once</td><td>Ends at once</td></tr>
 <tr><td>En passant in repetition</td><td>Legal</td><td>Legal</td><td>Legal</td></tr>
 <tr><td>Castling in repetition</td><td>Right</td><td>Right</td><td>Right</td></tr>
 <tr><td>What resets the counter</td><td>Pawn move, capture</td><td>Pawn move, capture</td><td><b>Every irreversible event</b><span class="sub">+ loss of a castling or en passant right</span></td></tr>
-<tr><td>Criterion at flag fall</td><td>Helpmate</td><td>Forced mate</td><td>Forced mate</td></tr>
+<tr><td>Criterion at flag fall</td><td>Helpmate</td><td>Forced mate</td><td>Helpmate</td></tr>
 <tr><td>Bishops counted as insufficient material</td><td>Every bishop of one colour</td><td>A single bishop</td><td>Every bishop of one colour</td></tr>
 <tr><td>Two knights, player out of time has a pawn</td><td>Win</td><td>Win</td><td>Win</td></tr>
-<tr><td>Two knights against a pawnless side</td><td>Win<span class="sub">if a helpmate exists</span></td><td>Draw<span class="sub">unless a forced mate exists</span></td><td>Draw<span class="sub">unless a forced mate exists</span></td></tr>
-<tr><td>Resignation</td><td>Helpmate<span class="sub">draw if the opponent cannot mate</span></td><td>Always a loss</td><td>Forced mate<span class="sub">the same measure as the flag</span></td></tr>
+<tr><td>Two knights against a pawnless side</td><td>Win<span class="sub">if a helpmate exists</span></td><td>Draw<span class="sub">unless a forced mate exists</span></td><td>Win<span class="sub">if a helpmate exists</span></td></tr>
+<tr><td>Resignation</td><td>Helpmate<span class="sub">draw if the opponent cannot mate</span></td><td>Always a loss</td><td>Helpmate<span class="sub">the same measure as the flag</span></td></tr>
 </tbody>
 </table></div>
 
     <div class="prose" lang="tr">
-      <p>Uygulama tarafında bir not: zorlamalı mat araması bayrak düşmeyi beklemek zorunda değil.
+      <p>Uygulama tarafında bir not: yardımlı mat araması (6.9) bayrak düşmeyi beklemek zorunda değil.
       Hafif taşlı her pozisyonda arka planda çalışabilir; bayrak düştüğünde sonuç hazırdır ve
       oyuncular için bekleme olmaz.</p>
     </div>
     <div class="prose" lang="en">
-      <p>One note on the implementation side: the forced-mate search does not have to wait for the
-      flag. It can run in the background in every minor-piece position, so the result is ready when
+      <p>One note on the implementation side: the helpmate search (6.9) does not have to wait for
+      the flag. It can run in the background in every minor-piece position, so the result is ready when
       the flag falls and the players never wait for it.</p>
     </div>
 
@@ -7558,7 +7566,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       in the source.</p>
     </div>
 <pre class="snip">l = ( f  y  S  <b>W</b>  <b>B</b>  <b>V</b>  v  K  <b>L</b>  <b>C</b>  <b>Z</b>  q  P  Q  <b>l</b>  u  w  <b>N</b>  X )
-      <i>koyu olanlar globali gölgeliyor · bold ones shadow a global</i></pre>
+      <i lang="tr">koyu olanlar globali gölgeliyor</i><i lang="en">bold ones shadow a global</i></pre>
     <div class="prose" lang="tr">
       <p>Bunların arasında bir tanesi özellikle dikkat çekiyor: <code>l</code>'nin kendisi. Doyma
       döngüsünün her turda kalıcı beyaz piyonları tuttuğu geçici küme de <code>l</code> adını
@@ -9460,7 +9468,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       measured, and the measurement is not encouraging.</p>
     </div>
 
-    <pre class="snip">k4b2/8/8/p1p1p1p1/P1P1P1P1/8/8/K4B2 w    <i>kilitli · blocked</i></pre>
+    <pre class="snip">k4b2/8/8/p1p1p1p1/P1P1P1P1/8/8/K4B2 w    <i lang="tr">kilitli</i><i lang="en">blocked</i></pre>
 
     <div class="prose" lang="tr">
       <p>Bu pozisyonda hiçbir taş karşıya geçemiyor. Piyonlar karşılıklı tıkalı, çapraz komşuları
@@ -10367,7 +10375,6 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       same in both versions — the only things that differ are <b>when it stops</b> and how large
       the numbers are allowed to grow.</p>
     </div>
-  </div>
     <div class="prose" lang="tr">
       <p><b>6.9 aramasında sonuç.</b> Bütçe iki sürümde aynı — 20.000 deneme, 15 yarım hamle —
       ama <code>engine_4x</code> aynı işi daha kısa sürede bitiriyor. Pratikteki süre bitimleri
@@ -10382,6 +10389,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       two-knight example that spends the whole budget takes about a second rather than five to ten. The
       budget itself is on the engine tab, under <a href="#hbudget">its own heading</a>.</p>
     </div>
+  </div>
 </section>
 
 <section id="letters">
@@ -11703,8 +11711,6 @@ f = K[2] + K[3] - 0</pre></div>
       never touches the rule layer.</p>
     </div>
 
-      </div>
-
     <h3 lang="tr">Sürücü sınırı</h3>
     <h3 lang="en">The driver boundary</h3>
 
@@ -11726,6 +11732,7 @@ f = K[2] + K[3] - 0</pre></div>
       second step, at the moment the side to move is flipped. The engine's rule logic stands
       unchanged; the only thing inserted is <code>U[t^=1]+=5</code>.</p>
     </div>
+  </div>
 </section>
 
 <section id="packing">
