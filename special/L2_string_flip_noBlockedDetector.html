@@ -13,10 +13,10 @@ h=a(i%8-f%8),v=a(y-(f>>3)),
 d=h|v,k=(f-i)/d,
 S=Q=>(i+=k)==f||b[i]==_&&S())=>
 P=='N'?h*v==2
-:P=='K'?T|v|h^2?d<2:c&C(r=i+3.5*k-.5)&&G(r,i)&&!V(t,i)&!V(t,i+k)
+:P=='K'?T|v|h^2?d<2:c&C(f=i+3.5*k-.5)&&!V(t,i)&&!V(t,i+k)&&S()
 :P=='P'?f>i^g<U&&(
 h*v==1?T|b[f]>_|f==e
-:h|T|b[f]>_?0:v<2|v<3&b[i+f>>1]==_&66>>y)
+:h|T|b[f]>_?0:v<2||v<3&66>>y&&S())
 :(h*v?h==v&P<'R':P>'B')&S(),
 V=(s,u=b.indexOf('kK'[+s]))=>b.some((p,i)=>p>_&p<U!=s&&G(i,u,1)),
 
