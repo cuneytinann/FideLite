@@ -280,7 +280,7 @@ body {
   section > .wrap { padding-inline:calc(min(100%, 78rem) * 3 / 16) }
   /* Okuma genisligi sinirlari sutunun kendisine birakilir; yoksa metin
      sutunun solunda kalir, sag bosluk soldakinden genis gorunurdu. */
-  section :is(.prose, .imgph, .epi, .diagram, .snip, .codes, .cost, .fl, .note,
+  section :is(.prose, .epi, .diagram, .snip, .codes, .cost, .fl, .note,
     ul.tight, ol.tight) { max-width:none }
   #play .player { margin-inline:calc(-30% + 1.5rem) }
   section {
@@ -353,9 +353,6 @@ p { margin:0 0 1rem }
    ikisinde de yalnizca ayni dilin ardisikligini yakalar. Kutular kendi boslugunu tasir. */
 .prose[lang="tr"] + .prose[lang="tr"]:not(.fl),
 .prose[lang="en"] + .prose[lang="en"]:not(.fl) { margin-top:1rem }
-/* Ekstra: gelecek gorseller icin yer tutucu. Gorsel gelince <img> ile degisir. */
-.imgph { margin:1.75rem 0 0; max-width:44rem; aspect-ratio:16/9;
-  border:1.5px dashed var(--ink-3); border-radius:6px; background:var(--panel) }
 
 /* ---- masthead ---- */
 .mast { border-bottom:1px solid var(--rule); padding:1rem 0 }
@@ -667,6 +664,9 @@ tbody tr.alt code { color:var(--pc-b) }
   border:1px dashed var(--rule) }
 /* Ucluk mini tahta: kurulabilen mat tablosundaki kose kesitleri. */
 .mb.mini { --c:3; width:110px }
+/* Ekstra: ekran goruntusu. Sutunda ortalanir, dar ekranda sutunu doldurur. */
+.shot { margin:1.5rem auto 0; max-width:22rem }
+.shot img { display:block; width:100%; height:auto; border-radius:.6rem }
 .mb.et { border-top:2px solid var(--ink) }
 .mb.er { border-right:2px solid var(--ink) }
 .mb.eb { border-bottom:2px solid var(--ink) }
@@ -3747,9 +3747,10 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <em>yardım edebildiği için</em> hesaba giriyor.</p>
       <p>Tek atla mat ancak savunan tarafın, kendi şahının kaçış karesini kapatacak bir taşı varsa kurulabilir:
       fil, at, piyon, hatta kale. Savunan vezir bu işi göremez, çünkü köşedeki kaçışı kapatabileceği
-      her kareden aynı anda mat eden atı da tehdit eder. Savunan piyonu yeterli kılan şey ise terfi:
-      madde herhangi bir geçerli hamle dizisine izin verdiğinden, piyon sıkıştırmayı yapacak taşa
-      dönüşebilir.</p>
+      her kareden aynı anda mat eden atı da tehdit eder. Savunan piyon iki yoldan yeter. a ya da h
+      dikeyindeyse köşedeki şahın kaçış karesini terfiden önce de kendisi kapatabilir. Başka bir
+      dikeydeyse terfi eder: madde herhangi bir geçerli hamle dizisine izin verdiğinden, piyon
+      sıkıştırmayı yapacak taşa dönüşebilir. Tek fille mat için de aynısı geçerli.</p>
     </div>
     <div class="prose" lang="en">
       <p>The first question is answered by counting: does mate exist at all with the pieces the
@@ -3758,9 +3759,10 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       counted — and the defender’s material enters only because it can <em>help</em>.</p>
       <p>Mate with a lone knight can only be built if the defending side owns a piece that can block its own king's escape: a bishop, a knight, a pawn, even a rook. A defending queen cannot do the job,
       because from every square where it could close the escape in the corner it simultaneously
-      attacks the mating knight. What makes a defending pawn sufficient is promotion: since the
-      article allows any series of legal moves, the pawn can turn into the piece that does the
-      shutting in.</p>
+      attacks the mating knight. A defending pawn is sufficient in two ways. On the a- or
+      h-file it can close the cornered king's escape square itself, even before promotion. On any
+      other file it promotes: since the article allows any series of legal moves, the pawn can turn
+      into the piece that does the shutting in. The same holds for mate with a lone bishop.</p>
     </div>
 
         <div class="tw" lang="tr"><table>
@@ -3806,7 +3808,18 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <i class="d" data-f="b"><b class="w">♚</b></i>
 <i data-f="c" data-r="6"></i>
 </div></td></tr>
-<tr><td>Ş + At</td><td>Ş + Piyon</td><td>Var</td><td>Terfiden sonra</td></tr>
+<tr><td>Ş + At</td><td>Ş + Piyon <span class="sub">a ya da h dikeyinde</span></td><td>Var</td><td><div class="mb et el mini" role="img" aria-label="şah ve ata karşı şah ve a piyonu: terfiden önce yardımlı mat">
+<i><b class="b">♚</b></i>
+<i class="d"></i>
+<i data-r="8"><b class="w">♚</b></i>
+<i class="d"><b class="b">♟</b></i>
+<i></i>
+<i class="d" data-r="7"><b class="w">♞</b></i>
+<i data-f="a"></i>
+<i class="d" data-f="b"></i>
+<i data-f="c" data-r="6"></i>
+</div></td></tr>
+<tr><td>Ş + At</td><td>Ş + Piyon <span class="sub">diğer dikeylerde</span></td><td>Var</td><td>Terfiden sonra<span class="sub">bu şekilde kurulamaz; piyon terfi edip sıkıştırmayı yapacak taşa dönüşünce mümkün</span></td></tr>
 <tr><td>Ş + Fil</td><td>Ş + At</td><td>Var</td><td><div class="mb et el mini" role="img" aria-label="şah ve fil tarafına karşı şah ve at: yardımlı mat pozisyonu">
 <i><b class="b">♚</b></i>
 <i class="d"><b class="b">♞</b></i>
@@ -3829,7 +3842,18 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <i class="d" data-f="b"></i>
 <i data-f="c" data-r="6"><b class="w">♝</b></i>
 </div></td></tr>
-<tr><td>Ş + Fil</td><td>Ş + Piyon</td><td>Var</td><td>Terfiden sonra</td></tr>
+<tr><td>Ş + Fil</td><td>Ş + Piyon <span class="sub">a ya da h dikeyinde</span></td><td>Var</td><td><div class="mb et el mini" role="img" aria-label="şah ve file karşı şah ve a piyonu: terfiden önce yardımlı mat">
+<i><b class="b">♚</b></i>
+<i class="d"></i>
+<i data-r="8"></i>
+<i class="d"><b class="b">♟</b></i>
+<i></i>
+<i class="d" data-r="7"><b class="w">♚</b></i>
+<i data-f="a"></i>
+<i class="d" data-f="b"></i>
+<i data-f="c" data-r="6"><b class="w">♝</b></i>
+</div></td></tr>
+<tr><td>Ş + Fil</td><td>Ş + Piyon <span class="sub">diğer dikeylerde</span></td><td>Var</td><td>Terfiden sonra<span class="sub">bu şekilde kurulamaz; piyon terfi edip sıkıştırmayı yapacak taşa dönüşünce mümkün</span></td></tr>
 <tr><td>Ş + At + At</td><td>Ş</td><td>Var</td><td><div class="mb eb er mini" role="img" aria-label="şah ve iki at tarafına karşı çıplak şah: yardımlı mat pozisyonu">
 <i><b class="w">♞</b></i>
 <i class="d"><b class="w">♚</b></i>
@@ -3886,7 +3910,18 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <i class="d" data-f="b"><b class="w">♚</b></i>
 <i data-f="c" data-r="6"></i>
 </div></td></tr>
-<tr><td>K + N</td><td>K + P</td><td>Yes</td><td>After promotion</td></tr>
+<tr><td>K + N</td><td>K + P <span class="sub">on the a- or h-file</span></td><td>Yes</td><td><div class="mb et el mini" role="img" aria-label="king and knight against king and a-pawn: helpmate before promotion">
+<i><b class="b">♚</b></i>
+<i class="d"></i>
+<i data-r="8"><b class="w">♚</b></i>
+<i class="d"><b class="b">♟</b></i>
+<i></i>
+<i class="d" data-r="7"><b class="w">♞</b></i>
+<i data-f="a"></i>
+<i class="d" data-f="b"></i>
+<i data-f="c" data-r="6"></i>
+</div></td></tr>
+<tr><td>K + N</td><td>K + P <span class="sub">on any other file</span></td><td>Yes</td><td>After promotion<span class="sub">cannot be built this way; possible once the pawn promotes into a piece that does the shutting in</span></td></tr>
 <tr><td>K + B</td><td>K + N</td><td>Yes</td><td><div class="mb et el mini" role="img" aria-label="king and bishop against king and knight: helpmate position">
 <i><b class="b">♚</b></i>
 <i class="d"><b class="b">♞</b></i>
@@ -3909,7 +3944,18 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <i class="d" data-f="b"></i>
 <i data-f="c" data-r="6"><b class="w">♝</b></i>
 </div></td></tr>
-<tr><td>K + B</td><td>K + P</td><td>Yes</td><td>After promotion</td></tr>
+<tr><td>K + B</td><td>K + P <span class="sub">on the a- or h-file</span></td><td>Yes</td><td><div class="mb et el mini" role="img" aria-label="king and bishop against king and a-pawn: helpmate before promotion">
+<i><b class="b">♚</b></i>
+<i class="d"></i>
+<i data-r="8"></i>
+<i class="d"><b class="b">♟</b></i>
+<i></i>
+<i class="d" data-r="7"><b class="w">♚</b></i>
+<i data-f="a"></i>
+<i class="d" data-f="b"></i>
+<i data-f="c" data-r="6"><b class="w">♝</b></i>
+</div></td></tr>
+<tr><td>K + B</td><td>K + P <span class="sub">on any other file</span></td><td>Yes</td><td>After promotion<span class="sub">cannot be built this way; possible once the pawn promotes into a piece that does the shutting in</span></td></tr>
 <tr><td>K + N + N</td><td>K</td><td>Yes</td><td><div class="mb eb er mini" role="img" aria-label="king and two knights against a lone king: helpmate position">
 <i><b class="w">♞</b></i>
 <i class="d"><b class="w">♚</b></i>
@@ -7111,50 +7157,85 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       <p>Tahta 64 elemanlı düz bir dizi. Her eleman bir kare, değeri o karedeki taşın kodu.
       İndeks a1'de sıfırdan başlıyor, h8'de 63'te bitiyor; <code>i&gt;&gt;3</code> yatayı,
       <code>i%8</code> dikeyi veriyor.</p>
-      <p>Taş kodu <code>tür*2+renk</code> ve her kod dört bite sığıyor — dört bitlik bu birime
-      <b>nibble</b> (yarım bayt) denir ve tek bir onaltılık basamakla yazılır: 10'dan 13'e kadarki
-      kodlar <code>a</code>'dan <code>d</code>'ye. Başlangıç dizilişinin onaltılık yazılması bundan.
-      Sıfırıncı bit renk — <b>1 beyaz, 0 siyah</b> — geri kalanı tür. Boş kare <code>0</code>.</p>
+      <p>Taş kodu 0 ile 13 arasında bir sayı ve dört bite sığıyor. Dört bitlik bu birime
+      <b>nibble</b>, yani yarım bayt denir; tek bir onaltılık basamakla yazılır: 0–9 rakamla,
+      10–13 ise <code>a</code>, <code>b</code>, <code>c</code>, <code>d</code> harfleriyle.
+      Başlangıç dizilişinin onaltılık bir dizgi olarak yazılabilmesi bundan: her kare tek bir
+      karakter.</p>
+      <p>Dört bitin her birinin bir görevi var. Bitleri sağdan sola, basamak değerleriyle
+      anıyoruz:</p>
     </div>
     <div class="prose" lang="en">
       <p>The board is a flat array of 64. Each element is one square, its value the code of the
       piece on it. The index starts at zero on a1 and ends at 63 on h8;
       <code>i&gt;&gt;3</code> gives the rank, <code>i%8</code> the file.</p>
-      <p>The piece code is <code>type*2+colour</code>, and every code fits in four bits — a unit
-      called a <b>nibble</b> (half a byte), written as a single hexadecimal digit: codes 10 to 13
-      become <code>a</code> to <code>d</code>. That is why the starting position is written in hex.
-      Bit zero is the colour — <b>1 white, 0 black</b> — the rest is the type. An empty square is
-      <code>0</code>.</p>
+      <p>The piece code is a number from 0 to 13 and fits in four bits. A four-bit unit is called
+      a <b>nibble</b>, half a byte, and is written as a single hexadecimal digit: 0–9 as digits,
+      10–13 as the letters <code>a</code>, <code>b</code>, <code>c</code>, <code>d</code>. That is
+      why the starting position can be written as a hex string: every square is a single
+      character.</p>
+      <p>Each of the four bits has a job. We name the bits from right to left, by their place
+      value:</p>
+    </div>
+    <ul class="tight" lang="tr">
+      <li><b>Birler basamağı (1): renk.</b> 1 beyaz, 0 siyah. Kodun tek ya da çift olması taşın hangi tarafa ait olduğunu söylüyor.</li>
+      <li><b>İkiler basamağı (2): çapraz.</b> Açıksa taş çapraz gidebiliyor.</li>
+      <li><b>Dörtler basamağı (4): düz.</b> Açıksa taş düz gidebiliyor.</li>
+      <li><b>Sekizler basamağı (8): kısa menzil.</b> Açıksa taş uzun menzilli değil; piyon, şah ya da at.</li>
+    </ul>
+    <ul class="tight" lang="en">
+      <li><b>Ones place (1): colour.</b> 1 white, 0 black. Whether the code is odd or even tells which side the piece belongs to.</li>
+      <li><b>Twos place (2): diagonal.</b> When set, the piece can move diagonally.</li>
+      <li><b>Fours place (4): straight.</b> When set, the piece can move straight.</li>
+      <li><b>Eights place (8): short range.</b> When set, the piece does not slide; it is a pawn, a king or a knight.</li>
+    </ul>
+    <div class="prose" lang="tr">
+      <p>Renk bitini atınca geriye kalan üç bit taşın türü: tür = kod &gt;&gt; 1 (motorda
+      <code>P</code>), kod = tür × 2 + renk. Boş kare <code>0</code>. İkilik yazımda basamaklar
+      soldan sağa sekizler, dörtler, ikiler, birler.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>Drop the colour bit and the remaining three bits are the piece's type: type = code
+      &gt;&gt; 1 (<code>P</code> in the engine), code = type × 2 + colour. An empty square is
+      <code>0</code>. In binary the places run, left to right, eights, fours, twos, ones.</p>
     </div>
 <div class="tw" lang="tr"><table>
-<thead><tr><th>Tür</th><th class="num"><code>P</code></th><th class="num">Kod · siyah</th><th class="num">Kod · beyaz</th><th class="num">İkili · siyah</th><th class="num">İkili · beyaz</th></tr></thead>
+<thead><tr><th>Taş</th><th class="num">Tür <code>P</code></th><th class="num">Siyah</th><th class="num">Beyaz</th></tr></thead>
 <tbody>
-<tr><td>Fil</td><td class="num">1</td><td class="num">2</td><td class="num">3</td><td class="num"><code>0010</code></td><td class="num"><code>0011</code></td></tr>
-<tr><td>Kale</td><td class="num">2</td><td class="num">4</td><td class="num">5</td><td class="num"><code>0100</code></td><td class="num"><code>0101</code></td></tr>
-<tr><td>Vezir</td><td class="num">3</td><td class="num">6</td><td class="num">7</td><td class="num"><code>0110</code></td><td class="num"><code>0111</code></td></tr>
-<tr><td>Piyon</td><td class="num">4</td><td class="num">8</td><td class="num">9</td><td class="num"><code>1000</code></td><td class="num"><code>1001</code></td></tr>
-<tr><td>Şah</td><td class="num">5</td><td class="num">10</td><td class="num">11</td><td class="num"><code>1010</code></td><td class="num"><code>1011</code></td></tr>
-<tr><td>At</td><td class="num">6</td><td class="num">12</td><td class="num">13</td><td class="num"><code>1100</code></td><td class="num"><code>1101</code></td></tr>
+<tr><td>Fil</td><td class="num">1</td><td class="num">2<span class="sub">0010</span></td><td class="num">3<span class="sub">0011</span></td></tr>
+<tr><td>Kale</td><td class="num">2</td><td class="num">4<span class="sub">0100</span></td><td class="num">5<span class="sub">0101</span></td></tr>
+<tr><td>Vezir</td><td class="num">3</td><td class="num">6<span class="sub">0110</span></td><td class="num">7<span class="sub">0111</span></td></tr>
+<tr><td>Piyon</td><td class="num">4</td><td class="num">8<span class="sub">1000</span></td><td class="num">9<span class="sub">1001</span></td></tr>
+<tr><td>Şah</td><td class="num">5</td><td class="num">10 (<code>a</code>)<span class="sub">1010</span></td><td class="num">11 (<code>b</code>)<span class="sub">1011</span></td></tr>
+<tr><td>At</td><td class="num">6</td><td class="num">12 (<code>c</code>)<span class="sub">1100</span></td><td class="num">13 (<code>d</code>)<span class="sub">1101</span></td></tr>
 </tbody>
 </table></div>
 <div class="tw" lang="en"><table>
-<thead><tr><th>Type</th><th class="num"><code>P</code></th><th class="num">Code · black</th><th class="num">Code · white</th><th class="num">Binary · black</th><th class="num">Binary · white</th></tr></thead>
+<thead><tr><th>Piece</th><th class="num">Type <code>P</code></th><th class="num">Black</th><th class="num">White</th></tr></thead>
 <tbody>
-<tr><td>Bishop</td><td class="num">1</td><td class="num">2</td><td class="num">3</td><td class="num"><code>0010</code></td><td class="num"><code>0011</code></td></tr>
-<tr><td>Rook</td><td class="num">2</td><td class="num">4</td><td class="num">5</td><td class="num"><code>0100</code></td><td class="num"><code>0101</code></td></tr>
-<tr><td>Queen</td><td class="num">3</td><td class="num">6</td><td class="num">7</td><td class="num"><code>0110</code></td><td class="num"><code>0111</code></td></tr>
-<tr><td>Pawn</td><td class="num">4</td><td class="num">8</td><td class="num">9</td><td class="num"><code>1000</code></td><td class="num"><code>1001</code></td></tr>
-<tr><td>King</td><td class="num">5</td><td class="num">10</td><td class="num">11</td><td class="num"><code>1010</code></td><td class="num"><code>1011</code></td></tr>
-<tr><td>Knight</td><td class="num">6</td><td class="num">12</td><td class="num">13</td><td class="num"><code>1100</code></td><td class="num"><code>1101</code></td></tr>
+<tr><td>Bishop</td><td class="num">1</td><td class="num">2<span class="sub">0010</span></td><td class="num">3<span class="sub">0011</span></td></tr>
+<tr><td>Rook</td><td class="num">2</td><td class="num">4<span class="sub">0100</span></td><td class="num">5<span class="sub">0101</span></td></tr>
+<tr><td>Queen</td><td class="num">3</td><td class="num">6<span class="sub">0110</span></td><td class="num">7<span class="sub">0111</span></td></tr>
+<tr><td>Pawn</td><td class="num">4</td><td class="num">8<span class="sub">1000</span></td><td class="num">9<span class="sub">1001</span></td></tr>
+<tr><td>King</td><td class="num">5</td><td class="num">10 (<code>a</code>)<span class="sub">1010</span></td><td class="num">11 (<code>b</code>)<span class="sub">1011</span></td></tr>
+<tr><td>Knight</td><td class="num">6</td><td class="num">12 (<code>c</code>)<span class="sub">1100</span></td><td class="num">13 (<code>d</code>)<span class="sub">1101</span></td></tr>
 </tbody>
 </table></div>
     <div class="prose" lang="tr">
-      <p>Tür numaralandırması keyfi değil. Üst üçlü — piyon, şah, at — <code>G</code>'nin
-      <code>P&gt;3</code>, <code>P&gt;4</code>, <code>P&gt;5</code> merdivenini besliyor. Alt
-      üçlüde ise <b>vezir, filin ve kalenin bit birleşimi</b>: <code>3 = 1|2</code>. Sıfırıncı bit
-      “çapraz gidebilir”, birinci bit “düz gidebilir” demek. Uzun menzilli taşların dalı bu yüzden tek bir ifade: <code>(h*v?h==v:2)&amp;P</code> — çaprazda eşit mesafe sınanıp sıfırıncı bit, düzde
-      doğrudan birinci bit okunuyor. Vezir için ayrı bir dal hiç yazılmamış; iki biti birden
-      taşıdığı için ikisinden de geçiyor.</p>
+      <p>Sekizler basamağı kapalı olan üç taş uzun menzilli ve ikiler ile dörtler basamağıyla
+      tanımlanıyor: fil yalnızca çapraz (2), kale yalnızca düz (4), vezir ikisi birden (2 + 4).
+      <b>Vezir filin ve kalenin birleşimi</b>, kodu da onlarınkinin birleşimi. Motorun uzun
+      menzilli taşlar için tek bir ifadesi var: <code>(h*v?h==v:2)&amp;P</code>. Yalnız burada bir
+      kayma var: <code>P</code> renk biti atılmış kod olduğu için bu iki bit <code>P</code>'de bir
+      basamak sağda duruyor; kodun ikiler basamağı <code>P</code>'nin birler basamağı, dörtler
+      basamağı da ikiler basamağı. İfade çaprazda eşit mesafeyi sınayıp 1'i, düzde doğrudan 2'yi
+      <code>P</code> ile bit bit kesiştiriyor (<code>&amp;</code>). Vezir için ayrı bir dal
+      yazılmamış; iki biti birden taşıdığı için ikisinden de geçiyor.</p>
+      <p>Sekizler basamağı açık olan üç taş, yani piyon, şah ve at, kendi hareketleriyle ayrı ele
+      alınıyor. Aralarındaki ayrımı yine ikiler ve dörtler basamağı yapıyor: piyonda ikisi de
+      kapalı, şahta ikiler, atta dörtler açık. Geometri fonksiyonu <code>G</code> bunları türün
+      büyüklüğüyle ayırıyor: <code>P&gt;5</code> at, <code>P&gt;4</code> şah, <code>P&gt;3</code>
+      piyon; hiçbiri değilse taş uzun menzilli.</p>
       <p>Sınıflandırma <b>kare merkezli</b>: bilgi kareye asılı, taşa değil. Karşı kutup
       taş merkezli temsiller — bitboard'da bilgi taş türüne göre ayrılmış bit kümelerine
       dağılır, “bu karede ne var” sorusu pahalılaşır, küme işlemleri ucuzlar. Burada tersi:
@@ -7162,14 +7243,21 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       
     </div>
     <div class="prose" lang="en">
-      <p>The type numbering is not arbitrary. The upper trio — pawn, king, knight — feeds
-      <code>G</code>'s ladder of <code>P&gt;3</code>, <code>P&gt;4</code>, <code>P&gt;5</code>. In
-      the lower trio the <b>queen is the bitwise union of bishop and rook</b>:
-      <code>3 = 1|2</code>. Bit zero means “can move diagonally”, bit one “can move straight”. The
-      sliding branch is therefore a single expression: <code>(h*v?h==v:2)&amp;P</code> — on a
-      diagonal the equal distance is tested and then bit zero read, on a straight line bit one is
-      read directly. No separate branch for the queen was ever written; carrying both bits, it
-      passes through either.</p>
+      <p>The three pieces with the eights place clear are the sliding pieces, defined by the twos
+      and fours places: the bishop only diagonal (2), the rook only straight (4), the queen both
+      (2 + 4). <b>The queen is the union of bishop and rook</b>, and so is its code. The engine
+      has a single expression for the sliding pieces: <code>(h*v?h==v:2)&amp;P</code>. There is
+      one shift to keep in mind: <code>P</code> is the code with the colour bit dropped, so both
+      bits sit one place to the right in <code>P</code> — the code's twos place is
+      <code>P</code>'s ones place, its fours place <code>P</code>'s twos place. On a diagonal the
+      expression tests the equal distance and intersects 1 with <code>P</code>; on a straight
+      line it intersects 2 directly (<code>&amp;</code>). No separate branch for the queen was
+      ever written; carrying both bits, it passes through either.</p>
+      <p>The three pieces with the eights place set — pawn, king and knight — are handled by their
+      own moves. What tells them apart is again the twos and fours places: the pawn has both
+      clear, the king the twos, the knight the fours. The geometry function <code>G</code>
+      separates them by the size of the type: <code>P&gt;5</code> knight, <code>P&gt;4</code>
+      king, <code>P&gt;3</code> pawn; if none holds, the piece slides.</p>
       <p>The classification is <b>square-centric</b>: the information hangs off the square, not
       off the piece. The opposite pole is piece-centric representation — in a bitboard the
       information is scattered across bit sets split by piece type, so “what is on this square?”
@@ -7366,7 +7454,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td><code>z</code></td><td>Oyun sonucu</td><td><a href="#codes">Sonuç kodu</a>; oyun sürerken <code>0</code>. Motor kendi yazmaz — sürücü <code>A</code>, <code>D</code> ya da <code>F</code>'nin dönüşünü buraya koyar.</td></tr>
 <tr><td><code>n</code></td><td>Yarım hamle sayacı</td><td>Taş alımında ve piyon hamlesinde sıfırlanır. <code>n&gt;99</code> olunca 50 hamle beraberliği iddia edilebilir, <code>n&gt;149</code> olunca kendiliğinden gelir.</td></tr>
 <tr><td><code>$</code></td><td>Tekrar sayısı</td><td>Mevcut pozisyon kaçıncı kez görüldü. <code>&gt;2</code> olunca 3'lü tekrar iddia edilebilir, <code>&gt;4</code> olunca kendiliğinden gelir.</td></tr>
-<tr><td><code>o</code></td><td>Teklif bitleri</td><td>Bit 0 beyazın, bit 1 siyahın açık teklifi. İkisi de yanınca beraberlik anlaşması doğar.</td></tr>
+<tr><td><code>o</code></td><td>Teklif bitleri</td><td>Birler basamağı beyazın, ikiler basamağı siyahın açık teklifi. İkisi de yanınca beraberlik anlaşması doğar.</td></tr>
 <tr><td><code>c</code></td><td>Rok hakları</td><td>Dört bitlik maske: <code>1</code> beyaz kısa, <code>2</code> beyaz uzun, <code>4</code> siyah kısa, <code>8</code> siyah uzun. <a href="#counters">Hak</a>, o anki yapılabilirlik değil.</td></tr>
 <tr><td><code>e</code></td><td>Geçerken alma karesi</td><td>Yoksa <code>-1</code>. Yalnızca komşu piyon gerçekten alabiliyorsa yazılır — tekrar sayımının doğruluğu buna bağlı.</td></tr>
 <tr><td><code>U</code></td><td>Saatler</td><td><b>İki elemanlı dizi</b>: <code>U[0]</code> siyah, <code>U[1]</code> beyaz — indeks doğrudan <code>t</code> ile eşleşsin diye. Sürücüler bu diziyi kendi saatleri için genişletebiliyor; sürüme göre hâli <a href="#pitfalls">Tuzaklar</a>'da. Motor okumaz, azaltmaz; tamamen sürücünün alanı.</td></tr>
@@ -7385,7 +7473,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td><code>z</code></td><td>Game result</td><td>The <a href="#codes">result code</a>; <code>0</code> while the game continues. The engine does not write it itself — the driver puts the return of <code>A</code>, <code>D</code> or <code>F</code> here.</td></tr>
 <tr><td><code>n</code></td><td>Ply counter</td><td>Resets on a capture and on a pawn move. At <code>n&gt;99</code> the 50-move draw may be claimed, at <code>n&gt;149</code> it is automatic.</td></tr>
 <tr><td><code>$</code></td><td>Repetition count</td><td>How many times the current position has been seen. <code>&gt;2</code> allows the threefold claim, <code>&gt;4</code> is automatic.</td></tr>
-<tr><td><code>o</code></td><td><b>O</b>ffer bits</td><td>Bit 0 is White's open offer, bit 1 Black's. When both are lit, a draw by agreement follows.</td></tr>
+<tr><td><code>o</code></td><td><b>O</b>ffer bits</td><td>The ones place is White's open offer, the twos place Black's. When both are lit, a draw by agreement follows.</td></tr>
 <tr><td><code>c</code></td><td><b>C</b>astling rights</td><td>A four-bit mask: <code>1</code> white kingside, <code>2</code> white queenside, <code>4</code> black kingside, <code>8</code> black queenside. The <a href="#counters">right</a>, not the current availability.</td></tr>
 <tr><td><code>e</code></td><td><b>E</b>n passant square</td><td><code>-1</code> when there is none. Written only if an adjacent pawn can genuinely capture — the correctness of the repetition count depends on this.</td></tr>
 <tr><td><code>U</code></td><td>The clocks</td><td><b>A two-element array</b>: <code>U[0]</code> black, <code>U[1]</code> white — so the index lines up directly with <code>t</code>. Drivers may extend the array for their own clocks; how each build does it is in <a href="#pitfalls">Pitfalls</a>. The engine neither reads nor decrements it; it is entirely the driver’s territory.</td></tr>
@@ -7423,7 +7511,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td><code>Z</code></td><td><code>Z()</code></td><td>73</td><td>Pozisyon sonucu. Önce geçerli hamle var mı diye bakar; yoksa mat mı pat mı ayırır. Varsa <code>I</code> ile <code>l</code>'ye danışıp ölü pozisyonu, ardından tekrar ve hamle sayaçlarını yoklar.</td></tr>
 <tr><td><code>A</code></td><td><code>A(i, f, u)</code></td><td>52</td><td>Gerçek hamle — <code>L</code>'nin yalnızca denediğini uygular: <code>M</code>'yi çağırır (hakları o kırpar), sırayı çevirir, <code>R</code>'ye yazar, <code>Z</code> döndürür.</td></tr>
 <tr><td><code>D</code></td><td><code>D(g)</code></td><td>36</td><td>Beraberlik teklifi, kabulü ve iddiası.</td></tr>
-<tr><td><code>H</code></td><td><code>H(g, d)</code></td><td>219</td><td>6.9’un aramalı yarısı. <code>g</code> yardım etse bile rakibi <code>d</code> yarım hamle içinde bir mat pozisyonu kurabiliyor mu; doğru dönüş <b>kuramıyor</b> demek. Zorlamalı mat değil <b>yardımlı mat</b> arar.</td></tr>
+<tr><td><code>H</code></td><td><code>H(g, d)</code></td><td>219</td><td>6.9’un aramalı yarısı. <code>g</code> yardım etse bile rakibi <code>d</code> yarım hamle içinde bir mat pozisyonu kurabiliyor mu; doğru dönüş <b>kuramıyor</b> demek. Yardımlı matın bile imkânsız olduğunu ispatlamaya çalışır; ispat bulamazsa mat mümkün sayar.</td></tr>
 <tr><td><code>F</code></td><td><code>F(g, k)</code></td><td>45</td><td>Süre ve terk. <code>Hn</code> ile <code>Ht</code>'yi kurup <code>H</code>'ye danışır, sonucu ona göre yazar.</td></tr>
 <tr><td><code>l</code></td><td><code>l()</code></td><td>457</td><td>Ölü pozisyon, 5.2.2’nin kilitli yarısı. Sekiz maskeyle piyonların ve şahların ulaşabildiği kareleri büyüme durana kadar genişletir; sonunda ne terfi ne alma erişilebilir kalıyorsa pozisyon ölüdür. Kapsamı şah ve piyon — tahtada başka taş varsa hiç çalışmaz.</td></tr>
 <tr><td><code>a</code></td><td><code>a</code> <span class="sub">takma ad</span></td><td>10</td><td>Mutlak değer: <code>Math.abs</code> takma adı, harfi de <b>a</b>bsolute'tan. Üç kullanımıyla 10 bayt kazandırıyor.</td></tr>
@@ -7443,7 +7531,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
 <tr><td><code>Z</code></td><td><code>Z()</code></td><td>73</td><td>The result of the position. First checks whether a legal move exists; if not, it tells checkmate from stalemate. If one does, it consults <code>I</code> and <code>l</code> for a dead position, then the repetition and move counters.</td></tr>
 <tr><td><code>A</code></td><td><code>A(i, f, u)</code></td><td>52</td><td>The real move — it <b>a</b>pplies what <code>L</code> only tried: calls <code>M</code> (which clips the rights), flips the side to move, writes to <code>R</code>, returns <code>Z</code>.</td></tr>
 <tr><td><code>D</code></td><td><code>D(g)</code></td><td>36</td><td><b>D</b>raw offer, acceptance and claim.</td></tr>
-<tr><td><code>H</code></td><td><code>H(g, d)</code></td><td>219</td><td>The search half of 6.9. Can <code>g</code>'s opponent construct a mating position within <code>d</code> plies, even with <code>g</code> helping? A true return means it <b>cannot</b>. What it looks for is a <b>helpmate</b>, not a forced mate.</td></tr>
+<tr><td><code>H</code></td><td><code>H(g, d)</code></td><td>219</td><td>The search half of 6.9. Can <code>g</code>'s opponent construct a mating position within <code>d</code> plies, even with <code>g</code> helping? A true return means it <b>cannot</b>. It tries to prove that even a helpmate is impossible; without a proof it counts mate as possible.</td></tr>
 <tr><td><code>F</code></td><td><code>F(g, k)</code></td><td>45</td><td><b>F</b>lag fall and resignation. Sets up <code>Hn</code> and <code>Ht</code>, consults <code>H</code>, and builds the result from what it says.</td></tr>
 <tr><td><code>l</code></td><td><code>l()</code></td><td>457</td><td>Dead position, the <b>l</b>ocked half of 5.2.2. Eight masks grow the squares the pawns and kings can reach until they stop growing; if no promotion or capture is then within reach, the position is dead. Its scope is kings and pawns — with any other piece on the board it does not run at all.</td></tr>
 <tr><td><code>a</code></td><td><code>a</code> <span class="sub">alias</span></td><td>10</td><td><b>A</b>bsolute value — the alias for <code>Math.abs</code>. Saves 10 bytes over its three uses.</td></tr>
@@ -7574,7 +7662,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       kastedilen o küme. Maskeleri doyana kadar büyüten yerel yardımcının adı ise <code>X</code>;
       kaynağın başka hiçbir yerinde geçmediği için bir şey gölgelemiyor.</p>
       <p>Gölgeleme burada bir tasarım tercihi değil, bayt bütçesinin doğal sonucu: boşta yalnızca
-      dört harf kaldığı için <code>l</code> kendi adlarını kullanılmış harflerden seçmek zorundaydı.
+      dört harf kaldığı için <code>l</code> kendi adlarını kullanılmış harflerden seçiyor.
       Parametre listesinde doğanlar dışarıya sızmıyor — fonksiyon bittiğinde global değerler
       olduğu gibi duruyor. İki atama bu kuralın dışında kalıyor; onlar
       <a href="#saturation">doyma döngüsünün açıklamasında</a>. Bunun nerede kırılgan hâle
@@ -7586,7 +7674,7 @@ footer .wrap { display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap }
       the function shadows its own name from the inside; within the body, <code>l</code> means that
       set. The local helper that grows the masks until they saturate is called <code>X</code>, and since it appears nowhere else in the source it shadows nothing.</p>
       <p>The shadowing here is not a design choice but a consequence of the byte budget: with only
-      four letters left free, <code>l</code> had to take its names from letters already in use.
+      four letters left free, <code>l</code> takes its names from letters already in use.
       What is born in the parameter list never leaks — when the function returns, the globals
       stand as they were. Two assignments fall outside that rule; they are covered in
       <a href="#saturation">the saturation loop</a>. <a href="#pitfalls">Pitfalls</a> covers where
@@ -8018,22 +8106,25 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 
     <div class="prose" lang="tr">
       <p><b>Uzun menzilli taşlar.</b> Zincirin son dalı fil, kale ve veziri birlikte ele alıyor ve bunu
-      tür numarasını bir <b>yetenek bit alanı</b> gibi okuyarak yapıyor. Fil 1, kale 2, vezir 3 —
-      ikilik tabanda <code>01</code>, <code>10</code>, <code>11</code>. Sıfırıncı bit “çapraz
-      gidebilir”, birinci bit “düz gidebilir” demek.</p>
-      <p><code>(h*v ? h==v : 2) &amp; P</code> — çaprazda eşit mesafe sınanıp sıfırıncı bit
-      okunuyor, düzde doğrudan <code>2</code> yazılıp birinci bit. <code>P</code> ortak çarpan
+      tür numarasını bir <b>yetenek bit alanı</b> gibi okuyarak yapıyor. Türde fil 1, kale 2, vezir 3 —
+      ikilik tabanda <code>01</code>, <code>10</code>, <code>11</code>. Türün birler basamağı
+      “çapraz gidebilir”, ikiler basamağı “düz gidebilir” demek. Bunlar kodun ikiler ve dörtler
+      basamağı; tür renk biti atılmış kod olduğu için bir basamak sağa kaymış.</p>
+      <p><code>(h*v ? h==v : 2) &amp; P</code> — çaprazda eşit mesafe sınanıp birler basamağı
+      okunuyor, düzde doğrudan <code>2</code> yazılıp ikiler basamağı. <code>P</code> ortak çarpan
       olarak dışarı çıkarılmış; iki dalın her birine ayrı ayrı yazılması gerekmiyor. Sondaki
       <code>&amp;&amp; S()</code> yolun açık olmasını şart koşuyor: geometri uygun değilse sol taraf sıfır olur ve
       kısa devre sayesinde <code>S()</code> hiç çalışmaz.</p>
     </div>
     <div class="prose" lang="en">
       <p><b>Sliding pieces.</b> The last branch of the chain handles bishop, rook and queen together,
-      and does it by reading the type number as a <b>capability bit field</b>. Bishop 1, rook 2,
-      queen 3 — in binary <code>01</code>, <code>10</code>, <code>11</code>. Bit zero means “can
-      move diagonally”, bit one “can move straight”.</p>
-      <p><code>(h*v ? h==v : 2) &amp; P</code> — on a diagonal the equal distance is tested and bit
-      zero read; on a straight line a bare <code>2</code> reads bit one. <code>P</code> has been
+      and does it by reading the type number as a <b>capability bit field</b>. In the type, bishop 1,
+      rook 2, queen 3 — in binary <code>01</code>, <code>10</code>, <code>11</code>. The type's
+      ones place means “can move diagonally”, its twos place “can move straight”. These are the
+      code's twos and fours places, shifted one place to the right because the type is the code
+      with the colour bit dropped.</p>
+      <p><code>(h*v ? h==v : 2) &amp; P</code> — on a diagonal the equal distance is tested and the
+      ones place read; on a straight line a bare <code>2</code> reads the twos place. <code>P</code> has been
       factored out as the common term, so it need not be written into each branch separately. The
       <code>&amp;&amp; S()</code> at the end forces the path to be clear: if the geometry does not
       fit, the left side is zero and short-circuiting means <code>S()</code> never runs.</p>
@@ -8389,7 +8480,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       bitini alıyor, yani karenin rengini; <code>+1</code> ile bu 1 ya da 2 oluyor ve
       <code>m</code>'ye bit düzeyinde veya ile ekleniyor. Aynı renkteki beş fil de tek bit yakar, iki renkte birer fil
       ise <code>m</code>'yi 3 yapar.</p>
-      <p>Bunu ayrıca ölçtüm: f1 ile d8 filleri <code>m</code>'yi 3 yapıyor,
+      <p>Bu ayrıca ölçüldü: f1 ile d8 filleri <code>m</code>'yi 3 yapıyor,
       f1 ile c8 filleri 2'de bırakıyor — ikisi de açık karede olduğu için. Yani maske gerçekten
       kare rengini sayıyor, taş sayısını değil.</p>
     </div>
@@ -8400,7 +8491,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       the last bit of the XOR of rank and index, that is the colour of the square; <code>+1</code>
       makes this 1 or 2 and it is or-ed into <code>m</code>. Five bishops of the same colour still
       light one bit, while one bishop of each colour makes <code>m</code> 3.</p>
-      <p>I measured this separately: bishops on f1 and d8 make <code>m</code> 3, bishops on f1 and c8
+      <p>This was measured separately: bishops on f1 and d8 make <code>m</code> 3, bishops on f1 and c8
       leave it at 2 — both standing on light squares. So the mask really does count square colours
       and not pieces.</p>
     </div>
@@ -8535,10 +8626,12 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 
     <div class="prose" lang="tr">
       <p>Sorduğu soru tam olarak maddenin sorduğu soru: bayrağı düşen ya da terk eden taraf,
-      <b>hiçbir geçerli hamle dizisiyle</b> rakibi tarafından mat edilemiyor mu. Zorlamalı mat değil <b>yardımlı mat</b> arıyor.</p>
+      <b>hiçbir geçerli hamle dizisiyle</b> rakibi tarafından mat edilemiyor mu. Zorlamalı matı değil, <b>yardımlı matın bile imkânsızlığını</b> sınıyor.
+      <code>H(g,d)</code> doğru dönerse bu mat imkânsız, sonuç beraberlik; yanlış dönerse mat mümkün ya da imkânsızlık ispatlanamadı.
+      Motorda onu dışarıdan yalnızca <code>F</code> çağırıyor.</p>
       <p>Üç kapı var. <code>Im(g)</code> materyal zaten yetmiyorsa hemen çıkıyor. <code>Ht</code>
       pozisyonun daha önce en az bu derinlikte arandığını söylüyorsa çıkıyor — tabloda doğru/yanlış
-      değil <b>derinlik</b> duruyor, yoksa sığ bir sonuç derin bir sorguyu karşılar ve arama sessizce yanlış sonuç verirdi. <code>l()</code> pozisyon kilitliyse çıkıyor.</p>
+      değil <b>derinlik</b> duruyor, yoksa sığ bir sonuç derin bir sorguyu karşılar ve arama sessizce yanlış sonuç verirdi. Tablonun anahtarı <code>b+t+e+c</code>: tahta, sıra, geçerken alma karesi ve rok hakları, tekrar tablosunun anahtarıyla aynı. <code>F</code> her çağrıda tabloyu boşaltıyor (<code>Ht={}</code>); bir aramanın bilgisi bir sonrakine taşınmıyor. <code>l()</code> pozisyon kilitliyse çıkıyor.</p>
       <p>En zarif yeri üçüncü parametre. <code>v=t^g|!V(g)</code> bir yaprak testi: sıra
       <code>g</code>'de değilse ya da <code>g</code> şahta değilse burada mat yoktur. İkisi de
       yanlışsa ve tahtada hiç geçerli hamle üretilmemişse <code>v</code> varsayılanında kalıp sıfır
@@ -8547,24 +8640,41 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <p>Geri alma da ifadenin içinde. <code>H(g,d-1)|([b,e,n,t,c]=w)</code> — dizi ataması
       <code>|</code> operandı olarak NaN'a düşüp sıfır katkı veriyor, özyineleme sonucu bozulmadan
       geçiyor.</p>
-      <p>Arama yalnız matı değil, <b>matın önüne geçen her bitişi</b> görüyor. Zorunlu bir alım
-      materyali yetersiz bırakıyorsa bir sonraki düğümde <code>Im</code> dalı kapatıyor. Yarım hamle
-      sayacı arama sırasında dolarsa <code>n&gt;149</code> devreye giriyor. Tekrar için ayrı bir
-      sayaç yok, ama <code>Ht</code> aynı pozisyona dönen dalı kesiyor — ve bu, <a href="#xs">aramanın
-      kapanabilmesinin tek sebebi</a>. Bütçe biterse
-      <code>v</code> sıfırlanıyor ve cevap <b>mat mümkün</b> oluyor: kanıtlanamayan imkânsızlık beraberlik sayılmıyor. Hata payı böylece hep güvenli tarafta kalıyor.</p>
+      <p><b>Aradığı şey mat değil, matın imkânsızlığının ispatı.</b> <code>H</code> yardımlı bir mat
+      bulmaya çalışmıyor; yardımlı matın bile kurulamayacağını ispatlamaya çalışıyor, yani mata
+      karşı bir kanıt arıyor. Önce statik kapılar geliyor: materyal (<code>Im</code>) ve kilit
+      (<code>l</code>). Onlar karar veremezse arama başlıyor. Kapılardan geçen her pozisyonda
+      sıradaki tarafın bütün geçerli hamleleri deneniyor; iki tarafın da, çünkü mat iş birliğiyle
+      de kurulabilir. Terfide dört taşın dördü deneniyor. Bir hat ancak mat olmadan biten bir
+      sonuca vardığında kapanıyor: zorunlu pat, zorunlu karşı mat, zorunlu ölü pozisyon
+      (<code>Im</code> ya da <code>l</code>), aynı pozisyona dönüş (<code>Ht</code>,
+      <a href="#xs">aramanın kapanabilmesinin tek sebebi</a>) ya da 75 hamle
+      (<code>n&gt;149</code>). İki <code>every</code> de “hepsi” demek: <code>H</code> ancak bütün
+      hatlar böyle kapandığında doğru dönüyor. <code>g</code> mat edilirse ya da bir hat derinlik
+      veya bütçe içinde kapanmadan kalırsa, yani oyun sürüyorsa, <code>every</code> orada durup
+      yanlış döndürüyor: <b>mat mümkün</b>.</p>
+      <p>Bu <b>tek yönlü bir güvence</b>. <code>H</code>'nin imkânsız dediği her pozisyon gerçekten
+      imkânsız, çünkü ispatsız beraberlik yok. Tersi garanti değil: ispat bütçeye sığmazsa gerçekte
+      imkânsız olan bir pozisyon “mümkün” sayılabilir. Yanılgı hep kuralın varsayılan hükmüne, yani
+      süre bitiminde ve terkte kayba düşüyor.</p>
       <p>Tarama süzgeci <code>p&amp;1^t</code> boş kareleri de geçiriyor — <code>V</code>'dekiyle aynı
       sızıntı, aynı sebeple zararsız.</p>
     </div>
     <div class="prose" lang="en">
       <p>What it asks is exactly what the article asks: can the side that flagged or resigned be mated
-      by its opponent through <b>any series of legal moves</b>. It looks for a <b>helpmate</b>, not
-      a forced mate.</p>
+      by its opponent through <b>any series of legal moves</b>. It does not test for a forced mate; it
+      tests whether <b>even a helpmate is impossible</b>. If <code>H(g,d)</code> returns true, that
+      mate is impossible and the result is a draw; if it returns false, mate is possible or its
+      impossibility could not be proved. Within the engine only <code>F</code> calls it
+      from outside.</p>
       <p>There are three gates. <code>Im(g)</code> leaves at once if the material already falls
       short. <code>Ht</code> leaves if the position has been searched to at least this depth before
       — the table stores a <b>depth</b>, not a yes or no, because a shallow result satisfying a
-      deeper query would quietly falsify the search. <code>l()</code> leaves if the position is
-      blocked.</p>
+      deeper query would quietly falsify the search. The table's key is <code>b+t+e+c</code>: the
+      board, the side to move, the en passant square and the castling rights, the same key as the
+      repetition table. <code>F</code> empties the table on every call (<code>Ht={}</code>), so
+      nothing one search learns carries over to the next. <code>l()</code> leaves if the position
+      is blocked.</p>
       <p>Its neatest turn is the third parameter. <code>v=t^g|!V(g)</code> is a leaf test: if it is
       not <code>g</code> to move, or <code>g</code> is not in check, there is no mate here. When both
       are false and no legal move was generated anywhere on the board, <code>v</code> keeps its
@@ -8574,14 +8684,24 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <p>The undo sits inside the expression too. In <code>H(g,d-1)|([b,e,n,t,c]=w)</code> the array
       assignment falls to NaN as an operand of <code>|</code> and contributes nothing, so the
       recursion's answer passes through untouched.</p>
-      <p>The search sees more than mates; it sees <b>every outcome that arrives before one</b>. Where
-      a forced capture leaves the material short, <code>Im</code> closes the branch at the next node.
-      If the ply counter fills during the search, <code>n&gt;149</code> takes over. There is no
-      separate counter for repetition, but <code>Ht</code> cuts a branch that returns to a position
-      already searched — and that is
-      <a href="#xs">the only reason the search can ever close</a>. If the budget runs out, <code>v</code> is zeroed and the answer becomes
-      that <b>mate is possible</b>: an impossibility that cannot be proved does not count as a draw. The
-      margin of error therefore always falls on the safe side.</p>
+      <p><b>What it seeks is not a mate but a proof that mate is impossible.</b> <code>H</code> does
+      not try to find a helpmate; it tries to prove that not even a helpmate can be built — it looks
+      for evidence against the mate. The static gates come first: material (<code>Im</code>) and
+      the lock (<code>l</code>). If they cannot decide, the search begins. In every position that
+      passes the gates, every legal move of the side to move is tried — for both sides, since a
+      mate can also be built through cooperation. On a promotion all four pieces are tried. A line
+      closes only when it reaches an outcome that ends without mate: a forced stalemate, a forced
+      counter-mate, a forced dead position (<code>Im</code> or <code>l</code>), a return to a
+      position already seen (<code>Ht</code>, <a href="#xs">the only reason the search can ever
+      close</a>) or the 75-move limit (<code>n&gt;149</code>). Both <code>every</code>s mean “all”:
+      <code>H</code> returns true only once every line has closed this way. If <code>g</code> is
+      mated, or a line stays open within the depth or the budget — that is, if play goes on —
+      <code>every</code> stops there and returns false: <b>mate is possible</b>.</p>
+      <p>This is a <b>one-sided guarantee</b>. Every position <code>H</code> calls impossible really
+      is impossible, because there is no draw without a proof. The converse is not guaranteed: if the
+      proof does not fit the budget, a position that is in fact impossible may count as “possible”.
+      The error always falls on the rule's default ruling — a loss, at flag fall and on
+      resignation.</p>
       <p>The scan filter <code>p&amp;1^t</code> lets empty squares through as well — the same leak as in
       <code>V</code>, harmless for the same reason.</p>
     </div>
@@ -8667,7 +8787,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       sınırlıyor.</p>
       <p>Pratikte ikisi de nadiren sınıra dayanıyor. Zorunlu bir alış tek denemede kapanıyor;
       rakibin bir yarım hamle sonra tekrara ya da sayaç sınırına ulaşacağı pozisyonlar bir avuç
-      denemede. Ölçtüğüm süreler <code>engine.js</code>'de 0,4 ile 6 milisaniye arasında. Kapsam da bununla uyumlu: CHA-Solver'ın taradığı Lichess
+      denemede. Ölçülen süreler <code>engine.js</code>'de 0,4 ile 6 milisaniye arasında. Kapsam da bununla uyumlu: CHA-Solver'ın taradığı Lichess
       kaydında zorunlu dal sınıfındaki <b>150.002</b> haksız oyunun hepsi bu sınırlar içinde doğru
       hükme bağlanıyor; motorun kaçırdığı 3.567 oyunun tamamı <a href="#dead">kilitli ve geniş
       şeritte</a>, kaydın bütününde kabaca iki milyon oyunda bir. Yani süre bitimi ve terkte
@@ -8697,7 +8817,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       trees.</p>
       <p>In practice neither limit is reached very often. A forced capture closes in a single try,
       and positions where the opponent is one ply away from a repetition or the counter limit close
-      in a handful. The times I measured run from 0.4 to 6 milliseconds in <code>engine.js</code>. The coverage agrees: in the Lichess record
+      in a handful. Measured times run from 0.4 to 6 milliseconds in <code>engine.js</code>. The coverage agrees: in the Lichess record
       scanned by CHA-Solver, all <b>150,002</b> wrongly decided games in the forced-line class get
       the right verdict within these limits, and every one of the 3,567 games the engine misses lies
       in <a href="#dead">the blocked-and-roomy strip</a> — roughly one game in two million across
@@ -8712,8 +8832,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       and 99 plies.</p>
     </div>
 
-    <h3 lang="tr">Ölü pozisyon — <code>l</code></h3>
-    <h3 lang="en">Dead position — <code>l</code></h3>
+    <h3 id="lscan" lang="tr">Ölü pozisyon — <code>l</code></h3>
+    <h3 lang="en" data-id="lscan">Dead position — <code>l</code></h3>
 
     <div class="prose" lang="tr">
       <p><code>I</code> materyale bakıyor, <code>H</code> aramaya. Arada üçüncü bir soru var:
@@ -8984,43 +9104,39 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
     </div>
 
     <div class="note" lang="tr">
-      <p><b>600 turun neye yaradığını ölçtüm.</b> Sekiz maske ve 64 kare, en kötü ihtimalle 512
-      adım demek; döngü 600'de duruyor, yani sınır ölçülmüş değil <b>ispatlı</b>. Pratikte doyma
-      çok daha erken oluyor — denediğim kilitli pozisyonlarda bir ile dört tur arası.</p>
-      <p>Asıl mesele turu <em>azaltınca</em> ne olduğu. Tur sayısını elle düşürüp aynı pozisyonları
-      yeniden çalıştırdım: maskeler doymadan çıkış sorularına gidildiğinde motor <b>“ölü” diyor</b> —
-      yani yanlış yönde yanılıyor. Ölü olmayan bir pozisyonda bir tur “ölü”, iki tur doğru cevabı
-      veriyordu; başka birinde üç tur boyunca yanlış, dördüncüde doğru. Yani 600 süs değil:
+      <p><b>600 tur.</b> Sekiz maske ve 64 kare, en kötü ihtimalle 512 büyüme adımı demek; döngü
+      600'de duruyor, yani sınır ölçülmüş değil <b>ispatlı</b>. Pratikte doyma çok daha erken
+      geliyor: ölçülen kilitli pozisyonlarda bir ile dört tur arası.</p>
+      <p>Sınırın asıl işi güvenceyi korumak. Maskeler doymadan çıkış sorularına geçilirse motor ölü
+      olmayan bir pozisyona <b>“ölü” diyebilir</b>, yani yanlış yönde yanılır. Tur sayısı
+      düşürülerek yapılan ölçümlerde ölü olmayan bir pozisyon bir turda “ölü”, iki turda doğru
+      cevabı veriyor; bir başkası üç tur boyunca yanlış, dördüncüde doğru. Yani 600 süs değil:
       motorun tek ispatlı özelliği olan <b>“ölü dediği her pozisyon gerçekten ölüdür”</b> güvencesi
       doğrudan bu sınıra yaslanıyor.</p>
     </div>
     <div class="note" lang="en">
-      <p><b>I measured what the 600 rounds buy.</b> Eight masks across 64 squares put the worst case
-      at 512 steps; the loop stops at 600, so the bound is not measured but <b>proved</b>. In
-      practice saturation comes far sooner — between one and four rounds in the blocked positions I
-      tried.</p>
-      <p>What matters is what happens when you <em>lower</em> the count. I cut the number of rounds
-      by hand and re-ran the same positions: when the exit questions are reached before the masks
-      have saturated, the engine <b>says “dead”</b> — that is, it errs in the wrong direction. On one
-      position that is not dead, one round said “dead” and two rounds gave the right answer; on
-      another it was wrong for three rounds and right on the fourth. So 600 is not decoration: the
+      <p><b>600 rounds.</b> Eight masks across 64 squares put the worst case at 512 growth steps;
+      the loop stops at 600, so the bound is not measured but <b>proved</b>. In practice saturation
+      comes far sooner: between one and four rounds in the blocked positions measured.</p>
+      <p>The bound's real job is to protect the guarantee. If the exit questions are reached before
+      the masks have saturated, the engine <b>may call a live position “dead”</b> — it errs in the
+      wrong direction. In measurements with the round count lowered, one position that is not dead
+      reads “dead” after one round and correctly after two; another is wrong for three rounds and
+      right on the fourth. So 600 is not decoration: the
       engine's only proved property — <b>every position it calls dead really is dead</b> — rests
       directly on that bound.</p>
     </div>
     <div class="note" lang="tr">
       <p><b>Maliyeti.</b> <code>l</code> tek başına 457 bayt — motorun dörtte biri; kural kitabının en
-      pahalı maddesi bu. Kalan boşluğu, yani fillerin de olduğu kilitli pozisyonları kapatacak bir
-      genişletme tasarlandı ve ölçüldü: 782 bayt daha tutuyor, yani bayt başına getiri yirmi üç kat
-      düşüyor. Hızı da aşağı çekiyor ve fil soruyu üçüncü bir bilinmeyene dönüştürdüğü için
-      motorun tek ispatlı özelliğini riske atıyor. Askıda, kaybolmuş değil.</p>
+      pahalı maddesi bu. Kapsamı piyonlar ve şahlar; fillerin de olduğu tamamen ölü, kilitli
+      pozisyonlar da var. Onların neden dahil edilmediği <a href="#bishops">Ayrıntılı teknik
+      sekmesinde</a> anlatılıyor.</p>
     </div>
     <div class="note" lang="en">
       <p><b>What it costs.</b> <code>l</code> alone is 457 bytes — a quarter of the engine; it is the
-      most expensive article in the book. An extension covering the rest — blocked positions with
-      bishops on the board — was designed and measured: it takes 782 bytes more, so the return per
-      byte falls by a factor of twenty-three. It also costs speed, and because a bishop turns the
-      question into a third unknown, it puts the engine's only proved property at risk. It is
-      shelved, not lost.</p>
+      most expensive article in the book. Its scope is pawns and kings; there are also fully dead,
+      blocked positions with bishops on the board. Why they are left out is explained on
+      <a href="#bishops">the Technical detail tab</a>.</p>
     </div>
 
     <h3 lang="tr">Hüküm — <code>Z</code></h3>
@@ -9129,7 +9245,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
     <pre class="snip">D=g=&gt;(o^=2-g,n&gt;99?7:$&gt;2?8:o&gt;2?9:Z())</pre>
 
     <div class="prose" lang="tr">
-      <p>Teklif bitleri <code>o</code>'da: beyaz sıfırıncı bit, siyah birinci. <code>2-g</code>
+      <p>Teklif bitleri <code>o</code>'da: beyaz birler basamağı, siyah ikiler basamağı. <code>2-g</code>
       bunu tek çıkarmayla seçiyor. Argümansız çağrıldığında <code>2-undefined</code>
       <code>NaN</code> olur, <code>o^=NaN</code> <code>o</code>'yu olduğu gibi bırakır — aynı
       fonksiyon böylece bitleri <b>bozmadan</b> yalnızca hüküm okumak için de kullanılabiliyor.</p>
@@ -9139,7 +9255,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       İsteğe bağlı olan <code>D</code>'de, zorunlu olan <code>Z</code>'de.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The offer bits live in <code>o</code>: White is bit zero, Black is bit one. <code>2-g</code>
+      <p>The offer bits live in <code>o</code>: White is the ones place, Black the twos place. <code>2-g</code>
       selects between them with one subtraction. Called with no argument, <code>2-undefined</code>
       is <code>NaN</code>, and <code>o^=NaN</code> leaves <code>o</code> as it was — so the same
       function can also be used to read the verdict alone, <b>without disturbing</b> the bits.</p>
@@ -9161,7 +9277,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       olur — 14 ya da 15. Değilse rakip kazanır ve tek bir aritmetik dört sonucu birden adlandırır:
       <code>k</code> süreyi terkten, <code>g</code> tarafı seçer. 10 ve 11 süreden, 12 ve 13
       terkten.</p>
-      <p>Kilitli pozisyon üzerinde ölçtüm: <code>F(0,0)</code> 14 veriyor, <code>F(1,1)</code> 15 —
+      <p>Kilitli bir pozisyonda ölçüldüğünde <code>F(0,0)</code> 14 veriyor, <code>F(1,1)</code> 15 —
       yani süre bitiminde ve terkte iki ayrı kod, <a href="#rules">6.9 ile 5.1.2</a> ayrı ayrı
       bildiriliyor.</p>
     </div>
@@ -9263,7 +9379,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       kere sayılıyor, <code>Z</code> sıfır döndürüyor.</p>
       <p>Geçerken alma karesi <b>yazılmıyor</b>. Çift adım olmasına rağmen 27 ve 29 karelerinde
       alacak siyah piyon bulunmadığı için <code>e</code> eksi birde kalıyor. Aynı hamle, yanında
-      bir siyah piyon varken kareyi yazardı — ikisini de ölçtüm.</p>
+      bir siyah piyon varken kareyi yazardı — ikisi de ölçüldü.</p>
     </div>
     <div class="prose" lang="en">
       <p>The driver first validates the clicked or typed square with <code>L(12)</code> — which
@@ -9273,7 +9389,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       position is counted once, and <code>Z</code> returns zero.</p>
       <p>The en passant square is <b>not</b> written. Despite being a double step, there is no black
       pawn on 27 or 29 to capture, so <code>e</code> stays at minus one. The same move, with a black
-      pawn beside it, would have written the square — I measured both.</p>
+      pawn beside it, would have written the square — both were measured.</p>
     </div>
 
     <div class="tw" lang="tr"><table>
@@ -9299,8 +9415,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <p>Otuz üçün otuz ikisi <b>boş kare</b>. <code>Z</code>'nin süzgeci <code>p%2==t</code> ve
       siyah sıradayken <code>0%2</code> de sıfır olduğu için boş kareler de siyahın taşı sayılıyor.
       Boş kareden hamle üretmek ucuz — <code>G</code> son dala düşüp hemen sıfır veriyor, ne
-      <code>M</code> ne <code>V</code> çalışıyor — ama bedava değil. Aynı <code>Z</code> çağrısını iki
-      renk için ayrı ayrı ölçtüm:</p>
+      <code>M</code> ne <code>V</code> çalışıyor — ama bedava değil. Aynı <code>Z</code> çağrısı iki
+      renk için ayrı ayrı ölçüldü:</p>
     </div>
     <div class="prose" lang="en">
       <p>The distribution sums up the shape of the engine. The move itself is almost free — one
@@ -9312,7 +9428,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <code>p%2==t</code>, and with Black to move <code>0%2</code> is zero too, so empty squares
       count as Black's pieces. Generating moves from an empty square is cheap — <code>G</code> falls
       into its last branch and returns zero at once, neither <code>M</code> nor <code>V</code> runs —
-      but it is not free. I measured the same <code>Z</code> call for each colour:</p>
+      but it is not free. The same <code>Z</code> call was measured for each colour:</p>
     </div>
 
     <div class="tw" lang="tr"><table>
@@ -9401,7 +9517,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       tam olarak onu arıyor — ve <code>L(36)</code> gerçekten <code>[43,44]</code> üretiyor. Bu
       üretim ancak <code>e</code> zaten yazılmış olduğu için mümkün. Sonuç: <code>e=43</code>
       kalıyor.</p>
-      <p>Aynı hamle, e5'te beyaz piyon yokken <code>e=-1</code> ile bitiyor. İkisini de ölçtüm.</p>
+      <p>Aynı hamle, e5'te beyaz piyon yokken <code>e=-1</code> ile bitiyor. İkisi de ölçüldü.</p>
       <p>Beyaz <code>A(36,43)</code> ile aldığında <code>M</code>'nin dördüncü adımı devreye
       giriyor: <code>f==e</code> olduğu için silinecek kare <code>43^8</code>, yani 35 — d5. Ölçülen
       sonuç d5 boş, d6'da beyaz piyon, e5 boş. Ve bu hamle çift adım olmadığı için beşinci adım
@@ -9414,7 +9530,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       There is a white pawn on 36 — <code>17-8</code> is looking for exactly that — and
       <code>L(36)</code> does generate <code>[43,44]</code>. That generation is only possible
       because <code>e</code> has already been written. The result: <code>e=43</code> stands.</p>
-      <p>The same move, with no white pawn on e5, ends with <code>e=-1</code>. I measured both.</p>
+      <p>The same move, with no white pawn on e5, ends with <code>e=-1</code>. Both were measured.</p>
       <p>When White captures with <code>A(36,43)</code>, <code>M</code>'s fourth step comes into
       play: since <code>f==e</code>, the square to be cleared is <code>43^8</code>, that is 35 — d5.
       The measured result is d5 empty, a white pawn on d6, e5 empty. And because this move is not a
@@ -11383,6 +11499,27 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
 <tr><td>Cost per move with a piece on the board</td><td class="num">+0.004 ms</td></tr>
 </tbody>
 </table></div>
+
+    <h3 id="bishops" lang="tr">Filli kilitli pozisyonlar — askıdaki genişletme</h3>
+    <h3 lang="en" data-id="bishops">Blocked positions with bishops — the extension on hold</h3>
+    <div class="prose" lang="tr">
+      <p>Ölü pozisyon taraması <a href="#lscan"><code>l</code></a> yalnızca piyonları ve şahları
+      kapsıyor. Fillerin de olduğu tamamen ölü, kilitli pozisyonlar var ve bu kapsamın dışında
+      kalıyor. O boşluğu kapatacak bir genişletme tasarlandı ve ölçüldü: 782 bayt daha tutuyor,
+      yani bayt başına getiri yirmi üç kat düşüyor. Hızı da aşağı çekiyor. Asıl engel ise güvence:
+      fil, soruyu üçüncü bir bilinmeyene dönüştürdüğü için motorun tek ispatlı özelliğini — ölü
+      dediği her pozisyonun gerçekten ölü olmasını — riske atıyor. Genişletme askıda, kaybolmuş
+      değil.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The dead-position scan <a href="#lscan"><code>l</code></a> covers only pawns and kings.
+      There are fully dead, blocked positions with bishops on the board, and they fall outside that
+      scope. An extension to close the gap was designed and measured: it takes 782 bytes more, so
+      the return per byte falls by a factor of twenty-three. It also costs speed. The real obstacle
+      is the guarantee: a bishop turns the question into a third unknown and so puts the engine's
+      only proved property — every position it calls dead really is dead — at risk. The extension
+      is shelved, not lost.</p>
+    </div>
   </div>
 </section>
 
@@ -13476,51 +13613,31 @@ f = K[2] + K[3] - 0</pre></div>
 
 <div class="panel" id="panelextra" role="tabpanel" aria-labelledby="tabextra" tabindex="0" hidden>
 
-<section id="extra">
+<section id="sims">
   <div class="wrap">
-    <p class="eyebrow" lang="tr">Ekstra</p>
-    <p class="eyebrow" lang="en">Extras</p>
-    <h2 lang="tr">Motorun dışında kalanlar</h2>
-    <h2 lang="en">Outside the engine</h2>
+    <p class="eyebrow" lang="tr">Simülasyonlar</p>
+    <p class="eyebrow" lang="en">Simulations</p>
+    <h2 lang="tr">Kodlamada kullandığım simülasyonlar</h2>
+    <h2 lang="en">Simulations I used while coding</h2>
     <div class="prose" lang="tr">
-      <p>Burada dört sayfa var: bir satranç bulmacası, tasarım sırasında yazılmış iki
-      simülasyon ve bir Chess960 çalışması. Hiçbiri iddianın parçası değil, hiçbiri motoru
-      kullanmıyor; her biri kendi başına duran tek bir HTML dosyası. Siteye gömülü değiller,
-      bağlantılar yeni sekmede açılıyor.</p>
+      <p>Motoru yazarken her aşamada birçok program kullandım; aralarından satranç programlamaya
+      özellikle katkısı olacağını düşündüğüm üçünü paylaşıyorum. İlk ikisi, Absolute_Distance ve
+      Board_Delta_Index, motorun en ilkel hâllerine ait: tahtanın nasıl tutulacağı daha seçilmeden,
+      hareketin uzaklıkla mı indeks farkıyla mı tanımlanacağını sezgisel olarak kavramaya yarıyorlar.
+      Üçüncüsü, Chess960_Skeletons, motorun yapısına göre hiç gerekmeyebilir; gerektiği yerde işe
+      yarıyor, gerekmese de rok hakkında bazı şeyleri sezmeye katkı sağlıyor. Üçü de kendi başına
+      duran birer HTML dosyası; motoru kullanmıyorlar, iddianın parçası değiller. Bağlantılar yeni
+      sekmede açılıyor.</p>
     </div>
     <div class="prose" lang="en">
-      <p>Here are four pages: a chess puzzle, two simulations written during the
-      design, and a Chess960 study. None of them is part of the claim and none uses the engine;
-      each is a single standalone HTML file. They are not embedded here — the links open in a new
-      tab.</p>
-    </div>
-
-    <h3 id="parrot" lang="tr">ParrotPuzzle — papağana karşı bir bulmaca</h3>
-    <h3 lang="en" data-id="parrot">ParrotPuzzle — a puzzle against a parrot</h3>
-    <div class="prose" lang="tr">
-      <p>Tek kişilik bir satranç bulmacası. Beyazla oynuyorsun, rakibin bir papağan. İlk el serbest
-      bir ısınma: siyahı mat et, süre serbest. Papağanın nasıl oynadığını kimse söylemiyor; onu
-      çözmek bulmacanın ilk adımı, o yüzden burada da yazılmadı.</p>
-      <p>Isınma bitince on görev açılıyor. Hepsi aynı papağana karşı, değişen yalnızca amaç ve hamle
-      sınırı: dört hamlede mat, rok ve geçerken alma üstüne kurulu görevler, papağanı pat etmek,
-      hatta papağana kendini mat ettirmek. Başarısız her denemede bir ipucu daha açılıyor. Görev
-      çözülünce neden işe yaradığı anlatılıyor ve çözüm tahtada oynatılabiliyor; birkaçında daha
-      kısa bir yol olmadığı tam aramayla gösterilmiş. Arayüz Türkçe ve İngilizce, taşlar
-      sürükleyerek ya da dokunarak oynanıyor.</p>
-      <p><a href="/extra/ParrotPuzzle.html" target="_blank" rel="noopener">fidelite.art/extra/ParrotPuzzle.html</a></p>
-    </div>
-    <div class="prose" lang="en">
-      <p>A single-player chess puzzle. You play White; your opponent is a parrot. The first game is
-      a free warm-up: checkmate Black, and take your time. Nobody tells you how the parrot plays —
-      working that out is the first step of the puzzle, so it is not written here either.</p>
-      <p>Once the warm-up is over, ten missions open. They are all against the same parrot; what
-      changes is the goal and the move limit: mate in four, missions built on castling and en
-      passant, stalemating the parrot, even getting the parrot to mate you. Every failed attempt
-      unlocks one more hint. Once a mission is solved it explains why the solution works and can
-      play it back on the board; for a few of them an exhaustive search shows there is nothing
-      shorter. The interface is in English and Turkish, and pieces move by dragging or
-      tapping.</p>
-      <p><a href="/extra/ParrotPuzzle.html" target="_blank" rel="noopener">fidelite.art/extra/ParrotPuzzle.html</a></p>
+      <p>While writing the engine I used many programs at every stage; of those, I am sharing the
+      three I think are most useful for chess programming in particular. The first two,
+      Absolute_Distance and Board_Delta_Index, belong to the engine's most primitive forms: before
+      the board representation is even chosen, they help grasp intuitively whether a move should be
+      defined by distance or by index delta. The third, Chess960_Skeletons, may not be needed at all,
+      depending on how an engine is built; where it is needed it does its job, and even where it is
+      not, it helps build an intuition about castling. All three are standalone HTML files; they do
+      not use the engine and are not part of the claim. The links open in a new tab.</p>
     </div>
 
     <h3 id="distance" lang="tr">Absolute_Distance — uzaklıkla tanımlanan hamle</h3>
@@ -13583,30 +13700,112 @@ f = K[2] + K[3] - 0</pre></div>
     <h3 id="chess960" lang="tr">Chess960_Skeletons — 56 rok iskeleti</h3>
     <h3 lang="en" data-id="chess960">Chess960_Skeletons — the 56 castling skeletons</h3>
     <div class="prose" lang="tr">
-      <p>Fischer satrancında (Chess960) rok yalnızca şahın ve iki kalesinin hangi dikeylerde
-      durduğuna bağlı, şah da her zaman iki kalenin arasında. Bu yüzden 960 başlangıç dizilişinin
-      tamamı C(8,3) = 56 şah–kale iskeletine iniyor. Sayfa her iskeleti bir kartta gösteriyor:
-      sekiz karelik şerit, <code>-R--K-R-</code> biçiminde yazılışı ve o iskelete düşen bütün
-      Scharnagl numaraları. Klasik başlangıç, #518 (RNBQKBNR), işaretli.</p>
-      <p>Kartların 48'inde 18, sekizinde 12 pozisyon var; toplam tam 960 ediyor. Nedeni, iskeletin
-      boş bıraktığı beş dikeyin kare rengine göre dağılımı: 3–2 bölünürse filler 3×2 biçimde,
-      vezir 3 karede yerleşiyor — 18; 4–1 bölünürse fillerden biri tek azınlık dikeyine mahkûm
-      kalıyor — 1×4×3 = 12. Liste sayfa açılırken tarayıcıda baştan üretiliyor.</p>
+      <p>Chess960'ta birinci ve sekizinci yataydaki taşların dizilişi değişiyor, ama iki kurala
+      uyarak: filler farklı renk karelerde olmalı, şah iki kalenin arasında olmalı. Bu iki kural 960
+      dizilişi mümkün kılıyor. Satranç programlama açısından ise anlamlı olan sayı 56.</p>
+      <p>Chess960'ı standart satrancın kodundan ayıran tek kural rok. Taşlar aynı hareket ediyor;
+      geçerlilik, mat, pat, tekrar ve sayaçlar aynı. Başlangıç dizilişi bir kural değil, veri. Rok
+      ise değişiyor: şah ve kale her zaman standart satrançtaki son karelerine gidiyor (şah g ya da
+      c dikeyine, kale f ya da d dikeyine), ama yol koşulları şahın ve kalenin başlangıç dikeylerine
+      bağlı hâle geliyor. Rok yalnızca bu üç taşın dikeylerine baktığı ve şah hep iki kalenin
+      arasında durduğu için 960 diziliş rok açısından C(8,3) = 56 iskelete iniyor.</p>
+      <p>Sitede bugün bir Chess960 sürümü henüz yok; eski sürümlerde vardı, yeni sürüme henüz
+      taşımadım. Eski sürümlerde rok sabit kodlandığı için o sürümler 56 iskelette toplanıyordu:
+      56 iskeleti tek tek bir formülle üretip 960 dizilişin hepsini elde etmiştim. Taşıdığımda
+      muhtemelen yine bundan faydalanacağım. Golfstack'in bayt sınırı olmayan, bütçesi geniş bir
+      algoritmada hepsini kapsayan tek bir genel sürüm yazılabilir; yine de bence onu yazan da bir
+      yerde 56 sayısına rastlar.</p>
+      <p>Sayfa her iskeleti bir kartta gösteriyor: sekiz karelik şerit, <code>-R--K-R-</code>
+      biçiminde yazılışı ve o iskelete düşen bütün Scharnagl numaraları. Klasik başlangıç, #518
+      (RNBQKBNR), işaretli.</p>
+      <p>Filler farklı renk karelerde olmak zorunda olduğu için her iskelete düşen diziliş sayısı
+      iskeletin renklerine bağlı. Şah ve iki kale üçü de aynı renk karelerdeyse boş kalan beş
+      dikeyin dördü bir renkte, biri öbüründe: fillerden biri o tek kareye mahkûm, öbürü dört
+      kareden birine, vezir kalan üç kareden birine gidiyor, 1×4×3 = 12. Üçü aynı renkte değilse
+      boş dikeyler 3–2 bölünüyor: filler 3×2 biçimde, vezir 3 karede yerleşiyor, 18. Üçü aynı
+      renkte olan iskelet sekiz tane (dört açık ya da dört koyu kareden üçer seçim), gerisi 48:
+      8×12 + 48×18 = 960. Liste sayfa açılırken tarayıcıda baştan üretiliyor.</p>
       <p><a href="/extra/Chess960_Skeletons.html" target="_blank" rel="noopener">fidelite.art/extra/Chess960_Skeletons.html</a></p>
     </div>
     <div class="prose" lang="en">
-      <p>In Fischer random chess (Chess960) castling depends only on which files the king and its
-      two rooks stand on, and the king always stands between the rooks. So all 960 starting setups
-      reduce to C(8,3) = 56 king–rook skeletons. The page shows each skeleton on a card: an
-      eight-square strip, the skeleton written as <code>-R--K-R-</code>, and every Scharnagl number
-      built on it. The orthodox start, #518 (RNBQKBNR), is marked.</p>
-      <p>48 of the cards hold 18 positions and eight hold 12, which adds up to exactly 960. The
-      reason is how the five files a skeleton leaves free split by square colour: a 3–2 split
-      places the bishops 3×2 ways and the queen on 3 squares — 18; in a 4–1 split one bishop is
-      pinned to the lone minority file — 1×4×3 = 12. The list is generated from scratch in the
-      browser as the page opens.</p>
+      <p>In Chess960 the pieces on the first and eighth ranks are arranged differently, but under
+      two rules: the bishops must stand on squares of opposite colour, and the king must stand
+      between the two rooks. These two rules make 960 setups possible. From the point of view of
+      chess programming, though, the number that matters is 56.</p>
+      <p>The only rule that sets Chess960 apart from the code of standard chess is castling. The
+      pieces move the same way; legality, mate, stalemate, repetition and the counters are the
+      same. The starting setup is not a rule but data. Castling does change: the king and rook
+      always end on their standard-chess squares (the king on the g- or c-file, the rook on the f-
+      or d-file), but the path conditions come to depend on the files the king and rook start on.
+      Because castling looks only at the files of these three pieces, and the king always stands
+      between the rooks, the 960 setups reduce for castling to C(8,3) = 56 skeletons.</p>
+      <p>The site has no Chess960 build yet; earlier versions did, and I have not moved it to the
+      new version yet. Because castling was hard-coded in those versions, they gathered into 56
+      skeletons: I generated the 56 skeletons one by one with a formula and obtained all 960 setups
+      from them. When I move it over I will most likely use this again. In an algorithm with a
+      generous budget, free of Golfstack's byte limit, a single generic version covering them all
+      could be written; even so, I think whoever writes it will run into the number 56
+      somewhere.</p>
+      <p>The page shows each skeleton on a card: an eight-square strip, the skeleton written as
+      <code>-R--K-R-</code>, and every Scharnagl number built on it. The orthodox start, #518
+      (RNBQKBNR), is marked.</p>
+      <p>Because the bishops must stand on opposite colours, the number of setups a skeleton holds
+      depends on its colours. If the king and both rooks all stand on squares of one colour, four
+      of the five free files are of the other colour and one of theirs: one bishop is confined to
+      that lone square, the other goes to one of four, the queen to one of the remaining three,
+      1×4×3 = 12. If the three are not all one colour, the free files split 3–2: the bishops go
+      3×2 ways and the queen onto 3 squares, 18. Eight skeletons have all three on one colour
+      (three of the four light or three of the four dark squares), the other 48 do not:
+      8×12 + 48×18 = 960. The list is generated from scratch in the browser as the page opens.</p>
       <p><a href="/extra/Chess960_Skeletons.html" target="_blank" rel="noopener">fidelite.art/extra/Chess960_Skeletons.html</a></p>
     </div>
+  </div>
+</section>
+
+<section id="extra">
+  <div class="wrap">
+    <p class="eyebrow" lang="tr">Ekstra</p>
+    <p class="eyebrow" lang="en">Extras</p>
+    <h2 lang="tr">Motorun dışında kalanlar</h2>
+    <h2 lang="en">Outside the engine</h2>
+    <div class="prose" lang="tr">
+      <p>Bir satranç bulmacası. İddianın parçası değil, motoru kullanmıyor; kendi başına duran
+      tek bir HTML dosyası. Siteye gömülü değil, bağlantı yeni sekmede açılıyor.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>A chess puzzle. It is not part of the claim and does not use the engine; it is a single
+      standalone HTML file. It is not embedded here — the link opens in a new tab.</p>
+    </div>
+
+    <h3 id="parrot" lang="tr">ParrotPuzzle — papağana karşı bir bulmaca</h3>
+    <h3 lang="en" data-id="parrot">ParrotPuzzle — a puzzle against a parrot</h3>
+    <div class="prose" lang="tr">
+      <p>Tek kişilik bir satranç bulmacası. Beyazla oynuyorsun, rakibin bir papağan. İlk el serbest
+      bir ısınma: siyahı mat et, süre serbest. Papağanın nasıl oynadığını kimse söylemiyor; onu
+      çözmek bulmacanın ilk adımı, o yüzden burada da yazılmadı.</p>
+      <p>Isınma bitince on görev açılıyor. Hepsi aynı papağana karşı, değişen yalnızca amaç ve hamle
+      sınırı: dört hamlede mat, rok ve geçerken alma üstüne kurulu görevler, papağanı pat etmek,
+      hatta papağana kendini mat ettirmek. Başarısız her denemede bir ipucu daha açılıyor. Görev
+      çözülünce neden işe yaradığı anlatılıyor ve çözüm tahtada oynatılabiliyor; birkaçında daha
+      kısa bir yol olmadığı tam aramayla gösterilmiş. Arayüz Türkçe ve İngilizce, taşlar
+      sürükleyerek ya da dokunarak oynanıyor.</p>
+      <p><a href="/extra/ParrotPuzzle.html" target="_blank" rel="noopener">fidelite.art/extra/ParrotPuzzle.html</a></p>
+    </div>
+    <div class="prose" lang="en">
+      <p>A single-player chess puzzle. You play White; your opponent is a parrot. The first game is
+      a free warm-up: checkmate Black, and take your time. Nobody tells you how the parrot plays —
+      working that out is the first step of the puzzle, so it is not written here either.</p>
+      <p>Once the warm-up is over, ten missions open. They are all against the same parrot; what
+      changes is the goal and the move limit: mate in four, missions built on castling and en
+      passant, stalemating the parrot, even getting the parrot to mate you. Every failed attempt
+      unlocks one more hint. Once a mission is solved it explains why the solution works and can
+      play it back on the board; for a few of them an exhaustive search shows there is nothing
+      shorter. The interface is in English and Turkish, and pieces move by dragging or
+      tapping.</p>
+      <p><a href="/extra/ParrotPuzzle.html" target="_blank" rel="noopener">fidelite.art/extra/ParrotPuzzle.html</a></p>
+    </div>
+    <figure class="shot" lang="tr"><img src="images/parrot-puzzle-tr.webp" width="557" height="652" loading="lazy" alt="ParrotPuzzle ısınma turu: papağana karşı başlangıç pozisyonu, Siyahı mat et, süre serbest"></figure>
+    <figure class="shot" lang="en"><img src="images/parrot-puzzle-en.webp" width="576" height="650" loading="lazy" alt="ParrotPuzzle warm-up: the starting position against the parrot, Checkmate Black, take your time"></figure>
   </div>
 </section>
 
@@ -13662,7 +13861,6 @@ f = K[2] + K[3] - 0</pre></div>
       under <a href="#flag">Resignation and flag fall</a>.</p>
       <p><a href="https://chasolver.org/" target="_blank" rel="noopener">chasolver.org</a></p>
     </div>
-    <figure class="imgph" aria-hidden="true"><!-- GORSEL: CHA-Solver --></figure>
 
     <h3 id="chessvision" lang="tr">Chessvision.ai — görüntüden FEN'e</h3>
     <h3 lang="en" data-id="chessvision">Chessvision.ai — from an image to a FEN</h3>
@@ -13691,7 +13889,6 @@ f = K[2] + K[3] - 0</pre></div>
       guess.</p>
       <p><a href="https://chessvision.ai/" target="_blank" rel="noopener">chessvision.ai</a></p>
     </div>
-    <figure class="imgph" aria-hidden="true"><!-- GORSEL: Chessvision.ai --></figure>
 
     <h3 id="rotation" lang="tr">Tahtayı 90° ve 270° döndürebilmek</h3>
     <h3 lang="en" data-id="rotation">Turning the board 90° and 270°</h3>
@@ -13732,7 +13929,6 @@ f = K[2] + K[3] - 0</pre></div>
       270° turns among its basic transforms when it searches positions. The screen should offer
       the same freedom.</p>
     </div>
-    <figure class="imgph" aria-hidden="true"><!-- GORSEL: 90 / 270 derece dondurme --></figure>
 
     <h3 id="skins" lang="tr">Kullanıcıya özel görünüm — custom skin</h3>
     <h3 lang="en" data-id="skins">A look of your own — custom skins</h3>
@@ -13758,7 +13954,6 @@ f = K[2] + K[3] - 0</pre></div>
       skin applies only on its owner's screen, it does not touch the fairness of the game; the
       opponent always sees the look they chose.</p>
     </div>
-    <figure class="imgph" aria-hidden="true"><!-- GORSEL: Custom skin --></figure>
   </div>
 </section>
 
