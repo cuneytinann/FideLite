@@ -48,7 +48,7 @@ the book asks what that board is forced to become.**
 | File | Bytes | What it is |
 | --- | --- | --- |
 | `builds/engine.js` | 1,847 | The rule engine. One line, no front end. |
-| `builds/engine_4x.js` | 1,928 | The same rules, +81 bytes, two to ten times the speed. |
+| `builds/engine_4x.js` | 1,945 | The same rules, +98 bytes, 1.4 to 75 times the speed. |
 | `builds/engine_string.js` | 1,962 | The same rules on a board of FEN letters instead of numbers. |
 
 Every file under `builds/` and `special/` runs on its own — download an HTML file and double-click
@@ -167,7 +167,7 @@ zorunlu olarak neye dönüşeceğini soruyor.**
 | Dosya | Bayt | Ne |
 | --- | --- | --- |
 | `builds/engine.js` | 1.847 | Kural motoru. Tek satır, önyüz yok. |
-| `builds/engine_4x.js` | 1.928 | Aynı kurallar, +81 bayt, iki ilâ on kat hız. |
+| `builds/engine_4x.js` | 1.945 | Aynı kurallar, +98 bayt, 1,4 ilâ 75 kat hız. |
 | `builds/engine_string.js` | 1.962 | Aynı kurallar, tahta sayı yerine FEN harfleriyle. |
 
 `builds/` ve `special/` altındaki her dosya tek başına çalışır — HTML dosyasını indirip çift

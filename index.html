@@ -1296,7 +1296,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       içinde, bayrak düştüğü anda. Hız bu yüzden süs değil; ikinci yer testler, perft
       <span class="gloss">(bir pozisyondan çıkan bütün hamle dizilerini sayan standart doğruluk
       sınaması)</span> milyonlarca düğüm sayıyor. <a href="#speed"><code>engine_4x</code></a> ikisine
-      de hizmet ediyor: aynı kuralları uygulayan, 81 bayt daha uzun, mantıksal olarak birebir aynı
+      de hizmet ediyor: aynı kuralları uygulayan, 98 bayt daha uzun, mantıksal olarak birebir aynı
       ve belirgin biçimde daha hızlı bir varyant. Ölçümler
       <a href="#speed">ayrı bir başlıkta</a>.</li>
       <li><b>Bot ayrı bir katman.</b> İddia bayt başına kural yoğunluğu üzerine kurulu olduğu
@@ -1348,7 +1348,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       it counts is testing, where perft <span class="gloss">(the standard correctness test that
       counts every move sequence from a position)</span> counts millions of nodes.
       <a href="#speed"><code>engine_4x</code></a> serves both: a variant that enforces the same
-      rules, 81 bytes longer, logically identical and markedly faster. The measurements are
+      rules, 98 bytes longer, logically identical and markedly faster. The measurements are
       <a href="#speed">under a separate heading</a>.</li>
       <li><b>The bot is a separate layer.</b> The claim is about rule density per byte, so no bot
       is required; and because the rule layer stands apart, putting a search on top does not disturb
@@ -6783,7 +6783,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <tr><td><code class="vn">input</code><br><span class="fn2">L1_input.html · L2_input.html</span></td><td>UCI, metin alanı</td><td>Tam tahta, ASCII</td><td>1.164</td><td>1.836</td></tr>
 <tr><td><code class="vn">prompt_string_flip</code><br><span class="fn2">L1_prompt_string_flip.html · L2_prompt_string_flip.html</span></td><td>UCI, prompt penceresi</td><td>Tam tahta, tam genişlik harfler<span class="sub">ters indeks; sonuç <a href="#indicators">pencerede, <code>C!</code>'nin yerinde</a></span></td><td>1.123</td><td>1.839</td></tr>
 <tr><td><code class="vn">nonbrowser</code><br><span class="fn2">L1_nonbrowser.cjs · L2_nonbrowser.cjs</span></td><td>UCI, terminal</td><td>Tam tahta, ASCII</td><td>1.313</td><td>1.985</td></tr>
-<tr class="alt"><td><code class="vn">bot</code><br><span class="fn2">L1_1250elo.html · L2_aybars_2500.html</span></td><td>Tıklama, bota karşı</td><td>Tam tahta, taş glifleri<span class="sub">durum satırında koordinat yok</span></td><td>2.265</td><td>8.036</td></tr>
+<tr class="alt"><td><code class="vn">bot</code><br><span class="fn2">L1_1250elo.html · L2_aybars_2500.html</span></td><td>Tıklama, bota karşı</td><td>Tam tahta, taş glifleri<span class="sub">durum satırında koordinat yok</span></td><td>2.282</td><td>8.036</td></tr>
 </tbody>
 </table></div>
 
@@ -6796,14 +6796,14 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <tr><td><code class="vn">input</code><br><span class="fn2">L1_input.html · L2_input.html</span></td><td>UCI, text field</td><td>Full board, ASCII</td><td>1,164</td><td>1,836</td></tr>
 <tr><td><code class="vn">prompt_string_flip</code><br><span class="fn2">L1_prompt_string_flip.html · L2_prompt_string_flip.html</span></td><td>UCI, prompt dialog</td><td>Full board, full-width letters<span class="sub">flipped index; the result appears <a href="#indicators">in the dialog, in place of <code>C!</code></a></span></td><td>1,123</td><td>1,839</td></tr>
 <tr><td><code class="vn">nonbrowser</code><br><span class="fn2">L1_nonbrowser.cjs · L2_nonbrowser.cjs</span></td><td>UCI, terminal</td><td>Full board, ASCII</td><td>1,313</td><td>1,985</td></tr>
-<tr class="alt"><td><code class="vn">bot</code><br><span class="fn2">L1_1250elo.html · L2_aybars_2500.html</span></td><td>Clicking, against a bot</td><td>Full board, piece glyphs<span class="sub">no coordinates in the status line</span></td><td>2,265</td><td>8,036</td></tr>
+<tr class="alt"><td><code class="vn">bot</code><br><span class="fn2">L1_1250elo.html · L2_aybars_2500.html</span></td><td>Clicking, against a bot</td><td>Full board, piece glyphs<span class="sub">no coordinates in the status line</span></td><td>2,282</td><td>8,036</td></tr>
 </tbody>
 </table></div>
 
     <div class="prose" lang="tr">
       <p>Aynı arayüzde <code class="vn">L1</code>'den <code class="vn">L2</code>'ye çıkmak 599 ile 730 bayt arası
       tutuyor. Bot ne kadar tutuyor, <code class="vn">default</code> ile <code class="vn">bot</code> satırlarından
-      okunuyor: <code class="vn">L1</code> 1.567'den 2.265'e çıkıyor, yani <b>698 bayt</b>;
+      okunuyor: <code class="vn">L1</code> 1.567'den 2.282'ye çıkıyor, yani <b>715 bayt</b>;
       <code class="vn">L2</code> 2.236'dan 8.036'ya, yani <b>5.800</b>. Bu iki fark aynı şeyin iki ölçümü
       değil: iki seviye ayrı botlar taşıyor. Adlarındaki 1250 ile 2500'ün de işaret ettiği gibi
       <code class="vn">L1</code>'deki hafif bir bot, <code class="vn">L2</code>'deki Aybars ise arama ve
@@ -6824,7 +6824,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="prose" lang="en">
       <p>Moving from <code class="vn">L1</code> to <code class="vn">L2</code> costs between 599 and 730 bytes for the same
       interface. What the bot costs is readable from the <code class="vn">default</code> and <code class="vn">bot</code>
-      rows: <code class="vn">L1</code> goes from 1,567 to 2,265, that is <b>698 bytes</b>; <code class="vn">L2</code> from
+      rows: <code class="vn">L1</code> goes from 1,567 to 2,282, that is <b>715 bytes</b>; <code class="vn">L2</code> from
       2,236 to 8,036, that is <b>5,800</b>. These are not two measurements of the same thing: the two
       levels carry different bots. As the 1250 and 2500 in their names suggest, the one in
       <code class="vn">L1</code> is a light bot, while Aybars in <code class="vn">L2</code> is a far stronger one
@@ -6932,46 +6932,46 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <h3 lang="tr"><a class="ext" href="https://github.com/cuneytinann/lichess-equivalent" target="_blank" rel="noopener">lichess-equivalent ↗️</a></h3>
     <h3 lang="en"><a class="ext" href="https://github.com/cuneytinann/lichess-equivalent" target="_blank" rel="noopener">lichess-equivalent ↗️</a></h3>
     <div class="prose" lang="tr">
-      <p>Lichess'in kurallarıyla oynayan bir hakem: tıklanan tahtayla 3.022 bayt, tahtası çıkarılmış sayısal hâliyle 1.228 bayt. Tıklanan sürümde oynanış da Lichess'e benziyor — platformun renkleri, gidilebilecek karelerin işaretleri, vurgulanan son hamle ve tehdit altındaki şah, tahtanın üstünde açılan terfi seçimi; saat <code class="vn">L3</code>'teki gibi 600 + 5 saniye. Sayısal hâli <code class="vn">L3_numerical</code>'ın arayüzünü kullanıyor ve paketli.</p>
+      <p>Lichess'in kurallarıyla oynayan bir hakem: tıklanan tahtayla 3.022 bayt, tahtası çıkarılmış sayısal hâliyle 1.206 bayt. Tıklanan sürümde oynanış da Lichess'e benziyor — platformun renkleri, gidilebilecek karelerin işaretleri, vurgulanan son hamle ve tehdit altındaki şah, tahtanın üstünde açılan terfi seçimi; saat <code class="vn">L3</code>'teki gibi 600 + 5 saniye. Sayısal hâli <code class="vn">L3_numerical</code>'ın arayüzünü kullanıyor ve paketli.</p>
     </div>
     <div class="prose" lang="en">
-      <p>An arbiter that plays by Lichess's rules: 3,022 bytes with the clickable board, 1,228 in its numeric form with the board stripped away. In the clicking build the gameplay resembles Lichess too — the platform's colours, markers on reachable squares, the last move and a king in check highlighted, promotion chosen on the board itself; the clock is 600 + 5 seconds, as in <code class="vn">L3</code>. The numeric form uses the <code class="vn">L3_numerical</code> interface and is packed.</p>
+      <p>An arbiter that plays by Lichess's rules: 3,022 bytes with the clickable board, 1,206 in its numeric form with the board stripped away. In the clicking build the gameplay resembles Lichess too — the platform's colours, markers on reachable squares, the last move and a king in check highlighted, promotion chosen on the board itself; the clock is 600 + 5 seconds, as in <code class="vn">L3</code>. The numeric form uses the <code class="vn">L3_numerical</code> interface and is packed.</p>
     </div>
     <div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th>Arayüz</th><th>Giriş</th><th>Bayt</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">Lichess-equivalent</code><br><span class="fn2">special/Lichess-equivalent.html</span><br><span class="fn2">repoda index.html</span></td><td>Lichess'in renkleri ve işaretleri; canlı saat, ½ ve ⚐</td><td>Tıklama</td><td>3.022</td></tr>
-<tr><td><code class="vn">Lichess-equivalent_numerical</code><br><span class="fn2">special/Lichess-equivalent_numerical.html</span><br><span class="fn2">repoda numerical_packed.html</span></td><td><code class="vn">L3_numerical</code>'ın arayüzü; paketli</td><td>Sayısal, prompt penceresi</td><td>1.228</td></tr>
+<tr><td><code class="vn">Lichess-equivalent_numerical</code><br><span class="fn2">special/Lichess-equivalent_numerical.html</span><br><span class="fn2">repoda numerical_packed.html</span></td><td><code class="vn">L3_numerical</code>'ın arayüzü; paketli</td><td>Sayısal, prompt penceresi</td><td>1.206</td></tr>
 </tbody>
 </table></div>
     <div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>Interface</th><th>Input</th><th>Bytes</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">Lichess-equivalent</code><br><span class="fn2">special/Lichess-equivalent.html</span><br><span class="fn2">in the repo: index.html</span></td><td>Lichess's colours and markers; live clock, ½ and ⚐</td><td>Clicking</td><td>3,022</td></tr>
-<tr><td><code class="vn">Lichess-equivalent_numerical</code><br><span class="fn2">special/Lichess-equivalent_numerical.html</span><br><span class="fn2">in the repo: numerical_packed.html</span></td><td>The <code class="vn">L3_numerical</code> interface; packed</td><td>Numeric, prompt dialog</td><td>1,228</td></tr>
+<tr><td><code class="vn">Lichess-equivalent_numerical</code><br><span class="fn2">special/Lichess-equivalent_numerical.html</span><br><span class="fn2">in the repo: numerical_packed.html</span></td><td>The <code class="vn">L3_numerical</code> interface; packed</td><td>Numeric, prompt dialog</td><td>1,206</td></tr>
 </tbody>
 </table></div>
 
     <h3 lang="tr"><a class="ext" href="https://github.com/cuneytinann/chesscom-equivalent" target="_blank" rel="noopener">chesscom-equivalent ↗️</a></h3>
     <h3 lang="en"><a class="ext" href="https://github.com/cuneytinann/chesscom-equivalent" target="_blank" rel="noopener">chesscom-equivalent ↗️</a></h3>
     <div class="prose" lang="tr">
-      <p>Aynı fikir, Chess.com'un kurallarıyla: tıklanan tahtayla 2.837 bayt, sayısal hâliyle 1.175 bayt. Tıklanan sürüm Chess.com'un renklerini ve işaretlerini taşıyor; oynanış öbür yönlerden Lichess eşdeğeriyle aynı. Sayısal hâli yine <code class="vn">L3_numerical</code>'ın arayüzünü kullanıyor ve paketli.</p>
+      <p>Aynı fikir, Chess.com'un kurallarıyla: tıklanan tahtayla 2.837 bayt, sayısal hâliyle 1.161 bayt. Tıklanan sürüm Chess.com'un renklerini ve işaretlerini taşıyor; oynanış öbür yönlerden Lichess eşdeğeriyle aynı. Sayısal hâli yine <code class="vn">L3_numerical</code>'ın arayüzünü kullanıyor ve paketli.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The same idea with Chess.com's rules: 2,837 bytes with the clickable board, 1,175 in numeric form. The clicking build carries Chess.com's colours and markers; otherwise the gameplay matches the Lichess equivalent. The numeric form again uses the <code class="vn">L3_numerical</code> interface and is packed.</p>
+      <p>The same idea with Chess.com's rules: 2,837 bytes with the clickable board, 1,161 in numeric form. The clicking build carries Chess.com's colours and markers; otherwise the gameplay matches the Lichess equivalent. The numeric form again uses the <code class="vn">L3_numerical</code> interface and is packed.</p>
     </div>
     <div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th>Arayüz</th><th>Giriş</th><th>Bayt</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">Chesscom-equivalent</code><br><span class="fn2">special/Chesscom-equivalent.html</span><br><span class="fn2">repoda index.html</span></td><td>Chess.com'un renkleri ve işaretleri; canlı saat, ½ ve ⚐</td><td>Tıklama</td><td>2.837</td></tr>
-<tr><td><code class="vn">Chesscom-equivalent_numerical</code><br><span class="fn2">special/Chesscom-equivalent_numerical.html</span><br><span class="fn2">repoda numerical_packed.html</span></td><td><code class="vn">L3_numerical</code>'ın arayüzü; paketli</td><td>Sayısal, prompt penceresi</td><td>1.175</td></tr>
+<tr><td><code class="vn">Chesscom-equivalent_numerical</code><br><span class="fn2">special/Chesscom-equivalent_numerical.html</span><br><span class="fn2">repoda numerical_packed.html</span></td><td><code class="vn">L3_numerical</code>'ın arayüzü; paketli</td><td>Sayısal, prompt penceresi</td><td>1.161</td></tr>
 </tbody>
 </table></div>
     <div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>Interface</th><th>Input</th><th>Bytes</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">Chesscom-equivalent</code><br><span class="fn2">special/Chesscom-equivalent.html</span><br><span class="fn2">in the repo: index.html</span></td><td>Chess.com's colours and markers; live clock, ½ and ⚐</td><td>Clicking</td><td>2,837</td></tr>
-<tr><td><code class="vn">Chesscom-equivalent_numerical</code><br><span class="fn2">special/Chesscom-equivalent_numerical.html</span><br><span class="fn2">in the repo: numerical_packed.html</span></td><td>The <code class="vn">L3_numerical</code> interface; packed</td><td>Numeric, prompt dialog</td><td>1,175</td></tr>
+<tr><td><code class="vn">Chesscom-equivalent_numerical</code><br><span class="fn2">special/Chesscom-equivalent_numerical.html</span><br><span class="fn2">in the repo: numerical_packed.html</span></td><td>The <code class="vn">L3_numerical</code> interface; packed</td><td>Numeric, prompt dialog</td><td>1,161</td></tr>
 </tbody>
 </table></div>
     <h4 lang="tr">İki platform, FIDE'yle yan yana</h4>
@@ -7117,14 +7117,14 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <thead><tr><th>Sürüm</th><th>Ne</th><th>Giriş</th><th>Bayt</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">Toledos-ES6-optimized</code><br><span class="fn2">special/Toledos-ES6-optimized.html</span></td><td>Oscar Toledo G.'nin satrancı: camiada en çok konuşulan küçük satranç programlarından biri, 2 KB içinde L1 seviyesinde kurallar ve 1200 Elo civarında makul bir bot. Eşdeğerliğini koruyarak ES6 yöntemleriyle biraz daha küçülttüm, arayüzünü de biraz yeniden yorumladım. Eklediğim tek kural 50 hamle.</td><td>Tıklama, bota karşı<span class="sub">terfi tahtanın altındaki listeden, hamleden önce seçilir</span></td><td>2.032</td></tr>
-<tr><td><code class="vn">ToledosOpponentbyMe</code><br><span class="fn2">special/ToledosOpponentbyMe.html</span></td><td>Toledo'nun programına rakip olarak bu motorla yazdığım bot: <code class="vn">L1</code> seviyesinde kurallar artı 50 hamle, iteratif derinleştirmeli alfa-beta araması ve hamle başına çeyrek saniye civarında bir zaman bütçesi. Bot beyazla başlıyor.</td><td>Tıklama, bota karşı</td><td>2.064</td></tr>
+<tr><td><code class="vn">ToledosOpponentbyMe</code><br><span class="fn2">special/ToledosOpponentbyMe.html</span></td><td>Toledo'nun programına rakip olarak bu motorla yazdığım bot: <code class="vn">L1</code> seviyesinde kurallar artı 50 hamle, iteratif derinleştirmeli alfa-beta araması ve hamle başına çeyrek saniye civarında bir zaman bütçesi. Bot beyazla başlıyor.</td><td>Tıklama, bota karşı</td><td>2.081</td></tr>
 </tbody>
 </table></div>
     <div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>What it is</th><th>Input</th><th>Bytes</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">Toledos-ES6-optimized</code><br><span class="fn2">special/Toledos-ES6-optimized.html</span></td><td>Oscar Toledo G.'s chess: one of the most talked-about tiny chess programs in the community, with L1-level rules and a reasonable bot of around 1200 Elo in 2 KB. I shrank it a little further with ES6 techniques while keeping it equivalent, and reinterpreted its interface a little. The one rule I added is the 50-move rule.</td><td>Clicking, against a bot<span class="sub">promotion chosen beforehand from the list below the board</span></td><td>2,032</td></tr>
-<tr><td><code class="vn">ToledosOpponentbyMe</code><br><span class="fn2">special/ToledosOpponentbyMe.html</span></td><td>The bot I wrote on this engine as an opponent for Toledo's program: <code class="vn">L1</code>-level rules plus the 50-move rule, an iterative-deepening alpha-beta search and a time budget of about a quarter of a second per move. The bot plays White.</td><td>Clicking, against a bot</td><td>2,064</td></tr>
+<tr><td><code class="vn">ToledosOpponentbyMe</code><br><span class="fn2">special/ToledosOpponentbyMe.html</span></td><td>The bot I wrote on this engine as an opponent for Toledo's program: <code class="vn">L1</code>-level rules plus the 50-move rule, an iterative-deepening alpha-beta search and a time budget of about a quarter of a second per move. The bot plays White.</td><td>Clicking, against a bot</td><td>2,081</td></tr>
 </tbody>
 </table></div>
 
@@ -7195,13 +7195,13 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th>Ne</th><th>Giriş</th><th>Bayt</th></tr></thead>
 <tbody>
-<tr class="luxrow"><td><code class="lux">LUX_inProgress</code><br><span class="fn2">special/LUX_inProgress.html</span></td><td>Tam hakem, zengin arayüzle: sürükle bırak, sağ tıkla işaretleme, başlarken süre, saat modu (Fischer, Bronstein ya da basit gecikme) ve FEN seçimi. Yapım aşamasında.</td><td>Sürükle bırak, tıklama</td><td>7.966</td></tr>
+<tr class="luxrow"><td><code class="lux">LUX_inProgress</code><br><span class="fn2">special/LUX_inProgress.html</span></td><td>Tam hakem, zengin arayüzle: sürükle bırak, sağ tıkla işaretleme, başlarken süre, saat modu (Fischer, Bronstein ya da basit gecikme) ve FEN seçimi. Yapım aşamasında.</td><td>Sürükle bırak, tıklama</td><td>7.983</td></tr>
 </tbody>
 </table></div>
     <div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>What it is</th><th>Input</th><th>Bytes</th></tr></thead>
 <tbody>
-<tr class="luxrow"><td><code class="lux">LUX_inProgress</code><br><span class="fn2">special/LUX_inProgress.html</span></td><td>The full arbiter with a rich interface: drag and drop, right-click marking, time control, clock mode (Fischer, Bronstein or simple delay) and FEN picked at the start. In progress.</td><td>Drag and drop, clicking</td><td>7,966</td></tr>
+<tr class="luxrow"><td><code class="lux">LUX_inProgress</code><br><span class="fn2">special/LUX_inProgress.html</span></td><td>The full arbiter with a rich interface: drag and drop, right-click marking, time control, clock mode (Fischer, Bronstein or simple delay) and FEN picked at the start. In progress.</td><td>Drag and drop, clicking</td><td>7,983</td></tr>
 </tbody>
 </table></div>
   </div>
@@ -7357,7 +7357,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       adımı yok. Tek satır, <b>1.847 bayt</b>. Aşağıdaki kaynak <code>builds/</code> dizinindeki
       dosyanın kendisi, sayfa açılırken okunuyor.</p>
       <p><b>4x</b> anahtarı ikinci bir kaynağa geçiriyor: <code>engine_4x.js</code>, aynı
-      kuralları uygulayan hızlandırılmış varyant. <b>81 bayt</b> daha uzun, mantıksal olarak
+      kuralları uygulayan hızlandırılmış varyant. <b>98 bayt</b> daha uzun, mantıksal olarak
       birebir aynı — her derinlikte aynı hamleler, aynı düğüm sayıları, aynı sonuç kodları.
       Farkın nereden geldiği ve ölçümleri <a href="#speed">ayrı bir başlıkta</a>.</p>
       <p><b>string</b> anahtarı üçüncüsünü getiriyor: <code>engine_string.js</code>,
@@ -7397,7 +7397,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       build step. One line, <b>1,847 bytes</b>. The source below is the file in the
       <code>builds/</code> directory itself, read as the page loads.</p>
       <p>The <b>4x</b> switch loads a second source: <code>engine_4x.js</code>, the accelerated
-      variant that enforces the same rules. <b>81 bytes</b> longer and logically identical — the
+      variant that enforces the same rules. <b>98 bytes</b> longer and logically identical — the
       same moves at every depth, the same node counts, the same result codes. What it does
       differently, and the measurements behind it, are <a href="#speed">under a separate
       heading</a>.</p>
@@ -10025,62 +10025,101 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
     </div>
     <p class="eyebrow" lang="tr">Hız</p>
     <p class="eyebrow" lang="en">Speed</p>
-    <h2 lang="tr"><code>engine_4x.js</code> — aynı kurallar, +79 bayt, iki ilâ on kat hız</h2>
-    <h2 lang="en"><code>engine_4x.js</code> — same rules, +79 bytes, two to ten times the speed</h2>
+    <h2 lang="tr"><code>engine_4x.js</code> — aynı kurallar, +98 bayt, 1,4 ilâ 75 kat hız</h2>
+    <h2 lang="en"><code>engine_4x.js</code> — same rules, +98 bytes, 1.4 to 75 times the speed</h2>
     <div class="prose" lang="tr">
       <p>İki motor mantıksal olarak aynıdır: her derinlikte aynı hamleler, aynı düğüm
       sayıları, aynı sonuç kodları. Başlangıç pozisyonundan perft d1–d4 ikisinde de
       <code>20 / 400 / 8.902 / 197.281</code> veriyor. Fark yalnızca aynı cevaba kaç işlemle
       varıldığında.</p>
-      <p>Motorun tabanında hız için <b>11 bayt</b> ödeniyor ve tamamı üç değişikliğe gidiyor.
-      Aşağıdaki kazanç sütunu her değişikliğin tek başına ölçülmüş etkisi — motorun en sıcak
-      yolu olan <code>Z()</code> çağrısı üzerinden, başlangıç pozisyonunda, iki sıra için
-      ortalama alınarak. Ölçülen taban farkının <b>7 bayt</b>ta kalmasının sebebi ayrı: rok
-      hakları iki motora farklı girdi — <code>engine.js</code>'te <code>M</code>'nin içine,
-      <code>engine_4x</code>'te <code>A</code> ile aramaya — ve bu, <code>1x</code>'in tabanına
-      dört bayt fazladan yükledi. Kalan 72 bayt
-      <a href="#speed"><code>H</code> ile <code>l</code>'ye</a> gidiyor.</p>
+      <p>Motorun tabanında hız için <b>28 bayt</b> ödeniyor ve tamamı dört değişikliğe gidiyor.
+      Aşağıdaki kazanç sütunu her değişikliğin tek başına ölçülmüş etkisi. İlk üçü motorun en
+      sıcak yolu olan <code>Z()</code> çağrısı üzerinden, başlangıç pozisyonunda, iki sıra için
+      ortalama alınarak ölçüldü; dördüncüsü altı standart pozisyonun perft'i üzerinden. Ölçülen
+      taban farkı <b>26 bayt</b>, çünkü iki kalem ters yönde çalışıyor. Rok hakları iki motora
+      farklı girdi — <code>engine.js</code>'te <code>M</code>'nin içine, <code>engine_4x</code>'te
+      <code>A</code> ile aramaya — ve bu <code>1x</code>'in tabanına dört bayt fazladan yüklüyor.
+      Öte yandan <code>1x</code>'in bayt için aldığı iki kısayolu <code>4x</code>
+      hız yüzünden almıyor (aşağıda, “Ters yön”); bu da <code>4x</code>'e iki bayt ekliyor:
+      28 − 4 + 2 = 26. Kalan 72 bayt <a href="#speed"><code>H</code> ile <code>l</code>'ye</a> gidiyor.</p>
     </div>
     <div class="prose" lang="en">
       <p>The two engines are logically identical: the same moves at every depth, the same node
       counts, the same result codes. Perft d1–d4 from the starting position gives
       <code>20 / 400 / 8,902 / 197,281</code> in both. The difference is only in how many
       operations it takes to reach the same answer.</p>
-      <p>At the base of the engine, <b>11 bytes</b> are spent on speed, and all of them go to three
-      changes. The gain column below is each change's effect measured on its own — on the
-      <code>Z()</code> call, the engine's hottest path, in the starting position, averaged across
-      both sides to move. That the measured base gap is only <b>7 bytes</b> has a separate
-      reason: castling rights entered the two engines differently — inside <code>M</code> in
+      <p>At the base of the engine, <b>28 bytes</b> are spent on speed, and all of them go to four
+      changes. The gain column below is each change's effect measured on its own. The first three
+      were measured on the <code>Z()</code> call, the engine's hottest path, in the starting
+      position, averaged across both sides to move; the fourth over perft on six standard
+      positions. The measured base gap is <b>26 bytes</b>, because two items pull the other way.
+      Castling rights entered the two engines differently — inside <code>M</code> in
       <code>engine.js</code>, through <code>A</code> and the search in <code>engine_4x</code> —
-      which put four extra bytes on the base of <code>1x</code>. The remaining 72 bytes go to
+      which puts four extra bytes on the base of <code>1x</code>. On the other side, two shortcuts
+      <code>1x</code> takes for bytes are left out of <code>4x</code> for speed (below, “The other direction”),
+      which adds two bytes to <code>4x</code>: 28 − 4 + 2 = 26. The remaining 72 bytes go to
       <a href="#speed"><code>H</code> and <code>l</code></a>.</p>
     </div>
 <div class="tw" lang="tr"><table>
 <thead><tr><th>Değişiklik</th><th>Ne yapıyor</th><th class="num">Bayt</th><th class="num">Kazanç</th></tr></thead>
 <tbody>
-<tr><td>Piyon dalı</td><td>Piyon dalı <code>h*v==1?</code> ile başlıyordu; 4x sürüm <code>h?</code> ile başlıyor, yani dikey değişmediyse çarpma hiç yapılmıyor. Kazanç, rok satırındaki <code>!V(t,i)&amp;&amp;!V(t,i+k)</code> kısa devresiyle birlikte ölçüldü; o kısa devre artık iki motorda da var.</td><td class="num">+1</td><td class="num">1,58×</td></tr>
+<tr><td>Piyon dalı</td><td>Piyon dalı <code>h*v==1?</code> ile başlıyordu; 4x sürüm <code>h?</code> ile başlıyor, yani dikey değişmediyse çarpma hiç yapılmıyor. Kazanç, rok satırındaki <code>!V(t)&amp;&amp;!V(t,i+k)</code> kısa devresiyle birlikte ölçüldü; o kısa devre artık iki motorda da var.</td><td class="num">+1</td><td class="num">1,58×</td></tr>
 <tr><td><code>p&amp;&amp;</code> ön koşulu</td><td><code>V</code> ve <code>Z</code>'nin tarama koşulları boş kareyi de kabul ediyordu. Ayrıntısı aşağıda.</td><td class="num">+6</td><td class="num">6,34×</td></tr>
 <tr><td><code>map</code> → <code>forEach</code></td><td><code>L</code> her çağrıda 64 elemanlık bir sonuç dizisi ayırıp atıyordu.</td><td class="num">+4</td><td class="num">1,02×</td></tr>
+<tr><td><code>V</code>'de saldıran bekçisi</td><td><code>V</code> şah testinde her taşa <code>G</code> ile soruyordu. Piyon, at ve şah indeks olarak 17 kareden uzağa ulaşamaz; <code>(p&lt;8|a(i-u)&lt;18)</code> onları <code>G</code>'ye hiç sokmadan geçiyor, tahtanın öbür ucundan yalnız uzun menzillilere soruluyor. Perft'te <code>G</code> çağrısı %17 azalıyor.</td><td class="num">+17</td><td class="num">1,08×</td></tr>
 </tbody>
 </table></div>
 <div class="tw" lang="en"><table>
 <thead><tr><th>Change</th><th>What it does</th><th class="num">Bytes</th><th class="num">Gain</th></tr></thead>
 <tbody>
-<tr><td>The pawn branch</td><td>The pawn branch opened with <code>h*v==1?</code>; the 4x version opens with <code>h?</code>, so the multiplication never happens when the file has not changed. The gain was measured together with the <code>!V(t,i)&amp;&amp;!V(t,i+k)</code> short circuit on the castling line, which both engines now carry.</td><td class="num">+1</td><td class="num">1.58×</td></tr>
+<tr><td>The pawn branch</td><td>The pawn branch opened with <code>h*v==1?</code>; the 4x version opens with <code>h?</code>, so the multiplication never happens when the file has not changed. The gain was measured together with the <code>!V(t)&amp;&amp;!V(t,i+k)</code> short circuit on the castling line, which both engines now carry.</td><td class="num">+1</td><td class="num">1.58×</td></tr>
 <tr><td><code>p&amp;&amp;</code> precondition</td><td>The scan conditions in <code>V</code> and <code>Z</code> were accepting empty squares too. More on this below.</td><td class="num">+6</td><td class="num">6.34×</td></tr>
 <tr><td><code>map</code> → <code>forEach</code></td><td><code>L</code> was allocating and discarding a 64-element result array on every call.</td><td class="num">+4</td><td class="num">1.02×</td></tr>
+<tr><td>An attacker guard in <code>V</code></td><td><code>V</code> asked every piece through <code>G</code> in the check test. A pawn, a knight or a king cannot reach more than 17 squares away in index; <code>(p&lt;8|a(i-u)&lt;18)</code> passes them by without entering <code>G</code>, so only the sliders are asked from across the board. Over perft, <code>G</code> calls drop by 17%.</td><td class="num">+17</td><td class="num">1.08×</td></tr>
 </tbody>
 </table></div>
+    <div class="prose" lang="tr">
+      <p>Dördüncü satır bu turda eklendi ve kararlar üzerinde hiçbir etkisi yok: <code>V</code>
+      396.000 çağrıda — tahta dışı hedefler dahil — eskisiyle aynı sonucu veriyor. Kazancın
+      pozisyona göre dağılımı da beklenen gibi: taşı çok ve dağınık pozisyonlarda <code>G</code>
+      çağrısı üçte bir azalıyor, birbirine yakın az taşlı bir oyun sonunda yalnızca %3.</p>
+      <p>Listede bir zamanlar bir beşinci vardı: <code>G</code> taş kodunu iki kez okuyordu
+      (<code>P=b[i]&gt;&gt;1</code> ve <code>b[i]&amp;1</code>), bir kez okumak
+      (<code>g=b[i],P=g&gt;&gt;1</code>) 1 bayta hız getiriyordu ve bir süre tabana terfi etmiş,
+      iki motorda birden durmuştu. Bu turda yol ayrıldı: <code>1x</code> baytı geri aldı, iki
+      okumaya döndü; aynı değişiklik <code>4x</code>'te ölçüldüğünde <b>%7,4 kayıp</b> çıktı ve
+      <code>4x</code> tek okumayı tuttu. Hangi kalemin hangi sürüme gireceğini ölçüm
+      belirliyor, tarih değil. Son satırdaki <code>(…)&amp;S()</code> kısa devresi ise hâlâ iki
+      motorda.</p>
+      <p>Bir başkası hiç bayt tutmadan indi: <code>L</code> önce pahalı <code>G</code>'yi çağırıp sonra “hedef zaten kendi taşım mı” diye bakıyordu, sıra ters çevrildi. Bu takas <b>bayt nötr</b> —
+      <code>G(i,f)&amp;&amp;!p|p&amp;1^g&amp;&amp;</code> ile
+      <code>!p|p&amp;1^g&amp;&amp;G(i,f)&amp;&amp;</code> ikisi de 18 karakter ve tek
+      başına 1,49× getiriyor. Gönderilen bütün sürümlerde uygulanmış durumda. Kaynakta bedava
+      olması paketlenmiş çıktıda bedava olmasını gerektirmiyor: RegPack'in gördüğü tekrar
+      dizileri değiştiği için o zamanki paketlenmiş dosyalarda toplam <b>3 bayt</b>
+      tutmuştu.</p>
+      <p>İkinci satır listenin en ilginci, çünkü düzelttiği şey bir yavaşlık değil bir
+      <b>asimetri</b>. Boş karenin kodu <code>0</code> ve <code>engine.js</code>'te tarama
+      koşulları <code>p%2==t</code> ile <code>p&amp;1^s</code>. Sıfırın ikiye bölümünden kalan
+      da en düşük biti de sıfır olduğu için bu koşullar boş kareleri <b>siyahın taşı sayıyor</b>. Sonuç:
+      <code>Z()</code> siyahın sırasındayken tahtadaki her boş kare için tam bir geçerli hamle
+      üretimi çalışıyor, beyazın sırasındayken çalışmıyor.</p>
+      <p>Ölçüldüğünde fark bu kadar keskin:</p>
+    </div>
     <div class="prose" lang="en">
-      <p>Applying the three to the base of <code>engine.js</code> in order gives a file
-      byte-identical to the base of <code>engine_4x.js</code>; there is nothing in between.</p>
-      <p>The list used to hold a fourth: <code>G</code> read the piece code twice
-      (<code>P=b[i]&gt;&gt;1</code> and <code>g=b[i]&amp;1</code>), and reading it once bought
-      1.07× for a single byte. That change is no longer specific to 4x — it has been
-      <b>promoted into the base</b> and now sits in both. The same goes for
-      <code>(…)&amp;S()</code> on the last line: the short circuit is in <code>engine.js</code>
-      as well. Once an optimisation has been measured and its price has fallen to one byte, it
-      does not stay in the fast variant; it moves down.</p>
+      <p>The fourth row was added in this round and has no effect on any decision: over 396,000
+      calls — off-board targets included — <code>V</code> returns exactly what it returned before.
+      The gain spreads the way one would expect: in positions with many scattered pieces
+      <code>G</code> calls drop by a third, in an ending with a few pieces close together by only
+      3%.</p>
+      <p>The list once held a fifth: <code>G</code> read the piece code twice
+      (<code>P=b[i]&gt;&gt;1</code> and <code>b[i]&amp;1</code>), reading it once
+      (<code>g=b[i],P=g&gt;&gt;1</code>) bought speed for a single byte, and for a while it had been
+      promoted into the base and sat in both engines. In this round the paths parted:
+      <code>1x</code> took the byte back and returned to two reads; measured in <code>4x</code>,
+      the same change came out <b>7.4% slower</b>, so <code>4x</code> kept the single read. Which
+      item belongs in which build is decided by measurement, not by history. The
+      <code>(…)&amp;S()</code> short circuit on the last line is still in both engines.</p>
       <p>Another came down without costing a byte at all:
       <code>L</code> used to call the expensive <code>G</code> first and only then ask “is the
       target already my own piece?”, and the order was reversed. That swap is <b>byte-neutral</b> —
@@ -10089,7 +10128,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       own it brings 1.49×. It is applied in every shipped build. Being free in the source does not
       make it free in the packed output: because the repeat sequences RegPack sees changed, it cost
       a total of <b>3 bytes</b> across the packed files of the day.</p>
-      <p>The third row is the most interesting on the list, because what it fixes is not
+      <p>The second row is the most interesting on the list, because what it fixes is not
       slowness but <b>asymmetry</b>. The code for an empty square is <code>0</code>, and in
       <code>engine.js</code> the scan conditions are <code>p%2==t</code> and <code>p&amp;1^s</code>.
       Since zero modulo two is zero, and so is its lowest bit, those conditions <b>count empty squares as Black's
@@ -10097,44 +10136,31 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       generation for every empty square on the board, and with White to move it does not.</p>
       <p>Measured, the difference is stark:</p>
     </div>
-    <div class="prose" lang="tr">
-      <p>Üçü <code>engine.js</code>'in tabanına sırayla uygulanınca çıkan dosya
-      <code>engine_4x.js</code>'in tabanıyla bayt bayt aynıdır; ara bir şey yok.</p>
-      <p>Listede eskiden bir dördüncü vardı: <code>G</code> taş kodunu iki kez okuyordu
-      (<code>P=b[i]&gt;&gt;1</code> ve <code>g=b[i]&amp;1</code>), bir kez okumak 1 bayta 1,07×
-      getiriyordu. O değişiklik artık 4x'e özel değil — <b>tabana terfi etti</b>, ikisinde
-      birden duruyor. Aynı şey son satırdaki <code>(…)&amp;S()</code> için de geçerli: kısa
-      devre artık <code>engine.js</code>'te de var. Bir optimizasyon ölçülüp bedeli bir bayta
-      düşünce hızlı varyantta kalmıyor, aşağı iniyor.</p>
-      <p>Bir başkası hiç bayt tutmadan indi: <code>L</code> önce pahalı <code>G</code>'yi çağırıp sonra “hedef zaten kendi taşım mı” diye bakıyordu, sıra ters çevrildi. Bu takas <b>bayt nötr</b> —
-      <code>G(i,f)&amp;&amp;!p|p&amp;1^g&amp;&amp;</code> ile
-      <code>!p|p&amp;1^g&amp;&amp;G(i,f)&amp;&amp;</code> ikisi de 18 karakter ve tek
-      başına 1,49× getiriyor. Gönderilen bütün sürümlerde uygulanmış durumda. Kaynakta bedava
-      olması paketlenmiş çıktıda bedava olmasını gerektirmiyor: RegPack'in gördüğü tekrar
-      dizileri değiştiği için o zamanki paketlenmiş dosyalarda toplam <b>3 bayt</b>
-      tutmuştu.</p>
-      <p>Üçüncü satır listenin en ilginci, çünkü düzelttiği şey bir yavaşlık değil bir
-      <b>asimetri</b>. Boş karenin kodu <code>0</code> ve <code>engine.js</code>'te tarama
-      koşulları <code>p%2==t</code> ile <code>p&amp;1^s</code>. Sıfırın ikiye bölümünden kalan
-      da en düşük biti de sıfır olduğu için bu koşullar boş kareleri <b>siyahın taşı sayıyor</b>. Sonuç:
-      <code>Z()</code> siyahın sırasındayken tahtadaki her boş kare için tam bir geçerli hamle
-      üretimi çalışıyor, beyazın sırasındayken çalışmıyor.</p>
-      <p>Ölçüldüğünde fark bu kadar keskin:</p>
-    </div>
 <div class="tw" lang="tr"><table>
 <thead><tr><th>Başlangıç pozisyonunda <code>Z()</code></th><th class="numr">Beyaz sırada</th><th class="numr">Siyah sırada</th><th class="num">Oran</th></tr></thead>
 <tbody>
 <tr><td><code>engine.js</code><br><span class="fn2">geometri çağrısı</span></td><td class="numr">192</td><td class="numr">1.616</td><td class="num">8,4×</td></tr>
-<tr><td><code>engine_4x.js</code><br><span class="fn2">geometri çağrısı</span></td><td class="numr">128</td><td class="numr">80</td><td class="num">0,6×</td></tr>
+<tr><td><code>engine_4x.js</code><br><span class="fn2">geometri çağrısı</span></td><td class="numr">106</td><td class="numr">58</td><td class="num">0,55×</td></tr>
 </tbody>
 </table></div>
 <div class="tw" lang="en"><table>
 <thead><tr><th><code>Z()</code> in the starting position</th><th class="numr">White to move</th><th class="numr">Black to move</th><th class="num">Ratio</th></tr></thead>
 <tbody>
 <tr><td><code>engine.js</code><br><span class="fn2">geometry calls</span></td><td class="numr">192</td><td class="numr">1,616</td><td class="num">8.4×</td></tr>
-<tr><td><code>engine_4x.js</code><br><span class="fn2">geometry calls</span></td><td class="numr">128</td><td class="numr">80</td><td class="num">0.6×</td></tr>
+<tr><td><code>engine_4x.js</code><br><span class="fn2">geometry calls</span></td><td class="numr">106</td><td class="numr">58</td><td class="num">0.55×</td></tr>
 </tbody>
 </table></div>
+    <div class="prose" lang="tr">
+      <p>Sayılar mikrosaniye değil <b>çağrı sayısı</b>: aynı <code>Z()</code> çağrısı boyunca
+      geometri fonksiyonuna kaç kez girildiği. Makineden bağımsız oldukları için tekrarlanabilir
+      ve asimetriyi süreden daha keskin gösteriyorlar. 4x sürümde oran birin <em>altına</em>
+      düşüyor — asimetri kaldırılmakla kalmıyor, tersine dönüyor: boş kare ön koşulu sayesinde
+      siyahın taraması ilk siyah taşta bitiyor, beyazınki ise tahtanın yarısını geziyor.</p>
+      <p>Bu yüzden “kaç kat” tek bir sayı değil, iş yüküne bağlı bir aralık. Perft
+      <code>Z()</code>'yi hiç çağırmıyor; orada fark hamle üretecinden, <code>G</code>,
+      <code>V</code> ve <code>L</code>'den geliyor. Altı standart pozisyonda 4x toplamda
+      <b>1,91×</b> hızlı ve <code>G</code>'ye 2,23 kat daha az giriyor:</p>
+    </div>
     <div class="prose" lang="en">
       <p>The numbers are not microseconds but <b>call counts</b>: how many times the geometry
       function is entered over the same <code>Z()</code> call. Being machine-independent they are
@@ -10142,44 +10168,65 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       the ratio drops <em>below</em> one — the asymmetry is not merely removed but inverted:
       thanks to the empty-square precondition Black's scan ends at the first black piece, while
       White's walks half the board.</p>
-      <p>This is why “twice” is not a single number but a range that depends on the workload.
-      Perft d4 from the starting position — where the great majority of nodes have White to move,
-      the cheap side of the asymmetry — gives <b>2.4×</b>. The same perft at d3, whose majority
-      ends with Black to move, gives <b>9.7×</b>. The four in the build's name falls in the middle of the
-      range — 2.4× at worst, 9.7× at best.</p>
-      <p>These 79 bytes only repay themselves where the engine's hot path is permanently open. In a
-      driver that takes its move from a human, the engine's microseconds are invisible next to the
-      user's thinking time, which is why the measurement is run without a driver at all.
-      <code>engine_4x.js</code> is embedded in no driver; its source sits under
-      <code>builds/</code>, with a copy in <a href="#tests">the test bundle</a>.</p>
+      <p>This is why “how many times faster” is not a single number but a range that depends on
+      the workload. Perft never calls <code>Z()</code>; there the difference comes from the move
+      generator, from <code>G</code>, <code>V</code> and <code>L</code>. Over six standard positions
+      4x is <b>1.91×</b> faster in total and enters <code>G</code> 2.23 times less often:</p>
     </div>
+<div class="tw" lang="tr"><table>
+<thead><tr><th>Perft</th><th class="numr"><code>engine.js</code></th><th class="numr"><code>engine_4x.js</code></th><th class="num">Süre</th><th class="num"><code>G</code> çağrısı</th></tr></thead>
+<tbody>
+<tr><td>Başlangıç d4</td><td class="numr">5.823 ms</td><td class="numr">4.320 ms</td><td class="num">1,35×</td><td class="num">1,32×</td></tr>
+<tr><td>Kiwipete d3</td><td class="numr">3.316 ms</td><td class="numr">1.808 ms</td><td class="num">1,83×</td><td class="num">2,83×</td></tr>
+<tr><td>CPW 3 d5</td><td class="numr">30.963 ms</td><td class="numr">13.539 ms</td><td class="num">2,29×</td><td class="num">2,74×</td></tr>
+<tr><td>CPW 4 d4</td><td class="numr">9.439 ms</td><td class="numr">6.569 ms</td><td class="num">1,44×</td><td class="num">1,46×</td></tr>
+<tr><td>CPW 5 d3</td><td class="numr">1.832 ms</td><td class="numr">922 ms</td><td class="num">1,99×</td><td class="num">2,94×</td></tr>
+<tr><td>CPW 6 d3</td><td class="numr">2.922 ms</td><td class="numr">1.278 ms</td><td class="num">2,29×</td><td class="num">2,87×</td></tr>
+<tr><td><b>Toplam</b></td><td class="numr"><b>54.295 ms</b></td><td class="numr"><b>28.438 ms</b></td><td class="num"><b>1,91×</b></td><td class="num"><b>2,23×</b></td></tr>
+</tbody>
+</table></div>
+<div class="tw" lang="en"><table>
+<thead><tr><th>Perft</th><th class="numr"><code>engine.js</code></th><th class="numr"><code>engine_4x.js</code></th><th class="num">Time</th><th class="num"><code>G</code> calls</th></tr></thead>
+<tbody>
+<tr><td>Start d4</td><td class="numr">5,823 ms</td><td class="numr">4,320 ms</td><td class="num">1.35×</td><td class="num">1.32×</td></tr>
+<tr><td>Kiwipete d3</td><td class="numr">3,316 ms</td><td class="numr">1,808 ms</td><td class="num">1.83×</td><td class="num">2.83×</td></tr>
+<tr><td>CPW 3 d5</td><td class="numr">30,963 ms</td><td class="numr">13,539 ms</td><td class="num">2.29×</td><td class="num">2.74×</td></tr>
+<tr><td>CPW 4 d4</td><td class="numr">9,439 ms</td><td class="numr">6,569 ms</td><td class="num">1.44×</td><td class="num">1.46×</td></tr>
+<tr><td>CPW 5 d3</td><td class="numr">1,832 ms</td><td class="numr">922 ms</td><td class="num">1.99×</td><td class="num">2.94×</td></tr>
+<tr><td>CPW 6 d3</td><td class="numr">2,922 ms</td><td class="numr">1,278 ms</td><td class="num">2.29×</td><td class="num">2.87×</td></tr>
+<tr><td><b>Total</b></td><td class="numr"><b>54,295 ms</b></td><td class="numr"><b>28,438 ms</b></td><td class="num"><b>1.91×</b></td><td class="num"><b>2.23×</b></td></tr>
+</tbody>
+</table></div>
     <div class="prose" lang="tr">
-      <p>Sayılar mikrosaniye değil <b>çağrı sayısı</b>: aynı <code>Z()</code> çağrısı boyunca
-      geometri fonksiyonuna kaç kez girildiği. Makineden bağımsız oldukları için tekrarlanabilir
-      ve asimetriyi süreden daha keskin gösteriyorlar. 4x sürümde oran birin <em>altına</em>
-      düşüyor — asimetri kaldırılmakla kalmıyor, tersine dönüyor: boş kare ön koşulu sayesinde
-      siyahın taraması ilk siyah taşta bitiyor, beyazınki ise tahtanın yarısını geziyor.</p>
-      <p>Bu yüzden “iki kat” tek bir sayı değil, iş yüküne bağlı bir aralık.
-      Başlangıç pozisyonundan perft d4 — düğümlerinin büyük çoğunluğunda beyaz sırada
-      olduğu için asimetrinin ucuz tarafı — <b>2,4×</b> veriyor. Aynı perft d3, çoğunluğu
-      siyah sırada bittiği için <b>9,7×</b>. Sürümün adındaki dört aralığın ortasına düşüyor —
-      kötü durumda 2,4×, iyisinde 9,7×.</p>
-      <p>Bu 79 bayt ancak motorun sıcak yolunun sürekli açık olduğu bir kullanımda karşılığını
+      <p>Süreler her ölçüm ayrı bir süreçte, motorların sırası her turda kayarak alınan
+      turların medyanı; <code>G</code> sütunu makineden bağımsız. Hamle üretiminin alt ucu
+      1,35×; üst uç hakem katmanında, aşağıdaki fonksiyon tablosunda: <code>l</code>'de 75×.</p>
+      <p>Bu 98 bayt ancak motorun sıcak yolunun sürekli açık olduğu bir kullanımda karşılığını
       buluyor. Hamlesini insandan alan bir sürücüde motorun mikrosaniyeleri kullanıcının düşünme
       süresinin yanında görünmüyor; ölçüm de bu yüzden sürücüsüz çalıştırılıyor.
       <code>engine_4x.js</code> sürücülerin hiçbirine gömülü değil; kaynağı <code>builds/</code>
       altında, bir kopyası da <a href="#tests">test paketinde</a>.</p>
     </div>
-    <h3 lang="tr">11 bayt gökten inmedi</h3>
-    <h3 lang="en">The 11 bytes were not plucked from the air</h3>
+    <div class="prose" lang="en">
+      <p>The timings are medians of rounds in which every measurement runs in its own process and
+      the order of the engines shifts each round; the <code>G</code> column is machine-independent.
+      The low end for move generation is 1.35×; the high end is in the adjudication layer, in the
+      function table below: 75× in <code>l</code>.</p>
+      <p>These 98 bytes only repay themselves where the engine's hot path is permanently open. In a
+      driver that takes its move from a human, the engine's microseconds are invisible next to the
+      user's thinking time, which is why the measurement is run without a driver at all.
+      <code>engine_4x.js</code> is embedded in no driver; its source sits under
+      <code>builds/</code>, with a copy in <a href="#tests">the test bundle</a>.</p>
+    </div>
+    
+<h3 lang="tr">28 bayt gökten inmedi</h3>
+    <h3 lang="en">The 28 bytes were not plucked from the air</h3>
     <div class="prose" lang="tr">
-      <p>Yukarıdaki değişiklikler bir tahmin değil. Aday listesi ölçüldü: dördü kaldı — biri
-      o zamandan beri tabana indi — birkaçı elendi. Kalanların ne olduğu yukarıda tek tek yazılı; burada <b>elenenler ve
+      <p>Yukarıdaki değişiklikler bir tahmin değil. Aday listesi ölçüldü: dördü kaldı, birkaçı elendi; bu turda aynı listeden bir aday daha, <code>V</code>'deki saldıran bekçisi, ölçülüp alındı. Kalanların ne olduğu yukarıda tek tek yazılı; burada <b>elenenler ve
       neden elendikleri</b> var.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The changes above are not a guess. A candidate list was measured: four survived — one of
-      them has since moved down into the base — and several were eliminated. What survived is written out one by one above; what follows here is
+      <p>The changes above are not a guess. A candidate list was measured: four survived and several were eliminated; in this round one more candidate from the same list, the attacker guard in <code>V</code>, was measured and taken. What survived is written out one by one above; what follows here is
       <b>what was eliminated and why</b>.</p>
     </div>
 
@@ -10237,17 +10284,17 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 <div class="tw" lang="tr"><table>
 <thead><tr><th>Fonksiyon</th><th>Ne ölçüldü</th><th class="num"><code>engine.js</code></th><th class="num"><code>engine_4x.js</code></th><th class="num">Kazanç</th></tr></thead>
 <tbody>
-<tr><td><code>L</code></td><td>Başlangıç pozisyonunda tüm geçerli hamleler, 1.999 tur</td><td class="num">2.050 ms</td><td class="num">885 ms</td><td class="num">2,3×</td></tr>
-<tr><td><code>H</code></td><td>6.9 araması, açık pozisyon, 3.000 tur</td><td class="num">5.398 ms</td><td class="num">2.039 ms</td><td class="num">2,6×</td></tr>
-<tr><td><b><code>l</code></b></td><td>Kilitli piyon duvarı, 20.000 çağrı</td><td class="num">9.419 ms</td><td class="num"><b>255 ms</b></td><td class="num"><b>37×</b></td></tr>
+<tr><td><code>L</code></td><td>Başlangıç pozisyonunda tüm geçerli hamleler, 1.999 tur</td><td class="num">1.670 ms</td><td class="num">739 ms</td><td class="num">2,3×</td></tr>
+<tr><td><code>H</code></td><td>6.9 araması (20.000 deneme, 15 yarım hamle), rastgele oyunlardan 300 oyun sonu</td><td class="num">1.413 ms</td><td class="num">362 ms</td><td class="num">3,9×</td></tr>
+<tr><td><b><code>l</code></b></td><td>Sekiz dikeylik kilitli piyon duvarı, 2.000 çağrı</td><td class="num">2.769 ms</td><td class="num"><b>37 ms</b></td><td class="num"><b>75×</b></td></tr>
 </tbody>
 </table></div>
 <div class="tw" lang="en"><table>
 <thead><tr><th>Function</th><th>What was measured</th><th class="num"><code>engine.js</code></th><th class="num"><code>engine_4x.js</code></th><th class="num">Gain</th></tr></thead>
 <tbody>
-<tr><td><code>L</code></td><td>Every legal move from the starting position, 1,999 rounds</td><td class="num">2,050 ms</td><td class="num">885 ms</td><td class="num">2.3×</td></tr>
-<tr><td><code>H</code></td><td>The 6.9 search on an open position, 3,000 rounds</td><td class="num">5,398 ms</td><td class="num">2,039 ms</td><td class="num">2.6×</td></tr>
-<tr><td><b><code>l</code></b></td><td>A locked pawn wall, 20,000 calls</td><td class="num">9,419 ms</td><td class="num"><b>255 ms</b></td><td class="num"><b>37×</b></td></tr>
+<tr><td><code>L</code></td><td>Every legal move from the starting position, 1,999 rounds</td><td class="num">1,670 ms</td><td class="num">739 ms</td><td class="num">2.3×</td></tr>
+<tr><td><code>H</code></td><td>The 6.9 search (20,000 tries, 15 plies) on 300 endings from random games</td><td class="num">1,413 ms</td><td class="num">362 ms</td><td class="num">3.9×</td></tr>
+<tr><td><b><code>l</code></b></td><td>A locked pawn wall across all eight files, 2,000 calls</td><td class="num">2,769 ms</td><td class="num"><b>37 ms</b></td><td class="num"><b>75×</b></td></tr>
 </tbody>
 </table></div>
     <div class="prose" lang="tr">
@@ -10256,7 +10303,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       yerine maskelerin toplamını izliyor ve <b>hiçbiri büyümediği anda duruyor</b>. Kilitli
       bir pozisyonda denge çoğu zaman 15-20 turda kuruluyor, yani 4x sürüm işin
       %99’unu hiç yapmıyor. 33 baytın karşılığı bu.</p>
-      <p>Kazancın <code>L</code> ile <code>H</code>'de iki buçuk kat civarında kalması da
+      <p>Kazancın <code>L</code>'de iki, <code>H</code>'de dört kat civarında kalması da
       aynı sebebin tersi: orada yapılan iş gerçekten yapılması gereken iş, kısaltılacak
       boşluk yok.</p>
     </div>
@@ -10265,7 +10312,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <b>600 iterations</b> for a reason of correctness — so that the bound is a proved one. The
       4x version watches the sum of the masks instead and <b>stops the moment none of them
       grows</b>. In a locked position the balance usually settles in 15–20 rounds, so the 4x version never does 99% of the work. That is what 33 bytes buy.</p>
-      <p>That the gain stays near two and a half in <code>L</code> and <code>H</code> is the same
+      <p>That the gain stays near two in <code>L</code> and four in <code>H</code> is the same
       reason inverted: the work done there is work that genuinely has to be done, and there is no
       slack to cut.</p>
     </div>
@@ -10288,23 +10335,23 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 <div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th class="num">Bayt</th><th class="num">Medyan</th><th class="num"><code>4x</code>'e göre</th></tr></thead>
 <tbody>
-<tr><td><code>engine.js</code></td><td class="num">1.874</td><td class="num">12.385 ms</td><td class="num">0,10×</td></tr>
-<tr><td><b><code>engine_4x.js</code></b></td><td class="num"><b>1.953</b></td><td class="num"><b>1.177 ms</b></td><td class="num"><b>1,00×</b></td></tr>
-<tr><td><span class="sub">+</span> <code>S</code> dışarı alındı</td><td class="num">1.979</td><td class="num">1.091 ms</td><td class="num">1,08×</td></tr>
-<tr><td><span class="sub">+</span> hedef bekçisi</td><td class="num">1.978</td><td class="num">1.035 ms</td><td class="num">1,14×</td></tr>
-<tr><td><span class="sub">+</span> ikisi birden</td><td class="num">2.004</td><td class="num">1.012 ms</td><td class="num">1,16×</td></tr>
-<tr><td><span class="sub">+</span> gerçek unmake</td><td class="num">2.015</td><td class="num">1.349 ms</td><td class="num">0,87×</td></tr>
+<tr><td><code>engine.js</code></td><td class="num">1.847</td><td class="num">12.385 ms</td><td class="num">0,10×</td></tr>
+<tr><td><b><code>engine_4x.js</code></b></td><td class="num"><b>1.945</b></td><td class="num"><b>1.177 ms</b></td><td class="num"><b>1,00×</b></td></tr>
+<tr><td><span class="sub">+</span> <code>S</code> dışarı alındı</td><td class="num">1.971</td><td class="num">1.091 ms</td><td class="num">1,08×</td></tr>
+<tr><td><span class="sub">+</span> hedef bekçisi</td><td class="num">1.970</td><td class="num">1.035 ms</td><td class="num">1,14×</td></tr>
+<tr><td><span class="sub">+</span> ikisi birden</td><td class="num">1.996</td><td class="num">1.012 ms</td><td class="num">1,16×</td></tr>
+<tr><td><span class="sub">+</span> gerçek unmake</td><td class="num">2.007</td><td class="num">1.349 ms</td><td class="num">0,87×</td></tr>
 </tbody>
 </table></div>
 <div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th class="num">Bytes</th><th class="num">Median</th><th class="num">vs <code>4x</code></th></tr></thead>
 <tbody>
-<tr><td><code>engine.js</code></td><td class="num">1,874</td><td class="num">12,385 ms</td><td class="num">0.10×</td></tr>
-<tr><td><b><code>engine_4x.js</code></b></td><td class="num"><b>1,953</b></td><td class="num"><b>1,177 ms</b></td><td class="num"><b>1.00×</b></td></tr>
-<tr><td><span class="sub">+</span> <code>S</code> hoisted out</td><td class="num">1,979</td><td class="num">1,091 ms</td><td class="num">1.08×</td></tr>
-<tr><td><span class="sub">+</span> target guard</td><td class="num">1,978</td><td class="num">1,035 ms</td><td class="num">1.14×</td></tr>
-<tr><td><span class="sub">+</span> both together</td><td class="num">2,004</td><td class="num">1,012 ms</td><td class="num">1.16×</td></tr>
-<tr><td><span class="sub">+</span> true unmake</td><td class="num">2,015</td><td class="num">1,349 ms</td><td class="num">0.87×</td></tr>
+<tr><td><code>engine.js</code></td><td class="num">1,847</td><td class="num">12,385 ms</td><td class="num">0.10×</td></tr>
+<tr><td><b><code>engine_4x.js</code></b></td><td class="num"><b>1,945</b></td><td class="num"><b>1,177 ms</b></td><td class="num"><b>1.00×</b></td></tr>
+<tr><td><span class="sub">+</span> <code>S</code> hoisted out</td><td class="num">1,971</td><td class="num">1,091 ms</td><td class="num">1.08×</td></tr>
+<tr><td><span class="sub">+</span> target guard</td><td class="num">1,970</td><td class="num">1,035 ms</td><td class="num">1.14×</td></tr>
+<tr><td><span class="sub">+</span> both together</td><td class="num">1,996</td><td class="num">1,012 ms</td><td class="num">1.16×</td></tr>
+<tr><td><span class="sub">+</span> true unmake</td><td class="num">2,007</td><td class="num">1,349 ms</td><td class="num">0.87×</td></tr>
 </tbody>
 </table></div>
     <div class="prose" lang="en">
@@ -10384,8 +10431,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
     <h4 lang="tr">Neden burada durduk</h4>
     <h4 lang="en">Why we stopped here</h4>
     <div class="prose" lang="tr">
-      <p>Oran uçurumu tek satırda görünüyor. Tabanda <b>11 bayt</b> 10 kat getiriyor. Sonrasındaki en iyi aday
-      <b>51 bayt</b> karşılığında %16. Bayt başına 100 kat fark.</p>
+      <p>Oran uçurumu tek satırda görünüyor. Tabanın ilk <b>11 baytı</b> 10 kat getiriyor. Elenen en iyi ikili
+      <b>51 bayt</b> karşılığında %16. Bayt başına 100 kat fark. Bu turda alınan bekçi ikisinin arasında: 17 bayta %8 — elenenlerden bayt başına iki kat verimli, tabanın ilk kalemlerinden yine iki basamak geride.</p>
       <p>Sebebini profil söylüyor. Açılış pozisyonunda tam bir tarama 768 şekil sondası
       yapıyor ve bunların <b>%97'si ret</b> — hepsi de ilk karşılaştırmada. Reddedilenlerin
       dağılımı %50 piyon, %31 uzun menzilli, %12,5 at, %6,3 şah; yani tam olarak materyal sayımı. On
@@ -10399,9 +10446,9 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       yeterince hızlandırıyor ne de baytı hak ediyor.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The gulf in ratios shows up in a single line. At the base, <b>11 bytes</b> bring a tenfold
-      gain. The best candidate after
-      that is 16% for <b>51 bytes</b>. A hundredfold difference per byte.</p>
+      <p>The gulf in ratios shows up in a single line. The first <b>11 bytes</b> of the base bring a tenfold
+      gain. The best eliminated pair
+      is 16% for <b>51 bytes</b>. A hundredfold difference per byte. The guard taken in this round sits between them: 8% for 17 bytes — twice as efficient per byte as the eliminated pair, still two orders of magnitude behind the first items of the base.</p>
       <p>The profile says why. In the opening position a full scan makes 768 shape probes, and
       <b>97% of them are rejections</b> — all at the first comparison. The rejections break down
       as 50% pawn, 31% slider, 12.5% knight, 6.3% king, which is exactly the material count.
@@ -10415,22 +10462,30 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       that. What comes after neither speeds things up enough nor earns its bytes.</p>
     </div>
 
-    <h3 lang="tr">Ters yön — 1x'te bırakılan kısa devre</h3>
-    <h3 lang="en">The other direction — a short circuit given up in 1x</h3>
+    <h3 lang="tr">Ters yön — 1x'in hızdan verdiği baytlar</h3>
+    <h3 lang="en">The other direction — bytes 1x takes from speed</h3>
     <div class="prose" lang="tr">
       <p>Yukarıdaki liste 4x'in bayt harcayıp hız aldığı yerleri sayıyor. Aynı eksende ters yönde
-      bir kalem var: <code>engine.js</code> bir yerde kısa devreyi <b>bırakıp</b> bir bayt
+      üç kalem var: <code>engine.js</code> üç yerde hızdan <b>verip</b> birer bayt
       kazanıyor. Hangisinin hangi sürüme gireceği tek bir kurala bakıyor — 1x en kısa hâl,
       4x en hızlısı.</p>
             <p><b>Aramanın dönüşü.</b> <code>…&amp;&amp;v</code> yerine <code>…&amp;v</code>.
       <code>b.every(…)</code> zaten boolean, <code>v</code> de boolean ya da <code>0</code> ve
       <code>H</code>'nin dönüşü yalnız doğruluk değeri olarak okunuyor. Burada hız bedeli yok —
       <code>v</code> bir değişken okuması. Bedava <b>1 bayt</b>.</p>
+      <p><b>Taş kodu iki kez okunuyor.</b> <code>g=b[i],P=g&gt;&gt;1</code> yerine
+      <code>P=b[i]&gt;&gt;1</code>; renk gereken tek yerde <code>b[i]&amp;1</code> yeniden
+      okunuyor. <code>1x</code>'te <b>1 bayt</b>; <code>4x</code>'te ölçüldüğünde <b>%7,4 kayıp</b>,
+      çünkü global dizi okuması yerel bir değişkenden pahalı.</p>
+      <p><b>Ortak ifade.</b> Piyon dalında iki kez geçen <code>T|b[f]</code> bir kez
+      hesaplanıp <code>x</code>'e yazılıyor. <code>1x</code>'te <b>1 bayt</b>; ama <code>x</code>
+      her <code>G</code> çağrısında hesaplanıyor, piyon olmayan taşlar için de, ve
+      <code>4x</code>'te ölçüldüğünde <b>%10 kayıp</b> çıktı.</p>
       <p>İkinci bir aday daha vardı ve <b>düşmedi</b>: rok satırındaki
-      <code>!V(t,i)&amp;&amp;!V(t,i+k)</code> ifadesinin <code>&amp;&amp;</code>'i. Bir bayt
+      <code>!V(t)&amp;&amp;!V(t,i+k)</code> ifadesinin <code>&amp;&amp;</code>'i. Bir bayt
       kazandırıyor, CPW'yi de geçiyor, ama <b>yığın taşıyor</b>. O kısa devre yalnız hız değil
       koruma: şahın geçeceği <code>i+k</code> karesinde rakip bir kale ya da vezir duruyorsa şah
-      zaten şahtadır, <code>V(t,i)</code> doğru döner ve ikinci tarama hiç çalışmaz.
+      zaten şahtadır, <code>V(t)</code> doğru döner ve ikinci tarama hiç çalışmaz.
       <code>&amp;</code> ile çalışınca <code>V</code> o taşın kendi karesini soruyor,
       <code>G(u,u,1)</code> çağrılıyor, <code>d=0</code> olduğu için <code>k=NaN</code> ve ışın
       yürüyüşü hiç durmuyor. Bayt bütçesinin bir kısa devreyi <em>kaldıramadığı</em> tek yer bu.</p>
@@ -10445,18 +10500,26 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
     </div>
     <div class="prose" lang="en">
       <p>The list above counts the places where 4x spends bytes to buy speed. The same axis runs
-      the other way once: <code>engine.js</code> <b>gives up</b> a short circuit in one place and
-      saves a byte. Which change belongs in which build follows one rule — 1x is the
+      the other way three times: in three places <code>engine.js</code> <b>gives up</b> speed and
+      saves a byte each time. Which change belongs in which build follows one rule — 1x is the
       shortest form, 4x the fastest.</p>
             <p><b>The search's return.</b> <code>…&amp;v</code> instead of <code>…&amp;&amp;v</code>.
       <code>b.every(…)</code> is already a boolean, <code>v</code> is a boolean or <code>0</code>,
       and the return of <code>H</code> is only ever read for truth. There is no speed cost here —
       <code>v</code> is a variable read. A free <b>1 byte</b>.</p>
+      <p><b>The piece code read twice.</b> <code>P=b[i]&gt;&gt;1</code> instead of
+      <code>g=b[i],P=g&gt;&gt;1</code>; the one place that needs the colour reads
+      <code>b[i]&amp;1</code> again. <b>1 byte</b> in <code>1x</code>; measured in <code>4x</code> it
+      is <b>7.4% slower</b>, because a global array read costs more than a local variable.</p>
+      <p><b>A shared expression.</b> <code>T|b[f]</code>, which appears twice in the pawn branch, is
+      computed once into <code>x</code>. <b>1 byte</b> in <code>1x</code>; but <code>x</code> is
+      computed on every <code>G</code> call, for pieces that are not pawns too, and measured in
+      <code>4x</code> it came out <b>10% slower</b>.</p>
       <p>A second candidate <b>did not make it</b>: the <code>&amp;&amp;</code> in
-      <code>!V(t,i)&amp;&amp;!V(t,i+k)</code> on the castling line. It saves a byte and passes CPW,
+      <code>!V(t)&amp;&amp;!V(t,i+k)</code> on the castling line. It saves a byte and passes CPW,
       but <b>overflows the stack</b>. That short circuit is not only speed but protection: if an
       enemy rook or queen stands on <code>i+k</code>, the square the king crosses, the king is
-      already in check, <code>V(t,i)</code> is true and the second scan never runs. With
+      already in check, <code>V(t)</code> is true and the second scan never runs. With
       <code>&amp;</code> it runs, <code>V</code> asks about that piece's own square,
       <code>G(u,u,1)</code> is called, <code>d=0</code> makes <code>k=NaN</code>, and the ray walk
       never ends. It is the one place where the byte budget <em>cannot</em> take a short circuit
@@ -10474,35 +10537,35 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
     <h3 lang="tr">72 bayt daha — <code>H</code> ve <code>l</code></h3>
     <h3 lang="en">72 bytes more — <code>H</code> and <code>l</code></h3>
     <div class="prose" lang="tr">
-      <p>Yukarıdaki 7 bayt motorun tabanına ait ve olduğu gibi duruyor.
-      <a href="#dead">Ölü pozisyon</a> ile mat imkânsızlığı araması gelince fark 79 bayta
-      çıktı; aradaki <b>72 baytın</b> hepsi o iki fonksiyonda — aşağıdaki hız değişiklikleri ve
+      <p>Yukarıdaki 26 bayt motorun tabanına ait.
+      <a href="#dead">Ölü pozisyon</a> ile mat imkânsızlığı araması gelince fark 98 bayta
+      çıkıyor; aradaki <b>72 baytın</b> hepsi o iki fonksiyonda — aşağıdaki hız değişiklikleri ve
       <code>engine_4x</code>'in aramada taşıdığı 16 baytlık rok satırı —
-      yani baytın <b>%91'i</b> hakem katmanına gidiyor, hamle üretimine değil.</p>
+      yani baytın <b>%73'ü</b> hakem katmanına gidiyor, hamle üretimine değil.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The 7 bytes above belong to the engine's base and are still exactly that. When
-      the <a href="#dead">dead position</a> and the mate-impossibility search arrived, the gap
-      grew to 79; the <b>72 bytes</b> in between all sit in those two functions — the speed changes
-      below, plus the 16-byte castling line that <code>engine_4x</code> carries in the search — that is, <b>91%</b> of the bytes go to the adjudication layer, not to move
+      <p>The 26 bytes above belong to the engine's base. When
+      the <a href="#dead">dead position</a> and the mate-impossibility search arrive, the gap
+      grows to 98; the <b>72 bytes</b> in between all sit in those two functions — the speed changes
+      below, plus the 16-byte castling line that <code>engine_4x</code> carries in the search — that is, <b>73%</b> of the bytes go to the adjudication layer, not to move
       generation.</p>
     </div>
 <div class="tw" lang="tr"><table>
 <thead><tr><th>Katman</th><th class="num"><code>engine.js</code></th><th class="num"><code>engine_4x.js</code></th><th class="num">Fark</th></tr></thead>
 <tbody>
-<tr><td>Taban</td><td class="num">1.200</td><td class="num">1.207</td><td class="num">+7</td></tr>
+<tr><td>Taban</td><td class="num">1.185</td><td class="num">1.211</td><td class="num">+26</td></tr>
 <tr><td><code>H</code></td><td class="num">219</td><td class="num">258</td><td class="num">+39</td></tr>
-<tr><td><code>l</code></td><td class="num">455</td><td class="num">488</td><td class="num">+33</td></tr>
-<tr><td><b>Toplam</b></td><td class="num"><b>1.874</b></td><td class="num"><b>1.953</b></td><td class="num"><b>+79</b></td></tr>
+<tr><td><code>l</code></td><td class="num">443</td><td class="num">476</td><td class="num">+33</td></tr>
+<tr><td><b>Toplam</b></td><td class="num"><b>1.847</b></td><td class="num"><b>1.945</b></td><td class="num"><b>+98</b></td></tr>
 </tbody>
 </table></div>
 <div class="tw" lang="en"><table>
 <thead><tr><th>Layer</th><th class="num"><code>engine.js</code></th><th class="num"><code>engine_4x.js</code></th><th class="num">Difference</th></tr></thead>
 <tbody>
-<tr><td>Base</td><td class="num">1,200</td><td class="num">1,207</td><td class="num">+7</td></tr>
+<tr><td>Base</td><td class="num">1,185</td><td class="num">1,211</td><td class="num">+26</td></tr>
 <tr><td><code>H</code></td><td class="num">219</td><td class="num">258</td><td class="num">+39</td></tr>
-<tr><td><code>l</code></td><td class="num">455</td><td class="num">488</td><td class="num">+33</td></tr>
-<tr><td><b>Total</b></td><td class="num"><b>1,874</b></td><td class="num"><b>1,953</b></td><td class="num"><b>+79</b></td></tr>
+<tr><td><code>l</code></td><td class="num">443</td><td class="num">476</td><td class="num">+33</td></tr>
+<tr><td><b>Total</b></td><td class="num"><b>1,847</b></td><td class="num"><b>1,945</b></td><td class="num"><b>+98</b></td></tr>
 </tbody>
 </table></div>
     <h4 lang="tr"><code>H</code> — 23 bayt, beş kalem</h4>
@@ -10785,8 +10848,8 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
 
     <div class="prose" lang="tr">
       <p>Motorun kendisinde de hesap aynı yöne çıkıyor. <code>engine_string.js</code> — motor
-      sekmesindeki kod görüntüleyicide <b>string</b> anahtarıyla açılan dosya — <b>1.988 bayt</b>,
-      <code>engine.js</code>'ten <b>114 bayt</b> uzun. Kural katmanı aynı; değişen yalnızca tahta:
+      sekmesindeki kod görüntüleyicide <b>string</b> anahtarıyla açılan dosya — <b>1.962 bayt</b>,
+      <code>engine.js</code>'ten <b>115 bayt</b> uzun. Kural katmanı aynı; değişen yalnızca tahta:
       <code>b[i]</code> artık <code>9</code> değil <code>'P'</code>, boş kare <code>0</code> değil
       <code>'-'</code>, renk testi de modülo değil karakter karşılaştırması (<code>p&lt;'a'</code> beyaz
       demek). Bedelin nereye gittiği ilginç: başlangıç dizilişi bu temsilde <b>on üç bayt ucuz</b> —
@@ -10796,8 +10859,8 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
     </div>
     <div class="prose" lang="en">
       <p>The engine itself tells the same story. <code>engine_string.js</code> — the file the
-      <b>string</b> switch opens in the code viewer on the engine tab — comes to <b>1,988 bytes</b>,
-      <b>114 bytes</b> more than <code>engine.js</code>. The rule layer is the same one; only the board
+      <b>string</b> switch opens in the code viewer on the engine tab — comes to <b>1,962 bytes</b>,
+      <b>115 bytes</b> more than <code>engine.js</code>. The rule layer is the same one; only the board
       changes: <code>b[i]</code> is now <code>'P'</code> rather than <code>9</code>, an empty square
       <code>'-'</code> rather than <code>0</code>, and the colour test is a character comparison rather
       than a modulo (<code>p&lt;'a'</code> means White). Where the bytes go is the interesting part: the
@@ -12452,14 +12515,14 @@ f = K[2] + K[3] - 0</pre></div>
     <h3 lang="tr">Hangi ayarlarla paketleniyor</h3>
     <h3 lang="en">Which settings do the packing</h3>
     <div class="prose" lang="tr">
-      <p>L3'ün iki paketi RegPack 5.0.4 ile, öbür paketler 5.0.1 ile üretildi. Her pakette <code>reassignVars</code> <b>kapalı</b> — açık bırakılırsa
+      <p>L3'ün iki paketiyle Lichess ve Chess.com eşdeğerlerinin sayısal paketleri RegPack 5.0.4 ile (bu ikisinde 5.0.1 birebir aynı dosyayı veriyor), öbür paketler 5.0.1 ile üretildi. Her pakette <code>reassignVars</code> <b>kapalı</b> — açık bırakılırsa
       adlandırma elden gider ve imza harfleri ilk kurban olur. <code>withMath</code> ile
       <code>wrapInSetInterval</code> da kapalı, <code>useES6</code> açık. Değişen tek şey crush
       dörtlüsü ve her dosya kendi dörtlüsünü istiyor: aşağıdaki değerler ilgili dosyayı
       <b>bayt bayt</b> yeniden üretiyor.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The two L3 packs are made with RegPack 5.0.4, the others with 5.0.1. In every pack <code>reassignVars</code> is <b>off</b> — leave it on and the
+      <p>The two L3 packs and the numeric packs of the Lichess and Chess.com equivalents are made with RegPack 5.0.4 (for the latter two, 5.0.1 gives the identical file), the others with 5.0.1. In every pack <code>reassignVars</code> is <b>off</b> — leave it on and the
       naming goes, with the signature letters the first to fall. <code>withMath</code> and
       <code>wrapInSetInterval</code> are off too, <code>useES6</code> on. The only thing that
       varies is the crush tuple, and each file wants its own: the values below reproduce that file
@@ -12473,7 +12536,7 @@ f = K[2] + K[3] - 0</pre></div>
 <tr><td><code>DOM_1023.html</code></td><td class="num">1</td><td class="num">0,5</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td><code>DOM_minimum.html</code></td><td class="num">0,5</td><td class="num">0</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td><code>Lichess-equivalent_numerical.html</code></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td><code>Chesscom-equivalent_numerical.html</code></td><td class="num">1</td><td class="num">0</td><td class="num">0,5</td><td class="num">0</td></tr>
+<tr><td><code>Chesscom-equivalent_numerical.html</code></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
 </tbody>
 </table></div>
 <div class="tw" lang="en"><table>
@@ -12484,7 +12547,7 @@ f = K[2] + K[3] - 0</pre></div>
 <tr><td><code>DOM_1023.html</code></td><td class="num">1</td><td class="num">0.5</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td><code>DOM_minimum.html</code></td><td class="num">0.5</td><td class="num">0</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td><code>Lichess-equivalent_numerical.html</code></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td><code>Chesscom-equivalent_numerical.html</code></td><td class="num">1</td><td class="num">0</td><td class="num">0.5</td><td class="num">0</td></tr>
+<tr><td><code>Chesscom-equivalent_numerical.html</code></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
 </tbody>
 </table></div>
         <div class="prose" lang="tr">
@@ -13532,10 +13595,12 @@ f = K[2] + K[3] - 0</pre></div>
       <a href="#letters">the order of the FEN fields</a> rather than the signature, and whose
       empty-square letter is <code>_</code>, not <code>Y</code>. A driver without a clock cannot carry the reading at all — there is no
       <code>U</code> and no <code>Y</code> to read.</p>
-      <p><code>Y</code> is the one <b>dead letter</b> inside the signature. It is initialised to
-      <code>-1</code> and is neither read nor written anywhere after that; its only function is to
-      complete the reading of the acrostic. That is not waste but the price of the acrostic: five
-      of the letters are already doing work, and the sixth costs two bytes.</p>
+      <p>For a long time <code>Y</code> was the one <b>dead letter</b> inside the signature: initialised
+      to <code>-1</code>, neither read nor written anywhere after that, its only function to complete
+      the reading of the acrostic, at a price of two bytes. It is no longer dead. When <code>M</code>
+      closes the en passant square it reads <code>Y</code> instead of writing <code>-1</code>
+      (<code>…?e:Y</code>), which wins one byte back. It is still never written; but all six letters
+      now do work.</p>
       <p>That is true in every build except the letter-board <code class="vn">prompt_string</code>, where
       <code>Y</code> is the empty-square character (<code>'-'</code>) and so a live letter inside the
       signature. Until recently <code>l</code> named
@@ -13562,10 +13627,12 @@ f = K[2] + K[3] - 0</pre></div>
       <a href="#letters">FEN alanlarının sırasını</a> izliyor ve boş kare harfi orada
       <code>Y</code> değil <code>_</code>. Saati olmayan bir sürücüde okunuş hiç doğmuyor —
       <code>U</code> ile <code>Y</code> orada bulunmuyor.</p>
-      <p><code>Y</code> imzanın içindeki tek <b>ölü harf</b>. <code>-1</code> ile başlatılıyor
-      ve bir daha hiçbir yerde okunmuyor da yazılmıyor da; tek işlevi akrostişin okunuşunu
-      tamamlamak. Bu bir israf değil, akrostişin bedeli: beş harf zaten iş yapıyor, altıncısı
-      için iki bayt ödeniyor.</p>
+      <p><code>Y</code> uzun süre imzanın içindeki tek <b>ölü harf</b>tı: <code>-1</code> ile
+      başlatılıyor, bir daha hiçbir yerde okunmuyor da yazılmıyor da; tek işlevi akrostişin
+      okunuşunu tamamlamaktı ve bunun için iki bayt ödeniyordu. Artık ölü değil. <code>M</code>
+      geçerken alma karesini kapatırken <code>-1</code> yazmak yerine onu okuyor
+      (<code>…?e:Y</code>) ve bir bayt geri kazanıyor. Hâlâ hiç yazılmıyor; ama altı harfin altısı
+      da iş yapıyor.</p>
       <p>Bu, harf tahtalı <code class="vn">prompt_string</code> dışında her sürümde böyle; orada <code>Y</code>
       boş karenin karakteri (<code>'-'</code>), yani imzanın içinde canlı bir harf. Yakın zamana kadar <code>l</code> de
       parametresine <code>Y</code> adını veriyordu — globali gölgeleyen ayrı bir bağlayıcı, eski
@@ -14430,7 +14497,7 @@ var DIR = 'builds/';
    icin de gerekli: koku DIR'den turetiyoruz, boylece build.mjs'te ikinci bir
    kural tutmaya gerek kalmiyor. */
 var ROOT = DIR.slice(0, -'builds/'.length);
-var ART = {"L3": {"p": "L3.html", "ps": 3158}, "L3_light": {"p": "L3_light.html", "ps": 2641}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2078}, "L3_prompt": {"p": "L3_prompt.html", "ps": 2415}, "L3_prompt_blindfold": {"p": "L3_prompt_blindfold.html", "ps": 2279}, "L3_input": {"p": "L3_input.html", "ps": 2547}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2402}, "L3_prompt_string": {"p": "L3_prompt_string.html", "ps": 2529}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2471}, "L1": {"p": "builds/L1/L1.html", "ps": 1567}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1145}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 859}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1164}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1123}, "L1_1250elo": {"p": "builds/L1/L1_1250elo.html", "ps": 2265}, "L2": {"p": "builds/L2/L2.html", "ps": 2236}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1742}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1504}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1836}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1839}, "L2_aybars_2500": {"p": "builds/L2/L2_aybars_2500.html", "ps": 8036}, "L3_packed": {"p": "special/L3_packed.html", "ps": 2668}, "L3_numerical_packed": {"p": "special/L3_numerical_packed.html", "ps": 1763}, "Chesscom-equivalent": {"p": "special/Chesscom-equivalent.html", "ps": 2837}, "Chesscom-equivalent_numerical": {"p": "special/Chesscom-equivalent_numerical.html", "ps": 1175}, "Lichess-equivalent": {"p": "special/Lichess-equivalent.html", "ps": 3022}, "Lichess-equivalent_numerical": {"p": "special/Lichess-equivalent_numerical.html", "ps": 1228}, "L2_noBlockedDetector": {"p": "special/L2_noBlockedDetector.html", "ps": 1892}, "L2_string_flip_noBlockedDetector": {"p": "special/L2_string_flip_noBlockedDetector.html", "ps": 1979}, "DOM_1023": {"p": "special/DOM_1023.html", "ps": 1023}, "DOM_minimum": {"p": "special/DOM_minimum.html", "ps": 830}, "Lowest": {"p": "special/Lowest.html", "ps": 766}, "LUX_inProgress": {"p": "special/LUX_inProgress.html", "ps": 7966}, "Toledos-ES6-optimized": {"p": "special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "special/ToledosOpponentbyMe.html", "ps": 2064}, "engine": {"p": "engine.js", "ps": 1847}, "engine_4x": {"p": "engine_4x.js", "ps": 1928}, "engine_string": {"p": "engine_string.js", "ps": 1962}};
+var ART = {"L3": {"p": "L3.html", "ps": 3158}, "L3_light": {"p": "L3_light.html", "ps": 2641}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2078}, "L3_prompt": {"p": "L3_prompt.html", "ps": 2415}, "L3_prompt_blindfold": {"p": "L3_prompt_blindfold.html", "ps": 2279}, "L3_input": {"p": "L3_input.html", "ps": 2547}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2402}, "L3_prompt_string": {"p": "L3_prompt_string.html", "ps": 2529}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2471}, "L1": {"p": "builds/L1/L1.html", "ps": 1567}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1145}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 859}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1164}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1123}, "L1_1250elo": {"p": "builds/L1/L1_1250elo.html", "ps": 2282}, "L2": {"p": "builds/L2/L2.html", "ps": 2236}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1742}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1504}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1836}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1839}, "L2_aybars_2500": {"p": "builds/L2/L2_aybars_2500.html", "ps": 8036}, "L3_packed": {"p": "special/L3_packed.html", "ps": 2668}, "L3_numerical_packed": {"p": "special/L3_numerical_packed.html", "ps": 1763}, "Chesscom-equivalent": {"p": "special/Chesscom-equivalent.html", "ps": 2837}, "Chesscom-equivalent_numerical": {"p": "special/Chesscom-equivalent_numerical.html", "ps": 1161}, "Lichess-equivalent": {"p": "special/Lichess-equivalent.html", "ps": 3022}, "Lichess-equivalent_numerical": {"p": "special/Lichess-equivalent_numerical.html", "ps": 1206}, "L2_noBlockedDetector": {"p": "special/L2_noBlockedDetector.html", "ps": 1892}, "L2_string_flip_noBlockedDetector": {"p": "special/L2_string_flip_noBlockedDetector.html", "ps": 1979}, "DOM_1023": {"p": "special/DOM_1023.html", "ps": 1023}, "DOM_minimum": {"p": "special/DOM_minimum.html", "ps": 830}, "Lowest": {"p": "special/Lowest.html", "ps": 766}, "LUX_inProgress": {"p": "special/LUX_inProgress.html", "ps": 7983}, "Toledos-ES6-optimized": {"p": "special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "special/ToledosOpponentbyMe.html", "ps": 2081}, "engine": {"p": "engine.js", "ps": 1847}, "engine_4x": {"p": "engine_4x.js", "ps": 1945}, "engine_string": {"p": "engine_string.js", "ps": 1962}};
 
 function url(n) { return n.indexOf('/') > -1 ? ROOT + n : DIR + n; }
 function fmt(n) { return n.toLocaleString(FL('locale')); }
