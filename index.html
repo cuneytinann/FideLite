@@ -834,6 +834,10 @@ fieldset.builds legend { position:absolute; width:1px; height:1px; overflow:hidd
    Listedeki duz surumler camgobegi (--code-teal), o yuzden sahin mavisi (--pc-k). */
 .rd.str input { accent-color:var(--pc-k) }
 .rd.str code { color:var(--pc-k) }
+/* terminal surumleri (.cjs): tarayicida calismaz, yalnizca kod ve indirme.
+   Kabuk istemi oneki bunu listede ayrica bir aciklama gerekmeden soyler;
+   ekran okuyucu icin bos alternatif metin. */
+.rd.cli code::before { content:"$\00a0"; content:"$\00a0" / ""; color:var(--ink-3) }
 /* paketli calisan surumler */
 .rd.pk input { accent-color:var(--pk-acc) }
 .rd.pk code { color:var(--pk); text-shadow:0 0 1px var(--pk-glow), 0 0 2px var(--pk-glow), 0 0 3px var(--pk-glow) }
@@ -1393,7 +1397,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <h2 lang="tr">Sürümü seç, oyna</h2>
     <h2 lang="en">Pick a build, play it</h2>
     <div class="prose" lang="tr">
-      <p><b>Tek oyun değil, bir sergi.</b> Burada 39 oynanabilir dosya duruyor ve çeşitlilik
+      <p><b>Tek oyun değil, bir sergi.</b> Burada 35 oynanabilir dosya duruyor ve çeşitlilik
       üç yönde açılıyor: kurallarda yalnızca oynanabilirliği bilen sürümden tam FIDE hakemine,
       arayüzde tıklanan tahtadan UCI notasyonuna ve hiç tahta çizmeyen körleme sürümlere, özel
       sürümlerde de botlara, daha özenli arayüzlere ve Lichess ile Chess.com kurallarıyla oynayan
@@ -1410,11 +1414,13 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       de iddianın dışında. <code class="vn">special</code> ayrı bir katman: bu seviyelerden türemiş ama
       hiçbirine tam uymayan, kimi zaman projenin kendi ilkelerine ters düşen çok çeşitli sürümler.
       Ayrıntısı <a href="#builds">Varyantlar</a> sekmesinin sonundaki
-      <a href="#special">Özel sürümler</a> bölümünde; aynı sekmede anlatılan terminal sürümleri
-      tarayıcıda çalışmadığı için listede yok.</p>
+      <a href="#special">Özel sürümler</a> bölümünde. <code class="vn">L1</code>,
+      <code class="vn">L2</code> ve <code class="vn">L3</code>'teki <code class="vn">nonbrowser</code>
+      bir terminal sürümü: tarayıcıda çalışmadığı için burada oynatılamaz, ama kodunu gösterebilir ya da indirip
+      <code>node</code> ile çalıştırabilirsin.</p>
     </div>
     <div class="prose" lang="en">
-      <p><b>Not one game but an exhibition.</b> There are 39 playable files here, and the variety
+      <p><b>Not one game but an exhibition.</b> There are 35 playable files here, and the variety
       opens in three directions: in the rules, from a build that knows only playability to a full
       FIDE arbiter; in the interface, from a clickable board to UCI notation and blindfold builds
       that draw no board at all; and in the special builds, out to bots, more polished interfaces
@@ -1432,8 +1438,10 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       under them; both are outside the claim. <code class="vn">special</code> is a layer of its own: builds derived from these
       levels that fit none of them, some of them at odds with the project's own principles. The
       details are in the <a href="#special">Special builds</a> section at the end of the
-      <a href="#builds">Builds</a> tab; the terminal builds described there are not in the list,
-      since they do not run in a browser.</p>
+      <a href="#builds">Builds</a> tab. <code class="vn">nonbrowser</code> in <code class="vn">L1</code>,
+      <code class="vn">L2</code> and <code class="vn">L3</code> is a terminal build: it does not run in a
+      browser, so it cannot be played here, but you can show its code, or download it and run it with
+      <code>node</code>.</p>
     </div>
 
     <div class="note" lang="tr">
@@ -1472,12 +1480,14 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <label class="rd" data-lv="L1" hidden title="UCI, metin alanı" data-en-title="UCI, text field"><input type="radio" name="build" value="L1_input"> <code>input</code></label>
 <label class="rd str" data-lv="L1" hidden title="Harf dizgisi, indeks sırası ters" data-en-title="String board, flipped index order"><input type="radio" name="build" value="L1_prompt_string_flip"> <code>prompt_string_flip</code></label>
 <label class="rd" data-lv="L1" hidden title="Sayısal arayüz, prompt penceresi" data-en-title="Numeric interface, prompt dialog"><input type="radio" name="build" value="L1_numerical"> <code>numerical</code></label>
+<label class="rd cli" data-lv="L1" hidden title="Terminal sürümü — node ile çalışır, tarayıcıda oynanmaz; kodunu göster ya da indir" data-en-title="Terminal build — runs with node, not in the browser; show its code or download it"><input type="radio" name="build" value="L1_nonbrowser"> <code>nonbrowser</code></label>
 <label class="rd bot" data-lv="L1" hidden title="Bota karşı — tek kişilik" data-en-title="Against a bot — single player"><input type="radio" name="build" value="L1_1250elo"> <code>1250elo</code></label>
 <label class="rd" data-lv="L2" hidden title="Ana dosya — tıklanabilir tahta" data-en-title="Main file — clickable board"><input type="radio" name="build" value="L2"> <code>default</code></label>
 <label class="rd" data-lv="L2" hidden title="Tıklanabilir tahta, en yalın hâli — gösterge yok, oyun bitince sessizce durur" data-en-title="Clickable board at its barest — no indicators; the game stops silently when it ends"><input type="radio" name="build" value="L2_light"> <code>light</code></label>
 <label class="rd" data-lv="L2" hidden title="UCI, metin alanı" data-en-title="UCI, text field"><input type="radio" name="build" value="L2_input"> <code>input</code></label>
 <label class="rd str" data-lv="L2" hidden title="Harf dizgisi, indeks sırası ters" data-en-title="String board, flipped index order"><input type="radio" name="build" value="L2_prompt_string_flip"> <code>prompt_string_flip</code></label>
 <label class="rd" data-lv="L2" hidden title="Sayısal arayüz, prompt penceresi" data-en-title="Numeric interface, prompt dialog"><input type="radio" name="build" value="L2_numerical"> <code>numerical</code></label>
+<label class="rd cli" data-lv="L2" hidden title="Terminal sürümü — node ile çalışır, tarayıcıda oynanmaz; kodunu göster ya da indir" data-en-title="Terminal build — runs with node, not in the browser; show its code or download it"><input type="radio" name="build" value="L2_nonbrowser"> <code>nonbrowser</code></label>
 <label class="rd bot" data-lv="L2" hidden title="Bota karşı — tek kişilik" data-en-title="Against a bot — single player"><input type="radio" name="build" value="L2_aybars_2500"> <code>aybars_2500</code></label>
 <label class="rd" data-lv="L3" title="Ana dosya — tıklanabilir tahta, canlı saat" data-en-title="Main file — clickable board, live clock"><input type="radio" name="build" value="L3" checked> <code>default</code></label>
 <label class="rd" data-lv="L3" title="Tıklanabilir tahta, en yalın hâli — yazı yok, sonuç tahtadan ve saatten okunur" data-en-title="Clickable board at its barest — no text; the result is read from the board and the clocks"><input type="radio" name="build" value="L3_light"> <code>light</code></label>
@@ -1485,9 +1495,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <label class="rd str" data-lv="L3" title="Harf dizgisi, indeks sırası ters" data-en-title="String board, flipped index order"><input type="radio" name="build" value="L3_prompt_string_flip"> <code>prompt_string_flip</code></label>
 <label class="rd" data-lv="L3" title="Sayısal arayüz, prompt penceresi" data-en-title="Numeric interface, prompt dialog"><input type="radio" name="build" value="L3_numerical"> <code>numerical</code></label>
 <label class="rd" data-lv="L3" title="UCI, metin alanı, tahta çizilmiyor" data-en-title="UCI, text field, no board"><input type="radio" name="build" value="L3_input_blindfold"> <code>input_blindfold</code></label>
-<label class="rd" data-lv="L3" title="UCI, prompt penceresi, tahta çizilmiyor" data-en-title="UCI, prompt dialog, no board"><input type="radio" name="build" value="L3_prompt_blindfold"> <code>prompt_blindfold</code></label>
-<label class="rd" data-lv="L3" title="UCI, prompt penceresi" data-en-title="UCI, prompt dialog"><input type="radio" name="build" value="L3_prompt"> <code>prompt</code></label>
-<label class="rd str" data-lv="L3" title="Tahta harf dizgisi olarak tutuluyor" data-en-title="The board is held as a string of letters"><input type="radio" name="build" value="L3_prompt_string"> <code>prompt_string</code></label>
+<label class="rd cli" data-lv="L3" title="Terminal sürümü — node ile çalışır, tarayıcıda oynanmaz; kodunu göster ya da indir" data-en-title="Terminal build — runs with node, not in the browser; show its code or download it"><input type="radio" name="build" value="L3_nonbrowser"> <code>nonbrowser</code></label>
 <label class="rd pk" data-lv="special" hidden title="L3, RegPack ile paketli — tıklanabilir tahta, canlı saat" data-en-title="L3 packed with RegPack — clickable board, live clock"><input type="radio" name="build" value="L3_packed"> <code>L3_packed</code></label>
 <label class="rd pk" data-lv="special" hidden title="L3_numerical, RegPack ile paketli — oynanabilir en küçük L3" data-en-title="L3_numerical packed with RegPack — the smallest playable L3"><input type="radio" name="build" value="L3_numerical_packed"> <code>L3_numerical_packed</code></label>
 <label class="rd" data-lv="special" hidden title="Tıklanabilir tahta, kurallar Lichess'in uyguladığı gibi" data-en-title="Clickable board, with the rules as Lichess applies them"><input type="radio" name="build" value="Lichess-equivalent"> <code>Lichess-equivalent</code></label>
@@ -14257,6 +14265,8 @@ var FLT = {
     hideSrc:  'Kodu gizle',
     switched: 'Sürüm değişti, oyun kapatıldı',
     idle:     'Seçili sürüm <b>%s</b>. Oyna ya da kodunu göster.',
+    idleCli:  'Seçili sürüm <b>%s</b>, bir terminal sürümü: tarayıcıda oynanmaz. '
+            + 'Kodunu göster ya da indirip <code>node %f</code> ile çalıştır.',
     tabNote:  ' Bu sürüm yeni sekmede açılır: prompt penceresinden çıkış yok; oyun bitince sonuç pencerede kalır, sekmeyle birlikte kapanır.',
     tabNoteEndless: ' Bu sürüm yeni sekmede açılır: prompt penceresinden çıkış yok ve oyun hiç bitmez; pencere son hamleyi gösterir, sekmeyle birlikte kapanır.',
     newTab:   '%s yeni sekmede açıldı \u00b7 ',
@@ -14287,6 +14297,8 @@ var FLT = {
     hideSrc:  'Hide code',
     switched: 'Build changed, game closed',
     idle:     'Selected build <b>%s</b>. Play it or show its code.',
+    idleCli:  'Selected build <b>%s</b> is a terminal build and does not play in the browser. '
+            + 'Show its code, or download it and run it with <code>node %f</code>.',
     tabNote:  ' This build opens in a new tab: its prompt dialog has no way out; once the game ends the result stays in the dialog, and it closes with the tab.',
     tabNoteEndless: ' This build opens in a new tab: its prompt dialog has no way out and the game never ends; the dialog shows the last move, and it closes with the tab.',
     newTab:   '%s opened in a new tab \u00b7 ',
@@ -14502,9 +14514,11 @@ var DIR = 'builds/';
    icin de gerekli: koku DIR'den turetiyoruz, boylece build.mjs'te ikinci bir
    kural tutmaya gerek kalmiyor. */
 var ROOT = DIR.slice(0, -'builds/'.length);
-var ART = {"L3": {"p": "L3.html", "ps": 3158}, "L3_light": {"p": "L3_light.html", "ps": 2641}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2078}, "L3_prompt": {"p": "L3_prompt.html", "ps": 2415}, "L3_prompt_blindfold": {"p": "L3_prompt_blindfold.html", "ps": 2279}, "L3_input": {"p": "L3_input.html", "ps": 2547}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2402}, "L3_prompt_string": {"p": "L3_prompt_string.html", "ps": 2529}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2471}, "L1": {"p": "builds/L1/L1.html", "ps": 1567}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1145}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 859}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1164}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1123}, "L1_1250elo": {"p": "builds/L1/L1_1250elo.html", "ps": 2282}, "L2": {"p": "builds/L2/L2.html", "ps": 2236}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1742}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1504}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1836}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1839}, "L2_aybars_2500": {"p": "builds/L2/L2_aybars_2500.html", "ps": 8036}, "L3_packed": {"p": "special/L3_packed.html", "ps": 2668}, "L3_numerical_packed": {"p": "special/L3_numerical_packed.html", "ps": 1763}, "Chesscom-equivalent": {"p": "special/Chesscom-equivalent.html", "ps": 2837}, "Chesscom-equivalent_numerical": {"p": "special/Chesscom-equivalent_numerical.html", "ps": 1161}, "Lichess-equivalent": {"p": "special/Lichess-equivalent.html", "ps": 3022}, "Lichess-equivalent_numerical": {"p": "special/Lichess-equivalent_numerical.html", "ps": 1206}, "L2_noBlockedDetector": {"p": "special/L2_noBlockedDetector.html", "ps": 1892}, "L2_string_flip_noBlockedDetector": {"p": "special/L2_string_flip_noBlockedDetector.html", "ps": 1979}, "DOM_1021": {"p": "special/DOM_1021.html", "ps": 1021}, "DOM_minimum": {"p": "special/DOM_minimum.html", "ps": 815}, "Lowest": {"p": "special/Lowest.html", "ps": 748}, "LUX_inProgress": {"p": "special/LUX_inProgress.html", "ps": 7983}, "Toledos-ES6-optimized": {"p": "special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "special/ToledosOpponentbyMe.html", "ps": 2081}, "engine": {"p": "engine.js", "ps": 1847}, "engine_4x": {"p": "engine_4x.js", "ps": 1945}, "engine_string": {"p": "engine_string.js", "ps": 1962}};
+var ART = {"L3": {"p": "L3.html", "ps": 3158}, "L3_light": {"p": "L3_light.html", "ps": 2641}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2078}, "L3_input": {"p": "L3_input.html", "ps": 2547}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2402}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2663}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2471}, "L1": {"p": "builds/L1/L1.html", "ps": 1567}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1145}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 859}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1164}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1123}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1313}, "L1_1250elo": {"p": "builds/L1/L1_1250elo.html", "ps": 2282}, "L2": {"p": "builds/L2/L2.html", "ps": 2236}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1742}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1504}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1836}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1839}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 1985}, "L2_aybars_2500": {"p": "builds/L2/L2_aybars_2500.html", "ps": 8036}, "L3_packed": {"p": "special/L3_packed.html", "ps": 2668}, "L3_numerical_packed": {"p": "special/L3_numerical_packed.html", "ps": 1763}, "Chesscom-equivalent": {"p": "special/Chesscom-equivalent.html", "ps": 2837}, "Chesscom-equivalent_numerical": {"p": "special/Chesscom-equivalent_numerical.html", "ps": 1161}, "Lichess-equivalent": {"p": "special/Lichess-equivalent.html", "ps": 3022}, "Lichess-equivalent_numerical": {"p": "special/Lichess-equivalent_numerical.html", "ps": 1206}, "L2_noBlockedDetector": {"p": "special/L2_noBlockedDetector.html", "ps": 1892}, "L2_string_flip_noBlockedDetector": {"p": "special/L2_string_flip_noBlockedDetector.html", "ps": 1979}, "DOM_1021": {"p": "special/DOM_1021.html", "ps": 1021}, "DOM_minimum": {"p": "special/DOM_minimum.html", "ps": 815}, "Lowest": {"p": "special/Lowest.html", "ps": 748}, "LUX_inProgress": {"p": "special/LUX_inProgress.html", "ps": 7983}, "Toledos-ES6-optimized": {"p": "special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "special/ToledosOpponentbyMe.html", "ps": 2081}, "engine": {"p": "engine.js", "ps": 1847}, "engine_4x": {"p": "engine_4x.js", "ps": 1945}, "engine_string": {"p": "engine_string.js", "ps": 1962}};
 
 function url(n) { return n.indexOf('/') > -1 ? ROOT + n : DIR + n; }
+/* Terminal surumu (.cjs): tarayicida calismaz. Oyna kapali; kodu ve indirme acik. */
+function isCli(key) { var a = ART && ART[key]; return !!a && /\.cjs$/.test(a.p); }
 function fmt(n) { return n.toLocaleString(FL('locale')); }
 function save(n) {
   var a = document.createElement('a');
@@ -14553,14 +14567,16 @@ function paint() {
   if (mode !== 'src') hlkey.hidden = true;
   stage.classList.toggle('is-src', mode === 'src');
   stage.classList.toggle('is-game', mode === 'game');
-  goBtn.disabled = mode === 'game';
+  goBtn.disabled = mode === 'game' || isCli(current());
   stopBtn.disabled = mode === 'idle';
   viewBtn.classList.toggle('on', mode === 'src');
   viewBtn.setAttribute('aria-pressed', mode === 'src' ? 'true' : 'false');
   viewBtn.textContent = FL(mode === 'src' ? 'hideSrc' : 'showSrc');
   document.getElementById('copysrc').disabled = mode !== 'src';
   if (mode === 'idle') {
-    idle.innerHTML = FL('idle').replace('%s', current()) + (NEWTAB[current()] ? FL(NEWTAB[current()] > 1 ? 'tabNoteEndless' : 'tabNote') : '');
+    idle.innerHTML = isCli(current())
+      ? FL('idleCli').replace('%s', current()).replace('%f', ART[current()].p.split('/').pop())
+      : FL('idle').replace('%s', current()) + (NEWTAB[current()] ? FL(NEWTAB[current()] > 1 ? 'tabNoteEndless' : 'tabNote') : '');
   }
 }
 
@@ -14751,6 +14767,9 @@ function openTab(key, a) {
 }
 function start() {
   var key = current(), a = ART[key];
+  /* Dugme kapali ama anasayfadaki 'Hemen oyna' buraya dogrudan geliyor:
+     terminal surumu seciliyse bosta mesaji nasil calistirilacagini soyler. */
+  if (isCli(key)) { stop(); return; }
   if (NEWTAB[key]) { openTab(key, a); return; }
   killFrame();
   srcToken++;
@@ -14878,19 +14897,22 @@ function start() {
    secilir: <script> etiketleri ve disi HTML, ici tek renk paketli script. Bu
    aralik hlCode'a hic girmez, cunku dizge etiket parcalari tasidigi icin
    butunu HTML'e boyanirdi.
+   Terminal surumleri (.cjs) HTML'siz, dosyanin tamami script: <script>
+   araligi yerine butun metin boyanir. Surucu mantiklari input surumleriyle
+   birebir ayni, o yuzden isaretleri ve kesimleri de onlarinki: L3'te kesim yok,
+   L1 ve L2'de hamleyi isleyen govde (APPLY) kural.
    Listede olmayan surum ya da bulunamayan bir isaret: tek renk. */
 var PAINT_L3 = ['r', ',l=(', 'u'], PAINT_L1 = ['r', ',M=(', 'u'],
     PAINT_LIGHT = ['u', 'g=', 'r', ',M=(', 'u'], PACKED = ['p'];
 var PAINT = {
-  L3: PAINT_L3, L3_light: PAINT_L3, L3_numerical: PAINT_L3, L3_prompt: PAINT_L3,
-  L3_prompt_blindfold: PAINT_L3, L3_input: PAINT_L3, L3_input_blindfold: PAINT_L3,
-  L3_prompt_string: PAINT_L3, L3_prompt_string_flip: PAINT_L3,
+  L3: PAINT_L3, L3_light: PAINT_L3, L3_numerical: PAINT_L3, L3_input: PAINT_L3,
+  L3_input_blindfold: PAINT_L3, L3_prompt_string_flip: PAINT_L3, L3_nonbrowser: PAINT_L3,
   L2: PAINT_L3, L2_numerical: PAINT_L3, L2_input: PAINT_L3, L2_light: PAINT_LIGHT,
-  L2_prompt_string_flip: PAINT_L3,
+  L2_prompt_string_flip: PAINT_L3, L2_nonbrowser: PAINT_L3,
   L2_aybars_2500: ['r', ',t=1', 'm', ',b=Int8Array', 'r', ',a=Math.abs', 'm', ',L=(', 'r',
     ',C=i=>', 'm', ',M=(', 'r', ',l=(', 'u', ';d();U=0', 'b'],
   L1: PAINT_L1, L1_numerical: PAINT_L1, L1_input: PAINT_L1, L1_light: PAINT_LIGHT,
-  L1_prompt_string_flip: PAINT_L1, L1_1250elo: ['r', ',M=(', 'u', ';d();P=[', 'b'],
+  L1_prompt_string_flip: PAINT_L1, L1_nonbrowser: PAINT_L1, L1_1250elo: ['r', ',M=(', 'u', ';d();P=[', 'b'],
   'Chesscom-equivalent': ['r', ',Z=Q=>', 'u'], 'Lichess-equivalent': ['r', ',F=k=>', 'u'],
   L2_noBlockedDetector: ['r', 'M=(i,f,u=', 'u'],
   L2_string_flip_noBlockedDetector: ['r', 'M=(i,f,u=', 'u'],
@@ -14908,14 +14930,15 @@ var APPLY = [['c&=~C(i)', ":'SM'"]], APPLY_N = [['c&=~C(i)', 't+1:3']],
     FLAG = [['(Hn=2e4', "'WB'[g]+F"]];
 var CARVE = {
   L3: [['M(i,f,T),', 'o&&D()']], L3_light: [['M(i,f,T),', 'o&&D()']],
-  L3_prompt: FLAG, L3_prompt_blindfold: FLAG, L3_prompt_string: FLAG,
   L3_prompt_string_flip: FLAG.concat([["M(i,f,~'rbn'", '-~R[s]'], ['z=b.some', ":'SM'"],
     ['o^=2-g', "'DA':z"]]),
   L2: APPLY, L2_input: APPLY, L2_numerical: APPLY_N, L2_prompt_string_flip: APPLY,
+  L2_nonbrowser: APPLY,
   L2_light: [['b[s=b+t+e+c]', 't^=1'], ['n>148|', 'o<3|o==4)']],
   L2_aybars_2500: APPLY.concat([['A1=0', 'A1=0', 'm'], ['PT[++Y3]', '=H2', 'b'],
     ['S1=(', 'b[q>>4]=q&15}', 'm']]),
   L1: APPLY, L1_input: APPLY, L1_numerical: APPLY_N, L1_prompt_string_flip: APPLY,
+  L1_nonbrowser: APPLY,
   L1_light: [['c&=~C(i)', 't^=1'], ['!p|p&1^t&&G(i,u)', '[b,e]=p,q']],
   L1_1250elo: APPLY.concat([['z||t==D', 'setTimeout(o,9)', 'b']]),
   'Chesscom-equivalent': [['(I(!t)', "'WB'[t]+'T'"], ['c&=~C(i)', 'Z(o&=1+t)'],
@@ -15018,10 +15041,11 @@ function hlCode(s, k, out) {
    yazilsa HTML ayristiricisi sayfanin scriptini orada kapatirdi.
    Surum PAINT'te yoksa ya da sinir bulunamazsa null: cagiran tek renge duser. */
 function srcLayers(text, key) {
-  var spec = PAINT[key], cut = CARVE[key] || [], a = text.indexOf('<script>'),
-      z = text.lastIndexOf('<\/script>'), out = [], m = [], lay = [], inner, pos = 0,
-      from = 0, i, j, at, end;
-  if (!spec || a < 0 || z < a) return null;
+  var spec = PAINT[key], cut = CARVE[key] || [], bare = isCli(key),
+      a = bare ? -8 : text.indexOf('<script>'),
+      z = bare ? text.length : text.lastIndexOf('<\/script>'), out = [], m = [], lay = [],
+      inner, pos = 0, from = 0, i, j, at, end;
+  if (!spec || (!bare && a < 0) || z < a) return null;
   inner = text.slice(a + 8, z);
   for (i = 0; i + 1 < spec.length; i += 2) {
     /* pos-1'den ara: isaretin bas virgulu onceki tanimin bitis virgulu olabilir */
