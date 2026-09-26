@@ -6752,7 +6752,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       sınamanın tek amacı <a href="#counters">tekrar sayımını doğru tutmak</a>. Sayaç yoksa sınama
       da bedava düşüyor. Rok hakları da aynı zincire bağlı: tekrar anahtarı olmayınca hakların
       kanonik tutulmasına gerek kalmıyor. <code class="vn">L1</code> hamlenin dokunduğu kareleri işaretliyor; rok için
-      şahın ve kalenin karesine hiç dokunulmamış olmalı. <code class="vn">L1</code>'in 1.541 baytta durabilmesinin sebebi bu zincir.</p>
+      şahın ve kalenin karesine hiç dokunulmamış olmalı. Aynı zincir <code>V</code>'nin taraf parametresini de
+      düşürüyor: geçerken alma karesinin yasallık denetimi ve 6.9 araması olmayınca <code>V</code> hep sırası gelen
+      taraf için soruluyor. <code class="vn">L1</code>'in 1.533 baytta durabilmesinin sebebi bu zincir.</p>
       <p>Kod tarafında fark daha da keskin. <code class="vn">L1</code>'de dört fonksiyon var — <code>G</code>,
       <code>V</code>, <code>L</code>, <code>M</code> — ve hüküm ayrı bir fonksiyon
       bile değil, hamleyi işleyen ifadenin içine gömülü. <code class="vn">L2</code> bunlara
@@ -6768,7 +6770,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <a href="#counters">the repetition count</a> correct. With no counter, the test falls away for
       free. The castling rights hang on the same chain: with no repetition key they need not be
       kept canonical. <code class="vn">L1</code> marks the squares a move touches, and castling needs the king's
-      square and the rook's square never to have been touched. That chain is why <code class="vn">L1</code> can stop at 1,541 bytes.</p>
+      square and the rook's square never to have been touched. The same chain drops the side argument of
+      <code>V</code>: with no legality test for the en passant square and no 6.9 search, <code>V</code> is only ever
+      asked about the side to move. That chain is why <code class="vn">L1</code> can stop at 1,533 bytes.</p>
       <p>On the code side the difference is sharper still. <code class="vn">L1</code> has four functions —
       <code>G</code>, <code>V</code>, <code>L</code>, <code>M</code> — and the
       verdict is not even a function of its own but inlined into the expression that applies the
@@ -6791,13 +6795,13 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th>Giriş</th><th>Tahta</th><th><code class="vn">L1</code></th><th><code class="vn">L2</code></th></tr></thead>
 <tbody>
-<tr><td><code class="vn">default</code><br><span class="fn2">L1.html · L2.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri</td><td>1.541</td><td>2.236</td></tr>
-<tr><td><code class="vn">light</code><br><span class="fn2">L1_light.html · L2_light.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri<span class="sub">gösterge yok, sonuç <a href="#lightread">tahtadan okunuyor</a></span></td><td>1.119</td><td>1.742</td></tr>
-<tr><td><code class="vn">numerical</code><br><span class="fn2">L1_numerical.html · L2_numerical.html</span></td><td>Sayısal, prompt penceresi</td><td>Yok, yalnızca son hamle<span class="sub">sonuç <a href="#indicators">pencerede, son hamlenin yerinde</a></span></td><td>833</td><td>1.504</td></tr>
-<tr><td><code class="vn">input</code><br><span class="fn2">L1_input.html · L2_input.html</span></td><td>UCI, metin alanı</td><td>Tam tahta, ASCII</td><td>1.138</td><td>1.836</td></tr>
-<tr><td><code class="vn">input_blindfold</code><br><span class="fn2">L1_input_blindfold.html · L2_input_blindfold.html</span></td><td>UCI, metin alanı</td><td>Yok, yalnızca son hamle<span class="sub">sıra satırın başında: <code>W</code> ya da <code>B</code></span></td><td>1.045</td><td>1.725</td></tr>
-<tr><td><code class="vn">prompt_string_flip</code><br><span class="fn2">L1_prompt_string_flip.html · L2_prompt_string_flip.html</span></td><td>UCI, prompt penceresi</td><td>Tam tahta, tam genişlik harfler<span class="sub">ters indeks; sonuç <a href="#indicators">pencerede, <code>C!</code>'nin yerinde</a></span></td><td>1.097</td><td>1.838</td></tr>
-<tr><td><code class="vn">nonbrowser</code><br><span class="fn2">L1_nonbrowser.cjs · L2_nonbrowser.cjs</span></td><td>UCI, terminal</td><td>Tam tahta, ASCII</td><td>1.287</td><td>1.985</td></tr>
+<tr><td><code class="vn">default</code><br><span class="fn2">L1.html · L2.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri</td><td>1.533</td><td>2.236</td></tr>
+<tr><td><code class="vn">light</code><br><span class="fn2">L1_light.html · L2_light.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri<span class="sub">gösterge yok, sonuç <a href="#lightread">tahtadan okunuyor</a></span></td><td>1.113</td><td>1.742</td></tr>
+<tr><td><code class="vn">numerical</code><br><span class="fn2">L1_numerical.html · L2_numerical.html</span></td><td>Sayısal, prompt penceresi</td><td>Yok, yalnızca son hamle<span class="sub">sonuç <a href="#indicators">pencerede, son hamlenin yerinde</a></span></td><td>826</td><td>1.504</td></tr>
+<tr><td><code class="vn">input</code><br><span class="fn2">L1_input.html · L2_input.html</span></td><td>UCI, metin alanı</td><td>Tam tahta, ASCII</td><td>1.130</td><td>1.836</td></tr>
+<tr><td><code class="vn">input_blindfold</code><br><span class="fn2">L1_input_blindfold.html · L2_input_blindfold.html</span></td><td>UCI, metin alanı</td><td>Yok, yalnızca son hamle<span class="sub">sıra satırın başında: <code>W</code> ya da <code>B</code></span></td><td>1.038</td><td>1.725</td></tr>
+<tr><td><code class="vn">prompt_string_flip</code><br><span class="fn2">L1_prompt_string_flip.html · L2_prompt_string_flip.html</span></td><td>UCI, prompt penceresi</td><td>Tam tahta, tam genişlik harfler<span class="sub">ters indeks; sonuç <a href="#indicators">pencerede, <code>C!</code>'nin yerinde</a></span></td><td>1.088</td><td>1.838</td></tr>
+<tr><td><code class="vn">nonbrowser</code><br><span class="fn2">L1_nonbrowser.cjs · L2_nonbrowser.cjs</span></td><td>UCI, terminal</td><td>Tam tahta, ASCII</td><td>1.279</td><td>1.985</td></tr>
 <tr class="alt"><td><code class="vn">bot</code><br><span class="fn2">L1_1250elo.html · L2_aybars_2500.html</span></td><td>Tıklama, bota karşı</td><td>Tam tahta, taş glifleri<span class="sub">durum satırında koordinat yok</span></td><td>2.282</td><td>8.036</td></tr>
 </tbody>
 </table></div>
@@ -6805,21 +6809,21 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>Input</th><th>Board</th><th><code class="vn">L1</code></th><th><code class="vn">L2</code></th></tr></thead>
 <tbody>
-<tr><td><code class="vn">default</code><br><span class="fn2">L1.html · L2.html</span></td><td>Clicking</td><td>Full board, piece glyphs</td><td>1,541</td><td>2,236</td></tr>
-<tr><td><code class="vn">light</code><br><span class="fn2">L1_light.html · L2_light.html</span></td><td>Clicking</td><td>Full board, piece glyphs<span class="sub">no indicators; the result is <a href="#lightread">read from the board</a></span></td><td>1,119</td><td>1,742</td></tr>
-<tr><td><code class="vn">numerical</code><br><span class="fn2">L1_numerical.html · L2_numerical.html</span></td><td>Numeric, prompt dialog</td><td>None, last move only<span class="sub">the result appears <a href="#indicators">in the dialog, in place of the last move</a></span></td><td>833</td><td>1,504</td></tr>
-<tr><td><code class="vn">input</code><br><span class="fn2">L1_input.html · L2_input.html</span></td><td>UCI, text field</td><td>Full board, ASCII</td><td>1,138</td><td>1,836</td></tr>
-<tr><td><code class="vn">input_blindfold</code><br><span class="fn2">L1_input_blindfold.html · L2_input_blindfold.html</span></td><td>UCI, text field</td><td>None, last move only<span class="sub">the side to move leads the line: <code>W</code> or <code>B</code></span></td><td>1,045</td><td>1,725</td></tr>
-<tr><td><code class="vn">prompt_string_flip</code><br><span class="fn2">L1_prompt_string_flip.html · L2_prompt_string_flip.html</span></td><td>UCI, prompt dialog</td><td>Full board, full-width letters<span class="sub">flipped index; the result appears <a href="#indicators">in the dialog, in place of <code>C!</code></a></span></td><td>1,097</td><td>1,838</td></tr>
-<tr><td><code class="vn">nonbrowser</code><br><span class="fn2">L1_nonbrowser.cjs · L2_nonbrowser.cjs</span></td><td>UCI, terminal</td><td>Full board, ASCII</td><td>1,287</td><td>1,985</td></tr>
+<tr><td><code class="vn">default</code><br><span class="fn2">L1.html · L2.html</span></td><td>Clicking</td><td>Full board, piece glyphs</td><td>1,533</td><td>2,236</td></tr>
+<tr><td><code class="vn">light</code><br><span class="fn2">L1_light.html · L2_light.html</span></td><td>Clicking</td><td>Full board, piece glyphs<span class="sub">no indicators; the result is <a href="#lightread">read from the board</a></span></td><td>1,113</td><td>1,742</td></tr>
+<tr><td><code class="vn">numerical</code><br><span class="fn2">L1_numerical.html · L2_numerical.html</span></td><td>Numeric, prompt dialog</td><td>None, last move only<span class="sub">the result appears <a href="#indicators">in the dialog, in place of the last move</a></span></td><td>826</td><td>1,504</td></tr>
+<tr><td><code class="vn">input</code><br><span class="fn2">L1_input.html · L2_input.html</span></td><td>UCI, text field</td><td>Full board, ASCII</td><td>1,130</td><td>1,836</td></tr>
+<tr><td><code class="vn">input_blindfold</code><br><span class="fn2">L1_input_blindfold.html · L2_input_blindfold.html</span></td><td>UCI, text field</td><td>None, last move only<span class="sub">the side to move leads the line: <code>W</code> or <code>B</code></span></td><td>1,038</td><td>1,725</td></tr>
+<tr><td><code class="vn">prompt_string_flip</code><br><span class="fn2">L1_prompt_string_flip.html · L2_prompt_string_flip.html</span></td><td>UCI, prompt dialog</td><td>Full board, full-width letters<span class="sub">flipped index; the result appears <a href="#indicators">in the dialog, in place of <code>C!</code></a></span></td><td>1,088</td><td>1,838</td></tr>
+<tr><td><code class="vn">nonbrowser</code><br><span class="fn2">L1_nonbrowser.cjs · L2_nonbrowser.cjs</span></td><td>UCI, terminal</td><td>Full board, ASCII</td><td>1,279</td><td>1,985</td></tr>
 <tr class="alt"><td><code class="vn">bot</code><br><span class="fn2">L1_1250elo.html · L2_aybars_2500.html</span></td><td>Clicking, against a bot</td><td>Full board, piece glyphs<span class="sub">no coordinates in the status line</span></td><td>2,282</td><td>8,036</td></tr>
 </tbody>
 </table></div>
 
     <div class="prose" lang="tr">
-      <p>Aynı arayüzde <code class="vn">L1</code>'den <code class="vn">L2</code>'ye çıkmak 623 ile 741 bayt arası
+      <p>Aynı arayüzde <code class="vn">L1</code>'den <code class="vn">L2</code>'ye çıkmak 629 ile 750 bayt arası
       tutuyor. Bot ne kadar tutuyor, <code class="vn">default</code> ile <code class="vn">bot</code> satırlarından
-      okunuyor: <code class="vn">L1</code> 1.541'den 2.282'ye çıkıyor, yani <b>741 bayt</b> (26'sı rok temsilinden: bot hakları <code>C</code> ile tutuyor, aramada her düğümde dizi kopyalamamak için);
+      okunuyor: <code class="vn">L1</code> 1.533'ten 2.282'ye çıkıyor, yani <b>749 bayt</b> (34'ü motor farkından: bot rok haklarını <code>C</code> ile tutuyor, aramada her düğümde dizi kopyalamamak için, ve <code>V</code>'ye tarafı parametreyle veriyor);
       <code class="vn">L2</code> 2.236'dan 8.036'ya, yani <b>5.800</b>. Bu iki fark aynı şeyin iki ölçümü
       değil: iki seviye ayrı botlar taşıyor. Adlarındaki 1250 ile 2500'ün de işaret ettiği gibi
       <code class="vn">L1</code>'deki hafif bir bot, <code class="vn">L2</code>'deki Aybars ise arama ve
@@ -6838,9 +6842,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       oyuncular arası etkileşimler dışarıda kalıyor, kural tarafı olduğu gibi duruyor.</p>
     </div>
     <div class="prose" lang="en">
-      <p>Moving from <code class="vn">L1</code> to <code class="vn">L2</code> costs between 623 and 741 bytes for the same
+      <p>Moving from <code class="vn">L1</code> to <code class="vn">L2</code> costs between 629 and 750 bytes for the same
       interface. What the bot costs is readable from the <code class="vn">default</code> and <code class="vn">bot</code>
-      rows: <code class="vn">L1</code> goes from 1,541 to 2,282, that is <b>741 bytes</b> (26 of them from castling: the bot keeps the rights with <code>C</code>, so its search need not copy an array at every node); <code class="vn">L2</code> from
+      rows: <code class="vn">L1</code> goes from 1,533 to 2,282, that is <b>749 bytes</b> (34 of them from the engine: the bot keeps the castling rights with <code>C</code>, so its search need not copy an array at every node, and passes the side to <code>V</code> as an argument); <code class="vn">L2</code> from
       2,236 to 8,036, that is <b>5,800</b>. These are not two measurements of the same thing: the two
       levels carry different bots. As the 1250 and 2500 in their names suggest, the one in
       <code class="vn">L1</code> is a light bot, while Aybars in <code class="vn">L2</code> is a far stronger one
@@ -7213,13 +7217,13 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th>Ne</th><th>Giriş</th><th>Bayt</th></tr></thead>
 <tbody>
-<tr class="luxrow"><td><code class="lux">LUX_inProgress</code><br><span class="fn2">special/LUX_inProgress.html</span></td><td>Tam hakem, zengin arayüzle: sürükle bırak, sağ tıkla işaretleme, başlarken süre, saat modu (Fischer, Bronstein ya da basit gecikme) ve FEN seçimi. Yapım aşamasında.</td><td>Sürükle bırak, tıklama</td><td>7.983</td></tr>
+<tr class="luxrow"><td><code class="lux">LUX_inProgress</code><br><span class="fn2">special/LUX_inProgress.html</span></td><td>Tam hakem, zengin arayüzle: sürükle bırak, sağ tıkla işaretleme, başlarken süre, saat modu (Fischer, Bronstein ya da basit gecikme) ve FEN seçimi. Yapım aşamasında.</td><td>Sürükle bırak, tıklama</td><td>7.984</td></tr>
 </tbody>
 </table></div>
     <div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>What it is</th><th>Input</th><th>Bytes</th></tr></thead>
 <tbody>
-<tr class="luxrow"><td><code class="lux">LUX_inProgress</code><br><span class="fn2">special/LUX_inProgress.html</span></td><td>The full arbiter with a rich interface: drag and drop, right-click marking, time control, clock mode (Fischer, Bronstein or simple delay) and FEN picked at the start. In progress.</td><td>Drag and drop, clicking</td><td>7,983</td></tr>
+<tr class="luxrow"><td><code class="lux">LUX_inProgress</code><br><span class="fn2">special/LUX_inProgress.html</span></td><td>The full arbiter with a rich interface: drag and drop, right-click marking, time control, clock mode (Fischer, Bronstein or simple delay) and FEN picked at the start. In progress.</td><td>Drag and drop, clicking</td><td>7,984</td></tr>
 </tbody>
 </table></div>
   </div>
@@ -10730,7 +10734,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
     <div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th>Arayüz</th><th>Düzen</th><th>Bayt</th></tr></thead>
 <tbody>
-<tr><td><code class="vn">L1_prompt_string_flip</code><br><span class="fn2">builds/L1/</span></td><td>prompt</td><td>a8=0</td><td>1.097</td></tr>
+<tr><td><code class="vn">L1_prompt_string_flip</code><br><span class="fn2">builds/L1/</span></td><td>prompt</td><td>a8=0</td><td>1.088</td></tr>
 <tr><td><code class="vn">L2_prompt_string_flip</code><br><span class="fn2">builds/L2/</span></td><td>prompt</td><td>a8=0</td><td>1.838</td></tr>
 <tr><td><code class="vn">prompt_string</code><br><span class="fn2">builds/</span></td><td>prompt</td><td>a1=0</td><td>2.528</td></tr>
 <tr><td><code class="vn">prompt_string_flip</code><br><span class="fn2">builds/</span></td><td>prompt</td><td>a8=0</td><td>2.470</td></tr>
@@ -10741,7 +10745,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
     <div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>Interface</th><th>Layout</th><th>Bytes</th></tr></thead>
 <tbody>
-<tr><td><code class="vn">L1_prompt_string_flip</code><br><span class="fn2">builds/L1/</span></td><td>prompt</td><td>a8=0</td><td>1,097</td></tr>
+<tr><td><code class="vn">L1_prompt_string_flip</code><br><span class="fn2">builds/L1/</span></td><td>prompt</td><td>a8=0</td><td>1,088</td></tr>
 <tr><td><code class="vn">L2_prompt_string_flip</code><br><span class="fn2">builds/L2/</span></td><td>prompt</td><td>a8=0</td><td>1,838</td></tr>
 <tr><td><code class="vn">prompt_string</code><br><span class="fn2">builds/</span></td><td>prompt</td><td>a1=0</td><td>2,528</td></tr>
 <tr><td><code class="vn">prompt_string_flip</code><br><span class="fn2">builds/</span></td><td>prompt</td><td>a8=0</td><td>2,470</td></tr>
@@ -14524,7 +14528,7 @@ var DIR = 'builds/';
    icin de gerekli: koku DIR'den turetiyoruz, boylece build.mjs'te ikinci bir
    kural tutmaya gerek kalmiyor. */
 var ROOT = DIR.slice(0, -'builds/'.length);
-var ART = {"L3": {"p": "L3.html", "ps": 3158}, "L3_light": {"p": "L3_light.html", "ps": 2641}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2078}, "L3_input": {"p": "L3_input.html", "ps": 2547}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2399}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2663}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2470}, "L1": {"p": "builds/L1/L1.html", "ps": 1541}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1119}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 833}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1138}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 1045}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1097}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1287}, "L1_1250elo": {"p": "builds/L1/L1_1250elo.html", "ps": 2282}, "L2": {"p": "builds/L2/L2.html", "ps": 2236}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1742}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1504}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1836}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1725}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1838}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 1985}, "L2_aybars_2500": {"p": "builds/L2/L2_aybars_2500.html", "ps": 8036}, "L3_packed": {"p": "special/L3_packed.html", "ps": 2668}, "L3_numerical_packed": {"p": "special/L3_numerical_packed.html", "ps": 1763}, "Chesscom-equivalent": {"p": "special/Chesscom-equivalent.html", "ps": 2837}, "Chesscom-equivalent_numerical": {"p": "special/Chesscom-equivalent_numerical.html", "ps": 1161}, "Lichess-equivalent": {"p": "special/Lichess-equivalent.html", "ps": 3022}, "Lichess-equivalent_numerical": {"p": "special/Lichess-equivalent_numerical.html", "ps": 1206}, "L2_noBlockedDetector": {"p": "special/L2_noBlockedDetector.html", "ps": 1892}, "L2_string_flip_noBlockedDetector": {"p": "special/L2_string_flip_noBlockedDetector.html", "ps": 1978}, "DOM_1021": {"p": "special/DOM_1021.html", "ps": 1021}, "DOM_minimum": {"p": "special/DOM_minimum.html", "ps": 815}, "Lowest": {"p": "special/Lowest.html", "ps": 748}, "LUX_inProgress": {"p": "special/LUX_inProgress.html", "ps": 7983}, "Toledos-ES6-optimized": {"p": "special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "special/ToledosOpponentbyMe.html", "ps": 2080}, "engine": {"p": "engine.js", "ps": 1847}, "engine_4x": {"p": "engine_4x.js", "ps": 1945}, "engine_string": {"p": "engine_string.js", "ps": 1962}};
+var ART = {"L3": {"p": "L3.html", "ps": 3158}, "L3_light": {"p": "L3_light.html", "ps": 2641}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2078}, "L3_input": {"p": "L3_input.html", "ps": 2547}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2399}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2663}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2470}, "L1": {"p": "builds/L1/L1.html", "ps": 1533}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1113}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 826}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1130}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 1038}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1088}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1279}, "L1_1250elo": {"p": "builds/L1/L1_1250elo.html", "ps": 2282}, "L2": {"p": "builds/L2/L2.html", "ps": 2236}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1742}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1504}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1836}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1725}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1838}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 1985}, "L2_aybars_2500": {"p": "builds/L2/L2_aybars_2500.html", "ps": 8036}, "L3_packed": {"p": "special/L3_packed.html", "ps": 2668}, "L3_numerical_packed": {"p": "special/L3_numerical_packed.html", "ps": 1763}, "Chesscom-equivalent": {"p": "special/Chesscom-equivalent.html", "ps": 2837}, "Chesscom-equivalent_numerical": {"p": "special/Chesscom-equivalent_numerical.html", "ps": 1161}, "Lichess-equivalent": {"p": "special/Lichess-equivalent.html", "ps": 3022}, "Lichess-equivalent_numerical": {"p": "special/Lichess-equivalent_numerical.html", "ps": 1206}, "L2_noBlockedDetector": {"p": "special/L2_noBlockedDetector.html", "ps": 1892}, "L2_string_flip_noBlockedDetector": {"p": "special/L2_string_flip_noBlockedDetector.html", "ps": 1978}, "DOM_1021": {"p": "special/DOM_1021.html", "ps": 1021}, "DOM_minimum": {"p": "special/DOM_minimum.html", "ps": 815}, "Lowest": {"p": "special/Lowest.html", "ps": 748}, "LUX_inProgress": {"p": "special/LUX_inProgress.html", "ps": 7984}, "Toledos-ES6-optimized": {"p": "special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "special/ToledosOpponentbyMe.html", "ps": 2080}, "engine": {"p": "engine.js", "ps": 1847}, "engine_4x": {"p": "engine_4x.js", "ps": 1945}, "engine_string": {"p": "engine_string.js", "ps": 1962}};
 
 function url(n) { return n.indexOf('/') > -1 ? ROOT + n : DIR + n; }
 /* Terminal surumu (.cjs): tarayicida calismaz. Oyna kapali; kodu ve indirme acik. */
