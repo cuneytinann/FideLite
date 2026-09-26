@@ -11,12 +11,12 @@ G=(i,f,T,
 g=b[i],P=j(g),y=i>>3,
 h=a(i%8-f%8),v=a(y-(f>>3)),
 d=h|v,k=(f-i)/d,
-S=Q=>(i+=k)==f||b[i]==_&&S())=>
+x=T|b[f]>_,S=Q=>(i+=k)==f||b[i]==_&&S())=>
 P=='N'?h*v==2
-:P=='K'?T|v|h^2?d<2:c&C(f=i+3.5*k-.5)&&!V(t,i)&&!V(t,i+k)&&S()
+:P=='K'?T|v|h^2?d<2:c&C(f+=1.5*k-.5)&&!V(t)&&!V(t,i+k)&&S()
 :P=='P'?f>i^g<U&&(
-h*v==1?T|b[f]>_|f==e
-:h|T|b[f]>_?0:v<2||v<3&66>>y&&S())
+h*v==1?x|f==e
+:h|x?0:v<2+(y%5==1)&&S())
 :(h*v?h==v&P<'R':P>'B')&S(),
 V=(s,u=b.indexOf('kK'[+s]))=>b.some((p,i)=>p>_&p<U!=s&&G(i,u,1)),
 
@@ -28,7 +28,7 @@ n=P|b[f]>_?0:n+1,
 b[f]=P&f%56<8?t?j(u):u:p,
 b[i]=b[P&f==e?f^8:i]=_,
 d==2&j(p)=='K'&&(b[q]=b[r=f>i?i+3:i-4],b[r]=_),
-e=P&d>9&&(e=q,[f-1,f+1].some(x=>b[x]=='Pp'[t]&&L(x,e)))?e:_),
+e=P&d>9&&[f-1,f+1,e=q].some(x=>b[x]=='Pp'[t]&&L(x,e))?e:_),
 
 i=f=-1,
 p[N]='q♕r♖b♗n♘'.replace(/(.)(.)/g,`<button onclick="A('$1')">$2</button>`),
@@ -47,7 +47,7 @@ M(i,f,T),
 t^=1,
 $=R[s=b+t+e+c]=-~R[s],
 b.some((p,i)=>p>_&p<U==t&&b.some((q,u)=>L(i,u)))
-?(m=W=0,b.map((p,i)=>p>_&&(j(p)<'C'?m|=(i/8^i)%2+1:W+=j(p)>'N'?9:j(p)=='N')),W*2+m<3)?'IM'
+?(m=W=0,b.map((p,i)=>p>_&&(j(p)<'C'?m|=1<<i*9/8%2:W+=j(p)>'N'?9:j(p)=='N')),W*2+m<3)?'IM'
 :$>4?'5R'
 :n>149&&'75'
 :V(t)?t?'B#':'W#':'SM'),

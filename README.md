@@ -2,8 +2,8 @@
 
 *[Türkçe ↓](#türkçe)*
 
-A full-FIDE chess arbiter in **1,874 bytes** of plain JavaScript — no dependencies, no install,
-no server. Packed into a playable game it comes to **1,792 bytes**; with a clickable board, a
+A full-FIDE chess arbiter in **1,847 bytes** of plain JavaScript — no dependencies, no install,
+no server. Packed into a playable game it comes to **1,763 bytes**; with a clickable board, a
 clock and indicators, **2.7 KB**.
 
 **→ [www.fidelite.art](https://www.fidelite.art)** — playable builds, the rulebook, a line-by-line
@@ -47,9 +47,9 @@ the book asks what that board is forced to become.**
 
 | File | Bytes | What it is |
 | --- | --- | --- |
-| `builds/engine.js` | 1,874 | The rule engine. One line, no front end. |
-| `builds/engine_4x.js` | 1,953 | The same rules, +80 bytes, two to ten times the speed. |
-| `builds/engine_string.js` | 1,988 | The same rules on a board of FEN letters instead of numbers. |
+| `builds/engine.js` | 1,847 | The rule engine. One line, no front end. |
+| `builds/engine_4x.js` | 1,928 | The same rules, +81 bytes, two to ten times the speed. |
+| `builds/engine_string.js` | 1,962 | The same rules on a board of FEN letters instead of numbers. |
 
 Every file under `builds/` and `special/` runs on its own — download an HTML file and double-click
 it. The `.cjs` builds run in a terminal with `node`.
@@ -123,8 +123,8 @@ ships something smaller. Until then it stands.
 
 # Türkçe
 
-Tam FIDE kurallı satranç hakem motoru, **1.874 bayt** saf JavaScript — bağımlılık yok, kurulum
-yok, sunucu yok. Paketlenip oynanabilir bir oyuna dönüştüğünde **1.792 bayt**; tıklanabilir
+Tam FIDE kurallı satranç hakem motoru, **1.847 bayt** saf JavaScript — bağımlılık yok, kurulum
+yok, sunucu yok. Paketlenip oynanabilir bir oyuna dönüştüğünde **1.763 bayt**; tıklanabilir
 tahtası, saati ve göstergeleriyle birlikte **2,7 KB**.
 
 **→ [www.fidelite.art/tr](https://www.fidelite.art/tr)** — oynanabilir sürümler, kural kitabı,
@@ -166,9 +166,9 @@ zorunlu olarak neye dönüşeceğini soruyor.**
 
 | Dosya | Bayt | Ne |
 | --- | --- | --- |
-| `builds/engine.js` | 1.874 | Kural motoru. Tek satır, önyüz yok. |
-| `builds/engine_4x.js` | 1.953 | Aynı kurallar, +80 bayt, iki ilâ on kat hız. |
-| `builds/engine_string.js` | 1.988 | Aynı kurallar, tahta sayı yerine FEN harfleriyle. |
+| `builds/engine.js` | 1.847 | Kural motoru. Tek satır, önyüz yok. |
+| `builds/engine_4x.js` | 1.928 | Aynı kurallar, +81 bayt, iki ilâ on kat hız. |
+| `builds/engine_string.js` | 1.962 | Aynı kurallar, tahta sayı yerine FEN harfleriyle. |
 
 `builds/` ve `special/` altındaki her dosya tek başına çalışır — HTML dosyasını indirip çift
 tıklamak yeterli. `.cjs` sürümleri terminalde `node` ile koşar.
