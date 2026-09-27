@@ -218,7 +218,7 @@ for (const t of TARGETS) {
      goreli yollar /tr/images/... olur ve 404 verir; koke sabitlemek bu
      riski tamamen kaldirir. */
   let paths = 0;
-  h = h.replace(/(\s(?:src|href)=")(images\/|icons\/|builds\/|special\/|extra\/|test\.zip)/g,
+  h = h.replace(/(\s(?:src|href)=")(images\/|icons\/|builds\/|extra\/|test\.zip)/g,
                 (f, p1, p2) => { paths++; return p1 + '/' + p2; });
   h = h.replace(/var DIR = 'builds\/';/, () => { paths++; return "var DIR = '/builds/';"; });
 
@@ -245,7 +245,7 @@ for (const t of TARGETS) {
 /* Statik varliklar. extra/ tamamen yayinlanir: siteden su an yalnizca ikisine
    atif var, ama hepsi /extra/<ad>.html adresinden acilabilir durmali -- bugun
    atif vermemek yarin vermeyecegimiz anlamina gelmiyor. */
-for (const dir of ['images', 'icons', 'builds', 'special', 'extra']) {
+for (const dir of ['images', 'icons', 'builds', 'extra']) {
   if (existsSync(dir)) cpSync(dir, join(OUT, dir), { recursive: true });
 }
 for (const f of ['test.zip', 'robots.txt']) {

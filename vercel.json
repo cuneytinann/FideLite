@@ -13,7 +13,9 @@
     { "source": "/index.html", "destination": "/", "permanent": true },
     { "source": "/tr/", "destination": "/tr", "permanent": true },
     { "source": "/en", "destination": "/", "permanent": true },
-    { "source": "/en/(.*)", "destination": "/", "permanent": true }
+    { "source": "/en/(.*)", "destination": "/", "permanent": true },
+    { "source": "/special/LUX_inProgress.html", "destination": "/builds/LUX/LUX.html", "permanent": true },
+    { "source": "/special/:path*", "destination": "/builds/special/:path*", "permanent": true }
   ],
 
   "headers": [
@@ -24,7 +26,7 @@
       ]
     },
     {
-      "source": "/(builds|special)/(.*)",
+      "source": "/builds/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
       ]

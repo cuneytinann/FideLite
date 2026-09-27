@@ -51,14 +51,14 @@ the book asks what that board is forced to become.**
 | `builds/engine_4x.js` | 1,945 | The same rules, +98 bytes, 1.4 to 75 times the speed. |
 | `builds/engine_string.js` | 1,962 | The same rules on a board of FEN letters instead of numbers. |
 
-Every file under `builds/` and `special/` runs on its own — download an HTML file and double-click
+Every file under `builds/` runs on its own — download an HTML file and double-click
 it. The `.cjs` builds run in a terminal with `node`.
 
 **Eleven front ends carry the full arbiter.** `L3` and `L3_light` are played by clicking;
 `numerical`, `prompt`, `prompt_blindfold`, `input`, `input_blindfold`, `prompt_string`,
 `prompt_string_flip` and two terminal builds take moves as text. The rules are identical in all
 eleven. `L1` and `L2` vary the *rules* instead of the interface; each has its own set of front
-ends and a build with a bot, and both sit outside the claim. `special/` holds what fits no level: the builds of five sibling projects, each with a
+ends and a build with a bot, and both sit outside the claim. `builds/special/` holds what fits no level: the builds of five sibling projects, each with a
 repository of its own — [lichess-equivalent](https://github.com/cuneytinann/lichess-equivalent), [chesscom-equivalent](https://github.com/cuneytinann/chesscom-equivalent),
 [chessarbiter2kb](https://github.com/cuneytinann/chessarbiter2kb), [chessinbytes](https://github.com/cuneytinann/chessinbytes) and [Chess-LUX](https://github.com/cuneytinann/Chess-LUX) — and Toledo's program. The two
 packed `L3` builds live there too; they are `L3` itself, but open under *special* because their
@@ -103,15 +103,13 @@ package. On any other platform, `node test.js <command>`.
 
 ## Also in the repository
 
-Five files kept here because they are part of how the engine got where it is. The first two can
+Three files kept here because they are part of how the engine got where it is. The first two can
 also be played on the site, under *special*.
 
 | File | What it is |
 | --- | --- |
-| [`special/Toledos-ES6-optimized.html`](special/Toledos-ES6-optimized.html) | Oscar Toledo G.'s chess in an ES6 rewrite — the best-known tiny chess program. Together with the opponent bot beside it, it is the answer to a question: “could a more capable build — a stronger bot, a better interface — be written at the same rule level with a byte count close to Toledo's?” |
-| [`special/ToledosOpponentbyMe.html`](special/ToledosOpponentbyMe.html) | The opponent I wrote for it, on this engine. Two tiny programs playing each other. |
-| [`extra/2kbfullfidejs.com_index.html`](extra/2kbfullfidejs.com_index.html) | A generator built on the same ideas: it emits standalone engines of roughly 0.6–2.7 KB across several rule levels. |
-| [`extra/2kbfullfidejs.com_README.md`](extra/2kbfullfidejs.com_README.md) | That generator's own documentation — architecture, option axes, the optimisation rules it follows. |
+| [`builds/special/Toledos-ES6-optimized.html`](builds/special/Toledos-ES6-optimized.html) | Oscar Toledo G.'s chess in an ES6 rewrite — the best-known tiny chess program. Together with the opponent bot beside it, it is the answer to a question: “could a more capable build — a stronger bot, a better interface — be written at the same rule level with a byte count close to Toledo's?” |
+| [`builds/special/ToledosOpponentbyMe.html`](builds/special/ToledosOpponentbyMe.html) | The opponent I wrote for it, on this engine. Two tiny programs playing each other. |
 | [`extra/Chess960_Skeletons.html`](extra/Chess960_Skeletons.html) | All 56 castling skeletons of Chess960, laid out. Where the castling rules go once the back rank is no longer fixed. |
 
 ## Licence
@@ -170,14 +168,14 @@ zorunlu olarak neye dönüşeceğini soruyor.**
 | `builds/engine_4x.js` | 1.945 | Aynı kurallar, +98 bayt, 1,4 ilâ 75 kat hız. |
 | `builds/engine_string.js` | 1.962 | Aynı kurallar, tahta sayı yerine FEN harfleriyle. |
 
-`builds/` ve `special/` altındaki her dosya tek başına çalışır — HTML dosyasını indirip çift
+`builds/` altındaki her dosya tek başına çalışır — HTML dosyasını indirip çift
 tıklamak yeterli. `.cjs` sürümleri terminalde `node` ile koşar.
 
 **On bir önyüz tam hakemi taşıyor.** `L3` ve `L3_light` tıklanarak oynanır; `numerical`,
 `prompt`, `prompt_blindfold`, `input`, `input_blindfold`, `prompt_string`, `prompt_string_flip` ve
 iki terminal sürümü hamleyi metin olarak alır. Kurallar on birinde de aynıdır. `L1` ve `L2`
 arayüzü değil *kuralları* değiştirir; her birinin kendi önyüzleri ve botlu bir sürümü var, ikisi de
-iddianın dışındadır. `special/` hiçbir seviyeye girmeyenleri tutar: her birinin kendi deposu olan beş kardeş projenin
+iddianın dışındadır. `builds/special/` hiçbir seviyeye girmeyenleri tutar: her birinin kendi deposu olan beş kardeş projenin
 sürümleri — [lichess-equivalent](https://github.com/cuneytinann/lichess-equivalent), [chesscom-equivalent](https://github.com/cuneytinann/chesscom-equivalent), [chessarbiter2kb](https://github.com/cuneytinann/chessarbiter2kb),
 [chessinbytes](https://github.com/cuneytinann/chessinbytes) ve [Chess-LUX](https://github.com/cuneytinann/Chess-LUX) — ve Toledo'nun programı. Paketli iki `L3` sürümü de
 orada; kural seviyeleri `L3`, ama açıcıları `with` ve `eval`'e dayandığı için *special*
@@ -222,15 +220,13 @@ beşi yalnızca Node istiyor; ikisi Stockfish gerektiriyor, o da pakette değil.
 
 ## Repoda ayrıca
 
-Motorun bugünkü hâline nasıl geldiğinin parçası oldukları için burada duran beş dosya. İlk ikisi
+Motorun bugünkü hâline nasıl geldiğinin parçası oldukları için burada duran üç dosya. İlk ikisi
 sitede de, *special* altında oynanabiliyor.
 
 | Dosya | Ne |
 | --- | --- |
-| [`special/Toledos-ES6-optimized.html`](special/Toledos-ES6-optimized.html) | Oscar Toledo G.'nin satrancının ES6 ile yeniden yazımı — en bilinen küçük satranç programı. Yanındaki rakip botla birlikte “aynı kural seviyesinde, Toledo'nunkine yakın bir bayt sayısıyla daha işlevsel — daha güçlü botlu, daha iyi arayüzlü — bir sürüm yazılabilir mi acaba?” sorusunun cevabı. |
-| [`special/ToledosOpponentbyMe.html`](special/ToledosOpponentbyMe.html) | Ona karşı bu motorla yazdığım rakip. İki küçük program birbiriyle oynuyor. |
-| [`extra/2kbfullfidejs.com_index.html`](extra/2kbfullfidejs.com_index.html) | Aynı fikirler üzerine kurulu bir üretici: birkaç kural seviyesinde, kabaca 0,6–2,7 KB arası tek başına çalışan motorlar üretiyor. |
-| [`extra/2kbfullfidejs.com_README.md`](extra/2kbfullfidejs.com_README.md) | O üreticinin kendi belgesi — mimari, seçenek eksenleri, uyduğu optimizasyon kuralları. |
+| [`builds/special/Toledos-ES6-optimized.html`](builds/special/Toledos-ES6-optimized.html) | Oscar Toledo G.'nin satrancının ES6 ile yeniden yazımı — en bilinen küçük satranç programı. Yanındaki rakip botla birlikte “aynı kural seviyesinde, Toledo'nunkine yakın bir bayt sayısıyla daha işlevsel — daha güçlü botlu, daha iyi arayüzlü — bir sürüm yazılabilir mi acaba?” sorusunun cevabı. |
+| [`builds/special/ToledosOpponentbyMe.html`](builds/special/ToledosOpponentbyMe.html) | Ona karşı bu motorla yazdığım rakip. İki küçük program birbiriyle oynuyor. |
 | [`extra/Chess960_Skeletons.html`](extra/Chess960_Skeletons.html) | Chess960'ın 56 rok iskeletinin tamamı. Son yatay sabit olmaktan çıkınca rok kurallarının nereye gittiği. |
 
 ## Lisans
