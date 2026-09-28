@@ -60,7 +60,7 @@ it. The `.cjs` builds run in a terminal with `node`.
 eleven. `L1` and `L2` vary the *rules* instead of the interface; each has its own set of front
 ends and a build with a bot, and both sit outside the claim. `builds/special/` holds what fits no level: the builds of five sibling projects, each with a
 repository of its own — [lichess-equivalent](https://github.com/cuneytinann/lichess-equivalent), [chesscom-equivalent](https://github.com/cuneytinann/chesscom-equivalent),
-[chessarbiter2kb](https://github.com/cuneytinann/chessarbiter2kb), [chessinbytes](https://github.com/cuneytinann/chessinbytes) and [Chess-LUX](https://github.com/cuneytinann/Chess-LUX) — and Toledo's program. The two
+[ChessMiniature](https://github.com/cuneytinann/ChessMiniature), [chessinbytes](https://github.com/cuneytinann/chessinbytes) and [Chess-LUX](https://github.com/cuneytinann/Chess-LUX) — and Toledo's program. The two
 packed `L3` builds live there too; they are `L3` itself, but open under *special* because their
 unpacker relies on `with` and `eval`.
 [Details.](https://www.fidelite.art/#builds)
@@ -176,7 +176,7 @@ tıklamak yeterli. `.cjs` sürümleri terminalde `node` ile koşar.
 iki terminal sürümü hamleyi metin olarak alır. Kurallar on birinde de aynıdır. `L1` ve `L2`
 arayüzü değil *kuralları* değiştirir; her birinin kendi önyüzleri ve botlu bir sürümü var, ikisi de
 iddianın dışındadır. `builds/special/` hiçbir seviyeye girmeyenleri tutar: her birinin kendi deposu olan beş kardeş projenin
-sürümleri — [lichess-equivalent](https://github.com/cuneytinann/lichess-equivalent), [chesscom-equivalent](https://github.com/cuneytinann/chesscom-equivalent), [chessarbiter2kb](https://github.com/cuneytinann/chessarbiter2kb),
+sürümleri — [lichess-equivalent](https://github.com/cuneytinann/lichess-equivalent), [chesscom-equivalent](https://github.com/cuneytinann/chesscom-equivalent), [ChessMiniature](https://github.com/cuneytinann/ChessMiniature),
 [chessinbytes](https://github.com/cuneytinann/chessinbytes) ve [Chess-LUX](https://github.com/cuneytinann/Chess-LUX) — ve Toledo'nun programı. Paketli iki `L3` sürümü de
 orada; kural seviyeleri `L3`, ama açıcıları `with` ve `eval`'e dayandığı için *special*
 altından açılıyorlar.

@@ -6813,7 +6813,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <tr><td><code class="vn">input_blindfold</code><br><span class="fn2">L1_input_blindfold.html · L2_input_blindfold.html</span></td><td>UCI, metin alanı</td><td>Yok, yalnızca son hamle<span class="sub">sıra satırın başında: <code>W</code> ya da <code>B</code></span></td><td>1.038</td><td>1.725</td></tr>
 <tr><td><code class="vn">prompt_string_flip</code><br><span class="fn2">L1_prompt_string_flip.html · L2_prompt_string_flip.html</span></td><td>UCI, prompt penceresi</td><td>Tam tahta, tam genişlik harfler<span class="sub">ters indeks; sonuç <a href="#indicators">pencerede, <code>C!</code>'nin yerinde</a></span></td><td>1.088</td><td>1.838</td></tr>
 <tr><td><code class="vn">nonbrowser</code><br><span class="fn2">L1_nonbrowser.cjs · L2_nonbrowser.cjs</span></td><td>UCI, terminal</td><td>Tam tahta, ASCII</td><td>1.279</td><td>1.985</td></tr>
-<tr class="alt"><td><code class="vn">bot</code><br><span class="fn2">L1_1250elo.html · L2_aybars_2500.html</span></td><td>Tıklama, bota karşı</td><td>Tam tahta, taş glifleri<span class="sub">durum satırında koordinat yok</span></td><td>2.282</td><td>8.036</td></tr>
+<tr class="alt"><td><code class="vn">bot</code><br><span class="fn2">L1_1250elo.html · L2_aybars_2500.html</span></td><td>Tıklama, bota karşı</td><td>Tam tahta, taş glifleri<span class="sub">durum satırında koordinat yok</span></td><td>2.262</td><td>8.036</td></tr>
 </tbody>
 </table></div>
 
@@ -6827,14 +6827,14 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <tr><td><code class="vn">input_blindfold</code><br><span class="fn2">L1_input_blindfold.html · L2_input_blindfold.html</span></td><td>UCI, text field</td><td>None, last move only<span class="sub">the side to move leads the line: <code>W</code> or <code>B</code></span></td><td>1,038</td><td>1,725</td></tr>
 <tr><td><code class="vn">prompt_string_flip</code><br><span class="fn2">L1_prompt_string_flip.html · L2_prompt_string_flip.html</span></td><td>UCI, prompt dialog</td><td>Full board, full-width letters<span class="sub">flipped index; the result appears <a href="#indicators">in the dialog, in place of <code>C!</code></a></span></td><td>1,088</td><td>1,838</td></tr>
 <tr><td><code class="vn">nonbrowser</code><br><span class="fn2">L1_nonbrowser.cjs · L2_nonbrowser.cjs</span></td><td>UCI, terminal</td><td>Full board, ASCII</td><td>1,279</td><td>1,985</td></tr>
-<tr class="alt"><td><code class="vn">bot</code><br><span class="fn2">L1_1250elo.html · L2_aybars_2500.html</span></td><td>Clicking, against a bot</td><td>Full board, piece glyphs<span class="sub">no coordinates in the status line</span></td><td>2,282</td><td>8,036</td></tr>
+<tr class="alt"><td><code class="vn">bot</code><br><span class="fn2">L1_1250elo.html · L2_aybars_2500.html</span></td><td>Clicking, against a bot</td><td>Full board, piece glyphs<span class="sub">no coordinates in the status line</span></td><td>2,262</td><td>8,036</td></tr>
 </tbody>
 </table></div>
 
     <div class="prose" lang="tr">
       <p>Aynı arayüzde <code class="vn">L1</code>'den <code class="vn">L2</code>'ye çıkmak 629 ile 750 bayt arası
       tutuyor. Bot ne kadar tutuyor, <code class="vn">default</code> ile <code class="vn">bot</code> satırlarından
-      okunuyor: <code class="vn">L1</code> 1.533'ten 2.282'ye çıkıyor, yani <b>749 bayt</b> (34'ü motor farkından: bot rok haklarını <code>C</code> ile tutuyor, aramada her düğümde dizi kopyalamamak için, ve <code>V</code>'ye tarafı parametreyle veriyor);
+      okunuyor: <code class="vn">L1</code> 1.533'ten 2.262'ye çıkıyor, yani <b>729 bayt</b> (11'i motor farkından: bot <code>V</code>'ye tarafı parametreyle veriyor);
       <code class="vn">L2</code> 2.236'dan 8.036'ya, yani <b>5.800</b>. Bu iki fark aynı şeyin iki ölçümü
       değil: iki seviye ayrı botlar taşıyor. Adlarındaki 1250 ile 2500'ün de işaret ettiği gibi
       <code class="vn">L1</code>'deki hafif bir bot, <code class="vn">L2</code>'deki Aybars ise arama ve
@@ -6855,7 +6855,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="prose" lang="en">
       <p>Moving from <code class="vn">L1</code> to <code class="vn">L2</code> costs between 629 and 750 bytes for the same
       interface. What the bot costs is readable from the <code class="vn">default</code> and <code class="vn">bot</code>
-      rows: <code class="vn">L1</code> goes from 1,533 to 2,282, that is <b>749 bytes</b> (34 of them from the engine: the bot keeps the castling rights with <code>C</code>, so its search need not copy an array at every node, and passes the side to <code>V</code> as an argument); <code class="vn">L2</code> from
+      rows: <code class="vn">L1</code> goes from 1,533 to 2,262, that is <b>729 bytes</b> (11 of them from the engine: the bot passes the side to <code>V</code> as an argument); <code class="vn">L2</code> from
       2,236 to 8,036, that is <b>5,800</b>. These are not two measurements of the same thing: the two
       levels carry different bots. As the 1250 and 2500 in their names suggest, the one in
       <code class="vn">L1</code> is a light bot, while Aybars in <code class="vn">L2</code> is a far stronger one
@@ -7053,8 +7053,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       the main builds.</p>
     </div>
 
-    <h3 lang="tr"><a class="ext" href="https://github.com/cuneytinann/chessarbiter2kb" target="_blank" rel="noopener">chessarbiter2kb ↗️</a></h3>
-    <h3 lang="en"><a class="ext" href="https://github.com/cuneytinann/chessarbiter2kb" target="_blank" rel="noopener">chessarbiter2kb ↗️</a></h3>
+    <h3 lang="tr"><a class="ext" href="https://github.com/cuneytinann/ChessMiniature" target="_blank" rel="noopener">ChessMiniature ↗️</a></h3>
+    <h3 lang="en"><a class="ext" href="https://github.com/cuneytinann/ChessMiniature" target="_blank" rel="noopener">ChessMiniature ↗️</a></h3>
     <div class="prose" lang="tr">
       <p><b>Satrancın kemik kuralları, satır satır.</b> Bu depo bir ders malzemesi olarak yazıldı.
       Sayfada sağ tıklayıp “Sayfa kaynağını görüntüle” demek yetiyor: tahtanın kendisinden doğan
@@ -7150,14 +7150,14 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <thead><tr><th>Sürüm</th><th>Ne</th><th>Giriş</th><th>Bayt</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">Toledos-ES6-optimized</code><br><span class="fn2">builds/special/Toledos-ES6-optimized.html</span></td><td>Oscar Toledo G.'nin satrancı: camiada en çok konuşulan küçük satranç programlarından biri, 2 KB içinde L1 seviyesinde kurallar ve 1200 Elo civarında makul bir bot. Eşdeğerliğini koruyarak ES6 yöntemleriyle biraz daha küçülttüm, arayüzünü de biraz yeniden yorumladım. Eklediğim tek kural 50 hamle.</td><td>Tıklama, bota karşı<span class="sub">terfi tahtanın altındaki listeden, hamleden önce seçilir</span></td><td>2.032</td></tr>
-<tr><td><code class="vn">ToledosOpponentbyMe</code><br><span class="fn2">builds/special/ToledosOpponentbyMe.html</span></td><td>Toledo'nun programına rakip olarak bu motorla yazdığım bot: <code class="vn">L1</code> seviyesinde kurallar artı 50 hamle, iteratif derinleştirmeli alfa-beta araması ve hamle başına 25 milisaniye civarında bir zaman bütçesi. Bot beyazla başlıyor.</td><td>Tıklama, bota karşı</td><td>2.078</td></tr>
+<tr><td><code class="vn">ToledosOpponentbyMe</code><br><span class="fn2">builds/special/ToledosOpponentbyMe.html</span></td><td>Toledo'nun programına rakip olarak bu motorla yazdığım bot: <code class="vn">L1</code> seviyesinde kurallar artı 50 hamle, iteratif derinleştirmeli alfa-beta araması ve hamle başına 25 milisaniye civarında bir zaman bütçesi. Bot beyazla başlıyor.</td><td>Tıklama, bota karşı</td><td>2.058</td></tr>
 </tbody>
 </table></div>
     <div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>What it is</th><th>Input</th><th>Bytes</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">Toledos-ES6-optimized</code><br><span class="fn2">builds/special/Toledos-ES6-optimized.html</span></td><td>Oscar Toledo G.'s chess: one of the most talked-about tiny chess programs in the community, with L1-level rules and a reasonable bot of around 1200 Elo in 2 KB. I shrank it a little further with ES6 techniques while keeping it equivalent, and reinterpreted its interface a little. The one rule I added is the 50-move rule.</td><td>Clicking, against a bot<span class="sub">promotion chosen beforehand from the list below the board</span></td><td>2,032</td></tr>
-<tr><td><code class="vn">ToledosOpponentbyMe</code><br><span class="fn2">builds/special/ToledosOpponentbyMe.html</span></td><td>The bot I wrote on this engine as an opponent for Toledo's program: <code class="vn">L1</code>-level rules plus the 50-move rule, an iterative-deepening alpha-beta search and a time budget of about 25 milliseconds per move. The bot plays White.</td><td>Clicking, against a bot</td><td>2,078</td></tr>
+<tr><td><code class="vn">ToledosOpponentbyMe</code><br><span class="fn2">builds/special/ToledosOpponentbyMe.html</span></td><td>The bot I wrote on this engine as an opponent for Toledo's program: <code class="vn">L1</code>-level rules plus the 50-move rule, an iterative-deepening alpha-beta search and a time budget of about 25 milliseconds per move. The bot plays White.</td><td>Clicking, against a bot</td><td>2,058</td></tr>
 </tbody>
 </table></div>
 
@@ -10925,15 +10925,14 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
     </div>
 
     <div class="prose" lang="tr">
-      <p>Harf kodlamasının tam anlatımı, oradan doğan üretici ve bu neslin kendi tarihi ayrı bir
-      repoda: <a href="https://github.com/cuneytinann/chessarbiter2kb" target="_blank" rel="noopener">chessarbiter2kb</a>.
+      <p>Harf kodlamasının tam anlatımı ayrı bir
+      repoda: <a href="https://github.com/cuneytinann/ChessMiniature" target="_blank" rel="noopener">ChessMiniature</a>.
       Burası yalnızca özeti — <a href="#alternatives">elenen mimariler</a> arasında sayılmıyor,
       çünkü elenmedi: yerini bıraktı.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The full account of the letter encoding, the generator that grew out of it and the history of
-      that generation live in a repository of their own:
-      <a href="https://github.com/cuneytinann/chessarbiter2kb" target="_blank" rel="noopener">chessarbiter2kb</a>.
+      <p>The full account of the letter encoding lives in a repository of its own:
+      <a href="https://github.com/cuneytinann/ChessMiniature" target="_blank" rel="noopener">ChessMiniature</a>.
       This is only the summary — it is not counted among the
       <a href="#alternatives">eliminated architectures</a>, because it was not eliminated: it handed over to its successor.</p>
     </div>
@@ -11222,6 +11221,61 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       representation and kept as a literal compressor.</p>
     </div>
 
+
+    <h3 lang="tr">Tahtayı dedektöre göre kurmak — bitboard ikinci kez</h3>
+    <h3 lang="en">Building the board around the detector — bitboards, a second time</h3>
+    <div class="prose" lang="tr">
+      <p>Yukarıdaki deneme bitboard'u bütün motor için tarttı. Bu ikincisi daha dar bir soruydu.
+      Kural katmanının en pahalı parçası ölü pozisyon taraması <a href="#lscan"><code>l</code></a>
+      ve bu tarama zaten 64 bitlik kümelerle çalışıyor: tahta dizisini okuyup kümelere çeviren bir
+      köprüyle açılıyor. Tahta baştan küme olarak tutulursa köprü kalkar. Diğer kurallar pahalansa
+      bile <code>l</code>'nin ucuzlaması bunu karşılar mı?</p>
+      <p>Üç yoldan ölçüldü. <b>Melez</b>: tahta dizi kalır, kümeler her hamlede yanında yeniden
+      kurulur, <code>l</code> ile <code>Im</code> onlardan okur. Motor 1.860 civarına çıktı, 15
+      bayt kadar fazla; kümeleri her hamlede kurmak onu üçte bir kadar da yavaşlattı.
+      <b>Tam dönüşüm</b>: tahta baştan küme, <code>G</code>, <code>V</code>, <code>M</code> ve
+      <code>L</code> küme tarzında. Kural çekirdeği neredeyse iki katına çıktı; <code>G</code>'nin
+      tek bir ifadede çözdüğü geometri adım tablolarına, ışın döngülerine ve bir “bu karede ne
+      var” yardımcısına bölündü. <b>Tavan</b>: tahta zaten küme olsaydı ölü pozisyon tarafı ne
+      kazanırdı? Sıfıra yakın.</p>
+      <p>Tavanı sıfırlayan yetersiz materyal kontrolü <code>I</code>. Dizide bir filin kare rengi
+      karenin numarasından bedava çıkıyor, <code>1&lt;&lt;i*9/8%2</code>; kümelerde aynı bilgi
+      64 bitlik bir renk maskesi istiyor. <code>l</code>'nin kazandığını <code>I</code> geri
+      veriyor. <b>Ölü pozisyon tarafı diğer kurallara harcanacak bir bütçe üretmiyor.</b></p>
+      <p>Denemenin asıl bulgusu başka yerde çıktı: kazanç temsilden değil, köprünün kendisinden
+      geliyor. Köprüyü genel bir döngüyle — her taş kendi kümesine, gerekenler destructuring ile —
+      yeniden yazmak tahta dizi kalırken de işliyor; motor bu yolla on bayt kadar kısalıyor,
+      tarama da hızlanıyor. <a href="#bishops">Filli genişletme</a> de aynı sonucu verdi. Motor
+      şimdilik güncellenmedi.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The attempt above weighed bitboards for the whole engine. This second one asked a narrower
+      question. The most expensive part of the rule layer is the dead-position scan
+      <a href="#lscan"><code>l</code></a>, and that scan already works in 64-bit sets: it opens with
+      a bridge that reads the board array and turns it into sets. Keep the board as sets from the
+      start and the bridge goes. Even if the other rules grew, could a cheaper <code>l</code> pay
+      for them?</p>
+      <p>It was measured three ways. <b>Hybrid</b>: the board stays an array, the sets are rebuilt
+      beside it on every move, and <code>l</code> and <code>Im</code> read from them. The engine
+      came out around 1,860 bytes, some 15 over, and rebuilding the sets on every move also made it
+      about a third slower. <b>Full conversion</b>: the board is sets from the start, and
+      <code>G</code>, <code>V</code>, <code>M</code> and <code>L</code> are written set-style. The
+      rule core nearly doubled; the geometry <code>G</code> settles in a single expression fell
+      apart into step tables, ray loops and a “what is on this square” helper. <b>The
+      ceiling</b>: if the board already were sets, what would the dead-position side gain? Close
+      to nothing.</p>
+      <p>What zeroes the ceiling is the insufficient-material check <code>I</code>. In an array a
+      bishop's square colour falls out of the square's index for free,
+      <code>1&lt;&lt;i*9/8%2</code>; with sets the same fact needs a 64-bit colour mask. What
+      <code>l</code> gains, <code>I</code> gives back. <b>The dead-position side produces no
+      budget to spend on the other rules.</b></p>
+      <p>The experiment's real finding turned up elsewhere: the gain comes from the bridge itself,
+      not from the representation. Rewriting the bridge as a generic loop — every piece into its
+      own set, the ones needed taken by destructuring — works while the board stays an array; the
+      engine gets about ten bytes shorter that way, and the scan gets faster.
+      <a href="#bishops">The bishop extension</a> showed the same. The engine has not been updated
+      for now.</p>
+    </div>
 
     <h3 lang="tr">Hayalet geçerken alma — <code>e</code>'yi tahtaya taşımak</h3>
     <h3 lang="en">Ghost en passant — moving <code>e</code> onto the board</h3>
@@ -14539,7 +14593,7 @@ var DIR = 'builds/';
    icin de gerekli: koku DIR'den turetiyoruz, boylece build.mjs'te ikinci bir
    kural tutmaya gerek kalmiyor. */
 var ROOT = DIR.slice(0, -'builds/'.length);
-var ART = {"L3": {"p": "L3.html", "ps": 3158}, "L3_light": {"p": "L3_light.html", "ps": 2641}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2078}, "L3_input": {"p": "L3_input.html", "ps": 2547}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2399}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2663}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2470}, "L1": {"p": "builds/L1/L1.html", "ps": 1533}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1113}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 826}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1130}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 1038}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1088}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1279}, "L1_1250elo": {"p": "builds/L1/L1_1250elo.html", "ps": 2282}, "L2": {"p": "builds/L2/L2.html", "ps": 2236}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1742}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1504}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1836}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1725}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1838}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 1985}, "L2_aybars_2500": {"p": "builds/L2/L2_aybars_2500.html", "ps": 8036}, "L3_packed": {"p": "builds/special/L3_packed.html", "ps": 2668}, "L3_numerical_packed": {"p": "builds/special/L3_numerical_packed.html", "ps": 1763}, "Chesscom-equivalent": {"p": "builds/special/Chesscom-equivalent.html", "ps": 2837}, "Chesscom-equivalent_numerical": {"p": "builds/special/Chesscom-equivalent_numerical.html", "ps": 1161}, "Lichess-equivalent": {"p": "builds/special/Lichess-equivalent.html", "ps": 3022}, "Lichess-equivalent_numerical": {"p": "builds/special/Lichess-equivalent_numerical.html", "ps": 1206}, "L2_noBlockedDetector": {"p": "builds/special/L2_noBlockedDetector.html", "ps": 1892}, "L2_string_flip_noBlockedDetector": {"p": "builds/special/L2_string_flip_noBlockedDetector.html", "ps": 1978}, "DOM_998": {"p": "builds/special/DOM_998.html", "ps": 998}, "DOM_minimum": {"p": "builds/special/DOM_minimum.html", "ps": 794}, "Lowest": {"p": "builds/special/Lowest.html", "ps": 712}, "LUX": {"p": "builds/LUX/LUX.html", "ps": 7984}, "Toledos-ES6-optimized": {"p": "builds/special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "builds/special/ToledosOpponentbyMe.html", "ps": 2078}, "engine": {"p": "engine.js", "ps": 1847}, "engine_4x": {"p": "engine_4x.js", "ps": 1945}, "engine_string": {"p": "engine_string.js", "ps": 1962}};
+var ART = {"L3": {"p": "L3.html", "ps": 3158}, "L3_light": {"p": "L3_light.html", "ps": 2641}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2078}, "L3_input": {"p": "L3_input.html", "ps": 2547}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2399}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2663}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2470}, "L1": {"p": "builds/L1/L1.html", "ps": 1533}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1113}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 826}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1130}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 1038}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1088}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1279}, "L1_1250elo": {"p": "builds/L1/L1_1250elo.html", "ps": 2262}, "L2": {"p": "builds/L2/L2.html", "ps": 2236}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1742}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1504}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1836}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1725}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1838}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 1985}, "L2_aybars_2500": {"p": "builds/L2/L2_aybars_2500.html", "ps": 8036}, "L3_packed": {"p": "builds/special/L3_packed.html", "ps": 2668}, "L3_numerical_packed": {"p": "builds/special/L3_numerical_packed.html", "ps": 1763}, "Chesscom-equivalent": {"p": "builds/special/Chesscom-equivalent.html", "ps": 2837}, "Chesscom-equivalent_numerical": {"p": "builds/special/Chesscom-equivalent_numerical.html", "ps": 1161}, "Lichess-equivalent": {"p": "builds/special/Lichess-equivalent.html", "ps": 3022}, "Lichess-equivalent_numerical": {"p": "builds/special/Lichess-equivalent_numerical.html", "ps": 1206}, "L2_noBlockedDetector": {"p": "builds/special/L2_noBlockedDetector.html", "ps": 1892}, "L2_string_flip_noBlockedDetector": {"p": "builds/special/L2_string_flip_noBlockedDetector.html", "ps": 1978}, "DOM_998": {"p": "builds/special/DOM_998.html", "ps": 998}, "DOM_minimum": {"p": "builds/special/DOM_minimum.html", "ps": 794}, "Lowest": {"p": "builds/special/Lowest.html", "ps": 712}, "LUX": {"p": "builds/LUX/LUX.html", "ps": 7984}, "Toledos-ES6-optimized": {"p": "builds/special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "builds/special/ToledosOpponentbyMe.html", "ps": 2058}, "engine": {"p": "engine.js", "ps": 1847}, "engine_4x": {"p": "engine_4x.js", "ps": 1945}, "engine_string": {"p": "engine_string.js", "ps": 1962}};
 
 function url(n) { return n.indexOf('/') > -1 ? ROOT + n : DIR + n; }
 /* Terminal surumu (.cjs): tarayicida calismaz. Oyna kapali; kodu ve indirme acik. */
@@ -14969,7 +15023,7 @@ var CARVE = {
   L1: APPLY1, L1_input: APPLY1, L1_input_blindfold: APPLY1, L1_numerical: APPLY1_N, L1_prompt_string_flip: APPLY1,
   L1_nonbrowser: APPLY1,
   L1_light: [['c[i]=c[f]=1', 't^=1'], ['!p|p&1^t&&G(i,u)', '[b,e]=p,q']],
-  L1_1250elo: APPLY.concat([['z||t==D', 'setTimeout(o,9)', 'b']]),
+  L1_1250elo: APPLY1.concat([['z||t==D', 'setTimeout(o,9)', 'b']]),
   'Chesscom-equivalent': [['(I(!t)', "'WB'[t]+'T'"], ['c&=~C(i)', 'Z(o&=1+t)'],
     ["T?'WB'", "&&'DA'"]],
   'Lichess-equivalent': [['c&=~C(i)', 'o&&D()']],
@@ -14980,7 +15034,7 @@ var CARVE = {
     ['L=r&&', '-h-q', 'b'], ['if(s)L+=', '!(E^y^9)', 'b'], ['if(!(h|s-1', 'u=J'], ['W(),G--', 'W()', 'u'],
     ['if(L>N||', 'N=L}', 'b'], ['N+M*M&&', 'd?N:0', 'b'], ['while(B++<G)', ':7'],
     ['y&&setTimeout', ',250)', 'b']],
-  ToledosOpponentbyMe: [['n<99', 'n<99'], ['c&=~C(i)', 't^=1']]
+  ToledosOpponentbyMe: [['n<99', 'n<99'], ['c[i]=c[f]=1', 't^=1']]
 };
 /* Gercek bir etiket acilisi: <x, </x, <!. Kiyaslamadaki '<' degil. */
 var MARK = /<[a-zA-Z!\/]/;
