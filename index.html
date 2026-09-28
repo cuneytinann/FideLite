@@ -757,7 +757,7 @@ th.numr { text-align:right }
 
 /* ---- result-code grid ----
    Uc sutun her genislikte korunuyor: 15 kod = 5 satir, ve satirlarin kendisi
-   anlamli (mat, saat, terk, otomatik beraberlik, iddia). Dar ekranda sutun
+   anlamli (mat, saat, terk, otomatik beraberlik, talep). Dar ekranda sutun
    sayisini dusurmek bu gruplamayi dagitirdi; onun yerine kartin kendisi
    kuculuyor. Clamp'ler ~34 rem altinda alt sinira, ~40 rem ustunde ust
    sinira oturuyor. */
@@ -1106,7 +1106,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
         <span class="cta-btns">
           <a class="go" id="ctaplay" href="#play"><span lang="tr">OYNA!</span><span lang="en">Play now</span></a>
           <a id="ctasrc" href="#engcode"><span lang="tr">Kodu gör</span><span lang="en">View the code</span></a>
-          <a class="dl" href="builds/special/L3_packed.html" download="L3_packed.html"><span lang="tr">Hemen indir · 2,7 KB</span><span lang="en">Download · 2.7 KB</span></a>
+          <a class="dl" href="builds/special/L3_packed.html" download="L3_packed.html"><span lang="tr">Hemen indir · 2,6 KB</span><span lang="en">Download · 2.6 KB</span></a>
           <a href="https://github.com/cuneytinann/FideLite" target="_blank" rel="noopener">GitHub</a>
         </span>
         <a class="seal" href="#tests" title="Geçtiği testler" data-en-title="Tests it passes">
@@ -1116,14 +1116,14 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 
       <ul class="chips" lang="tr">
         <li>Tüm taş hareketleri</li><li>Geçerlilik</li><li>Rok</li><li>Geçerken alma</li><li>Terfi</li><li>Canlı saat</li>
-        <li>3'lü / 5'li tekrar</li><li>50 / 75 hamle</li><li>Yetersiz materyal</li>
+        <li>Üçlü / beşli tekrar</li><li>50 / 75 hamle</li><li>Yetersiz materyal</li>
         <li>Beraberlik teklifi</li><li>Terk</li>
         <li><a href="#flag">Bayrak düşmesi 6.9 &amp; 5.1.2</a></li>
         <li><a class="lk2" href="#dead">Kilitli pozisyonlar 5.2.2 (%93)</a></li>
       </ul>
       <ul class="chips" lang="en">
         <li>All piece moves</li><li>Legality</li><li>Castling</li><li>En passant</li><li>Promotion</li><li>Live clock</li>
-        <li>3-fold &amp; 5-fold repetition</li><li>50 / 75-move rule</li><li>Insufficient material</li>
+        <li>Threefold &amp; fivefold repetition</li><li>50 / 75-move rule</li><li>Insufficient material</li>
         <li>Draw offer</li><li>Resignation</li>
         <li><a href="#flag">Flag fall 6.9 &amp; 5.1.2</a></li>
         <li><a class="lk2" href="#dead">Blocked positions 5.2.2 (93%)</a></li>
@@ -1216,7 +1216,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <a href="#board">motorun kendisi</a> sekmesinde anlatılıyor.</p>
       <p class="hexcap" lang="en">The index starts at zero on a1, rises left to right, wraps from
       h1 to the a-file of the next rank up, and ends at 63 on h8. What that layout buys the engine
-      is explained on <a href="#board">The engine itself</a> tab.</p>
+      is explained on the <a href="#board">“The engine itself”</a> tab.</p>
     </div>
   </div>
   <div class="wrap hero-epi">
@@ -1234,7 +1234,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <h2 lang="en">The code itself, its worth, and the craft of Golfstack</h2>
     <div class="prose" lang="tr">
       <p>Turnuva standartlarında eksiksiz bir satranç hakemi, 1.837 baytlık tek bir JavaScript
-      dosyasına sığdı; oynanabilir tek bir HTML dosyası olarak da arayüzün UI/UX özelliklerine
+      dosyasına sığdı; oynanabilir tek bir HTML dosyası olarak da arayüzün özelliklerine
       ve eski ya da modern HTML yazım kurallarına göre 3,1 ile 1,71 KB
       <span class="gloss">(bir dosyanın diskte kapladığı yerin ölçüsü; 1 KB = 1024 bayt)</span>
       arasında değişiyor. FideLite, en küçük boyutta en çok işlevi sunmayı hedefleyen bir
@@ -1244,17 +1244,17 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       yönetir; harici hiçbir kütüphaneye de ihtiyaç duymaz.</p>
       <p>Kural tarafında kestirme yok. Hangi maddenin nasıl işlediğini
       <a href="#rules">Kurallar ve uygulanışı</a> sekmesinde madde madde bulabilirsin. 50 hamle
-      ve 3'lü tekrarın iddia akışı, anlaşmalı beraberliğin teklif–kabul–düşme mekaniği
-      kitapçıktaki gibi işliyor: iddia oynanacak hamle üzerinden kurulabiliyor, teklif kabul
+      ve üçlü tekrarın talep akışı, anlaşmalı beraberliğin teklif–kabul–düşme mekaniği
+      kitapçıktaki gibi işliyor: talep oynanacak hamle üzerinden kurulabiliyor, teklif kabul
       edilmeyen bir hamleyle düşüyor, mat bütün otomatik beraberlik koşullarının önüne geçiyor. Terk ve süre
-      bitiminin yetersiz materyalle karşılaştığı çetrefil senaryolarda karar 5.1.2 ve 6.9'a
-      birebir uyuyor. Büyük platformların çoğu bu maddelerde kendi kısayolunu uyguluyor.</p>
+      bitiminin, rakibin mat edemediği pozisyonlarla karşılaştığı çetrefil senaryolarda karar
+      5.1.2 ve 6.9'un sorduğu soruya göre veriliyor. Büyük platformların çoğu bu maddelerde kendi kısayolunu uyguluyor.</p>
     </div>
     <div class="prose" lang="en">
       <p>A complete, tournament-grade chess arbiter fits into a single JavaScript file of
-      1,837 bytes; as a single playable HTML file it ranges from 3.1 to 1.71 KB
+      1,837 bytes; as a single playable HTML file it ranges from 1.71 to 3.1 KB
       <span class="gloss">(the measure of how much room a file takes on disk;
-      1 KB = 1024 bytes)</span>, depending on the UI/UX of its interface and on old or modern
+      1 KB = 1024 bytes)</span>, depending on the features of its interface and on old or modern
       HTML authoring conventions. FideLite is an engineering exercise in getting the most
       function into the least space, written with code golf — carving away every byte of filler
       without touching what the program does. <b>Golfstack</b> is what I call that way of
@@ -1266,8 +1266,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       50-move rule and threefold repetition, and the offer–acceptance–lapse mechanics of a draw
       by agreement, work as the handbook describes: a claim can rest on the move about to be
       played, an offer lapses on a move that does not accept it, and mate overrides every
-      automatic draw condition. Where resignation and flag fall meet insufficient material, the
-      ruling follows 5.1.2 and 6.9 exactly. Most large platforms take their own shortcut at these articles.</p>
+      automatic draw condition. Where resignation and flag fall meet a position in which the opponent
+      cannot mate, the ruling answers the question 5.1.2 and 6.9 ask. Most large platforms take their own shortcut at these articles.</p>
     </div>
 
     <h3 lang="tr">Teknik özellikler</h3>
@@ -1292,7 +1292,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       kilitlenmiyor, durum bozulmuyor.</li>
       <li><b>Kural doğruluğu ve bitişler.</b> Oyun bittiğinde “berabere” deyip geçmez;
       <a href="#codes">on beş sonucun</a> hangisi geldiyse onu adıyla bildirir. Kodlar iki karakterlik olmasına rağmen akılda kalıcı — hangi harfin neye karşılık geldiği bir bakışta
-      oturuyor — ve on beşi FIDE kitapçığındaki maddelerle birebir örtüşüyor. Pat mı, 3'lü tekrar mı, ölü pozisyon mu: belirsiz kalmaz.</li>
+      oturuyor — ve on beşi FIDE kitapçığındaki maddelerle birebir örtüşüyor. Pat mı, üçlü tekrar mı, ölü pozisyon mu: belirsiz kalmaz.</li>
       <li><b>Beraberliğin zor yarısı.</b> Federasyonların kitabında çoğu uygulamanın atladığı ya
       da en basit hâliyle geçiştirdiği maddeler var; motor onları olduğu gibi uygulamayı deniyor.
       Özellikle FIDE'nin meşhur <b>6.9</b> ve <b>5.2.2</b> maddeleri es geçilmeden, olabildiğince
@@ -1301,7 +1301,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <li><b>Modüler yapı.</b> Kural katmanı bir yanda durur, arayüzün yaptığı işler öbür yanda.
       Beraberlik teklifini, saati ya da otomatik beraberlik sınırlarını çıkarırsan geri kalan aynen
       çalışmaya devam eder; başlangıç dizilişi — istersen bir FEN'den — ve süre ayarlanabilir.
-      Code golf satrançlarında bu ayrım genellikle yoktur: kuralın nerede bitip oyun oynamanın
+      Code golf satranç projelerinde bu ayrım genellikle yoktur: kuralın nerede bitip oyun oynamanın
       nerede başladığı okunamaz hâle gelir.</li>
       <li><b>Okunabilirlik ve akılda kalıcılık.</b> Kaynak okunmak için değil çalışmak için
       yazıldı: tek harfli isimler, tek satır, gömülmüş fonksiyonlar. Yine de isimlendirme rastgele
@@ -1309,7 +1309,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       Ne olup bittiği <a href="#flow">satır satır ayrı bir bölümde</a> açılıyor.</li>
       <li><b>Hız ve derinlik.</b> Hakemin işinin büyük kısmı tek bir yarım hamlede biter, ama
       beraberliğin zor yarısında motor gerçekten ileriye bakıyor — üstelik testte değil, oyunun
-      içinde, bayrak düştüğü anda. Hız bu yüzden süs değil; ikinci yer testler, perft
+      içinde, bayrak düştüğü anda. Hız bu yüzden süs değil. Hızın önem taşıdığı ikinci yer testler: perft
       <span class="gloss">(bir pozisyondan çıkan bütün hamle dizilerini sayan standart doğruluk
       sınaması)</span> milyonlarca düğüm sayıyor. <a href="#speed"><code>engine_4x</code></a> ikisine
       de hizmet ediyor: aynı kuralları uygulayan, 91 bayt daha uzun, mantıksal olarak birebir aynı
@@ -1352,7 +1352,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <li><b>A modular structure.</b> The rule layer stands on one side, what the interface does
       on the other. Take out the draw offer, the clock or the automatic draw limits and everything
       else carries on working; the starting position — from a FEN, if you like — and the time
-      control can be set. Code golf chess rarely draws that line: you can no longer tell where the
+      control can be set. Code-golf chess projects rarely draw that line: you can no longer tell where the
       rules end and playing the game begins.</li>
       <li><b>Readability and mnemonics.</b> The source was written to run, not to be read:
       single-letter names, one line, inlined functions. Even so the naming is not arbitrary —
@@ -1459,14 +1459,14 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="note" lang="tr">
       <p>Tahta çizen sürümlerde tahta küçük geliyorsa tarayıcının yakınlaştırmasını kullan —
       <kbd>Ctrl</kbd> <kbd>+</kbd>, macOS'ta <kbd>⌘</kbd> <kbd>+</kbd>; <kbd>Ctrl</kbd>
-      <kbd>0</kbd> eski hâline döndürür. <code>prompt()</code> penceresi açan sürümlerde
+      <kbd>0</kbd> (macOS'ta <kbd>⌘</kbd> <kbd>0</kbd>) eski hâline döndürür. <code>prompt()</code> penceresi açan sürümlerde
       tarayıcın iletişim kutularını engelliyorsa hiçbir şey açılmaz; dosyayı indirip aç ya da
       tarayıcıya izin ver.</p>
     </div>
     <div class="note" lang="en">
       <p>If the board feels small in the builds that draw one, use the browser's zoom —
       <kbd>Ctrl</kbd> <kbd>+</kbd>, or <kbd>⌘</kbd> <kbd>+</kbd> on macOS; <kbd>Ctrl</kbd>
-      <kbd>0</kbd> restores it. In the builds that open a <code>prompt()</code> dialog, nothing
+      <kbd>0</kbd> (<kbd>⌘</kbd> <kbd>0</kbd> on macOS) restores it. In the builds that open a <code>prompt()</code> dialog, nothing
       appears at all if your browser blocks dialogs; download the file and open it, or allow
       dialogs.</p>
     </div>
@@ -1587,11 +1587,11 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>Motoru yazarken kendimi bir anda Theseus'un Gemisi paradoksunun ortasında buldum:
       bir satranç oyunundan neleri söküp atabiliriz ki geriye yine satranç kalsın?</p>
       <p>Burada kaçınılmaz bir kimlik sorusu doğuyor. On beşinci yüzyıl öncesinin satrancını
-      başlangıç noktası almadım — orada fil yalnızca iki kare atlıyor, vezir tek kare çapraz
-      gidiyor, rok ve piyonun çift adımı yok. Aynı adı taşısalar da o oyunla bugün oynadığımız
+      başlangıç noktası almadım — orada fil çapraz iki kare sıçrıyor, vezirin atası tek kare
+      çapraz gidiyor; rok ve piyonun çift adımı henüz yerleşik değil. Aynı adı taşısalar da o oyunla bugün oynadığımız
       oyun temelde iki ayrı kimlik; onu taban kabul etmek, sorunun cevabını başka bir oyun
       için vermek olurdu.</p>
-      <p>Başlangıç noktası olarak şunu aldım: bugünkü taş hareketleri, şah, mat ve pat,
+      <p>Başlangıç noktası olarak şunu aldım: bugünkü taş hareketleri, şah çekme, mat ve pat,
       piyonun tek kare ilerlemesi, otomatik vezir terfisi. Çıkarılabilecek ne varsa
       çıkarıldığında geriye kalan çekirdek bu. Buradan bir madde daha eksiltmek oyunu satranç
       olmaktan çıkarıyor.</p>
@@ -1601,8 +1601,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>Writing the engine, I found myself in the middle of the Ship of Theseus paradox: what
       can you strip out of a game of chess and still be left with chess?</p>
       <p>An unavoidable question of identity surfaces here. I did not take pre-fifteenth-century
-      chess as the starting point — there the bishop leaps exactly two squares, the queen moves
-      one square diagonally, and there is no castling and no double pawn step. They share a name,
+      chess as the starting point — there the bishop leaps exactly two squares diagonally, the
+      queen's ancestor moves one square diagonally, and neither castling nor the pawn's double
+      step is yet established. They share a name,
       but that game and the one we play today are fundamentally different games; taking
       it as the baseline would have meant answering the question for a different game.</p>
       <p>What I took as the starting point was this: today's piece movement, check, checkmate and
@@ -1622,11 +1623,11 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       boşluğu kapatır. Sonra rok. Bu noktada tahtada olup biten artık bugünkü satrancın
       kendisiydi.</p>
       <p>Sonrasında tahtanın dışına çıktım. Oyunun sonsuza kadar sürmesini engelleyen iki
-      teorik sınır, 50 hamle kuralı ve saat, motora bu aşamada girdi.</p>
+      teorik sınır, 75 hamle kuralı ve saat, motora bu aşamada girdi.</p>
       <p>Normalde orada bırakacaktım. Ama bu kadar ilerlemişken kural kitabının geri kalanını
       da tamamlamak istedim: pozisyon tekrarı, yetersiz materyal, beraberlik teklifi ve
-      iddiası, bayrak düşmesi, terk. Hakemin tahtaya hiç bakmadan verdiği kararlar
-      da böylece işin içine girdi.</p>
+      talebi, bayrak düşmesi, terk. Tahtadaki hamlelerden değil, oyunculardan ve saatten gelen
+      hakem kararları da böylece işin içine girdi.</p>
       <p>Bu yolun düz bir çizgi olduğunu söyleyemem. Sık sık, daha önce eklediğim bir kuralın
       FIDE'ye tam uymadığını ya da belirli bir pozisyonda yanlış davrandığını fark edip geri
       dönmem gerekti. Bazen yeni bir keşif, o ana kadar yazdığım çözümün tamamını çöpe
@@ -1644,11 +1645,11 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       second closes the hole the first opens. Then castling. At that point what was happening on
       the board was chess as we play it today.</p>
       <p>After that I moved off the board. The two theoretical limits that keep a game from
-      running forever, the 50-move rule and the clock, entered the engine at this stage.</p>
+      running forever, the 75-move rule and the clock, entered the engine at this stage.</p>
       <p>Normally I would have stopped there. But having come this far I wanted to finish the rest
       of the rulebook: repetition of position, insufficient material, the draw offer and the draw
-      claim, flag fall, resignation. That brought in the rulings an arbiter makes without ever
-      looking at the board.</p>
+      claim, flag fall, resignation. That brought in the rulings that come not from the moves on the
+      board but from the players and the clock.</p>
       <p>I cannot claim this path was a straight line. Again and again I had to go back after
       noticing that a rule I had already added did not match FIDE exactly, or behaved wrongly in a
       particular position. Sometimes a new discovery threw out the entire solution I had written
@@ -1695,7 +1696,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>The answer to the question is therefore a single number: <b>1,837 bytes.</b>
       <code>engine.js</code> arbitrates an official game between two human players from the first
       move to the last; joined to a front end as a single playable file, it takes between
-      <b>3,148</b> and <b>1,756 bytes</b>, depending on the interface and on old or modern HTML
+      <b>1,756</b> and <b>3,148 bytes</b>, depending on the interface and on old or modern HTML
       authoring.</p>
     </div>
 
@@ -1743,7 +1744,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       infrastructure is needed for the board, the clocks and the indicators, and the file even
       opens when <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code>
       are never written at all. If the distance the engine had to cover to reach a player were any
-      longer, the 3.1-to-1.71 KB claim would mean nothing in practice.</p>
+      longer, the 1.71-to-3.1 KB claim would mean nothing in practice.</p>
       <p>The second half is about the language itself. JavaScript suits Golfstack far better than
       you would expect: it requires no variable declaration keyword, it imposes no mandatory
       skeleton of entry point and imports, and implicit coercion means the board's numeric
@@ -1779,7 +1780,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>Alışılmış yol belli. Ekrana bir tahta çizilir, taşlar dizilir, oyuncu rastgeleden
       biraz daha iyi oynayan bir botla kapışır; bugüne kadarki denemelerin büyük çoğunluğu bu
       çizgide ilerledi. Code golf dünyasında birkaç yüz bayta sığdırılmış satranç botları var,
-      ama yer açmak için rok, geçerken alma, 50 hamle, 3'lü tekrar gibi oyunun belkemiğini
+      ama yer açmak için rok, geçerken alma, 50 hamle, üçlü tekrar gibi oyunun belkemiğini
       oluşturan kuralların neredeyse hepsini feda ediyorlar. Bot mantığı kodu ciddi biçimde
       şişirir; iki insanın oynadığı yapı bayt bütçesi açısından çok daha ucuz. Üstelik bir bot
       eklemek FIDE uyumluluğuna hiçbir şey katmıyor.</p>
@@ -1853,7 +1854,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <h3 lang="tr">Baytların ötesinde</h3>
     <h3 lang="en">Beyond the bytes</h3>
     <div class="prose" lang="tr">
-      <p>Code golf dünyasındaki satranç projeleri genellikle 50 hamle sınırından, 3'lü tekrardan, yetersiz materyalden, çoğu zaman rok ve geçerken almadan taviz verip yalnızca
+      <p>Code golf dünyasındaki satranç projeleri genellikle 50 hamle sınırından, üçlü tekrardan, yetersiz materyalden, çoğu zaman rok ve geçerken almadan taviz verip yalnızca
       temel çekirdeğe odaklanıyor. Ben kimsenin pek uğramadığı tarafa baktım; projenin
       özgünlüğü de galiba tam olarak oradan doğdu. Bildiğim kadarıyla FideLite, FIDE kitabının
       tamamını bu kadar dar bir bayt alanına sığdıran dünyanın en küçük hakem motoru — ve
@@ -1966,7 +1967,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     </div>
     <div class="prose" lang="en">
       <p>This tab is about the book itself: what each article says, how I read it, and where that
-      reading is contested. There is no code here — how the engine does any of this is on the <a href="#engine">The engine itself</a> tab.</p>
+      reading is contested. There is no code here — how the engine does any of this is on the <a href="#engine">“The engine itself”</a> tab.</p>
       <p>What sits under each article instead is a <b>test</b>: a position, the correct ruling,
       and the wrong answer a system gives when it applies the article superficially. Reading a
       rule is one thing; applying it correctly in every position is another, and only a position
@@ -2236,10 +2237,6 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       kapatıyor: iki kare ilerleyen piyon, tek kare ilerlemiş gibi alınabiliyor. Bu ek kural haksız sonuçların önüne geçmek için konuldu: geçerken alma olmasaydı, bazı
       pozisyonlarda — özellikle <em>zugzwang</em> (hamle sırasının oynayana zarar verdiği durum)
       içerenlerde — oyunun dengesi adil olmayan biçimde bozulurdu.</p>
-      <p>Yamanın <em>kasten dar</em> olması da ilginç. Yalnızca piyon–piyon simetrisini onarıyor.
-      Aynı piyon bir kalenin ya da filin tehdit ettiği kareyi atlayıp geçebilir ve hiçbir şey olmaz.
-      Yani madde “atlanan kare tehdit ediliyorsa telafi et” demiyor; “bir piyonun tehdit ettiği kare
-      atlanıyorsa telafi et” diyor.</p>
     </div>
     <div class="prose" lang="en">
       <p>En passant is not a separate rule but a <b>patch on another one</b>. The pawn’s two-square
@@ -2249,10 +2246,6 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       outcomes: without en passant, the balance of the game would be upset unfairly in some
       positions — especially those involving <em>zugzwang</em> (where having to move is itself a
       disadvantage).</p>
-      <p>What is interesting is that the patch is <em>deliberately narrow</em>. It repairs
-      pawn-versus-pawn symmetry and nothing more. The same pawn may stride past a square covered by
-      a rook or a bishop and nothing follows. The article does not say “compensate when the skipped
-      square is attacked”; it says “compensate when the skipped square is covered by a pawn”.</p>
     </div>
 
     <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Alışın kendisi ucuz: piyonun gerçekten vardığı kareyle ifade edildiği için ayrı bir kural gerektirmiyor. Pahalı olan, hakkın <em>doğup doğmadığına</em> karar vermek — buna dördüncü bölümde dönüyoruz.</p>
@@ -2355,9 +2348,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <li><b>50 ve 75 hamle sayacı.</b> Piyon oynanmadığı ve taş alınmadığı sürece ilerler; ikisinden biri olduğunda sıfırlanır.</li>
       <li><b>Pozisyon tekrarı — 9.2.3.</b> İki pozisyonun aynı sayılması için sıra aynı tarafta olmalı, taşlar aynı karelerde durmalı ve iki tarafın <em>mümkün hamleleri</em> aynı olmalıdır.</li>
       <li><b>Tekrarların ardışık olması gerekmez.</b> Aynı pozisyon oyunun üç ayrı yerinde doğmuş olabilir; önemli olan tekrarın kaç kez olduğu, aralarındaki mesafe değil.</li>
-      <li><b>İddiaya bağlı olanlar — 9.2, 9.3.</b> üçlü tekrar ve 50 tam hamle (100 yarım hamle) doğru iddia edilirse beraberlik verilir.</li>
-      <li><b>Kendiliğinden gelenler — 9.6.</b> beşli tekrar ve 75 tam hamle (150 yarım hamle) dolduğunda beraberlik, iddia beklenmeden ilan edilir.</li>
-      <li><b>Matın üstünlüğü — 9.6.2.</b> Bir hamle mat ediyorsa, aynı hamlede 50 ya da 75 hamle sınırı dolsa bile mat geçerlidir: hamleye iliştirilen 50 hamle iddiası yok sayılır, 75 hamlenin otomatik beraberliği doğmaz. Uzun oyun sonlarında rastlanan bir çakışma bu. Tekrarla çakışma ise mümkün değil: mat edilmiş bir pozisyon daha önce görülmüş olamaz — görülseydi oyun orada biterdi. Kitap bunu iki yerden söylüyor: 75 hamle için 9.6.2'nin kendi metninde açıkça yazılı, 50 hamle iddiası içinse 5.1.1 yetiyor — mat oyunu o anda bitirir.</li>
+      <li><b>Talebe bağlı olanlar — 9.2, 9.3.</b> üçlü tekrar ve 50 tam hamle (100 yarım hamle) doğru talep edilirse beraberlik verilir.</li>
+      <li><b>Kendiliğinden gelenler — 9.6.</b> beşli tekrar ve 75 tam hamle (150 yarım hamle) dolduğunda beraberlik, talep beklenmeden ilan edilir.</li>
+      <li><b>Matın üstünlüğü — 9.6.2.</b> Bir hamle mat ediyorsa, aynı hamlede 50 ya da 75 hamle sınırı dolsa bile mat geçerlidir: hamleye iliştirilen 50 hamle talebi yok sayılır, 75 hamlenin otomatik beraberliği doğmaz. Uzun oyun sonlarında rastlanan bir çakışma bu. Tekrarla çakışma ise mümkün değil: mat edilmiş bir pozisyon daha önce görülmüş olamaz — görülseydi oyun orada biterdi. Kitap bunu iki yerden söylüyor: 75 hamle için 9.6.2'nin kendi metninde açıkça yazılı, 50 hamle talebi içinse 5.1.1 yetiyor — mat oyunu o anda bitirir.</li>
     </ul>
     <ul class="tight" lang="en">
       <li><b>The 50- and 75-move counters.</b> They advance as long as no pawn moves and nothing is captured; either event resets them.</li>
@@ -2549,8 +2542,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="prose" lang="tr">
       <p>FIDE iki hakkı iki ayrı satırdan ölçüyor: geçerken almayı <b>imkân</b>, roku <b>hak</b> olarak sayıyor ve bunu 9.2.3.1 ile 9.2.3.2'de açıkça yazıyor. İlk bakışta tutarsız görünüyor — ikisi de “şu an oynanabilir mi” sorusuna bağlıymış gibi duruyor — ve konu tartışmasız da değil. Kitabın gerekçesi, ikinci bölümde gördüğümüz <em>hak kaybı</em> ile <em>geçici engel</em> ayrımı: geçerken almada geçici engel diye bir şey yok — hak ya vardır ya yoktur ve bir hamle sonra kalıcı olarak düşer; rokta ise ikisi ayrı şeyler ve kitap yalnızca kalıcı olanı sayıyor. Yaygın kabul gören görüş de roku hak olarak saymak: hem daha az maliyetli, hem de bu yoruma göre pozisyonları daha hassas ayırdığı için değerlendirmenin daha iyi yolu. Bu ayrımın gerçek bir
       oyunda bedeli de olmuştur:
-      Karpov–Miles, 1986'da Karpov üçlü tekrar iddia etti, pozisyonların rok hakları bakımından
-      farklı olduğu gösterildi ve iddia reddedildi. Aradaki fark tahtaya bakınca görünmüyordu.</p>
+      Karpov–Miles, 1986'da Karpov üçlü tekrar talep etti, pozisyonların rok hakları bakımından
+      farklı olduğu gösterildi ve talep reddedildi. Aradaki fark tahtaya bakınca görünmüyordu.</p>
     </div>
     <div class="prose" lang="en">
       <p>FIDE measures the two rights on two different rows: it counts en passant as <b>availability</b> and castling as a <b>right</b>, and says so plainly in 9.2.3.1 and 9.2.3.2. At first glance it looks inconsistent — both seem tied to the question “can it be played right now” — and the point is not undisputed. The book's reasoning is the distinction between <em>losing a right</em> and <em>temporary prevention</em> that we met in section two: en passant has no temporary prevention — the right either exists or it does not, and one move later it is permanently gone — while for castling the two are separate things, and the book counts only the permanent one. The widely accepted view, too, is to count castling as a right: it is cheaper, and on that reading it separates positions more precisely and is the
@@ -2799,9 +2792,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       çünkü sonucu 150 yarım hamle beklemeden veriyorlar. İkisi ayrı bir kesinlikten besleniyor:
       ölü pozisyon <b>geometrik</b> kesinlikten — matın gelmeyeceğini tahtanın kendisi söylüyor;
       tekrar ise <b>niyetin</b> kesinliğinden — aynı pozisyona üçüncü kez dönmek kimsenin
-      ilerlemek istemediğini gösteriyor ve oyuncu iddia edebiliyor, beşincide artık kimseye sormaya
+      ilerlemek istemediğini gösteriyor ve oyuncu talep edebiliyor, beşincide artık kimseye sormaya
       gerek kalmıyor. Günlük oyunda da resmi turnuvada da bu kuralların oyuncuya kazandırdığı zaman
-      paha biçilmez. En üst seviyenin eklediği saat, terk, iddia ve teklif ise ayrı bir boyut:
+      paha biçilmez. En üst seviyenin eklediği saat, terk, talep ve teklif ise ayrı bir boyut:
       tahtanın değil <b>insan etkileşiminin</b> kuralları; onlar olmadan turnuva satrancı olmaz.</p>
     </div>
     <div class="prose" lang="en">
@@ -2894,31 +2887,37 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <h4 lang="en">Counters instead of a scoresheet <span class="dtag">8.1 · becomes counters digitally</span></h4>
 
     <div class="prose" lang="tr">
-      <p>Bu sayaçların tahta başındaki karşılığı oyuncunun kendi tuttuğu kayıt: FIDE oyuncudan
-      hamleleri kaydetmesini istiyor (8.1) ve iddianın dayanağı o kayıt. 50 hamlenin dolup
-      dolmadığını, bir pozisyonun kaçıncı kez geldiğini oyuncu yalnızca kayıttan çıkarabiliyor;
-      onun dışında not tutmak bile yasak (11.3.1). Kural oldukça katı. 9.2 ve 9.3'te iddia da
-      hamleyi kayda yazarak yapılıyor, hakem de kayıttan doğruluyor. Kayıt orada bir delil, çünkü
-      masa başında geçersiz hamle de yanlış iddia da mümkün; ikisinin bedeli de ona bakılarak
-      kesiliyor (7.5, 9.5).</p>
+      <p>Bu sayaçların tahta başındaki karşılığı oyuncunun kendi tuttuğu kayıt. FIDE oyuncudan
+      kendi hamlelerini ve rakibininkileri, hamle hamle ve okunaklı biçimde <b>cebirsel
+      notasyonla</b> kaydetmesini istiyor (8.1.1): elle kâğıt kayıt formuna ya da FIDE onaylı
+      elektronik kayda. FIDE'nin tanıdığı tek notasyon sistemi bu (<a class="ext" href="https://handbook.fide.com/chapter/E012023" target="_blank" rel="noopener">Ek C ↗️</a>); bilgisayar
+      satrancında <b>SAN</b> (Standard Algebraic Notation) adıyla bilinen, <code>Nf3</code>,
+      <code>exd5</code>, <code>O-O</code> diye yazılan biçim. Taş harfleri oyuncunun kendi dilinde
+      olabiliyor — Türkçe bir kayıtta A, F, K, V, Ş — SAN ise İngilizce harfleri sabitliyor.
+      Talebin dayanağı o kayıt. 50 hamlenin dolup dolmadığını, bir pozisyonun kaçıncı kez geldiğini
+      oyuncu yalnızca kayıttan çıkarabiliyor; onun dışında not tutmak bile yasak (11.3.1). Kural
+      oldukça katı. Hamleyi oynamadan önce kayda yazmak da yasak; istisnalardan biri 9.2 ve 9.3
+      talebi (8.1.2): talep hamleyi kayda yazarak yapılıyor, hakem de kayıttan doğruluyor. Kayıt
+      orada bir delil, çünkü masa başında geçersiz hamle de yanlış talep de mümkün; ikisinin bedeli
+      de ona bakılarak kesiliyor (7.5, 9.5).</p>
       <p>Dijitalde bu yükün hiçbiri kalmıyor. Geçersiz hamle yapmak imkânsız, dolayısıyla cezası
-      da yok; yanlış bir iddia da anında denetleniyor ve kimseye bir şey kaybettirmiyor. Kaydın delil olarak
+      da yok; yanlış bir talep de anında denetleniyor ve kimseye bir şey kaybettirmiyor. Kaydın delil olarak
       taşıdığı iş kalkınca, oyuncunun ondan çıkarmak zorunda kaldığı iki sayı kalıyor: yarım hamle
       sayacı ve tekrar sayısı.</p>
-      <p>Bu hesap otomatikleştirilmeli: iki sayı her hamlede ekranda güncel durmalı. Sayaç tam hamle değil <b>yarım hamle</b> saymalı; bence doğrusu bu. İddia oynanacak hamle
+      <p>Bu hesap otomatikleştirilmeli: iki sayı her hamlede ekranda güncel durmalı. Sayaç tam hamle değil <b>yarım hamle</b> saymalı; bence doğrusu bu. Talep oynanacak hamle
       üzerinden de kurulabildiği için sınırı hangi yarım hamlenin doldurduğunu bilmek kritik: tam
       hamleyle yazılsaydı ekrandaki “49” hem 98 hem 99 yarım hamle olabilirdi ve oyuncu sıradaki
       hamlesinin elliyi tamamlayıp tamamlamadığını bilemezdi. Hassasiyetin çizgisi tam bu noktada.
       Pozisyonun kaçıncı kez görüldüğü de aynı şekilde sürekli bildirilmeli; böylece oyuncu hakkın doğduğunu sonradan öğrenmez, yaklaştığını görür. Bence bu, hakkı ancak doğduktan sonra
-      bir düğmeyi yakarak bildiren yaklaşımlardan daha tutarlı: kitap iddiayı oynanacak hamle
+      bir düğmeyi yakarak bildiren yaklaşımlardan daha tutarlı: kitap talebi oynanacak hamle
       üzerinden de tanıyor, düğme ise yalnızca oynanmış olanı görüyor.</p>
       <p>FIDE'yi, hatta USCF'yi baz alan sistemleri dijitale uyarlamanın en mantıklı yolu da bence
-      bu. Geçersiz hamlenin ve yanlış iddianın imkânsız olduğu bir ortamda sayıları otomatik veren
+      bu. Geçersiz hamlenin ve yanlış talebin imkânsız olduğu bir ortamda sayıları otomatik veren
       sayaçlar, yukarıdaki uyarlamalarla tamamen tutarlı: kaydın yükü kalktıysa, kayıttan
       çıkarılan hesabın yükü de kalkmalı.</p>
       <p>Not yasağı düşünüldüğünde bu FIDE'ye aykırı sayılabilir mi? Sayılırsa motor en baştan
       aykırı olur: yalnızca geçerli hamleye izin veriyor, geçersiz hamleye 7.5'in cezasını hiç
-      uygulamıyor, iddiayı da kayıt yerine anında denetliyor. Kayıt, not yasağı ve ceza maddeleri
+      uygulamıyor, talebi da kayıt yerine anında denetliyor. Kayıt, not yasağı ve ceza maddeleri
       oyunun değil masa başının kuralları; delil üretmek ve dürüstlüğü korumak için varlar ve
       dijitalde o işi platform kendisi görüyor. FIDE'nin kendi <a class="ext" href="https://handbook.fide.com/chapter/OnlineChessRegulations" target="_blank" rel="noopener">çevrimiçi yönetmeliği ↗️</a>
       de aynı yönde: oyun alanı yalnızca geçerli hamleleri kabul ediyor, bütün hamleler ve saatler
@@ -2929,14 +2928,20 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       kullanabilmek için hamle listesini geriye doğru saymak zorunda kalmamalı.</p>
     </div>
     <div class="prose" lang="en">
-      <p>Over the board, what stands behind these counters is the players' own record: FIDE requires
-      them to record the moves (8.1), and the record is what a claim stands on. Whether fifty moves
-      have passed, how many times a position has occurred — the player can work both out only from
-      the scoresheet; keeping any other notes is forbidden (11.3.1). The rule is strict. Under 9.2
-      and 9.3 the claim itself is made by writing the move on the scoresheet, and the arbiter checks
-      it against the scoresheet. There the record is evidence, because over the board both an
-      illegal move and an incorrect claim are possible, and the price of each is set by looking at
-      it (7.5, 9.5).</p>
+      <p>Over the board, what stands behind these counters is the players' own record. FIDE requires
+      each player to record their own moves and their opponent's, move after move and legibly, in
+      <b>algebraic notation</b> (8.1.1): by hand on the paper scoresheet or on a FIDE-certified
+      electronic scoresheet. It is the only notation system FIDE recognises (<a class="ext" href="https://handbook.fide.com/chapter/E012023" target="_blank" rel="noopener">Appendix C ↗️</a>);
+      computer chess knows it as <b>SAN</b> (Standard Algebraic Notation), the form that writes
+      <code>Nf3</code>, <code>exd5</code>, <code>O-O</code>. Piece letters may follow the player's own
+      language — a Turkish scoresheet writes A, F, K, V, Ş — while SAN fixes the English ones. The
+      record is what a claim stands on. Whether fifty moves have passed, how many times a position
+      has occurred — the player can work both out only from the scoresheet; keeping any other notes
+      is forbidden (11.3.1). The rule is strict. Writing a move down before playing it is forbidden
+      too; one of the exceptions is the claim under 9.2 or 9.3 (8.1.2): the claim is made by writing
+      the move on the scoresheet, and the arbiter checks it against the scoresheet. There the record
+      is evidence, because over the board both an illegal move and an incorrect claim are possible,
+      and the price of each is set by looking at it (7.5, 9.5).</p>
       <p>Digitally none of that load remains. An illegal move is impossible, so it carries no
       penalty; an incorrect claim is checked on the spot and costs nobody anything. With
       the record no longer needed as evidence, what is left are the two numbers the player had to
@@ -2972,7 +2977,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p><b>In FideLite.</b> Both numbers stay current on the status line after every move; the <a href="#indicators">indicators section</a> explains how to read them.</p>
     </div>
 
-    <h4 lang="tr">FIDE'nin çevrimiçi yönetmeliği <span class="dtag">dijitalde iddia kendiliğinden</span></h4>
+    <h4 lang="tr">FIDE'nin çevrimiçi yönetmeliği <span class="dtag">dijitalde talep kendiliğinden</span></h4>
     <h4 lang="en">FIDE's online regulations <span class="dtag">claims become automatic digitally</span></h4>
     <div class="prose" lang="tr">
       <p>FIDE'nin tahta başı kurallarının yanında bir de <a class="ext" href="https://handbook.fide.com/chapter/OnlineChessRegulations" target="_blank" rel="noopener">çevrimiçi yönetmeliği ↗️</a> var:
@@ -2983,10 +2988,10 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       saatlerin kendiliğinden kaydedilmesi, ön hamle ve otomatik vezir terfisi ise oyuncunun ya da
       arayüzün ayarı, kuralın değil. Buradaki iddia motorun kural doğruluğu üzerine, arayüzün
       konforu üzerine değil.</p>
-      <p>Asıl fark iddiada. Yönetmelik üçlü tekrarı ve 50 hamleyi kimsenin iddiasını beklemeden,
-      kendiliğinden beraberlik sayıyor (5.4). Bu, iki oyuncunun da iddia düğmesinin karşıdakinin
+      <p>Asıl fark talepte. Yönetmelik üçlü tekrarı ve 50 hamleyi kimsenin talebini beklemeden,
+      kendiliğinden beraberlik sayıyor (5.4). Bu, iki oyuncunun da talep düğmesinin karşıdakinin
       aleyhine açık olduğunu varsaymakla aynı şey; amaç sadeleştirmek. Bu da özünde bir arayüz tercihi: eşik
-      dolduğu anda iddiayı oyuncu adına kendisi yapan bir arayüz, motora dokunmadan aynı davranışı
+      dolduğu anda talebi oyuncu adına kendisi yapan bir arayüz, motora dokunmadan aynı davranışı
       verir. Varyantlar arasında üçlü tekrarı ve 50 hamleyi kendiliğinden işleten bir sürüm de
       zaten var: <a href="#special">Chess.com eşdeğeri</a>.</p>
       <p>Kurala dokunan tek fark terkte. Yönetmelikte terk eden her durumda kaybediyor (5.2). Tahta
@@ -3017,12 +3022,12 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="prose fl" lang="tr">
       <p><b>FideLite'ta.</b> İlke, ana federasyonun kurallarını dijitale olabildiğince aslına sadık
       taşımak; tahta başı kitabı bu yüzden uygulanıyor. Adı da bu ilkeyi taşıyor: <i>fidélité</i>,
-      sadakat. İddia ile kendiliğinden beraberlik bilerek ayrı tutuluyor: 50 hamle ve üçlü tekrar
-      iddiayla, 75 hamle ve beşli tekrar kendiliğinden. Biri oyuncunun hakkı, öbürü kuralın hükmü;
+      sadakat. Talep ile kendiliğinden beraberlik bilerek ayrı tutuluyor: 50 hamle ve üçlü tekrar
+      taleple, 75 hamle ve beşli tekrar kendiliğinden. Biri oyuncunun hakkı, öbürü kuralın hükmü;
       kitap da ikisini ayrı maddelere yazıyor. FideLite bu ayrımın dijitale sürtünmesiz
-      taşınabildiğini savunuyor: iddia <a href="#claims">hamlenin kendi kanalıyla</a> gidiyor,
+      taşınabildiğini savunuyor: talep <a href="#claims">hamlenin kendi kanalıyla</a> gidiyor,
       sayılar ekranda duruyor; oyuncu ne hakkını kaçırıyor ne de onu kullanmak için hamle listesini
-      geriye doğru sayıyor. Lichess de kısmen aynı yoldan gidiyor: üçlü tekrarı iddiaya bırakıyor,
+      geriye doğru sayıyor. Lichess de kısmen aynı yoldan gidiyor: üçlü tekrarı talebe bırakıyor,
       terkte de rakibin mat edip edemeyeceğine bakıyor; ama 50 hamlede oyunu kendiliğinden
       bitiriyor ve terkte yalnızca materyali sayıyor.</p>
     </div>
@@ -3063,7 +3068,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 
     <ul class="tight" lang="tr">
       <li><b>İki taraflı.</b> İki tarafın da mat edememesi gerekir. Bir taraf hâlâ edebiliyorsa pozisyon ölü değildir. Bir sonraki bölümdeki 6.9 ve 5.1.2 ise yalnızca <em>bir</em> tarafı sorar — ikisini karıştırmak bu sekmedeki en kolay hata.</li>
-      <li><b>Anında biter.</b> Oyun, pozisyon ölü hâle geldiği <em>anda</em> bitmiştir. Ne bir iddia beklenir ne hakem. Sonrasında oynanan hamleler yok hükmündedir — kitap bunu, sonucu geriye taşıyacak kadar ciddiye alıyor.</li>
+      <li><b>Anında biter.</b> Oyun, pozisyon ölü hâle geldiği <em>anda</em> bitmiştir. Ne bir talep beklenir ne hakem. Sonrasında oynanan hamleler yok hükmündedir — kitap bunu, sonucu geriye taşıyacak kadar ciddiye alıyor.</li>
       <li><b>İki kolu var.</b> Mat imkânsızlığı ya <em>materyalden</em> doğar — tahtada mat edecek taş kalmamıştır — ya da <em>yapıdan</em>: taşlar fazlasıyla yeterlidir ama pozisyon kilitlenmiştir. Aynı madde, iki bambaşka soru.</li>
     </ul>
     <ul class="tight" lang="en">
@@ -3755,6 +3760,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>Süre bitimi için bu istisna kitapta uzun süredir var. Terk için <b>2023'te eklendi</b>:
       önceki metin, terk eden tarafın her hâlükârda kaybettiğini söylüyordu. Yani aynı pozisyonda
       2022'de terk eden kaybederken, 2023'ten itibaren beraberlik alıyor.</p>
+      <p>Terkin bir <b>sıra şartı</b> da yok. Teklif ve talebin aksine kitap terke sıra koymuyor:
+      oyuncu, rakibin süresi işlerken de dahil, her an terk edebilir (5.1.2).</p>
       <p>6.9'un açılış cümlesi de gözden kaçırılmamalı: madde, 5.1.1, 5.1.2, 5.2.1,
       5.2.2 ve 5.2.3'ten biri geçerliyse <em>hiç işlemiyor</em>. Mat, terk, pat, ölü pozisyon ve
       anlaşmalı beraberlik bayrak düşmesinin önüne geçiyor. Matın bayrağa üstünlüğü de buradan
@@ -3767,6 +3774,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>For flag fall the exception has been in the book a long time. For resignation it was
       <b>added in 2023</b>: the earlier text said the player who resigns loses, full stop. In the
       same position, a player resigning in 2022 lost and from 2023 onward draws.</p>
+      <p>Resignation carries no <b>turn condition</b> either. Unlike the offer and the claim, the book
+      sets no turn on resigning: a player may resign at any moment, including while the opponent's
+      clock is running (5.1.2).</p>
       <p>The opening clause of 6.9 is not to be passed over either: the article <em>does not apply
       at all</em> where one of 5.1.1, 5.1.2, 5.2.1, 5.2.2 or 5.2.3 applies. Checkmate, resignation,
       stalemate, dead position and draw by agreement all come before flag fall. That is where mate's
@@ -3804,6 +3814,29 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="prose fl" lang="en">
       <p><b>In FideLite.</b> The clock is updated before the move is processed; if time has
       already run out the ruling comes from the flag, otherwise from the board.</p>
+    </div>
+    <div class="prose" lang="tr">
+      <p>Bir hakem algoritmasını çevrimiçi bir uygulamaya taşıyan, tam da bu noktaya dikkat etmeli:
+      teklif ve talep sıraya bağlı kalmalı, terk bağlanmamalı.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>Anyone porting an arbiter algorithm into an online application should watch exactly this
+      point: the offer and the claim should stay tied to the turn, resignation should not.</p>
+    </div>
+    <div class="prose fl" lang="tr">
+      <p><b>FideLite'ta bu tam sağlanamıyor.</b> Sürümler tek cihazda, çevrimdışı oynanan birer
+      simülasyon: iki oyuncu aynı ekranı paylaşıyor ve terk de hamlenin kanalından geçiyor. Basan
+      sırası gelen taraf kabul ediliyor; başkasının sırasını çiğnemek arayüz düzeyinde bir mesele.
+      Amaç arayüzü değil kural doğruluğunu sergilemek olduğu için taviz buradan verildi. Kod tarafı
+      ve ölçümü <a href="#resignside">Tuzaklar'da</a>.</p>
+    </div>
+    <div class="prose fl" lang="en">
+      <p><b>In FideLite this is not fully provided.</b> The builds are simulations played offline on a
+      single device: two players share one screen, and resignation too travels on the move's
+      channel. Whoever presses is taken to be the side to move; one player overriding the other's turn
+      is a matter for the interface. Since the aim is to exhibit rule correctness rather than the
+      interface, the concession was made here. The code side and the measurements are in
+      <a href="#resignside">Pitfalls</a>.</p>
     </div>
 
     <ul class="tight" lang="tr">
@@ -3887,15 +3920,15 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <i data-f="c" data-r="6"></i>
 </div></td></tr>
 <tr><td>Ş + At</td><td>Ş + Piyon <span class="sub">a ya da h dikeyinde</span></td><td>Var</td><td><div class="mb et el mini" role="img" aria-label="şah ve ata karşı şah ve a piyonu: terfiden önce yardımlı mat">
-<i><b class="b">♚</b></i>
 <i class="d"></i>
-<i data-r="8"><b class="w">♚</b></i>
-<i class="d"><b class="b">♟</b></i>
 <i></i>
-<i class="d" data-r="7"><b class="w">♞</b></i>
-<i data-f="a"></i>
-<i class="d" data-f="b"></i>
-<i data-f="c" data-r="6"></i>
+<i class="d" data-r="3"></i>
+<i><b class="b">♟</b></i>
+<i class="d"></i>
+<i data-r="2"><b class="w">♞</b></i>
+<i class="d" data-f="a"><b class="b">♚</b></i>
+<i data-f="b"></i>
+<i class="d" data-f="c" data-r="1"><b class="w">♚</b></i>
 </div></td></tr>
 <tr><td>Ş + At</td><td>Ş + Piyon <span class="sub">diğer dikeylerde</span></td><td>Var</td><td>Terfiden sonra<span class="sub">bu şekilde kurulamaz; piyon terfi edip sıkıştırmayı yapacak taşa dönüşünce mümkün</span></td></tr>
 <tr><td>Ş + Fil</td><td>Ş + At</td><td>Var</td><td><div class="mb et el mini" role="img" aria-label="şah ve fil tarafına karşı şah ve at: yardımlı mat pozisyonu">
@@ -3921,15 +3954,15 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <i data-f="c" data-r="6"><b class="w">♝</b></i>
 </div></td></tr>
 <tr><td>Ş + Fil</td><td>Ş + Piyon <span class="sub">a ya da h dikeyinde</span></td><td>Var</td><td><div class="mb et el mini" role="img" aria-label="şah ve file karşı şah ve a piyonu: terfiden önce yardımlı mat">
-<i><b class="b">♚</b></i>
 <i class="d"></i>
-<i data-r="8"></i>
-<i class="d"><b class="b">♟</b></i>
 <i></i>
-<i class="d" data-r="7"><b class="w">♚</b></i>
-<i data-f="a"></i>
-<i class="d" data-f="b"></i>
-<i data-f="c" data-r="6"><b class="w">♝</b></i>
+<i class="d" data-r="3"><b class="w">♝</b></i>
+<i><b class="b">♟</b></i>
+<i class="d"></i>
+<i data-r="2"><b class="w">♚</b></i>
+<i class="d" data-f="a"><b class="b">♚</b></i>
+<i data-f="b"></i>
+<i class="d" data-f="c" data-r="1"></i>
 </div></td></tr>
 <tr><td>Ş + Fil</td><td>Ş + Piyon <span class="sub">diğer dikeylerde</span></td><td>Var</td><td>Terfiden sonra<span class="sub">bu şekilde kurulamaz; piyon terfi edip sıkıştırmayı yapacak taşa dönüşünce mümkün</span></td></tr>
 <tr><td>Ş + At + At</td><td>Ş</td><td>Var</td><td><div class="mb eb er mini" role="img" aria-label="şah ve iki at tarafına karşı çıplak şah: yardımlı mat pozisyonu">
@@ -3989,15 +4022,15 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <i data-f="c" data-r="6"></i>
 </div></td></tr>
 <tr><td>K + N</td><td>K + P <span class="sub">on the a- or h-file</span></td><td>Yes</td><td><div class="mb et el mini" role="img" aria-label="king and knight against king and a-pawn: helpmate before promotion">
-<i><b class="b">♚</b></i>
 <i class="d"></i>
-<i data-r="8"><b class="w">♚</b></i>
-<i class="d"><b class="b">♟</b></i>
 <i></i>
-<i class="d" data-r="7"><b class="w">♞</b></i>
-<i data-f="a"></i>
-<i class="d" data-f="b"></i>
-<i data-f="c" data-r="6"></i>
+<i class="d" data-r="3"></i>
+<i><b class="b">♟</b></i>
+<i class="d"></i>
+<i data-r="2"><b class="w">♞</b></i>
+<i class="d" data-f="a"><b class="b">♚</b></i>
+<i data-f="b"></i>
+<i class="d" data-f="c" data-r="1"><b class="w">♚</b></i>
 </div></td></tr>
 <tr><td>K + N</td><td>K + P <span class="sub">on any other file</span></td><td>Yes</td><td>After promotion<span class="sub">cannot be built this way; possible once the pawn promotes into a piece that does the shutting in</span></td></tr>
 <tr><td>K + B</td><td>K + N</td><td>Yes</td><td><div class="mb et el mini" role="img" aria-label="king and bishop against king and knight: helpmate position">
@@ -4023,15 +4056,15 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <i data-f="c" data-r="6"><b class="w">♝</b></i>
 </div></td></tr>
 <tr><td>K + B</td><td>K + P <span class="sub">on the a- or h-file</span></td><td>Yes</td><td><div class="mb et el mini" role="img" aria-label="king and bishop against king and a-pawn: helpmate before promotion">
-<i><b class="b">♚</b></i>
 <i class="d"></i>
-<i data-r="8"></i>
-<i class="d"><b class="b">♟</b></i>
 <i></i>
-<i class="d" data-r="7"><b class="w">♚</b></i>
-<i data-f="a"></i>
-<i class="d" data-f="b"></i>
-<i data-f="c" data-r="6"><b class="w">♝</b></i>
+<i class="d" data-r="3"><b class="w">♝</b></i>
+<i><b class="b">♟</b></i>
+<i class="d"></i>
+<i data-r="2"><b class="w">♚</b></i>
+<i class="d" data-f="a"><b class="b">♚</b></i>
+<i data-f="b"></i>
+<i class="d" data-f="c" data-r="1"></i>
 </div></td></tr>
 <tr><td>K + B</td><td>K + P <span class="sub">on any other file</span></td><td>Yes</td><td>After promotion<span class="sub">cannot be built this way; possible once the pawn promotes into a piece that does the shutting in</span></td></tr>
 <tr><td>K + N + N</td><td>K</td><td>Yes</td><td><div class="mb eb er mini" role="img" aria-label="king and two knights against a lone king: helpmate position">
@@ -5033,7 +5066,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <div class="prose" lang="tr">
         <p><b>Zorunlu beşli tekrar.</b> Zorunlu hat aynı pozisyona dönüp duruyor ve beşli tekrar sınırına çarpıyor; oyun orada kendiliğinden bitiyor. <b>Doğru hüküm: beraberlik.</b> Bu altıncısı hepsinden zor, çünkü hükmü ne diyagram ne de FEN taşıyor — <b>oyunun geçmişi</b> gerekiyor. Hangi pozisyonun kaç kez görüldüğü bir kare dizisinden çıkarılamaz.</p>
         <p>Pratikte işler bu kadar karmaşık olmuyor. Bu dalın asıl karşılığı, tekrara zaten bir
-        sonraki yarım hamlede düşecek olan ama <b>iddia edecek vakti kalmamış</b> oyuncular. Gerçek oyunlarda görülen haksız sonuçların çoğu bu türden ve arama onları birkaç düğümde
+        sonraki yarım hamlede düşecek olan ama <b>talep edecek vakti kalmamış</b> oyuncular. Gerçek oyunlarda görülen haksız sonuçların çoğu bu türden ve arama onları birkaç düğümde
         kapatıyor. Yukarıdaki gibi uzun zorunlu hatlar kuralın sınırını göstermek için var, sık
         rastlanan hâli için değil.</p>
       </div>
@@ -5460,15 +5493,15 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       dead position (½‑½) before a single move is played.</p>
     </div>
 
-    <h3 id="claims" lang="tr">7. İddia ve anlaşma — 9.1 · 9.2 · 9.3 · 9.5</h3>
+    <h3 id="claims" lang="tr">7. Talep ve anlaşma — 9.1 · 9.2 · 9.3 · 9.5</h3>
     <h3 lang="en" data-id="claims">7. Claims and agreement — 9.1 · 9.2 · 9.3 · 9.5</h3>
 
     <p class="layer" lang="tr">Kitap ne diyor</p>
     <p class="layer" lang="en">What the book says</p>
     <ul class="tight" lang="tr">
-      <li><b>Mevcut pozisyon üzerinden iddia.</b> Eşik tahtada zaten dolmuşsa hamle yapmadan iddia edilir.</li>
-      <li><b>Hamleyle iddia.</b> Oyuncu oynayacağı hamleyi bildirir ve o hamle oynandığında kuralın sağlanacağını beyan eder. Hamle bildirildikten sonra değiştirilemez.</li>
-      <li><b>Yanlış iddianın bedeli — 9.5.</b> <span class="dtag">dijitalde karşılığı yok</span> İddia doğru çıkmazsa rakibe iki dakika ek süre verilir. Bu, masa başının sürtünmesine karşılık: iddia saati durdurur, hakemi masaya çağırır, rakibin temposunu ve dikkatini böler. Dijitalde iddia anında ve otomatik doğrulanır; saat durmaz, kimse beklemez, rakip hiçbir şey kaybetmez. Telafi edilecek bir kayıp olmadığı için kuralın dijitalde karşılığı da yok — geçersiz hamlenin cezasıyla aynı maliyet sınıfında.</li>
+      <li><b>Mevcut pozisyon üzerinden talep.</b> Eşik tahtada zaten dolmuşsa hamle yapmadan talep edilir.</li>
+      <li><b>Hamleyle talep.</b> Oyuncu oynayacağı hamleyi bildirir ve o hamle oynandığında kuralın sağlanacağını beyan eder. Hamle bildirildikten sonra değiştirilemez.</li>
+      <li><b>Yanlış talebin bedeli — 9.5.</b> <span class="dtag">dijitalde karşılığı yok</span> Talep doğru çıkmazsa rakibe iki dakika ek süre verilir. Bu, masa başının sürtünmesine karşılık: talep saati durdurur, hakemi masaya çağırır, rakibin temposunu ve dikkatini böler. Dijitalde talep anında ve otomatik doğrulanır; saat durmaz, kimse beklemez, rakip hiçbir şey kaybetmez. Telafi edilecek bir kayıp olmadığı için kuralın dijitalde karşılığı da yok — geçersiz hamlenin cezasıyla aynı maliyet sınıfında.</li>
     </ul>
     <ul class="tight" lang="en">
       <li><b>Claiming the current position.</b> If the threshold is already met on the board, the claim is made without playing a move.</li>
@@ -5478,25 +5511,25 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 
     <p class="layer" lang="tr">Algoritmada nasıl okunur</p>
     <p class="layer" lang="en">How an algorithm reads it</p>
-    <h4 lang="tr">İddia penceresi</h4>
+    <h4 lang="tr">Talep penceresi</h4>
     <h4 lang="en">The claim window</h4>
     <div class="prose" lang="tr">
-      <p>Kitap iddiayı <em>hamleye bağlı</em> kuruyor: ya oynayacağın hamleyi bildirip iddia
+      <p>Kitap talebi <em>hamleye bağlı</em> kuruyor: ya oynayacağın hamleyi bildirip talep
       edersin ya da pozisyon doğduğunda, sıra sendeyken. Tahta başında bu pencere düşünme süren
       kadar geniştir; rahatça yeter.</p>
-      <p>Sıra sendeyken, tahtada zaten dolmuş bir eşik için iddia etmekte sorun yok. Sürtünme, hak
-      <b>yapacağın hamleyle</b> doğacaksa başlıyor. Kitap bunu hamleyi önceden bildirip iddia etmeye
+      <p>Sıra sendeyken, tahtada zaten dolmuş bir eşik için talep etmekte sorun yok. Sürtünme, hak
+      <b>yapacağın hamleyle</b> doğacaksa başlıyor. Kitap bunu hamleyi önceden bildirip talep etmeye
       izin vererek çözüyor. Dijitalde hamle bu bilgiyi kendi içinde taşımıyorsa ve otomatik bir
       tetik de açık değilse, oyuncu önce hamlesini oynamak zorunda kalıyor — ama hamle oynandığı an
       sıra rakibe geçiyor ve hak artık onun. Rakip bir alış ya da piyon hamlesiyle sayacı
       sıfırlayabilir, pozisyonu değiştirebilir; <b>ön hamlede</b> (premove — sırası gelmeden girilip
-      sırası gelir gelmez otomatik oynanan hamle) bu milisaniyeler içinde oluyor. Hak, oyuncu iddia
+      sırası gelir gelmez otomatik oynanan hamle) bu milisaniyeler içinde oluyor. Hak, oyuncu talep
       edemeden, istemediği biçimde elinden gidiyor. Kural ihlal edilmiş olmuyor — kullanılmamış bir
       hak zaten düşer — ama tahta başında hamleyi bildirerek kullanılan hak, ekranda fiilen
-      kullanılamaz hâle geliyor. Bu belirli bir siteye özgü değil; hamleye iddia iliştirmeye izin
+      kullanılamaz hâle geliyor. Bu belirli bir siteye özgü değil; hamleye talep iliştirmeye izin
       vermeyen her platformda aynı; ön hamle sorunu yalnızca keskinleştiriyor.</p>
-      <p>Buradan çıkan tasarım sonucu net: <b>iddia kanalı hamlenin kendisiyle birlikte
-      gitmelidir</b> — ya hamle iddiayı kendi içinde taşır ya da hak otomatik tetiklenir. Ayrı bir
+      <p>Buradan çıkan tasarım sonucu net: <b>talep kanalı hamlenin kendisiyle birlikte
+      gitmelidir</b> — ya hamle talebi kendi içinde taşır ya da hak otomatik tetiklenir. Ayrı bir
       düğmeye bırakılırsa pencere yeniden kapanır.</p>
     </div>
     <div class="prose" lang="en">
@@ -5523,9 +5556,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <h4 lang="tr">Teklif de hamleye bağlıdır</h4>
     <h4 lang="en">The offer, too, is tied to a move</h4>
     <div class="prose" lang="tr">
-      <p>Kitap iddia ile teklifi birbirine bağlıyor: 9.2 ya da 9.3'e göre yapılan her iddia aynı
-      zamanda bir beraberlik teklifidir (9.1.2.3). Şartı tutmayan bir iddia boşa gitmez; rakibin
-      önünde teklif olarak kalır ve rakip kabul ederse oyun berabere biter. Teklifin kendi kuralları da iddianınkine paralel:</p>
+      <p>Kitap talep ile teklifi birbirine bağlıyor: 9.2 ya da 9.3'e göre yapılan her talep aynı
+      zamanda bir beraberlik teklifidir (9.1.2.3). Şartı tutmayan bir talep boşa gitmez; rakibin
+      önünde teklif olarak kalır ve rakip kabul ederse oyun berabere biter. Teklifin kendi kuralları da talebinkine paralel:</p>
     </div>
     <div class="prose" lang="en">
       <p>The book links the claim to the offer: every claim under 9.2 or 9.3 is also an offer of a
@@ -5533,7 +5566,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       offer, and if the opponent accepts, the game is drawn. The offer's own rules run parallel to the claim's:</p>
     </div>
     <ul class="tight" lang="tr">
-      <li><b>Anlaşmalı beraberlik — 9.1.</b> <span class="dtag">dijitalde hamleye gömülür</span> Masa başında teklif, hamle tahtada yapıldıktan sonra ve saate basılmadan önce yapılır: teklif hamlenin bir eklentisidir, ayrı bir mesaj değil. Dijitaldeki karşılığı, teklifi iddiayla aynı kanaldan hamlenin içine gömmek.</li>
+      <li><b>Anlaşmalı beraberlik — 9.1.</b> <span class="dtag">dijitalde hamleye gömülür</span> Masa başında teklif, hamle tahtada yapıldıktan sonra ve saate basılmadan önce yapılır: teklif hamlenin bir eklentisidir, ayrı bir mesaj değil. Dijitaldeki karşılığı, teklifi taleple aynı kanaldan hamlenin içine gömmek.</li>
       <li><b>Teklifin düşmesi.</b> Teklif, rakip onu açıkça reddettiğinde ya da kabul etmeyen bir hamle oynadığında geçerliliğini yitirir. Teklif veren taraf teklifini geri alamaz.</li>
     </ul>
     <ul class="tight" lang="en">
@@ -5546,6 +5579,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       Platformlarda ise bu pencere hiç yok: teklif her an gönderilebiliyor ve tekrarlandığında
       rakibin düşünmesini bölen bir araca dönüşüyor. Kitabın teklifi sıraya bağlayarak dışarıda
       bırakmak istediği davranış tam olarak bu.</p>
+      <p>Terk bu şartın dışında: kitap terke sıra koymuyor; ayrıntısı <a href="#flag">6. bölümde</a>.</p>
     </div>
     <div class="prose" lang="en">
       <p>An offer made at any other time still counts, but distracting the opponent falls under
@@ -5553,38 +5587,16 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       On the platforms that window does not exist at all: an offer can be sent at any moment, and
       when repeated it turns into a device for interrupting the opponent's thinking. That is exactly
       the behaviour the book means to keep out by tying the offer to the turn.</p>
+      <p>Resignation lies outside this condition: the book sets no turn on resigning; the detail is in <a href="#flag">section 6</a>.</p>
     </div>
 
-    <h4 lang="tr">Sıra şartı ve terk</h4>
-    <h4 lang="en">The turn condition and resignation</h4>
-    <div class="prose" lang="tr">
-      <p>Sıra şartı teklif ve iddiada <b>kuraldan</b> gelir; terkte gelmez — kitap terke sıra
-      şartı koymaz, oyuncu her an terk edebilir. Bir hakem algoritmasını çevrimiçi bir uygulamaya
-      taşıyan, tam da bu noktaya dikkat etmeli: teklif ve iddia sıraya bağlı kalmalı, terk
-      bağlanmamalı.</p>
-    </div>
-    <div class="prose" lang="en">
-      <p>For the offer and the claim the turn condition comes from <b>the rules</b>; for resignation
-      it does not — the book sets no turn condition on resigning, and a player may resign at any
-      moment. Anyone porting an arbiter algorithm into an online application should watch exactly
-      this point: the offer and the claim should stay tied to the turn, resignation should not.</p>
-    </div>
     <div class="prose fl" lang="tr">
-      <p><b>FideLite'ta.</b> Pencere uygulanıyor: teklif de iddia da yalnızca sırası gelen taraftan
-      geçiyor, çünkü ikisi de <b>hamlenin kendi kanalından</b> gidiyor; şartı tutmayan bir iddia
-      da rakibin önünde teklif olarak kalıyor. Terk de aynı kanala bağlı, ama bu bir kural yorumu
-      değil <b>yerel oyunun zorunluluğu</b>: tek ekranda hareket edebilen tek kişi sırası gelendir.
-      Amaç arayüzü değil kural doğruluğunu sergilemek olduğu için taviz buradan verildi.
-      <a href="#pitfalls">Tuzaklar</a> bölümünde bunun kod tarafı ve ölçümü var.</p>
+      <p><b>FideLite'ta.</b> Pencere uygulanıyor: teklif de talep de yalnızca sırası gelen taraftan
+      geçiyor, çünkü ikisi de <b>hamlenin kendi kanalından</b> gidiyor.</p>
     </div>
     <div class="prose fl" lang="en">
       <p><b>In FideLite.</b> The window is applied: both the offer and the claim pass only from the
-      side to move, because both travel <b>on the move's own channel</b>, and a claim that does not
-      hold stays before the opponent as an offer. Resignation rides the same channel, but that is
-      not a reading of the rules; it is <b>a necessity of local play</b>: on a single screen the only
-      person who can act is the side to move. Since the aim is to exhibit rule correctness rather
-      than the interface, the concession was made here. <a href="#pitfalls">Pitfalls</a> carries
-      the code side of this, and the measurements.</p>
+      side to move, because both travel <b>on the move's own channel</b>.</p>
     </div>
 
     <h3 id="federations" lang="tr">8. Federasyon farkı: FIDE, USCF ve platformlar</h3>
@@ -5592,7 +5604,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 
     <div class="prose" lang="tr">
       <p>Hamle kuralları, taşların hareketi, mat ve pat iki federasyonda birebir aynı. Ayrışma
-      tahtanın dışında başlıyor — saatte, terkte, beraberlik iddiasında. İki kitap aynı oyunu
+      tahtanın dışında başlıyor — saatte, terkte, beraberlik talebinde. İki kitap aynı oyunu
       yönetiyor; oyuncunun, saatin ve hakemin oyuna karıştığı yerleri farklı okuyor.</p>
     </div>
     <div class="prose" lang="en">
@@ -5605,8 +5617,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <h4 lang="en">Procedural differences</h4>
 
     <ul class="tight" lang="tr">
-      <li><b>50 hamle ve üçlü tekrar — ortak.</b> İki kitapta da oyun kendiliğinden bitmiyor; beraberlik için oyunculardan birinin iddia etmesi gerekiyor.</li>
-      <li><b>75 hamle ve beşli tekrar — yalnızca FIDE.</b> FIDE 9.6 iddia beklemeden oyunu bitiriyor. USCF'de böyle bir tavan yok: kimse iddia etmezse oyun sürüyor.</li>
+      <li><b>50 hamle ve üçlü tekrar — ortak.</b> İki kitapta da oyun kendiliğinden bitmiyor; beraberlik için oyunculardan birinin talep etmesi gerekiyor.</li>
+      <li><b>75 hamle ve beşli tekrar — yalnızca FIDE.</b> FIDE 9.6 talep beklemeden oyunu bitiriyor. USCF'de böyle bir tavan yok: kimse talep etmezse oyun sürüyor.</li>
       <li><b>Terk.</b> USCF'de terk her zaman kayıp, pozisyona bakılmıyor. FIDE'de 2023'ten beri 5.1.2 gereği, rakip hiçbir geçerli hamle dizisiyle mat edemiyorsa terk beraberliğe dönüyor.</li>
       <li><b>Ölü pozisyon — ortak.</b> FIDE 5.2.2 ile USCF 14D aynı ilkeyi koyuyor: iki taraf için de mat imkânı kalmadıysa oyun o an biter, kilitli pozisyonlar dahil.</li>
     </ul>
@@ -5792,8 +5804,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 
     <div class="prose" lang="tr">
       <p>Dijital bir platformda iki kitaptan birini olduğu gibi uygulamak her zaman en iyi sonucu
-      vermiyor. USCF'de 75 hamle ve beşli tekrar tavanı olmadığı için, kimse iddia etmezse bir oyun
-      sunucuda sonsuza dek sürebiliyor. FIDE'de ise 50 hamle ve üçlü tekrar iddiası, kazanılmış
+      vermiyor. USCF'de 75 hamle ve beşli tekrar tavanı olmadığı için, kimse talep etmezse bir oyun
+      sunucuda sonsuza dek sürebiliyor. FIDE'de ise 50 hamle ve üçlü tekrar talebi, kazanılmış
       teknik oyun sonlarını tek bir hatayla beraberliğe çevirebiliyor.</p>
       <p>Aşağıdaki karma sistem iki kitabın en adil görünen parçalarını birleştiriyor. Bu bir
       öneri: FideLite'ın kendisi FIDE'yi uyguluyor ve bu sekmedeki her şey o kitaba göre yazıldı.
@@ -5812,7 +5824,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     </div>
 
     <ul class="tight" lang="tr">
-      <li><b>50 hamle ve üçlü tekrar iddiası — kapalı.</b> Oyuncular bu eşiklerde iddiayla oyunu bitiremiyor; anlaşmalı beraberlik açık kalıyor. Sınır iddiayla 50'de değil, kendiliğinden 60'ta çiziliyor ve bu fark teknik oyun sonlarında kritik. Vezirin kaleye karşı Philidor pozisyonunda ya da fil ve atla matta mat dizisi uzundur; fil ve atla mat en iyi oyunla bile 33 hamleye kadar sürebilir. 50 hamle bu dizinin üstüne yalnızca 17 hamlelik pay bırakıyor ve tek bir hata teorik olarak kazanılmış oyunu beraberliğe çevirebiliyor. 60 hamle bu payı 27'ye çıkarıyor; 75 ise 42 hamleyle bitmiş bir oyunu gereğinden uzatıyor. Materyali üstün tarafa bir imtiyaz gibi görünse de yalnızca kazanılmış bir pozisyonda tek bir hatanın sonucu belirlemesini önlüyor; savunan taraf dörtlü tekrar ve 60 hamle sınırıyla yine korunuyor. İddia mekanizması da suistimal edilemiyor. Yan etkisi: <a href="#claims">yedinci bölümdeki</a> iddia penceresi sorunu — ön hamlenin kapattığı pencere — kökünden kalkıyor.</li>
+      <li><b>50 hamle ve üçlü tekrar talebi — kapalı.</b> Oyuncular bu eşiklerde taleple oyunu bitiremiyor; anlaşmalı beraberlik açık kalıyor. Sınır taleple 50'de değil, kendiliğinden 60'ta çiziliyor ve bu fark teknik oyun sonlarında kritik. Vezirin kaleye karşı Philidor pozisyonunda ya da fil ve atla matta mat dizisi uzundur; fil ve atla mat en iyi oyunla bile 33 hamleye kadar sürebilir. 50 hamle bu dizinin üstüne yalnızca 17 hamlelik pay bırakıyor ve tek bir hata teorik olarak kazanılmış oyunu beraberliğe çevirebiliyor. 60 hamle bu payı 27'ye çıkarıyor; 75 ise 42 hamleyle bitmiş bir oyunu gereğinden uzatıyor. Materyali üstün tarafa bir imtiyaz gibi görünse de yalnızca kazanılmış bir pozisyonda tek bir hatanın sonucu belirlemesini önlüyor; savunan taraf dörtlü tekrar ve 60 hamle sınırıyla yine korunuyor. Talep mekanizması da suistimal edilemiyor. Yan etkisi: <a href="#claims">yedinci bölümdeki</a> talep penceresi sorunu — ön hamlenin kapattığı pencere — kökünden kalkıyor.</li>
       <li><b>60 hamle ve dörtlü tekrar — kendiliğinden.</b> Sayaç 60 hamleye ulaştığında ya da pozisyon dördüncü kez doğduğunda oyun kendiliğinden berabere biter. Eşikler iki kitabın eşiklerinin harmonik ortalaması: 50 ile 75'inki tam 60, 3 ile 5'inki 3,75, yuvarlanınca 4. 50 hamle yetersiz, 75 fazla; üçlü tekrar erken, beşli geç. Harmonik ortalama iki değerin arasında küçük olana daha yakın durur; sınır genişliyor ama ölçüsüzce değil. Oyunun <a href="#counters">sonlu kalmasını</a> garanti eden en dış ağ bu.</li>
       <li><b>Anlaşmalı beraberlik — ilk hamleden itibaren.</b> FIDE anlaşmayı iki tarafın da en az bir hamle yapmış olmasına bağlıyor (5.2.3). USCF asgari bir hamle sayısı koymuyor, yalnızca teklifin zamanlamasını düzenliyor: hamle belirlendikten sonra, saate basmadan önce (14B1). Karma sistem de şart koymuyor: anlaşma ilk hamleden itibaren mümkün. Teklif yine hamleye bağlı gittiği için zamanlama iki kitaptakiyle aynı kalıyor.</li>
       <li><b>Ölü pozisyon — hemen biter.</b> 5.2.2'deki gibi, kilitli pozisyonlar dahil.</li>
@@ -5833,7 +5845,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="tw" lang="tr"><table>
 <thead><tr><th>Parametre</th><th>FIDE</th><th>USCF</th><th>Karma</th></tr></thead>
 <tbody>
-<tr><td>50 hamle · üçlü tekrar iddiası</td><td>Açık</td><td>Açık</td><td><b>Kapalı</b></td></tr>
+<tr><td>50 hamle · üçlü tekrar talebi</td><td>Açık</td><td>Açık</td><td><b>Kapalı</b></td></tr>
 <tr><td>Kendiliğinden beraberlik</td><td>75 hamle · beşli tekrar</td><td>Yok</td><td><b>60 hamle · dörtlü tekrar</b></td></tr>
 <tr><td>Anlaşmalı beraberlik</td><td>Açık<span class="sub">iki taraf da en az bir hamle yaptıktan sonra</span></td><td>Açık<span class="sub">asgari hamle şartı yok</span></td><td>Açık<span class="sub">ilk hamleden itibaren</span></td></tr>
 <tr><td>Ölü pozisyon</td><td>Hemen biter</td><td>Hemen biter</td><td>Hemen biter</td></tr>
@@ -5972,7 +5984,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 
     <div class="prose" lang="tr">
       <p>On bir sürüm, aynı kurallar. Hepsi rok, geçerken alma, seçimli terfi, pat, ölü pozisyon,
-      üçlü ve beşli tekrar, 50 ve 75 hamle, anlaşmalı beraberlik, iddia, süre ve terki eksiksiz
+      üçlü ve beşli tekrar, 50 ve 75 hamle, anlaşmalı beraberlik, talep, süre ve terki eksiksiz
       uyguluyor; hepsi aynı
       <a href="#codes">on beş sonuç kodunu</a> üretiyor.</p>
     </div>
@@ -6095,7 +6107,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="prose" lang="tr">
       <p>Bu bölüm <code class="vn">L3</code> ailesinin nasıl oynandığını anlatıyor. <code class="vn">L1</code> ve
       <code class="vn">L2</code>'de oynanış değişmiyor, yalnızca yalınlaşıyor: oyuncu katmanı olmadığı için
-      saat, terk, teklif ve iddia yok; hamle aynı biçimde giriliyor. Bu yüzden onlar için ayrıca
+      saat, terk, teklif ve talep yok; hamle aynı biçimde giriliyor. Bu yüzden onlar için ayrıca
       anlatmaya gerek yok, birkaç küçük fark <a href="#levels">seviyeler bölümünde</a>. Oynanışın
       gerçekten değiştiği tek yer <a href="#special">özel sürümler</a>; onlar kendi bölümlerinde.</p>
     </div>
@@ -6121,7 +6133,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>Beraberlik radyo düğmesi hamleden bağımsız çalışır. Tahtada eşik zaten dolmuşsa
       işaretlemek beraberliği doğrudan tetikler; rakip teklif göndermişse işaretlemek
       teklifi kabul eder; ikisi de yoksa işaret kalır ve hamleyi oynadığında değerlendirilir
-      — hamle eşiği sağlıyorsa iddia, sağlamıyorsa rakibe teklif olur.</p>
+      — hamle eşiği sağlıyorsa talep, sağlamıyorsa rakibe teklif olur.</p>
     </div>
     <div class="prose" lang="en">
       <p>Everything is done by clicking: the piece first, then the destination square. When a
@@ -6151,10 +6163,10 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <code>e1c1</code>, siyah için <code>e8g8</code> ve <code>e8c8</code>. Şahın kaleyi aldığı bir yazım yok. Geçerken alma ise piyonun gerçekten varacağı kareyle yazılır, o
       yüzden ayrı bir kural gerektirmez.</p>
       <p>Beraberlik, hamlenin sonuna eklenen <code>=</code> ile istenir. <code>b2b3=</code> demek:
-      bu hamleyi oynadığımda eşik dolacaksa iddia ediyorum, dolmayacaksa rakibe teklif
+      bu hamleyi oynadığımda eşik dolacaksa talep ediyorum, dolmayacaksa rakibe teklif
       ediyorum. Motor kararı hamle oynandıktan <em>sonraki</em> duruma bakarak verir; hamle
       sayacı sıfırlıyorsa ya da pozisyonu benzersizleştiriyorsa beraberlik kurulmaz.
-      Tek başına <code>=</code> ise mevcut pozisyonu iddia eder veya bekleyen teklifi kabul eder.</p>
+      Tek başına <code>=</code> ise mevcut pozisyonu talep eder veya bekleyen teklifi kabul eder.</p>
       <p>Terk <code>r</code>. <code class="vn">prompt</code>'ta pencereyi iptal etmek de terk sayılır; boş Enter sayılmaz; o geçersiz bir hamledir ve saat işlemeye devam eder. <code class="vn">nonbrowser</code>'da girişi kapatmak (Unix'te Ctrl+D) terk sayılır; boş Enter orada da geçersiz hamledir.</p>
       <div class="note">
         <p><code>e7e8=N</code> girişinde <code>=</code> beşinci karakter, yani terfi
@@ -6163,7 +6175,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
         olmaz. SAN alışkanlığı burada iki bakımdan birden ters çalışır. Ata terfi etmek için
         <code>e7e8n</code>, ata terfi edip beraberlik istemek için <code>e7e8n=</code>.</p>
       </div>
-      <p>Bir hamle mat ediyorsa sonundaki <code>=</code> yok sayılır. Mat, bütün otomatik beraberlik koşullarının önüne geçtiği gibi iddianın da önüne geçer.</p>
+      <p>Bir hamle mat ediyorsa sonundaki <code>=</code> yok sayılır. Mat, bütün otomatik beraberlik koşullarının önüne geçtiği gibi talebin da önüne geçer.</p>
     </div>
     <div class="prose" lang="en">
       <p>Eight builds use the same format: the three prompt builds (<code class="vn">prompt</code>,
@@ -6241,25 +6253,25 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <code>6062</code> ve <code>6058</code>.</p>
       <p>Beraberliğin ayrı bir düğmesi yok; kanal girdinin kendisine bağlı.
       <b>Sayısal olmayan her giriş bir beraberlik isteğidir.</b> İstek o anda geçerli bir
-      iddiaya denk düşüyorsa — 50 hamle ya da üçlü tekrar — oyunu orada bitirir; düşmüyorsa
+      talebe denk düşüyorsa — 50 hamle ya da üçlü tekrar — oyunu orada bitirir; düşmüyorsa
       rakibe teklif olarak geçer. Ortaya dört durum çıkıyor:</p>
     </div>
     <ul class="tight" lang="tr">
       <li><b>Hamleyle birlikte istek.</b> <code>5563asd</code> ya da <code>5563?</code> — eklenen karakterlerin ne olduğu fark etmez; hamle normal oynanır, isteği de yanına alır.</li>
       <li><b>Hamlesiz istek.</b> <code>asd</code>, hatta tek karakterlik <code>g</code> —
-      tahtanın o anki durumu için doğrudan iddia, geçerli değilse teklif.</li>
+      tahtanın o anki durumu için doğrudan talep, geçerli değilse teklif.</li>
       <li><b>Bekleyen teklifin kabulü.</b> Rakip de sayısal olmayan bir şey yazar. Kabul hamle
       yapmadan da oluyor ve karakterin ne olduğu fark etmiyor: <code>dssdf</code> gibi hamlesiz
       bir giriş teklifi hemen kabul ediyor; <code>1228x</code> gibi hamleli bir giriş önce hamleyi
       oynuyor, sonra teklifi kabul ediyor. İki bit birden yandığı anda oyun karşılıklı anlaşmayla
       biter.</li>
-      <li><b>Sayısal ama geçersiz giriş.</b> <code>6500</code> — ne iddia ne teklif; hamle
+      <li><b>Sayısal ama geçersiz giriş.</b> <code>6500</code> — ne talep ne teklif; hamle
       reddedilir, aynı soru yeniden sorulur.</li>
     </ul>
     <div class="prose" lang="tr">
       <p>İsteğin hamleye iliştirilebilmesi keyfi bir kolaylık değil, kitapçığın gereği.
       “Sayaç 99 yarım hamlede ama bu hamleyi oynarsam 100 olacak” ya da “pozisyon iki kez
-      görüldü, bu hamle üçüncüsünü getirecek” durumlarında iddia <em>oynanacak</em> hamle
+      görüldü, bu hamle üçüncüsünü getirecek” durumlarında talep <em>oynanacak</em> hamle
       üzerinden kurulur. Kanalın hamleyle birlikte gidebilmesinin sebebi bu; davranış 9.2 ve
       9.3'e birebir uyuyor.</p>
       <p>Dördüncü maddenin bir yan faydası var. Bu sürümde saat canlı değil, yalnızca
@@ -6329,7 +6341,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <thead><tr><th>Sürüm</th><th>Terfi</th><th>Terk</th><th>Beraberlik</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">main</code> · <code class="vn">light</code></td><td>Panel açılır, taş seçilene kadar hamle tamamlanmaz</td><td>⚐ düğmesi</td><td>Beraberlik radyo düğmesi</td></tr>
-<tr><td>UCI ailesi</td><td>Hamlenin 5. karakteri: <code>r b n</code>, diğer her şey vezir</td><td><code>r</code>; <code class="vn">prompt</code>'ta ayrıca İptal, <code class="vn">nonbrowser</code>'da girişi kapatmak</td><td>Hamlenin sonuna <code>=</code>; tek başına <code>=</code> iddia veya kabul</td></tr>
+<tr><td>UCI ailesi</td><td>Hamlenin 5. karakteri: <code>r b n</code>, diğer her şey vezir</td><td><code>r</code>; <code class="vn">prompt</code>'ta ayrıca İptal, <code class="vn">nonbrowser</code>'da girişi kapatmak</td><td>Hamlenin sonuna <code>=</code>; tek başına <code>=</code> talep veya kabul</td></tr>
 <tr><td><code class="vn">numerical</code></td><td>Hamlenin 5. karakteri: <code>0</code> fil, <code>1</code> kale, <code>2</code> at, diğer her şey vezir</td><td>İptal, Esc, boş Enter, sekmeden çıkmak</td><td>Sayısal olmayan karakter içeren her giriş</td></tr>
 </tbody>
 </table></div>
@@ -6415,15 +6427,15 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="prose" lang="tr">
       <p>Gösterge taşıyan sürümlerde satır aynı sırayla kurulur. <code class="vn">main</code>'in durum satırı <code>a8-h8 C! M=0 R=1</code> biçimindedir; <code class="vn">input</code>, <code class="vn">nonbrowser</code> ve prompt sürümleri aynı alanları tahtanın üstüne yazar.</p>
       <p><b><code>M=</code> yarım hamle sayacı — FEN ve motor dilindeki adıyla <i>halfmove clock</i>.</b> Taş alımında ve piyon hamlesinde
-      sıfırlanır. <code>M=100</code>'de 50 hamle beraberliği <a href="#rules">iddia
-      edilebilir</a>, <code>M=150</code>'de iddia beklemeden ilan edilir. Pratik okuması
+      sıfırlanır. <code>M=100</code>'de 50 hamle beraberliği <a href="#rules">talep
+      edilebilir</a>, <code>M=150</code>'de talep beklemeden ilan edilir. Pratik okuması
       şu: ekranda <code>M=99</code> görüyorsan, oynayacağın hamle taş almıyor ve piyon hamlesi değilse eşik onunla dolar — UCI'deki <code>b2b3=</code> tam olarak bunun için var.</p>
       <p><b><code>R=</code> tekrar sayısı.</b> Mevcut pozisyonun kaçıncı kez görüldüğü.
-      <code>R=3</code> üçlü tekrar iddiasını açar, <code>R=5</code> otomatik beraberlik.
+      <code>R=3</code> üçlü tekrar talebini açar, <code>R=5</code> otomatik beraberlik.
       Geri sayım değil, her hamleden sonra yeniden hesaplanan bir değer: pozisyon
       benzersizleştiğinde <code>R=1</code>'e düşer.</p>
-      <p>İki sayının da iki eşiği var: biri iddiayı açıyor, öbürü oyunu kendiliğinden bitiriyor.
-      İddianın olmadığı seviyelerde yalnızca ikincisi işliyor; ayrıntısı
+      <p>İki sayının da iki eşiği var: biri talebi açıyor, öbürü oyunu kendiliğinden bitiriyor.
+      Talebin olmadığı seviyelerde yalnızca ikincisi işliyor; ayrıntısı
       <a href="#levels">seviyeler bölümünde</a>.</p>
       <p><b><code>C!</code></b> sırası gelen tarafın şahta olduğunu söyler, yani kendi ekranında her zaman kendi şahını gösterir. <b><code>D?</code></b> ise açık bir beraberlik
       teklifinin varlığı. <code class="vn">input</code>, <code class="vn">nonbrowser</code> ve prompt sürümlerinde ikisi aynı yuvayı
@@ -6448,7 +6460,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p><b>Göstergesiz sürümlerde ne yapacaksın.</b> Dördünde de şah, sayaçlar ve tekrar
       tamamen sende; motor hiçbir şey hatırlatmaz. Geriye kalan kanallar son hamle kaydı ve saat; ikisi de sandığından fazlasını taşır.</p>
       <p>Kör sürümlerde beraberlik eki kayda giriyor: rakip <code>e7e5=</code>
-      oynadıysa köşeli parantez içinde <code>[e7e5=]</code> görürsün, yani teklif mi iddia mı ettiği oradan okunur. Terfi de öyle — <code>e7e8n</code> kayda <code>[e7e8N]</code>
+      oynadıysa köşeli parantez içinde <code>[e7e5=]</code> görürsün, yani teklif mi talep mi ettiği oradan okunur. Terfi de öyle — <code>e7e8n</code> kayda <code>[e7e8N]</code>
       olarak düşer, gerçekten neye terfi ettiğini tahtayı kafanda tutmadan
       doğrulayabilirsin. Sırayı <code class="vn">input_blindfold</code>'da işleyen saatten, <code class="vn">prompt_blindfold</code>'da iki saatin arasındaki oktan okursun; <code class="vn">nonbrowser_blindfold</code>'da saat yalnızca hamlede güncellendiği için son azalan saat sırayı söyler.</p>
       <p><code class="vn">numerical</code>'da kayıt ham girdinin kendisi, o yüzden rakibin beraberlik
@@ -6522,7 +6534,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <tr><td>Tahta dondu, hamle yok, şah tehdit altında değil</td><td>Pat, beraberlik</td><td><code>SM</code></td></tr>
 <tr><td>Tahta dondu, hamle var, iki saat durdu; son hamle geri alınabilir bir hamleydi<span class="sub">istisna: çift adımla doğan bir kilit bir yarım hamle geç, geri alınabilir bir hamlenin ardından DP olarak görünür</span></td><td>Beşli tekrar ya da 75 hamle: beraberlik</td><td><code>5R</code> <code>75</code></td></tr>
 <tr><td>Tahta dondu, hamle var, iki saat durdu; son hamle geri alınamaz bir hamleydi (piyon sürme ya da taş alımı)</td><td>Ölü pozisyon: beraberlik</td><td><code>DP</code></td></tr>
-<tr><td>Radyoya basınca oyun bitti</td><td>İddia ya da anlaşmayla beraberlik</td><td><code>3R</code> <code>50</code> <code>DA</code></td></tr>
+<tr><td>Radyoya basınca oyun bitti</td><td>Talep ya da anlaşmayla beraberlik</td><td><code>3R</code> <code>50</code> <code>DA</code></td></tr>
 <tr><td>Bir saat <code>0:00</code>'da durdu</td><td>Süreden kayıp</td><td><code>WT</code> <code>BT</code></td></tr>
 <tr><td>Bir saat sıfırın altına akıyor</td><td>Süre bitti ama rakip mat edemez: beraberlik</td><td><code>TM</code></td></tr>
 <tr><td>⚐'den sonra iki saat durdu</td><td>Terk, kayıp</td><td><code>WR</code> <code>BR</code></td></tr>
@@ -6617,8 +6629,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <div class="rc rc-d"><div class="rc-top"><span class="rc-mn">75</span><span class="rc-n">4</span></div><div class="rc-l">75 hamle kuralı</div></div>
 <div class="rc rc-d"><div class="rc-top"><span class="rc-mn">5R</span><span class="rc-n">5</span></div><div class="rc-l">beşli tekrar</div></div>
 <div class="rc rc-d"><div class="rc-top"><span class="rc-mn">DP</span><span class="rc-n">6</span></div><div class="rc-l">Ölü pozisyon</div></div>
-<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">50</span><span class="rc-n">7</span></div><div class="rc-l">50 hamle iddiası</div></div>
-<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">3R</span><span class="rc-n">8</span></div><div class="rc-l">üçlü tekrar iddiası</div></div>
+<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">50</span><span class="rc-n">7</span></div><div class="rc-l">50 hamle talebi</div></div>
+<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">3R</span><span class="rc-n">8</span></div><div class="rc-l">üçlü tekrar talebi</div></div>
 <div class="rc rc-d"><div class="rc-top"><span class="rc-mn">DA</span><span class="rc-n">9</span></div><div class="rc-l">Anlaşmalı beraberlik</div></div>
     </div>
     <div class="codes" lang="en">
@@ -6705,7 +6717,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>Seviyeler birbirinin üstüne biniyor. <code class="vn">L1</code> yalnızca <b>oynanabilirliği</b>
       biliyor: hamle geçerli mi, oyun matla ya da patla bitti mi. <code class="vn">L2</code> üstüne
       <b>tahtadan doğan beraberlikleri</b> koyuyor. <code class="vn">L3</code> ise tahtanın dışına çıkıyor —
-      saat, terk, teklif, iddia.</p>
+      saat, terk, teklif, talep.</p>
     </div>
     <div class="prose" lang="en">
       <p>Here the axis is the rules. The interfaces are the same at both levels — the clickable
@@ -6730,7 +6742,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <tr><td><b>Beşli tekrar · 75 hamle</b></td><td><span class="none">—</span></td><td><b>✓</b></td><td><b>✓</b></td></tr>
 <tr><td><b>Saat ve bayrak düşmesi</b></td><td><span class="none">—</span></td><td><span class="none">—</span></td><td><b>✓</b></td></tr>
 <tr><td><b>Terk</b></td><td><span class="none">—</span></td><td><span class="none">—</span></td><td><b>✓</b></td></tr>
-<tr><td><b>Üçlü tekrar · 50 hamle iddiası</b></td><td><span class="none">—</span></td><td><span class="none">—</span></td><td><b>✓</b></td></tr>
+<tr><td><b>Üçlü tekrar · 50 hamle talebi</b></td><td><span class="none">—</span></td><td><span class="none">—</span></td><td><b>✓</b></td></tr>
 <tr><td><b>Anlaşmalı beraberlik</b></td><td><span class="none">—</span></td><td><span class="none">—</span></td><td><b>✓</b></td></tr>
 <tr><td><b>6.9 araması — mat imkânsızken süre/terk</b></td><td><span class="none">—</span></td><td><span class="none">—</span></td><td><b>✓</b></td></tr>
 <tr><td><b>Ürettiği sonuç kodu sayısı</b></td><td><b>3</b></td><td><b>6</b></td><td><b>15</b></td></tr>
@@ -6880,7 +6892,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     </div>
 
     <div class="note" lang="tr">
-      <p><b><code class="vn">L2 · bot</code>'ta açık duran bir uç.</b> Oyuncu katmanı olmadığı için iddiaya
+      <p><b><code class="vn">L2 · bot</code>'ta açık duran bir uç.</b> Oyuncu katmanı olmadığı için talebe
       bağlı eşikler normalde hiçbir şey tetiklemezdi; yine de bu sürüm <code>R=3</code> ve
       <code>M=100</code>'de bitiyor, bilerek. Botun araması bu iki eşiği kendi içinde de okuyor
       ve oyunun eşiğini yukarı çekip aramayı olduğu yerde bırakmak ikisini birbirinden koparırdı.
@@ -6899,7 +6911,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <h3 lang="en">Gameplay</h3>
     <div class="prose" lang="tr">
       <p>Oynanış <a href="#gameplay"><code class="vn">L3</code>'teki</a> gibi; farklar kuraldan geliyor ve yukarıdaki
-      tabloda okunuyor. Oyuncu katmanı olmadığı için saat, terk, teklif ve iddia yok, dolayısıyla
+      tabloda okunuyor. Oyuncu katmanı olmadığı için saat, terk, teklif ve talep yok, dolayısıyla
       onların denetimleri ve göstergeleri de yok. Hamle aynı biçimde giriliyor, terfi aynı biçimde
       seçiliyor. Saat olmadığı için <code class="vn">input_blindfold</code>'da sıra satırın başındaki
       harften okunuyor: <code>W</code> ya da <code>B</code>. Kuraldan gelmeyen tek fark <code>prompt()</code> kullanan iki sürümde.</p>
@@ -7044,8 +7056,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <div class="tw" lang="tr"><table>
 <thead><tr><th>Kural</th><th>FIDE · <code class="vn">L3</code></th><th>Lichess</th><th>Chess.com</th></tr></thead>
 <tbody>
-<tr><td><b>Üçlü tekrar</b></td><td>İddiayla</td><td>İddiayla</td><td>Kendiliğinden</td></tr>
-<tr><td><b>50 hamle</b></td><td>İddiayla</td><td>Kendiliğinden</td><td>Kendiliğinden</td></tr>
+<tr><td><b>Üçlü tekrar</b></td><td>Taleple</td><td>Taleple</td><td>Kendiliğinden</td></tr>
+<tr><td><b>50 hamle</b></td><td>Taleple</td><td>Kendiliğinden</td><td>Kendiliğinden</td></tr>
 <tr><td><b>Beşli tekrar</b></td><td>Kendiliğinden</td><td>Kendiliğinden</td><td><span class="none">—</span><span class="sub">üçlüde biter</span></td></tr>
 <tr><td><b>75 hamle</b></td><td>Kendiliğinden</td><td><span class="none">—</span><span class="sub">50'de biter</span></td><td><span class="none">—</span><span class="sub">50'de biter</span></td></tr>
 <tr><td><b>Ölü pozisyon</b></td><td>Materyal ve kilitli<span class="sub">kod DP</span></td><td>Yalnızca materyal<span class="sub">kod IM</span></td><td>Yalnızca materyal, ama USCF'ye yakın<span class="sub">kod IM</span></td></tr>
@@ -7211,7 +7223,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       Zaman türleri doğrudan ya da dolaylı olarak ayarlanabiliyor: Fischer artışı, Bronstein gecikmesi
       ve basit gecikme; artış sıfırlanınca sudden death. FIDE 5.2.3 de uygulanıyor: iki taraf da en az
       bir hamle yapmadan anlaşmalı beraberlik olmuyor. Beraberlik radyosu, rakibin açık teklifinde
-      olduğu gibi, 50 hamle ya da üçlü tekrar iddiası geçerli olduğunda da sarıya dönüyor. Sağ tuşa
+      olduğu gibi, 50 hamle ya da üçlü tekrar talebi geçerli olduğunda da sarıya dönüyor. Sağ tuşa
       basılı tutup sürükleyerek tahtada çemberlerle desenler çizilebiliyor: düz ya da çapraz bir hat
       boyunca bütün kareler, öbür durumlarda iki uç kare işaretleniyor. Taşın gidebileceği geçerli
       kareler, Lichess ve Chess.com eşdeğerlerinde olduğu gibi daha hoş bir stille gösteriliyor ve
@@ -7526,8 +7538,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <dl class="api" lang="tr">
       <dt>L(kare)</dt><dd>Kare bir <a href="#board">0–63 indeksi</a>. O karedeki taşın <b>geçerli</b> varış karelerinin dizisi — şahı açıkta bırakan hamleler zaten elenmiş hâlde. Boş dizi: o taş oynayamıyor.</dd>
       <dt>A(başlangıç, varış, terfi)</dt><dd>Hamleyi gerçekten oynar: rok haklarını günceller, sırayı çevirir, tekrar tablosuna yazar ve <a href="#codes">sonuç kodunu</a> döndürür. Terfi türü <code>1</code> fil, <code>2</code> kale, <code>3</code> vezir, <code>6</code> at; verilmezse vezir.</dd>
-      <dt>Z()</dt><dd>Yalnızca pozisyondan doğan <a href="#codes">sonuç</a>: mat, pat, ölü pozisyon, 5'li tekrar, 75 hamle. Oyun sürerken <code>0</code>. <code>A</code> zaten dönüşünde bunu çağırır; ayrıca çağırmak gerekmez.</dd>
-      <dt>D(taraf)</dt><dd>O taraf beraberlik teklif eder ya da bekleyen teklifi kabul eder; iddiaya bağlı beraberlikleri de burada döner. Argümansız <code>D()</code> teklif bitlerine dokunmadan yalnızca değerlendirir.</dd>
+      <dt>Z()</dt><dd>Yalnızca pozisyondan doğan <a href="#codes">sonuç</a>: mat, pat, ölü pozisyon, beşli tekrar, 75 hamle. Oyun sürerken <code>0</code>. <code>A</code> zaten dönüşünde bunu çağırır; ayrıca çağırmak gerekmez.</dd>
+      <dt>D(taraf)</dt><dd>O taraf beraberlik teklif eder ya da bekleyen teklifi kabul eder; talebe bağlı beraberlikleri de burada döner. Argümansız <code>D()</code> teklif bitlerine dokunmadan yalnızca değerlendirir.</dd>
       <dt>F(taraf, tür)</dt><dd>Tür <code>0</code>: o tarafın bayrağı düştü. Tür <code>1</code>: o taraf terk etti. Rakibinin mat etmesi imkânsızsa sonucu beraberliğe çevirir — FIDE 6.9 ve 5.1.2.</dd>
       <dt>V(taraf)</dt><dd>O taraf şahta mı? Tek argümanla çağrıldığında şahın karesini kendisi bulup sorar. Yalnızca gösterge için; geçerlilik <code>L</code>'nin işi.</dd>
     </dl>
@@ -7553,7 +7565,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <code>$</code>'ı saklamalı, tekrar tablosu <code>R</code>'yi de hamle öncesindeki hâline
       döndürmeli. <code>R</code> atlanırsa sessiz bir hata doğar: geri alınan hamlenin tabloya eklediği
       sayım orada kalır, aynı hamle yeniden oynandığında pozisyon bir kez fazla sayılır ve
-      <code>$</code> gerçekte olduğundan yüksek çıkar — üçlü tekrar erkenden iddia edilebilir hâle
+      <code>$</code> gerçekte olduğundan yüksek çıkar — üçlü tekrar erkenden talep edilebilir hâle
       gelir. <b>FEN ve PGN yok:</b> motor pozisyon okumuyor, hamle kaydı da tutmuyor. Belirli bir
       pozisyondan başlamak isteyen sürücü tahtayı <code>b</code>'ye, sırayı <code>t</code>'ye, rok
       haklarını <code>c</code>'ye, geçerken alma karesini <code>e</code>'ye ve sayacı
@@ -7597,8 +7609,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <tr><td><code>b</code></td><td>Tahta</td><td>64 elemanlı sayı dizisi — <a href="#board">temsil yukarıda</a>. Sürücü doğrudan okuyabilir; yazması gerekmez.</td></tr>
 <tr><td><code>t</code></td><td>Sıra</td><td><code>1</code> beyaz, <code>0</code> siyah. <code>A</code> her hamlede çevirir.</td></tr>
 <tr><td><code>z</code></td><td>Oyun sonucu</td><td><a href="#codes">Sonuç kodu</a>; oyun sürerken <code>0</code>. Motor kendi yazmaz — sürücü <code>A</code>, <code>D</code> ya da <code>F</code>'nin dönüşünü buraya koyar.</td></tr>
-<tr><td><code>n</code></td><td>Yarım hamle sayacı</td><td>Taş alımında ve piyon hamlesinde sıfırlanır. <code>n&gt;99</code> olunca 50 hamle beraberliği iddia edilebilir, <code>n&gt;149</code> olunca kendiliğinden gelir.</td></tr>
-<tr><td><code>$</code></td><td>Tekrar sayısı</td><td>Mevcut pozisyon kaçıncı kez görüldü. <code>&gt;2</code> olunca 3'lü tekrar iddia edilebilir, <code>&gt;4</code> olunca kendiliğinden gelir.</td></tr>
+<tr><td><code>n</code></td><td>Yarım hamle sayacı</td><td>Taş alımında ve piyon hamlesinde sıfırlanır. <code>n&gt;99</code> olunca 50 hamle beraberliği talep edilebilir, <code>n&gt;149</code> olunca kendiliğinden gelir.</td></tr>
+<tr><td><code>$</code></td><td>Tekrar sayısı</td><td>Mevcut pozisyon kaçıncı kez görüldü. <code>&gt;2</code> olunca üçlü tekrar talep edilebilir, <code>&gt;4</code> olunca kendiliğinden gelir.</td></tr>
 <tr><td><code>o</code></td><td>Teklif bitleri</td><td>Birler basamağı beyazın, ikiler basamağı siyahın açık teklifi. İkisi de yanınca beraberlik anlaşması doğar.</td></tr>
 <tr><td><code>c</code></td><td>Rok hakları</td><td>Dört bitlik maske: <code>1</code> beyaz kısa, <code>2</code> beyaz uzun, <code>4</code> siyah kısa, <code>8</code> siyah uzun. <a href="#counters">Hak</a>, o anki yapılabilirlik değil.</td></tr>
 <tr><td><code>e</code></td><td>Geçerken alma karesi</td><td>Yoksa <code>-1</code>. Yalnızca komşu piyon gerçekten alabiliyorsa yazılır — tekrar sayımının doğruluğu buna bağlı.</td></tr>
@@ -7655,7 +7667,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <tr><td><code>Im</code></td><td><code>Im(g)</code></td><td>75</td><td>FIDE 6.9’un materyal yarısı: <code>g</code> bayrağı düşen ya da terk eden taraf; <b>rakibinin</b> elindeki taşlarla mat kurması <b>imkânsız</b> mı. <code>H</code>'nin ilk kapısı — doğru dönerse arama hiç başlamaz.</td></tr>
 <tr><td><code>Z</code></td><td><code>Z()</code></td><td>73</td><td>Pozisyon sonucu. Önce geçerli hamle var mı diye bakar; yoksa mat mı pat mı ayırır. Varsa <code>I</code> ile <code>l</code>'ye danışıp ölü pozisyonu, ardından tekrar ve hamle sayaçlarını yoklar.</td></tr>
 <tr><td><code>A</code></td><td><code>A(i, f, u)</code></td><td>52</td><td>Gerçek hamle — <code>L</code>'nin yalnızca denediğini uygular: <code>M</code>'yi çağırır (hakları o kırpar), sırayı çevirir, <code>R</code>'ye yazar, <code>Z</code> döndürür.</td></tr>
-<tr><td><code>D</code></td><td><code>D(g)</code></td><td>36</td><td>Beraberlik teklifi, kabulü ve iddiası.</td></tr>
+<tr><td><code>D</code></td><td><code>D(g)</code></td><td>36</td><td>Beraberlik teklifi, kabulü ve talebi.</td></tr>
 <tr><td><code>H</code></td><td><code>H(g, d)</code></td><td>219</td><td>6.9’un aramalı yarısı. <code>g</code> yardım etse bile rakibi <code>d</code> yarım hamle içinde bir mat pozisyonu kurabiliyor mu; doğru dönüş <b>kuramıyor</b> demek. Yardımlı matın bile imkânsız olduğunu ispatlamaya çalışır; ispat bulamazsa mat mümkün sayar.</td></tr>
 <tr><td><code>F</code></td><td><code>F(g, k)</code></td><td>45</td><td>Süre ve terk. <code>Hn</code> ile <code>Ht</code>'yi kurup <code>H</code>'ye danışır, sonucu ona göre yazar.</td></tr>
 <tr><td><code>l</code></td><td><code>l()</code></td><td>444</td><td>Ölü pozisyon, 5.2.2’nin kilitli yarısı. Sekiz maskeyle piyonların ve şahların ulaşabildiği kareleri büyüme durana kadar genişletir; sonunda ne terfi ne alma erişilebilir kalıyorsa pozisyon ölüdür. Kapsamı şah ve piyon — tahtada başka taş varsa hiç çalışmaz.</td></tr>
@@ -7690,7 +7702,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <b>434 bayt</b> — dosyanın neredeyse dörtte biri ve en uzun fonksiyon. Onu
       <code>G</code> (249) ve <code>M</code> (234) izliyor. Yani motorun en pahalı üç parçası
       sırasıyla <a href="#rules">kilitli pozisyon tespiti</a>, taş geometrisi ve hamlenin tahtaya
-      yazılması. Kuralların geri kalanının tamamı — hüküm, sayaçlar, materyal, iddia, süre —
+      yazılması. Kuralların geri kalanının tamamı — hüküm, sayaçlar, materyal, talep, süre —
       360 bayt.</p>
     </div>
     <div class="prose" lang="en">
@@ -8485,7 +8497,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       </ol>
       <p>Beşinci adımın bu kadar titiz olmasının sebebi <a href="#counters">tekrar sayımı</a>.
       Pozisyonun tanımı geçerken alma imkânını da içerdiği için, kimsenin kullanamayacağı bir kare
-      yazılsaydı aynı pozisyon iki farklı şekilde sayılır ve 3'lü tekrar iddiası sessizce kaçırılırdı.</p>
+      yazılsaydı aynı pozisyon iki farklı şekilde sayılır ve üçlü tekrar talebi sessizce kaçırılırdı.</p>
       <p>Komşu araması <code>f-1</code> ve <code>f+1</code> ile yapıldığı için dikey kenarlarda
       tahtanın öbür ucuna taşabilir. Zararsız: taşan kare a ya da h dikeyinin karşı ucundadır ve
       <code>L(x)</code> oradan <code>e</code>'ye giden bir hamle asla üretmez — <code>G</code>'nin
@@ -9344,7 +9356,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       doğru sayılır. <code>.length</code> yedi karakter, bu üç.</p>
       <p>Mat kodu <code>t+1</code>. Sıra siyahtaysa (<code>t=0</code>) mat eden beyazdır ve kod 1
       çıkar; sıra beyazdaysa 2. Aynı toplama iki sonucu birden adlandırıyor.</p>
-      <p>Dal sırasının kendisi bir kural. <a href="#rules">FIDE 9.6</a>, 5'li tekrar ve 75 hamlenin
+      <p>Dal sırasının kendisi bir kural. <a href="#rules">FIDE 9.6</a>, beşli tekrar ve 75 hamlenin
       oyunu berabere bitirdiğini söyler — <em>son hamle mat etmediyse</em>. Burada mat, “hamle yok”
       dalının içinde yaşadığı için o istisna hiç yazılmamış: 75 hamle sayacı dolu bir matta motor
       sayaca bakmaz bile, çünkü o dala hiç girmez. Öncelik kodlanmış değil, <b>şeklin
@@ -9414,7 +9426,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       touch the clocks and it does not clear the draw offer. Both are driver policy, not rules.</p>
     </div>
 
-    <h4 lang="tr"><code>D</code> — iddia ve teklif</h4>
+    <h4 lang="tr"><code>D</code> — talep ve teklif</h4>
     <h4 lang="en"><code>D</code> — claim and offer</h4>
 
     <pre class="snip">D=g=&gt;(o^=2-g,n&gt;99?7:$&gt;2?8:o&gt;2?9:Z())</pre>
@@ -9424,8 +9436,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       bunu tek çıkarmayla seçiyor. Argümansız çağrıldığında <code>2-undefined</code>
       <code>NaN</code> olur, <code>o^=NaN</code> <code>o</code>'yu olduğu gibi bırakır — aynı
       fonksiyon böylece bitleri <b>bozmadan</b> yalnızca hüküm okumak için de kullanılabiliyor.</p>
-      <p>Eşiklerin <code>Z</code>'dekilerden farklı olması tesadüf değil. 50 hamle ve 3'lü tekrar
-      <b>iddia edilir</b>, 75 hamle ve 5'li tekrar <b>kendiliğinden</b> olur.
+      <p>Eşiklerin <code>Z</code>'dekilerden farklı olması tesadüf değil. 50 hamle ve üçlü tekrar
+      <b>talep edilir</b>, 75 hamle ve beşli tekrar <b>kendiliğinden</b> olur.
       <a href="#rules">FIDE bu ikisini ayrı maddelere koyuyor</a>; motor da ayrı fonksiyonlara.
       İsteğe bağlı olan <code>D</code>'de, zorunlu olan <code>Z</code>'de.</p>
     </div>
@@ -9475,18 +9487,18 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <p>On beş sonuç birbirinden bağımsız değil; aynı boru hattının ayrı çıkışları.
       <a href="#codes">Sonuç tablosu</a> bu yüzden periyodik tablo gibi okunuyor: satırlar bitişin
       hangi aşamada belirlendiğini, sütunlar kimin kazandığını gösteriyor. Mat, pat ve kendiliğinden
-      gelen beraberlikleri <code>Z</code>, iddia ve teklifi <code>D</code>, süre ve terki
+      gelen beraberlikleri <code>Z</code>, talep ve teklifi <code>D</code>, süre ve terki
       <code>F</code> ile <code>H</code> üretiyor.</p>
       <p>Aşamaların sırası bir öncelik sırası ve kitaptan geliyor. <code>Z</code> önce geçerli hamle
-      olup olmadığına bakıyor; mat bu yüzden 75 hamlenin ve 5'li tekrarın önüne geçiyor —
+      olup olmadığına bakıyor; mat bu yüzden 75 hamlenin ve beşli tekrarın önüne geçiyor —
       <a href="#counters">9.6</a>'nın “son hamle mat etmediyse” kaydı. Aynı aşamanın içinde de ilk
       tutan kazanıyor. Ölü pozisyon öbür ikisiyle hiç çakışamaz: pozisyon ancak alma, piyon hamlesi
       ya da rok hakkı kaybıyla ölür; ilk ikisi sayacı sıfırlar, sessiz bir şah hamlesi de taramanın
-      cevabını değiştiremez. 5'li tekrar ile 75 hamle ise aynı hamlede dolabilir ve o zaman etiket
+      cevabını değiştiremez. beşli tekrar ile 75 hamle ise aynı hamlede dolabilir ve o zaman etiket
       5R olur. İkisi de beraberlik; fark yalnızca adda.</p>
-      <p>İddia ve teklif ancak oyun kendiliğinden bitmediyse ve bir istek biti yanıksa
+      <p>Talep ve teklif ancak oyun kendiliğinden bitmediyse ve bir istek biti yanıksa
       değerlendiriliyor. Sürücünün bunu hamleden sonra nasıl çağırdığı <a href="#parsing">sürücü bölümünde</a>.
-      <code>D</code>'nin içinde sıra yine sabit: 50 hamle, 3'lü tekrar, anlaşma. 50 ile 3R birlikte
+      <code>D</code>'nin içinde sıra yine sabit: 50 hamle, üçlü tekrar, anlaşma. 50 ile 3R birlikte
       tutarsa 50 kazanıyor; anlaşma ise ancak iki bit birden yanıkken ve hiçbir eşik tutmazken
       geliyor.</p>
       <p>Süre ve terk ayrı bir koldan ve yalnızca oyun sürerken giriyor: ikisi de <code>F</code>'ye,
@@ -9520,7 +9532,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
     </div>
 
     <figure class="diagram" lang="tr">
-      <img class="lt" src="images/result-flow-tr.svg" width="700" height="520" alt="Bitişin boru hattı: hamleden sonra geçerli hamle sorusu (mat ya da pat), otomatik beraberlikler (ölü pozisyon, 5'li tekrar, 75 hamle), istek kapısı (50 hamle, 3'lü tekrar, anlaşma); oyun sürerken süre ve terk kolu"><img class="dk" src="images/result-flow-tr-dark.svg" width="700" height="520" alt="Bitişin boru hattı: hamleden sonra geçerli hamle sorusu (mat ya da pat), otomatik beraberlikler (ölü pozisyon, 5'li tekrar, 75 hamle), istek kapısı (50 hamle, 3'lü tekrar, anlaşma); oyun sürerken süre ve terk kolu">
+      <img class="lt" src="images/result-flow-tr.svg" width="700" height="520" alt="Bitişin boru hattı: hamleden sonra geçerli hamle sorusu (mat ya da pat), otomatik beraberlikler (ölü pozisyon, beşli tekrar, 75 hamle), istek kapısı (50 hamle, üçlü tekrar, anlaşma); oyun sürerken süre ve terk kolu"><img class="dk" src="images/result-flow-tr-dark.svg" width="700" height="520" alt="Bitişin boru hattı: hamleden sonra geçerli hamle sorusu (mat ya da pat), otomatik beraberlikler (ölü pozisyon, beşli tekrar, 75 hamle), istek kapısı (50 hamle, üçlü tekrar, anlaşma); oyun sürerken süre ve terk kolu">
       <figcaption>Soldaki kutu aşamanın sorusu, sağdaki kartlar çıkışları. › aynı aşamada önce
       gelenin kazandığını gösteriyor; kartların renkleri sonuç tablosundakilerle aynı.</figcaption>
     </figure>
@@ -9737,7 +9749,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <p>Beş ayrı test aynı sonuca çıkıyor. <code>Im</code>, <code>I</code>, <code>l</code>, tekrar
       sayacı ve yarım hamle sayacı — hepsi oyunun berabere bittiğini söylüyor. Farkları <b>ne kadar
       erken ve ne kadar ucuz</b> söyledikleri.</p>
-      <p>En dipteki ağ 75 hamle kuralı: kilitli her pozisyon eninde sonunda oraya düşer. 5'li tekrar onun kısa devresi, çünkü kilitlilik hareketliliği düşürür ve tekrar daha erken gelir.
+      <p>En dipteki ağ 75 hamle kuralı: kilitli her pozisyon eninde sonunda oraya düşer. beşli tekrar onun kısa devresi, çünkü kilitlilik hareketliliği düşürür ve tekrar daha erken gelir.
       <code>I</code> ile <code>l</code> tekrarın kısa devresi: pozisyonu ilk hamlede tanırlar.
       <code>Im</code> de <code>H</code>'nin kısa devresi, materyal yetmiyorsa aramayı hiç
       başlatmaz.</p>
@@ -11926,10 +11938,10 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
     </div>
 
         <div class="prose" lang="tr">
-      <p><b>Hamleden sonra iddia ve teklif.</b> <code class="vn">main</code>'in hamle satırı
+      <p><b>Hamleden sonra talep ve teklif.</b> <code class="vn">main</code>'in hamle satırı
       <code>Z(o&amp;=1+t)||o&amp;&amp;D()</code>: <code>o&amp;=1+t</code> hamleyi yapanın bitini tutup
       rakibin bekleyen teklifini düşürüyor, çünkü hamle yapmak teklifi reddetmek demek. Oyun
-      kendiliğinden bitmediyse ve bir istek biti hâlâ yanıksa <code>D()</code> iddiayı ya da anlaşmayı
+      kendiliğinden bitmediyse ve bir istek biti hâlâ yanıksa <code>D()</code> talebi ya da anlaşmayı
       değerlendiriyor.</p>
     </div>
     <div class="prose" lang="en">
@@ -12180,7 +12192,7 @@ f = K[2] + K[3] - 0</pre></div>
       veriyor:</p>
     </div>
     <div class="prose" lang="en">
-      <p>The playable files range from <b>3.1 KB</b> to <b>1.71 KB</b>
+      <p>The playable files range from <b>1.71 KB</b> to <b>3.1 KB</b>
       <span class="gloss">(1 KB = 1024 bytes)</span>, depending on their interface and on old or
       modern markup; the file at the bottom of that range comes out of this section.</p>
       <p>There are two packed builds: <code>L3_packed.html</code> at 2,652 bytes and
@@ -13370,7 +13382,7 @@ f = K[2] + K[3] - 0</pre></div>
       <code>2-undefined</code> <code>NaN</code> oluyor, <code>o^=NaN</code> ise
       <code>o^0</code>, yani <code>o</code>. Sonuç “bitleri bozmadan yalnızca değerlendir” demek ve kasıtlı: <code class="vn">main</code> hamleden sonra
       <code>Z(o&amp;=1+t)||o&amp;&amp;D()</code> ile bunu kullanıyor — rakibin teklif biti hamleyle
-      düşüyor, hamleyi yapanın biti duruyorsa <code>D()</code> onu bitlere dokunmadan iddia olarak
+      düşüyor, hamleyi yapanın biti duruyorsa <code>D()</code> onu bitlere dokunmadan talep olarak
       değerlendiriyor.</li>
       <li><b><code>O</code>'nun argümanı taş kodu, tür değil.</b> <code>Im</code> içinde
       <code>O=u=&gt;!~b[N](u+g)</code> — “tahtada <code>u+g</code> kodlu taş yok” demek. Kod <code>tür*2+renk</code> olduğu için <code>O(4)</code> kale,
@@ -13424,8 +13436,8 @@ f = K[2] + K[3] - 0</pre></div>
       only loses bytes.</li>
     </ul>
 
-    <h3 lang="tr">Terkte taraf parametresi — sürücülerin aldığı kısayol</h3>
-    <h3 lang="en">The side parameter on resignation — the shortcut the drivers take</h3>
+    <h3 id="resignside" lang="tr">Terkte taraf parametresi — sürücülerin aldığı kısayol</h3>
+    <h3 lang="en" data-id="resignside">The side parameter on resignation — the shortcut the drivers take</h3>
     <div class="prose" lang="tr">
       <p>Motorun imzası <code>F(g,k)</code>: <code>g</code> bayrağı düşen ya da terk eden taraf,
       <code>k</code> sıfırken süre, birken terk. İki parametre ve <code>g</code> ile
@@ -13512,9 +13524,9 @@ f = K[2] + K[3] - 0</pre></div>
     <div class="prose" lang="tr">
       <p><a href="#engine">Durum tablosu</a> motorun genel hâlini anlatıyor. Dört değişken
       bunun dışına çıkıyor ve bir sürücüden ötekine kod taşırken ilk kırılan yer burası.
-      Oyuncu katmanı olmayan iki sürüm iddia eşiklerinde de ayrılıyor: <code class="vn">L2</code> oyunu yalnızca
-      kendiliğinden gelen 5'li tekrar ve 75 hamlede bitiriyor, <code class="vn">L2_aybars_2500</code> ise
-      3'lü tekrar ve 50 hamlede de — <a href="#indicators">Göstergeler</a> bölümünde gerekçesiyle.</p>
+      Oyuncu katmanı olmayan iki sürüm talep eşiklerinde de ayrılıyor: <code class="vn">L2</code> oyunu yalnızca
+      kendiliğinden gelen beşli tekrar ve 75 hamlede bitiriyor, <code class="vn">L2_aybars_2500</code> ise
+      üçlü tekrar ve 50 hamlede de — <a href="#indicators">Göstergeler</a> bölümünde gerekçesiyle.</p>
     </div>
     <div class="prose" lang="en">
       <p>The <a href="#engine">state table</a> describes the engine's general form. Four variables
