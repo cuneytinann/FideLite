@@ -1623,7 +1623,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       boşluğu kapatır. Sonra rok. Bu noktada tahtada olup biten artık bugünkü satrancın
       kendisiydi.</p>
       <p>Sonrasında tahtanın dışına çıktım. Oyunun sonsuza kadar sürmesini engelleyen iki
-      teorik sınır, 75 hamle kuralı ve saat, motora bu aşamada girdi.</p>
+      teorik sınır, sayaçlar ve saat, motora bu aşamada girdi.</p>
       <p>Normalde orada bırakacaktım. Ama bu kadar ilerlemişken kural kitabının geri kalanını
       da tamamlamak istedim: pozisyon tekrarı, yetersiz materyal, beraberlik teklifi ve
       talebi, bayrak düşmesi, terk. Tahtadaki hamlelerden değil, oyunculardan ve saatten gelen
@@ -1645,7 +1645,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       second closes the hole the first opens. Then castling. At that point what was happening on
       the board was chess as we play it today.</p>
       <p>After that I moved off the board. The two theoretical limits that keep a game from
-      running forever, the 75-move rule and the clock, entered the engine at this stage.</p>
+      running forever, the counters and the clock, entered the engine at this stage.</p>
       <p>Normally I would have stopped there. But having come this far I wanted to finish the rest
       of the rulebook: repetition of position, insufficient material, the draw offer and the draw
       claim, flag fall, resignation. That brought in the rulings that come not from the moves on the
@@ -2066,7 +2066,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     </ul>
     <ul class="tight" lang="en">
       <li><b>Three squares, not two.</b> The square the king <em>stands on</em>, the one it <em>crosses</em>, and the one it <em>lands on</em> — none of the three may be attacked. The landing square is the one most summaries drop; all three sit in the same sub-article.</li>
-      <li><b>The rook is exempt.</b> Those three squares are the king’s. The square the rook crosses may well be attacked: castling queenside with b1 under attack is perfectly legal. All the rook’s path has to be is empty.</li>
+      <li><b>The rook is exempt.</b> Those three squares are the king’s. The square the rook crosses may well be attacked: castling queenside with b1 under attack is perfectly legal. The rook’s path only has to be empty.</li>
       <li><b>If the king moves, both rights go.</b> A king move forfeits the right on both sides; a rook move forfeits only the right on that rook's side.</li>
     </ul>
 
@@ -2234,45 +2234,17 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="prose" lang="tr">
       <p>Geçerken alma ayrı bir kural değil, <b>başka bir kuralın yaması</b>. Piyonun ilk hamlesinde
       iki kare ilerleyebilmesi açılışı hızlandırmak için getirildi; ama bununla birlikte piyon, rakip piyonun tehdit ettiği kareyi atlayıp geçebilir hâle geldi. Geçerken alma tam olarak o deliği
-      kapatıyor: iki kare ilerleyen piyon, tek kare ilerlemiş gibi alınabiliyor. Bu ek kural haksız sonuçların önüne geçmek için konuldu: geçerken alma olmasaydı, bazı
-      pozisyonlarda — özellikle <em>zugzwang</em> (hamle sırasının oynayana zarar verdiği durum)
-      içerenlerde — oyunun dengesi adil olmayan biçimde bozulurdu.</p>
+      kapatıyor: iki kare ilerleyen piyon, tek kare ilerlemiş gibi alınabiliyor.</p>
     </div>
     <div class="prose" lang="en">
       <p>En passant is not a separate rule but a <b>patch on another one</b>. The pawn’s two-square
       first move was introduced to speed up the opening; but it also let a pawn slip past a square
       an opposing pawn was covering. En passant closes exactly that hole: a pawn that has just moved
-      two squares may be captured as though it had moved one. This extra rule was made to prevent unfair
-      outcomes: without en passant, the balance of the game would be upset unfairly in some
-      positions — especially those involving <em>zugzwang</em> (where having to move is itself a
-      disadvantage).</p>
+      two squares may be captured as though it had moved one.</p>
     </div>
 
     <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Alışın kendisi ucuz: piyonun gerçekten vardığı kareyle ifade edildiği için ayrı bir kural gerektirmiyor. Pahalı olan, hakkın <em>doğup doğmadığına</em> karar vermek — buna dördüncü bölümde dönüyoruz.</p>
     <p class="cost" lang="en"><b>What it costs to apply.</b> The capture itself is cheap: it is expressed through the square the pawn actually lands on, so it needs no rule of its own. What is costly is deciding whether the right <em>arises at all</em> — we come back to that in section four.</p>
-
-    <h4 lang="tr">Özel hamleler oyuna ne katıyor</h4>
-    <h4 lang="en">What the special moves add</h4>
-    <div class="prose" lang="tr">
-      <p>Rok ve iki adım tahtada yeni bir görüntü yaratmıyor: şahla kalenin rokla vardığı karelere
-      de, piyonun iki adımda vardığı kareye de sıradan hamlelerle ulaşılabiliyor. Katkıları
-      <b>tempo</b>: oyunu hızlandırıyorlar, yan etki olarak da bazı özel durumlarda oyuna estetik
-      katıyorlar. Alt terfi öyle değil. Her terfide dal sayısını dörde katlıyor ve terfiler
-      çoğaldıkça oyunun uzayı üstel biçimde büyüyor. Bu yüzden bana göre taş hareketleri ve geçerlilikten sonra kurallara yapılmış en önemli ekleme bu. <em>Ekleme</em> diyorum, çünkü uzun
-      süre terfinin tek bir yönü vardı: ortaçağ satrancında piyon yalnızca vezirin atası fers'e
-      dönüşebiliyordu.</p>
-    </div>
-    <div class="prose" lang="en">
-      <p>Castling and the double step create no new picture on the board: the squares king and rook
-      reach by castling, and the square a pawn reaches in two steps, can all be reached by ordinary
-      moves. What they add is <b>tempo</b>: they speed the game up, and as a side effect lend it
-      some beauty in particular cases. Underpromotion is different. It multiplies the branches at
-      every promotion by four, and as promotions accumulate the space of the game grows
-      exponentially. That is why, to my mind, it is the most important addition to the rules after
-      the piece moves and legality themselves. I say <em>addition</em> because for a long time
-      promotion went one way only: in medieval chess a pawn could become nothing but the fers, the
-      queen's ancestor.</p>
-    </div>
 
     <h4 lang="tr">Terfi — 3.7.5</h4>
     <h4 lang="en">Promotion — 3.7.5</h4>
@@ -2309,13 +2281,36 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Terfi bir seçim olduğu için arayüzün bir soru sorması, algoritmanın da dört seçeneği birden hesaba katması gerekiyor. Otomatik vezir olsaydı bu maddenin maliyeti neredeyse sıfır olurdu.</p>
     <p class="cost" lang="en"><b>What it costs to apply.</b> Because promotion is a choice, the interface has to ask a question and the algorithm has to account for all four answers. Promote automatically to a queen and this article would cost almost nothing.</p>
 
+    <h4 lang="tr">Özel hamleler oyuna ne katıyor</h4>
+    <h4 lang="en">What the special moves add</h4>
+    <div class="prose" lang="tr">
+      <p>Rok ve iki adım tahtada yeni bir görüntü yaratmıyor: şahla kalenin rokla vardığı karelere
+      de, piyonun iki adımda vardığı kareye de sıradan hamlelerle ulaşılabiliyor. Katkıları
+      <b>tempo</b>: oyunu hızlandırıyorlar, yan etki olarak da bazı özel durumlarda oyuna estetik
+      katıyorlar. Alt terfi öyle değil. Her terfide dal sayısını dörde katlıyor ve terfiler
+      çoğaldıkça oyunun uzayı üstel biçimde büyüyor. Bu yüzden bana göre taş hareketleri ve geçerlilikten sonra kurallara yapılmış en önemli ekleme bu. <em>Ekleme</em> diyorum, çünkü uzun
+      süre terfinin tek bir yönü vardı: ortaçağ satrancında piyon yalnızca vezirin atası fers'e
+      dönüşebiliyordu.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>Castling and the double step create no new picture on the board: the squares king and rook
+      reach by castling, and the square a pawn reaches in two steps, can all be reached by ordinary
+      moves. What they add is <b>tempo</b>: they speed the game up, and as a side effect lend it
+      some beauty in particular cases. Underpromotion is different. It multiplies the branches at
+      every promotion by four, and as promotions accumulate the space of the game grows
+      exponentially. That is why, to my mind, it is the most important addition to the rules after
+      the piece moves and legality themselves. I say <em>addition</em> because for a long time
+      promotion went one way only: in medieval chess a pawn could become nothing but the fers, the
+      queen's ancestor.</p>
+    </div>
+
     <h3 lang="tr">3. Şah, mat ve pat</h3>
     <h3 lang="en">3. Check, checkmate and stalemate</h3>
     <p class="layer" lang="tr">Kitap ne diyor</p>
     <p class="layer" lang="en">What the book says</p>
 
     <ul class="tight" lang="tr">
-      <li><b>Şah — 3.9.</b> Şah, rakibin bir ya da birden fazla taşı tarafından tehdit ediliyorsa şah çekilmiş olur. Tehdit için o taşın şahın karesine gerçekten <em>gidebilmesi</em> gerekmiyor: kendi şahını açıkta bırakacağı için yerinden oynayamayan, açmazdaki bir taş da şah çeker. Açmaz taşın hamlesini engeller, tehdidini değil.</li>
+      <li><b>Şah çekme — 3.9.</b> Şah, rakibin bir ya da birden fazla taşı tarafından tehdit ediliyorsa şah çekilmiş olur. Tehdit için o taşın şahın karesine gerçekten <em>gidebilmesi</em> gerekmiyor: kendi şahını açıkta bırakacağı için yerinden oynayamayan, açmazdaki bir taş da şah çeker. Açmaz taşın hamlesini engeller, tehdidini değil.</li>
       <li><b>Şah tahtadan hiç kalkmaz.</b> Oyun matla biter, şahın alınmasıyla değil. Bu bir üslup tercihi değil, bütün geçerlilik tanımının dayandığı yer: kendi şahını tehdit altında bırakan hamle kötü bir hamle değil, <em>var olmayan</em> bir hamledir.</li>
       <li><b>Mat — 5.1.1.</b> Şah tehdit altında ve tehdidi kaldıracak hiçbir geçerli hamle yok. Mat eden kazanır ve oyun <b>o anda</b> biter.</li>
       <li><b>Pat — 5.2.1.</b> Sırası gelen tarafın şahı tehdit altında değil ama hiçbir geçerli hamlesi yok. Oyun berabere biter ve yine <b>o anda</b>.</li>
@@ -2348,8 +2343,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <li><b>50 ve 75 hamle sayacı.</b> Piyon oynanmadığı ve taş alınmadığı sürece ilerler; ikisinden biri olduğunda sıfırlanır.</li>
       <li><b>Pozisyon tekrarı — 9.2.3.</b> İki pozisyonun aynı sayılması için sıra aynı tarafta olmalı, taşlar aynı karelerde durmalı ve iki tarafın <em>mümkün hamleleri</em> aynı olmalıdır.</li>
       <li><b>Tekrarların ardışık olması gerekmez.</b> Aynı pozisyon oyunun üç ayrı yerinde doğmuş olabilir; önemli olan tekrarın kaç kez olduğu, aralarındaki mesafe değil.</li>
-      <li><b>Talebe bağlı olanlar — 9.2, 9.3.</b> üçlü tekrar ve 50 tam hamle (100 yarım hamle) doğru talep edilirse beraberlik verilir.</li>
-      <li><b>Kendiliğinden gelenler — 9.6.</b> beşli tekrar ve 75 tam hamle (150 yarım hamle) dolduğunda beraberlik, talep beklenmeden ilan edilir.</li>
+      <li><b>Talebe bağlı olanlar — 9.2, 9.3.</b> Üçlü tekrar ve 50 tam hamle (100 yarım hamle) doğru talep edilirse beraberlik verilir.</li>
+      <li><b>Kendiliğinden gelenler — 9.6.</b> Beşli tekrar ve 75 tam hamle (150 yarım hamle) dolduğunda beraberlik, talep beklenmeden ilan edilir.</li>
       <li><b>Matın üstünlüğü — 9.6.2.</b> Bir hamle mat ediyorsa, aynı hamlede 50 ya da 75 hamle sınırı dolsa bile mat geçerlidir: hamleye iliştirilen 50 hamle talebi yok sayılır, 75 hamlenin otomatik beraberliği doğmaz. Uzun oyun sonlarında rastlanan bir çakışma bu. Tekrarla çakışma ise mümkün değil: mat edilmiş bir pozisyon daha önce görülmüş olamaz — görülseydi oyun orada biterdi. Kitap bunu iki yerden söylüyor: 75 hamle için 9.6.2'nin kendi metninde açıkça yazılı, 50 hamle talebi içinse 5.1.1 yetiyor — mat oyunu o anda bitirir.</li>
     </ul>
     <ul class="tight" lang="en">
@@ -2368,7 +2363,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>Tekrarın bütün ağırlığı bu ifadede. Kitap iki durumu açıkça istisna olarak sayıyor ve ikisini
       <b>farklı</b> ölçüyor:</p>
       <ul class="tight">
-        <li><b>9.2.3.1 — geçerken alma: imkân bazlı.</b> Dizinin başında bir piyon geçerken
+        <li><b>9.2.3.1 — geçerken alma: geçerlilik (imkân) bazlı.</b> Dizinin başında bir piyon geçerken
         alınabiliyorduysa, sonradan alınamadığında pozisyonlar aynı sayılmaz. Ölçülen şey hakkın
         <em>kullanılabilirliği</em>.</li>
         <li><b>9.2.3.2 — rok: hak bazlı.</b> Rok hakkı ancak şah ya da kale <em>oynadığında</em>
@@ -2380,7 +2375,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>The whole weight of repetition sits in that phrase. The book names two exceptions explicitly,
       and measures them <b>differently</b>:</p>
       <ul class="tight">
-        <li><b>9.2.3.1 — en passant: measured by availability.</b> If a pawn could have been captured
+        <li><b>9.2.3.1 — en passant: measured by legality (availability).</b> If a pawn could have been captured
         en passant at the start of the sequence and can no longer be, the positions are not the same.
         What is measured is whether the right is <em>usable</em>.</li>
         <li><b>9.2.3.2 — castling: measured by right.</b> Castling rights are lost only when the king
@@ -2442,7 +2437,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
         tekrar sayımında ortaya çıkıyor: imkân, pozisyonun tanımının bir parçası. İmkân varmış gibi sayılırsa
         FIDE'nin aynı saydığı iki pozisyon farklı sayılır ve üçüncü tekrar geç gelir ya da hiç
         gelmez.</p>
-        <p>Bedeli somut: berabere bitmesi gereken bir oyun yenilgiyle biter. Alış zaten oynanamadığı için bu hata gözle görülmez — yalnızca sayaçta yaşar.</p>
+        <p>Bedeli somut: berabere bitmesi gereken bir oyun yenilgiyle bitebilir. Alış zaten oynanamadığı için bu hata gözle görülmez — yalnızca sayaçta yaşar.</p>
       </div>
     </div>
 
@@ -2500,7 +2495,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
         unplayable either way. The difference shows up in the counting: availability is part of what
         defines the position. Treat it as present and two positions FIDE counts as identical are
         counted apart, so the third repetition arrives late or never arrives.</p>
-        <p>The price is concrete: a game that should have been drawn ends in a loss. And because the
+        <p>The price is concrete: a game that should have been drawn can end in a loss. And because the
         capture was unplayable anyway, the error is invisible on the board — it lives only in the
         counter.</p>
       </div>
@@ -2540,15 +2535,20 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 </table></div>
 
     <div class="prose" lang="tr">
-      <p>FIDE iki hakkı iki ayrı satırdan ölçüyor: geçerken almayı <b>imkân</b>, roku <b>hak</b> olarak sayıyor ve bunu 9.2.3.1 ile 9.2.3.2'de açıkça yazıyor. İlk bakışta tutarsız görünüyor — ikisi de “şu an oynanabilir mi” sorusuna bağlıymış gibi duruyor — ve konu tartışmasız da değil. Kitabın gerekçesi, ikinci bölümde gördüğümüz <em>hak kaybı</em> ile <em>geçici engel</em> ayrımı: geçerken almada geçici engel diye bir şey yok — hak ya vardır ya yoktur ve bir hamle sonra kalıcı olarak düşer; rokta ise ikisi ayrı şeyler ve kitap yalnızca kalıcı olanı sayıyor. Yaygın kabul gören görüş de roku hak olarak saymak: hem daha az maliyetli, hem de bu yoruma göre pozisyonları daha hassas ayırdığı için değerlendirmenin daha iyi yolu. Bu ayrımın gerçek bir
+      <p>FIDE iki hakkı iki ayrı satırdan ölçüyor: geçerken almayı <b>imkân</b>, roku <b>hak</b> olarak sayıyor ve bunu 9.2.3.1 ile 9.2.3.2'de açıkça yazıyor. İlk bakışta tutarsız görünüyor — ikisi de “şu an oynanabilir mi” sorusuna bağlıymış gibi duruyor — ve konu tartışmasız da değil. Kitabın gerekçesi, ikinci bölümde gördüğümüz <em>hak kaybı</em> ile <em>geçici engel</em> ayrımı: geçerken almada geçici engel diye bir şey yok — hak ya vardır ya yoktur ve bir hamle sonra kalıcı olarak düşer; rokta ise ikisi ayrı şeyler ve kitap yalnızca kalıcı olanı sayıyor. Yaygın görüş de bu yönde: roku hak olarak saymak hem daha ucuz hem de pozisyonları daha isabetli ayırıyor. Bu ayrımın gerçek bir
       oyunda bedeli de olmuştur:
-      Karpov–Miles, 1986'da Karpov üçlü tekrar talep etti, pozisyonların rok hakları bakımından
-      farklı olduğu gösterildi ve talep reddedildi. Aradaki fark tahtaya bakınca görünmüyordu.</p>
+      Karpov–Miles, 1986'da Karpov 26. hamlesinde üçlü tekrar talep etti; 22. hamledeki pozisyonda
+      siyahın rok hakkı hâlâ durduğu gösterildi ve talep geçersiz sayıldı. Karpov'a saatinden beş
+      dakika ceza verildi; Miles ise bir süre düşündükten sonra beraberliği yine de kabul etti,
+      çünkü yanlış bir talep de bir beraberlik teklifidir. Aradaki fark tahtaya bakınca görünmüyordu.</p>
     </div>
     <div class="prose" lang="en">
-      <p>FIDE measures the two rights on two different rows: it counts en passant as <b>availability</b> and castling as a <b>right</b>, and says so plainly in 9.2.3.1 and 9.2.3.2. At first glance it looks inconsistent — both seem tied to the question “can it be played right now” — and the point is not undisputed. The book's reasoning is the distinction between <em>losing a right</em> and <em>temporary prevention</em> that we met in section two: en passant has no temporary prevention — the right either exists or it does not, and one move later it is permanently gone — while for castling the two are separate things, and the book counts only the permanent one. The widely accepted view, too, is to count castling as a right: it is cheaper, and on that reading it separates positions more precisely and is the
-      better way to assess them. The distinction has already had a price in a real game: in Karpov–Miles, 1986, Karpov claimed a threefold repetition,
-      the positions were shown to differ in castling rights, and the claim was refused. The
+      <p>FIDE measures the two rights on two different rows: it counts en passant as <b>availability</b> and castling as a <b>right</b>, and says so plainly in 9.2.3.1 and 9.2.3.2. At first glance it looks inconsistent — both seem tied to the question “can it be played right now” — and the point is not undisputed. The book's reasoning is the distinction between <em>losing a right</em> and <em>temporary prevention</em> that we met in section two: en passant has no temporary prevention — the right either exists or it does not, and one move later it is permanently gone — while for castling the two are separate things, and the book counts only the permanent one. The widely accepted view points the same way: counting castling as a right is both cheaper and
+      separates positions more precisely. The distinction has already had a price in a real game: in Karpov–Miles, 1986, Karpov claimed a threefold repetition
+      on his 26th move; it was shown that in the position after his 22nd move Black still held
+      castling rights, and the claim was ruled invalid. Karpov was penalised five minutes on his
+      clock; Miles thought for a while and then agreed to a draw anyway, because an incorrect claim
+      is also a draw offer. The
       difference was invisible on the board.</p>
     </div>
 
@@ -2692,7 +2692,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
         <figcaption>X and Y: the board is identical. In X the king has never moved; in Y it went to f1 and came back. In both, the knight on g1 blocks castling. Once <b>Ng1–f3</b> clears the way, castling becomes playable in X but not in Y. The green frames mark the knight's start and destination, the faded knight its arrival.</figcaption>
       </figure>
       <div class="prose" lang="tr">
-        <p><b>Neden o anki geçerlilik değil de hak.</b> Bir durum makinesinin temel şartı
+        <p><b>Neden o anki geçerlilik değil de hak.</b> Bir durum makinesinin <span class="gloss">(her adımda bir durumdan ötekine geçen sistem)</span> temel şartı
         hafızasızlıktır: bir sonraki durum yalnızca şimdiki duruma ve yapılan hamleye bağlı
         olmalı, geçmişe bakmaya gerek kalmamalı. Rok o anki geçerlilikle sayılsaydı bu şart
         bozulurdu. Yandaki tahtayı iki ayrı oyunda düşünelim. X'te beyaz şah hiç oynamadı; Y'de
@@ -2712,7 +2712,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       </div>
       <div class="prose" lang="en">
         <p><b>Why the right, and not playability at the moment.</b> The basic requirement of a
-        state machine is memorylessness: the next state should depend only on the current state
+        state machine <span class="gloss">(a system that passes from one state to the next at each step)</span> is memorylessness: the next state should depend only on the current state
         and the move made, with no need to look back at the past. Had castling been counted by
         whether it can be played right now, that requirement would break. Take the board alongside
         in two different games. In X the white king has never moved; in Y it went to f1 and came
@@ -2736,8 +2736,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="prose" lang="tr">
       <p>Uygulamalar geçerken alma karesini farklı biçimlerde yazıyor. Hepsinde alışın kendisi
       eninde sonunda geçerlilik süzgecinden geçtiği için fark tahtada görünmüyor, yalnızca tekrar
-      sayımında çıkıyor. En basit hâlinde kare, iki kare ilerleyen her piyon için yazılıyor. Bu
-      kesinlikle yanlış bir yorum ve pozisyon tekrarı tanımına açıkça ters düşüyor. Geçerken alma
+      sayımında çıkıyor. En basit hâlinde kare, iki kare ilerleyen her piyon için yazılıyor — klasik FEN de böyle
+      yazar. Gösterim olarak doğru; ama tekrar anahtarı <span class="gloss">(pozisyonun tekrar sayımındaki kimliği: tahta, sıra, rok hakları ve geçerken alma karesi)</span> olarak kullanıldığında açıkça yanlış ve
+      pozisyon tekrarı tanımına ters düşüyor. Geçerken alma
       özel bir hamle; kareyi her çift adımda yazmak kural doğruluğu açısından yeterince hassas
       değil. Tanım iki pozisyonda geçerken alma imkânlarının aynı olmasını istiyor, oysa
       oynanamayacak bir alış kaydedildiğinde bu imkân kâğıt üzerinde var, tahtada yok: aynı
@@ -2750,8 +2751,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>Implementations write the en passant square in different ways. In all of them the capture
       itself passes the legality filter in the end, so the difference never shows on the board —
       only in the repetition count. In its simplest form the square is written after every
-      two-square pawn advance. That is plainly a wrong reading and clearly at odds with the
-      definition of a repeated position. En passant is a special move, and writing the square after
+      two-square pawn advance — which is how classic FEN writes it too. As notation that is correct;
+      used as a repetition key <span class="gloss">(a position's identity for the repetition count: the board, the side to move, the castling rights and the en passant square)</span> it is plainly wrong and at odds with the definition of a repeated
+      position. En passant is a special move, and writing the square after
       every double step is not precise enough for rule correctness. The definition asks that the en
       passant possibilities of two positions be the same, yet when a capture that cannot be played
       is recorded, the possibility exists on paper but not on the board: one position is counted as
@@ -2767,29 +2769,40 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p><b>In FideLite.</b> The en passant square is written only if the capture is legal — an opposing pawn stands alongside, and the capture, though it moves two pawns at once, does not expose its own king. Castling is kept as the permanent right: together with the board, the side to move and the en passant square, the castling rights are part of the repetition key. FideLite thus applies FIDE's two rows exactly.</p>
     </div>
 
-    <h4 lang="tr">Sayaç neden en dışta duruyor</h4>
-    <h4 lang="en">Why the counter is the outermost net</h4>
+    <h4 lang="tr">Oyunu sonlu kılan iki sınır</h4>
+    <h4 lang="en">The two limits that keep a game finite</h4>
     <div class="prose" lang="tr">
-      <p>Bu bölümdeki dört sınır — üçlü tekrar, 50 hamle, beşli tekrar, 75 hamle — ve
-      <a href="#dead">ölü pozisyon</a> aynı sonuca çıkıyor: oyun berabere bitiyor. Ama aralarında
-      bir kapsama ilişkisi var ve en dışta duran <b>75 hamle</b>.</p>
-      <p>Sebebi şu: <b>piyon hamlesi ile alma geri alınamaz.</b> Bir piyon geri gitmez, alınan taş
+      <p>Bu bölümdeki kendiliğinden gelen iki sınır — <b>75 hamle</b> ve <b>beşli tekrar</b> — oyunun
+      sonsuza kadar sürmesini tek başına engelleyebiliyor; ikisi farklı bir sonluluğa dayanıyor.</p>
+      <p>Sayacın dayanağı şu: <b>piyon hamlesi ile alma geri alınamaz.</b> Bir piyon geri gitmez, alınan taş
       geri gelmez. İkisi de bir oyunda ancak sonlu sayıda olabilir — piyonlar sonlu, taşlar sonlu.
       Ve sayacı sıfırlayan tek şey bu ikisi. Öyleyse ikisi de tükendikten sonra sayaç durmadan
       artar ve 150 yarım hamlede oyunu kendiliğinden bitirir. Kitap sayacı yalnızca bu ikisine bağlıyor;
       aynı sınıftan iki olayın daha, rok hakkının ve geçerken alma hakkının düşmesinin de ona
       bağlanması gerektiğini <a href="#reset">9. bölümde</a> tartışıyorum.</p>
-      <p>Bundan çıkan sonuç şu: <b>ölü pozisyon tespiti de, tekrar sayımı da oyunu bitiren kurallar
-      değil — erken bitiren kurallar.</b> İkisi de olmasaydı, kilitli bir pozisyonda oyuncular hamleleri yinelemeyi sürdürdükçe oyun zorunlu olarak 75 hamle sınırına dayanırdı. beşli tekrar oraya giden yolun kestirmesi, çünkü kilitlilik hareketliliği düşürür ve aynı pozisyon daha erken geri gelir. Ölü pozisyon da tekrarın kestirmesi, çünkü pozisyonu ilk hamlede tanır.</p>
-      <p>Aynı akıl yürütme tersten okunduğunda, <b>sonluluğun</b> ne kadar az kuralla garanti edildiğini gösteriyor. Geçerlilik, mat, pat ve 50/75 hamle yeter: bu dört şeyi uygulayan bir
-      oyun sonsuza kadar süremez — imkânı yoktur. Tekrar da ölü pozisyon da
-      sonluluk için gerekli değil. Onlar oyunu <em>doğru</em> bitirmek için var, <em>bitirmek</em>
+      <p>Tekrarın dayanağı ise <b>pozisyon uzayının sonlu olması</b>: taşların yeri, sıra, rok hakları ve
+      geçerken alma karesi sonlu sayıda birleşim veriyor; bitmeyen bir oyun bir pozisyona er geç
+      beşinci kez dönmek zorunda.</p>
+      <p>Bu yüzden ölü pozisyon tespiti olmasa bile ölü bir pozisyonu <b>iki sayaçtan biri mutlaka
+      bitirir</b>; oyunu olabildiğince uzatmaya çalışan taraflar bile bunu engelleyemez. Teoride hamle
+      sayacı çok daha erken bitirici: <code>k7/8/8/1p2p2p/1P2P2P/8/8/K7 w - - 0 1</code> pozisyonunda şahlar kendi üç
+      yataylarına kapalı; 576 dizilişin sıra bilgisiyle 1.152 pozisyonu var ve hiçbiri beşinci kez
+      gelmeden oynanabilecek en uzun dizi 4.608 yarım hamle, sayaç ise 150'de doluyor. Pratikte ise
+      tekrarın çok daha erken kestiği pozisyonlara sık rastlanıyor: kilitlilik hareketliliği düşürdüğü
+      için aynı pozisyon çabuk geri geliyor — <a href="#flag">6. bölümdeki</a> fil örneğinde beşli
+      tekrar 16. yarım hamlede geliyor.</p>
+      <p><a href="#dead">Ölü pozisyon</a> tespiti ise oyunu bitiren değil, <b>erken bitiren</b> kural:
+      ölü olmayan bir pozisyonda hiç devreye girmediği için tek başına sonluluk vermez, ama ölü olanı
+      ilk hamlede tanır.</p>
+      <p>Aynı akıl yürütme tersten okunduğunda, <b>sonluluğun</b> ne kadar az kuralla garanti edildiğini gösteriyor. Geçerlilik, mat, pat ve bu iki sınırdan biri yeter: bunları uygulayan bir
+      oyun sonsuza kadar süremez — imkânı yoktur. İkisi birden gerekmiyor; ölü pozisyon ise
+      sonluluk için hiç gerekli değil. O, oyunu <em>doğru</em> bitirmek için var, <em>bitirmek</em>
       için değil.</p>
       <p>Bu ayrım <a href="#levels">seviyelerde</a> doğrudan görünüyor: her seviye oyunu bitiren
       yeni hükümler ekliyor. En yalın seviyede sayaç yok, dolayısıyla sonluluk da garanti değil —
-      iki şah tahtada kaldığı sürece oyun kapanmaz. Garanti sayaçlarla doğuyor: 50/75 hamle kuralı
-      sonlu bir oyun için tek başına yeter. Ölü pozisyon ve tekrar ise bunu <b>pratik</b> kılıyor,
-      çünkü sonucu 150 yarım hamle beklemeden veriyorlar. İkisi ayrı bir kesinlikten besleniyor:
+      iki şah tahtada kaldığı sürece oyun kapanmaz. Garanti kendiliğinden gelen sınırlarla doğuyor: 75 hamle de
+      beşli tekrar da tek başına yeter. Ölü pozisyon ve tekrar ise bunu <b>pratik</b> kılıyor,
+      çünkü sonucu çoğu zaman 150 yarım hamle beklemeden veriyorlar. İkisi ayrı bir kesinlikten besleniyor:
       ölü pozisyon <b>geometrik</b> kesinlikten — matın gelmeyeceğini tahtanın kendisi söylüyor;
       tekrar ise <b>niyetin</b> kesinliğinden — aynı pozisyona üçüncü kez dönmek kimsenin
       ilerlemek istemediğini gösteriyor ve oyuncu talep edebiliyor, beşincide artık kimseye sormaya
@@ -2798,33 +2811,43 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       tahtanın değil <b>insan etkileşiminin</b> kuralları; onlar olmadan turnuva satrancı olmaz.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The four limits in this section — threefold, 50 moves, fivefold, 75 moves — and the
-      <a href="#dead">dead position</a> all arrive at the same outcome: the game is drawn. But
-      there is a containment order among them, and the outermost is <b>the 75-move rule</b>.</p>
-      <p>The reason: <b>a pawn move and a capture cannot be undone.</b> A pawn does not go back, a
+      <p>The two limits in this section that arrive by themselves — <b>75 moves</b> and <b>fivefold
+      repetition</b> — can each keep a game from running forever on its own; each rests on a
+      different kind of finiteness.</p>
+      <p>For the counter the reason is this: <b>a pawn move and a capture cannot be undone.</b> A pawn does not go back, a
       captured piece does not return. Each can happen only finitely often in a game — the pawns are
       finite, the pieces are finite. And those two are the only things that reset the counter. So
       once both are exhausted the counter climbs without interruption and ends the game by itself
       at 150 plies. The book ties the counter to these two alone; that two more events of the same
       class, the loss of a castling right and the lapse of an en passant right, should be tied to
       it as well is something I argue in <a href="#reset">section nine</a>.</p>
-      <p>What follows is this: <b>neither dead-position detection nor the repetition count is a
-      rule that ends the game — they are rules that end it early.</b> Without either of them, a
-      blocked position would inevitably run into the 75-move limit as long as the players kept repeating moves. Fivefold repetition short-circuits that, because being
-      blocked is what makes mobility collapse and brings the same position back sooner. The dead
-      position in turn short-circuits repetition, because it recognises the position on the first
-      move.</p>
+      <p>Repetition rests instead on <b>the position space being finite</b>: where the pieces stand,
+      the side to move, the castling rights and the en passant square give only finitely many
+      combinations, so a game that never ends must sooner or later come back to some position a
+      fifth time.</p>
+      <p>So even without dead-position detection, <b>one of the two counters is certain to end a dead
+      position</b>; not even two sides trying to drag the game out as long as possible can stop it.
+      In theory the move counter is by far the earlier of the two: in <code>k7/8/8/1p2p2p/1P2P2P/8/8/K7 w - - 0 1</code> the kings are
+      shut into their own three ranks; the 576 placements make 1,152 positions once the side to move
+      is counted, and the longest sequence in which none of them comes a fifth time runs to 4,608
+      plies, while the counter fills at 150. In practice, though, positions where repetition cuts in
+      much earlier are common: being blocked makes mobility collapse and brings the same position back
+      quickly — in the bishop example of <a href="#flag">section six</a> fivefold repetition arrives on
+      ply 16.</p>
+      <p><a href="#dead">Dead-position</a> detection, on the other hand, is a rule that ends the game
+      <b>early</b> rather than one that ends it: it never comes into play in a position that is not
+      dead, so on its own it gives no finiteness, but it recognises a dead one on the first move.</p>
       <p>Read backwards, the same reasoning says how few rules it takes to guarantee
-      <b>finiteness</b>. Legality, checkmate, stalemate and the 50/75-move rule are enough: a game
-      that enforces those four cannot run forever — it is not possible. Neither repetition nor the
-      dead position is needed for finiteness. They are there to end the game
+      <b>finiteness</b>. Legality, checkmate, stalemate and one of these two limits are enough: a game
+      that enforces them cannot run forever — it is not possible. One is enough; the two are not needed together, and the
+      dead position is not needed for finiteness at all. It is there to end the game
       <em>correctly</em>, not to end it.</p>
       <p>The distinction is visible directly in <a href="#levels">the levels</a>: each level adds
       new rulings that end the game. The barest level has no counter, so finiteness is not
       guaranteed there — while two kings remain on the board the game never closes. The guarantee
-      comes with the counters: the 50/75-move rule is enough on its own for a finite game. Dead
-      position and repetition make it <b>practical</b>, because they deliver the result without
-      waiting 150 plies. Each draws on a different kind of certainty: the dead position on
+      comes with the limits that arrive by themselves: the 75-move rule and fivefold repetition are
+      each enough on their own. Dead position and repetition make it <b>practical</b>, because they
+      often deliver the result without waiting 150 plies. Each draws on a different kind of certainty: the dead position on
       <b>geometric</b> certainty — the board itself says mate will not come; repetition on
       certainty of <b>intent</b> — returning to the same position a third time shows that no one
       means to make progress, and the player may claim; at the fifth, no one needs to be asked. In
@@ -2845,7 +2868,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>Bu budamanın asıl işe yaradığı yer arama yapan motorlar. Bot tekrar kontrolünü aramanın
       her düğümünde, saniyede milyonlarca kez yapıyor; geçmişi yalnızca son geri alınamaz hamleye
       kadar taramak orada doğrudan hız demek. Hakemde ise kontrol yarım hamlede bir kez yapılıyor
-      ve pozisyonlar bir karma tablosunda tutulduğu için bakmanın süresi tablonun boyuna bağlı
+      ve pozisyonlar bir karma tablosunda <span class="gloss">(hash tablosu: kayda anahtarıyla doğrudan ulaşılan yapı)</span> tutulduğu için bakmanın süresi tablonun boyuna bağlı
       değil.</p>
       <p>Tablonun büyümesinin kesin bir üst sınırı da var: 75 hamle kuralı kendiliğinden işlediği
       için bir oyun en fazla <a class="ext" href="https://www.wismuth.com/chess/longest-game.html" target="_blank" rel="noopener">17.697 yarım hamle, yani 8.848,5 hamle ↗️</a> sürebilir.
@@ -2861,7 +2884,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>Where this pruning really pays is in engines that search. A bot checks for repetition at
       every node of its search, millions of times a second; scanning the history only back to the
       last irreversible move is raw speed there. In an arbiter the check runs once per ply, and
-      since the positions sit in a hash table, a lookup takes the same time however large the
+      since the positions sit in a hash table <span class="gloss">(a structure that reaches an entry directly by its key)</span>, a lookup takes the same time however large the
       table grows.</p>
       <p>How large it can grow has a hard ceiling too: because the 75-move rule applies by itself,
       a game can last at most <a class="ext" href="https://www.wismuth.com/chess/longest-game.html" target="_blank" rel="noopener">17,697 plies — 8,848.5 moves ↗️</a>. That is the concrete
@@ -2917,7 +2940,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       çıkarılan hesabın yükü de kalkmalı.</p>
       <p>Not yasağı düşünüldüğünde bu FIDE'ye aykırı sayılabilir mi? Sayılırsa motor en baştan
       aykırı olur: yalnızca geçerli hamleye izin veriyor, geçersiz hamleye 7.5'in cezasını hiç
-      uygulamıyor, talebi da kayıt yerine anında denetliyor. Kayıt, not yasağı ve ceza maddeleri
+      uygulamıyor, talebi de kayıt yerine anında denetliyor. Kayıt, not yasağı ve ceza maddeleri
       oyunun değil masa başının kuralları; delil üretmek ve dürüstlüğü korumak için varlar ve
       dijitalde o işi platform kendisi görüyor. FIDE'nin kendi <a class="ext" href="https://handbook.fide.com/chapter/OnlineChessRegulations" target="_blank" rel="noopener">çevrimiçi yönetmeliği ↗️</a>
       de aynı yönde: oyun alanı yalnızca geçerli hamleleri kabul ediyor, bütün hamleler ve saatler
@@ -3028,8 +3051,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       taşınabildiğini savunuyor: talep <a href="#claims">hamlenin kendi kanalıyla</a> gidiyor,
       sayılar ekranda duruyor; oyuncu ne hakkını kaçırıyor ne de onu kullanmak için hamle listesini
       geriye doğru sayıyor. Lichess de kısmen aynı yoldan gidiyor: üçlü tekrarı talebe bırakıyor,
-      terkte de rakibin mat edip edemeyeceğine bakıyor; ama 50 hamlede oyunu kendiliğinden
-      bitiriyor ve terkte yalnızca materyali sayıyor.</p>
+      terkte de süre bitiminde olduğu gibi rakibin mat edip edemeyeceğine bakıyor — ama bunu
+      yalnızca materyalden okuyor; 50 hamlede ise oyunu kendiliğinden bitiriyor.</p>
     </div>
     <div class="prose fl" lang="en">
       <p><b>In FideLite.</b> The principle is to carry the main federation's rules into digital play
@@ -3041,8 +3064,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       digital play without friction: the claim travels on <a href="#claims">the move's own
       channel</a> and the numbers stay on screen, so a player neither misses a right nor has to
       count back through the move list to use it. Lichess partly takes the same road: it leaves
-      threefold repetition to a claim and, on resignation, checks whether the opponent can mate; but
-      it ends the game automatically at fifty moves, and on resignation it counts only material.</p>
+      threefold repetition to a claim and, on resignation as on flag fall, checks whether the
+      opponent can mate — but reads that from material alone; at fifty moves, though, it ends the
+      game automatically.</p>
     </div>
 
     <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Tekrar, kitabın tahtanın dışında bilgi tutmayı gerektiren ilk maddesi. Pozisyonu tanımlayan şey yalnızca taşların yeri değil: sıra, rok hakları ve geçerken alma imkânı da o tanımın parçası. Bunlardan birini yanlış saymak, sayacı sessizce bozar.</p>
@@ -3208,7 +3232,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <i class="d" data-f="g"></i>
 <i data-f="h" data-r="1"></i>
 </div>
-        <figcaption>Altı piyon karşılıklı kilitli: hiçbiri ilerleyemiyor, çaprazlarında alacak taş yok. Şahlar aradaki açık dikeylerde serbestçe dolaşabiliyor — ama iki şah birbirini mat edemez ve tahtada başka taş yok. <b>Motor bunu görüyor:</b> Ölü Pozisyon hükmü veriliyor.</figcaption>
+        <figcaption>Altı piyon karşılıklı kilitli: hiçbiri ilerleyemiyor, çaprazlarında alacak taş yok. Şahlar aradaki açık dikeylerde serbestçe dolaşabiliyor — ama iki şah birbirini mat edemez ve tahtada başka taş yok. <b>Motor bunu görüyor:</b> ölü pozisyon hükmü veriliyor.</figcaption>
       </figure>
     </div>
     <div class="sidefig" lang="en">
@@ -3279,7 +3303,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <i class="d" data-f="g"></i>
 <i data-f="h" data-r="1"></i>
 </div>
-        <figcaption>Six pawns locked head to head: none can advance, and there is nothing to capture on their diagonals. The kings can roam the open files in between — but two kings cannot mate each other, and there is nothing else on the board. <b>The engine sees this:</b> the ruling is Dead Position.</figcaption>
+        <figcaption>Six pawns locked head to head: none can advance, and there is nothing to capture on their diagonals. The kings can roam the open files in between — but two kings cannot mate each other, and there is nothing else on the board. <b>The engine sees this:</b> the ruling is dead position.</figcaption>
       </figure>
     </div>
 
@@ -3519,7 +3543,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 </tbody>
 </table></div>
       <p>Yani boşluk göründüğünden dar. Gerçekten kaçan şey, <em>aynı anda</em> hem kilitli hem
-      geniş olan pozisyon: statik taramanın kapsamı dışında kalacak kadar taşlı, aramanın bütçe
+      geniş olan pozisyon: statik taramanın kapsamı dışında kalacak kadar taşlı, aramanın bütçe <span class="gloss">(aramanın deneyebileceği en fazla hamle sayısı)</span>
       içinde kapatamayacağı kadar açık. Motorun yanlış bildiği 3.567 oyun bu şeritte duruyor.</p>
     </div>
     <div class="prose fl" lang="en">
@@ -3609,7 +3633,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 </table></div>
       <p>The gap is therefore narrower than it looks. What is really missed is a position that is
       blocked <em>and</em> roomy at the same time: out of the static scan's scope, and too wide for
-      the search to close within its budget. The 3,567 games the engine gets wrong all sit in that
+      the search to close within its budget <span class="gloss">(the most moves the search may try)</span>. The 3,567 games the engine gets wrong all sit in that
       strip.</p>
     </div>
 
@@ -3651,7 +3675,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     </div>
     <div class="prose fl" lang="tr">
       <p><b>FideLite'ta.</b> Bu inceliğe gerek yok, çünkü tetikleyiciyle hızlandırılacak ağır bir
-      tarama yok. Kilitli pozisyon dedektörünün ön koşulu zaten tetikleyici işi görüyor: geçerken
+      tarama yok. Kilitli pozisyon taramasının kendi ön koşulu zaten tetikleyici işi görüyor: geçerken
       alma karesi varsa ya da tahtada şah ve piyon dışında tek bir taş bile varsa asıl işi hiç
       başlamıyor. Geri kalan her pozisyonda her hamlede ve <a href="#flag">6.9 aramasının</a>
       açtığı her düğümde koşuyor; çift adımın bir yarım hamle susturduğu kilidi bir sonraki
@@ -3662,7 +3686,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     </div>
     <div class="prose fl" lang="en">
       <p><b>In FideLite.</b> That refinement is not needed, because there is no heavy scan for a
-      trigger to speed up. The blocked-position detector's precondition already does a trigger's
+      trigger to speed up. The blocked-position scan's own precondition already does a trigger's
       job: if there is an en passant square, or a single piece on the board other than kings and
       pawns, its real work never starts. In every other position it runs on every move and at every
       node <a href="#flag">the 6.9 search</a> opens, so a lock that a double step silences for one
@@ -3692,12 +3716,12 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       doymadan hüküm vermiyor. Tanımadığını oynatmaya devam ediyor.</p>
       <p><b>Yönün neden bu yön olduğu da önemli.</b> İki tür hata mümkün ve eşit değiller.
       <em>Kaçırmada</em> — motor ölü bir pozisyonu tanımazsa — oyun sürer, hamleler yinelenir ve
-      <a href="#counters">75 hamle sınırı</a> eninde sonunda beraberliği getirir; sonuç yalnızca
-      geç gelir. Kaçırmanın yanlış sonuca dönüştüğü tek durum sayaç dolmadan bayrağın düşmesi:
+      <a href="#counters">iki sayaçtan biri</a> eninde sonunda beraberliği getirir; sonuç yalnızca
+      geç gelir. Kaçırmanın yanlış sonuca dönüştüğü tek durum sayaçlar dolmadan bayrağın düşmesi:
       beraberliğe hakkı olan taraf süreden kaybeder. Ağır bir hata, ama tek bir oyunla sınırlı ve
       tahtadan okunabilir. <em>Yanlış pozitif</em> ise oyunu bitirir; ilan edilmiş bir
       beraberliği hiçbir kural geri almaz. Bu yüzden hata payı iki kontrolde de bilerek aynı
-      tarafa bırakıldı: kilitli pozisyon dedektörü doymadan hüküm vermiyor, <a href="#flag">6.9 araması</a>
+      tarafa bırakıldı: kilitli pozisyon taraması doymadan hüküm vermiyor, <a href="#flag">6.9 araması</a>
       bütçesi biterse “mat mümkün” diyor — <b>ispatlanamayan imkânsızlık beraberlik
       sayılmıyor.</b></p>
       <p><b>Bu tercih bu motora özgü değil:</b> hiçbir platform ispatlayamadığı bir pozisyonda
@@ -3729,17 +3753,17 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       and does not rule before it has. Anything it does not recognise, it plays on.</p>
       <p><b>Why that direction matters.</b> Two kinds of error are possible, and they are not equal.
       On a <em>miss</em> — the engine fails to recognise a dead position — the game carries on, the
-      moves repeat and the <a href="#counters">75-move limit</a> brings the draw in the end; the
+      moves repeat and <a href="#counters">one of the two counters</a> brings the draw in the end; the
       result only arrives late. A miss turns into a wrong result in one case only, the flag falling
-      before the counter fills: the side entitled to a draw loses on time. A serious error, but
+      before the counters fill: the side entitled to a draw loses on time. A serious error, but
       confined to one game and readable off the board. A <em>false positive</em> ends the game; no
-      rule takes back a draw once declared. So the margin of error was left on the same side in both checks, deliberately: the blocked-position detector does not rule before it has saturated, and
+      rule takes back a draw once declared. So the margin of error was left on the same side in both checks, deliberately: the blocked-position scan does not rule before it has saturated, and
       <a href="#flag">the 6.9 search</a> answers “mate is possible” when its budget runs out —
       <b>an impossibility that cannot be proved does not count as a draw.</b></p>
       <p><b>That choice is not peculiar to this engine:</b> no platform declares a draw in a position
       it has not proved dead, because a result wrongly declared cannot be taken back, while a missed
       one can. The difference is not in direction but in <b>coverage</b>. The platforms have no
-      detector for this article at all, so they miss every blocked position: of the 201,060 wrongly
+      check for this article at all, so they miss every blocked position: of the 201,060 wrongly
       decided games in <a href="#federations">CHA-Solver's scan</a>, <b>51,058</b> are exactly this
       class. The 93% here is not a declaration of superiority either; it is simply the fact of being
       different from zero, made measurable.</p>
@@ -3786,7 +3810,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <p class="layer" lang="tr">Algoritmada nasıl okunur</p>
     <p class="layer" lang="en">How an algorithm reads it</p>
     <div class="prose" lang="tr">
-      <p><span class="dtag">dijitalde yorum payı yok</span> İnce nokta, ikisinin aynı ana denk geldiği durum. Kitap bunun dayanağını hamlenin tanımında veriyor: hamle, oyuncu saate bastığında tamamlanır; oyunu bitiren bir hamle — mat gibi — ise saate basılmasını beklemeden, yapıldığı anda tamamlanmış sayılır (6.2.1). Yani mat ile bayrak arasındaki soru, matın bayraktan önce tahtaya konup konmadığı. Masa başında mat hamlesi süre bitimine
+      <p><span class="dtag">dijitalde yorum payı yok</span> İnce nokta, ikisinin aynı ana denk geldiği durum. Kitap bunun dayanağını hamlenin tanımında veriyor: hamle, oyuncu saate bastığında tamamlanır; oyunu bitiren bir hamle — mat gibi — ise saate basılmasını beklemeden, yapıldığı anda tamamlanmış sayılır (6.2.1.1). Yani mat ile bayrak arasındaki soru, matın bayraktan önce tahtaya konup konmadığı. Masa başında mat hamlesi süre bitimine
       denk gelir ve hangisinin önce olduğu şüpheliyse, şüphe genellikle mat eden lehine yorumlanır.
       Bu esnekliğin sebebi insanın kendisi: hamleyi tahtaya koymak da saate basmak da zaman alır,
       bayrağı görmek de bir göz işidir. Belirsizlik bu kısıtlardan doğar ve masa başındaki yorum
@@ -3796,7 +3820,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       tetiklendiyse</b> o. Yani dijital, bu maddenin yoruma en kapalı olduğu ortam.</p>
     </div>
     <div class="prose" lang="en">
-      <p><span class="dtag">no leeway digitally</span> The fine point is when the two coincide. The book grounds it in its definition of a move: a move is completed when the player presses the clock, but a move that ends the game — mate, for instance — counts as completed the instant it is made, without the clock being pressed (6.2.1). So the question between mate and flag is whether the mate reached the board before the flag fell. Over the board, if the mating move lands just as
+      <p><span class="dtag">no leeway digitally</span> The fine point is when the two coincide. The book grounds it in its definition of a move: a move is completed when the player presses the clock, but a move that ends the game — mate, for instance — counts as completed the instant it is made, without the clock being pressed (6.2.1.1). So the question between mate and flag is whether the mate reached the board before the flag fell. Over the board, if the mating move lands just as
       time runs out and it is unclear which came first, the doubt is usually read in favour of the
       side delivering mate. The reason for that leeway is the human being: placing the move on the
       board and pressing the clock both take time, and seeing the flag is a matter of eyesight. The
@@ -3815,6 +3839,15 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p><b>In FideLite.</b> The clock is updated before the move is processed; if time has
       already run out the ruling comes from the flag, otherwise from the board.</p>
     </div>
+    <ul class="tight" lang="tr">
+      <li><b>Tek taraflı.</b> 5.2.2 iki tarafı birden sorar; bu iki madde ise yalnızca terk eden ya da süresi biten tarafın <em>rakibini</em> sorar. Senin mat edebiliyor olman seni kurtarmaz — soru senin ne yapabildiğin değil, rakibinin ne yapabildiği.</li>
+      <li><b>“Zorlayabilir mi” değil, “kurulabilir mi”.</b> Madde zorlamalı mat (rakip ne yaparsa yapsın gelen mat) aramıyor; kaybeden taraf en kötü hamleleri oynarsa ortaya çıkabilecek bir mat olup olmadığını soruyor. Yani <em>yardımlı mat</em>. Kaybeden taraf kendi şahının kaçışını kendi taşlarıyla kapatarak yardım edebildiği için, savunanın taşları da hesaba girer.</li>
+    </ul>
+    <ul class="tight" lang="en">
+      <li><b>It is one-sided.</b> 5.2.2 asks about both players; these two ask only about the <em>opponent</em> of the player who resigned or flagged. That you can mate does not save you — the question is not what you can do but what your opponent can.</li>
+      <li><b>Not “can they force it”, but “can it be built”.</b> The article is not looking for a forced mate (one that arrives whatever the opponent does); it asks whether a mate could arise if the losing side played the worst moves available. A <em>helpmate</em>, in other words. Since the losing side can help by shutting off its own king’s escape squares with its own pieces, the defender’s material counts too.</li>
+    </ul>
+
     <div class="prose" lang="tr">
       <p>Bir hakem algoritmasını çevrimiçi bir uygulamaya taşıyan, tam da bu noktaya dikkat etmeli:
       teklif ve talep sıraya bağlı kalmalı, terk bağlanmamalı.</p>
@@ -3838,15 +3871,6 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       interface, the concession was made here. The code side and the measurements are in
       <a href="#resignside">Pitfalls</a>.</p>
     </div>
-
-    <ul class="tight" lang="tr">
-      <li><b>Tek taraflı.</b> 5.2.2 iki tarafı birden sorar; bu iki madde ise yalnızca terk eden ya da süresi biten tarafın <em>rakibini</em> sorar. Senin mat edebiliyor olman seni kurtarmaz — soru senin ne yapabildiğin değil, rakibinin ne yapabildiği.</li>
-      <li><b>“Zorlayabilir mi” değil, “kurulabilir mi”.</b> Madde zorlamalı mat (rakip ne yaparsa yapsın gelen mat) aramıyor; kaybeden taraf en kötü hamleleri oynarsa ortaya çıkabilecek bir mat olup olmadığını soruyor. Yani <em>yardımlı mat</em>. Kaybeden taraf kendi şahının kaçışını kendi taşlarıyla kapatarak yardım edebildiği için, savunanın taşları da hesaba girer.</li>
-    </ul>
-    <ul class="tight" lang="en">
-      <li><b>It is one-sided.</b> 5.2.2 asks about both players; these two ask only about the <em>opponent</em> of the player who resigned or flagged. That you can mate does not save you — the question is not what you can do but what your opponent can.</li>
-      <li><b>Not “can they force it”, but “can it be built”.</b> The article is not looking for a forced mate (one that arrives whatever the opponent does); it asks whether a mate could arise if the losing side played the worst moves available. A <em>helpmate</em>, in other words. Since the losing side can help by shutting off its own king’s escape squares with its own pieces, the defender’s material counts too.</li>
-    </ul>
 
     <h4 lang="tr">Ucuz yarı: tahtadaki taşlar</h4>
     <h4 lang="en">The cheap half: the pieces on the board</h4>
@@ -5724,14 +5748,18 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
         köşeye kilitleyen taş kendi piyonu.</figcaption>
       </figure>
       <div class="prose">
-        <p>Aynı tahtada üç soru, iki sonuç. Yandaki pozisyonda FIDE ile USCF hemfikir: mat hem mümkün hem zorlamalı, siyahın bayrağı düşerse beyaz kazanır. Chess.com üçüncü bir
-        soru soruyor — bu materyal <em>çıplak</em> bir şahı mat edebilir mi — ve tek at
-        edemediği için
+        <p>Aynı tahtada üç soru, iki sonuç. Yandaki pozisyonda beyazın elinde yalnız bir at var,
+        siyahın ise h dikeyinde bir piyonu. FIDE'de soru önce materyalle cevaplanıyor:
+        <a href="#flag">6. bölümdeki tabloya</a> göre şah ve at, a ya da h dikeyinde piyonu olan
+        şaha karşı yardımlı mat kurabiliyor. USCF'nin listesinde tek at yetersiz sayılıyor, ama 14E
+        rakibin zorlamalı bir matı olduğunda istisna tanıyor ve bu pozisyon tam o istisna. İki
+        federasyon farklı yollardan aynı sonuca varıyor: siyahın bayrağı düşerse beyaz kazanır.</p>
+        <p>Chess.com ise pozisyona bakmıyor, yalnızca materyali sayıyor — bu materyal <em>çıplak</em>
+        bir şahı mat edebilir mi — ve tek at edemediği için
         <a href="https://support.chess.com/en/articles/8557986" target="_blank" rel="noopener">beraberlik veriyor</a>.
-        Pozisyondan bağımsız, sabit maliyetli, her partide aynı cevabı veren bir test bu;
-        sunucu ölçeğinde savunulabilir bir tercih, üstelik yardımlı mat hükmünü acemi
-        oyuncuya izah etme yükünü de kaldırıyor. Bedeli şu: kaybedeceğini gören taraf saati akıtarak
-        beraberliğe ulaşabilir.</p>
+        Arama yapmayan bu ölçü USCF'nin listesini izliyor ama istisnasını göremiyor. Böyle kenar
+        durumlarda ortaya çıkan sonuç iki federasyona göre de haksız: kaybedeceğini gören taraf
+        saati akıtarak beraberliğe ulaşabiliyor.</p>
       </div>
     </div>
 
@@ -5759,44 +5787,34 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
         piece locking the king into the corner is its own pawn.</figcaption>
       </figure>
       <div class="prose">
-        <p>Three questions on one board, two results. In the position alongside, FIDE and USCF
-        agree: mate is both possible and forced, so if Black's flag falls White wins. Chess.com
-        asks a third question — can this material mate a <em>bare</em> king — and since a lone
-        knight cannot, it
+        <p>Three questions on one board, two results. In the position alongside, White has only a
+        knight and Black a pawn on the h-file. Under FIDE the question is answered by material first:
+        by <a href="#flag">the table in section six</a>, king and knight can build a helpmate against
+        a king with a pawn on the a- or h-file. On the USCF list a lone knight counts as insufficient,
+        but 14E makes an exception when the opponent has a forced mate, and this position is exactly
+        that exception. The two federations reach the same result by different roads: if Black's
+        flag falls, White wins.</p>
+        <p>Chess.com does not look at the position; it only counts material — can this material mate
+        a <em>bare</em> king — and since a lone knight cannot, it
         <a href="https://support.chess.com/en/articles/8557986" target="_blank" rel="noopener">awards the draw</a>.
-        The test is position-independent, fixed-cost and gives the same answer in every game; at
-        server scale that is a defensible choice, and it spares them explaining the helpmate
-        ruling to a beginner. The price is this: the player who sees the loss coming can run the
-        clock down and reach a draw instead.</p>
+        A measure that does no search follows the USCF list but cannot see its exception. In edge
+        cases like this the result is unfair under both federations: the side that sees the loss
+        coming can run down the clock and reach a draw.</p>
       </div>
     </div>
 
 
-    <div class="prose" lang="tr">
-      <p>Bu ölçü sabit de değil. Chess.com iki at maddesinde uzun süre USCF'yi izledi ve şah ile iki
-      atı yetersiz saydı; bugünkü
-      <a href="https://support.chess.com/en/articles/8557986" target="_blank" rel="noopener">yardım sayfası</a> ise bunun tersini söylüyor — rakibinde yalnız şah ve iki at varken süren biterse beraberlik değil mağlubiyet alıyorsun, gerekçe de matın zorlanamasa bile mümkün olması.
-      Yani platform bu tek maddede FIDE'nin mantığına geçmiş durumda.</p>
-    </div>
-    <div class="prose" lang="en">
-      <p>Nor is that measure fixed. On the two-knight article Chess.com followed USCF for a long time
-      and counted king and two knights as insufficient; its current
-      <a href="https://support.chess.com/en/articles/8557986" target="_blank" rel="noopener">help
-      page</a> says the opposite — if your opponent has only a king and two knights and you run out
-      of time, you take a loss rather than a draw, on the grounds that mate is possible even though it
-      cannot be forced. On that one article the platform has moved to FIDE’s logic.</p>
-    </div>
     <div class="prose fl" lang="tr">
       <p><b>FideLite'ta.</b> İki platformun davranışını izleyen eşdeğer sürümler Varyantlar sekmesindeki
-      <a href="#special">Özel sürümler</a> bölümünde; aynı pozisyonu FideLite'la ve onlarla yan
-      yana oynamak mümkün.</p>
-      <p>Buradaki tercih başka: <b>tek kitap, tek ölçü</b> — karşılaştırma yapılabilsin ve hangi maddenin nereden geldiği hep görünür kalsın diye.</p>
+      <a href="#special">Özel sürümler</a> bölümünde; aynı pozisyonu yan yana oynamak mümkün.
+      Buradaki tercih ise <b>tek kitap, tek ölçü</b> — hangi maddenin nereden geldiği hep görünür
+      kalsın diye.</p>
     </div>
     <div class="prose fl" lang="en">
-      <p><b>In FideLite.</b> Equivalents that follow both platforms' behaviour are in the <a href="#special">Special
-      builds</a> section of the Builds tab, so the same position can be played side by side in
-      FideLite and in them.</p>
-      <p>The choice here is a different one: <b>one book, one measure</b> — so that comparison stays possible, and so that where each article comes from stays visible.</p>
+      <p><b>In FideLite.</b> Equivalents that follow both platforms' behaviour are in the
+      <a href="#special">Special builds</a> section of the Builds tab, so the same position can be
+      played side by side. The choice here is a different one: <b>one book, one measure</b> — so
+      that where each article comes from always stays visible.</p>
     </div>
 
     <h3 id="hybrid" lang="tr">9. Önerilen karma sistem</h3>
@@ -9749,8 +9767,10 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <p>Beş ayrı test aynı sonuca çıkıyor. <code>Im</code>, <code>I</code>, <code>l</code>, tekrar
       sayacı ve yarım hamle sayacı — hepsi oyunun berabere bittiğini söylüyor. Farkları <b>ne kadar
       erken ve ne kadar ucuz</b> söyledikleri.</p>
-      <p>En dipteki ağ 75 hamle kuralı: kilitli her pozisyon eninde sonunda oraya düşer. beşli tekrar onun kısa devresi, çünkü kilitlilik hareketliliği düşürür ve tekrar daha erken gelir.
-      <code>I</code> ile <code>l</code> tekrarın kısa devresi: pozisyonu ilk hamlede tanırlar.
+      <p>En dipte iki ağ var, 75 hamle ve beşli tekrar: kilitli her pozisyon eninde sonunda birine
+      düşer (<a href="#counters">4. bölüm</a>); kilitli pozisyonda hareketlilik düştüğü için tekrar sık
+      sık önce gelir. <code>I</code> ile <code>l</code> ikisinin de kısa devresi: pozisyonu ilk
+      hamlede tanırlar.
       <code>Im</code> de <code>H</code>'nin kısa devresi, materyal yetmiyorsa aramayı hiç
       başlatmaz.</p>
       <p>İlkesel olarak <code>H</code> hepsini kapsayabilirdi. Sınırsız derinlik ve bütçeyle
@@ -9761,9 +9781,10 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <p>Five separate tests arrive at the same result. <code>Im</code>, <code>I</code>, <code>l</code>,
       the repetition counter and the ply counter all say the game is drawn. What separates them is
       <b>how early and how cheaply</b> they say it.</p>
-      <p>The net at the bottom is the 75-move rule: every blocked position falls into it eventually.
-      Fivefold repetition short-circuits that, because being blocked is what makes mobility collapse
-      and repetition arrive sooner. <code>I</code> and <code>l</code> short-circuit repetition by
+      <p>There are two nets at the bottom, 75 moves and fivefold repetition: every blocked position
+      falls into one of them eventually (<a href="#counters">section four</a>), and since being blocked
+      makes mobility collapse, repetition often comes first. <code>I</code> and <code>l</code>
+      short-circuit both by
       recognising the position on the first move. And <code>Im</code> short-circuits <code>H</code>,
       never letting the search start when the material already falls short.</p>
       <p>In principle <code>H</code> could subsume all of them. With unbounded depth and budget it
