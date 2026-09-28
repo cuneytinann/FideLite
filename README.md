@@ -4,7 +4,11 @@
 
 A full-FIDE chess arbiter in **1,837 bytes** of plain JavaScript — no dependencies, no install,
 no server. Packed into a playable game it comes to **1,756 bytes**; with a clickable board, a
-clock and indicators, **2.7 KB**.
+clock and indicators, **2.6 KB**.
+
+The exhibit build, for playing or sharing:
+[`builds/special/L3_packed.html`](builds/special/L3_packed.html) — a single 2.6 KB HTML file with
+every rule, a clickable board and a live clock, running on any device with a browser.
 
 **→ [www.fidelite.art](https://www.fidelite.art)** — playable builds, the rulebook, a line-by-line
 source analysis, tests and measurements.
@@ -74,6 +78,7 @@ Everything below is on the site, in English and Turkish.
 | How the rules read, article by article | [/#rules](https://www.fidelite.art/#rules) |
 | Dead position — 5.2.2 and its two branches | [/#dead](https://www.fidelite.art/#dead) |
 | Resignation and flag fall — 5.1.2 and 6.9 | [/#flag](https://www.fidelite.art/#flag) |
+| A proposed hybrid ruleset — FIDE and USCF combined | [/#hybrid](https://www.fidelite.art/#hybrid) |
 | The builds — two axes and the `L3` family | [/#builds](https://www.fidelite.art/#builds) |
 | How the main-axis builds are played | [/#gameplay](https://www.fidelite.art/#gameplay) |
 | The fifteen result codes | [/#codes](https://www.fidelite.art/#codes) |
@@ -87,6 +92,8 @@ Everything below is on the site, in English and Turkish.
 | The previous generation — the letter board | [/#letters](https://www.fidelite.art/#letters) |
 | `engine_4x` and the speed measurements | [/#speed](https://www.fidelite.art/#speed) |
 | The driver's three parsers — click, UCI, numeric | [/#parsing](https://www.fidelite.art/#parsing) |
+| `L1`'s castling ledger — touched squares instead of rights | [/#castlebook](https://www.fidelite.art/#castlebook) |
+| Setting up a position from FEN — `L1` | [/#fenload](https://www.fidelite.art/#fenload) |
 | Packing, RegPack, obsolete techniques | [/#packing](https://www.fidelite.art/#packing) |
 | Pitfalls and fragile spots | [/#pitfalls](https://www.fidelite.art/#pitfalls) |
 
@@ -101,17 +108,6 @@ contains the suite, copies of the four engines, the Vajolet position list and ei
 `.bat` files. Five of the eight runs need only Node; two need Stockfish, which is not in the
 package. On any other platform, `node test.js <command>`.
 
-## Also in the repository
-
-Three files kept here because they are part of how the engine got where it is. The first two can
-also be played on the site, under *special*.
-
-| File | What it is |
-| --- | --- |
-| [`builds/special/Toledos-ES6-optimized.html`](builds/special/Toledos-ES6-optimized.html) | Oscar Toledo G.'s chess in an ES6 rewrite — the best-known tiny chess program. Together with the opponent bot beside it, it is the answer to a question: “could a more capable build — a stronger bot, a better interface — be written at the same rule level with a byte count close to Toledo's?” |
-| [`builds/special/ToledosOpponentbyMe.html`](builds/special/ToledosOpponentbyMe.html) | The opponent I wrote for it, on this engine. Two tiny programs playing each other. |
-| [`extra/Chess960_Skeletons.html`](extra/Chess960_Skeletons.html) | All 56 castling skeletons of Chess960, laid out. Where the castling rules go once the back rank is no longer fixed. |
-
 ## Licence
 
 MIT — see [LICENSE](LICENSE). The claim is falsifiable and should be: it falls the moment someone
@@ -123,7 +119,11 @@ ships something smaller. Until then it stands.
 
 Tam FIDE kurallı satranç hakem motoru, **1.837 bayt** saf JavaScript — bağımlılık yok, kurulum
 yok, sunucu yok. Paketlenip oynanabilir bir oyuna dönüştüğünde **1.756 bayt**; tıklanabilir
-tahtası, saati ve göstergeleriyle birlikte **2,7 KB**.
+tahtası, saati ve göstergeleriyle birlikte **2,6 KB**.
+
+Oynamak ya da paylaşmak için sergi sürümü:
+[`builds/special/L3_packed.html`](builds/special/L3_packed.html) — 2,6 KB'lık tek bir HTML dosyası;
+bütün kurallar, tıklanan tahta ve canlı saatle tarayıcısı olan her cihazda çalışır.
 
 **→ [www.fidelite.art/tr](https://www.fidelite.art/tr)** — oynanabilir sürümler, kural kitabı,
 satır satır kaynak çözümlemesi, testler ve ölçümler.
@@ -135,7 +135,7 @@ olup olmadığına ve oyunun bitip bitmediğine karar vermektir. Değerlendirme 
 açılış kitabı yok — bu bir bot motoru değil, hakem motoru.
 
 Rok, geçerken alma, seçimli terfi, pat, ölü pozisyon, üçlü ve beşli tekrar, 50 ve 75 hamle,
-anlaşmalı beraberlik, iddia, süre ve terk eksiksiz uygulanır ve motor
+anlaşmalı beraberlik, talep, süre ve terk eksiksiz uygulanır ve motor
 [on beş sonuçtan](https://www.fidelite.art/tr#codes) hangisi geldiyse onu adıyla bildirir.
 
 Kısmi kalan tek madde **5.2.2'nin kilitli pozisyon hâli** — materyalin yeterli olduğu ama matın
@@ -191,6 +191,7 @@ Aşağıdakilerin hepsi sitede, Türkçe ve İngilizce.
 | Kuralların okunuşu, madde madde | [/tr#rules](https://www.fidelite.art/tr#rules) |
 | Ölü pozisyon — 5.2.2 ve iki kolu | [/tr#dead](https://www.fidelite.art/tr#dead) |
 | Terk ve süre bitimi — 5.1.2 ve 6.9 | [/tr#flag](https://www.fidelite.art/tr#flag) |
+| Önerilen karma sistem — FIDE ve USCF'nin birleşimi | [/tr#hybrid](https://www.fidelite.art/tr#hybrid) |
 | Varyantlar — iki eksen ve `L3` ailesi | [/tr#builds](https://www.fidelite.art/tr#builds) |
 | Asıl eksen varyantları nasıl oynanır | [/tr#gameplay](https://www.fidelite.art/tr#gameplay) |
 | On beş sonuç kodu | [/tr#codes](https://www.fidelite.art/tr#codes) |
@@ -204,6 +205,8 @@ Aşağıdakilerin hepsi sitede, Türkçe ve İngilizce.
 | Önceki nesil — harf tahtası | [/tr#letters](https://www.fidelite.art/tr#letters) |
 | `engine_4x` ve hız ölçümleri | [/tr#speed](https://www.fidelite.art/tr#speed) |
 | Sürücünün üç ayrıştırıcısı — tıklama, UCI, sayısal | [/tr#parsing](https://www.fidelite.art/tr#parsing) |
+| `L1`'in rok defteri — hak yerine dokunulan kareler | [/tr#castlebook](https://www.fidelite.art/tr#castlebook) |
+| FEN'den pozisyon kurmak — `L1` | [/tr#fenload](https://www.fidelite.art/tr#fenload) |
 | Paketleme, RegPack, eskimiş teknikler | [/tr#packing](https://www.fidelite.art/tr#packing) |
 | Tuzaklar ve kırılgan yerler | [/tr#pitfalls](https://www.fidelite.art/tr#pitfalls) |
 
@@ -217,17 +220,6 @@ Bana güvenmeniz gerekmiyor. [`test.zip`](https://www.fidelite.art/test.zip) (24
 dört motorun kopyası, Vajolet pozisyon listesi ve sekiz çift tıklanabilir `.bat` var. Sekiz koşunun
 beşi yalnızca Node istiyor; ikisi Stockfish gerektiriyor, o da pakette değil. Başka platformda
 `node test.js <komut>`.
-
-## Repoda ayrıca
-
-Motorun bugünkü hâline nasıl geldiğinin parçası oldukları için burada duran üç dosya. İlk ikisi
-sitede de, *special* altında oynanabiliyor.
-
-| Dosya | Ne |
-| --- | --- |
-| [`builds/special/Toledos-ES6-optimized.html`](builds/special/Toledos-ES6-optimized.html) | Oscar Toledo G.'nin satrancının ES6 ile yeniden yazımı — en bilinen küçük satranç programı. Yanındaki rakip botla birlikte “aynı kural seviyesinde, Toledo'nunkine yakın bir bayt sayısıyla daha işlevsel — daha güçlü botlu, daha iyi arayüzlü — bir sürüm yazılabilir mi acaba?” sorusunun cevabı. |
-| [`builds/special/ToledosOpponentbyMe.html`](builds/special/ToledosOpponentbyMe.html) | Ona karşı bu motorla yazdığım rakip. İki küçük program birbiriyle oynuyor. |
-| [`extra/Chess960_Skeletons.html`](extra/Chess960_Skeletons.html) | Chess960'ın 56 rok iskeletinin tamamı. Son yatay sabit olmaktan çıkınca rok kurallarının nereye gittiği. |
 
 ## Lisans
 

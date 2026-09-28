@@ -556,6 +556,16 @@ body::before {
 .cta a.go, button.on { background:var(--ink); color:var(--paper); border-color:var(--ink) }
 .cta a.go:hover, button.on:hover { background:var(--acc); border-color:var(--acc); color:var(--on-acc) }
 .cta a.dl { background:var(--dl-bg); color:var(--dl-tx); border-color:var(--dl-edge) }
+/* Kodu gor: Matrix yesili, iki temada da ayni koyu zemin. */
+.cta a.mx { background:#050a06; color:#3dff6e; border-color:#1d6b33;
+  text-shadow:0 0 6px rgba(61,255,110,.55) }
+.cta a.mx:hover { background:#0a160c; color:#8dffab; border-color:#3dff6e;
+  text-shadow:0 0 9px rgba(61,255,110,.8) }
+/* Dugme ici simgeler: yaziyla ayni boyda, yazinin hemen yaninda. */
+.cta .emo { font:1em/1 "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
+  margin-left:.35em }
+.cta img.fav { width:1em; height:1em; margin-right:.45em; vertical-align:-.12em;
+  background:#fff; border-radius:50% }
 .cta a.dl:hover { background:var(--dl-hover); color:var(--dl-tx);
   border-color:var(--dl-edge) }
 
@@ -696,6 +706,7 @@ table.ctr th, table.ctr td { text-align:center }
 /* Botlu surum ve LUX satiri: ustlerinde bir ayirici cizgi; botlu surum kendi rengiyle. */
 tbody tr.alt > td, tbody tr.luxrow > td { border-top:2px solid var(--rule) }
 tbody tr.alt code { color:var(--pc-b) }
+tbody tr.part > td, tbody tr.part > td b { color:var(--ink-3); font-weight:400 }
 /* ---- tahta diyagramlari ----
    PNG degil isaretleme: kareler grid, taslar Unicode. Diyagram boylece tema
    degiskenlerini dogrudan okuyor; koyu temada kisilmis bir goruntu degil kendi
@@ -1096,18 +1107,22 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p class="lede" lang="tr">Kural motoru <b>1.837 bayt</b> düz kaynak. Kural doğruluğu ve FIDE
       uyumluluğu bakımından dünyanın en eksiksiz motorlarından biri; <b>işlev başına bayt</b>
       oranında ise açık ara birinci — projenin temel iddiası da bu. Tarayıcıda çalışır, JavaScript ile yazılmıştır; kütüphane,
-      kurulum ve sunucu istemez. İndirdiğin tek bir HTML dosyası neredeyse her cihazda açılır.</p>
+      kurulum ve sunucu istemez. İddianın <a href="#l3packed">sergi sürümü</a> <b>2,6 KB</b>'lık tek bir
+      HTML dosyası: bütün kurallar, tıklanan tahta ve canlı saatle tarayıcısı olan her cihazda çalışır —
+      aşağıda oynanan da indirilen de o.</p>
       <p class="lede" lang="en">The rule engine is <b>1,837 bytes</b> of plain source. On rule
       correctness and FIDE compliance it stands among the most complete engines anywhere; on
       <b>function per byte</b> it is first by a wide margin — and that is the claim this project
-      rests on. It is written in JavaScript and runs in the browser: no libraries, no install, no server. The single HTML file you download opens on almost any device.</p>
+      rests on. It is written in JavaScript and runs in the browser: no libraries, no install, no server. The claim's <a href="#l3packed">exhibit build</a> is a single
+      <b>2.6 KB</b> HTML file: every rule, a clickable board and a live clock, running on any device with a
+      browser — it is the one you play below and the one you download.</p>
 
       <div class="cta">
         <span class="cta-btns">
-          <a class="go" id="ctaplay" href="#play"><span lang="tr">OYNA!</span><span lang="en">Play now</span></a>
-          <a id="ctasrc" href="#engcode"><span lang="tr">Kodu gör</span><span lang="en">View the code</span></a>
+          <a class="go" id="ctaplay" href="#play"><span lang="tr">OYNA!</span><span lang="en">Play now</span><span class="emo" aria-hidden="true">♟️</span></a>
+          <a class="mx" id="ctasrc" href="#engcode"><span lang="tr">Kodu gör</span><span lang="en">View the code</span></a>
           <a class="dl" href="builds/special/L3_packed.html" download="L3_packed.html"><span lang="tr">Hemen indir · 2,6 KB</span><span lang="en">Download · 2.6 KB</span></a>
-          <a href="https://github.com/cuneytinann/FideLite" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://github.com/cuneytinann/FideLite" target="_blank" rel="noopener"><img class="fav" src="https://github.com/favicon.ico" alt="" width="16" height="16">GitHub</a>
         </span>
         <a class="seal" href="#tests" title="Geçtiği testler" data-en-title="Tests it passes">
           <b lang="tr">~1,5 milyar düğüm</b><b lang="en">~1.5 billion nodes</b><i lang="tr">0 sapma</i><i lang="en">0 deviations</i>
@@ -2709,6 +2724,11 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
         geleceği ayrışamıyor, yani gizli bir hafızaya gerek kalmıyor. Kitabın iki hakkı iki ayrı
         satırdan ölçmesinin nedeni bu: her hak, pozisyonun geleceğini kaybetmeden en az ayıran
         ölçüyle sayılıyor.</p>
+        <p>Bu hafızaya yalnızca tekrar sayımı ihtiyaç duyuyor. <a href="#levels">Tekrar sayımı olmayan
+        bir hakemde</a> rokta da geçerken almadaki gibi kolay bir yol seçilebiliyor: hak tutulmuyor,
+        yalnızca şahın ve kalenin karesine dokunulup dokunulmadığına bakılıyor. Rokta iki yol
+        arasındaki zorluk ve maliyet farkı küçük; ayrıntısı <a href="#castlebook">Ayrıntılı teknik</a>
+        sekmesinde.</p>
       </div>
       <div class="prose" lang="en">
         <p><b>Why the right, and not playability at the moment.</b> The basic requirement of a
@@ -2730,6 +2750,11 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
         different futures, so no hidden memory is needed. That is why the book measures the two
         rights on two different rows: each right is counted by the measure that tells positions
         apart the least without losing their future.</p>
+        <p>Only repetition counting needs this memory. In <a href="#levels">an arbiter that does not
+        count repetitions</a>, castling can take an easier road just as en passant does: no right is
+        kept, and all that is checked is whether the king's and the rook's squares have been touched.
+        For castling the gap in difficulty and cost between the two roads is small; the details are on
+        the <a href="#castlebook">Technical detail</a> tab.</p>
       </div>
     </div>
 
@@ -5805,16 +5830,22 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 
 
     <div class="prose fl" lang="tr">
-      <p><b>FideLite'ta.</b> İki platformun davranışını izleyen eşdeğer sürümler Varyantlar sekmesindeki
-      <a href="#special">Özel sürümler</a> bölümünde; aynı pozisyonu yan yana oynamak mümkün.
-      Buradaki tercih ise <b>tek kitap, tek ölçü</b> — hangi maddenin nereden geldiği hep görünür
-      kalsın diye.</p>
+      <p><b>FideLite'ta.</b> Motor, Lichess gibi FIDE'ye sadık kalıyor; ama 6.9'u yalnızca materyal
+      karşılaştırmasıyla değil, gerektiğinde pozisyonun kendisine inen aramayla uyguluyor.
+      Karşılaştırma için iki platformun davranışını izleyen eşdeğer sürümler de var, Varyantlar
+      sekmesindeki <a href="#special">Özel sürümler</a> bölümünde: USCF ölçüsünü yarım uygulayan —
+      listesini alıp istisnasını bırakan — Chess.com eşdeğeri ve 6.9'un yardımlı mat koşulunu
+      yalnızca materyal karşılaştırmasıyla uygulayan Lichess eşdeğeri. Aynı pozisyonu üçünde yan
+      yana oynamak mümkün.</p>
     </div>
     <div class="prose fl" lang="en">
-      <p><b>In FideLite.</b> Equivalents that follow both platforms' behaviour are in the
-      <a href="#special">Special builds</a> section of the Builds tab, so the same position can be
-      played side by side. The choice here is a different one: <b>one book, one measure</b> — so
-      that where each article comes from always stays visible.</p>
+      <p><b>In FideLite.</b> The engine stays faithful to FIDE, as Lichess does; but it applies 6.9
+      not through a material comparison alone but through a search that goes down to the position
+      itself when needed. For comparison there are also equivalents that follow the two platforms'
+      behaviour, in the <a href="#special">Special builds</a> section of the Builds tab: the
+      Chess.com equivalent, which applies half of the USCF measure — taking its list and leaving out
+      its exception — and the Lichess equivalent, which applies 6.9's helpmate condition through a
+      material comparison alone. The same position can be played in all three side by side.</p>
     </div>
 
     <h3 id="hybrid" lang="tr">9. Önerilen karma sistem</h3>
@@ -6753,9 +6784,10 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <tr><td><b>Hamle üretimi ve şah güvenliği</b></td><td><b>✓</b></td><td><b>✓</b></td><td><b>✓</b></td></tr>
 <tr><td><b>Rok, geçerken alma, seçimli terfi</b></td><td><b>✓</b></td><td><b>✓</b></td><td><b>✓</b></td></tr>
 <tr><td><b>Mat · Pat</b></td><td><b>✓</b></td><td><b>✓</b></td><td><b>✓</b></td></tr>
-<tr><td><b>Yarım hamle sayacı <code>n</code></b></td><td><span class="none">—</span></td><td><b>✓</b></td><td><b>✓</b></td></tr>
-<tr><td><b>Tekrar tablosu <code>R</code> · <code>$</code></b></td><td><span class="none">—</span></td><td><b>✓</b></td><td><b>✓</b></td></tr>
-<tr><td><b>Geçerken almanın geçerlilik sınaması</b></td><td><span class="none">—</span></td><td><b>✓</b></td><td><b>✓</b></td></tr>
+<tr class="part"><td><b>Yarım hamle sayacı <code>n</code></b></td><td><span class="none">—</span></td><td><b>✓</b></td><td><b>✓</b></td></tr>
+<tr class="part"><td><b>Tekrar tablosu <code>R</code> · <code>$</code></b></td><td><span class="none">—</span></td><td><b>✓</b></td><td><b>✓</b></td></tr>
+<tr class="part"><td><b>Geçerken almanın geçerlilik sınaması</b></td><td><span class="none">—</span></td><td><b>✓</b></td><td><b>✓</b></td></tr>
+<tr class="part"><td><b>Rok haklarının bit maskesi <code>c</code> · <code>C</code></b></td><td><span class="none">—</span><span class="sub">dokunulan kareler defteri</span></td><td><b>✓</b></td><td><b>✓</b></td></tr>
 <tr><td><b>Ölü pozisyon — materyal ve kilitli</b></td><td><span class="none">—</span></td><td><b>✓</b></td><td><b>✓</b></td></tr>
 <tr><td><b>Beşli tekrar · 75 hamle</b></td><td><span class="none">—</span></td><td><b>✓</b></td><td><b>✓</b></td></tr>
 <tr><td><b>Saat ve bayrak düşmesi</b></td><td><span class="none">—</span></td><td><span class="none">—</span></td><td><b>✓</b></td></tr>
@@ -6774,9 +6806,10 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <tr><td><b>Move generation and king safety</b></td><td><b>✓</b></td><td><b>✓</b></td><td><b>✓</b></td></tr>
 <tr><td><b>Castling, en passant, choice of promotion</b></td><td><b>✓</b></td><td><b>✓</b></td><td><b>✓</b></td></tr>
 <tr><td><b>Checkmate · Stalemate</b></td><td><b>✓</b></td><td><b>✓</b></td><td><b>✓</b></td></tr>
-<tr><td><b>Ply counter <code>n</code></b></td><td><span class="none">—</span></td><td><b>✓</b></td><td><b>✓</b></td></tr>
-<tr><td><b>Repetition table <code>R</code> · <code>$</code></b></td><td><span class="none">—</span></td><td><b>✓</b></td><td><b>✓</b></td></tr>
-<tr><td><b>Legality test for en passant</b></td><td><span class="none">—</span></td><td><b>✓</b></td><td><b>✓</b></td></tr>
+<tr class="part"><td><b>Ply counter <code>n</code></b></td><td><span class="none">—</span></td><td><b>✓</b></td><td><b>✓</b></td></tr>
+<tr class="part"><td><b>Repetition table <code>R</code> · <code>$</code></b></td><td><span class="none">—</span></td><td><b>✓</b></td><td><b>✓</b></td></tr>
+<tr class="part"><td><b>Legality test for en passant</b></td><td><span class="none">—</span></td><td><b>✓</b></td><td><b>✓</b></td></tr>
+<tr class="part"><td><b>Castling rights as a bitmask <code>c</code> · <code>C</code></b></td><td><span class="none">—</span><span class="sub">touched-squares ledger</span></td><td><b>✓</b></td><td><b>✓</b></td></tr>
 <tr><td><b>Dead position — material and blocked</b></td><td><span class="none">—</span></td><td><b>✓</b></td><td><b>✓</b></td></tr>
 <tr><td><b>Fivefold repetition · 75 moves</b></td><td><span class="none">—</span></td><td><b>✓</b></td><td><b>✓</b></td></tr>
 <tr><td><b>Clock and flag fall</b></td><td><span class="none">—</span></td><td><span class="none">—</span></td><td><b>✓</b></td></tr>
@@ -6790,12 +6823,12 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 </table></div>
 
     <div class="prose" lang="tr">
-      <p>Tablodaki üç ince satır, kuralın kendisi değil onu taşıyan parça. Bunlar
+      <p>Tablodaki dört ince satır, kuralın kendisi değil onu taşıyan parça. Bunlar
       <code class="vn">L1</code>'de <em>eksik</em> değil, <b>gereksiz</b>: tekrar sayılmıyorsa tabloyu tutmanın
       anlamı yok ve geçerken alma imkânının gerçekten geçerli olup olmadığını sınamanın da — o
       sınamanın tek amacı <a href="#counters">tekrar sayımını doğru tutmak</a>. Sayaç yoksa sınama
       da bedava düşüyor. Rok hakları da aynı zincire bağlı: tekrar anahtarı olmayınca hakların
-      kanonik tutulmasına gerek kalmıyor. <code class="vn">L1</code> hamlenin dokunduğu kareleri işaretliyor; rok için
+      kanonik tutulmasına gerek kalmıyor. <code class="vn">L1</code> hamlenin dokunduğu kareleri <a href="#castlebook">bir deftere işaretliyor</a>; rok için
       şahın ve kalenin karesine hiç dokunulmamış olmalı. Aynı zincir <code>V</code>'nin taraf parametresini de
       düşürüyor: geçerken alma karesinin yasallık denetimi ve 6.9 araması olmayınca <code>V</code> hep sırası gelen
       taraf için soruluyor. <code class="vn">L1</code>'in 1.533 baytta durabilmesinin sebebi bu zincir.</p>
@@ -6807,13 +6840,13 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <code class="vn">L3</code>'te doğuyor.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The three faint rows in the table are not rules but the parts that carry them. They are not
+      <p>The four faint rows in the table are not rules but the parts that carry them. They are not
       <em>missing</em> in <code class="vn">L1</code>, they are <b>unnecessary</b>: if repetition is not counted
       there is no point keeping the table, nor in testing whether an en passant capture is genuinely
       legal — the only purpose of that test is to keep
       <a href="#counters">the repetition count</a> correct. With no counter, the test falls away for
       free. The castling rights hang on the same chain: with no repetition key they need not be
-      kept canonical. <code class="vn">L1</code> marks the squares a move touches, and castling needs the king's
+      kept canonical. <code class="vn">L1</code> marks the squares a move touches <a href="#castlebook">in a ledger</a>, and castling needs the king's
       square and the rook's square never to have been touched. The same chain drops the side argument of
       <code>V</code>: with no legality test for the en passant square and no 6.9 search, <code>V</code> is only ever
       asked about the side to move. That chain is why <code class="vn">L1</code> can stop at 1,533 bytes.</p>
@@ -10102,7 +10135,9 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       dizgisi olarak tutan sürüm. <a href="#alternatives">Denenip elenen yollar</a>: ölçülüp
       bırakılan tahta temsilleri ve kısayollar. Sonra motorun dışı:
       <a href="#parsing">Sürücünün ayrıştırıcıları</a>: tıklama, UCI ve sayısal giriş; bir de
-      sürücünün motora nerede bağlandığı. <a href="#packing">Paketleme</a>: RegPack, takma adlar,
+      sürücünün motora nerede bağlandığı. <a href="#castlebook"><code class="vn">L1</code>'in rok defteri</a> ve
+      <a href="#fenload">FEN'den pozisyon kurmak</a>: <code class="vn">L1</code>'in rok haklarını neden başka
+      tuttuğu ve bir pozisyonun ona nasıl yükleneceği. <a href="#packing">Paketleme</a>: RegPack, takma adlar,
       eskimiş teknikler, quirks modu ve sürüm sürüm uyumluluk. En sonda
       <a href="#pitfalls">Tuzaklar</a>: motorun kırılgan yerleri ve değişiklik yaparken dikkat
       edilecekler.</p>
@@ -10114,7 +10149,9 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       build that holds the board as a string of letters. <a href="#alternatives">Roads tried and
       eliminated</a>: board representations and shortcuts that were measured and dropped. Then what
       lies outside the engine: <a href="#parsing">The driver's parsers</a>: clicking, UCI and numeric
-      input, and where a driver meets the engine. <a href="#packing">Packing</a>: RegPack, aliases,
+      input, and where a driver meets the engine. <a href="#castlebook"><code class="vn">L1</code>'s castling ledger</a> and
+      <a href="#fenload">Setting up a position from FEN</a>: why <code class="vn">L1</code> keeps its castling
+      rights differently, and how a position is loaded into it. <a href="#packing">Packing</a>: RegPack, aliases,
       obsolete techniques, quirks mode and build-by-build compatibility. Last,
       <a href="#pitfalls">Pitfalls</a>: the engine's fragile spots and what to watch when changing
       it.</p>
@@ -12192,6 +12229,512 @@ f = K[2] + K[3] - 0</pre></div>
       their own body; the reason is that the clock increment has to sit in the very middle of the
       second step, at the moment the side to move is flipped. The engine's rule logic stands
       unchanged; the only thing inserted is <code>U[t^=1]+=5</code>.</p>
+    </div>
+  </div>
+</section>
+
+<section id="castlebook">
+  <div class="wrap">
+    <p class="eyebrow" lang="tr">Rok defteri</p>
+    <p class="eyebrow" lang="en">Castling ledger</p>
+    <h2 lang="tr"><code class="vn">L1</code>'in rok defteri — hak yerine dokunulan kareler</h2>
+    <h2 lang="en"><code class="vn">L1</code>'s castling ledger — touched squares instead of rights</h2>
+
+    <div class="prose" lang="tr">
+      <p><code class="vn">L2</code> ve <code class="vn">L3</code> rok haklarını dört bitlik bir maskede tutuyor:
+      <code>c=15</code> ile dört hak açık başlıyor, hamle oynandıkça <code>C</code> tablosu hangi bitin
+      düşeceğini söylüyor. <code class="vn">L1</code> bunu yapmıyor. Onun <code>c</code>'si bir hak maskesi
+      değil, bir <b>defter</b>: oynanan her hamle çıkış ve varış karesini işaretliyor. Rok için sorulan tek
+      şey, şahın ve kalenin karesine oyun boyunca hiç dokunulmamış olması. İki yazım dört yerde
+      ayrılıyor:</p>
+    </div>
+    <div class="prose" lang="en">
+      <p><code class="vn">L2</code> and <code class="vn">L3</code> keep the castling rights in a four-bit mask:
+      <code>c=15</code> starts with all four rights open, and as moves are played the <code>C</code> table
+      says which bit to drop. <code class="vn">L1</code> does not. Its <code>c</code> is not a mask of rights
+      but a <b>ledger</b>: every move played marks its origin and destination squares. All castling asks
+      is that the king's square and the rook's square have never been touched in the game. The two
+      forms part ways in four places:</p>
+    </div>
+
+    <pre class="snip" lang="tr"><i>              L2 · L3                          L1</i>
+<i>başlangıç</i>     c=15                             c=[]
+<i>hamlede</i>       c&amp;=~C(i)&amp;~C(f)                   c[i]=c[f]=1
+<i>rokta</i>         c&amp;C(f+=1.5*k-.5)                 !c[i]&amp;!c[f+=1.5*k-.5]
+<i>tablo</i>         C=i=&gt;'20003001'[i%56]&lt;&lt;i/28      —</pre>
+    <pre class="snip" lang="en"><i>              L2 · L3                          L1</i>
+<i>start</i>         c=15                             c=[]
+<i>on a move</i>     c&amp;=~C(i)&amp;~C(f)                   c[i]=c[f]=1
+<i>castling</i>      c&amp;C(f+=1.5*k-.5)                 !c[i]&amp;!c[f+=1.5*k-.5]
+<i>table</i>         C=i=&gt;'20003001'[i%56]&lt;&lt;i/28      —</pre>
+
+    <h3 lang="tr">Nasıl çalışıyor</h3>
+    <h3 lang="en">How it works</h3>
+    <div class="prose" lang="tr">
+      <p>Hamle gerçekten oynandığında <code>c[i]=c[f]=1</code> iki kareyi işaretliyor. Rok dalında
+      <code>!c[i]</code> şahın bulunduğu kareye, <code>!c[f+=1.5*k-.5]</code> hesaplanan kale karesine
+      hiç dokunulmadığını soruyor. Kale karesinin hesabı <code class="vn">L2</code> ve <code class="vn">L3</code>'tekiyle
+      aynı: kısa rokta şahın varacağı karenin bir sağı, uzun rokta iki solu. Hakkın düşmesinin iki yolu
+      da tek bir işarete iniyor: şah ya da kale bir kez oynadıysa karesi işaretli; kale kendi köşesinde
+      alındıysa da işaretli, çünkü alan taşın varış karesi o köşe.</p>
+      <p>Deneme hamleleri defteri kirletmiyor. <code>L</code>'nin geçerlilik denemesi <code>M</code>'yi
+      çağırıyor, ama işaret <code>M</code>'de değil, yalnızca hamlenin gerçekten tahtaya yazıldığı yerde
+      konuyor; <code>L</code> de bu yüzden deneme öncesinde yalnızca <code>[b,e]</code>'yi saklıyor.</p>
+      <p>Defter iki şeyi hiç sormuyor: kale karesinde gerçekten kendi kalesinin durup durmadığını ve
+      şahın e1 ya da e8'de olup olmadığını. Başlangıç pozisyonundan oynanan oyunda ikisi de kendiliğinden
+      doğru — dokunulmamış bir köşede kale, dokunulmamış bir şah karesinde şah durur. Pozisyon FEN'le
+      kurulduğunda bunu yükleyici sağlamak zorunda; <a href="#fenload">bir sonraki bölüm</a> onu
+      anlatıyor.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>When a move is actually played, <code>c[i]=c[f]=1</code> marks two squares. In the castling
+      branch, <code>!c[i]</code> asks that the king's current square has never been touched, and
+      <code>!c[f+=1.5*k-.5]</code> the same of the computed rook square. The rook square is worked out
+      exactly as in <code class="vn">L2</code> and <code class="vn">L3</code>: one to the right of the king's
+      destination on the kingside, two to the left on the queenside. Both ways of losing a right come
+      down to one mark: if the king or the rook has moved, its square is marked; if the rook was captured
+      in its own corner, the corner is marked too, because that is where the capturing piece landed.</p>
+      <p>Trial moves leave the ledger clean. <code>L</code>'s legality trial calls <code>M</code>, but
+      the mark is not set in <code>M</code>; it is set only where a move is really written to the board,
+      which is why <code>L</code> saves nothing but <code>[b,e]</code> before its trial.</p>
+      <p>The ledger never asks two things: whether its own rook really stands on the rook square, and
+      whether the king is on e1 or e8. In a game played from the starting position both hold by
+      themselves — an untouched corner holds a rook, an untouched king square holds the king. When the
+      position is set up from a FEN, the loader has to guarantee them; <a href="#fenload">the next
+      section</a> covers how.</p>
+    </div>
+
+    <h3 lang="tr">Neden <code class="vn">L2</code> ve <code class="vn">L3</code>'te maske şart</h3>
+    <h3 lang="en">Why <code class="vn">L2</code> and <code class="vn">L3</code> need the mask</h3>
+    <div class="prose" lang="tr">
+      <p>Bu kestirme yalnızca tekrarın sayılmadığı bir seviyede mümkün. Rok hakları tekrar anahtarının
+      parçası (9.2.3.2) ve anahtar <b>kanonik</b> olmak zorunda: aynı haklara sahip iki pozisyon aynı
+      yazılmalı. Defter öyle değil, oyunun geçmişini taşıyor. a2–a3 bile a2 ile a3'ü işaretliyor; rokla
+      hiçbir ilgisi olmayan kareler defterde birikiyor. Aynı taşların aynı karelerde, aynı haklarla durduğu
+      iki pozisyon, farklı yollardan gelindiyse farklı defterlerle sayılırdı. Maske ise yalnızca dört hakkı
+      tutuyor; <code>C</code> ilgisiz karelerde sıfır döndürdüğü için onları hiç yazmıyor.</p>
+      <p>Geçerken alma karesinde de aynı ayrım var. <code class="vn">L1</code> kareyi her çift adımda yazıyor
+      ve alışın yasal olup olmadığına bakmıyor; yasadışı bir alışı zaten <code>L</code> reddediyor.
+      <code class="vn">L2</code> ve <code class="vn">L3</code>'te kare yalnızca alış yasalsa yazılıyor, çünkü
+      <code>e</code> de tekrar anahtarının parçası (9.2.3.1). İki hak aynı sebeple iki ayrı yazım taşıyor:
+      kural doğruluğu değişmiyor, değişen yalnızca tekrar sayımının ihtiyacı.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>This shortcut is possible only at a level that does not count repetitions. Castling rights are
+      part of the repetition key (9.2.3.2), and the key has to be <b>canonical</b>: two positions with the
+      same rights must be written the same way. The ledger is not; it carries the game's history. Even
+      a2–a3 marks a2 and a3, and squares with nothing to do with castling pile up in it. Two positions
+      with the same pieces on the same squares and the same rights would be counted apart if they had
+      been reached by different roads. The mask holds the four rights and nothing else; since
+      <code>C</code> returns zero for every irrelevant square, those never get written.</p>
+      <p>The en passant square shows the same split. <code class="vn">L1</code> writes it after every double
+      step and never asks whether the capture is legal; an illegal capture is refused by <code>L</code>
+      anyway. In <code class="vn">L2</code> and <code class="vn">L3</code> the square is written only if the
+      capture is legal, because <code>e</code> is part of the repetition key too (9.2.3.1). Both rights
+      carry two forms for the same reason: rule correctness does not change, only what repetition
+      counting needs.</p>
+    </div>
+
+    <h3 lang="tr">Ne kadar tutuyor</h3>
+    <h3 lang="en">What it costs</h3>
+    <div class="prose" lang="tr">
+      <p>Fark küçük. <code class="vn">L1</code> defteri
+      <a href="https://github.com/cuneytinann/FideLite/commit/decb288f3c53c8885175b173844ce237d96772b3" target="_blank" rel="noopener">tek bir değişiklikle ↗️</a>
+      aldı ve dosya 1.567 bayttan 1.541 bayta indi — <b>26 bayt</b>. Kazancın tamamı <code>C</code>
+      tablosundan geliyor (virgülüyle 28 bayt); hamledeki işaret 3 bayt kısalıyor, rok testi ise 5 bayt
+      uzuyor. Algoritma olarak da ikisi aynı ağırlıkta: biri dört biti kırpıyor, öbürü iki kareyi
+      işaretliyor.</p>
+      <p><code class="vn">L1</code> seviyesindeki iki bot, <code class="vn">L1_1250elo</code> ve
+      <code class="vn">ToledosOpponentbyMe</code>, tekrar saymadıkları hâlde maskeyi kullanıyor ve bu bilerek
+      böyle. Arama her düğümde hakları saklayıp geri koyuyor: bir sayı bedavaya kopyalanıyor, dizi ise her
+      seferinde klonlanmak zorunda kalırdı. Orada birkaç bayt yerine hız, dolayısıyla güç seçildi.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The difference is small. <code class="vn">L1</code> took the ledger
+      <a href="https://github.com/cuneytinann/FideLite/commit/decb288f3c53c8885175b173844ce237d96772b3" target="_blank" rel="noopener">in a single change ↗️</a>,
+      and the file went from 1,567 bytes to 1,541 — <b>26 bytes</b>. All of the saving comes from the
+      <code>C</code> table (28 bytes with its comma); the mark on a move is 3 bytes shorter, while the
+      castling test grows by 5. As algorithms the two weigh the same: one clips four bits, the other marks
+      two squares.</p>
+      <p>The two bots at the <code class="vn">L1</code> level, <code class="vn">L1_1250elo</code> and
+      <code class="vn">ToledosOpponentbyMe</code>, use the mask even though they count no repetitions, and
+      that is deliberate. The search saves and restores the rights at every node: a number copies for
+      free, while an array would have to be cloned every time. There, speed — and so strength — was
+      chosen over a few bytes.</p>
+    </div>
+  </div>
+</section>
+
+<section id="fenload">
+  <div class="wrap">
+    <p class="eyebrow" lang="tr">FEN</p>
+    <p class="eyebrow" lang="en">FEN</p>
+    <h2 lang="tr">FEN'den pozisyon kurmak — <code class="vn">L1</code></h2>
+    <h2 lang="en">Setting up a position from FEN — <code class="vn">L1</code></h2>
+
+    <div class="prose" lang="tr">
+      <p><code class="vn">L1</code> motoru bir pozisyonu dört değişkenle tutuyor: tahta <code>b</code>, sıra
+      <code>t</code>, geçerken alma karesi <code>e</code> ve <a href="#castlebook">rok defteri</a>
+      <code>c</code>. FEN okuyan bir yükleyici yok; motor bu değişkenlere güveniyor ve kendi içinde
+      denetlemiyor. Bir FEN'i onlara çevirmek sürücünün işi. Aşağısı bunun nasıl yapılacağını ve özellikle
+      rokla geçerken almada nelere dikkat edilmesi gerektiğini anlatıyor.</p>
+      <p><code class="vn">L1</code>'de iki tahta biçimi var. Bot dışındaki altı sürüm tahtayı sayılarla
+      tutuyor: <code class="vn">default</code>, <code class="vn">light</code>, <code class="vn">input</code>,
+      <code class="vn">input_blindfold</code>, <code class="vn">numerical</code> ve
+      <code class="vn">nonbrowser</code>. <code class="vn">prompt_string_flip</code> ise harflerle. Kurallar
+      ikisinde de aynı, değişen yalnızca taşların ve karelerin yazılışı. Önce sayısal biçim geliyor, harf
+      dizgili sürümün farkları <a href="#fenstring">sonda</a>.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The <code class="vn">L1</code> engine holds a position in four variables: the board <code>b</code>,
+      the side to move <code>t</code>, the en passant square <code>e</code> and the
+      <a href="#castlebook">castling ledger</a> <code>c</code>. There is no loader that reads a FEN; the
+      engine trusts these variables and checks nothing about them. Turning a FEN into them is the driver's
+      job. What follows is how to do it, and above all what to watch for with castling and en
+      passant.</p>
+      <p><code class="vn">L1</code> has two board formats. The six builds other than the bot hold the board in
+      numbers: <code class="vn">default</code>, <code class="vn">light</code>, <code class="vn">input</code>,
+      <code class="vn">input_blindfold</code>, <code class="vn">numerical</code> and
+      <code class="vn">nonbrowser</code>. <code class="vn">prompt_string_flip</code> holds it in letters. The
+      rules are the same in both; only the way pieces and squares are written differs. The numeric
+      format comes first, and the string build's differences are <a href="#fenstring">at the end</a>.</p>
+    </div>
+
+    <h3 lang="tr">Değişkenler</h3>
+    <h3 lang="en">The variables</h3>
+<div class="tw" lang="tr"><table>
+<thead><tr><th>FEN alanı</th><th><code class="vn">L1</code> değişkeni</th><th>Sayısal sürümler</th><th>Harf dizgili sürüm</th></tr></thead>
+<tbody>
+<tr><td>Taş dizilimi</td><td><code>b</code></td><td>64 sayı, a1=0 … h8=63</td><td>64 harf, a8=0 … h1=63</td></tr>
+<tr><td>Sıra</td><td><code>t</code></td><td><code>w</code> → 1, <code>b</code> → 0</td><td>Aynı</td></tr>
+<tr><td>Rok hakları</td><td><code>c</code></td><td>Dokunulan kareler dizisi</td><td>Aynı, kare dizinleri aynalı</td></tr>
+<tr><td>Geçerken alma</td><td><code>e</code></td><td>Atlanan karenin dizini ya da <code>-1</code></td><td>Atlanan karenin dizini ya da <code>'-'</code></td></tr>
+<tr><td>Yarım hamle, hamle numarası</td><td>—</td><td><code class="vn">L1</code>'de sayaç yok, okunmaz</td><td>Aynı</td></tr>
+</tbody>
+</table></div>
+<div class="tw" lang="en"><table>
+<thead><tr><th>FEN field</th><th><code class="vn">L1</code> variable</th><th>Numeric builds</th><th>String build</th></tr></thead>
+<tbody>
+<tr><td>Piece placement</td><td><code>b</code></td><td>64 numbers, a1=0 … h8=63</td><td>64 letters, a8=0 … h1=63</td></tr>
+<tr><td>Side to move</td><td><code>t</code></td><td><code>w</code> → 1, <code>b</code> → 0</td><td>The same</td></tr>
+<tr><td>Castling rights</td><td><code>c</code></td><td>The touched-squares array</td><td>The same, with mirrored square indices</td></tr>
+<tr><td>En passant</td><td><code>e</code></td><td>Index of the skipped square, or <code>-1</code></td><td>Index of the skipped square, or <code>'-'</code></td></tr>
+<tr><td>Halfmove clock, move number</td><td>—</td><td><code class="vn">L1</code> has no counter; not read</td><td>The same</td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="tr">
+      <p>Oyun sonucunu tutan <code>z</code> de sıfıra çekiliyor. <code class="vn">light</code>'ta
+      <code>z</code> diye bir değişken yok; orada bu atama zararsız, yalnızca gereksiz.</p>
+      <p><b>Sıra mutlaka sayı olmalı.</b> <code>t</code> <code>1</code> ya da <code>0</code> olmalı,
+      <code>true</code> ya da <code>false</code> değil. <code class="vn">L1</code>'de şah saldırısını soran
+      <code>V</code> sırayı parametre olarak almıyor, doğrudan <code>t</code>'den okuyor. Sayısal sürümlerde
+      bir mantıksal değer de iş görüyor (<code>10+true</code> yine 11), ama harf dizgili sürüm şahı
+      <code>'kK'[t]</code> ile arıyor ve <code>t=true</code> iken bulamıyor. Motorun kendisi <code>t=1</code>
+      ve <code>t^=1</code> ile hep sayı üretiyor; FEN'den yüklerken de sayı yazılmalı.</p>
+      <p><b>Tahta.</b> FEN yatayları 8'den 1'e doğru yazıyor, sayısal <code>b</code> ise a1'den başlıyor.
+      Kare dizini <code>(yatay − 1) × 8 + dikey</code>, dikeyler a=0 … h=7. Taş kodları
+      <a href="#board">motorun tahta temsiliyle</a> aynı: tek sayılar beyaz, boş kare 0. Sık gereken
+      dizinler: a1=0, e1=4, f1=5, h1=7, a8=56, e8=60, h8=63.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The result holder <code>z</code> is set back to zero as well. <code class="vn">light</code> has no
+      variable called <code>z</code>; there the assignment is harmless, merely unnecessary.</p>
+      <p><b>The side to move must be a number.</b> <code>t</code> has to be <code>1</code> or
+      <code>0</code>, not <code>true</code> or <code>false</code>. In <code class="vn">L1</code> the attack test
+      <code>V</code> takes no side parameter and reads <code>t</code> directly. In the numeric builds a
+      boolean happens to work (<code>10+true</code> is still 11), but the string build looks for the king
+      with <code>'kK'[t]</code> and cannot find it while <code>t=true</code>. The engine itself always
+      produces a number through <code>t=1</code> and <code>t^=1</code>; a FEN loader should write one
+      too.</p>
+      <p><b>The board.</b> FEN writes the ranks from 8 down to 1, while the numeric <code>b</code> starts at
+      a1. A square's index is <code>(rank − 1) × 8 + file</code>, with files a=0 … h=7. The piece codes are
+      those of <a href="#board">the engine's board representation</a>: odd numbers are White, an empty square
+      is 0. Indices often needed: a1=0, e1=4, f1=5, h1=7, a8=56, e8=60, h8=63.</p>
+    </div>
+
+    <h3 lang="tr">Rok</h3>
+    <h3 lang="en">Castling</h3>
+    <div class="prose" lang="tr">
+      <p>Bir hak ancak üç koşul birden tutarsa geçerli: FEN'de yazıyor (<code>K</code>, <code>Q</code>,
+      <code>k</code>, <code>q</code>), şah e1'de (siyah için e8'de) ve kendi kalesi o köşede
+      (<code>K</code> → h1, <code>Q</code> → a1, <code>k</code> → h8, <code>q</code> → a8). Yükleyici
+      <code>c=[]</code> ile başlıyor, geçersiz her hakkın köşesini işaretliyor ve hiç geçerli hakkı kalmayan
+      rengin şah karesini de işaretliyor. Böylece dokunulmamış kalan kareler yalnızca gerçekten roka
+      yarayan şah ve kale kareleri oluyor. Kuşkulu bir hakkı yazmamak her zaman güvenli: en kötü ihtimalle
+      o hak kaybolur.</p>
+      <p>Yanlış yazımın sonuçları, <a href="#castlebook">defterin</a> iki şeyi sormamasından geliyor:</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>A right is valid only if three conditions hold at once: the FEN lists it (<code>K</code>,
+      <code>Q</code>, <code>k</code>, <code>q</code>), the king is on e1 (e8 for Black), and its own rook is
+      in that corner (<code>K</code> → h1, <code>Q</code> → a1, <code>k</code> → h8, <code>q</code> → a8).
+      The loader starts from <code>c=[]</code>, marks the corner of every invalid right, and also marks the
+      king square of a colour left with no valid right at all. That way the only untouched squares are the
+      king and rook squares that really serve castling. Leaving out a doubtful right is always safe: at
+      worst the right is lost.</p>
+      <p>What goes wrong with a wrong entry follows from the two things <a href="#castlebook">the
+      ledger</a> never asks:</p>
+    </div>
+<div class="tw" lang="tr"><table>
+<thead><tr><th>Giriş</th><th>Sonuç</th></tr></thead>
+<tbody>
+<tr><td>Hak varken yazılmamış</td><td>Zararsız, yalnızca hak kaybolur</td></tr>
+<tr><td>Hak yazılmış, şah e1'de, köşe boş</td><td><b>Kalesiz rok</b>: şah iki kare gider, kale gelmez</td></tr>
+<tr><td>Hak yazılmış, şah e1'de, köşede başka bir taş</td><td>O taş şahın geçtiği kareye taşınır (h1 → f1, a1 → d1); rakip taşı bile olsa</td></tr>
+<tr><td>Hak yazılmış, şah e1/e8'de değil</td><td><b>Sahte rok</b>: şah iki kare gider, “kale karesi” diye hesaplanan alakasız karedeki taş şahın geçtiği kareye taşınır</td></tr>
+</tbody>
+</table></div>
+<div class="tw" lang="en"><table>
+<thead><tr><th>Entry</th><th>Result</th></tr></thead>
+<tbody>
+<tr><td>A right that exists is left out</td><td>Harmless; the right is simply lost</td></tr>
+<tr><td>Right listed, king on e1, corner empty</td><td><b>Rookless castling</b>: the king moves two squares and no rook follows</td></tr>
+<tr><td>Right listed, king on e1, another piece in the corner</td><td>That piece is moved to the square the king crosses (h1 → f1, a1 → d1) — even an enemy piece</td></tr>
+<tr><td>Right listed, king not on e1/e8</td><td><b>False castling</b>: the king moves two squares, and whatever stands on the unrelated square computed as the “rook square” is moved to the square the king crosses</td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="tr">
+      <p>Sahte rokun bir örneği: beyaz şah f1'de, <code>K</code> yazılmış, g1 ile h1 boş. Motor f1–h1'i rok
+      sayıyor ve a2'deki piyonu g1'e taşıyor. <code class="vn">L2</code> ve <code class="vn">L3</code>'te bu
+      son satır oluşmuyor, çünkü <code>C</code> yalnızca köşe karelerini bir hakka çeviriyor; ama kalenin
+      köşede durup durmadığını onlar da denetlemiyor, yani kalesiz rok orada da mümkün.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>An example of false castling: the white king on f1, <code>K</code> listed, g1 and h1 empty. The
+      engine takes f1–h1 as castling and moves the pawn on a2 to g1. In <code class="vn">L2</code> and
+      <code class="vn">L3</code> the last row cannot happen, because <code>C</code> turns only the corner
+      squares into a right; but they do not check whether the rook is in its corner either, so rookless
+      castling is possible there too.</p>
+    </div>
+
+    <h3 lang="tr">Geçerken alma</h3>
+    <h3 lang="en">En passant</h3>
+    <div class="prose" lang="tr">
+      <p><code>e</code>, piyonun <b>atladığı</b> kare, durduğu kare değil: siyah d7–d5 oynadıysa
+      <code>e</code> d6'dır (dizin 43). Kare ancak şunların hepsi tutarsa yazılır, yoksa
+      <code>e=-1</code>: sırası gelen taraf beyazsa kare 6. yatayda, siyahsa 3. yatayda; karenin kendisi
+      boş; bir arkasında rakip piyon var (d6 için d5'te siyah piyon); piyonun çıktığı kare boş (d6 için
+      d7).</p>
+      <p><code class="vn">L1</code> alışın ayrıca yasal olmasını istemiyor. Tekrar sayılmadığı için yazılı kalan
+      kare hiçbir hükmü değiştirmiyor; yasadışı alışı da <code>L</code> zaten reddediyor.
+      <code class="vn">L2</code> ve <code class="vn">L3</code>'te durum farklı: <code>e</code> tekrar
+      anahtarının parçası olduğu için alışın gerçekten yasal olması da gerekiyor (9.2.3.1).</p>
+      <p>Motor <code>e</code>'ye tamamen güveniyor: piyonun <code>e</code>'ye çapraz hamlesine izin veriyor
+      ve alışta bir arkadaki kareyi koşulsuz temizliyor. İki tahta biçiminde de davranış aynı:</p>
+    </div>
+    <div class="prose" lang="en">
+      <p><code>e</code> is the square the pawn <b>skipped</b>, not the square it stands on: if Black played
+      d7–d5, <code>e</code> is d6 (index 43). The square is written only if all of the following hold,
+      otherwise <code>e=-1</code>: with White to move the square is on the 6th rank, with Black to move on
+      the 3rd; the square itself is empty; an enemy pawn stands one step behind it (for d6, a black pawn on
+      d5); and the square the pawn came from is empty (for d6, d7).</p>
+      <p><code class="vn">L1</code> does not also require the capture to be legal. With no repetition count, a
+      square left written changes no ruling, and an illegal capture is refused by <code>L</code> anyway. In
+      <code class="vn">L2</code> and <code class="vn">L3</code> it is different: since <code>e</code> is part of
+      the repetition key, the capture must also be genuinely legal (9.2.3.1).</p>
+      <p>The engine trusts <code>e</code> completely: it allows the pawn's diagonal move to <code>e</code>
+      and, on the capture, clears the square one step behind without condition. The behaviour is the same
+      in both board formats:</p>
+    </div>
+<div class="tw" lang="tr"><table>
+<thead><tr><th>Giriş (beyaz d5 piyonu, <code>e</code> = e6)</th><th>Sonuç</th></tr></thead>
+<tbody>
+<tr><td>e5'te piyon değil at var</td><td><code>d5xe6</code> geçerken alma sayılır, e5'teki at silinir</td></tr>
+<tr><td>e6 boş değil (siyah fil), e5'te at</td><td><code>dxe6</code> fili alır, e5'teki atı da siler: tek hamlede iki taş</td></tr>
+</tbody>
+</table></div>
+<div class="tw" lang="en"><table>
+<thead><tr><th>Entry (white pawn on d5, <code>e</code> = e6)</th><th>Result</th></tr></thead>
+<tbody>
+<tr><td>A knight on e5 instead of a pawn</td><td><code>d5xe6</code> counts as en passant and the knight on e5 is removed</td></tr>
+<tr><td>e6 not empty (a black bishop), a knight on e5</td><td><code>dxe6</code> takes the bishop and removes the knight on e5 too: two pieces in one move</td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="tr">
+      <p>Yanlış bir <code>e</code> yalnızca ilk hamlede zarar verebilir: her hamlede <code>e</code> yeniden
+      hesaplanıyor ve FEN'den gelen değer düşüyor.</p>
+      <p><b>Genel geçerlilik.</b> Motor pozisyonun yasal olduğunu varsayıyor. Rok ve geçerken almanın
+      dışında yükleyicinin sağlaması gerekenler: her renkte tam bir şah; birinci ve sekizinci yatayda
+      piyon olmaması; sırası gelmeyen tarafın şahta olmaması. Motor yalnızca sırası gelen tarafın şahını
+      soruyor; öbür taraf şahtaysa şah alınabilir ve motorun şah araması bozulur.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>A wrong <code>e</code> can only do harm on the first move: <code>e</code> is recomputed on every
+      move, and the value that came from the FEN drops away.</p>
+      <p><b>General validity.</b> The engine assumes the position is legal. Beyond castling and en passant,
+      the loader has to guarantee: exactly one king of each colour; no pawn on the first or eighth rank; the
+      side not to move not in check. The engine only ever asks about the king of the side to move; if the
+      other king is in check it can be captured, and the engine's search for the king breaks.</p>
+    </div>
+
+    <h3 id="fenstring" lang="tr">Harf dizgili sürüm — <code class="vn">prompt_string_flip</code></h3>
+    <h3 lang="en" data-id="fenstring">The string build — <code class="vn">prompt_string_flip</code></h3>
+    <div class="prose" lang="tr">
+      <p>Kurallar sayısal sürümlerle aynı; farklar yazımda.</p>
+      <p><b>Tahta FEN'in kendi sırasında.</b> <code>b</code> a8'den başlıyor ve FEN'in yazıldığı sırayla
+      ilerliyor: a8=0, h8=7, a7=8 … a1=56, h1=63. Yatayları ters çevirmek gerekmiyor; FEN'deki harfler olduğu
+      gibi sıralanıyor, rakamlar o kadar <code>'-'</code> ile açılıyor. Büyük harf beyaz, küçük harf siyah,
+      boş kare <code>'-'</code>. Kare dizini <code>(8 − yatay) × 8 + dikey</code>; sık gerekenler a8=0, e8=4,
+      h8=7, a1=56, e1=60, f1=61, h1=63.</p>
+      <p><b>Rok.</b> Model aynı, kare dizinleri aynalı: <code>K</code> → e1=60 ve h1=63, <code>Q</code> →
+      e1=60 ve a1=56, <code>k</code> → e8=4 ve h8=7, <code>q</code> → e8=4 ve a8=0. Geçerlilik koşulları ve
+      işaretleme kuralı birebir aynı. Tek fark yanlış yazımın sonucunda: beyazın sahte roku burada tahtanın
+      dışına taşıyor. Şah f1'de (61) iken “kale karesi” 64 çıkıyor; g1'e <code>undefined</code> yazılıyor ve
+      dizi 65 elemana uzuyor.</p>
+      <p><b>Geçerken alma.</b> Boşken <code>e</code>, <code>-1</code> değil <code>'-'</code>. Koşullar aynı,
+      ama dizinler aynalı olduğu için yönler tersine dönüyor: sırası gelen taraf beyazsa kare 2. satırda
+      (<code>e&gt;&gt;3 == 2</code>), arkasındaki kare <code>e+8</code>, piyonun çıktığı kare
+      <code>e-8</code>; siyahsa kare 5. satırda ve işaretler yer değiştiriyor. d6'nın dizini burada 19.</p>
+      <p><b>Sıra.</b> Bu sürüm şahı <code>'kK'[t]</code> ile aradığı için <code>t</code>'nin sayı olması
+      burada zorunlu.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The rules are those of the numeric builds; the differences are in the writing.</p>
+      <p><b>The board is in FEN's own order.</b> <code>b</code> starts at a8 and runs in the order a FEN is
+      written: a8=0, h8=7, a7=8 … a1=56, h1=63. There is no need to reverse the ranks; the letters of the FEN
+      go in as they are, and each digit expands into that many <code>'-'</code>. Uppercase is White, lowercase
+      Black, an empty square <code>'-'</code>. A square's index is <code>(8 − rank) × 8 + file</code>; the
+      ones often needed are a8=0, e8=4, h8=7, a1=56, e1=60, f1=61, h1=63.</p>
+      <p><b>Castling.</b> The same model with mirrored indices: <code>K</code> → e1=60 and h1=63,
+      <code>Q</code> → e1=60 and a1=56, <code>k</code> → e8=4 and h8=7, <code>q</code> → e8=4 and a8=0. The
+      validity conditions and the marking rule are exactly the same. The one difference lies in the result
+      of a wrong entry: White's false castling runs off the board here. With the king on f1 (61) the “rook
+      square” comes out as 64; <code>undefined</code> is written to g1 and the array grows to 65
+      elements.</p>
+      <p><b>En passant.</b> When there is none, <code>e</code> is <code>'-'</code>, not <code>-1</code>. The
+      conditions are the same, but with the indices mirrored the directions reverse: with White to move the
+      square is on row 2 (<code>e&gt;&gt;3 == 2</code>), the square behind it is <code>e+8</code> and the
+      square the pawn came from <code>e-8</code>; with Black to move it is on row 5 and the signs swap. Here
+      d6's index is 19.</p>
+      <p><b>The side to move.</b> Since this build looks for the king with <code>'kK'[t]</code>, <code>t</code>
+      being a number is mandatory here.</p>
+    </div>
+
+    <h3 lang="tr">Örnekler</h3>
+    <h3 lang="en">Examples</h3>
+    <div class="prose" lang="tr">
+      <p>Aşağıdaki pozisyonların hepsi hem <code class="vn">input</code>'a hem
+      <code class="vn">prompt_string_flip</code>'e yüklendi. Açılan roklar ve geçerken alma, her sürümde
+      motorun kendi <code>L</code>'sine sorularak denetlendi; iki sürüm de aynı cevabı verdi.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>Every position below was loaded into both <code class="vn">input</code> and
+      <code class="vn">prompt_string_flip</code>. The castling moves and en passant captures on offer were
+      checked by asking each build's own <code>L</code>; both builds gave the same answer.</p>
+    </div>
+<div class="tw" lang="tr"><table>
+<thead><tr><th>FEN</th><th>Durum</th><th>Sayısal yazım</th><th>Harf dizgili yazım</th><th>Motorun açtığı</th></tr></thead>
+<tbody>
+<tr><td><code>r3k2r/pppq1ppp/2nbbn2/3pp3/3PP3/2NBBN2/PPPQ1PPP/R3K2R w KQkq - 0 10</code></td><td>Dört hak da geçerli</td><td><code>c=[]</code>, <code>e=-1</code></td><td><code>c=[]</code>, <code>e='-'</code></td><td>e1g1, e1c1</td></tr>
+<tr><td><code>r3k2r/8/8/8/8/8/8/R3K2R b Kq - 0 1</code></td><td><code>Q</code> ve <code>k</code> yazılmamış</td><td><code>c[0]=c[63]=1</code></td><td><code>c[7]=c[56]=1</code></td><td>e8c8; beyazın sırası gelince e1g1</td></tr>
+<tr><td><code>r3k2r/8/8/8/8/8/8/R4K1R w KQkq - 0 1</code></td><td>Beyaz şah f1'de; <code>KQ</code> yazılmış ama geçersiz</td><td><code>c[0]=c[5]=c[7]=1</code></td><td><code>c[56]=c[61]=c[63]=1</code></td><td>Rok yok, sahte rok da yok</td></tr>
+<tr><td><code>r3k2n/8/8/8/8/8/8/R3K2R w KQkq - 0 1</code></td><td>h8'de at; <code>k</code> geçersiz</td><td><code>c[63]=1</code></td><td><code>c[7]=1</code></td><td>e1g1, e1c1; siyaha yalnızca <code>q</code> kalıyor</td></tr>
+<tr><td><code>4k3/8/8/3pP3/8/8/8/4K3 w - d6 0 1</code></td><td>Hak yok; geçerken alma geçerli</td><td><code>c[4]=c[60]=1</code>, <code>e=43</code></td><td><code>c[4]=c[60]=1</code>, <code>e=19</code></td><td>e5xd6</td></tr>
+<tr><td><code>4k3/8/8/3pP3/8/8/8/4K3 w - c6 0 1</code></td><td>c5'te piyon yok; geçerken alma geçersiz</td><td><code>c[4]=c[60]=1</code>, <code>e=-1</code></td><td><code>c[4]=c[60]=1</code>, <code>e='-'</code></td><td>Geçerken alma yok</td></tr>
+</tbody>
+</table></div>
+<div class="tw" lang="en"><table>
+<thead><tr><th>FEN</th><th>Situation</th><th>Numeric entry</th><th>String entry</th><th>What the engine offers</th></tr></thead>
+<tbody>
+<tr><td><code>r3k2r/pppq1ppp/2nbbn2/3pp3/3PP3/2NBBN2/PPPQ1PPP/R3K2R w KQkq - 0 10</code></td><td>All four rights valid</td><td><code>c=[]</code>, <code>e=-1</code></td><td><code>c=[]</code>, <code>e='-'</code></td><td>e1g1, e1c1</td></tr>
+<tr><td><code>r3k2r/8/8/8/8/8/8/R3K2R b Kq - 0 1</code></td><td><code>Q</code> and <code>k</code> not listed</td><td><code>c[0]=c[63]=1</code></td><td><code>c[7]=c[56]=1</code></td><td>e8c8; e1g1 once it is White's turn</td></tr>
+<tr><td><code>r3k2r/8/8/8/8/8/8/R4K1R w KQkq - 0 1</code></td><td>White king on f1; <code>KQ</code> listed but invalid</td><td><code>c[0]=c[5]=c[7]=1</code></td><td><code>c[56]=c[61]=c[63]=1</code></td><td>No castling, and no false castling either</td></tr>
+<tr><td><code>r3k2n/8/8/8/8/8/8/R3K2R w KQkq - 0 1</code></td><td>A knight on h8; <code>k</code> invalid</td><td><code>c[63]=1</code></td><td><code>c[7]=1</code></td><td>e1g1, e1c1; Black keeps only <code>q</code></td></tr>
+<tr><td><code>4k3/8/8/3pP3/8/8/8/4K3 w - d6 0 1</code></td><td>No rights; en passant valid</td><td><code>c[4]=c[60]=1</code>, <code>e=43</code></td><td><code>c[4]=c[60]=1</code>, <code>e=19</code></td><td>e5xd6</td></tr>
+<tr><td><code>4k3/8/8/3pP3/8/8/8/4K3 w - c6 0 1</code></td><td>No pawn on c5; en passant invalid</td><td><code>c[4]=c[60]=1</code>, <code>e=-1</code></td><td><code>c[4]=c[60]=1</code>, <code>e='-'</code></td><td>No en passant</td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="tr">
+      <p>Son iki satırda yükleyici geçersiz hakların köşelerini de işaretliyor. Şah kareleri zaten işaretli
+      olduğu için bunların sonuca etkisi yok; tabloda yalnızca belirleyici işaretler var.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>In the last two rows the loader also marks the corners of the invalid rights. With the king squares
+      already marked, those make no difference to the result; the table shows only the marks that
+      decide.</p>
+    </div>
+
+    <h3 lang="tr">Yükleyiciler</h3>
+    <h3 lang="en">The loaders</h3>
+    <div class="prose" lang="tr">
+      <p>Örneklerde kullanılan iki yükleyici. <code class="vn">L1</code>'in global değişkenlerini doğrudan
+      yazıyorlar. Önce sayısal sürümler:</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The two loaders used for the examples. They write <code class="vn">L1</code>'s globals directly.
+      First the numeric builds:</p>
+    </div>
+<pre class="snip" lang="tr">loadFEN=fen=&gt;{
+  const [pos,side,rights,ep]=fen.split(' '), K={P:9,p:8,N:13,n:12,B:3,b:2,R:5,r:4,Q:7,q:6,K:11,k:10};
+  b=Array(64).fill(0);
+  pos.split('/').forEach((row,r)=&gt;{let x=(7-r)*8;for(const ch of row)ch&gt;'0'&amp;&amp;ch&lt;='8'?x+=+ch:b[x++]=K[ch]});
+  t=side=='w'?1:0; z=0; c=[];
+  <i>// hak ancak FEN'de yazıyorsa, şah e1/e8'deyse ve kendi kalesi o köşedeyse geçerli</i>
+  const R=[['K',4,7,11,5],['Q',4,0,11,5],['k',60,63,10,4],['q',60,56,10,4]]
+    .map(([h,s,r,kk,rr])=&gt;({h,s,r,ok:rights.includes(h)&amp;&amp;b[s]==kk&amp;&amp;b[r]==rr}));
+  for(const x of R) if(!x.ok) c[x.r]=1;                                              <i>// geçersiz hakkın köşesi</i>
+  for(const w of [1,0]){ if(!R.some(x=&gt;x.ok&amp;&amp;(x.s==4)==!!w)) c[b.indexOf(10+w)]=1 }  <i>// hiç hakkı olmayan rengin şahı</i>
+  <i>// geçerken alma: kare doğru yatayda ve boş, arkasında rakip piyon, piyonun çıktığı kare boş</i>
+  e=-1; if(ep&amp;&amp;ep!='-'){const s=ep.charCodeAt(0)-97+(ep[1]-1)*8, d=t?-8:8;
+    if(!b[s]&amp;&amp;(s&gt;&gt;3)==(t?5:2)&amp;&amp;b[s+d]==(t?8:9)&amp;&amp;!b[s-d]) e=s}
+}</pre>
+<pre class="snip" lang="en">loadFEN=fen=&gt;{
+  const [pos,side,rights,ep]=fen.split(' '), K={P:9,p:8,N:13,n:12,B:3,b:2,R:5,r:4,Q:7,q:6,K:11,k:10};
+  b=Array(64).fill(0);
+  pos.split('/').forEach((row,r)=&gt;{let x=(7-r)*8;for(const ch of row)ch&gt;'0'&amp;&amp;ch&lt;='8'?x+=+ch:b[x++]=K[ch]});
+  t=side=='w'?1:0; z=0; c=[];
+  <i>// a right is valid only if the FEN lists it, the king is on e1/e8 and its own rook is in that corner</i>
+  const R=[['K',4,7,11,5],['Q',4,0,11,5],['k',60,63,10,4],['q',60,56,10,4]]
+    .map(([h,s,r,kk,rr])=&gt;({h,s,r,ok:rights.includes(h)&amp;&amp;b[s]==kk&amp;&amp;b[r]==rr}));
+  for(const x of R) if(!x.ok) c[x.r]=1;                                              <i>// corner of an invalid right</i>
+  for(const w of [1,0]){ if(!R.some(x=&gt;x.ok&amp;&amp;(x.s==4)==!!w)) c[b.indexOf(10+w)]=1 }  <i>// king of a colour with no right left</i>
+  <i>// en passant: square on the right rank and empty, enemy pawn behind it, the pawn's origin empty</i>
+  e=-1; if(ep&amp;&amp;ep!='-'){const s=ep.charCodeAt(0)-97+(ep[1]-1)*8, d=t?-8:8;
+    if(!b[s]&amp;&amp;(s&gt;&gt;3)==(t?5:2)&amp;&amp;b[s+d]==(t?8:9)&amp;&amp;!b[s-d]) e=s}
+}</pre>
+    <div class="prose" lang="tr">
+      <p>Aynı kurallar, <code class="vn">prompt_string_flip</code>'in tahta biçimiyle. Tahta FEN sırasında
+      olduğu için yatayları çevirmeye gerek yok:</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The same rules in <code class="vn">prompt_string_flip</code>'s board format. With the board in FEN
+      order, the ranks need no reversing:</p>
+    </div>
+<pre class="snip" lang="tr">loadFEN=fen=&gt;{
+  const [pos,side,rights,ep]=fen.split(' ');
+  b=pos.split('/').flatMap(row=&gt;[...row].flatMap(ch=&gt;ch&gt;'0'&amp;&amp;ch&lt;='8'?Array(+ch).fill('-'):ch));
+  t=side=='w'?1:0; z=0; c=[];
+  <i>// aynı geçerlilik kuralı, aynalı dizinlerle: e1=60, h1=63, a1=56, e8=4, h8=7, a8=0</i>
+  const R=[['K',60,63,'K','R'],['Q',60,56,'K','R'],['k',4,7,'k','r'],['q',4,0,'k','r']]
+    .map(([h,s,r,kk,rr])=&gt;({h,s,r,ok:rights.includes(h)&amp;&amp;b[s]==kk&amp;&amp;b[r]==rr}));
+  for(const x of R) if(!x.ok) c[x.r]=1;                                                   <i>// geçersiz hakkın köşesi</i>
+  for(const w of [1,0]){ if(!R.some(x=&gt;x.ok&amp;&amp;(x.s==60)==!!w)) c[b.indexOf(w?'K':'k')]=1 } <i>// hiç hakkı olmayan rengin şahı</i>
+  <i>// geçerken alma: yönler aynalı; boşken '-'</i>
+  e='-'; if(ep&amp;&amp;ep!='-'){const s=ep.charCodeAt(0)-97+(8-ep[1])*8, d=t?8:-8;
+    if(b[s]=='-'&amp;&amp;(s&gt;&gt;3)==(t?2:5)&amp;&amp;b[s+d]==(t?'p':'P')&amp;&amp;b[s-d]=='-') e=s}
+}</pre>
+<pre class="snip" lang="en">loadFEN=fen=&gt;{
+  const [pos,side,rights,ep]=fen.split(' ');
+  b=pos.split('/').flatMap(row=&gt;[...row].flatMap(ch=&gt;ch&gt;'0'&amp;&amp;ch&lt;='8'?Array(+ch).fill('-'):ch));
+  t=side=='w'?1:0; z=0; c=[];
+  <i>// the same validity rule with mirrored indices: e1=60, h1=63, a1=56, e8=4, h8=7, a8=0</i>
+  const R=[['K',60,63,'K','R'],['Q',60,56,'K','R'],['k',4,7,'k','r'],['q',4,0,'k','r']]
+    .map(([h,s,r,kk,rr])=&gt;({h,s,r,ok:rights.includes(h)&amp;&amp;b[s]==kk&amp;&amp;b[r]==rr}));
+  for(const x of R) if(!x.ok) c[x.r]=1;                                                   <i>// corner of an invalid right</i>
+  for(const w of [1,0]){ if(!R.some(x=&gt;x.ok&amp;&amp;(x.s==60)==!!w)) c[b.indexOf(w?'K':'k')]=1 } <i>// king of a colour with no right left</i>
+  <i>// en passant: directions mirrored; '-' when there is none</i>
+  e='-'; if(ep&amp;&amp;ep!='-'){const s=ep.charCodeAt(0)-97+(8-ep[1])*8, d=t?8:-8;
+    if(b[s]=='-'&amp;&amp;(s&gt;&gt;3)==(t?2:5)&amp;&amp;b[s+d]==(t?'p':'P')&amp;&amp;b[s-d]=='-') e=s}
+}</pre>
+    <div class="prose" lang="tr">
+      <p>İki yükleyici de genel geçerlilik koşullarını denetlemiyor; onları sağlamak FEN'i girenin
+      sorumluluğunda. Başlangıçta FEN alıp onu tam denetimden geçiren bir arayüz
+      <a href="#special">Chess LUX</a>'ta var.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>Neither loader checks the general validity conditions; meeting them is up to whoever enters the
+      FEN. An interface that takes a FEN at the start and puts it through a full check exists in
+      <a href="#special">Chess LUX</a>.</p>
     </div>
   </div>
 </section>
@@ -15256,7 +15799,13 @@ goBtn.addEventListener('click', start);
 var ctaPlay = document.getElementById('ctaplay');
 if (ctaPlay) ctaPlay.addEventListener('click', function (e) {
   e.preventDefault();
-  if (mode !== 'game') start();
+  /* Anasayfadaki OYNA! iddianin sergi surumunu acar: special seviyesindeki
+     L3_packed. O surum zaten oynaniyorsa oyun bozulmaz. */
+  var same = mode === 'game' && current() === 'L3_packed',
+      lvR = document.querySelector('input[name=level][value=special]'),
+      bdR = document.querySelector('input[name=build][value=L3_packed]');
+  if (lvR && bdR) { lvR.checked = true; lastPick.special = 'L3_packed'; filterBuilds(); bdR.checked = true; }
+  if (!same) start();
   var pl = document.querySelector('.player');
   /* 80 px fazladan: .player tam tepeye hizalaninca en alttaki terk dugmesi
      ekranin disina tasiyor. Bu kadari surum seciciyi biraz kirpar ama oyun
