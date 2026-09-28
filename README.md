@@ -2,8 +2,8 @@
 
 *[Türkçe ↓](#türkçe)*
 
-A full-FIDE chess arbiter in **1,847 bytes** of plain JavaScript — no dependencies, no install,
-no server. Packed into a playable game it comes to **1,763 bytes**; with a clickable board, a
+A full-FIDE chess arbiter in **1,837 bytes** of plain JavaScript — no dependencies, no install,
+no server. Packed into a playable game it comes to **1,756 bytes**; with a clickable board, a
 clock and indicators, **2.7 KB**.
 
 **→ [www.fidelite.art](https://www.fidelite.art)** — playable builds, the rulebook, a line-by-line
@@ -27,7 +27,7 @@ direction matters as much as the number: every position it calls dead really is 
 it does not recognise it plays on.
 
 An extension covering the rest was designed and measured. It takes **782 bytes more**, so the
-return per byte falls by a factor of twenty-three; it also costs speed, and — because a bishop
+return per byte falls by a factor of twenty-four; it also costs speed, and — because a bishop
 turns the question into a third unknown — it puts the engine's only proved property at risk. It is
 shelved, not lost. [The full argument is on the site.](https://www.fidelite.art/#dead)
 
@@ -47,9 +47,9 @@ the book asks what that board is forced to become.**
 
 | File | Bytes | What it is |
 | --- | --- | --- |
-| `builds/engine.js` | 1,847 | The rule engine. One line, no front end. |
-| `builds/engine_4x.js` | 1,945 | The same rules, +98 bytes, 1.4 to 75 times the speed. |
-| `builds/engine_string.js` | 1,962 | The same rules on a board of FEN letters instead of numbers. |
+| `builds/engine.js` | 1,837 | The rule engine. One line, no front end. |
+| `builds/engine_4x.js` | 1,928 | The same rules, +91 bytes, 1.4 to 75 times the speed. |
+| `builds/engine_string.js` | 1,933 | The same rules on a board of FEN letters instead of numbers. |
 
 Every file under `builds/` runs on its own — download an HTML file and double-click
 it. The `.cjs` builds run in a terminal with `node`.
@@ -121,8 +121,8 @@ ships something smaller. Until then it stands.
 
 # Türkçe
 
-Tam FIDE kurallı satranç hakem motoru, **1.847 bayt** saf JavaScript — bağımlılık yok, kurulum
-yok, sunucu yok. Paketlenip oynanabilir bir oyuna dönüştüğünde **1.763 bayt**; tıklanabilir
+Tam FIDE kurallı satranç hakem motoru, **1.837 bayt** saf JavaScript — bağımlılık yok, kurulum
+yok, sunucu yok. Paketlenip oynanabilir bir oyuna dönüştüğünde **1.756 bayt**; tıklanabilir
 tahtası, saati ve göstergeleriyle birlikte **2,7 KB**.
 
 **→ [www.fidelite.art/tr](https://www.fidelite.art/tr)** — oynanabilir sürümler, kural kitabı,
@@ -144,7 +144,7 @@ kilitli olup olmadığına karar veriyor; ölçülen kapsama **%93**. Yön de sa
 ölü dediği her pozisyon gerçekten ölüdür, tanımadığını oynatmaya devam eder.
 
 Kalanı kapatan bir genişletme tasarlandı ve ölçüldü. **782 bayt daha** tutuyor, yani bayt başına
-getiri yirmi üç kat düşüyor; hızı da aşağı çekiyor ve fil soruyu üçüncü bir bilinmeyene
+getiri yirmi dört kat düşüyor; hızı da aşağı çekiyor ve fil soruyu üçüncü bir bilinmeyene
 dönüştürdüğü için motorun tek ispatlı özelliğini riske atıyor. Askıda, kaybolmuş değil.
 [Ayrıntılı gerekçe sitede.](https://www.fidelite.art/tr#dead)
 
@@ -164,9 +164,9 @@ zorunlu olarak neye dönüşeceğini soruyor.**
 
 | Dosya | Bayt | Ne |
 | --- | --- | --- |
-| `builds/engine.js` | 1.847 | Kural motoru. Tek satır, önyüz yok. |
-| `builds/engine_4x.js` | 1.945 | Aynı kurallar, +98 bayt, 1,4 ilâ 75 kat hız. |
-| `builds/engine_string.js` | 1.962 | Aynı kurallar, tahta sayı yerine FEN harfleriyle. |
+| `builds/engine.js` | 1.837 | Kural motoru. Tek satır, önyüz yok. |
+| `builds/engine_4x.js` | 1.928 | Aynı kurallar, +91 bayt, 1,4 ilâ 75 kat hız. |
+| `builds/engine_string.js` | 1.933 | Aynı kurallar, tahta sayı yerine FEN harfleriyle. |
 
 `builds/` altındaki her dosya tek başına çalışır — HTML dosyasını indirip çift
 tıklamak yeterli. `.cjs` sürümleri terminalde `node` ile koşar.
