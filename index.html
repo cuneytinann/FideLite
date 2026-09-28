@@ -112,6 +112,7 @@ if (FLOLD[location.hash.slice(1)]) {
 
   /* anlamli ucluk: baglanti, canli, uyari */
   --link:    light-dark(#8f1d13,  #ec8a75);
+  --link-2:  light-dark(#1a4a8a,  #7fa9e6);
   --live:    light-dark(#146a33,  #58c67e);
   --warn:    light-dark(#8c4e0c,  #dfa250);
   --on-live: light-dark(#fff,     #0d2415);
@@ -213,7 +214,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --halt:#9b2c22; --on-halt:#fff; --dl1:#2a64ad; --on-dl1:#fff; --lt:#ccbb88;
     --dk:#885544; --on-lt:#2a1d12; --on-dk:#f2e6d8; --acc:#c99111; --acc-tx:#7e5a05;
     --acc-wash:rgba(201,145,17,.11); --acc-tint:rgba(201,145,17,.17);
-    --acc-edge:rgba(201,145,17,.46); --acc-hover:rgba(201,145,17,.17);--x:#b3261e; --link:#8f1d13;
+    --acc-edge:rgba(201,145,17,.46); --acc-hover:rgba(201,145,17,.17);--x:#b3261e; --link:#8f1d13; --link-2:#1a4a8a;
     --live:#146a33; --warn:#8c4e0c; --on-live:#fff; --warn-bg:#f8edd0; --rule:rgba(41,58,95,.26);
     --rule-2:rgba(41,58,95,.13); --zebra:rgba(41,58,95,.055); --dot-ring:rgba(0,0,0,.35);
     --card-w-bg:#fffdf6; --card-w-fg:#0f1626; --card-w-fg2:#2c384c; --card-w-fg3:#465268;
@@ -233,7 +234,7 @@ if (FLOLD[location.hash.slice(1)]) {
       --dl-edge:rgba(168,198,238,.34); --dl-hover:#27374f;
       --halt:#e0806f; --on-halt:#2a0d08; --dl1:#7fb0ea; --on-dl1:#0b1a2c; --lt:#a8916b; --dk:#6b4433; --on-lt:#221a12; --on-dk:#f6ede2; --acc:#e3ad35;
       --acc-tx:#e8b641; --acc-wash:rgba(227,173,53,.10); --acc-tint:rgba(227,173,53,.14);
-      --acc-edge:rgba(227,173,53,.42); --acc-hover:rgba(227,173,53,.13);--x:#f28a80; --link:#ec8a75;
+      --acc-edge:rgba(227,173,53,.42); --acc-hover:rgba(227,173,53,.13);--x:#f28a80; --link:#ec8a75; --link-2:#7fa9e6;
       --live:#58c67e; --warn:#dfa250; --on-live:#0d2415; --warn-bg:#241a10;
       --rule:rgba(214,178,140,.20); --rule-2:rgba(214,178,140,.10); --zebra:rgba(204,187,136,.05);
       --dot-ring:rgba(255,255,255,.22); --card-w-bg:#d7ccbd; --card-w-fg:#241c17;
@@ -254,7 +255,7 @@ if (FLOLD[location.hash.slice(1)]) {
       --halt:#e0806f; --on-halt:#2a0d08; --dl1:#7fb0ea; --on-dl1:#0b1a2c; 
     --lt:#a8916b; --dk:#6b4433; --on-lt:#221a12; --on-dk:#f6ede2; --acc:#e3ad35; --acc-tx:#e8b641;
     --acc-wash:rgba(227,173,53,.10); --acc-tint:rgba(227,173,53,.14);
-    --acc-edge:rgba(227,173,53,.42); --acc-hover:rgba(227,173,53,.13);--x:#f28a80; --link:#ec8a75;
+    --acc-edge:rgba(227,173,53,.42); --acc-hover:rgba(227,173,53,.13);--x:#f28a80; --link:#ec8a75; --link-2:#7fa9e6;
     --live:#58c67e; --warn:#dfa250; --on-live:#0d2415; --warn-bg:#241a10;
     --rule:rgba(214,178,140,.20); --rule-2:rgba(214,178,140,.10); --zebra:rgba(204,187,136,.05);
     --dot-ring:rgba(255,255,255,.22); --card-w-bg:#d7ccbd; --card-w-fg:#241c17;
@@ -579,6 +580,8 @@ body::before {
 .chips li { font-family:var(--mono); font-size:.7rem; letter-spacing:.03em;
   padding:.32rem .6rem; border:1px solid var(--acc-edge); border-radius:999px;
   background:var(--acc-wash); color:var(--ink-2) }
+/* ikinci baglanti rengi: bayrak dususu kirmizi, kilitli pozisyonlar ayni koyulukta mavi */
+.chips a.lk2 { color:var(--link-2) }
 
 /* tas kodu: renk = tur, kalinlik = taraf */
 .pc-r { color:var(--pc-r) } .pc-n { color:var(--pc-n) } .pc-b { color:var(--pc-b) }
@@ -1115,15 +1118,15 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
         <li>Tüm taş hareketleri</li><li>Geçerlilik</li><li>Rok</li><li>Geçerken alma</li><li>Terfi</li><li>Canlı saat</li>
         <li>3'lü / 5'li tekrar</li><li>50 / 75 hamle</li><li>Yetersiz materyal</li>
         <li>Beraberlik teklifi</li><li>Terk</li>
-        <li>Bayrak düşmesi + 6.9</li>
-        <li><a href="#dead">Kilitli pozisyonlar %93</a></li>
+        <li><a href="#flag">Bayrak düşmesi 6.9 &amp; 5.1.2</a></li>
+        <li><a class="lk2" href="#dead">Kilitli pozisyonlar 5.2.2 (%93)</a></li>
       </ul>
       <ul class="chips" lang="en">
         <li>All piece moves</li><li>Legality</li><li>Castling</li><li>En passant</li><li>Promotion</li><li>Live clock</li>
         <li>3-fold &amp; 5-fold repetition</li><li>50 / 75-move rule</li><li>Insufficient material</li>
         <li>Draw offer</li><li>Resignation</li>
-        <li>Flag fall + 6.9</li>
-        <li><a href="#dead">Blocked positions 93%</a></li>
+        <li><a href="#flag">Flag fall 6.9 &amp; 5.1.2</a></li>
+        <li><a class="lk2" href="#dead">Blocked positions 5.2.2 (93%)</a></li>
       </ul>
 
       <p class="strip"><span class="rk"><span class="pc-r w" title="beyaz kale" data-en-title="white rook">5</span><span class="pc-n w" title="beyaz at" data-en-title="white knight">d</span><span class="pc-b w" title="beyaz fil" data-en-title="white bishop">3</span><span class="pc-q w" title="beyaz vezir" data-en-title="white queen">7</span><span class="pc-k w" title="beyaz şah" data-en-title="white king">b</span><span class="pc-b w" title="beyaz fil" data-en-title="white bishop">3</span><span class="pc-n w" title="beyaz at" data-en-title="white knight">d</span><span class="pc-r w" title="beyaz kale" data-en-title="white rook">5</span></span><span class="rk"><span class="pc-p w" title="beyaz piyon ×8" data-en-title="white pawns ×8">99999999</span></span><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="rk"><span class="pc-p" title="siyah piyon ×8" data-en-title="black pawns ×8">88888888</span></span><span class="rk"><span class="pc-r" title="siyah kale" data-en-title="black rook">4</span><span class="pc-n" title="siyah at" data-en-title="black knight">c</span><span class="pc-b" title="siyah fil" data-en-title="black bishop">2</span><span class="pc-q" title="siyah vezir" data-en-title="black queen">6</span><span class="pc-k" title="siyah şah" data-en-title="black king">a</span><span class="pc-b" title="siyah fil" data-en-title="black bishop">2</span><span class="pc-n" title="siyah at" data-en-title="black knight">c</span><span class="pc-r" title="siyah kale" data-en-title="black rook">4</span></span></p>
@@ -14941,8 +14944,8 @@ function start() {
    isaretle baslayan tanimin bitis virgulune kadar surer; son katman scriptin
    sonuna kadar. Isaret virgulle ya da noktali virgulle basliyorsa o isaret
    onceki tanimindir, tanim ondan sonra baslar. L3'te ve L2'de motorun son
-   tanimi kilitli pozisyon dedektoru l, L1'de M. light surumlerinde script tas
-   glifleri tablosu g ile acilir (arayuz), motor M ile biter. Botlu surumlerde
+   tanimi kilitli pozisyon dedektoru l, L1'de ve light surumlerinde M; light
+   surumlerinde tas glifleri tablosu g arayuzun ilk tanimi. Botlu surumlerde
    arayuz ilk cizimle (d();) biter, gerisi bot.
    CARVE: surucunun icine gomulmus kod, [bas, son, katman] ucluleri; katman
    yazilmazsa kural. Cizgi kurali bunlari arayuz sayardi ama kural kodudurlar:
@@ -15002,16 +15005,15 @@ function start() {
    birebir ayni, o yuzden isaretleri ve kesimleri de onlarinki: L3'te kesim yok,
    L1 ve L2'de hamleyi isleyen govde (APPLY) kural.
    Listede olmayan surum ya da bulunamayan bir isaret: tek renk. */
-var PAINT_L3 = ['r', ',l=(', 'u'], PAINT_L1 = ['r', ',M=(', 'u'],
-    PAINT_LIGHT = ['u', 'g=', 'r', ',M=(', 'u'], PACKED = ['p'];
+var PAINT_L3 = ['r', ',l=(', 'u'], PAINT_L1 = ['r', ',M=(', 'u'], PACKED = ['p'];
 var PAINT = {
   L3: PAINT_L3, L3_light: PAINT_L3, L3_numerical: PAINT_L3, L3_input: PAINT_L3,
   L3_input_blindfold: PAINT_L3, L3_prompt_string_flip: PAINT_L3, L3_nonbrowser: PAINT_L3,
-  L2: PAINT_L3, L2_numerical: PAINT_L3, L2_input: PAINT_L3, L2_input_blindfold: PAINT_L3, L2_light: PAINT_LIGHT,
+  L2: PAINT_L3, L2_numerical: PAINT_L3, L2_input: PAINT_L3, L2_input_blindfold: PAINT_L3, L2_light: PAINT_L1,
   L2_prompt_string_flip: PAINT_L3, L2_nonbrowser: PAINT_L3,
   L2_aybars_2500: ['r', ',t=1', 'm', ',b=Int8Array', 'r', ',a=Math.abs', 'm', ',L=(', 'r',
     ',C=i=>', 'm', ',M=(', 'r', ',l=(', 'u', ';d();U=0', 'b'],
-  L1: PAINT_L1, L1_numerical: PAINT_L1, L1_input: PAINT_L1, L1_input_blindfold: PAINT_L1, L1_light: PAINT_LIGHT,
+  L1: PAINT_L1, L1_numerical: PAINT_L1, L1_input: PAINT_L1, L1_input_blindfold: PAINT_L1, L1_light: PAINT_L1,
   L1_prompt_string_flip: PAINT_L1, L1_nonbrowser: PAINT_L1, L1_1250elo: ['r', ',M=(', 'u', ';d();P=[', 'b'],
   'Chesscom-equivalent': ['r', ',Z=Q=>', 'u'], 'Lichess-equivalent': ['r', ',F=k=>', 'u'],
   L2_noBlockedDetector: ['r', 'M=(i,f,u=', 'u'],
@@ -15041,7 +15043,7 @@ var CARVE = {
   L1: APPLY1, L1_input: APPLY1, L1_input_blindfold: APPLY1, L1_numerical: APPLY1_N, L1_prompt_string_flip: APPLY1,
   L1_nonbrowser: APPLY1,
   L1_light: [['c[i]=c[f]=1', 't^=1'], ['!p|p&1^t&&G(i,u)', '[b,e]=p,q']],
-  L1_1250elo: APPLY1.concat([['z||t==D', 'setTimeout(o,9)', 'b']]),
+  L1_1250elo: APPLY.concat([['z||t==D', 'setTimeout(o,9)', 'b']]),
   'Chesscom-equivalent': [['(I(!t)', "'WB'[t]+'T'"], ['c&=~C(i)', 'Z(o&=1+t)'],
     ["T?'WB'", "&&'DA'"]],
   'Lichess-equivalent': [['c&=~C(i)', 'o&&D()']],
@@ -15052,7 +15054,7 @@ var CARVE = {
     ['L=r&&', '-h-q', 'b'], ['if(s)L+=', '!(E^y^9)', 'b'], ['if(!(h|s-1', 'u=J'], ['W(),G--', 'W()', 'u'],
     ['if(L>N||', 'N=L}', 'b'], ['N+M*M&&', 'd?N:0', 'b'], ['while(B++<G)', ':7'],
     ['y&&setTimeout', ',250)', 'b']],
-  ToledosOpponentbyMe: [['n<99', 'n<99'], ['c[i]=c[f]=1', 't^=1']]
+  ToledosOpponentbyMe: [['n<99', 'n<99'], ['c&=~C(i)', 't^=1']]
 };
 /* Gercek bir etiket acilisi: <x, </x, <!. Kiyaslamadaki '<' degil. */
 var MARK = /<[a-zA-Z!\/]/;
