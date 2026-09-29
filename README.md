@@ -3,7 +3,7 @@
 *[Türkçe ↓](#türkçe)*
 
 A full-FIDE chess arbiter in **1,837 bytes** of plain JavaScript — no dependencies, no install,
-no server. Packed into a playable game it comes to **1,756 bytes**; with a clickable board, a
+no server. Packed into a playable game it comes to **1,763 bytes**; with a clickable board, a
 clock and indicators, **2.6 KB**.
 
 The exhibit build, for playing or sharing:
@@ -118,7 +118,7 @@ ships something smaller. Until then it stands.
 # Türkçe
 
 Tam FIDE kurallı satranç hakem motoru, **1.837 bayt** saf JavaScript — bağımlılık yok, kurulum
-yok, sunucu yok. Paketlenip oynanabilir bir oyuna dönüştüğünde **1.756 bayt**; tıklanabilir
+yok, sunucu yok. Paketlenip oynanabilir bir oyuna dönüştüğünde **1.763 bayt**; tıklanabilir
 tahtası, saati ve göstergeleriyle birlikte **2,6 KB**.
 
 Oynamak ya da paylaşmak için sergi sürümü:
