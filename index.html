@@ -5994,40 +5994,45 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
   <div class="wrap">
     <p class="eyebrow" lang="tr">Varyantlar</p>
     <p class="eyebrow" lang="en">Builds</p>
-    <h2 lang="tr">Üç eksen: arayüz, seviye ve bot</h2>
-    <h2 lang="en">Three axes: interface, level and bot</h2>
+    <h2 lang="tr">Üç eksen: arayüz, kural ve bot</h2>
+    <h2 lang="en">Three axes: interface, rules and bot</h2>
 
     <div class="prose" lang="tr">
-      <p>Sürümler üç ayrı eksende çoğalıyor ve bunları karıştırmamak gerekiyor.</p>
-      <p><b><code class="vn">L3</code> ailesi arayüz ekseni.</b> Kurallar on birinde de aynı — tam hakem,
-      hiçbir madde eksik değil. Değişen yalnızca hamlenin nasıl girildiği, tahtanın nasıl
-      çizildiği ve saatin nasıl gösterildiği. Bir <code class="vn">L3</code> sürümünde hangi hükmü alıyorsan hepsinde aynısını alırsın.</p>
-      <p><b><code class="vn">L1</code> ve <code class="vn">L2</code> kural ekseni.</b> Aynı arayüzler iki seviyede de var; değişen <em>hangi kuralların uygulandığı</em>. Her seviyenin yedi arayüzü var. Bunlar <a href="#golfstack">iddianın dışında</a>; burada duruyorlar çünkü
-      kuralların katman katman nasıl eklendiğini görmenin en düz yolu onlar.</p>
-      <p><b>Bot ekseni.</b> Kuralların üstüne konan arama: <code class="vn">L1_1250elo</code>, <code class="vn">L2_aybars_2500</code> ve Toledo'nun
-      programına karşı yazılan <code class="vn">ToledosOpponentbyMe</code>. <a href="#bots">Özel sürümlerin içinde</a>, kendi grubunda.</p>
-      <p>Hiçbir seviyeye girmeyenler bu sekmenin sonunda, kendi bölümlerinde:
-      <a href="#special">Özel sürümler</a>. <code class="vn">L3</code>'ün paketli iki hâli ise <a href="#l3packed"><code class="vn">L3</code> ailesiyle
-      birlikte</a> anlatılıyor.</p>
+      <p>Sürümler üç ayrı eksende çoğalıyor; bunları karıştırmamak gerekiyor.</p>
+      <p><b>Arayüz ekseni.</b> Kurallar aynı, arayüz değişiyor: tıklanan tahta, yalın hâli, sayısal giriş,
+      UCI, körleme, harf dizgisi, terminal. Bir seviyenin bütün arayüzleri aynı hükmü verir; değişen
+      yalnızca hamlenin nasıl girildiği, tahtanın nasıl çizildiği ve saatin nasıl gösterildiği. Eksen
+      her seviyede var: <code class="vn">L3</code>'te on bir, <code class="vn">L2</code> ve <code class="vn">L1</code>'de yedişer arayüz.</p>
+      <p><b>Kural ekseni.</b> Arayüz aynı, kural katmanı değişiyor: <code class="vn">L3</code> → <code class="vn">L2</code> → <code class="vn">L1</code>.
+      <code class="vn">L3</code> tam hakem ve iddianın kendisi. <code class="vn">L2</code> ile <code class="vn">L1</code> <a href="#golfstack">iddianın dışında</a>,
+      ama kuralların katman katman nasıl eklendiğini görmenin en düz yolu onlar.</p>
+      <p><b>Bot ekseni.</b> Ne arayüz ne kural tartılıyor; kuralların üstüne konan arama tartılıyor:
+      <code class="vn">L1_1250elo</code>, <code class="vn">L2_aybars_2500</code> ve Toledo'nun programına karşı yazılan
+      <code class="vn">ToledosOpponentbyMe</code>. <a href="#bots">Özel sürümlerin içinde</a>, kendi grubunda.</p>
+      <p>Bu eksenlere sığmayanlar sekmenin sonunda, <a href="#special">Özel sürümlerde</a>. <code class="vn">L3</code>'ün paketli iki hâli
+      eskimiş yöntem kullansa da iddianın parçası; <a href="#l3packed"><code class="vn">L3</code> ailesiyle birlikte</a> anlatılıyor.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The builds multiply along three separate axes, and they should not be confused.</p>
-      <p><b>The <code class="vn">L3</code> family is the interface axis.</b> The rules are identical in
-      all of them — the full arbiter, with no article left out. What changes is only how a move is
-      entered, how the board is drawn and how the clock is shown. Whatever ruling you get in one
-      <code class="vn">L3</code> build, you get the same in every other.</p>
-      <p><b><code class="vn">L1</code> and <code class="vn">L2</code> are the rules axis.</b> The same interfaces exist at both levels; what changes is <em>which rules apply</em>. Each level has seven interfaces. These sit <a href="#golfstack">outside the claim</a>;
-      they are here because they are the plainest way to see how the rules are added layer by
-      layer.</p>
-      <p><b>The bot axis.</b> A search placed on top of the rules: <code class="vn">L1_1250elo</code>, <code class="vn">L2_aybars_2500</code>, and
-      <code class="vn">ToledosOpponentbyMe</code>, written against Toledo's program. <a href="#bots">Inside the special builds</a>, as a group of its own.</p>
-      <p>What fits no level has a section of its own at the end of this tab:
-      <a href="#special">Special builds</a>. The two packed forms of <code class="vn">L3</code>, however, are described
-      <a href="#l3packed">with the <code class="vn">L3</code> family</a>.</p>
+      <p>The builds multiply along three separate axes; they should not be confused.</p>
+      <p><b>The interface axis.</b> The rules stay the same while the interface changes: the clickable
+      board, its pared-down form, numeric input, UCI, blindfold, the string board, the terminal. All
+      interfaces of a level give the same ruling; what changes is only how a move is entered, how the
+      board is drawn and how the clock is shown. The axis exists at every level: eleven interfaces in
+      <code class="vn">L3</code>, seven each in <code class="vn">L2</code> and <code class="vn">L1</code>.</p>
+      <p><b>The rules axis.</b> The interface stays the same while the rule layer changes: <code class="vn">L3</code> →
+      <code class="vn">L2</code> → <code class="vn">L1</code>. <code class="vn">L3</code> is the full arbiter and the claim itself. <code class="vn">L2</code> and <code class="vn">L1</code> sit
+      <a href="#golfstack">outside the claim</a>, but they are the plainest way to see how the rules are added
+      layer by layer.</p>
+      <p><b>The bot axis.</b> Neither the interface nor the rules are measured here, but the search placed
+      on top of the rules: <code class="vn">L1_1250elo</code>, <code class="vn">L2_aybars_2500</code>, and <code class="vn">ToledosOpponentbyMe</code>, written
+      against Toledo's program. <a href="#bots">Inside the special builds</a>, as a group of its own.</p>
+      <p>What fits none of these axes is at the end of this tab, among the <a href="#special">special builds</a>.
+      The two packed forms of <code class="vn">L3</code> use deprecated methods but are part of the claim; they are
+      described <a href="#l3packed">with the <code class="vn">L3</code> family</a>.</p>
     </div>
 
-    <h3 id="l3" lang="tr"><code class="vn">L3</code> ailesi — arayüz ekseni</h3>
-    <h3 lang="en" data-id="l3">The <code class="vn">L3</code> family — the interface axis</h3>
+    <h3 id="l3" lang="tr"><code class="vn">L3</code> ailesi — tam hakem</h3>
+    <h3 lang="en" data-id="l3">The <code class="vn">L3</code> family — the full arbiter</h3>
 
     <div class="prose" lang="tr">
       <p>On bir sürüm, aynı kurallar. Hepsi rok, geçerken alma, seçimli terfi, pat, ölü pozisyon,
@@ -6046,7 +6051,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <thead><tr><th>Sürüm</th><th>Giriş</th><th>Tahta</th><th>Saat</th><th>Süre</th><th>Düz</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">main</code><br><span class="fn2">builds/L3.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri</td><td>⏱ <b>D:SS</b><span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>3.148</td></tr>
-<tr><td><code class="vn">light</code><br><span class="fn2">builds/L3_light.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri<span class="sub">durum satırı, koordinat, şah uyarısı ve hedef işareti yok; sonuç <a href="#lightread">tahtadan ve saatten okunuyor</a></span></td><td>⏱ <b>D:SS</b><span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>2.618</td></tr>
+<tr><td><code class="vn">light</code><br><span class="fn2">builds/L3_light.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri<span class="sub">durum satırı, koordinat, şah uyarısı ve hedef işareti yok; sonuç <a href="#lightread">tahtadan ve saatten okunuyor</a></span></td><td>⏱ <b>D:SS</b><span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>2.668</td></tr>
 <tr><td><code class="vn">numerical</code><br><span class="fn2">builds/L3_numerical.html</span></td><td>Sayısal, prompt penceresi</td><td>Yok, yalnızca son hamle</td><td>Milisaniye<span class="sub">hamlede</span></td><td>900.000 ms<span class="sub">artış yok</span></td><td>2.068</td></tr>
 <tr><td><code class="vn">prompt</code><br><span class="fn2">builds/L3_prompt.html</span><br><code class="vn">prompt_string</code><br><span class="fn2">builds/L3_prompt_string.html</span><br><code class="vn">prompt_string_flip</code><br><span class="fn2">builds/L3_prompt_string_flip.html</span></td><td>UCI, prompt penceresi</td><td>Tam tahta, tam genişlik harfler<span class="sub">üçünün ekranı birebir aynı; ikisinin farkı içeride, <a href="#l3strings">aşağıda</a></span></td><td>Saniye<span class="sub">hamlede</span></td><td>600 sn + 5 sn</td><td>2.405<br>2.499<br>2.441</td></tr>
 <tr><td><code class="vn">prompt_blindfold</code><br><span class="fn2">builds/L3_prompt_blindfold.html</span></td><td>UCI, prompt penceresi</td><td>Yok, yalnızca son hamle</td><td>Saniye<span class="sub">hamlede</span></td><td>600 sn + 5 sn</td><td>2.266</td></tr>
@@ -6061,7 +6066,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <thead><tr><th>Build</th><th>Input</th><th>Board</th><th>Clock</th><th>Time control</th><th>Plain</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">main</code><br><span class="fn2">builds/L3.html</span></td><td>Clicking</td><td>Full board, piece glyphs</td><td>⏱ <b>M:SS</b><span class="sub">live</span></td><td>600 s + 5 s</td><td>3,148</td></tr>
-<tr><td><code class="vn">light</code><br><span class="fn2">builds/L3_light.html</span></td><td>Clicking</td><td>Full board, piece glyphs<span class="sub">no status line, coordinates, check marker or target squares; the result is <a href="#lightread">read from the board and the clocks</a></span></td><td>⏱ <b>M:SS</b><span class="sub">live</span></td><td>600 s + 5 s</td><td>2,618</td></tr>
+<tr><td><code class="vn">light</code><br><span class="fn2">builds/L3_light.html</span></td><td>Clicking</td><td>Full board, piece glyphs<span class="sub">no status line, coordinates, check marker or target squares; the result is <a href="#lightread">read from the board and the clocks</a></span></td><td>⏱ <b>M:SS</b><span class="sub">live</span></td><td>600 s + 5 s</td><td>2,668</td></tr>
 <tr><td><code class="vn">numerical</code><br><span class="fn2">builds/L3_numerical.html</span></td><td>Numeric, prompt dialog</td><td>None, last move only</td><td>Milliseconds<span class="sub">on move</span></td><td>900,000 ms<span class="sub">no increment</span></td><td>2,068</td></tr>
 <tr><td><code class="vn">prompt</code><br><span class="fn2">builds/L3_prompt.html</span><br><code class="vn">prompt_string</code><br><span class="fn2">builds/L3_prompt_string.html</span><br><code class="vn">prompt_string_flip</code><br><span class="fn2">builds/L3_prompt_string_flip.html</span></td><td>UCI, prompt dialog</td><td>Full board, full-width letters<span class="sub">all three screens are identical; two differ inside, <a href="#l3strings">below</a></span></td><td>Seconds<span class="sub">on move</span></td><td>600 s + 5 s</td><td>2,405<br>2,499<br>2,441</td></tr>
 <tr><td><code class="vn">prompt_blindfold</code><br><span class="fn2">builds/L3_prompt_blindfold.html</span></td><td>UCI, prompt dialog</td><td>None, last move only</td><td>Seconds<span class="sub">on move</span></td><td>600 s + 5 s</td><td>2,266</td></tr>
@@ -6160,6 +6165,112 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
   </div>
 </section>
 
+
+<section id="codes">
+  <div class="wrap">
+    <p class="eyebrow" lang="tr">Sonuç kodları</p>
+    <p class="eyebrow" lang="en">Result codes</p>
+    <h2 lang="tr">On beş sonuç</h2>
+    <h2 lang="en">Fifteen outcomes</h2>
+    <div class="prose" lang="tr">
+      <p>Oyunun bitebileceği on beş yol var; altısı sonuçlu, dokuzu berabere. Motorun iki
+      kodlaması var ve ikisi aynı on beş sonucu adlandırıyor: <code class="vn">numerical</code> sürümleri ve <code>engine.js</code> tam sayıyı döndürür, geri kalan bütün sürümler iki harfli kısaltmayı. Her hücrede ikisi birlikte.</p>
+      <p>Bu da benim periyodik tablom :) Tıpkı elementler gibi, her kodun bulunduğu satıra ve
+      sütuna göre, bazen de hangi harfle başlayıp bittiğine göre bir anlamı ve ötekilerle bir
+      ilişkisi var!</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>There are fifteen ways a game can end; six decisive, nine drawn. The engine has two
+      encodings and both name the same fifteen outcomes: the <code class="vn">numerical</code> builds and <code>engine.js</code> return an integer, every other build a two-letter abbreviation. Each cell shows both.</p>
+      <p>And this is my periodic table :) Just like the elements, every code has a meaning, and a
+      relation to the others, that comes from the row and column it sits in, and sometimes from
+      the letter it starts or ends with!</p>
+    </div>
+    <div class="codes" lang="tr">
+<div class="rc rc-w"><div class="rc-top"><span class="rc-mn">W#</span><span class="rc-n">1</span></div><div class="rc-l">Beyaz mat etti</div></div>
+<div class="rc rc-b"><div class="rc-top"><span class="rc-mn">B#</span><span class="rc-n">2</span></div><div class="rc-l">Siyah mat etti</div></div>
+<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">SM</span><span class="rc-n">3</span></div><div class="rc-l">Pat</div></div>
+<div class="rc rc-w"><div class="rc-top"><span class="rc-mn">WT</span><span class="rc-n">10</span></div><div class="rc-l">Beyaz süreden kazandı</div></div>
+<div class="rc rc-b"><div class="rc-top"><span class="rc-mn">BT</span><span class="rc-n">11</span></div><div class="rc-l">Siyah süreden kazandı</div></div>
+<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">TM</span><span class="rc-n">14</span></div><div class="rc-l">Süre × mat imkânsız</div></div>
+<div class="rc rc-w"><div class="rc-top"><span class="rc-mn">WR</span><span class="rc-n">12</span></div><div class="rc-l">Beyaz, rakibin terkiyle kazandı</div></div>
+<div class="rc rc-b"><div class="rc-top"><span class="rc-mn">BR</span><span class="rc-n">13</span></div><div class="rc-l">Siyah, rakibin terkiyle kazandı</div></div>
+<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">RM</span><span class="rc-n">15</span></div><div class="rc-l">Terk × mat imkânsız</div></div>
+<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">75</span><span class="rc-n">4</span></div><div class="rc-l">75 hamle kuralı</div></div>
+<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">5R</span><span class="rc-n">5</span></div><div class="rc-l">beşli tekrar</div></div>
+<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">DP</span><span class="rc-n">6</span></div><div class="rc-l">Ölü pozisyon</div></div>
+<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">50</span><span class="rc-n">7</span></div><div class="rc-l">50 hamle talebi</div></div>
+<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">3R</span><span class="rc-n">8</span></div><div class="rc-l">üçlü tekrar talebi</div></div>
+<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">DA</span><span class="rc-n">9</span></div><div class="rc-l">Anlaşmalı beraberlik</div></div>
+    </div>
+    <div class="codes" lang="en">
+<div class="rc rc-w"><div class="rc-top"><span class="rc-mn">W#</span><span class="rc-n">1</span></div><div class="rc-l">White mates</div></div>
+<div class="rc rc-b"><div class="rc-top"><span class="rc-mn">B#</span><span class="rc-n">2</span></div><div class="rc-l">Black mates</div></div>
+<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">SM</span><span class="rc-n">3</span></div><div class="rc-l">Stalemate</div></div>
+<div class="rc rc-w"><div class="rc-top"><span class="rc-mn">WT</span><span class="rc-n">10</span></div><div class="rc-l">White wins on time</div></div>
+<div class="rc rc-b"><div class="rc-top"><span class="rc-mn">BT</span><span class="rc-n">11</span></div><div class="rc-l">Black wins on time</div></div>
+<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">TM</span><span class="rc-n">14</span></div><div class="rc-l">Flag fall × mate impossible</div></div>
+<div class="rc rc-w"><div class="rc-top"><span class="rc-mn">WR</span><span class="rc-n">12</span></div><div class="rc-l">White wins by resignation</div></div>
+<div class="rc rc-b"><div class="rc-top"><span class="rc-mn">BR</span><span class="rc-n">13</span></div><div class="rc-l">Black wins by resignation</div></div>
+<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">RM</span><span class="rc-n">15</span></div><div class="rc-l">Resignation × mate impossible</div></div>
+<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">75</span><span class="rc-n">4</span></div><div class="rc-l">75-move rule</div></div>
+<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">5R</span><span class="rc-n">5</span></div><div class="rc-l">Fivefold repetition</div></div>
+<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">DP</span><span class="rc-n">6</span></div><div class="rc-l">Dead position</div></div>
+<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">50</span><span class="rc-n">7</span></div><div class="rc-l">50-move claim</div></div>
+<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">3R</span><span class="rc-n">8</span></div><div class="rc-l">Threefold repetition claim</div></div>
+<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">DA</span><span class="rc-n">9</span></div><div class="rc-l">Draw by agreement</div></div>
+    </div>
+    <p class="legend" lang="tr">
+      <span><span class="sw rc-w"></span>Beyaz kazanır</span>
+      <span><span class="sw rc-b"></span>Siyah kazanır</span>
+      <span><span class="sw rc-d"></span>Berabere</span>
+    </p>
+    <p class="legend" lang="en">
+      <span><span class="sw rc-w"></span>White wins</span>
+      <span><span class="sw rc-b"></span>Black wins</span>
+      <span><span class="sw rc-d"></span>Draw</span>
+    </p>
+    <div class="prose" lang="tr">
+      <p>Kısaltmalar kendini okutuyor: <code>W</code> ile başlayanlarda beyaz,
+      <code>B</code> ile başlayanlarda siyah kazanmıştır. <code>D</code> ile başlayanlar,
+      <code>M</code> ile bitenler ve içinde rakam geçenler beraberedir. On beş kodun
+      on beşi de bu kalıplara giriyor.</p>
+      <p>Satırlar da anlamlı: birinci satır mat ve pat, ikincisi süre bitimi, üçüncüsü
+      terk ile ilgili. Dördüncü satır kendiliğinden tetiklenen beraberlikler, beşincisi
+      oyuncunun istemesiyle gelenlerdir. Satırların nereden geldiği ve aralarındaki öncelik
+      <a href="#endings">bitişin boru hattında</a>.</p>
+      <p>Bir koddaki isim tercihi ayrıca anlatmaya değer. <code>DP</code> maddenin kendi
+      adını taşıyor: 5.2.2 ölü pozisyonun hem yetersiz materyalden doğan hâlini hem de
+      kilitli pozisyonları kapsıyor, motor da ikisini birden veriyor — kilitli tarafta
+      ölçülen kapsama %93. Kodu dar olana göre adlandırmak kolay yoldu; maddeye göre
+      adlandırmak ileriyi açık bıraktı ve <a href="#dead">kilitli pozisyonlar</a>
+      eklendiğinde gerçekten aynı koddan çıktılar: liste on beş kaldı.</p>
+      <p>Bu on beş kod FIDE'ye göredir. Başka bir federasyonun kuralları başka bir liste
+      üretir. Örneğin USCF'de <code>RM</code> bitişi yoktur, <code>75</code> ve <code>5R</code> kendiliğinden işlemez (yönetici isterse ilan eder), <code>TM</code> ise oldukça farklı çalışır. Motoru USCF'ye uyarlamak
+      mümkündür.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The abbreviations are self-explanatory: those beginning with <code>W</code> are wins for
+      White, those beginning with <code>B</code> wins for Black. Those beginning with
+      <code>D</code>, those ending in <code>M</code>, and any code carrying a digit are draws.
+      All fifteen codes fall into these patterns.</p>
+      <p>The rows carry meaning too: the first concerns mate and stalemate, the second flag fall,
+      the third resignation. The fourth row holds the draws that trigger by themselves, the fifth
+      those that come at a player's request. Where each row comes from, and which takes precedence, is shown in <a href="#endings">the pipeline of endings</a>.</p>
+      <p>One naming choice is worth spelling out. <code>DP</code> carries the name of the
+      article rather than of the case: 5.2.2 covers dead positions arising from insufficient
+      material and blocked ones alike, and the engine reports both — measured coverage on the
+      blocked side is 93%. Naming the code after the narrow half would have been the easy
+      route; naming it after the article left the door open, and when
+      <a href="#dead">blocked positions</a> were added they did come out under the same code:
+      the list stayed at fifteen.</p>
+      <p>These fifteen codes follow FIDE. Another federation's rules produce a different list.
+      Under USCF, for instance, there is no <code>RM</code> outcome, <code>75</code> and <code>5R</code> are not automatic — the director may declare them but need not — and <code>TM</code> works quite differently. Adapting the engine to USCF is
+      possible.</p>
+    </div>
+
+  </div>
+</section>
 
 <section id="gameplay">
   <div class="wrap">
@@ -6554,53 +6665,64 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <h3 id="lightread" lang="tr"><code class="vn">light</code>'ta sonuç nasıl okunur</h3>
     <h3 lang="en" data-id="lightread">How the result is read in <code class="vn">light</code></h3>
     <div class="prose" lang="tr">
-      <p><code class="vn">light</code> sonucu yazmıyor; oyun bitince yalnızca duruyor. Ölçüt,
-      oyuncunun <b>kazancı beraberlikten kesin olarak ayırabilmesi</b> — hangi beraberlik olduğu
-      değil. Bunun için ekranda zaten duran şeyler kullanılıyor: tahta, saatler ve beraberlik
-      radyosu. Hiçbiri için fazladan bir işaret yazılmadı. <code class="vn">L1</code> ve <code class="vn">L2</code>'nin <code class="vn">light</code> sürümleri de sonucu yazmıyor ve onlarda saat olmadığı için tek kanal tahta. Sırası gelenin hamlesi yoksa: şahı tehdit altındaysa mat, değilse pat; <code class="vn">L2</code>'de hamle varken tahta donduysa tahtadan doğan bir beraberlik — hangisi olduğu gösterilmez.</p>
-      <p><b>Saatler de konuşur.</b> Mat ve pat dışındaki bitişlerde kural tek cümle: oyun bitince saatler
-      durur; biri akmaya devam ediyorsa oyun, rakip mat edemediği için berabere bitmiştir.</p>
+      <p><code class="vn">light</code> sonucu yazmıyor; ekranda zaten duran tahta, saatler ve beraberlik radyosu yetiyor. Hiçbiri
+      için fazladan bir işaret yazılmadı. <b>Kazanç ile beraberlik saatten kesin olarak ayrılıyor.</b> Hangi tür
+      kazanç ya da beraberlik olduğunu ise oyunu takip ederek eleme yoluyla kendin çıkarırsın, sıralı huniler
+      gibi. Tahta ve saatler sırası gelen tarafa göre döndüğü için “sıra”, oyunun bittiği anda alttaki
+      taraftır.</p>
     </div>
     <div class="prose" lang="en">
-      <p><code class="vn">light</code> does not write the result; when the game ends it simply stops. The measure is that the player can <b>tell a win from a draw beyond doubt</b> —
-      not which draw it was. For that it relies on what is already on screen: the board, the clocks and
-      the draw radio. Not a single extra mark was written for any of it. The <code class="vn">light</code> builds of <code class="vn">L1</code> and <code class="vn">L2</code> do not write the result either, and with no clock the board is their only channel: if the side to move has no move, it is mate when its king is attacked and stalemate when not; in <code class="vn">L2</code>, a board that freezes while moves remain means a draw that arises from the board — which one is not shown.</p>
-      <p><b>The clocks speak too.</b> For every ending other than mate and stalemate the rule fits in one sentence: when the game ends the clocks stop; if one keeps running, the game was
-      drawn because the opponent cannot mate.</p>
+      <p><code class="vn">light</code> does not write the result; the board, the clocks and the draw radio already on screen are
+      enough. Not a single extra mark was written for any of it. <b>The clock separates a win from a draw beyond
+      doubt.</b> Which kind of win or draw it was, you work out yourself by following the game and eliminating,
+      like a series of funnels. Since the board and the clocks turn with the side to move, “the side to move”
+      means the side at the bottom when the game ends.</p>
     </div>
     <div class="tw" lang="tr"><table>
-<thead><tr><th>Ekranda</th><th>Anlamı</th><th>Kod</th></tr></thead>
+<thead><tr><th>Saat</th><th>Ne oldu</th><th>Sıra beyazda</th><th>Sıra siyahta</th></tr></thead>
 <tbody>
-<tr><td>Tahta dondu, sırası gelenin hamlesi yok, şahı tehdit altında</td><td>Mat</td><td><code>W#</code> <code>B#</code></td></tr>
-<tr><td>Tahta dondu, hamle yok, şah tehdit altında değil</td><td>Pat, beraberlik</td><td><code>SM</code></td></tr>
-<tr><td>Tahta dondu, hamle var, iki saat durdu; son hamle geri alınabilir bir hamleydi</td><td>Beşli tekrar ya da 75 hamle: beraberlik</td><td><code>5R</code> <code>75</code></td></tr>
-<tr><td>Tahta dondu, hamle var, iki saat durdu; son hamle geri alınamaz bir hamleydi (piyon sürme ya da taş alımı)</td><td>Ölü pozisyon: beraberlik</td><td><code>DP</code></td></tr>
-<tr><td>Radyoya basınca oyun bitti</td><td>Talep ya da anlaşmayla beraberlik</td><td><code>3R</code> <code>50</code> <code>DA</code></td></tr>
-<tr><td>Bir saat <code>0:00</code>'da durdu</td><td>Süreden kayıp</td><td><code>WT</code> <code>BT</code></td></tr>
-<tr><td>Bir saat sıfırın altına akıyor</td><td>Süre bitti ama rakip mat edemez: beraberlik</td><td><code>TM</code></td></tr>
-<tr><td>⚐'den sonra terk edenin saati 0:00'da durdu</td><td>Terk, kayıp</td><td><code>WR</code> <code>BR</code></td></tr>
-<tr><td>⚐'den sonra terk edenin saati sıfırın altına akıyor</td><td>Terk ama rakip mat edemez: beraberlik</td><td><code>RM</code></td></tr>
+<tr><td rowspan="3"><code>0:00</code>'da durdu<span class="sub">kayıp</span></td><td>Hamle yok, şah tehdit altında</td><td><code>B#</code></td><td><code>W#</code></td></tr>
+<tr><td>⚐'ye basıldı</td><td><code>BR</code></td><td><code>WR</code></td></tr>
+<tr><td>Süre bitti</td><td><code>BT</code></td><td><code>WT</code></td></tr>
+<tr><td rowspan="3">Eksiye akıyor<span class="sub">beraberlik</span></td><td>Hamle yok, şah tehdit altında değil</td><td colspan="2"><code>SM</code></td></tr>
+<tr><td>⚐'ye basıldı</td><td colspan="2"><code>RM</code></td></tr>
+<tr><td>Süre bitti</td><td colspan="2"><code>TM</code></td></tr>
+<tr><td rowspan="3">İki saat durdu<span class="sub">beraberlik</span></td><td>Radyoya basıldı</td><td colspan="2"><code>3R</code> <code>50</code> <code>DA</code></td></tr>
+<tr><td>Hamleden sonra; son hamle geri alınamaz</td><td colspan="2"><code>DP</code></td></tr>
+<tr><td>Hamleden sonra; son hamle geri alınabilir</td><td colspan="2"><code>5R</code> <code>75</code></td></tr>
 </tbody>
 </table></div>
     <div class="tw" lang="en"><table>
-<thead><tr><th>On screen</th><th>Meaning</th><th>Code</th></tr></thead>
+<thead><tr><th>Clock</th><th>What happened</th><th>White to move</th><th>Black to move</th></tr></thead>
 <tbody>
-<tr><td>Board frozen, the side to move has no move, its king is attacked</td><td>Mate</td><td><code>W#</code> <code>B#</code></td></tr>
-<tr><td>Board frozen, no move, the king is not attacked</td><td>Stalemate, a draw</td><td><code>SM</code></td></tr>
-<tr><td>Board frozen with moves left, both clocks stopped; the last move was reversible</td><td>Fivefold repetition or the 75-move rule: a draw</td><td><code>5R</code> <code>75</code></td></tr>
-<tr><td>Board frozen with moves left, both clocks stopped; the last move was irreversible (a pawn move or a capture)</td><td>Dead position: a draw</td><td><code>DP</code></td></tr>
-<tr><td>The game ended when the radio was pressed</td><td>A draw by claim or agreement</td><td><code>3R</code> <code>50</code> <code>DA</code></td></tr>
-<tr><td>A clock stopped at <code>0:00</code></td><td>Lost on time</td><td><code>WT</code> <code>BT</code></td></tr>
-<tr><td>A clock running below zero</td><td>Time ran out but the opponent cannot mate: a draw</td><td><code>TM</code></td></tr>
-<tr><td>The resigning side's clock stopped at 0:00 after ⚐</td><td>Resignation, a loss</td><td><code>WR</code> <code>BR</code></td></tr>
-<tr><td>The resigning side's clock runs below zero after ⚐</td><td>Resigned, but the opponent cannot mate: a draw</td><td><code>RM</code></td></tr>
+<tr><td rowspan="3">Stopped at <code>0:00</code><span class="sub">loss</span></td><td>No legal move, king attacked</td><td><code>B#</code></td><td><code>W#</code></td></tr>
+<tr><td>⚐ pressed</td><td><code>BR</code></td><td><code>WR</code></td></tr>
+<tr><td>Time ran out</td><td><code>BT</code></td><td><code>WT</code></td></tr>
+<tr><td rowspan="3">Runs below zero<span class="sub">draw</span></td><td>No legal move, king not attacked</td><td colspan="2"><code>SM</code></td></tr>
+<tr><td>⚐ pressed</td><td colspan="2"><code>RM</code></td></tr>
+<tr><td>Time ran out</td><td colspan="2"><code>TM</code></td></tr>
+<tr><td rowspan="3">Both clocks stopped<span class="sub">draw</span></td><td>Radio pressed</td><td colspan="2"><code>3R</code> <code>50</code> <code>DA</code></td></tr>
+<tr><td>After a move; the last move is irreversible</td><td colspan="2"><code>DP</code></td></tr>
+<tr><td>After a move; the last move is reversible</td><td colspan="2"><code>5R</code> <code>75</code></td></tr>
 </tbody>
 </table></div>
     <div class="prose" lang="tr">
-      <p><b>Mat ve pat ayrıca aranmıyor.</b> <code class="vn">L2</code>'deki gibi, hamlesi kalmayan tarafın
-      tahtası zaten donuk. Bunun tek bedeli, sırası gelenin saatinin hemen durmaması; bayrak
-      düşünce de sonuç tutarlı kalıyor: matta saat <code>0:00</code>'da durur, patta sıfırın altına
-      akar.</p>
+      <p><b>Son iki satırda eleme şöyle ilerler.</b> Son hamle taş aldı ya da piyon sürdüyse sonuç ölü pozisyondur
+      (<code>DP</code>): geri alınamaz bir hamleden sonra ne tekrar ne 75 hamle olabilir. Son hamle geri alınabilir bir
+      hamleyse ama bir önceki hamlenin doğurduğu geçerken alma hakkını düşürdüyse yine ölü pozisyon olabilir: iki
+      kare ilerleyen piyon tahtayı kilitlemiş, kilit ancak geçerken alma hakkı düşünce tanınmıştır. Son hamle rok
+      hakkını düşürdüyse tekrar zinciri kırılmıştır, sonuç 75 hamledir. Bunların hiçbiri değilse <code>5R</code> ya da
+      <code>75</code>. Yani neyin olduğundan çok neyin asla olamayacağını eleyerek, ihtimalleri azaltarak buluyoruz.
+      Radyoyla bitenlerde: sıra sana geldiğinde radyo işaretliydiyse anlaşmadır (<code>DA</code>), değilse talep
+      (<code>3R</code> ya da <code>50</code>).</p>
+      <p><code>3R</code> ile <code>50</code>'yi, <code>5R</code> ile <code>75</code>'i ayırmak her zaman mümkün değil:
+      ikisi de birer sayaç eşiği ve aynı hamlede birlikte dolabilirler. <code class="vn">light</code>'ın ölçütü için bu önemsiz;
+      önemli olan beraberliği bilmek. Merak edersen tarayıcıda F12 ile konsolu açıp <code>n</code> (yarım hamle
+      sayacı: 100'de 50 hamle, 150'de 75) ve <code>$</code> (pozisyonun kaçıncı kez görüldüğü: 3'te üçlü, 5'te beşli
+      tekrar) değerlerine bakabilirsin; oynatıcıda sürüm bir çerçevede açıldığı için konsolda o çerçeveyi seç.</p>
+      <p><b>Mat ve patta saat anında sıfırlanır.</b> Hamlesi kalmayan tarafın saati hemen <code>0</code>'a iner;
+      mat edildiyse <code>0:00</code>'da durur, pat ise eksiye akar. Mat bütün beraberliklerin önüne geçer: son
+      hamle hem mat getirse hem 75. hamleyi doldursa da sonuç mattır.</p>
       <p><b>Beraberlik radyosu teklifin de göstergesi.</b> Sıra sana geldiğinde radyo işaretliyse
       rakip beraberlik teklif etmiş demektir: basarsan kabul edersin, hamle yaparsan reddetmiş
       olursun. Kendi teklifini, hamleni yapmadan önce radyoya bir daha basarak geri çekebilirsin.</p>
@@ -6608,6 +6730,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       yukarı yuvarlandığı için bayrak düştükten sonraki ilk bir iki saniye <code>0:00</code>
       görünür, sonra eksiye geçer. <code>M=</code> ve <code>R=</code> sayaçları yok; onları
       takip etmek <a href="#indicators">göstergesiz sürümlerde</a> olduğu gibi oyuncuda.</p>
+      <p><code class="vn">L1</code> ve <code class="vn">L2</code>'nin <code class="vn">light</code> sürümlerinde saat yok; orada tek kanal tahta. Sırası gelenin hamlesi
+      yoksa, şahı tehdit altındaysa mat, değilse pat; <code class="vn">L2</code>'de hamle varken tahta donduysa tahtadan doğan bir
+      beraberlik — hangisi olduğu gösterilmez.</p>
       <p>Üç sürüm de <code>DOCTYPE</code> ve <code>&lt;head&gt;</code> etiketleri olmadan
       yazıldı; sayfa quirks modunda açılıyor. Stil yalnızca tahtaya verildi: kare rengi, kare boyu
       ve büyütme (<code class="vn">L1</code>–<code class="vn">L2</code>'de üç, <code class="vn">L3</code>'te iki kat).
@@ -6615,10 +6740,25 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       büyütüyor. Düğmeler, radyo ve yazılar tarayıcının varsayılan görünümünde.</p>
     </div>
     <div class="prose" lang="en">
-      <p><b>Mate and stalemate are not searched for separately.</b> As in <code class="vn">L2</code>, the
-      board of a side with no move left is frozen anyway. The only cost is that the clock of the
-      side to move does not stop at once; and once its flag falls the result stays consistent:
-      after mate the clock stops at <code>0:00</code>, after stalemate it runs below zero.</p>
+      <p><b>In the last two rows the elimination goes like this.</b> If the last move captured or moved a pawn, the
+      result is a dead position (<code>DP</code>): after an irreversible move neither a repetition nor the 75-move
+      rule can occur. If the last move was reversible but let an en passant right created by the previous move
+      lapse, it can still be a dead position: a pawn's double step locked the board, and the lock is recognised only
+      once the en passant right is gone. If the last move lost a castling right, the chain of repetitions is broken
+      and the result is the 75-move rule. If none of these applies, it is <code>5R</code> or <code>75</code>. In other
+      words, we find it by eliminating what can never have happened rather than by spotting what did, narrowing
+      the possibilities. For games ended with the radio: if the radio was checked when your turn came, it was an
+      agreement (<code>DA</code>); otherwise a claim (<code>3R</code> or <code>50</code>).</p>
+      <p>Telling <code>3R</code> from <code>50</code>, or <code>5R</code> from <code>75</code>, is not always possible:
+      both are counter thresholds and can fill on the same move. For <code class="vn">light</code>'s measure this does not matter;
+      what matters is knowing it is a draw. If you are curious, open the browser console with F12 and look at
+      <code>n</code> (the ply counter: 100 for the 50-move rule, 150 for 75) and <code>$</code> (how many times the
+      position has occurred: 3 for threefold, 5 for fivefold); in the player the build opens in a frame, so select
+      that frame in the console.</p>
+      <p><b>On mate and stalemate the clock drops to zero at once.</b> The clock of the side with no move left goes
+      straight to <code>0</code>; after mate it stops at <code>0:00</code>, after stalemate it runs below zero. Mate
+      takes precedence over every draw: even if the last move both mates and completes the 75th move, the result
+      is mate.</p>
       <p><b>The draw radio doubles as the offer indicator.</b> If the radio is checked when your
       turn comes, your opponent has offered a draw: press it to accept, or move to decline. You can withdraw your own offer by pressing the radio again before you make your move.</p>
       <p><b>Negative time</b> is written as <code>0:-3</code> or <code>-1:-14</code>; since the
@@ -6626,6 +6766,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       before it turns negative. There are no <code>M=</code> or <code>R=</code> counters; keeping
       track of them is up to the player, as in the <a href="#indicators">builds without
       indicators</a>.</p>
+      <p>The <code class="vn">light</code> builds of <code class="vn">L1</code> and <code class="vn">L2</code> have no clock; there the board is the only channel. If the
+      side to move has no move, it is mate when its king is attacked and stalemate when not; in <code class="vn">L2</code>, a board that
+      freezes while moves remain means a draw that arises from the board — which one is not shown.</p>
       <p>All three are written without a <code>DOCTYPE</code> and without the
       <code>&lt;head&gt;</code> tags; the page opens in quirks mode. Styling is given to the board
       alone: square colour, square size and magnification (three times in
@@ -6635,130 +6778,27 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
   </div>
 </section>
 
-<section id="codes">
-  <div class="wrap">
-    <p class="eyebrow" lang="tr">Sonuç kodları</p>
-    <p class="eyebrow" lang="en">Result codes</p>
-    <h2 lang="tr">On beş sonuç</h2>
-    <h2 lang="en">Fifteen outcomes</h2>
-    <div class="prose" lang="tr">
-      <p>Oyunun bitebileceği on beş yol var; altısı sonuçlu, dokuzu berabere. Motorun iki
-      kodlaması var ve ikisi aynı on beş sonucu adlandırıyor: <code class="vn">numerical</code> sürümleri ve <code>engine.js</code> tam sayıyı döndürür, geri kalan bütün sürümler iki harfli kısaltmayı. Her hücrede ikisi birlikte.</p>
-      <p>Bu da benim periyodik tablom :) Tıpkı elementler gibi, her kodun bulunduğu satıra ve
-      sütuna göre, bazen de hangi harfle başlayıp bittiğine göre bir anlamı ve ötekilerle bir
-      ilişkisi var!</p>
-    </div>
-    <div class="prose" lang="en">
-      <p>There are fifteen ways a game can end; six decisive, nine drawn. The engine has two
-      encodings and both name the same fifteen outcomes: the <code class="vn">numerical</code> builds and <code>engine.js</code> return an integer, every other build a two-letter abbreviation. Each cell shows both.</p>
-      <p>And this is my periodic table :) Just like the elements, every code has a meaning, and a
-      relation to the others, that comes from the row and column it sits in, and sometimes from
-      the letter it starts or ends with!</p>
-    </div>
-    <div class="codes" lang="tr">
-<div class="rc rc-w"><div class="rc-top"><span class="rc-mn">W#</span><span class="rc-n">1</span></div><div class="rc-l">Beyaz mat etti</div></div>
-<div class="rc rc-b"><div class="rc-top"><span class="rc-mn">B#</span><span class="rc-n">2</span></div><div class="rc-l">Siyah mat etti</div></div>
-<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">SM</span><span class="rc-n">3</span></div><div class="rc-l">Pat</div></div>
-<div class="rc rc-w"><div class="rc-top"><span class="rc-mn">WT</span><span class="rc-n">10</span></div><div class="rc-l">Beyaz süreden kazandı</div></div>
-<div class="rc rc-b"><div class="rc-top"><span class="rc-mn">BT</span><span class="rc-n">11</span></div><div class="rc-l">Siyah süreden kazandı</div></div>
-<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">TM</span><span class="rc-n">14</span></div><div class="rc-l">Süre × mat imkânsız</div></div>
-<div class="rc rc-w"><div class="rc-top"><span class="rc-mn">WR</span><span class="rc-n">12</span></div><div class="rc-l">Beyaz, rakibin terkiyle kazandı</div></div>
-<div class="rc rc-b"><div class="rc-top"><span class="rc-mn">BR</span><span class="rc-n">13</span></div><div class="rc-l">Siyah, rakibin terkiyle kazandı</div></div>
-<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">RM</span><span class="rc-n">15</span></div><div class="rc-l">Terk × mat imkânsız</div></div>
-<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">75</span><span class="rc-n">4</span></div><div class="rc-l">75 hamle kuralı</div></div>
-<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">5R</span><span class="rc-n">5</span></div><div class="rc-l">beşli tekrar</div></div>
-<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">DP</span><span class="rc-n">6</span></div><div class="rc-l">Ölü pozisyon</div></div>
-<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">50</span><span class="rc-n">7</span></div><div class="rc-l">50 hamle talebi</div></div>
-<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">3R</span><span class="rc-n">8</span></div><div class="rc-l">üçlü tekrar talebi</div></div>
-<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">DA</span><span class="rc-n">9</span></div><div class="rc-l">Anlaşmalı beraberlik</div></div>
-    </div>
-    <div class="codes" lang="en">
-<div class="rc rc-w"><div class="rc-top"><span class="rc-mn">W#</span><span class="rc-n">1</span></div><div class="rc-l">White mates</div></div>
-<div class="rc rc-b"><div class="rc-top"><span class="rc-mn">B#</span><span class="rc-n">2</span></div><div class="rc-l">Black mates</div></div>
-<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">SM</span><span class="rc-n">3</span></div><div class="rc-l">Stalemate</div></div>
-<div class="rc rc-w"><div class="rc-top"><span class="rc-mn">WT</span><span class="rc-n">10</span></div><div class="rc-l">White wins on time</div></div>
-<div class="rc rc-b"><div class="rc-top"><span class="rc-mn">BT</span><span class="rc-n">11</span></div><div class="rc-l">Black wins on time</div></div>
-<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">TM</span><span class="rc-n">14</span></div><div class="rc-l">Flag fall × mate impossible</div></div>
-<div class="rc rc-w"><div class="rc-top"><span class="rc-mn">WR</span><span class="rc-n">12</span></div><div class="rc-l">White wins by resignation</div></div>
-<div class="rc rc-b"><div class="rc-top"><span class="rc-mn">BR</span><span class="rc-n">13</span></div><div class="rc-l">Black wins by resignation</div></div>
-<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">RM</span><span class="rc-n">15</span></div><div class="rc-l">Resignation × mate impossible</div></div>
-<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">75</span><span class="rc-n">4</span></div><div class="rc-l">75-move rule</div></div>
-<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">5R</span><span class="rc-n">5</span></div><div class="rc-l">Fivefold repetition</div></div>
-<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">DP</span><span class="rc-n">6</span></div><div class="rc-l">Dead position</div></div>
-<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">50</span><span class="rc-n">7</span></div><div class="rc-l">50-move claim</div></div>
-<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">3R</span><span class="rc-n">8</span></div><div class="rc-l">Threefold repetition claim</div></div>
-<div class="rc rc-d"><div class="rc-top"><span class="rc-mn">DA</span><span class="rc-n">9</span></div><div class="rc-l">Draw by agreement</div></div>
-    </div>
-    <p class="legend" lang="tr">
-      <span><span class="sw rc-w"></span>Beyaz kazanır</span>
-      <span><span class="sw rc-b"></span>Siyah kazanır</span>
-      <span><span class="sw rc-d"></span>Berabere</span>
-    </p>
-    <p class="legend" lang="en">
-      <span><span class="sw rc-w"></span>White wins</span>
-      <span><span class="sw rc-b"></span>Black wins</span>
-      <span><span class="sw rc-d"></span>Draw</span>
-    </p>
-    <div class="prose" lang="tr">
-      <p>Kısaltmalar kendini okutuyor: <code>W</code> ile başlayanlarda beyaz,
-      <code>B</code> ile başlayanlarda siyah kazanmıştır. <code>D</code> ile başlayanlar,
-      <code>M</code> ile bitenler ve içinde rakam geçenler beraberedir. On beş kodun
-      on beşi de bu kalıplara giriyor.</p>
-      <p>Satırlar da anlamlı: birinci satır mat ve pat, ikincisi süre bitimi, üçüncüsü
-      terk ile ilgili. Dördüncü satır kendiliğinden tetiklenen beraberlikler, beşincisi
-      oyuncunun istemesiyle gelenlerdir. Satırların nereden geldiği ve aralarındaki öncelik
-      <a href="#endings">bitişin boru hattında</a>.</p>
-      <p>Bir koddaki isim tercihi ayrıca anlatmaya değer. <code>DP</code> maddenin kendi
-      adını taşıyor: 5.2.2 ölü pozisyonun hem yetersiz materyalden doğan hâlini hem de
-      kilitli pozisyonları kapsıyor, motor da ikisini birden veriyor — kilitli tarafta
-      ölçülen kapsama %93. Kodu dar olana göre adlandırmak kolay yoldu; maddeye göre
-      adlandırmak ileriyi açık bıraktı ve <a href="#dead">kilitli pozisyonlar</a>
-      eklendiğinde gerçekten aynı koddan çıktılar: liste on beş kaldı.</p>
-      <p>Bu on beş kod FIDE'ye göredir. Başka bir federasyonun kuralları başka bir liste
-      üretir. Örneğin USCF'de <code>RM</code> bitişi yoktur, <code>75</code> ve <code>5R</code> kendiliğinden işlemez (yönetici isterse ilan eder), <code>TM</code> ise oldukça farklı çalışır. Motoru USCF'ye uyarlamak
-      mümkündür.</p>
-    </div>
-    <div class="prose" lang="en">
-      <p>The abbreviations are self-explanatory: those beginning with <code>W</code> are wins for
-      White, those beginning with <code>B</code> wins for Black. Those beginning with
-      <code>D</code>, those ending in <code>M</code>, and any code carrying a digit are draws.
-      All fifteen codes fall into these patterns.</p>
-      <p>The rows carry meaning too: the first concerns mate and stalemate, the second flag fall,
-      the third resignation. The fourth row holds the draws that trigger by themselves, the fifth
-      those that come at a player's request. Where each row comes from, and which takes precedence, is shown in <a href="#endings">the pipeline of endings</a>.</p>
-      <p>One naming choice is worth spelling out. <code>DP</code> carries the name of the
-      article rather than of the case: 5.2.2 covers dead positions arising from insufficient
-      material and blocked ones alike, and the engine reports both — measured coverage on the
-      blocked side is 93%. Naming the code after the narrow half would have been the easy
-      route; naming it after the article left the door open, and when
-      <a href="#dead">blocked positions</a> were added they did come out under the same code:
-      the list stayed at fifteen.</p>
-      <p>These fifteen codes follow FIDE. Another federation's rules produce a different list.
-      Under USCF, for instance, there is no <code>RM</code> outcome, <code>75</code> and <code>5R</code> are not automatic — the director may declare them but need not — and <code>TM</code> works quite differently. Adapting the engine to USCF is
-      possible.</p>
-    </div>
-
-  </div>
-</section>
 
 <section id="levels">
   <div class="wrap">
     <p class="eyebrow" lang="tr">Seviyeler</p>
     <p class="eyebrow" lang="en">Levels</p>
-    <h2 lang="tr"><code class="vn">L1</code> ve <code class="vn">L2</code> — kural ekseni</h2>
-    <h2 lang="en"><code class="vn">L1</code> and <code class="vn">L2</code> — the rules axis</h2>
+    <h2 lang="tr"><code class="vn">L1</code> ve <code class="vn">L2</code> — alt kural seviyeleri</h2>
+    <h2 lang="en"><code class="vn">L1</code> and <code class="vn">L2</code> — the lower rule levels</h2>
 
     <div class="prose" lang="tr">
-      <p>Burada eksen kurallar. Arayüzler iki seviyede de aynı — tıklanan tahta, yalın hâli,
-      sayısal giriş, UCI, körleme, harf dizgisi, terminal. Karşılaştırılan şey kural katmanının nereye kadar götürüldüğü.</p>
+      <p>Kural ekseninin <code class="vn">L3</code>'ün altındaki iki basamağı. Arayüzler <code class="vn">L3</code>'ün on bir arayüzünden
+      yedisi — tıklanan tahta, yalın hâli, sayısal giriş, UCI, körleme, harf dizgisi, terminal;
+      karşılaştırılan, kural katmanının nereye kadar götürüldüğü.</p>
       <p>Seviyeler birbirinin üstüne biniyor. <code class="vn">L1</code> yalnızca <b>oynanabilirliği</b>
       biliyor: hamle geçerli mi, oyun matla ya da patla bitti mi. <code class="vn">L2</code> üstüne
       <b>tahtadan doğan beraberlikleri</b> koyuyor. <code class="vn">L3</code> ise tahtanın dışına çıkıyor —
       saat, terk, teklif, talep.</p>
     </div>
     <div class="prose" lang="en">
-      <p>Here the axis is the rules. The interfaces are the same at both levels — the clickable
-      board, its pared-down form, numeric input, UCI, blindfold, the string board, the terminal. What is compared is how far the rule layer is carried.</p>
+      <p>The two rungs of the rules axis below <code class="vn">L3</code>. The interfaces are seven of <code class="vn">L3</code>'s eleven — the
+      clickable board, its pared-down form, numeric input, UCI, blindfold, the string board, the
+      terminal; what is compared is how far the rule layer is carried.</p>
       <p>The levels stack. <code class="vn">L1</code> knows only <b>playability</b>: is the move legal, has the
       game ended in mate or stalemate. <code class="vn">L2</code> puts the <b>draws that arise from the
       board</b> on top of that. <code class="vn">L3</code> then steps off the board — the clock, resignation,
@@ -6881,10 +6921,12 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 </table></div>
 
     <div class="prose" lang="tr">
-      <p>Aynı arayüzde <code class="vn">L1</code>'den <code class="vn">L2</code>'ye çıkmak 629 ile 725 bayt arası tutuyor. <code class="vn">L1</code> kurallarının paketli bir uygulaması <a href="#special">Özel sürümlerde</a>: <code class="vn">DOM_998</code>; oyun sonunda tahta tek renge dönüyor.</p>
+      <p>Aynı arayüzde <code class="vn">L1</code>'den <code class="vn">L2</code>'ye çıkmak 629 ile 725 bayt arası tutuyor.</p>
+      <p><code class="vn">L1</code> kurallarının paketli bir uygulaması <a href="#special">Özel sürümlerde</a>: <code class="vn">DOM_998</code>; oyun sonunda tahta tek renge dönüyor.</p>
     </div>
     <div class="prose" lang="en">
-      <p>Moving from <code class="vn">L1</code> to <code class="vn">L2</code> costs between 629 and 725 bytes for the same interface. A packed implementation of the <code class="vn">L1</code> rules is among the <a href="#special">special builds</a>: <code class="vn">DOM_998</code>; at the end of the game the board turns a single colour.</p>
+      <p>Moving from <code class="vn">L1</code> to <code class="vn">L2</code> costs between 629 and 725 bytes for the same interface.</p>
+      <p>A packed implementation of the <code class="vn">L1</code> rules is among the <a href="#special">special builds</a>: <code class="vn">DOM_998</code>; at the end of the game the board turns a single colour.</p>
     </div>
 
     <h3 lang="tr">Oynanış</h3>
@@ -6930,20 +6972,29 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
   <div class="wrap">
     <p class="eyebrow" lang="tr">Özel sürümler</p>
     <p class="eyebrow" lang="en">Special builds</p>
-    <h2 lang="tr">Seviyelere sığmayanlar</h2>
-    <h2 lang="en">What fits no level</h2>
+    <h2 lang="tr">Merdivenin dışında</h2>
+    <h2 lang="en">Off the ladder</h2>
     <div class="prose" lang="tr">
-      <p><code>builds/special/</code> klasörü <code class="vn">L1</code>–<code class="vn">L3</code> merdiveninin dışında kalan
-      dosyaları tutuyor. Çoğu kendi başına bir proje: beş ayrı GitHub deposunun dosyaları burada da
-      duruyor ve her grubun başlığı kendi deposuna bağlanıyor. Bunlar iddianın parçası değil;
-      karşılaştırma ve kayıt için duruyorlar. Toledo'nun programı da burada, ama ölçüt olarak değil; nedeni kendi bölümünde. Seviyelerin botlu sürümleri de bu klasörde; aşağıda <a href="#bots">bot ekseni</a> olarak kendi gruplarında.</p>
+      <p><code>builds/special/</code> klasörü merdivenin dışında ya da ara ve üst basamaklarında duran dosyaları
+      tutuyor. Buraya üç sebepten düşüyorlar: arayüzü ya da kuralları merdivenden başka bir yöne
+      ayrılanlar (tavanı <code class="vn">L3</code>'ün üstüne taşıyan LUX, platform eşdeğerleri, dedektörsüz ChessMiniature,
+      1 KB'nin altındaki chessinbytes); arayüz ya da kural yerine başka bir şeyi tartanlar, yani
+      <a href="#bots">bot ekseni</a>; ve projenin genel ilkelerine uymayanlar: eskimiş yöntemlerle yazılmış,
+      tarayıcıda uyarı ya da hata veren dosyalar. Çoğu kendi başına bir proje: beş ayrı GitHub deposunun
+      dosyaları burada da duruyor ve her grubun başlığı kendi deposuna bağlanıyor. Hiçbiri iddianın
+      parçası değil; karşılaştırma ve kayıt için duruyorlar.</p>
       <p>Oyun dosyalarının hepsi oynatıcıda <a href="#play"><code class="vn">special</code></a> seviyesinden açılıyor; her deponun ayrıntısı kendi README'sinde.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The <code>builds/special/</code> folder holds the files that sit outside the
-      <code class="vn">L1</code>–<code class="vn">L3</code> ladder. Most are projects in their own right: the files of five separate
-      GitHub repositories live here as well, and each group's heading links to its repository.
-      These are not part of the claim; they are kept for comparison and for the record. Toledo's program is here too, though not as a benchmark; the reason is in its own section. The levels' bot builds live in this folder too; they appear below as <a href="#bots">the bot axis</a>, a group of their own.</p>
+      <p>The <code>builds/special/</code> folder holds the files that sit off the ladder, or on a rung between
+      or above it. They land here for one of three reasons: their interface or rules branch off the
+      ladder (LUX, which lifts the ceiling above <code class="vn">L3</code>, the platform equivalents, ChessMiniature
+      without the detector, chessinbytes under 1 KB); they measure something other than the interface
+      or the rules, that is <a href="#bots">the bot axis</a>; or they break the project's general principles:
+      files written with deprecated methods that make the browser warn or fail. Most are projects in
+      their own right: the files of five separate GitHub repositories live here as well, and each
+      group's heading links to its repository. None is part of the claim; they are kept for comparison
+      and for the record.</p>
       <p>Every game file opens in the player under the <a href="#play"><code class="vn">special</code></a>
       level; the details of each repository are in its own README.</p>
     </div>
@@ -7030,7 +7081,6 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <tr class="luxrow"><td><code class="lux">LUX</code><br><span class="fn2">builds/special/LUX.html</span><br><span class="fn2">in the repo: index.html</span></td><td>The full arbiter with a rich interface: drag and drop, right-click marking; FEN, time control, clock mode (Fischer, Bronstein or simple delay) and Chess960 picked at the start.</td><td>Drag and drop, clicking</td><td>9,795</td></tr>
 </tbody>
 </table></div>
-  </div>
 
 <h3 lang="tr"><a class="ext" href="https://github.com/cuneytinann/Lichess-equivalent" target="_blank" rel="noopener">Lichess-equivalent ↗️</a></h3>
     <h3 lang="en"><a class="ext" href="https://github.com/cuneytinann/Lichess-equivalent" target="_blank" rel="noopener">Lichess-equivalent ↗️</a></h3>
@@ -7229,7 +7279,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 </table></div>
     <div class="prose" lang="tr">
       <p><code class="vn">L1</code>'deki 749 baytın 76'sı kural fonksiyonlarından geliyor: bot rok haklarını dokunulan kareler defteri yerine bit maskesiyle tutuyor, <code>V</code>'ye tarafı parametreyle veriyor, <code>L</code>'den de evet/hayır yerine hamle listesi alıyor. Bu iki fark aynı şeyin iki ölçümü değil: iki seviye ayrı botlar taşıyor. Adlarındaki 1250 ile 2500'ün de işaret ettiği gibi <code class="vn">L1</code>'deki bot hafif; <code class="vn">L2</code>'deki Aybars'ın araması ve değerlendirmesi çok daha ileri gidiyor. Her seviyede kurallar botlu ve botsuz dosyada aynı olduğu için fark büyük ölçüde botun kendisinden geliyor; iki fark arasındaki yaklaşık sekiz kat kurallardan değil, botların gücünden. <code class="vn">L2</code>'nin botlu sürümü oyunu ayrıca üçlü tekrar ve 50 hamlede de <a href="#indicators">bitiriyor</a>; o da bu farkın içinde, ama küçük bir parçası.</p>
-      <p>Bu iki sürüm iddianın dışında ve bu bir çekince değil bir tasarım sonucu. Bot
+      <p>Seviyelerin iki botu iddianın dışında ve bu bir çekince değil bir tasarım sonucu. Bot
       öncelenseydi <a href="#board">tahta temsili</a> baştan başka türlü yazılırdı: kare merkezli
       düz bir dizi, “bu karede ne var” sorusunu ucuzlatıyor ama küme işlemlerini pahalılaştırıyor; bir arama ağacı ise tam tersini ister. Burada seçim kural yoğunluğundan yana yapıldı;
       bot o seçimin üstüne sonradan kondu.</p>
@@ -7240,7 +7290,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     </div>
     <div class="prose" lang="en">
       <p>In <code class="vn">L1</code>, 76 of the 749 bytes are in the rule functions: the bot keeps castling rights as a bitmask instead of the ledger of touched squares, passes the side to <code>V</code> as an argument, and gets a list of moves from <code>L</code> instead of a yes or no. These are not two measurements of the same thing: the two levels carry different bots. As the 1250 and 2500 in their names suggest, the one in <code class="vn">L1</code> is a light bot, while Aybars in <code class="vn">L2</code> is a far stronger one whose search and evaluation go much further. Within each level the rules are the same with or without the bot, so the difference comes largely from the bot itself; the roughly eightfold gap between the two reflects the bots' strength, not the rules. The <code class="vn">L2</code> bot build also <a href="#indicators">ends the game</a> on threefold repetition and 50 moves; that is inside the difference too, but only a small part of it.</p>
-      <p>These two sit outside the claim, and that is a consequence of the design rather than a caveat. Had the bot been the priority, the <a href="#board">board representation</a> itself
+      <p>The two level bots sit outside the claim, and that is a consequence of the design rather than a caveat. Had the bot been the priority, the <a href="#board">board representation</a> itself
       would have been written differently from the start: a flat, square-centric array makes “what
       is on this square?” cheap and set operations expensive, and a search tree wants exactly the
       reverse. The choice here was made in favour of rule density; the bot was placed on top of that
@@ -7320,6 +7370,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 </tbody>
 </table></div>
 
+  </div>
 </section>
 
 </div>
@@ -15211,7 +15262,7 @@ var DIR = 'builds/';
    icin de gerekli: koku DIR'den turetiyoruz, boylece build.mjs'te ikinci bir
    kural tutmaya gerek kalmiyor. */
 var ROOT = DIR.slice(0, -'builds/'.length);
-var ART = {"L3": {"p": "L3.html", "ps": 3148}, "L3_light": {"p": "L3_light.html", "ps": 2618}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2068}, "L3_input": {"p": "L3_input.html", "ps": 2537}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2389}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2653}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2441}, "L1": {"p": "builds/L1/L1.html", "ps": 1533}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1113}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 826}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1130}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 1038}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1088}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1279}, "L2": {"p": "builds/L2/L2.html", "ps": 2226}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1742}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1494}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1826}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1715}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1813}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 1975}, "L2_aybars_2500": {"p": "builds/special/L2_aybars_2500.html", "ps": 8036}, "L1_1250elo": {"p": "builds/special/L1_1250elo.html", "ps": 2282}, "L3_packed": {"p": "builds/L3_packed.html", "ps": 2652}, "L3_numerical_packed": {"p": "builds/L3_numerical_packed.html", "ps": 1756}, "Chesscom-equivalent": {"p": "builds/special/Chesscom-equivalent.html", "ps": 2837}, "Chesscom-equivalent_numerical": {"p": "builds/special/Chesscom-equivalent_numerical.html", "ps": 1161}, "Lichess-equivalent": {"p": "builds/special/Lichess-equivalent.html", "ps": 3022}, "Lichess-equivalent_numerical": {"p": "builds/special/Lichess-equivalent_numerical.html", "ps": 1206}, "L2_noBlockedDetector": {"p": "builds/special/L2_noBlockedDetector.html", "ps": 1892}, "L2_string_flip_noBlockedDetector": {"p": "builds/special/L2_string_flip_noBlockedDetector.html", "ps": 1978}, "DOM_998": {"p": "builds/special/DOM_998.html", "ps": 998}, "DOM_minimum": {"p": "builds/special/DOM_minimum.html", "ps": 794}, "Lowest": {"p": "builds/special/Lowest.html", "ps": 712}, "LUX": {"p": "builds/special/LUX.html", "ps": 9795}, "Toledos-ES6-optimized": {"p": "builds/special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "builds/special/ToledosOpponentbyMe.html", "ps": 2078}, "engine": {"p": "engine.js", "ps": 1837}, "engine_4x": {"p": "engine_4x.js", "ps": 1928}, "engine_string": {"p": "engine_string.js", "ps": 1933}};
+var ART = {"L3": {"p": "L3.html", "ps": 3148}, "L3_light": {"p": "L3_light.html", "ps": 2668}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2068}, "L3_input": {"p": "L3_input.html", "ps": 2537}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2389}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2653}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2441}, "L1": {"p": "builds/L1/L1.html", "ps": 1533}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1113}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 826}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1130}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 1038}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1088}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1279}, "L2": {"p": "builds/L2/L2.html", "ps": 2226}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1742}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1494}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1826}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1715}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1813}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 1975}, "L2_aybars_2500": {"p": "builds/special/L2_aybars_2500.html", "ps": 8036}, "L1_1250elo": {"p": "builds/special/L1_1250elo.html", "ps": 2282}, "L3_packed": {"p": "builds/L3_packed.html", "ps": 2652}, "L3_numerical_packed": {"p": "builds/L3_numerical_packed.html", "ps": 1756}, "Chesscom-equivalent": {"p": "builds/special/Chesscom-equivalent.html", "ps": 2837}, "Chesscom-equivalent_numerical": {"p": "builds/special/Chesscom-equivalent_numerical.html", "ps": 1161}, "Lichess-equivalent": {"p": "builds/special/Lichess-equivalent.html", "ps": 3022}, "Lichess-equivalent_numerical": {"p": "builds/special/Lichess-equivalent_numerical.html", "ps": 1206}, "L2_noBlockedDetector": {"p": "builds/special/L2_noBlockedDetector.html", "ps": 1892}, "L2_string_flip_noBlockedDetector": {"p": "builds/special/L2_string_flip_noBlockedDetector.html", "ps": 1978}, "DOM_998": {"p": "builds/special/DOM_998.html", "ps": 998}, "DOM_minimum": {"p": "builds/special/DOM_minimum.html", "ps": 794}, "Lowest": {"p": "builds/special/Lowest.html", "ps": 712}, "LUX": {"p": "builds/special/LUX.html", "ps": 9795}, "Toledos-ES6-optimized": {"p": "builds/special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "builds/special/ToledosOpponentbyMe.html", "ps": 2078}, "engine": {"p": "engine.js", "ps": 1837}, "engine_4x": {"p": "engine_4x.js", "ps": 1928}, "engine_string": {"p": "engine_string.js", "ps": 1933}};
 
 function url(n) { return n.indexOf('/') > -1 ? ROOT + n : DIR + n; }
 /* Terminal surumu (.cjs): tarayicida calismaz. Oyna kapali; kodu ve indirme acik. */
