@@ -1128,7 +1128,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
         <span class="cta-btns">
           <a class="go" id="ctaplay" href="#play"><span lang="tr">OYNA!</span><span lang="en">Play now</span><span class="emo" aria-hidden="true">♟️</span></a>
           <a class="mx" id="ctasrc" href="#engcode"><span lang="tr">Kodu gör</span><span lang="en">View the code</span></a>
-          <a class="dl" href="builds/special/L3_packed.html" download="L3_packed.html"><span lang="tr">Hemen indir · 2,6 KB</span><span lang="en">Download · 2.6 KB</span></a>
+          <a class="dl" href="builds/L3_packed.html" download="L3_packed.html"><span lang="tr">Hemen indir · 2,6 KB</span><span lang="en">Download · 2.6 KB</span></a>
           <a href="https://github.com/cuneytinann/FideLite" target="_blank" rel="noopener"><img class="fav" src="https://github.com/favicon.ico" alt="" width="16" height="16">GitHub</a>
         </span>
         <a class="seal" href="#tests" title="Geçtiği testler" data-en-title="Tests it passes">
@@ -1516,14 +1516,14 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <label class="rd str" data-lv="L1" hidden title="Harf dizgisi, indeks sırası ters" data-en-title="String board, flipped index order"><input type="radio" name="build" value="L1_prompt_string_flip"> <code>prompt_string_flip</code></label>
 <label class="rd" data-lv="L1" hidden title="UCI, metin alanı, tahta çizilmiyor" data-en-title="UCI, text field, no board"><input type="radio" name="build" value="L1_input_blindfold"> <code>input_blindfold</code></label>
 <label class="rd cli" data-lv="L1" hidden title="Terminal sürümü — node ile çalışır, tarayıcıda oynanmaz; kodunu göster ya da indir" data-en-title="Terminal build — runs with node, not in the browser; show its code or download it"><input type="radio" name="build" value="L1_nonbrowser"> <code>nonbrowser</code></label>
-<label class="rd bot" data-lv="L1" hidden title="Bota karşı — tek kişilik" data-en-title="Against a bot — single player"><input type="radio" name="build" value="L1_1250elo"> <code>1250elo</code></label>
+<label class="rd" data-lv="L1" hidden title="Sayısal arayüz, prompt penceresi" data-en-title="Numeric interface, prompt dialog"><input type="radio" name="build" value="L1_numerical"> <code>numerical</code></label>
 <label class="rd" data-lv="L2" hidden title="Ana dosya — tıklanabilir tahta" data-en-title="Main file — clickable board"><input type="radio" name="build" value="L2"> <code>default</code></label>
 <label class="rd" data-lv="L2" hidden title="Tıklanabilir tahta, en yalın hâli — gösterge yok, oyun bitince sessizce durur" data-en-title="Clickable board at its barest — no indicators; the game stops silently when it ends"><input type="radio" name="build" value="L2_light"> <code>light</code></label>
 <label class="rd" data-lv="L2" hidden title="UCI, metin alanı" data-en-title="UCI, text field"><input type="radio" name="build" value="L2_input"> <code>input</code></label>
 <label class="rd str" data-lv="L2" hidden title="Harf dizgisi, indeks sırası ters" data-en-title="String board, flipped index order"><input type="radio" name="build" value="L2_prompt_string_flip"> <code>prompt_string_flip</code></label>
 <label class="rd" data-lv="L2" hidden title="UCI, metin alanı, tahta çizilmiyor" data-en-title="UCI, text field, no board"><input type="radio" name="build" value="L2_input_blindfold"> <code>input_blindfold</code></label>
 <label class="rd cli" data-lv="L2" hidden title="Terminal sürümü — node ile çalışır, tarayıcıda oynanmaz; kodunu göster ya da indir" data-en-title="Terminal build — runs with node, not in the browser; show its code or download it"><input type="radio" name="build" value="L2_nonbrowser"> <code>nonbrowser</code></label>
-<label class="rd bot" data-lv="L2" hidden title="Bota karşı — tek kişilik" data-en-title="Against a bot — single player"><input type="radio" name="build" value="L2_aybars_2500"> <code>aybars_2500</code></label>
+<label class="rd" data-lv="L2" hidden title="Sayısal arayüz, prompt penceresi" data-en-title="Numeric interface, prompt dialog"><input type="radio" name="build" value="L2_numerical"> <code>numerical</code></label>
 <label class="rd" data-lv="L3" title="Ana dosya — tıklanabilir tahta, canlı saat" data-en-title="Main file — clickable board, live clock"><input type="radio" name="build" value="L3" checked> <code>default</code></label>
 <label class="rd" data-lv="L3" title="Tıklanabilir tahta, en yalın hâli — yazı yok, sonuç tahtadan ve saatten okunur" data-en-title="Clickable board at its barest — no text; the result is read from the board and the clocks"><input type="radio" name="build" value="L3_light"> <code>light</code></label>
 <label class="rd" data-lv="L3" title="UCI, metin alanı" data-en-title="UCI, text field"><input type="radio" name="build" value="L3_input"> <code>input</code></label>
@@ -1531,20 +1531,21 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <label class="rd" data-lv="L3" title="UCI, metin alanı, tahta çizilmiyor" data-en-title="UCI, text field, no board"><input type="radio" name="build" value="L3_input_blindfold"> <code>input_blindfold</code></label>
 <label class="rd cli" data-lv="L3" title="Terminal sürümü — node ile çalışır, tarayıcıda oynanmaz; kodunu göster ya da indir" data-en-title="Terminal build — runs with node, not in the browser; show its code or download it"><input type="radio" name="build" value="L3_nonbrowser"> <code>nonbrowser</code></label>
 <label class="rd" data-lv="L3" title="Sayısal arayüz, prompt penceresi" data-en-title="Numeric interface, prompt dialog"><input type="radio" name="build" value="L3_numerical"> <code>numerical</code></label>
-<label class="rd pk" data-lv="special" hidden title="L3, RegPack ile paketli — tıklanabilir tahta, canlı saat" data-en-title="L3 packed with RegPack — clickable board, live clock"><input type="radio" name="build" value="L3_packed"> <code>L3_packed</code></label>
-<label class="rd pk" data-lv="special" hidden title="L3_numerical, RegPack ile paketli — oynanabilir en küçük L3" data-en-title="L3_numerical packed with RegPack — the smallest playable L3"><input type="radio" name="build" value="L3_numerical_packed"> <code>L3_numerical_packed</code></label>
-<span class="rbr" data-lv="special" hidden></span>
+<label class="rd pk" data-lv="L3" title="L3, RegPack ile paketli — tıklanabilir tahta, canlı saat" data-en-title="L3 packed with RegPack — clickable board, live clock"><input type="radio" name="build" value="L3_packed"> <code>L3_packed</code></label>
 <label class="rd" data-lv="special" hidden title="Tıklanabilir tahta, kurallar Lichess'in uyguladığı gibi" data-en-title="Clickable board, with the rules as Lichess applies them"><input type="radio" name="build" value="Lichess-equivalent"> <code>Lichess-equivalent</code></label>
 <label class="rd pk" data-lv="special" hidden title="Lichess kuralları, sayısal arayüz, prompt penceresi" data-en-title="Lichess rules, numeric interface, prompt dialog"><input type="radio" name="build" value="Lichess-equivalent_numerical"> <code>Lichess-equivalent_numerical</code></label>
 <span class="rbr" data-lv="special" hidden></span>
 <label class="rd" data-lv="special" hidden title="Tıklanabilir tahta, kurallar Chess.com'un uyguladığı gibi" data-en-title="Clickable board, with the rules as Chess.com applies them"><input type="radio" name="build" value="Chesscom-equivalent"> <code>Chesscom-equivalent</code></label>
 <label class="rd pk" data-lv="special" hidden title="Chess.com kuralları, sayısal arayüz, prompt penceresi" data-en-title="Chess.com rules, numeric interface, prompt dialog"><input type="radio" name="build" value="Chesscom-equivalent_numerical"> <code>Chesscom-equivalent_numerical</code></label>
 <span class="rbr" data-lv="special" hidden></span>
+<label class="rd bot" data-lv="special" hidden title="Bota karşı — tek kişilik" data-en-title="Against a bot — single player"><input type="radio" name="build" value="L2_aybars_2500"> <code>L2_aybars_2500</code></label>
+<span class="rbr" data-lv="special" hidden></span>
 <label class="rd" data-lv="special" hidden title="L2, kilitli pozisyon dedektörü olmadan" data-en-title="L2 without the blocked-position detector"><input type="radio" name="build" value="L2_noBlockedDetector"> <code>L2_noBlockedDetector</code></label>
 <label class="rd str" data-lv="special" hidden title="Aynısı, harf dizgisi tahta ve ters indeksle" data-en-title="The same on a string board with flipped index order"><input type="radio" name="build" value="L2_string_flip_noBlockedDetector"> <code>L2_string_flip_noBlockedDetector</code></label>
 <span class="rbr" data-lv="special" hidden></span>
 <label class="rd pk" data-lv="special" hidden title="998 baytlık tıklanabilir tahta — yalnızca geçerlilik" data-en-title="A clickable board in 998 bytes — legality only"><input type="radio" name="build" value="DOM_998"> <code>DOM_998</code></label>
 <label class="rd pk" data-lv="special" hidden title="794 bayt; taşlar onaltılık rakamlarla, terfi metin alanından" data-en-title="794 bytes; pieces shown as hexadecimal digits, promotion typed into a text field"><input type="radio" name="build" value="DOM_minimum"> <code>DOM_minimum</code></label>
+<label class="rd pk" data-lv="special" hidden title="712 bayt; hamle sayıyla girilir, tahta yok, oyun hiç bitmez — yalnızca geçerlilik, paketli" data-en-title="712 bytes; moves typed as numbers, no board, the game never ends — legality only, packed"><input type="radio" name="build" value="Lowest"> <code>Lowest</code></label>
 <span class="rbr" data-lv="special" hidden></span>
 <label class="rd bot" data-lv="special" hidden title="Oscar Toledo G.'nin satrancı, ES6 ile küçülttüğüm hâli — bota karşı" data-en-title="Oscar Toledo G.'s chess, shrunk further in ES6 by me — against its bot"><input type="radio" name="build" value="Toledos-ES6-optimized"> <code>Toledos-ES6-optimized</code></label>
 <label class="rd bot" data-lv="special" hidden title="Toledo'nun programına rakip olarak yazdığım bot, bu motorun üstünde" data-en-title="The bot I wrote as an opponent for Toledo's program, on this engine"><input type="radio" name="build" value="ToledosOpponentbyMe"> <code>ToledosOpponentbyMe</code></label>
@@ -6020,7 +6021,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       botlu sürümü var. Bunlar <a href="#golfstack">iddianın dışında</a>; burada duruyorlar çünkü
       kuralların katman katman nasıl eklendiğini görmenin en düz yolu onlar.</p>
       <p>Hiçbir seviyeye girmeyenler bu sekmenin sonunda, kendi bölümlerinde:
-      <a href="#special">Özel sürümler</a>.</p>
+      <a href="#special">Özel sürümler</a>. <code class="vn">L3</code>'ün paketli iki hâli ise <a href="#l3packed"><code class="vn">L3</code> ailesiyle
+      birlikte</a> anlatılıyor.</p>
     </div>
     <div class="prose" lang="en">
       <p>The builds multiply along two separate axes, and the two should not be confused.</p>
@@ -6033,7 +6035,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       they are here because they are the plainest way to see how the rules are added layer by
       layer.</p>
       <p>What fits no level has a section of its own at the end of this tab:
-      <a href="#special">Special builds</a>.</p>
+      <a href="#special">Special builds</a>. The two packed forms of <code class="vn">L3</code>, however, are described
+      <a href="#l3packed">with the <code class="vn">L3</code> family</a>.</p>
     </div>
 
     <h3 id="l3" lang="tr"><code class="vn">L3</code> ailesi — arayüz ekseni</h3>
@@ -6082,45 +6085,47 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 </tbody>
 </table></div>
 
+    <h4 id="l3packed" lang="tr">Paketli hâller</h4>
+    <h4 lang="en" data-id="l3packed">The packed forms</h4>
     <div class="prose" lang="tr">
-      <p>Ölçü saat taşıyan sürümlerde aynı; fark yalnızca gösterimde. <code class="vn">main</code> ve
-      <code class="vn">light</code> kalan süreyi yukarı yuvarlıyor, bu yüzden <code>0:00</code> ancak bayrak
-      düştüğünde görünüyor; saniye gösteren öbürleri aşağı kırpıyor, yani ekrandaki değer gerçek süreden bir
-      saniyeye kadar az görünebiliyor. Gösterimde tıklamalılar bu kadarcık daha hassas, ama kural doğruluğu
-      etkilenmiyor: bayrak her sürümde yuvarlanmamış süreye göre düşüyor ve aradaki fark bir saniyenin
-      altında.</p>
-      <p><b>Paketli hâller.</b> İki sürümün RegPack ile paketlenmiş hâli de var: <code class="vn">L3_packed</code>
-      (2.652 bayt) ve <code class="vn">L3_numerical_packed</code> (1.756 bayt). Bu kadar kapsamlı satranç kurallarını
-      taşıyan bir motorun ne kadar daha küçülebileceğini görmek için yazıldılar. Paketleme bir
-      sıkıştırma değil, kendini açan bir sarmalayıcı: dosya açılınca asıl kaynak yeniden kuruluyor, oyun da eşdeğer çalışıyor. Ama bunu tarayıcıların uyardığı, bazı kiplerde hata veren eski ve kısa yöntemlerle yapıyor: <code>with</code> katı kipte
-      (strict mode) sözdizimi hatası, <code>eval</code> ise <code>unsafe-eval</code> izni vermeyen
-      bir içerik güvenlik politikası altında engelleniyor. Yani bunlar ayrı sürüm değil, aynı iki
-      sürümün deneysel hâlleri ve iddianın da parçası; <code class="vn">L3_numerical_packed</code> oynanabilir en küçük
-      <code class="vn">L3</code>, iddianın alt eşiği. Doğrudan bayt kazanmaya yönelik bu kestirmeler yüzünden üç ana
-      seviyede sergilenmiyorlar: <code class="vn">L3</code> seviyesinde olmalarına rağmen oynatıcıda <code class="vn">special</code>
-      seviyesinden açılıyorlar, dosyaları da <code>builds/special/</code> klasöründe. Kalanı düz kaynak olarak
-      duruyor, çünkü paketleme <a href="#packing">her sürümde kazandırmıyor</a>.</p>
+      <p><code class="vn">main</code> ve <code class="vn">numerical</code>'ın RegPack ile paketlenmiş iki hâli iddianın asıl parçası ve
+      seviye olarak <code class="vn">L3</code>'le eş: <code class="vn">L3_packed</code> (2.652 bayt) ve <code class="vn">L3_numerical_packed</code> (1.756 bayt).
+      <code class="vn">L3_numerical_packed</code> oynanabilir en küçük <code class="vn">L3</code>, iddianın alt eşiği. Paketleme bir sıkıştırma değil,
+      kendini açan bir sarmalayıcı: dosya açılınca asıl kaynak yeniden kuruluyor, oyun da eşdeğer çalışıyor. Ama
+      bunu eskimiş yöntemlerle yapıyor: <code>with</code> katı kipte (strict mode) sözdizimi hatası,
+      <code>eval</code> ise <code>unsafe-eval</code> izni vermeyen bir içerik güvenlik politikası altında
+      engelleniyor. Tarayıcı uyarı veriyor, bazı kiplerde dosya hiç açılmıyor. İçinde görünmez kontrol
+      karakterleri de bulunduğu için kopyala-yapıştırla taşınan bir kod değil, paylaşılan bir dosya olarak
+      işliyor. Oynatıcıda <code class="vn">L3_packed</code>, <code class="vn">L3</code> seviyesinin sonunda açılıyor. Kalan sürümler düz kaynak olarak duruyor, çünkü paketleme
+      <a href="#packing">her sürümde kazandırmıyor</a>.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The measurement is the same across the builds that carry a clock; the difference is only in
-      the display. <code class="vn">main</code> and <code class="vn">light</code> round the remaining time up, so
-      <code>0:00</code> appears only once the flag has actually fallen, while the others that show
-      seconds truncate, so the figure on screen can read up to a second less than the real time. The
-      clicking builds are that little bit more precise in display, but rule correctness is untouched:
-      in every build the flag falls on the unrounded time, and the gap stays under a second.</p>
-      <p><b>The packed forms.</b> Two builds also exist packed with RegPack: <code class="vn">L3_packed</code>
-      (2,652 bytes) and <code class="vn">L3_numerical_packed</code> (1,756 bytes). They were written to see how much
-      smaller an engine carrying rules this comprehensive can still get. Packing is not compression but a self-extracting wrapper: when the file opens, the actual source is rebuilt, and the game behaves equivalently. But it gets there with old, short methods that browsers
-      warn about and that fail outright in some modes: <code>with</code> is a syntax error in strict
-      mode, and <code>eval</code> is blocked under a content security policy that does not allow
-      <code>unsafe-eval</code>. So these are not separate builds but experimental forms of the same
-      two, and part of the claim too; <code class="vn">L3_numerical_packed</code> is the smallest playable <code class="vn">L3</code>, the
-      lower bound of the claim. Because of these shortcuts aimed squarely at the byte count, they are
-      not exhibited on the three main levels: although they sit at the <code class="vn">L3</code> level, they open in
-      the player under the <code class="vn">special</code> level, and their files live in the <code>builds/special/</code>
-      folder. The rest stand as plain source, because packing <a href="#packing">does not pay off in
-      every build</a>.</p>
+      <p>The <code class="vn">main</code> and <code class="vn">numerical</code> builds packed with RegPack are a core part of the claim and on
+      a par with <code class="vn">L3</code>: <code class="vn">L3_packed</code> (2,652 bytes) and <code class="vn">L3_numerical_packed</code> (1,756 bytes).
+      <code class="vn">L3_numerical_packed</code> is the smallest playable <code class="vn">L3</code>, the lower bound of the claim. Packing is not
+      compression but a self-extracting wrapper: when the file opens, the actual source is rebuilt, and the game
+      behaves equivalently. But it gets there with deprecated methods: <code>with</code> is a syntax error in
+      strict mode, and <code>eval</code> is blocked under a content security policy that does not allow
+      <code>unsafe-eval</code>. Browsers warn about them, and in some modes the file does not open at all.
+      Because they also contain invisible control characters, they work as shared files rather than as code
+      carried over by copy and paste. In the player, <code class="vn">L3_packed</code> opens at the end of the <code class="vn">L3</code> level.
+      The rest stand as plain source, because
+      packing <a href="#packing">does not pay off in every build</a>.</p>
     </div>
+    <div class="tw" lang="tr"><table>
+<thead><tr><th>Sürüm</th><th>Giriş</th><th>Tahta</th><th>Saat</th><th>Süre</th><th>Bayt</th></tr></thead>
+<tbody>
+<tr><td><code class="vn">L3_packed</code><br><span class="fn2">builds/L3_packed.html</span><br><span class="fn2"><code class="vn">main</code>'in paketli hâli</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri</td><td>⏱ <b>D:SS</b><span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>2.652</td></tr>
+<tr><td><code class="vn">L3_numerical_packed</code><br><span class="fn2">builds/L3_numerical_packed.html</span><br><span class="fn2"><code class="vn">numerical</code>'ın paketli hâli</span></td><td>Sayısal, prompt penceresi</td><td>Yok, yalnızca son hamle</td><td>Milisaniye<span class="sub">hamlede</span></td><td>900.000 ms<span class="sub">artış yok</span></td><td>1.756</td></tr>
+</tbody>
+</table></div>
+    <div class="tw" lang="en"><table>
+<thead><tr><th>Build</th><th>Input</th><th>Board</th><th>Clock</th><th>Time control</th><th>Bytes</th></tr></thead>
+<tbody>
+<tr><td><code class="vn">L3_packed</code><br><span class="fn2">builds/L3_packed.html</span><br><span class="fn2">the packed form of <code class="vn">main</code></span></td><td>Clicking</td><td>Full board, piece glyphs</td><td>⏱ <b>M:SS</b><span class="sub">live</span></td><td>600 s + 5 s</td><td>2,652</td></tr>
+<tr><td><code class="vn">L3_numerical_packed</code><br><span class="fn2">builds/L3_numerical_packed.html</span><br><span class="fn2">the packed form of <code class="vn">numerical</code></span></td><td>Numeric, prompt dialog</td><td>None, last move only</td><td>Milliseconds<span class="sub">on move</span></td><td>900,000 ms<span class="sub">no increment</span></td><td>1,756</td></tr>
+</tbody>
+</table></div>
 
     <div class="note" id="l3strings" lang="tr">
       <p><b>Aynı satırı paylaşan üç sürümün farkı ekranda değil, içeride.</b> <code class="vn">prompt_string</code> ile
@@ -6145,6 +6150,25 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       rather than a1. The pawn's direction test becomes <code>f&gt;i</code> instead of
       <code>f&lt;i</code> and nothing else in the body changes. This shows that direction depends on a single comparison.</p>
     </div>
+
+    <div class="prose" lang="tr">
+      <p>Ölçü saat taşıyan sürümlerde aynı; fark yalnızca gösterimde. <code class="vn">main</code> ve
+      <code class="vn">light</code> kalan süreyi yukarı yuvarlıyor, bu yüzden <code>0:00</code> ancak bayrak
+      düştüğünde görünüyor; saniye gösteren öbürleri aşağı kırpıyor, yani ekrandaki değer gerçek süreden bir
+      saniyeye kadar az görünebiliyor. Gösterimde tıklamalılar bu kadarcık daha hassas, ama kural doğruluğu
+      etkilenmiyor: bayrak her sürümde yuvarlanmamış süreye göre düşüyor ve aradaki fark bir saniyenin
+      altında.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The measurement is the same across the builds that carry a clock; the difference is only in
+      the display. <code class="vn">main</code> and <code class="vn">light</code> round the remaining time up, so
+      <code>0:00</code> appears only once the flag has actually fallen, while the others that show
+      seconds truncate, so the figure on screen can read up to a second less than the real time. The
+      clicking builds are that little bit more precise in display, but rule correctness is untouched:
+      in every build the flag falls on the unrounded time, and the gap stays under a second.</p>
+    </div>
+
+
 
   </div>
 </section>
@@ -6979,45 +7003,19 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p><code>builds/special/</code> klasörü <code class="vn">L1</code>–<code class="vn">L3</code> merdiveninin dışında kalan
       dosyaları tutuyor. Çoğu kendi başına bir proje: beş ayrı GitHub deposunun dosyaları burada da
       duruyor ve her grubun başlığı kendi deposuna bağlanıyor. Bunlar iddianın parçası değil;
-      karşılaştırma ve kayıt için duruyorlar. Toledo'nun programı da burada, ama ölçüt olarak değil; nedeni kendi bölümünde. Klasördeki istisna <code class="vn">L3</code>'ün paketli iki hâli: onlar iddianın
-      parçası ve kural seviyeleri <code class="vn">L3</code> olduğu için <a href="#l3"><code class="vn">L3</code> bölümünde</a> anlatılıyorlar; tabloları <a href="#l3packed">hemen aşağıda</a>.</p>
+      karşılaştırma ve kayıt için duruyorlar. Toledo'nun programı da burada, ama ölçüt olarak değil; nedeni kendi bölümünde.</p>
       <p>Oyun dosyalarının hepsi oynatıcıda <a href="#play"><code class="vn">special</code></a> seviyesinden açılıyor; her deponun ayrıntısı kendi README'sinde.</p>
     </div>
     <div class="prose" lang="en">
       <p>The <code>builds/special/</code> folder holds the files that sit outside the
       <code class="vn">L1</code>–<code class="vn">L3</code> ladder. Most are projects in their own right: the files of five separate
       GitHub repositories live here as well, and each group's heading links to its repository.
-      These are not part of the claim; they are kept for comparison and for the record. Toledo's program is here too, though not as a benchmark; the reason is in its own section. The exception in the folder is the two packed forms of
-      <code class="vn">L3</code>: they are part of the claim, and since their rule level is <code class="vn">L3</code>, they
-      are described in <a href="#l3">the <code class="vn">L3</code> section</a>; their table is <a href="#l3packed">just below</a>.</p>
+      These are not part of the claim; they are kept for comparison and for the record. Toledo's program is here too, though not as a benchmark; the reason is in its own section.</p>
       <p>Every game file opens in the player under the <a href="#play"><code class="vn">special</code></a>
       level; the details of each repository are in its own README.</p>
     </div>
 
-    <h3 id="l3packed" lang="tr"><code class="vn">L3</code>'ün paketli hâlleri</h3>
-    <h3 lang="en" data-id="l3packed">The packed forms of <code class="vn">L3</code></h3>
-    <div class="prose" lang="tr">
-      <p><code class="vn">main</code> ve <code class="vn">numerical</code> sürümlerinin RegPack ile paketlenmiş hâlleri. Kuralları ve oynanışları düz hâlleriyle aynı; neden ayrı durdukları <a href="#l3"><code class="vn">L3</code> bölümünde</a>, paketlemenin ayrıntısı <a href="#packing">Paketleme</a> başlığında.</p>
-    </div>
-    <div class="prose" lang="en">
-      <p>The <code class="vn">main</code> and <code class="vn">numerical</code> builds packed with RegPack. Their rules and gameplay are those of the plain builds; why they stand apart is in <a href="#l3">the <code class="vn">L3</code> section</a>, and the details of packing are under <a href="#packing">Packing</a>.</p>
-    </div>
-    <div class="tw" lang="tr"><table>
-<thead><tr><th>Sürüm</th><th>Giriş</th><th>Tahta</th><th>Saat</th><th>Süre</th><th>Bayt</th></tr></thead>
-<tbody>
-<tr><td><code class="vn">L3_packed</code><br><span class="fn2">builds/special/L3_packed.html</span><br><span class="fn2"><code class="vn">main</code>'in paketli hâli</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri</td><td>⏱ <b>D:SS</b><span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>2.652</td></tr>
-<tr><td><code class="vn">L3_numerical_packed</code><br><span class="fn2">builds/special/L3_numerical_packed.html</span><br><span class="fn2"><code class="vn">numerical</code>'ın paketli hâli</span></td><td>Sayısal, prompt penceresi</td><td>Yok, yalnızca son hamle</td><td>Milisaniye<span class="sub">hamlede</span></td><td>900.000 ms<span class="sub">artış yok</span></td><td>1.756</td></tr>
-</tbody>
-</table></div>
-    <div class="tw" lang="en"><table>
-<thead><tr><th>Build</th><th>Input</th><th>Board</th><th>Clock</th><th>Time control</th><th>Bytes</th></tr></thead>
-<tbody>
-<tr><td><code class="vn">L3_packed</code><br><span class="fn2">builds/special/L3_packed.html</span><br><span class="fn2">the packed form of <code class="vn">main</code></span></td><td>Clicking</td><td>Full board, piece glyphs</td><td>⏱ <b>M:SS</b><span class="sub">live</span></td><td>600 s + 5 s</td><td>2,652</td></tr>
-<tr><td><code class="vn">L3_numerical_packed</code><br><span class="fn2">builds/special/L3_numerical_packed.html</span><br><span class="fn2">the packed form of <code class="vn">numerical</code></span></td><td>Numeric, prompt dialog</td><td>None, last move only</td><td>Milliseconds<span class="sub">on move</span></td><td>900,000 ms<span class="sub">no increment</span></td><td>1,756</td></tr>
-</tbody>
-</table></div>
-
-    <h3 lang="tr"><a class="ext" href="https://github.com/cuneytinann/Lichess-equivalent" target="_blank" rel="noopener">Lichess-equivalent ↗️</a></h3>
+<h3 lang="tr"><a class="ext" href="https://github.com/cuneytinann/Lichess-equivalent" target="_blank" rel="noopener">Lichess-equivalent ↗️</a></h3>
     <h3 lang="en"><a class="ext" href="https://github.com/cuneytinann/Lichess-equivalent" target="_blank" rel="noopener">Lichess-equivalent ↗️</a></h3>
     <div class="prose" lang="tr">
       <p>Lichess'in kurallarını uygulayan bir hakem: tıklanan tahtayla 3.022 bayt, tahtası çıkarılmış sayısal hâliyle 1.206 bayt. Tıklanan sürümde oynanış da Lichess'e benziyor — platformun renkleri, gidilebilecek karelerin işaretleri, vurgulanan son hamle ve tehdit altındaki şah, tahtanın üstünde açılan terfi seçimi; saat <code class="vn">L3</code>'teki gibi 600 + 5 saniye. Sayısal hâli <code class="vn">L3_numerical</code>'ın arayüzünü kullanıyor ve paketli.</p>
@@ -7168,10 +7166,10 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <h3 lang="tr"><a class="ext" href="https://github.com/cuneytinann/chessinbytes" target="_blank" rel="noopener">chessinbytes ↗️</a></h3>
     <h3 lang="en"><a class="ext" href="https://github.com/cuneytinann/chessinbytes" target="_blank" rel="noopener">chessinbytes ↗️</a></h3>
     <div class="prose" lang="tr">
-      <p>Bayt bayt iki kişilik satranç: her biri tek HTML dosyası ve 1 KB'nin altında olan üç sürüm, üçü de paketli. Üçü aynı kuralları uyguluyor — tam geçerlilik, bütün şartlarıyla rok, geçerken alma, her taşa terfi. Saat, sayaç, tekrar, materyal testi, teklif ve sonuç kodu yok; mat ile pat ayırt edilmiyor. Adı bayt bütçelerinden geliyor: 998 baytlık ana sürümden 794 baytlık ara sürüme ve 712 baytlık en küçük sürüme kadar iniyor.</p>
+      <p>Bayt bayt iki kişilik satranç: her biri tek HTML dosyası ve 1 KB'nin altında olan üç sürüm, üçü de paketli. Üçü aynı kuralları uyguluyor — tam geçerlilik, bütün şartlarıyla rok, geçerken alma, her taşa terfi. Kural seviyeleri <code class="vn">L1</code>'le aynı; oynanışları ve göstergeleri ise farklı. Saat, sayaç, tekrar, materyal testi, teklif ve sonuç kodu yok; mat ile pat ayırt edilmiyor. Adı bayt bütçelerinden geliyor: 998 baytlık ana sürümden 794 baytlık ara sürüme ve 712 baytlık en küçük sürüme kadar iniyor.</p>
     </div>
     <div class="prose" lang="en">
-      <p>Two-player chess in bytes: three builds, each a single HTML file under 1 KB, all three packed. All three enforce the same rules — full legality, castling with every condition, en passant, promotion to any piece. There is no clock, no counter, no repetition, no material test, no offer and no result code; mate and stalemate are not told apart. The name reflects its byte budgets: it steps down from the 998-byte main build to the 794-byte intermediate build and on to the smallest, at 712 bytes.</p>
+      <p>Two-player chess in bytes: three builds, each a single HTML file under 1 KB, all three packed. All three enforce the same rules — full legality, castling with every condition, en passant, promotion to any piece. Their rule level is that of <code class="vn">L1</code>; their gameplay and indicators differ. There is no clock, no counter, no repetition, no material test, no offer and no result code; mate and stalemate are not told apart. The name reflects its byte budgets: it steps down from the 998-byte main build to the 794-byte intermediate build and on to the smallest, at 712 bytes.</p>
     </div>
     <div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th>Giriş</th><th>Tahta</th><th>Oyunun sonu</th><th>Bayt</th></tr></thead>
@@ -15189,7 +15187,7 @@ var DIR = 'builds/';
    icin de gerekli: koku DIR'den turetiyoruz, boylece build.mjs'te ikinci bir
    kural tutmaya gerek kalmiyor. */
 var ROOT = DIR.slice(0, -'builds/'.length);
-var ART = {"L3": {"p": "L3.html", "ps": 3148}, "L3_light": {"p": "L3_light.html", "ps": 2631}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2068}, "L3_input": {"p": "L3_input.html", "ps": 2537}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2389}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2653}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2441}, "L1": {"p": "builds/L1/L1.html", "ps": 1533}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1113}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 826}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1130}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 1038}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1088}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1279}, "L1_1250elo": {"p": "builds/L1/L1_1250elo.html", "ps": 2282}, "L2": {"p": "builds/L2/L2.html", "ps": 2226}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1742}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1494}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1826}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1715}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1813}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 1975}, "L2_aybars_2500": {"p": "builds/L2/L2_aybars_2500.html", "ps": 8036}, "L3_packed": {"p": "builds/special/L3_packed.html", "ps": 2652}, "L3_numerical_packed": {"p": "builds/special/L3_numerical_packed.html", "ps": 1756}, "Chesscom-equivalent": {"p": "builds/special/Chesscom-equivalent.html", "ps": 2837}, "Chesscom-equivalent_numerical": {"p": "builds/special/Chesscom-equivalent_numerical.html", "ps": 1161}, "Lichess-equivalent": {"p": "builds/special/Lichess-equivalent.html", "ps": 3022}, "Lichess-equivalent_numerical": {"p": "builds/special/Lichess-equivalent_numerical.html", "ps": 1206}, "L2_noBlockedDetector": {"p": "builds/special/L2_noBlockedDetector.html", "ps": 1892}, "L2_string_flip_noBlockedDetector": {"p": "builds/special/L2_string_flip_noBlockedDetector.html", "ps": 1978}, "DOM_998": {"p": "builds/special/DOM_998.html", "ps": 998}, "DOM_minimum": {"p": "builds/special/DOM_minimum.html", "ps": 794}, "Lowest": {"p": "builds/special/Lowest.html", "ps": 712}, "LUX": {"p": "builds/LUX/LUX.html", "ps": 9795}, "Toledos-ES6-optimized": {"p": "builds/special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "builds/special/ToledosOpponentbyMe.html", "ps": 2078}, "engine": {"p": "engine.js", "ps": 1837}, "engine_4x": {"p": "engine_4x.js", "ps": 1928}, "engine_string": {"p": "engine_string.js", "ps": 1933}};
+var ART = {"L3": {"p": "L3.html", "ps": 3148}, "L3_light": {"p": "L3_light.html", "ps": 2631}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2068}, "L3_input": {"p": "L3_input.html", "ps": 2537}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2389}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2653}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2441}, "L1": {"p": "builds/L1/L1.html", "ps": 1533}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1113}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 826}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1130}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 1038}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1088}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1279}, "L2": {"p": "builds/L2/L2.html", "ps": 2226}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1742}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1494}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1826}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1715}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1813}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 1975}, "L2_aybars_2500": {"p": "builds/L2/L2_aybars_2500.html", "ps": 8036}, "L3_packed": {"p": "builds/L3_packed.html", "ps": 2652}, "L3_numerical_packed": {"p": "builds/L3_numerical_packed.html", "ps": 1756}, "Chesscom-equivalent": {"p": "builds/special/Chesscom-equivalent.html", "ps": 2837}, "Chesscom-equivalent_numerical": {"p": "builds/special/Chesscom-equivalent_numerical.html", "ps": 1161}, "Lichess-equivalent": {"p": "builds/special/Lichess-equivalent.html", "ps": 3022}, "Lichess-equivalent_numerical": {"p": "builds/special/Lichess-equivalent_numerical.html", "ps": 1206}, "L2_noBlockedDetector": {"p": "builds/special/L2_noBlockedDetector.html", "ps": 1892}, "L2_string_flip_noBlockedDetector": {"p": "builds/special/L2_string_flip_noBlockedDetector.html", "ps": 1978}, "DOM_998": {"p": "builds/special/DOM_998.html", "ps": 998}, "DOM_minimum": {"p": "builds/special/DOM_minimum.html", "ps": 794}, "Lowest": {"p": "builds/special/Lowest.html", "ps": 712}, "LUX": {"p": "builds/LUX/LUX.html", "ps": 9795}, "Toledos-ES6-optimized": {"p": "builds/special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "builds/special/ToledosOpponentbyMe.html", "ps": 2078}, "engine": {"p": "engine.js", "ps": 1837}, "engine_4x": {"p": "engine_4x.js", "ps": 1928}, "engine_string": {"p": "engine_string.js", "ps": 1933}};
 
 function url(n) { return n.indexOf('/') > -1 ? ROOT + n : DIR + n; }
 /* Terminal surumu (.cjs): tarayicida calismaz. Oyna kapali; kodu ve indirme acik. */
@@ -15589,14 +15587,14 @@ var PAINT = {
   L2_aybars_2500: ['r', ',t=1', 'm', ',b=Int8Array', 'r', ',a=Math.abs', 'm', ',L=(', 'r',
     ',C=i=>', 'm', ',M=(', 'r', ',l=(', 'u', ';d();U=0', 'b'],
   L1: PAINT_L1, L1_numerical: PAINT_L1, L1_input: PAINT_L1, L1_input_blindfold: PAINT_L1, L1_light: PAINT_L1,
-  L1_prompt_string_flip: PAINT_L1, L1_nonbrowser: PAINT_L1, L1_1250elo: ['r', ',M=(', 'u', ';d();P=[', 'b'],
+  L1_prompt_string_flip: PAINT_L1, L1_nonbrowser: PAINT_L1,
   'Chesscom-equivalent': ['r', ',Z=Q=>', 'u'], 'Lichess-equivalent': ['r', ',F=k=>', 'u'],
   L2_noBlockedDetector: ['r', 'M=(i,f,u=', 'u'],
   L2_string_flip_noBlockedDetector: ['r', 'M=(i,f,u=', 'u'],
   LUX: PAINT_L3,
   'Toledos-ES6-optimized': ['m', ';while(B++<G)', 'u'],
   ToledosOpponentbyMe: ['r', ',M=(', 'u', ';d();P=[', 'b'],
-  L3_packed: PACKED, L3_numerical_packed: PACKED,
+  L3_packed: PACKED,
   'Chesscom-equivalent_numerical': PACKED, 'Lichess-equivalent_numerical': PACKED,
   DOM_998: PACKED, DOM_minimum: PACKED, Lowest: PACKED
 };
@@ -15618,7 +15616,6 @@ var CARVE = {
   L1: APPLY1, L1_input: APPLY1, L1_input_blindfold: APPLY1, L1_numerical: APPLY1_N, L1_prompt_string_flip: APPLY1,
   L1_nonbrowser: APPLY1,
   L1_light: [['c[i]=c[f]=1', 't^=1'], ['!p|p&1^t&&G(i,u)', '[b,e]=p,q']],
-  L1_1250elo: APPLY.concat([['z||t==D', 'setTimeout(o,9)', 'b']]),
   'Chesscom-equivalent': [['(I(!t)', "'WB'[t]+'T'"], ['c&=~C(i)', 'Z(o&=1+t)'],
     ["T?'WB'", "&&'DA'"]],
   'Lichess-equivalent': [['c&=~C(i)', 'o&&D()']],
@@ -15798,12 +15795,12 @@ goBtn.addEventListener('click', start);
 var ctaPlay = document.getElementById('ctaplay');
 if (ctaPlay) ctaPlay.addEventListener('click', function (e) {
   e.preventDefault();
-  /* Anasayfadaki OYNA! iddianin sergi surumunu acar: special seviyesindeki
+  /* Anasayfadaki OYNA! iddianin sergi surumunu acar: L3 seviyesindeki
      L3_packed. O surum zaten oynaniyorsa oyun bozulmaz. */
   var same = mode === 'game' && current() === 'L3_packed',
-      lvR = document.querySelector('input[name=level][value=special]'),
+      lvR = document.querySelector('input[name=level][value=L3]'),
       bdR = document.querySelector('input[name=build][value=L3_packed]');
-  if (lvR && bdR) { lvR.checked = true; lastPick.special = 'L3_packed'; filterBuilds(); bdR.checked = true; }
+  if (lvR && bdR) { lvR.checked = true; lastPick.L3 = 'L3_packed'; filterBuilds(); bdR.checked = true; }
   if (!same) start();
   var pl = document.querySelector('.player');
   /* 80 px fazladan: .player tam tepeye hizalaninca en alttaki terk dugmesi

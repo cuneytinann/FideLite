@@ -7,7 +7,7 @@ no server. Packed into a playable game it comes to **1,756 bytes**; with a click
 clock and indicators, **2.6 KB**.
 
 The exhibit build, for playing or sharing:
-[`builds/special/L3_packed.html`](builds/special/L3_packed.html) — a single 2.6 KB HTML file with
+[`builds/L3_packed.html`](builds/L3_packed.html) — a single 2.6 KB HTML file with
 every rule, a clickable board and a live clock, running on any device with a browser.
 
 **→ [www.fidelite.art](https://www.fidelite.art)** — playable builds, the rulebook, a line-by-line
@@ -63,7 +63,7 @@ it. The `.cjs` builds run in a terminal with `node`.
 `prompt_string_flip` and two terminal builds take moves as text. The rules are identical in all
 eleven. `L1` and `L2` vary the *rules* instead of the interface; each has its own set of front
 ends and a build with a bot, and both sit outside the claim. `builds/special/` holds what fits no level: the builds of five sibling projects, each with a
-repository of its own — [Lichess-equivalent](https://github.com/cuneytinann/Lichess-equivalent), [Chesscom-equivalent](https://github.com/cuneytinann/Chesscom-equivalent),
+repository of its own — [lichess-equivalent](https://github.com/cuneytinann/lichess-equivalent), [chesscom-equivalent](https://github.com/cuneytinann/chesscom-equivalent),
 [ChessMiniature](https://github.com/cuneytinann/ChessMiniature), [chessinbytes](https://github.com/cuneytinann/chessinbytes) and [Chess-LUX](https://github.com/cuneytinann/Chess-LUX) — and Toledo's program. The two
 packed `L3` builds live there too; they are `L3` itself, but open under *special* because their
 unpacker relies on `with` and `eval`.
@@ -122,7 +122,7 @@ yok, sunucu yok. Paketlenip oynanabilir bir oyuna dönüştüğünde **1.756 bay
 tahtası, saati ve göstergeleriyle birlikte **2,6 KB**.
 
 Oynamak ya da paylaşmak için sergi sürümü:
-[`builds/special/L3_packed.html`](builds/special/L3_packed.html) — 2,6 KB'lık tek bir HTML dosyası;
+[`builds/L3_packed.html`](builds/L3_packed.html) — 2,6 KB'lık tek bir HTML dosyası;
 bütün kurallar, tıklanan tahta ve canlı saatle tarayıcısı olan her cihazda çalışır.
 
 **→ [www.fidelite.art/tr](https://www.fidelite.art/tr)** — oynanabilir sürümler, kural kitabı,
@@ -176,7 +176,7 @@ tıklamak yeterli. `.cjs` sürümleri terminalde `node` ile koşar.
 iki terminal sürümü hamleyi metin olarak alır. Kurallar on birinde de aynıdır. `L1` ve `L2`
 arayüzü değil *kuralları* değiştirir; her birinin kendi önyüzleri ve botlu bir sürümü var, ikisi de
 iddianın dışındadır. `builds/special/` hiçbir seviyeye girmeyenleri tutar: her birinin kendi deposu olan beş kardeş projenin
-sürümleri — [Lichess-equivalent](https://github.com/cuneytinann/Lichess-equivalent), [Chesscom-equivalent](https://github.com/cuneytinann/Chesscom-equivalent), [ChessMiniature](https://github.com/cuneytinann/ChessMiniature),
+sürümleri — [lichess-equivalent](https://github.com/cuneytinann/lichess-equivalent), [chesscom-equivalent](https://github.com/cuneytinann/chesscom-equivalent), [ChessMiniature](https://github.com/cuneytinann/ChessMiniature),
 [chessinbytes](https://github.com/cuneytinann/chessinbytes) ve [Chess-LUX](https://github.com/cuneytinann/Chess-LUX) — ve Toledo'nun programı. Paketli iki `L3` sürümü de
 orada; kural seviyeleri `L3`, ama açıcıları `with` ve `eval`'e dayandığı için *special*
 altından açılıyorlar.

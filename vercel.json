@@ -15,6 +15,10 @@
     { "source": "/en", "destination": "/", "permanent": true },
     { "source": "/en/(.*)", "destination": "/", "permanent": true },
     { "source": "/special/LUX_inProgress.html", "destination": "/builds/LUX/LUX.html", "permanent": true },
+    { "source": "/special/L3_packed.html", "destination": "/builds/L3_packed.html", "permanent": true },
+    { "source": "/special/L3_numerical_packed.html", "destination": "/builds/L3_numerical_packed.html", "permanent": true },
+    { "source": "/builds/special/L3_packed.html", "destination": "/builds/L3_packed.html", "permanent": true },
+    { "source": "/builds/special/L3_numerical_packed.html", "destination": "/builds/L3_numerical_packed.html", "permanent": true },
     { "source": "/special/:path*", "destination": "/builds/special/:path*", "permanent": true }
   ],
 
