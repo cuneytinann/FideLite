@@ -549,10 +549,8 @@ body::before {
 .hexcap + .hexcap { margin-top:.4rem }
 
 /* ---- hero: kural cipleri, eylem, tas kodu renkleri ---- */
-/* Muhur dugmelerle ayni satirda dursun diye dugmeler kendi grubunda: grup
-   kendi icinde sariyor, muhur her zaman grubun sagina yapisiyor. Boylece muhur
-   tek basina bir satira dusmuyor ve altindaki kural rozetleri asagi kaymiyor.
-   Konum akista kaldigi icin hicbir sey ust uste binmiyor. */
+/* Dugmeler kendi grubunda sariyor. Test muhru artik burada degil, hero'nun sag
+   sutununda tahta aciklamasinin altinda; dugme satiri ona yer acmak zorunda kalmiyor. */
 .cta { display:flex; flex-wrap:nowrap; align-items:center; gap:.5rem; margin:1.6rem 0 0 }
 .cta-btns { display:flex; flex-wrap:wrap; align-items:center; gap:.5rem; flex:1 1 auto; min-width:0 }
 .cta a { font:500 .8125rem/1 var(--mono); padding:.65rem .95rem; border-radius:2px;
@@ -576,20 +574,18 @@ body::before {
 .cta a.dl:hover { background:var(--dl-hover); color:var(--dl-tx);
   border-color:var(--dl-edge) }
 
-/* Test muhru: .cta'nin son flex ogesi, saga itilir. Genis oran (3:1) icin diken
-   sayisi ve derinligi mutlak olcekte uretildi, yoksa uclarda uzayip yanlarda eziliyor. */
-.cta a.seal { flex:0 0 auto; margin:0 0 0 auto;
-  width:12rem; height:4.1rem; padding:0; border:0; border-radius:0;
-  display:grid; place-content:center; text-align:center;
-  background:var(--live); color:var(--on-live); transform:rotate(-3deg);
-  clip-path:polygon(50.0% 0.0%,62.1% 8.4%,71.6% 4.9%,76.7% 14.4%,83.1% 12.5%,85.5% 21.3%,90.5% 20.7%,91.2% 28.3%,95.4% 29.0%,94.9% 35.6%,98.4% 37.4%,97.0% 42.8%,99.8% 45.8%,97.7% 50.1%,99.8% 54.2%,97.0% 57.3%,98.4% 62.7%,94.9% 64.5%,95.3% 71.1%,91.1% 71.7%,90.5% 79.4%,85.4% 78.8%,83.1% 87.5%,76.7% 85.6%,71.5% 95.1%,62.0% 91.6%,49.9% 100.0%,37.9% 91.6%,28.4% 95.1%,23.3% 85.6%,16.9% 87.5%,14.5% 78.7%,9.5% 79.3%,8.8% 71.7%,4.6% 71.0%,5.1% 64.4%,1.6% 62.6%,3.0% 57.2%,0.2% 54.2%,2.3% 50.0%,0.2% 45.8%,3.0% 42.7%,1.6% 37.3%,5.1% 35.5%,4.7% 28.9%,8.9% 28.3%,9.5% 20.6%,14.6% 21.2%,16.9% 12.5%,23.3% 14.4%,28.5% 4.9%,38.0% 8.4%) }
-.cta a.seal:hover { background:var(--live); color:var(--on-live); transform:rotate(-3deg) scale(1.04) }
+/* Test muhru: hero'nun sag sutununda, tahta aciklamasinin altinda ortali. Soldaki kucuk
+   agac perft'in saydigi hamle agaci: kokten uc dal, her dalda iki dugum. */
+a.seal { margin:1.6rem auto 0; text-decoration:none; width:max-content; max-width:100%;
+  display:flex; align-items:center; gap:.75rem; padding:.6rem .95rem; border-radius:4px;
+  background:var(--live); color:var(--on-live) }
+a.seal:hover { background:var(--live); color:var(--on-live); transform:translateY(-1px) }
+.seal svg { width:2.75rem; height:auto; flex:none }
 .seal b { font:700 .8125rem/1 var(--mono); letter-spacing:-.01em }
 .seal i { display:block; font:600 .6875rem/1 var(--mono); font-style:normal;
   letter-spacing:.07em; opacity:.85; margin-top:.34rem; padding-top:.34rem;
   border-top:1px solid currentColor }
 @media (max-width:34rem) { .cta { flex-wrap:wrap }
-  .cta a.seal { width:11rem; height:3.7rem; margin-left:0 }
   .seal b { font-size:.75rem } }
 
 .chips { list-style:none; display:flex; flex-wrap:wrap; gap:.4rem;
@@ -1125,13 +1121,10 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <div class="cta">
         <span class="cta-btns">
           <a class="go" id="ctaplay" href="#play"><span lang="tr">OYNA!</span><span lang="en">Play now</span><span class="emo" aria-hidden="true">♟️</span></a>
-          <a class="mx" id="ctasrc" href="#engcode"><span lang="tr">Kodu gör</span><span lang="en">View the code</span></a>
           <a class="dl" href="builds/L3_packed.html" download="L3_packed.html"><span lang="tr">Hemen indir · 2,6 KB</span><span lang="en">Download · 2.6 KB</span></a>
+          <a class="mx" id="ctasrc" href="#engcode"><span lang="tr">Kodu gör</span><span lang="en">View the code</span></a>
           <a href="https://github.com/cuneytinann/FideLite" target="_blank" rel="noopener"><img class="fav" src="https://github.com/favicon.ico" alt="" width="16" height="16">GitHub</a>
         </span>
-        <a class="seal" href="#tests" title="Geçtiği testler" data-en-title="Tests it passes">
-          <b lang="tr">~1,5 milyar düğüm</b><b lang="en">~1.5 billion nodes</b><i lang="tr">0 sapma</i><i lang="en">0 deviations</i>
-        </a>
       </div>
 
       <ul class="chips" lang="tr">
@@ -1237,6 +1230,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p class="hexcap" lang="en">The index starts at zero on a1, rises left to right, wraps from
       h1 to the a-file of the next rank up, and ends at 63 on h8. What that layout buys the engine
       is explained on the <a href="#board">“The engine itself”</a> tab.</p>
+      <a class="seal" href="#tests" title="Geçtiği testler" data-en-title="Tests it passes"><svg viewBox="0 0 44 30" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.2" d="M22 4 7 15M22 4v11M22 4l15 11M7 15 3 26M7 15l4 11M22 15l-4 11M22 15l4 11M37 15l-4 11M37 15l4 11"/><g fill="currentColor"><circle cx="22" cy="4" r="3"/><g opacity=".85"><circle cx="7" cy="15" r="2.5"/><circle cx="22" cy="15" r="2.5"/><circle cx="37" cy="15" r="2.5"/></g><g opacity=".7"><circle cx="3" cy="26" r="2"/><circle cx="11" cy="26" r="2"/><circle cx="18" cy="26" r="2"/><circle cx="26" cy="26" r="2"/><circle cx="33" cy="26" r="2"/><circle cx="41" cy="26" r="2"/></g></g></svg><span><b lang="tr">~1,5 milyar düğüm</b><b lang="en">~1.5 billion nodes</b><i lang="tr">0 sapma</i><i lang="en">0 deviations</i></span></a>
     </div>
   </div>
   <div class="wrap hero-epi">
