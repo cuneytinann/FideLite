@@ -1431,7 +1431,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <h2 lang="tr">Sürümü seç, oyna</h2>
     <h2 lang="en">Pick a build, play it</h2>
     <div class="prose" lang="tr">
-      <p><b>Tek oyun değil, bir sergi.</b> Burada 37 oynanabilir dosya duruyor ve çeşitlilik
+      <p><b>Tek oyun değil, bir sergi.</b> Burada 36 oynanabilir dosya duruyor ve çeşitlilik
       üç yönde açılıyor: kurallarda yalnızca oynanabilirliği bilen sürümden tam FIDE hakemine,
       arayüzde tıklanan tahtadan UCI notasyonuna ve hiç tahta çizmeyen körleme sürümlere, özel
       sürümlerde de botlara, daha özenli arayüzlere ve Lichess ile Chess.com kurallarıyla oynayan
@@ -1444,8 +1444,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       o seviyenin ana dosyası. <code class="vn">L3</code> tam hakem: bütün sürümlerinde kural tarafı aynı,
       değişen yalnızca hamleyi nasıl girdiğin, tahtanın nasıl çizildiği ve hangi göstergelerin
       bulunduğu. <code class="vn">L1</code> ve
-      <code class="vn">L2</code> kural seviyesi daha düşük olanlar, botlu sürümler de onların altında; ikisi
-      de iddianın dışında. <code class="vn">special</code> ayrı bir katman: bu seviyelerden türemiş ama
+      <code class="vn">L2</code> kural seviyesi daha düşük olanlar; ikisi de iddianın dışında. <code class="vn">special</code> ayrı bir katman: bu seviyelerden türemiş ama
       hiçbirine tam uymayan, kimi zaman projenin kendi ilkelerine ters düşen çok çeşitli sürümler.
       Ayrıntısı <a href="#builds">Varyantlar</a> sekmesinin sonundaki
       <a href="#special">Özel sürümler</a> bölümünde. <code class="vn">L1</code>,
@@ -1454,7 +1453,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <code>node</code> ile çalıştırabilirsin.</p>
     </div>
     <div class="prose" lang="en">
-      <p><b>Not one game but an exhibition.</b> There are 37 playable files here, and the variety
+      <p><b>Not one game but an exhibition.</b> There are 36 playable files here, and the variety
       opens in three directions: in the rules, from a build that knows only playability to a full
       FIDE arbiter; in the interface, from a clickable board to UCI notation and blindfold builds
       that draw no board at all; and in the special builds, out to bots, more polished interfaces
@@ -1468,8 +1467,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       is that level's main file. <code class="vn">L3</code> is the full arbiter: the rule layer is identical
       in all of its builds; what changes is how you enter a move, how the board is drawn and which
       indicators are shown.
-      <code class="vn">L1</code> and <code class="vn">L2</code> are the lower rule levels, and the builds with a bot sit
-      under them; both are outside the claim. <code class="vn">special</code> is a layer of its own: builds derived from these
+      <code class="vn">L1</code> and <code class="vn">L2</code> are the lower rule levels; both are outside the claim. <code class="vn">special</code> is a layer of its own: builds derived from these
       levels that fit none of them, some of them at odds with the project's own principles. The
       details are in the <a href="#special">Special builds</a> section at the end of the
       <a href="#builds">Builds</a> tab. <code class="vn">nonbrowser</code> in <code class="vn">L1</code>,
@@ -1543,12 +1541,12 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <label class="rd" data-lv="special" hidden title="L2, kilitli pozisyon dedektörü olmadan" data-en-title="L2 without the blocked-position detector"><input type="radio" name="build" value="L2_noBlockedDetector"> <code>L2_noBlockedDetector</code></label>
 <label class="rd str" data-lv="special" hidden title="Aynısı, harf dizgisi tahta ve ters indeksle" data-en-title="The same on a string board with flipped index order"><input type="radio" name="build" value="L2_string_flip_noBlockedDetector"> <code>L2_string_flip_noBlockedDetector</code></label>
 <span class="rbr" data-lv="special" hidden></span>
+<label class="rd bot" data-lv="special" hidden title="Oscar Toledo G.'nin satrancı, ES6 ile küçülttüğüm hâli — bota karşı" data-en-title="Oscar Toledo G.'s chess, shrunk further in ES6 by me — against its bot"><input type="radio" name="build" value="Toledos-ES6-optimized"> <code>Toledos-ES6-optimized</code></label>
+<label class="rd bot" data-lv="special" hidden title="Toledo'nun programına rakip olarak yazdığım bot, bu motorun üstünde" data-en-title="The bot I wrote as an opponent for Toledo's program, on this engine"><input type="radio" name="build" value="ToledosOpponentbyMe"> <code>ToledosOpponentbyMe</code></label>
+<span class="rbr" data-lv="special" hidden></span>
 <label class="rd pk" data-lv="special" hidden title="998 baytlık tıklanabilir tahta — yalnızca geçerlilik" data-en-title="A clickable board in 998 bytes — legality only"><input type="radio" name="build" value="DOM_998"> <code>DOM_998</code></label>
 <label class="rd pk" data-lv="special" hidden title="794 bayt; taşlar onaltılık rakamlarla, terfi metin alanından" data-en-title="794 bytes; pieces shown as hexadecimal digits, promotion typed into a text field"><input type="radio" name="build" value="DOM_minimum"> <code>DOM_minimum</code></label>
 <label class="rd pk" data-lv="special" hidden title="712 bayt; hamle sayıyla girilir, tahta yok, oyun hiç bitmez — yalnızca geçerlilik, paketli" data-en-title="712 bytes; moves typed as numbers, no board, the game never ends — legality only, packed"><input type="radio" name="build" value="Lowest"> <code>Lowest</code></label>
-<span class="rbr" data-lv="special" hidden></span>
-<label class="rd bot" data-lv="special" hidden title="Oscar Toledo G.'nin satrancı, ES6 ile küçülttüğüm hâli — bota karşı" data-en-title="Oscar Toledo G.'s chess, shrunk further in ES6 by me — against its bot"><input type="radio" name="build" value="Toledos-ES6-optimized"> <code>Toledos-ES6-optimized</code></label>
-<label class="rd bot" data-lv="special" hidden title="Toledo'nun programına rakip olarak yazdığım bot, bu motorun üstünde" data-en-title="The bot I wrote as an opponent for Toledo's program, on this engine"><input type="radio" name="build" value="ToledosOpponentbyMe"> <code>ToledosOpponentbyMe</code></label>
         </fieldset>
       </div>
       <div class="stage" id="stage">
@@ -6017,8 +6015,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       hiçbir madde eksik değil. Değişen yalnızca hamlenin nasıl girildiği, tahtanın nasıl
       çizildiği ve saatin nasıl gösterildiği. Bir <code class="vn">L3</code> sürümünde hangi hükmü alıyorsan hepsinde aynısını alırsın.</p>
       <p><b><code class="vn">L1</code> ve <code class="vn">L2</code> kural ekseni.</b> Orada aynı arayüzler iki seviyede
-      de var, değişen <em>hangi kuralların uygulandığı</em>. Her seviyenin yedi arayüzü ve bir de
-      botlu sürümü var. Bunlar <a href="#golfstack">iddianın dışında</a>; burada duruyorlar çünkü
+      de var, değişen <em>hangi kuralların uygulandığı</em>. Her seviyenin yedi arayüzü var; <code class="vn">L2</code>'nin bir de botlu sürümü var. Bunlar <a href="#golfstack">iddianın dışında</a>; burada duruyorlar çünkü
       kuralların katman katman nasıl eklendiğini görmenin en düz yolu onlar.</p>
       <p>Hiçbir seviyeye girmeyenler bu sekmenin sonunda, kendi bölümlerinde:
       <a href="#special">Özel sürümler</a>. <code class="vn">L3</code>'ün paketli iki hâli ise <a href="#l3packed"><code class="vn">L3</code> ailesiyle
@@ -6030,8 +6027,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       all of them — the full arbiter, with no article left out. What changes is only how a move is
       entered, how the board is drawn and how the clock is shown. Whatever ruling you get in one
       <code class="vn">L3</code> build, you get the same in every other.</p>
-      <p><b><code class="vn">L1</code> and <code class="vn">L2</code> are the rules axis.</b> The same interfaces exist at both levels; what changes is <em>which rules apply</em>. Each level has seven
-      interfaces and one build with a bot. These sit <a href="#golfstack">outside the claim</a>;
+      <p><b><code class="vn">L1</code> and <code class="vn">L2</code> are the rules axis.</b> The same interfaces exist at both levels; what changes is <em>which rules apply</em>. Each level has seven interfaces, and <code class="vn">L2</code> also has a build with a bot. These sit <a href="#golfstack">outside the claim</a>;
       they are here because they are the plainest way to see how the rules are added layer by
       layer.</p>
       <p>What fits no level has a section of its own at the end of this tab:
@@ -6061,7 +6057,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <tr><td><code class="vn">main</code><br><span class="fn2">builds/L3.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri</td><td>⏱ <b>D:SS</b><span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>3.148</td></tr>
 <tr><td><code class="vn">light</code><br><span class="fn2">builds/L3_light.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri<span class="sub">durum satırı, koordinat, şah uyarısı ve hedef işareti yok; sonuç <a href="#lightread">tahtadan ve saatten okunuyor</a></span></td><td>⏱ <b>D:SS</b><span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>2.631</td></tr>
 <tr><td><code class="vn">numerical</code><br><span class="fn2">builds/L3_numerical.html</span></td><td>Sayısal, prompt penceresi</td><td>Yok, yalnızca son hamle</td><td>Milisaniye<span class="sub">hamlede</span></td><td>900.000 ms<span class="sub">artış yok</span></td><td>2.068</td></tr>
-<tr><td><code class="vn">prompt</code><br><code class="vn">prompt_string</code><br><code class="vn">prompt_string_flip</code><br><span class="fn2">builds/L3_prompt*.html</span></td><td>UCI, prompt penceresi</td><td>Tam tahta, tam genişlik harfler<span class="sub">üçünün ekranı birebir aynı; ikisinin farkı içeride, <a href="#l3strings">aşağıda</a></span></td><td>Saniye<span class="sub">hamlede</span></td><td>600 sn + 5 sn</td><td>2.405<br>2.499<br>2.441</td></tr>
+<tr><td><code class="vn">prompt</code><br><span class="fn2">builds/L3_prompt.html</span><br><code class="vn">prompt_string</code><br><span class="fn2">builds/L3_prompt_string.html</span><br><code class="vn">prompt_string_flip</code><br><span class="fn2">builds/L3_prompt_string_flip.html</span></td><td>UCI, prompt penceresi</td><td>Tam tahta, tam genişlik harfler<span class="sub">üçünün ekranı birebir aynı; ikisinin farkı içeride, <a href="#l3strings">aşağıda</a></span></td><td>Saniye<span class="sub">hamlede</span></td><td>600 sn + 5 sn</td><td>2.405<br>2.499<br>2.441</td></tr>
 <tr><td><code class="vn">prompt_blindfold</code><br><span class="fn2">builds/L3_prompt_blindfold.html</span></td><td>UCI, prompt penceresi</td><td>Yok, yalnızca son hamle</td><td>Saniye<span class="sub">hamlede</span></td><td>600 sn + 5 sn</td><td>2.266</td></tr>
 <tr><td><code class="vn">input</code><br><span class="fn2">builds/L3_input.html</span></td><td>UCI, metin alanı</td><td>Tam tahta, ASCII</td><td>Saniye<span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>2.537</td></tr>
 <tr><td><code class="vn">input_blindfold</code><br><span class="fn2">builds/L3_input_blindfold.html</span></td><td>UCI, metin alanı</td><td>Yok, yalnızca son hamle</td><td>Saniye<span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>2.389</td></tr>
@@ -6076,7 +6072,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <tr><td><code class="vn">main</code><br><span class="fn2">builds/L3.html</span></td><td>Clicking</td><td>Full board, piece glyphs</td><td>⏱ <b>M:SS</b><span class="sub">live</span></td><td>600 s + 5 s</td><td>3,148</td></tr>
 <tr><td><code class="vn">light</code><br><span class="fn2">builds/L3_light.html</span></td><td>Clicking</td><td>Full board, piece glyphs<span class="sub">no status line, coordinates, check marker or target squares; the result is <a href="#lightread">read from the board and the clocks</a></span></td><td>⏱ <b>M:SS</b><span class="sub">live</span></td><td>600 s + 5 s</td><td>2,631</td></tr>
 <tr><td><code class="vn">numerical</code><br><span class="fn2">builds/L3_numerical.html</span></td><td>Numeric, prompt dialog</td><td>None, last move only</td><td>Milliseconds<span class="sub">on move</span></td><td>900,000 ms<span class="sub">no increment</span></td><td>2,068</td></tr>
-<tr><td><code class="vn">prompt</code><br><code class="vn">prompt_string</code><br><code class="vn">prompt_string_flip</code><br><span class="fn2">builds/L3_prompt*.html</span></td><td>UCI, prompt dialog</td><td>Full board, full-width letters<span class="sub">all three screens are identical; two differ inside, <a href="#l3strings">below</a></span></td><td>Seconds<span class="sub">on move</span></td><td>600 s + 5 s</td><td>2,405<br>2,499<br>2,441</td></tr>
+<tr><td><code class="vn">prompt</code><br><span class="fn2">builds/L3_prompt.html</span><br><code class="vn">prompt_string</code><br><span class="fn2">builds/L3_prompt_string.html</span><br><code class="vn">prompt_string_flip</code><br><span class="fn2">builds/L3_prompt_string_flip.html</span></td><td>UCI, prompt dialog</td><td>Full board, full-width letters<span class="sub">all three screens are identical; two differ inside, <a href="#l3strings">below</a></span></td><td>Seconds<span class="sub">on move</span></td><td>600 s + 5 s</td><td>2,405<br>2,499<br>2,441</td></tr>
 <tr><td><code class="vn">prompt_blindfold</code><br><span class="fn2">builds/L3_prompt_blindfold.html</span></td><td>UCI, prompt dialog</td><td>None, last move only</td><td>Seconds<span class="sub">on move</span></td><td>600 s + 5 s</td><td>2,266</td></tr>
 <tr><td><code class="vn">input</code><br><span class="fn2">builds/L3_input.html</span></td><td>UCI, text field</td><td>Full board, ASCII</td><td>Seconds<span class="sub">live</span></td><td>600 s + 5 s</td><td>2,537</td></tr>
 <tr><td><code class="vn">input_blindfold</code><br><span class="fn2">builds/L3_input_blindfold.html</span></td><td>UCI, text field</td><td>None, last move only</td><td>Seconds<span class="sub">live</span></td><td>600 s + 5 s</td><td>2,389</td></tr>
@@ -6766,8 +6762,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 
     <div class="prose" lang="tr">
       <p>Burada eksen kurallar. Arayüzler iki seviyede de aynı — tıklanan tahta, yalın hâli,
-      sayısal giriş, UCI, körleme, harf dizgisi, terminal — ve her seviyede bunlara bir de botlu sürüm
-      ekleniyor. Karşılaştırılan şey kural katmanının nereye kadar götürüldüğü.</p>
+      sayısal giriş, UCI, körleme, harf dizgisi, terminal — ve <code class="vn">L2</code>'de bunlara bir de botlu sürüm ekleniyor. Karşılaştırılan şey kural katmanının nereye kadar götürüldüğü.</p>
       <p>Seviyeler birbirinin üstüne biniyor. <code class="vn">L1</code> yalnızca <b>oynanabilirliği</b>
       biliyor: hamle geçerli mi, oyun matla ya da patla bitti mi. <code class="vn">L2</code> üstüne
       <b>tahtadan doğan beraberlikleri</b> koyuyor. <code class="vn">L3</code> ise tahtanın dışına çıkıyor —
@@ -6775,8 +6770,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     </div>
     <div class="prose" lang="en">
       <p>Here the axis is the rules. The interfaces are the same at both levels — the clickable
-      board, its pared-down form, numeric input, UCI, blindfold, the string board, the terminal — and each level
-      adds a build with a bot. What is compared is how far the rule layer is carried.</p>
+      board, its pared-down form, numeric input, UCI, blindfold, the string board, the terminal — and <code class="vn">L2</code> adds a build with a bot. What is compared is how far the rule layer is carried.</p>
       <p>The levels stack. <code class="vn">L1</code> knows only <b>playability</b>: is the move legal, has the
       game ended in mate or stalemate. <code class="vn">L2</code> puts the <b>draws that arise from the
       board</b> on top of that. <code class="vn">L3</code> then steps off the board — the clock, resignation,
@@ -6882,7 +6876,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <tr><td><code class="vn">input_blindfold</code><br><span class="fn2">L1_input_blindfold.html · L2_input_blindfold.html</span></td><td>UCI, metin alanı</td><td>Yok, yalnızca son hamle<span class="sub">sıra satırın başında: <code>W</code> ya da <code>B</code></span></td><td>1.038</td><td>1.715</td></tr>
 <tr><td><code class="vn">prompt_string_flip</code><br><span class="fn2">L1_prompt_string_flip.html · L2_prompt_string_flip.html</span></td><td>UCI, prompt penceresi</td><td>Tam tahta, tam genişlik harfler<span class="sub">ters indeks; sonuç <a href="#indicators">pencerede, <code>C!</code>'nin yerinde</a></span></td><td>1.088</td><td>1.813</td></tr>
 <tr><td><code class="vn">nonbrowser</code><br><span class="fn2">L1_nonbrowser.cjs · L2_nonbrowser.cjs</span></td><td>UCI, terminal</td><td>Tam tahta, ASCII</td><td>1.279</td><td>1.975</td></tr>
-<tr class="alt"><td><code class="vn">bot</code><br><span class="fn2">L1_1250elo.html · L2_aybars_2500.html</span></td><td>Tıklama, bota karşı</td><td>Tam tahta, taş glifleri<span class="sub">durum satırında koordinat yok</span></td><td>2.282</td><td>8.036</td></tr>
+<tr class="alt"><td><code class="vn">bot</code><br><span class="fn2">L2_aybars_2500.html</span></td><td>Tıklama, bota karşı</td><td>Tam tahta, taş glifleri<span class="sub">durum satırında koordinat yok</span></td><td>—</td><td>8.036</td></tr>
 </tbody>
 </table></div>
 
@@ -6896,19 +6890,19 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <tr><td><code class="vn">input_blindfold</code><br><span class="fn2">L1_input_blindfold.html · L2_input_blindfold.html</span></td><td>UCI, text field</td><td>None, last move only<span class="sub">the side to move leads the line: <code>W</code> or <code>B</code></span></td><td>1,038</td><td>1,715</td></tr>
 <tr><td><code class="vn">prompt_string_flip</code><br><span class="fn2">L1_prompt_string_flip.html · L2_prompt_string_flip.html</span></td><td>UCI, prompt dialog</td><td>Full board, full-width letters<span class="sub">flipped index; the result appears <a href="#indicators">in the dialog, in place of <code>C!</code></a></span></td><td>1,088</td><td>1,813</td></tr>
 <tr><td><code class="vn">nonbrowser</code><br><span class="fn2">L1_nonbrowser.cjs · L2_nonbrowser.cjs</span></td><td>UCI, terminal</td><td>Full board, ASCII</td><td>1,279</td><td>1,975</td></tr>
-<tr class="alt"><td><code class="vn">bot</code><br><span class="fn2">L1_1250elo.html · L2_aybars_2500.html</span></td><td>Clicking, against a bot</td><td>Full board, piece glyphs<span class="sub">no coordinates in the status line</span></td><td>2,282</td><td>8,036</td></tr>
+<tr class="alt"><td><code class="vn">bot</code><br><span class="fn2">L2_aybars_2500.html</span></td><td>Clicking, against a bot</td><td>Full board, piece glyphs<span class="sub">no coordinates in the status line</span></td><td>—</td><td>8,036</td></tr>
 </tbody>
 </table></div>
 
     <div class="prose" lang="tr">
       <p>Aynı arayüzde <code class="vn">L1</code>'den <code class="vn">L2</code>'ye çıkmak 629 ile 725 bayt arası
-      tutuyor. Botun maliyeti <code class="vn">default</code> ve <code class="vn">bot</code> satırlarında: <code class="vn">L1</code> 1.533'ten 2.282'ye çıkıyor, yani <b>749 bayt</b>; <code class="vn">L2</code> 2.226'dan 8.036'ya, yani <b>5.810</b>. <code class="vn">L1</code>'deki farkın 76 baytı kural fonksiyonlarından geliyor: bot rok haklarını dokunulan kareler defteri yerine bit maskesiyle tutuyor, <code>V</code>'ye tarafı parametreyle veriyor, <code>L</code>'den de evet/hayır yerine hamle listesi alıyor. Bu iki fark aynı şeyin iki ölçümü
-      değil: iki seviye ayrı botlar taşıyor. Adlarındaki 1250 ile 2500'ün de işaret ettiği gibi
-      <code class="vn">L1</code>'deki bot hafif; <code class="vn">L2</code>'deki Aybars'ın araması ve değerlendirmesi çok daha ileri gidiyor. Her seviyede kurallar botlu ve
-      botsuz dosyada aynı olduğu için fark büyük ölçüde botun kendisinden geliyor; iki fark arasındaki yaklaşık sekiz kat kurallardan değil, botların gücünden. <code class="vn">L2</code>'nin botlu sürümü oyunu ayrıca
-      üçlü tekrar ve 50 hamlede de <a href="#indicators">bitiriyor</a>; o da bu farkın içinde, ama
-      küçük bir parçası.</p>
-      <p>Bu iki sürüm iddianın dışında ve bu bir çekince değil bir tasarım sonucu. Bot
+      tutuyor. Botun maliyeti <code class="vn">default</code> ve <code class="vn">bot</code> satırlarında: <code class="vn">L2</code> 2.226'dan 8.036'ya çıkıyor, yani <b>5.810 bayt</b>.
+      Kurallar botlu ve botsuz dosyada aynı olduğu için bu fark büyük ölçüde botun kendisinden, Aybars'ın
+      arama ve değerlendirmesinden geliyor. <code class="vn">L2</code>'nin botlu sürümü oyunu ayrıca üçlü tekrar ve 50 hamlede
+      de <a href="#indicators">bitiriyor</a>; o da bu farkın içinde, ama küçük bir parçası. <code class="vn">L1</code>'in botlu
+      sürümü yok; <code class="vn">L1</code> kurallarıyla oynayan bir bot <a href="#special">Özel sürümlerde</a> duruyor:
+      <code class="vn">ToledosOpponentbyMe</code>.</p>
+      <p>Botlu sürüm iddianın dışında ve bu bir çekince değil bir tasarım sonucu. Bot
       öncelenseydi <a href="#board">tahta temsili</a> baştan başka türlü yazılırdı: kare merkezli
       düz bir dizi, “bu karede ne var” sorusunu ucuzlatıyor ama küme işlemlerini pahalılaştırıyor; bir arama ağacı ise tam tersini ister. Burada seçim kural yoğunluğundan yana yapıldı;
       bot o seçimin üstüne sonradan kondu.</p>
@@ -6919,15 +6913,13 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     </div>
     <div class="prose" lang="en">
       <p>Moving from <code class="vn">L1</code> to <code class="vn">L2</code> costs between 629 and 725 bytes for the same
-      interface. What the bot costs is in the <code class="vn">default</code> and <code class="vn">bot</code> rows: <code class="vn">L1</code> goes from 1,533 to 2,282, that is <b>749 bytes</b>; <code class="vn">L2</code> from 2,226 to 8,036, that is <b>5,810</b>. In <code class="vn">L1</code>, 76 of those bytes are in the rule functions: the bot keeps castling rights as a bitmask instead of the ledger of touched squares, passes the side to <code>V</code> as an argument, and gets a list of moves from <code>L</code> instead of a yes or no. These are not two measurements of the same thing: the two
-      levels carry different bots. As the 1250 and 2500 in their names suggest, the one in
-      <code class="vn">L1</code> is a light bot, while Aybars in <code class="vn">L2</code> is a far stronger one
-      whose search and evaluation go much further. Within each level the rules are the same
-      with or without the bot, so the difference comes largely from the bot itself; the roughly eightfold gap between the two reflects the bots' strength, not the rules. The <code class="vn">L2</code> bot
-      build also <a href="#indicators">ends the game</a> on threefold repetition and 50 moves; that is
-      inside the difference too, but only a small part of it.</p>
-      <p>These two sit outside the claim, and that is a consequence of the design rather than a
-      caveat. Had the bot been the priority, the <a href="#board">board representation</a> itself
+      interface. What the bot costs is in the <code class="vn">default</code> and <code class="vn">bot</code> rows: <code class="vn">L2</code> goes from 2,226 to 8,036, that is
+      <b>5,810 bytes</b>. The rules are the same with or without the bot, so the difference comes largely from
+      the bot itself — Aybars's search and evaluation. The <code class="vn">L2</code> bot build also
+      <a href="#indicators">ends the game</a> on threefold repetition and 50 moves; that is inside the difference
+      too, but only a small part of it. <code class="vn">L1</code> has no bot build; a bot that plays by <code class="vn">L1</code>'s rules is
+      among the <a href="#special">special builds</a>: <code class="vn">ToledosOpponentbyMe</code>.</p>
+      <p>The bot build sits outside the claim, and that is a consequence of the design rather than a caveat. Had the bot been the priority, the <a href="#board">board representation</a> itself
       would have been written differently from the start: a flat, square-centric array makes “what
       is on this square?” cheap and set operations expensive, and a search tree wants exactly the
       reverse. The choice here was made in favour of rule density; the bot was placed on top of that
@@ -7163,31 +7155,6 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <code>IM</code> rather than <code>DP</code>.</p>
     </div>
 
-    <h3 lang="tr"><a class="ext" href="https://github.com/cuneytinann/chessinbytes" target="_blank" rel="noopener">chessinbytes ↗️</a></h3>
-    <h3 lang="en"><a class="ext" href="https://github.com/cuneytinann/chessinbytes" target="_blank" rel="noopener">chessinbytes ↗️</a></h3>
-    <div class="prose" lang="tr">
-      <p>Bayt bayt iki kişilik satranç: her biri tek HTML dosyası ve 1 KB'nin altında olan üç sürüm, üçü de paketli. Üçü aynı kuralları uyguluyor — tam geçerlilik, bütün şartlarıyla rok, geçerken alma, her taşa terfi. Kural seviyeleri <code class="vn">L1</code>'le aynı; oynanışları ve göstergeleri ise farklı. Saat, sayaç, tekrar, materyal testi, teklif ve sonuç kodu yok; mat ile pat ayırt edilmiyor. Adı bayt bütçelerinden geliyor: 998 baytlık ana sürümden 794 baytlık ara sürüme ve 712 baytlık en küçük sürüme kadar iniyor.</p>
-    </div>
-    <div class="prose" lang="en">
-      <p>Two-player chess in bytes: three builds, each a single HTML file under 1 KB, all three packed. All three enforce the same rules — full legality, castling with every condition, en passant, promotion to any piece. Their rule level is that of <code class="vn">L1</code>; their gameplay and indicators differ. There is no clock, no counter, no repetition, no material test, no offer and no result code; mate and stalemate are not told apart. The name reflects its byte budgets: it steps down from the 998-byte main build to the 794-byte intermediate build and on to the smallest, at 712 bytes.</p>
-    </div>
-    <div class="tw" lang="tr"><table>
-<thead><tr><th>Sürüm</th><th>Giriş</th><th>Tahta</th><th>Oyunun sonu</th><th>Bayt</th></tr></thead>
-<tbody>
-<tr><td><code class="vn">DOM_998</code><br><span class="fn2">builds/special/DOM_998.html</span><br><span class="fn2">repoda index.html</span></td><td>Tıklama<span class="sub">terfi tahtanın üstündeki düğmelerden</span></td><td>Tam tahta, taş glifleri<span class="sub">sırası gelen altta</span></td><td>Hamle kalmayınca bütün kareler tek renge döner<span class="sub">mat ya da pat, hangisi olduğu gösterilmez</span></td><td>998</td></tr>
-<tr><td><code class="vn">DOM_minimum</code><br><span class="fn2">builds/special/DOM_minimum.html</span><br><span class="fn2">repoda minimal.html</span></td><td>Tıklama<span class="sub">terfi metin kutusundan: hamleden önce 1 kale, 2 fil, 3 at; boş kutu vezir</span></td><td>Taşlar onaltılık rakamlarla<span class="sub">yön sabit</span></td><td>Tanınmıyor<span class="sub">tıklamalar karşılık bulmuyor</span></td><td>794</td></tr>
-<tr><td><code class="vn">Lowest</code><br><span class="fn2">builds/special/Lowest.html</span><br><span class="fn2">repoda Lowest.html</span></td><td>Sayısal, prompt penceresi</td><td>Yok, yalnızca son hamle</td><td>Tanınmıyor<span class="sub">hiçbir hamle girdisi kabul edilmiyor, pencerede son hamle yazılı kalıyor</span></td><td>712</td></tr>
-</tbody>
-</table></div>
-    <div class="tw" lang="en"><table>
-<thead><tr><th>Build</th><th>Input</th><th>Board</th><th>End of game</th><th>Bytes</th></tr></thead>
-<tbody>
-<tr><td><code class="vn">DOM_998</code><br><span class="fn2">builds/special/DOM_998.html</span><br><span class="fn2">in the repo: index.html</span></td><td>Clicking<span class="sub">promotion from buttons above the board</span></td><td>Full board, piece glyphs<span class="sub">side to move at the bottom</span></td><td>Every square turns one colour when no move is left<span class="sub">mate or stalemate, which one is not shown</span></td><td>998</td></tr>
-<tr><td><code class="vn">DOM_minimum</code><br><span class="fn2">builds/special/DOM_minimum.html</span><br><span class="fn2">in the repo: minimal.html</span></td><td>Clicking<span class="sub">promotion from the text box: before the move, 1 rook, 2 bishop, 3 knight; an empty box is a queen</span></td><td>Pieces as hexadecimal digits<span class="sub">fixed orientation</span></td><td>Not recognised<span class="sub">clicks meet no response</span></td><td>794</td></tr>
-<tr><td><code class="vn">Lowest</code><br><span class="fn2">builds/special/Lowest.html</span><br><span class="fn2">in the repo: Lowest.html</span></td><td>Numeric, prompt dialog</td><td>None, last move only</td><td>Not recognised<span class="sub">no move input is accepted any more; the dialog keeps showing the last move</span></td><td>712</td></tr>
-</tbody>
-</table></div>
-
     <h3 lang="tr">Toledo</h3>
     <h3 lang="en">Toledo</h3>
     <div class="prose" lang="tr">
@@ -7210,6 +7177,31 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <tbody>
 <tr><td><code class="vn">Toledos-ES6-optimized</code><br><span class="fn2">builds/special/Toledos-ES6-optimized.html</span></td><td>Oscar Toledo G.'s chess, one of the most talked-about tiny chess programs in the community: L1-level rules in a little over 2 KB, and a bot of roughly 1200 Elo that searches to a fixed, shallow depth. I shrank it a little further with ES6 techniques while keeping it equivalent, and reinterpreted its interface a little.</td><td>Clicking, against a bot<span class="sub">promotion chosen beforehand from the list below the board</span></td><td>2,032</td></tr>
 <tr><td><code class="vn">ToledosOpponentbyMe</code><br><span class="fn2">builds/special/ToledosOpponentbyMe.html</span></td><td>The bot I wrote on this engine as an opponent for Toledo's program: <code class="vn">L1</code>-level rules plus the 50-move rule, an iterative-deepening alpha-beta search and a time budget of about 25 milliseconds per move. The bot plays White.</td><td>Clicking, against a bot</td><td>2,078</td></tr>
+</tbody>
+</table></div>
+
+    <h3 lang="tr"><a class="ext" href="https://github.com/cuneytinann/chessinbytes" target="_blank" rel="noopener">chessinbytes ↗️</a></h3>
+    <h3 lang="en"><a class="ext" href="https://github.com/cuneytinann/chessinbytes" target="_blank" rel="noopener">chessinbytes ↗️</a></h3>
+    <div class="prose" lang="tr">
+      <p>Bayt bayt iki kişilik satranç: her biri tek HTML dosyası ve 1 KB'nin altında olan üç sürüm, üçü de paketli. Üçü aynı kuralları uyguluyor — tam geçerlilik, bütün şartlarıyla rok, geçerken alma, her taşa terfi. Kural seviyeleri <code class="vn">L1</code>'le aynı; oynanışları ve göstergeleri ise farklı. Saat, sayaç, tekrar, materyal testi, teklif ve sonuç kodu yok; mat ile pat ayırt edilmiyor. Adı bayt bütçelerinden geliyor: 998 baytlık ana sürümden 794 baytlık ara sürüme ve 712 baytlık en küçük sürüme kadar iniyor.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>Two-player chess in bytes: three builds, each a single HTML file under 1 KB, all three packed. All three enforce the same rules — full legality, castling with every condition, en passant, promotion to any piece. Their rule level is that of <code class="vn">L1</code>; their gameplay and indicators differ. There is no clock, no counter, no repetition, no material test, no offer and no result code; mate and stalemate are not told apart. The name reflects its byte budgets: it steps down from the 998-byte main build to the 794-byte intermediate build and on to the smallest, at 712 bytes.</p>
+    </div>
+    <div class="tw" lang="tr"><table>
+<thead><tr><th>Sürüm</th><th>Giriş</th><th>Tahta</th><th>Oyunun sonu</th><th>Bayt</th></tr></thead>
+<tbody>
+<tr><td><code class="vn">DOM_998</code><br><span class="fn2">builds/special/DOM_998.html</span><br><span class="fn2">repoda index.html</span></td><td>Tıklama<span class="sub">terfi tahtanın üstündeki düğmelerden</span></td><td>Tam tahta, taş glifleri<span class="sub">sırası gelen altta</span></td><td>Hamle kalmayınca bütün kareler tek renge döner<span class="sub">mat ya da pat, hangisi olduğu gösterilmez</span></td><td>998</td></tr>
+<tr><td><code class="vn">DOM_minimum</code><br><span class="fn2">builds/special/DOM_minimum.html</span><br><span class="fn2">repoda minimal.html</span></td><td>Tıklama<span class="sub">terfi metin kutusundan: hamleden önce 1 kale, 2 fil, 3 at; boş kutu vezir</span></td><td>Taşlar onaltılık rakamlarla<span class="sub">yön sabit</span></td><td>Tanınmıyor<span class="sub">tıklamalar karşılık bulmuyor</span></td><td>794</td></tr>
+<tr><td><code class="vn">Lowest</code><br><span class="fn2">builds/special/Lowest.html</span><br><span class="fn2">repoda Lowest.html</span></td><td>Sayısal, prompt penceresi</td><td>Yok, yalnızca son hamle</td><td>Tanınmıyor<span class="sub">hiçbir hamle girdisi kabul edilmiyor, pencerede son hamle yazılı kalıyor</span></td><td>712</td></tr>
+</tbody>
+</table></div>
+    <div class="tw" lang="en"><table>
+<thead><tr><th>Build</th><th>Input</th><th>Board</th><th>End of game</th><th>Bytes</th></tr></thead>
+<tbody>
+<tr><td><code class="vn">DOM_998</code><br><span class="fn2">builds/special/DOM_998.html</span><br><span class="fn2">in the repo: index.html</span></td><td>Clicking<span class="sub">promotion from buttons above the board</span></td><td>Full board, piece glyphs<span class="sub">side to move at the bottom</span></td><td>Every square turns one colour when no move is left<span class="sub">mate or stalemate, which one is not shown</span></td><td>998</td></tr>
+<tr><td><code class="vn">DOM_minimum</code><br><span class="fn2">builds/special/DOM_minimum.html</span><br><span class="fn2">in the repo: minimal.html</span></td><td>Clicking<span class="sub">promotion from the text box: before the move, 1 rook, 2 bishop, 3 knight; an empty box is a queen</span></td><td>Pieces as hexadecimal digits<span class="sub">fixed orientation</span></td><td>Not recognised<span class="sub">clicks meet no response</span></td><td>794</td></tr>
+<tr><td><code class="vn">Lowest</code><br><span class="fn2">builds/special/Lowest.html</span><br><span class="fn2">in the repo: Lowest.html</span></td><td>Numeric, prompt dialog</td><td>None, last move only</td><td>Not recognised<span class="sub">no move input is accepted any more; the dialog keeps showing the last move</span></td><td>712</td></tr>
 </tbody>
 </table></div>
 
