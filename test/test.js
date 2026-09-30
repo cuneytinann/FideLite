@@ -59,7 +59,7 @@ const { spawnSync } = require('child_process');
 
 // Engine selection. Four builds can run this suite:
 //
-//   1  engine_4x.js                speed build, numeric board (+48 B, ~2-8x faster)
+//   1  engine_4x.js                speed build, numeric board (+91 B, ~2-8x faster)
 //   2  engine.js                   byte-record build, numeric board, full FIDE
 //   3  engine_string.js            string board: b[] holds FEN letters, '-' is empty
 //   4  engine_onlyMoveGenerator.js move generation only, no result; the side to move is t, as in L1
