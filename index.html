@@ -147,6 +147,11 @@ if (FLOLD[location.hash.slice(1)]) {
   --cc-tm:   light-dark(#3d5a7a,  #9fb3c8);
   --cc-mm:   light-dark(#a14a1c,  #ffb38a);
   --cc-hs:   light-dark(#9d1fa8,  #ea7cf5);
+  /* yardimcilar: satranca ait olmadiklari icin soluk bir leylak-gri */
+  --cc-hp:   light-dark(#5b4f73,  #a898c0);
+  /* tehdit / sah sartrez, gecerlilik gri camgobegi */
+  --cc-th:   light-dark(#4d7a00,  #b8f06a);
+  --cc-lg:   light-dark(#2f5f5f,  #8fbcbc);
   /* paketli surumler: siyaha yakin kahverengi. Koyu temada ayni koyu renk
      sicak bir isiltiyla okunur kaliyor. */
   --pk:      light-dark(#3a2214,  #2a170c);
@@ -246,7 +251,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --code-bg:#ffffff; --code-fg:#0d4f26; --code-ink:#16307a; --code-teal:#12595f; --code-tbl:#12595f; --code-glow:transparent;
     --hl-ui:#1f5fa8; --hl-html:#a3246b; --hl-bot:#8c4e0c; --hl-mix:#4c4e19;
     --pc-r:#8f1d13; --pc-n:#146a33; --pc-b:#6b3fa0; --pc-q:#7e5a05; --pc-k:#1f5fa8;
-    --pc-p:#0f6b70; --cc-n:#a3246b; --cc-o:#b3470b; --cc-e:#5b6e00; --cc-t:#44403c; --cc-r5:#3547b5; --cc-75:#7a5230; --cc-im:#a3123a; --cc-lk:#8a2fb3; --cc-mt:#b3001b; --cc-cl:#7a6400; --cc-ag:#0b6c94; --cc-tm:#3d5a7a; --cc-mm:#a14a1c; --cc-hs:#9d1fa8; --pk:#3a2214; --pk-glow:rgba(204,170,120,.55); --pk-acc:#3a2214;
+    --pc-p:#0f6b70; --cc-n:#a3246b; --cc-o:#b3470b; --cc-e:#5b6e00; --cc-t:#44403c; --cc-r5:#3547b5; --cc-75:#7a5230; --cc-im:#a3123a; --cc-lk:#8a2fb3; --cc-mt:#b3001b; --cc-cl:#7a6400; --cc-ag:#0b6c94; --cc-tm:#3d5a7a; --cc-mm:#a14a1c; --cc-hs:#9d1fa8; --cc-hp:#5b4f73; --cc-th:#4d7a00; --cc-lg:#2f5f5f; --pk:#3a2214; --pk-glow:rgba(204,170,120,.55); --pk-acc:#3a2214;
     --lg-knight:#fffdf6; --lg-rook:#93cfe0;
     --lg-bishop:#e0a3da; --lg-start:#0f1626; --lg-king:#8f1d13; --lg-pawn:#1a3970; --lg-chip:#fffdf6;
     --lux-a:#c99111; --lux-b:#8f6a06; --lux-hi:#ffd23f; --lux-glow:rgba(201,145,17,.40);
@@ -266,7 +271,7 @@ if (FLOLD[location.hash.slice(1)]) {
       --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-ink:#fff; --code-teal:#7fc9cf; --code-tbl:#fff; --code-glow:rgba(255,255,255,.42);
       --hl-ui:#86b6ef; --hl-html:#f08ccf; --hl-bot:#dfa250; --hl-mix:#9cb467;
       --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
-      --pc-p:#5fc3ca; --cc-n:#f08ccf; --cc-o:#ff9a4a; --cc-e:#cfe35a; --cc-t:#e7e5e4; --cc-r5:#8c9eff; --cc-75:#cfa57c; --cc-im:#ff6b8b; --cc-lk:#d68cff; --cc-mt:#ff4d4d; --cc-cl:#f2d24b; --cc-ag:#5fd4f5; --cc-tm:#9fb3c8; --cc-mm:#ffb38a; --cc-hs:#ea7cf5; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
+      --pc-p:#5fc3ca; --cc-n:#f08ccf; --cc-o:#ff9a4a; --cc-e:#cfe35a; --cc-t:#e7e5e4; --cc-r5:#8c9eff; --cc-75:#cfa57c; --cc-im:#ff6b8b; --cc-lk:#d68cff; --cc-mt:#ff4d4d; --cc-cl:#f2d24b; --cc-ag:#5fd4f5; --cc-tm:#9fb3c8; --cc-mm:#ffb38a; --cc-hs:#ea7cf5; --cc-hp:#a898c0; --cc-th:#b8f06a; --cc-lg:#8fbcbc; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
       --lg-knight:#1c1714; --lg-rook:#7ab6c9;
       --lg-bishop:#c895c4; --lg-start:#ece3d8; --lg-king:#5c1a10; --lg-pawn:#1a3970; --lg-chip:#d7ccbd; --lux-a:#f5c518;
     --lux-b:#e0a21c; --lux-hi:#fff8d6; --lux-glow:rgba(255,210,70,.60);
@@ -287,7 +292,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-ink:#fff; --code-teal:#7fc9cf; --code-tbl:#fff; --code-glow:rgba(255,255,255,.42);
       --hl-ui:#86b6ef; --hl-html:#f08ccf; --hl-bot:#dfa250; --hl-mix:#9cb467;
     --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
-    --pc-p:#5fc3ca; --cc-n:#f08ccf; --cc-o:#ff9a4a; --cc-e:#cfe35a; --cc-t:#e7e5e4; --cc-r5:#8c9eff; --cc-75:#cfa57c; --cc-im:#ff6b8b; --cc-lk:#d68cff; --cc-mt:#ff4d4d; --cc-cl:#f2d24b; --cc-ag:#5fd4f5; --cc-tm:#9fb3c8; --cc-mm:#ffb38a; --cc-hs:#ea7cf5; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
+    --pc-p:#5fc3ca; --cc-n:#f08ccf; --cc-o:#ff9a4a; --cc-e:#cfe35a; --cc-t:#e7e5e4; --cc-r5:#8c9eff; --cc-75:#cfa57c; --cc-im:#ff6b8b; --cc-lk:#d68cff; --cc-mt:#ff4d4d; --cc-cl:#f2d24b; --cc-ag:#5fd4f5; --cc-tm:#9fb3c8; --cc-mm:#ffb38a; --cc-hs:#ea7cf5; --cc-hp:#a898c0; --cc-th:#b8f06a; --cc-lg:#8fbcbc; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
     --lg-knight:#1c1714; --lg-rook:#7ab6c9;
     --lg-bishop:#c895c4; --lg-start:#ece3d8; --lg-king:#5c1a10; --lg-pawn:#1a3970; --lg-chip:#d7ccbd; --lux-a:#f5c518;
     --lux-b:#e0a21c; --lux-hi:#fff8d6; --lux-glow:rgba(255,210,70,.60);
@@ -16114,25 +16119,72 @@ var engKey = 'engine',
    terfi ayri kavramlar. Siralama taslarin kod sirasi: 2/3'ten 12/13'e; ardindan
    ozel hamleler. */
 var SLIDE = '(h*v?h==v:2)&P&&S()';
+var GEO = [['G=(i,f,T,P=b[i]>>1', 'i,f'], ['a=Math.abs', 'a=Math.abs'],
+           ['y=i>>3,h=', 'y=i>>3'], ['h=a(i%8-f%8)', 'h=a(i%8-f%8)'],
+           ['v=a(y-(f>>3))', 'v=a(y-(f>>3))']],
+    GEO_D = [['d=h|v', 'd=h|v']],
+    GEO_S = [['k=(f-i)/d', 'k=(f-i)/d'], ['S=Q=>(i+=k)==f||!b[i]&&S()', 'S=Q=>(i+=k)==f||!b[i]&&S()']],
+    GEO_P = [['G=(i,f,T,P=b[i]>>1', 'P=b[i]>>1']];
 var ENGC = [
+  /* Satranctan bagimsiz yardimcilar: iki takma ad ve kullanildiklari yerler. */
+  { k: 'helper', c: 'var(--cc-hp)', tr: 'Yardımcılar', en: 'Helpers',
+    s: [["N='indexOf'", "N='indexOf'"],
+        ['a=Math.abs', 'a=Math.abs'],
+        ['h=a(i%8', 'a'],
+        ['v=a(y-(f>>3))', 'a'],
+        ['d=a(i-f)', 'a'],
+        ['b[N](10+s)', '[N]'],
+        ['~L(x)[N](e)', '[N]'],
+        ['!~b[N](u+g)', '[N]']] },
+  /* Her tas kendi kosulunu ve o kosulun dayandigi baslik geometrisini kokenine kadar
+     boyuyor: G'nin i ve f parametreleri, a=Math.abs, y=i>>3, h ve v. d yalniz kullananlarda
+     (sah, kayan taslar, piyon; at kullanmiyor), k ile S yuruyus isteyenlerde (kayan
+     taslar ve piyon), P kayan taslarda (&P), T piyonda (x=T|b[f]). */
   { k: 'bishop', c: 'var(--pc-b)', tr: 'Fil', en: 'Bishop', v: '2/3',
-    s: [[SLIDE, 'h==v'], [SLIDE, '&P&&S()']] },
+    s: GEO.concat(GEO_D, GEO_S, GEO_P, [[SLIDE, 'h==v'], [SLIDE, '&P&&S()']]) },
   { k: 'rook', c: 'var(--pc-r)', tr: 'Kale', en: 'Rook', v: '4/5',
-    s: [[SLIDE, '(h*v'], [SLIDE, ':2)&P&&S()']] },
+    s: GEO.concat(GEO_D, GEO_S, GEO_P, [[SLIDE, '(h*v'], [SLIDE, ':2)&P&&S()']]) },
   { k: 'queen', c: 'var(--pc-q)', tr: 'Vezir', en: 'Queen', v: '6/7',
-    s: [[SLIDE, SLIDE]] },
+    s: GEO.concat(GEO_D, GEO_S, GEO_P, [[SLIDE, SLIDE]]) },
   { k: 'pawn', c: 'var(--pc-p)', tr: 'Piyon', en: 'Pawn', v: '8/9',
-    s: [['x=T|b[f]', 'x=T|b[f]'],
+    s: GEO.concat(GEO_D, GEO_S, [
+        ['G=(i,f,T,P=b[i]>>1', 'T'],
+        ['x=T|b[f]', 'x=T|b[f]'],
         ['f<i^b[i]&1&&(h*v==1?x|f==e', 'f<i^b[i]&1&&(h*v==1?x'],
-        [':h|x?0:v<2+(y%5==1)&&S())', ':h|x?0:v<2+(y%5==1)&&S())']] },
+        [':h|x?0:v<2+(y%5==1)&&S())', ':h|x?0:v<2+(y%5==1)&&S())']]) },
   { k: 'king', c: 'var(--pc-k)', tr: 'Şah', en: 'King', v: '10/11',
-    s: [['h^2?d<2', 'd<2']] },
+    s: GEO.concat(GEO_D, [['h^2?d<2', 'd<2']]) },
   { k: 'knight', c: 'var(--cc-n)', tr: 'At', en: 'Knight', v: '12/13',
-    s: [['P>5?h*v==2', 'h*v==2']] },
+    s: GEO.concat([['P>5?h*v==2', 'h*v==2']]) },
+  /* Tehdit ve gecerlilik ayri katlar. Tehdit tahtaya oldugu gibi bakar, ortada hamle
+     yok: "bu kare saldiri altinda mi", V(s) ile "su an sahta mi". Kendi ifadesi V ve
+     G'nin yalniz onun icin var olan saldiri kipi T: parametre ile etkiledigi iki yer
+     (piyonda x=T, rok secicisinde T|).
+     Gecerlilik bir hamleyi sorar. Kurallar sekmesindeki tanima gore hamle dort kosulla
+     gecerli: tasin hareketi, yolun acikligi, hedef kare, sah guvenligi. Ilk ikisi tas
+     bantlarinda; son ikisi L'de: !p|p&1^g hedefin bos ya da rakip tasi oldugunu, M ile
+     V(g) ve geri alma da sahin acikta kalmadigini sinar. Bu yuzden L'nin tamami burada.
+     Rokun gecici engelleri (!V(t), !V(t,i+k)) ve gecerken almanin "alma gercekten
+     yapilabilir mi" sorusu (~L(x)[N](e)) da gecerlilik. Cagri yerleri kendi kurallarinda:
+     Z'deki V(t) mat/pat, H'deki V(g) ve L(i) yardimli mat aramasi. */
+  { k: 'threat', c: 'var(--cc-th)', tr: 'Tehdit / şah', en: 'Attack / check',
+    s: [['V=(s,u=b[N](10+s))=>b.some((p,i)=>p&1^s&&G(i,u,1))', 'V=(s,u=b[N](10+s))=>b.some((p,i)=>p&1^s&&G(i,u,1))'],
+        ['G=(i,f,T,P=b[i]>>1', 'T'],
+        ['x=T|b[f]', 'T'],
+        ['T|v|h^2?d<2', 'T']] },
+  { k: 'legal', c: 'var(--cc-lg)', tr: 'Geçerlilik', en: 'Legality',
+    s: [['L=(i,q=[],g=b[i]&1)=>b.map((p,f)=>!p|p&1^g&&G(i,f)&&(p=[b,e,n,c],M(i,f),V(g)||q.push(f),[b,e,n,c]=p))&&q',
+         'L=(i,q=[],g=b[i]&1)=>b.map((p,f)=>!p|p&1^g&&G(i,f)&&(p=[b,e,n,c],M(i,f),V(g)||q.push(f),[b,e,n,c]=p))&&q'],
+        ['&&!V(t)&&!V(t,i+k)&&S()', '&&!V(t)&&!V(t,i+k)'],
+        ['&&~L(x)[N](e)', '&&~L(x)[N](e)']] },
   /* Ozel hamleler: yalniz kurali, legalitesi degil. Rokta sahin sahta olmamasi ve
      gectigi karenin tehdit altinda olmamasi (!V(t), !V(t,i+k)) legalite; gecerken
      almada da yakalayan piyonun almayi gercekten yapabilmesi (~L(x)[N](e)).
-     q=i+f>>1 hem rokun hem gecerken almanin: kalenin indigi kare, atlanan kare. */
+     q=i+f>>1 hem rokun hem gecerken almanin: kalenin indigi kare, atlanan kare.
+     Kural: tas bantlari geometrilerini kokenine kadar boyar; kural bantlari (rok,
+     gecerken alma, terfi ...) yalniz kendi ifadelerini boyar, ortak basliga inmez. Tek
+     istisna yalniz o kurala ait baslik parametreleri: q ve u=3. Rokun dayandigi
+     geometri (h, v, k, S) sah ve kayan tas bantlarinda gorunuyor. */
   { k: 'castle', c: 'var(--cc-o)', tr: 'Rok', en: 'Castling',
     s: [['c=15,U=', 'c=15'],
         ["C=i=>'20003001'[i%56]<<i/28", "C=i=>'20003001'[i%56]<<i/28"],
@@ -16179,9 +16231,12 @@ var ENGC = [
         ['I(2)|l()?6', 'l()'],
         ['I(2)|l()?6', '?6']] },
   /* Oyuncunun istedigi beraberlikler D'de: iddia esikleri (n>99, $>2) ve teklif bitleri.
-     D'nin basi ikisinde de boyali; saymanin kendisi 75 hamle ve tekrar bantlarinda. */
+     D'nin basi ve o^=2-g ikisinde de boyali: iddia bir bite bagli degil, ama D(g)
+     iddia edenin bitini de yakiyor, cunku her iddia ayni zamanda bir teklif (9.1.2.3).
+     Saymanin kendisi 75 hamle ve tekrar bantlarinda. */
   { k: 'claim', c: 'var(--cc-cl)', tr: '3R / 50 iddiası', en: '3R / 50 claim',
     s: [['D=g=>(o^=2-g,n>99?7:$>2?8', 'D=g=>'],
+        ['D=g=>(o^=2-g,n>99?7:$>2?8', 'o^=2-g'],
         ['D=g=>(o^=2-g,n>99?7:$>2?8', 'n>99?7:$>2?8']] },
   { k: 'agree', c: 'var(--cc-ag)', tr: 'Anlaşmalı beraberlik', en: 'Draw by agreement',
     s: [['z=n=o=0', 'o'],
@@ -16237,9 +16292,12 @@ function engPaint() {
   if (t == null) return;
   var con = engKey === 'engine' && engC && ENGC.filter(function (x) { return x.k === engC; })[0];
   if (!con) { engSrc.textContent = t; return; }
-  var html = '', at = 0;
+  var html = '', at = 0, sp = [];
   engSpans(t, con).forEach(function (r) {
-    if (r[0] < at) return;
+    var l = sp[sp.length - 1];
+    if (l && r[0] <= l[1]) l[1] = Math.max(l[1], r[1]); else sp.push([r[0], r[1]]);
+  });
+  sp.forEach(function (r) {
     html += engEsc(t.slice(at, r[0])) + '<span class="cpt" style="--c:' + con.c + '">' +
             engEsc(t.slice(r[0], r[1])) + '</span>';
     at = r[1];
