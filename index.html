@@ -583,6 +583,37 @@ body::before {
 .dk .hs, .dk .hi { color:var(--on-dk); opacity:.72 }
 .wh .hg { color:#fff; opacity:1; text-shadow:0 0 1px rgba(0,0,0,.55) }
 .bl .hg { color:#171310; opacity:1; text-shadow:0 0 1px rgba(255,255,255,.42) }
+/* Hero tahtasi alttaki seritle ayni dili konusur: rakam rengi tas turu, kalinlik
+   taraf (beyaz kalin). Renkli rakam tam doygun kahvede okunmadigi icin kareler ust
+   desen gibi kagida dogru soluklasiyor; --lt / --dk kurallardaki diyagramlarda
+   kullanildigi icin degismiyor, yalniz burada karistiriliyor. Kagit iki temada
+   ters kutupta oldugundan ayni oran acikta pastel, koyuda kisik kahve verir. */
+.hexboard { --hx-lt:color-mix(in oklab, var(--lt) 38%, var(--paper));
+  --hx-dk:color-mix(in oklab, var(--dk) 34%, var(--paper)) }
+.hexboard .lt { background:var(--hx-lt) }
+.hexboard .dk { background:var(--hx-dk) }
+/* Kare adi ve indeks: acikta neredeyse tam murekkep, koyuda eskisi gibi %60.
+   Ilk satir light-dark() tanimayan tarayici icin. */
+.hexboard .hs, .hexboard .hi { color:var(--ink); opacity:.6 }
+.hexboard .hs, .hexboard .hi { opacity:1;
+  color:light-dark(color-mix(in srgb, var(--ink) 90%, transparent),
+                   color-mix(in srgb, var(--ink) 60%, transparent)) }
+/* Bos kare sifirlari: acikta --ink-3, koyuda biraz murekkebe dogru. Ilk satir
+   light-dark() tanimayan tarayici icin. */
+.hexboard .hd.pc-0 { color:var(--ink-3);
+  color:light-dark(var(--ink-3), color-mix(in oklab, var(--ink-3) 82%, var(--ink))) }
+.hexboard .hd.pc-r { color:var(--pc-r) } .hexboard .hd.pc-n { color:var(--pc-n) }
+.hexboard .hd.pc-b { color:var(--pc-b) } .hexboard .hd.pc-q { color:var(--pc-q) }
+.hexboard .hd.pc-k { color:var(--pc-k) } .hexboard .hd.pc-p { color:var(--pc-p) }
+.hexboard .wh .hd { font-weight:700 }
+/* Glif hâlesi murekkep renginde: acikta koyu (beyaz taslar soluk karede
+   kaybolmasin), koyuda acik (siyah taslar kisik karede kaybolmasin). Acik temada
+   ustune dort yonlu keskin bir kontur: beyaz taslar pastel karede net cizilsin.
+   Koyuda kontur saydam, gorunum degismiyor. */
+.hexboard { --hx-ol:light-dark(var(--ink), transparent) }
+@supports not (color: light-dark(#000,#fff)) { .hexboard { --hx-ol:transparent } }
+.hexboard .hg { text-shadow:0 0 1px var(--ink), 0 0 1px var(--ink),
+  1px 0 var(--hx-ol), -1px 0 var(--hx-ol), 0 1px var(--hx-ol), 0 -1px var(--hx-ol) }
 .hexcap { font-family:var(--mono); font-size:.7rem; line-height:1.6; color:var(--ink-3);
   margin:.6rem 0 0; letter-spacing:.04em; max-width:44rem }
 .hexcap + .hexcap { margin-top:.4rem }
@@ -894,6 +925,15 @@ fieldset.builds legend { position:absolute; width:1px; height:1px; overflow:hidd
    once dugme ici bosluk daralir, en dar ekranda "(ana)" notu da duser. */
 @media (max-width: 26rem) { .lv > span { padding:.5rem } }
 @media (max-width: 22rem) { .lv small { display:none } }
+/* Seviyeler basamak: L3 en yuksek, L2 bir asagida, L1 en alcak; hepsi alttan
+   hizali, yazi tabanda kaliyor, fazladan boy ustte. special seviye degil, ayri
+   katman: kendi basina duran yuvarlak dugme. Sira isaretlemeye bagli (L3 L2 L1
+   special); oynatici satirindaki dugmeler de basamaklarin tabanina oturuyor. */
+.pbar { align-items:flex-end }
+fieldset.levels { align-items:flex-end }
+.lv:nth-of-type(1) > span { padding-top:1.5rem }
+.lv:nth-of-type(2) > span { padding-top:1rem }
+.lv:nth-of-type(4) > span { margin-left:.6rem; border-radius:999px; padding-inline:1rem }
 .rd input { accent-color:var(--acc); margin:0 }
 /* Genel code rengi lacivert; listedeki duz surumler camgobeginde kalsin ki
    harf dizgisi mavisiyle (--pc-k) karismasin. */
@@ -1221,70 +1261,70 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     </div>
     <div class="hero-side">
       <div class="hexboard" role="img" aria-label="Başlangıç pozisyonu; her karede kare adı, taşın onaltılık kodu ve motorun 0-63 indeksi" data-en-aria-label="Starting position; each square shows its name, the piece's hexadecimal code and the engine's 0-63 index">
-<div class="hx lt bl"><span class="hs">a8</span><span class="hc"><span class="hd">4</span><span class="hg" aria-hidden="true">♜</span></span><span class="hi">56</span></div>
-<div class="hx dk bl"><span class="hs">b8</span><span class="hc"><span class="hd">c</span><span class="hg" aria-hidden="true">♞</span></span><span class="hi">57</span></div>
-<div class="hx lt bl"><span class="hs">c8</span><span class="hc"><span class="hd">2</span><span class="hg" aria-hidden="true">♝</span></span><span class="hi">58</span></div>
-<div class="hx dk bl"><span class="hs">d8</span><span class="hc"><span class="hd">6</span><span class="hg" aria-hidden="true">♛</span></span><span class="hi">59</span></div>
-<div class="hx lt bl"><span class="hs">e8</span><span class="hc"><span class="hd">a</span><span class="hg" aria-hidden="true">♚</span></span><span class="hi">60</span></div>
-<div class="hx dk bl"><span class="hs">f8</span><span class="hc"><span class="hd">2</span><span class="hg" aria-hidden="true">♝</span></span><span class="hi">61</span></div>
-<div class="hx lt bl"><span class="hs">g8</span><span class="hc"><span class="hd">c</span><span class="hg" aria-hidden="true">♞</span></span><span class="hi">62</span></div>
-<div class="hx dk bl"><span class="hs">h8</span><span class="hc"><span class="hd">4</span><span class="hg" aria-hidden="true">♜</span></span><span class="hi">63</span></div>
-<div class="hx dk bl"><span class="hs">a7</span><span class="hc"><span class="hd">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">48</span></div>
-<div class="hx lt bl"><span class="hs">b7</span><span class="hc"><span class="hd">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">49</span></div>
-<div class="hx dk bl"><span class="hs">c7</span><span class="hc"><span class="hd">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">50</span></div>
-<div class="hx lt bl"><span class="hs">d7</span><span class="hc"><span class="hd">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">51</span></div>
-<div class="hx dk bl"><span class="hs">e7</span><span class="hc"><span class="hd">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">52</span></div>
-<div class="hx lt bl"><span class="hs">f7</span><span class="hc"><span class="hd">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">53</span></div>
-<div class="hx dk bl"><span class="hs">g7</span><span class="hc"><span class="hd">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">54</span></div>
-<div class="hx lt bl"><span class="hs">h7</span><span class="hc"><span class="hd">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">55</span></div>
-<div class="hx lt"><span class="hs">a6</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">40</span></div>
-<div class="hx dk"><span class="hs">b6</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">41</span></div>
-<div class="hx lt"><span class="hs">c6</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">42</span></div>
-<div class="hx dk"><span class="hs">d6</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">43</span></div>
-<div class="hx lt"><span class="hs">e6</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">44</span></div>
-<div class="hx dk"><span class="hs">f6</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">45</span></div>
-<div class="hx lt"><span class="hs">g6</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">46</span></div>
-<div class="hx dk"><span class="hs">h6</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">47</span></div>
-<div class="hx dk"><span class="hs">a5</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">32</span></div>
-<div class="hx lt"><span class="hs">b5</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">33</span></div>
-<div class="hx dk"><span class="hs">c5</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">34</span></div>
-<div class="hx lt"><span class="hs">d5</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">35</span></div>
-<div class="hx dk"><span class="hs">e5</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">36</span></div>
-<div class="hx lt"><span class="hs">f5</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">37</span></div>
-<div class="hx dk"><span class="hs">g5</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">38</span></div>
-<div class="hx lt"><span class="hs">h5</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">39</span></div>
-<div class="hx lt"><span class="hs">a4</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">24</span></div>
-<div class="hx dk"><span class="hs">b4</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">25</span></div>
-<div class="hx lt"><span class="hs">c4</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">26</span></div>
-<div class="hx dk"><span class="hs">d4</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">27</span></div>
-<div class="hx lt"><span class="hs">e4</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">28</span></div>
-<div class="hx dk"><span class="hs">f4</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">29</span></div>
-<div class="hx lt"><span class="hs">g4</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">30</span></div>
-<div class="hx dk"><span class="hs">h4</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">31</span></div>
-<div class="hx dk"><span class="hs">a3</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">16</span></div>
-<div class="hx lt"><span class="hs">b3</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">17</span></div>
-<div class="hx dk"><span class="hs">c3</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">18</span></div>
-<div class="hx lt"><span class="hs">d3</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">19</span></div>
-<div class="hx dk"><span class="hs">e3</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">20</span></div>
-<div class="hx lt"><span class="hs">f3</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">21</span></div>
-<div class="hx dk"><span class="hs">g3</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">22</span></div>
-<div class="hx lt"><span class="hs">h3</span><span class="hc"><span class="hd">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">23</span></div>
-<div class="hx lt wh"><span class="hs">a2</span><span class="hc"><span class="hd">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">8</span></div>
-<div class="hx dk wh"><span class="hs">b2</span><span class="hc"><span class="hd">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">9</span></div>
-<div class="hx lt wh"><span class="hs">c2</span><span class="hc"><span class="hd">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">10</span></div>
-<div class="hx dk wh"><span class="hs">d2</span><span class="hc"><span class="hd">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">11</span></div>
-<div class="hx lt wh"><span class="hs">e2</span><span class="hc"><span class="hd">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">12</span></div>
-<div class="hx dk wh"><span class="hs">f2</span><span class="hc"><span class="hd">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">13</span></div>
-<div class="hx lt wh"><span class="hs">g2</span><span class="hc"><span class="hd">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">14</span></div>
-<div class="hx dk wh"><span class="hs">h2</span><span class="hc"><span class="hd">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">15</span></div>
-<div class="hx dk wh"><span class="hs">a1</span><span class="hc"><span class="hd">5</span><span class="hg" aria-hidden="true">♜</span></span><span class="hi">0</span></div>
-<div class="hx lt wh"><span class="hs">b1</span><span class="hc"><span class="hd">d</span><span class="hg" aria-hidden="true">♞</span></span><span class="hi">1</span></div>
-<div class="hx dk wh"><span class="hs">c1</span><span class="hc"><span class="hd">3</span><span class="hg" aria-hidden="true">♝</span></span><span class="hi">2</span></div>
-<div class="hx lt wh"><span class="hs">d1</span><span class="hc"><span class="hd">7</span><span class="hg" aria-hidden="true">♛</span></span><span class="hi">3</span></div>
-<div class="hx dk wh"><span class="hs">e1</span><span class="hc"><span class="hd">b</span><span class="hg" aria-hidden="true">♚</span></span><span class="hi">4</span></div>
-<div class="hx lt wh"><span class="hs">f1</span><span class="hc"><span class="hd">3</span><span class="hg" aria-hidden="true">♝</span></span><span class="hi">5</span></div>
-<div class="hx dk wh"><span class="hs">g1</span><span class="hc"><span class="hd">d</span><span class="hg" aria-hidden="true">♞</span></span><span class="hi">6</span></div>
-<div class="hx lt wh"><span class="hs">h1</span><span class="hc"><span class="hd">5</span><span class="hg" aria-hidden="true">♜</span></span><span class="hi">7</span></div>
+<div class="hx lt bl"><span class="hs">a8</span><span class="hc"><span class="hd pc-r">4</span><span class="hg" aria-hidden="true">♜</span></span><span class="hi">56</span></div>
+<div class="hx dk bl"><span class="hs">b8</span><span class="hc"><span class="hd pc-n">c</span><span class="hg" aria-hidden="true">♞</span></span><span class="hi">57</span></div>
+<div class="hx lt bl"><span class="hs">c8</span><span class="hc"><span class="hd pc-b">2</span><span class="hg" aria-hidden="true">♝</span></span><span class="hi">58</span></div>
+<div class="hx dk bl"><span class="hs">d8</span><span class="hc"><span class="hd pc-q">6</span><span class="hg" aria-hidden="true">♛</span></span><span class="hi">59</span></div>
+<div class="hx lt bl"><span class="hs">e8</span><span class="hc"><span class="hd pc-k">a</span><span class="hg" aria-hidden="true">♚</span></span><span class="hi">60</span></div>
+<div class="hx dk bl"><span class="hs">f8</span><span class="hc"><span class="hd pc-b">2</span><span class="hg" aria-hidden="true">♝</span></span><span class="hi">61</span></div>
+<div class="hx lt bl"><span class="hs">g8</span><span class="hc"><span class="hd pc-n">c</span><span class="hg" aria-hidden="true">♞</span></span><span class="hi">62</span></div>
+<div class="hx dk bl"><span class="hs">h8</span><span class="hc"><span class="hd pc-r">4</span><span class="hg" aria-hidden="true">♜</span></span><span class="hi">63</span></div>
+<div class="hx dk bl"><span class="hs">a7</span><span class="hc"><span class="hd pc-p">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">48</span></div>
+<div class="hx lt bl"><span class="hs">b7</span><span class="hc"><span class="hd pc-p">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">49</span></div>
+<div class="hx dk bl"><span class="hs">c7</span><span class="hc"><span class="hd pc-p">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">50</span></div>
+<div class="hx lt bl"><span class="hs">d7</span><span class="hc"><span class="hd pc-p">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">51</span></div>
+<div class="hx dk bl"><span class="hs">e7</span><span class="hc"><span class="hd pc-p">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">52</span></div>
+<div class="hx lt bl"><span class="hs">f7</span><span class="hc"><span class="hd pc-p">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">53</span></div>
+<div class="hx dk bl"><span class="hs">g7</span><span class="hc"><span class="hd pc-p">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">54</span></div>
+<div class="hx lt bl"><span class="hs">h7</span><span class="hc"><span class="hd pc-p">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">55</span></div>
+<div class="hx lt"><span class="hs">a6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">40</span></div>
+<div class="hx dk"><span class="hs">b6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">41</span></div>
+<div class="hx lt"><span class="hs">c6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">42</span></div>
+<div class="hx dk"><span class="hs">d6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">43</span></div>
+<div class="hx lt"><span class="hs">e6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">44</span></div>
+<div class="hx dk"><span class="hs">f6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">45</span></div>
+<div class="hx lt"><span class="hs">g6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">46</span></div>
+<div class="hx dk"><span class="hs">h6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">47</span></div>
+<div class="hx dk"><span class="hs">a5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">32</span></div>
+<div class="hx lt"><span class="hs">b5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">33</span></div>
+<div class="hx dk"><span class="hs">c5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">34</span></div>
+<div class="hx lt"><span class="hs">d5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">35</span></div>
+<div class="hx dk"><span class="hs">e5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">36</span></div>
+<div class="hx lt"><span class="hs">f5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">37</span></div>
+<div class="hx dk"><span class="hs">g5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">38</span></div>
+<div class="hx lt"><span class="hs">h5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">39</span></div>
+<div class="hx lt"><span class="hs">a4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">24</span></div>
+<div class="hx dk"><span class="hs">b4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">25</span></div>
+<div class="hx lt"><span class="hs">c4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">26</span></div>
+<div class="hx dk"><span class="hs">d4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">27</span></div>
+<div class="hx lt"><span class="hs">e4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">28</span></div>
+<div class="hx dk"><span class="hs">f4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">29</span></div>
+<div class="hx lt"><span class="hs">g4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">30</span></div>
+<div class="hx dk"><span class="hs">h4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">31</span></div>
+<div class="hx dk"><span class="hs">a3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">16</span></div>
+<div class="hx lt"><span class="hs">b3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">17</span></div>
+<div class="hx dk"><span class="hs">c3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">18</span></div>
+<div class="hx lt"><span class="hs">d3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">19</span></div>
+<div class="hx dk"><span class="hs">e3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">20</span></div>
+<div class="hx lt"><span class="hs">f3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">21</span></div>
+<div class="hx dk"><span class="hs">g3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">22</span></div>
+<div class="hx lt"><span class="hs">h3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">23</span></div>
+<div class="hx lt wh"><span class="hs">a2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">8</span></div>
+<div class="hx dk wh"><span class="hs">b2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">9</span></div>
+<div class="hx lt wh"><span class="hs">c2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">10</span></div>
+<div class="hx dk wh"><span class="hs">d2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">11</span></div>
+<div class="hx lt wh"><span class="hs">e2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">12</span></div>
+<div class="hx dk wh"><span class="hs">f2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">13</span></div>
+<div class="hx lt wh"><span class="hs">g2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">14</span></div>
+<div class="hx dk wh"><span class="hs">h2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">15</span></div>
+<div class="hx dk wh"><span class="hs">a1</span><span class="hc"><span class="hd pc-r">5</span><span class="hg" aria-hidden="true">♜</span></span><span class="hi">0</span></div>
+<div class="hx lt wh"><span class="hs">b1</span><span class="hc"><span class="hd pc-n">d</span><span class="hg" aria-hidden="true">♞</span></span><span class="hi">1</span></div>
+<div class="hx dk wh"><span class="hs">c1</span><span class="hc"><span class="hd pc-b">3</span><span class="hg" aria-hidden="true">♝</span></span><span class="hi">2</span></div>
+<div class="hx lt wh"><span class="hs">d1</span><span class="hc"><span class="hd pc-q">7</span><span class="hg" aria-hidden="true">♛</span></span><span class="hi">3</span></div>
+<div class="hx dk wh"><span class="hs">e1</span><span class="hc"><span class="hd pc-k">b</span><span class="hg" aria-hidden="true">♚</span></span><span class="hi">4</span></div>
+<div class="hx lt wh"><span class="hs">f1</span><span class="hc"><span class="hd pc-b">3</span><span class="hg" aria-hidden="true">♝</span></span><span class="hi">5</span></div>
+<div class="hx dk wh"><span class="hs">g1</span><span class="hc"><span class="hd pc-n">d</span><span class="hg" aria-hidden="true">♞</span></span><span class="hi">6</span></div>
+<div class="hx lt wh"><span class="hs">h1</span><span class="hc"><span class="hd pc-r">5</span><span class="hg" aria-hidden="true">♜</span></span><span class="hi">7</span></div>
       </div>
       <p class="hexcap" lang="tr">Her karede dört şey var: kare adı, taşın onaltılık kodu, glifi
       <span class="gloss">(taşın Unicode simgesi — ♞, ♛)</span>
@@ -2034,7 +2074,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       gösterir.</p>
       <p>Kural bölümleri (1–7) aynı sırayla ilerliyor: <b>kitap ne diyor</b>, <b>algoritmada nasıl
       okunur</b>, varsa <b>FideLite'ta</b> ne yapıldığı ve <b>uygulama maliyeti</b>. 8. bölüm FIDE'yi
-      USCF ve platformlarla karşılaştırıyor, 9. bölüm önerdiğim karma sistemi anlatıyor.</p>
+      USCF ve platformlarla karşılaştırıyor, 9. bölüm önerdiğim karma sistemi anlatıyor, 10. bölüm
+      ise oyunu değil çerçevesini değiştiren kurallara bakıyor.</p>
       <p>Madde numaraları, FIDE'nin 1 Ocak 2023'te yürürlüğe giren Satranç Kuralları'na göre — <a class="ext" href="https://handbook.fide.com/chapter/E012023" target="_blank" rel="noopener">FIDE Handbook ↗️</a>.</p>
     </div>
     <div class="prose" lang="en">
@@ -2046,7 +2087,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       shows the gap.</p>
       <p>The rule sections (1–7) follow the same order: <b>what the book says</b>, <b>how an algorithm
       reads it</b>, where relevant <b>what FideLite does</b>, and <b>what it costs to apply</b>. Section
-      8 compares FIDE with USCF and the platforms; section 9 describes the hybrid I propose.</p>
+      8 compares FIDE with USCF and the platforms; section 9 describes the hybrid I propose; section
+      10 looks at the rules that change not the game but its frame.</p>
       <p>Article numbers follow the FIDE Laws of Chess that took effect on 1 January 2023 — <a class="ext" href="https://handbook.fide.com/chapter/E012023" target="_blank" rel="noopener">FIDE Handbook ↗️</a>.</p>
     </div>
 
@@ -6044,6 +6086,411 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       reset too. Finiteness survives: there are four castling rights and at most sixteen en passant
       rights, so the longest game grows by at most a few hundred plies.</p>
     </div>
+
+
+    <h3 id="frame" lang="tr">10. Çerçeveyi değiştiren kurallar</h3>
+    <h3 lang="en" data-id="frame">10. Rules that change the frame</h3>
+    <div class="prose" lang="tr">
+      <p>İlk dokuz bölüm standart oyun üzerineydi. Bu bölüm oyunun kendisini değil çerçevesini
+      değiştiren kurallara bakıyor. Kitap bunların bir kısmını ana maddelerden sonra, ek ve
+      kılavuzlarda veriyor; bir kısmını da turnuva yönetmeliğine bırakıyor. Ortak noktaları şu:
+      tahtadaki kurallar olduğu gibi kalıyor, değişen onların etrafı.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The first nine sections were about the standard game. This one looks at rules that change
+      not the game itself but its frame. The book gives some of them after the main articles, in its
+      appendices and guidelines, and leaves others to the regulations of an event. What they share is
+      that the rules on the board stay as they are; what changes is everything around them.</p>
+    </div>
+
+    <h4 id="c960" lang="tr">Chess960 — Kılavuz II</h4>
+    <h4 lang="en" data-id="c960">Chess960 — Guidelines II</h4>
+    <p class="layer" lang="tr">Kitap ne diyor</p>
+    <p class="layer" lang="en">What the book says</p>
+
+    <div class="sidefig" lang="tr">
+      <figure class="fig fig-wide">
+        <div class="mb et el eb er" role="img" aria-label="Chess960, 777 numaralı başlangıç dizilişi. Beyaz birinci yatayda soldan sağa: vezir a1, kale b1, şah c1, filler d1 ve e1, at f1, kale g1, at h1; piyonlar ikinci yatayda. Siyah aynı sırayla sekizinci ve yedinci yatayda.">
+<i><b class="b">♛</b></i>
+<i class="d"><b class="b">♜</b></i>
+<i><b class="b">♚</b></i>
+<i class="d"><b class="b">♝</b></i>
+<i><b class="b">♝</b></i>
+<i class="d"><b class="b">♞</b></i>
+<i><b class="b">♜</b></i>
+<i class="d" data-r="8"><b class="b">♞</b></i>
+<i class="d"><b class="b">♟</b></i>
+<i><b class="b">♟</b></i>
+<i class="d"><b class="b">♟</b></i>
+<i><b class="b">♟</b></i>
+<i class="d"><b class="b">♟</b></i>
+<i><b class="b">♟</b></i>
+<i class="d"><b class="b">♟</b></i>
+<i data-r="7"><b class="b">♟</b></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="6"></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i data-r="5"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="4"></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i data-r="3"></i>
+<i><b class="w">♟</b></i>
+<i class="d"><b class="w">♟</b></i>
+<i><b class="w">♟</b></i>
+<i class="d"><b class="w">♟</b></i>
+<i><b class="w">♟</b></i>
+<i class="d"><b class="w">♟</b></i>
+<i><b class="w">♟</b></i>
+<i class="d" data-r="2"><b class="w">♟</b></i>
+<i class="d" data-f="a"><b class="w">♛</b></i>
+<i data-f="b"><b class="w">♜</b></i>
+<i class="d" data-f="c"><b class="w">♚</b></i>
+<i data-f="d"><b class="w">♝</b></i>
+<i class="d" data-f="e"><b class="w">♝</b></i>
+<i data-f="f"><b class="w">♞</b></i>
+<i class="d" data-f="g"><b class="w">♜</b></i>
+<i data-f="h" data-r="1"><b class="w">♞</b></i>
+</div>
+        <figcaption>777 numaralı diziliş, QRKBBNRN. Şah c1'de, b1 ve g1'deki kalelerin
+        arasında; filler d1 ve e1'de, yani zıt renk karelerde. Piyonlar yerinde, siyah
+        beyazın aynası.</figcaption>
+      </figure>
+      <div class="prose">
+        <p>Chess960'ta oyun standart satrançla aynı oynanıyor: taşlar aynı hareket ediyor, amaç
+        yine mat; geçerlilik, pat, tekrar ve sayaçlar değişmiyor. Farklı olan iki şey var:
+        <b>başlangıç dizilişi</b> ve <b>rokun yapılışı</b>. Kitap ikisini de Kılavuz II'de
+        veriyor. FIDE kılavuzları kitabın parçası saymıyor, ama uygulanabildiği her etkinlikte
+        kullanılmalarını şiddetle öneriyor.</p>
+        <p><b>Diziliş.</b> Yalnız arka sıra değişiyor: piyonlar yine ikinci ve yedinci yatayda,
+        birinci yataydaki sekiz taşın sırası oyundan önce rastgele belirleniyor ve siyah aynı
+        sırayla karşısına diziliyor. İki şart var: şah iki kalenin arasında durmalı, filler zıt
+        renk karelerde olmalı. Bu iki şart tam 960 dizilişe izin veriyor: filler 4 × 4 yolla,
+        vezir kalan altı kareden birine, atlar kalan beşten ikisine (10 yol) yerleşiyor; geriye
+        kalan üç kareye kale, şah, kale sırası zorunlu. 16 × 6 × 10 = 960. Dizilişler 0–959
+        arası numaralanıyor (Scharnagl numarası); klasik başlangıç 518, yandaki 777.</p>
+      </div>
+    </div>
+
+    <div class="sidefig" lang="en">
+      <figure class="fig fig-wide">
+        <div class="mb et el eb er" role="img" aria-label="Chess960, starting position 777. White on the first rank from left to right: queen a1, rook b1, king c1, bishops d1 and e1, knight f1, rook g1, knight h1; pawns on the second rank. Black in the same order on the eighth and seventh ranks.">
+<i><b class="b">♛</b></i>
+<i class="d"><b class="b">♜</b></i>
+<i><b class="b">♚</b></i>
+<i class="d"><b class="b">♝</b></i>
+<i><b class="b">♝</b></i>
+<i class="d"><b class="b">♞</b></i>
+<i><b class="b">♜</b></i>
+<i class="d" data-r="8"><b class="b">♞</b></i>
+<i class="d"><b class="b">♟</b></i>
+<i><b class="b">♟</b></i>
+<i class="d"><b class="b">♟</b></i>
+<i><b class="b">♟</b></i>
+<i class="d"><b class="b">♟</b></i>
+<i><b class="b">♟</b></i>
+<i class="d"><b class="b">♟</b></i>
+<i data-r="7"><b class="b">♟</b></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="6"></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i data-r="5"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="4"></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i data-r="3"></i>
+<i><b class="w">♟</b></i>
+<i class="d"><b class="w">♟</b></i>
+<i><b class="w">♟</b></i>
+<i class="d"><b class="w">♟</b></i>
+<i><b class="w">♟</b></i>
+<i class="d"><b class="w">♟</b></i>
+<i><b class="w">♟</b></i>
+<i class="d" data-r="2"><b class="w">♟</b></i>
+<i class="d" data-f="a"><b class="w">♛</b></i>
+<i data-f="b"><b class="w">♜</b></i>
+<i class="d" data-f="c"><b class="w">♚</b></i>
+<i data-f="d"><b class="w">♝</b></i>
+<i class="d" data-f="e"><b class="w">♝</b></i>
+<i data-f="f"><b class="w">♞</b></i>
+<i class="d" data-f="g"><b class="w">♜</b></i>
+<i data-f="h" data-r="1"><b class="w">♞</b></i>
+</div>
+        <figcaption>Position 777, QRKBBNRN. The king is on c1, between the rooks on b1 and g1;
+        the bishops are on d1 and e1, opposite-coloured squares. The pawns are in place, and
+        Black mirrors White.</figcaption>
+      </figure>
+      <div class="prose">
+        <p>In Chess960 the game is played exactly as standard chess: the pieces move the same way,
+        the objective is still checkmate, and legality, stalemate, repetition and the counters are
+        unchanged. Two things differ: <b>the starting position</b> and <b>how castling is carried
+        out</b>. The book gives both in Guidelines II. FIDE does not count the guidelines as part
+        of the Laws, but strongly recommends using them in every event where they apply.</p>
+        <p><b>The position.</b> Only the back rank changes: the pawns stay on the second and seventh
+        ranks, the order of the eight pieces on the first rank is drawn at random before the game,
+        and Black mirrors it on the far side. There are two conditions: the king must stand between
+        the two rooks, and the bishops must be on opposite-coloured squares. Together they allow
+        exactly 960 positions: the bishops go in 4 × 4 ways, the queen onto one of the six remaining
+        squares, the knights onto two of the remaining five (10 ways), and the last three squares
+        are forced into rook, king, rook. 16 × 6 × 10 = 960. The positions are numbered 0–959 (the
+        Scharnagl number); the classical start is 518, the one shown is 777.</p>
+      </div>
+    </div>
+
+    <ul class="tight" lang="tr">
+      <li><b>Ad kanattan, uzunluktan değil.</b> Standartta rok kısa ya da uzundur; 960'ta şahın gideceği mesafe dizilişe göre değiştiği için bu adlar anlamını yitiriyor. Kitap roku şahın vardığı dikeyle adlandırıyor: <b>c kanadı roku</b> (0-0-0) ve <b>g kanadı roku</b> (0-0). Programlamada aynı ayrım, kalenin durduğu tarafa göre a kanadı ve h kanadı diye de geçiyor.</li>
+      <li><b>Varış kareleri standarttakiyle aynı.</b> Şah ve kale nereden başlarsa başlasın, standart rokun son karelerine gidiyor: c kanadında şah c1'e, kale d1'e; g kanadında şah g1'e, kale f1'e. Siyahta aynısı sekizinci yatayda.</li>
+      <li><b>Bu yüzden rokun dört biçimi var.</b> Kitap onları ayrı ayrı sayıyor (II.3.2): iki taşın da gittiği <em>çift hamleli</em> rok, iki taşın yer değiştirdiği rok, yalnız şahın gittiği rok ve yalnız kalenin gittiği rok. Şah c dikeyinde başladıysa c kanadı rokunda yerinden kıpırdamıyor, yalnızca kale gelip yanına oturuyor (yandaki 777: QRKBBNRN); şah g'de başladıysa aynısı g kanadında oluyor (34: BNNQRBKR). Tersine, rok yapılacak kale zaten varış karesindeyse, yani c kanadının kalesi d'de ya da g kanadınınki f'de başladıysa, bu kez yalnızca şah gidiyor (295: QNBRKRNB, iki kanatta da). İkisi birden yerinde kalamıyor: şah c'deyse c kanadının kalesi onun solunda, a ya da b'dedir ve d'ye gelmek zorundadır; kale d'deyse şah onun sağındadır ve c'ye gitmek zorundadır. 960 dizilişin 276'sında şah, 258'inde kale en az bir kanatta yerinde kalıyor.</li>
+      <li><b>Mesafe de dizilişe bağlı.</b> Standartta şah rokta iki yöne de iki kare gider. 960'ta sıfır ile beş kare arasında gidiyor: b dikeyinde başlayan şah g kanadı rokunda beş kare birden yol alıyor (741: RKBBNNQR). Aynı sebeple rok ilk hamlede bile yapılabiliyor: 469'da, RNBBNKRQ'de, şah f1 ile kale g1 yan yana ve boşalması gereken kare yok; g kanadı rokunda ikisi yer değiştiriyor. 960 dizilişin 162'sinde rok ilk hamlede mümkün.</li>
+      <li><b>Boş kalması gereken kareler dizilişe bağlı.</b> Şahın başlangıç ve varış karesi arasındaki bütün kareler ile kalenin başlangıç ve varış karesi arasındaki bütün kareler, varış kareleri dahil, şah ve rok yapan kale dışında boş olmalı. Standartta boş olması gereken bir kare burada dolu kalabiliyor, standartta ilgisiz bir kare burada boşalmak zorunda kalabiliyor. Tehdit şartı ise aynı: şahın durduğu, geçtiği ve vardığı kareler tehdit altında olmamalı, kale yine muaf (3.8.2.2).</li>
+    </ul>
+    <ul class="tight" lang="en">
+      <li><b>Named by side, not by length.</b> In standard chess castling is short or long; in Chess960 the distance the king travels depends on the position, so those names lose their meaning. The book names castling after the file the king lands on: <b>c-side castling</b> (0-0-0) and <b>g-side castling</b> (0-0). In programming the same split also goes by the side the rook stands on: a-side and h-side.</li>
+      <li><b>The destination squares are the standard ones.</b> Wherever king and rook start, they end on the squares of standard castling: on the c-side the king goes to c1 and the rook to d1; on the g-side the king goes to g1 and the rook to f1. For Black, the same on the eighth rank.</li>
+      <li><b>Hence four forms of castling.</b> The book lists them one by one (II.3.2): <em>double-move</em> castling, where both pieces move; castling in which the two swap squares; castling by a king move only; and castling by a rook move only. A king that starts on the c-file does not move at all in c-side castling; the rook simply comes across and sits beside it (777 shown here: QRKBBNRN). A king that starts on the g-file does the same on the g-side (34: BNNQRBKR). Conversely, when the castling rook already stands on its destination, that is the c-side rook on d or the g-side rook on f, only the king moves (295: QNBRKRNB, on both sides). The two can never both stay put: a king on c has its c-side rook to its left, on a or b, and that rook must come to d; a rook on d has the king to its right, and the king must go to c. In 276 of the 960 positions the king stays put on at least one side; in 258 the rook does.</li>
+      <li><b>So does the distance.</b> In standard chess the king castles two squares either way. In Chess960 it travels anywhere from zero to five: a king that starts on the b-file covers five squares in g-side castling (741: RKBBNNQR). For the same reason castling can be legal on the very first move: in 469, RNBBNKRQ, the king on f1 and the rook on g1 stand side by side with nothing to clear, and g-side castling simply swaps them. That holds in 162 of the 960 positions.</li>
+      <li><b>Which squares must be empty depends on the position.</b> Every square between the king's start and destination, and every square between the rook's start and destination, destinations included, must be empty apart from the king and the castling rook. A square that must be clear in standard chess may stay occupied, and a square standard chess ignores may have to be cleared. The attack condition is unchanged: the square the king stands on, crosses and lands on must not be attacked, and the rook is still exempt (3.8.2.2).</li>
+    </ul>
+
+    <div class="prose" lang="tr">
+      <p>Yandaki 777'de iki kanat iki ayrı biçimi gösteriyor. c kanadı rokunda şah c1'den
+      kıpırdamıyor, b1'deki kale şahın üstünden d1'e geçiyor; bunun için yalnızca d1'deki filin
+      çekilmesi yetiyor. g kanadı rokunda ise iki taş da gidiyor: şah c1'den g1'e dört kare,
+      g1'deki kale f1'e; bunun için d1, e1 ve f1'in üçü de boşalmalı.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>In 777, shown here, the two sides show two different forms. In c-side castling the king
+      does not leave c1; the rook on b1 passes over it to d1, and only the bishop on d1 has to move
+      out of the way. In g-side castling both pieces move: the king four squares, from c1 to g1,
+      and the rook from g1 to f1; for that, d1, e1 and f1 all have to be clear.</p>
+    </div>
+
+    <p class="layer" lang="tr">Algoritmada nasıl okunur</p>
+    <p class="layer" lang="en">How an algorithm reads it</p>
+    <div class="prose" lang="tr">
+      <p><b>Rok artık şahın iki kare gitmesiyle yazılamıyor.</b> Standartta rok, şahın iki kare
+      yana gitmesi olarak kodlanabiliyor (<code>e1g1</code>); başka hiçbir şah hamlesi iki kare
+      gitmediği için belirsizlik yok. 960'ta şah sıfır ile beş kare arasında gidebiliyor: yerinde
+      kalan şahın kaynak ve hedef karesi aynı çıkıyor, tek kare giden şahın rok hamlesi ise sıradan
+      bir şah hamlesiyle karışıyor. Motorların ortak çözümü roku <b>şahın kendi kalesini alması</b>
+      gibi yazmak: UCI'nin Chess960 kipinde yandaki dizilişte c kanadı roku <code>c1b1</code>, g
+      kanadı roku <code>c1g1</code>. Kaynakla hedef hep farklı ve hiçbir geçerli şah hamlesi kendi
+      taşının karesine gidemediği için belirsizlik kalmıyor.</p>
+      <p><b>Rok hakkı kaleyi dikeyiyle tanımalı.</b> FEN'in KQkq alanı kalelerin a ve h
+      dikeyinde durduğunu varsayıyor. 960'ta hakkın hangi kaleye ait olduğu da yazılmalı:
+      Shredder-FEN her zaman kalenin dikey harfini kullanıyor (yandaki diziliş için
+      <code>GBgb</code>); X-FEN ise KQkq'yu koruyup o taraftaki en dıştaki kaleyi kastediyor, harfe
+      ancak rok yapılacak kale en dıştaki değilse geçiyor. Yandaki dizilişin FEN'i bu yüzden X-FEN
+      olarak şöyle yazılabiliyor:
+      <code>qrkbbnrn/pppppppp/8/8/8/8/PPPPPPPP/QRKBBNRN w KQkq - 0 1</code>.</p>
+      <p><b>Geçerlilik aynı soruların genellemesi.</b> Rok yine 2. bölümdeki dört koşula bakıyor:
+      hak duruyor mu, yol boş mu, şah şu an tehdit altında mı, geçeceği ve varacağı kareler tehdit
+      altında mı. Standart kod bunları sabit karelerle soruyor (g kanadında f1 ve g1); 960'ta aynı
+      sorular şahın ve kalenin başlangıç dikeylerine bağlı aralıklarla soruluyor. Rok yalnızca bu üç
+      taşın dikeylerine baktığı için 960 diziliş rok açısından 56 iskelete iniyor; hepsi
+      <a href="#chess960">Chess960_Skeletons</a> simülasyonunda.</p>
+      <p>Masa başında aynı belirsizliği kitap el sırasıyla gideriyor: önce şah tahtanın dışına,
+      varış karesinin yanına alınıyor, sonra kale yerine konuyor, en son şah bırakılıyor; yanlış
+      anlaşılmasın diye önceden “rok yapıyorum” demek de öneriliyor. Dijitalde bu işi hamlenin
+      kodlanışı görüyor.</p>
+      <p><b>FideLite'ta.</b> Sürümler standart satrancı oynuyor; 960 <a href="#special">Özel
+      sürümler</a>'deki LUX'ta var: başlarken 960 kutusu işaretlenip diziliş numarası (0–959)
+      yazılıyor ya da zarla rastgele seçiliyor. Yandaki dizilişi açmak için 777 yazmak yeterli.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p><b>Castling can no longer be written as a two-square king move.</b> In standard chess
+      castling can be encoded as the king moving two squares sideways (<code>e1g1</code>); no other
+      king move covers two squares, so nothing is ambiguous. In Chess960 the king travels anywhere
+      from zero to five squares: a king that stays put has the same source and target square, and a
+      king that moves one square makes a castling move indistinguishable from an ordinary king step.
+      The common solution in engines is to write castling as <b>the king capturing its own
+      rook</b>: in UCI's Chess960 mode, c-side castling in the position shown is <code>c1b1</code>
+      and g-side castling is <code>c1g1</code>. Source and target always differ, and since no legal
+      king move can land on a square held by its own piece, the ambiguity disappears.</p>
+      <p><b>The castling right has to know its rook by file.</b> FEN's KQkq field assumes the
+      rooks stand on the a- and h-files. In Chess960 the right also has to say which rook it belongs
+      to: Shredder-FEN always uses the rook's file letter (<code>GBgb</code> for the position
+      shown); X-FEN keeps KQkq to mean the outermost rook on that side and switches to the file
+      letter only when the castling rook is not the outermost one. That is why the position shown
+      can be written in X-FEN as
+      <code>qrkbbnrn/pppppppp/8/8/8/8/PPPPPPPP/QRKBBNRN w KQkq - 0 1</code>.</p>
+      <p><b>Legality is the same questions, generalised.</b> Castling still checks the four
+      conditions of section 2: the right still stands, the path is clear, the king is not in check
+      right now, and the squares it crosses and lands on are not attacked. Standard code asks them
+      over fixed squares (f1 and g1 on the g-side); in Chess960 the same questions are asked over
+      ranges set by the starting files of king and rook. Because castling looks only at the files of
+      those three pieces, the 960 positions reduce to 56 skeletons as far as castling is concerned;
+      all of them are in the <a href="#chess960">Chess960_Skeletons</a> simulation.</p>
+      <p>Over the board the book settles the same ambiguity through the order of the hands: the king
+      is first lifted off the board and set beside its destination, then the rook is placed, and
+      only then is the king put down; saying “I am about to castle” beforehand is recommended too.
+      On a screen, the encoding of the move does that job.</p>
+      <p><b>In FideLite.</b> The builds play standard chess; Chess960 is in LUX, among the
+      <a href="#special">Special builds</a>: at the start you tick the 960 box and type the
+      position number (0–959), or roll the die for a random one. Typing 777 opens the position
+      shown here.</p>
+    </div>
+
+    <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Diziliş kural değil veri: oyunu başka bir FEN'le başlatmak kadar ucuz. Maliyetin tamamı rokta: sabit karelerle yazılmış kontroller dikeylere bağlı aralıklara genelleşiyor, hamle kodlaması şahın kendi kalesini alması biçimine geçiyor ve rok hakkı kaleyi dikeyiyle tanıyor. Hamle üretimi, şah kontrolü, mat, pat, tekrar ve sayaçlar olduğu gibi kalıyor.</p>
+    <p class="cost" lang="en"><b>What it costs to apply.</b> The starting position is data, not a rule: as cheap as starting the game from a different FEN. The whole cost is in castling: checks written over fixed squares generalise to ranges tied to files, the move encoding switches to the king capturing its own rook, and the castling right learns its rook by file. Move generation, check detection, mate, stalemate, repetition and the counters stay as they are.</p>
+
+    <h4 id="timectl" lang="tr">Zaman türleri ve çoklu periyot — 6 · Ek A · Ek B · Kılavuz III</h4>
+    <h4 lang="en" data-id="timectl">Time controls and multiple periods — 6 · Appendix A · Appendix B · Guidelines III</h4>
+    <p class="layer" lang="tr">Kitap ne diyor</p>
+    <p class="layer" lang="en">What the book says</p>
+
+    <div class="prose" lang="tr">
+      <p>Kitap süreyi sabitlemiyor: nasıl dağıtılacağını tanımlıyor, sayıları önceden ilan
+      edilecek turnuva yönetmeliğine bırakıyor (6.3.1). Bir zaman kontrolünü üç şey belirliyor:
+      süre, hamle başına ek süre ve sürenin kaç periyoda bölündüğü.</p>
+      <p><b>Üç tür.</b> Türü tek bir hesap veriyor: süre + 60 × ek süre, yani oyun 60 hamle
+      sürecekmiş gibi. Sonuç 10 dakika ya da daha azsa <b>yıldırım</b> (Ek B), 60 dakikadan azsa
+      <b>hızlı</b> (Ek A), en az 60 dakikaysa <b>klasik</b>; kitabın deyişiyle standart satranç.
+      “3 + 2”, 3 dakika ve hamle başına 2 saniye demek.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The book does not fix the time: it defines how time is allotted and leaves the numbers to
+      the regulations of an event, which must state them in advance (6.3.1). A time control is set
+      by three things: the time, the extra time per move, and how many periods the time is split
+      into.</p>
+      <p><b>Three kinds.</b> One sum gives the kind: time + 60 × the extra time, as if the game
+      lasted 60 moves. At 10 minutes or less the game is <b>blitz</b> (Appendix B), under 60 it is
+      <b>rapid</b> (Appendix A), and at 60 or more it is <b>classical</b>, standard chess in the
+      book's words. “3 + 2” means 3 minutes and 2 seconds per move.</p>
+    </div>
+
+    <div class="tw" lang="tr"><table>
+<thead><tr><th>Kontrol</th><th>Süre + 60 × artış</th><th>Tür</th></tr></thead>
+<tbody>
+<tr><td>3 + 2</td><td>3 + 2 = 5 dk</td><td>Yıldırım</td></tr>
+<tr><td>5 + 5</td><td>5 + 5 = 10 dk</td><td>Yıldırım<span class="sub">sınır dahil</span></td></tr>
+<tr><td>10 + 1</td><td>10 + 1 = 11 dk</td><td>Hızlı</td></tr>
+<tr><td>10 + 5</td><td>10 + 5 = 15 dk</td><td>Hızlı<span class="sub">FideLite</span></td></tr>
+<tr><td>90 + 30</td><td>90 + 30 = 120 dk</td><td>Klasik</td></tr>
+</tbody></table></div>
+    <div class="tw" lang="en"><table>
+<thead><tr><th>Control</th><th>Time + 60 × increment</th><th>Kind</th></tr></thead>
+<tbody>
+<tr><td>3 + 2</td><td>3 + 2 = 5 min</td><td>Blitz</td></tr>
+<tr><td>5 + 5</td><td>5 + 5 = 10 min</td><td>Blitz<span class="sub">boundary included</span></td></tr>
+<tr><td>10 + 1</td><td>10 + 1 = 11 min</td><td>Rapid</td></tr>
+<tr><td>10 + 5</td><td>10 + 5 = 15 min</td><td>Rapid<span class="sub">FideLite</span></td></tr>
+<tr><td>90 + 30</td><td>90 + 30 = 120 min</td><td>Classical</td></tr>
+</tbody></table></div>
+
+    <ul class="tight" lang="tr">
+      <li><b>Ani ölüm.</b> Bütün hamleler sabit bir sürede; ek süre yok.</li>
+      <li><b>Fischer — birikimli.</b> Her hamlede sabit bir ek süre ekleniyor, kullanılmayanı birikiyor. Kitap bunu 2 ile 60 saniye arasında tanımlıyor ve ilk hamleden itibaren veriyor.</li>
+      <li><b>Gecikme — 6.3.2.</b> Ek süre birikmiyor: ana süre, ek süre dolana kadar hiç akmıyor. Sözlük bu kipe Bronstein adını da veriyor.</li>
+      <li><b>Çoklu periyot — 6.3.1 · 6.3.2.</b> Süre periyotlara bölünebiliyor: her periyotta belirli sayıda hamle, sonuncusunda kalan bütün hamleler yapılmalı; harcanmayan süre sonrakine geçiyor. Sözlükteki örnek, yaygın klasik kontrolün kendisi: 40 hamleye 90 dakika, kalanına 30 dakika, ilk hamleden itibaren hamle başına 30 saniye.</li>
+      <li><b>Periyot sonunda düşen bayrak — 6.4.</b> <span class="dtag">dijitalde karşılığı yok</span> Masa başında bayrak periyot bitince de düşer; hakem hamle sayısına bakar, şart yerine geldiyse kayıp yok. Dijitalde süre, hamle sayacı periyodun sınırına geldiği an bayrak düşmeden ekleniyor; düşen bayrak her zaman gerçek bir aşım.</li>
+      <li><b>Tahtada kalan geçersiz hamle — A.5.2.</b> <span class="dtag">dijitalde karşılığı yok</span> Hızlıda ve yıldırımda hakem her oyunu izlemiyorsa, rakip bir sonraki hamlesinden önce itiraz etmezse geçersiz hamle tahtada kalıyor ve oyun sürüyor. Dijitalde geçersiz hamle yapılamıyor.</li>
+      <li><b>Hızlı bitişte beraberlik talebi — Kılavuz III.</b> <span class="dtag">dijitalde karşılığı yok</span> Artışsız oyunun son iki dakikasında oyuncu, rakibinin normal yollarla kazanamayacağını öne sürüp beraberlik isteyebiliyor; karar hakemin takdiri. Bir algoritma buna karar veremez. Dijitalde yerini artış tutuyor, bayrak da 6.9'un nesnel ölçüsüne kalıyor (<a href="#flag">6. bölüm</a>).</li>
+    </ul>
+    <ul class="tight" lang="en">
+      <li><b>Sudden death.</b> All the moves in a fixed time; nothing added.</li>
+      <li><b>Fischer — cumulative.</b> A fixed extra time is added every move, and whatever is not used accumulates. The book defines it as between 2 and 60 seconds and gives it from the first move.</li>
+      <li><b>Delay — 6.3.2.</b> The extra time does not accumulate: the main time does not run at all until the extra time has expired. The glossary also calls this mode Bronstein.</li>
+      <li><b>Multiple periods — 6.3.1 · 6.3.2.</b> The time can be split into periods: a set number of moves in each, all the remaining moves in the last; time saved carries over to the next. The glossary's example is the common classical control itself: 90 minutes for 40 moves, 30 minutes for the rest, and 30 seconds per move from move one.</li>
+      <li><b>A flag that falls at the end of a period — 6.4.</b> <span class="dtag">no digital counterpart</span> Over the board the flag also falls when a period ends; the arbiter counts the moves, and if the requirement was met, nothing is lost. Digitally the time is added the moment the move counter reaches the period's boundary, before any flag can fall; a fallen flag always means a real overstep.</li>
+      <li><b>An illegal move that stays on the board — A.5.2.</b> <span class="dtag">no digital counterpart</span> In rapid and blitz, when the arbiter is not watching every game, an illegal move stays on the board and the game goes on unless the opponent objects before making the next move. On a screen an illegal move cannot be made.</li>
+      <li><b>A draw claim in a quickplay finish — Guidelines III.</b> <span class="dtag">no digital counterpart</span> In the last two minutes of a game without increment, a player may claim a draw on the grounds that the opponent cannot win by normal means; the arbiter decides at his or her discretion. An algorithm cannot make that call. Digitally the increment takes its place, and the flag is left to the objective measure of 6.9 (<a href="#flag">section 6</a>).</li>
+    </ul>
+
+    <p class="layer" lang="tr">Algoritmada nasıl okunur</p>
+    <p class="layer" lang="en">How an algorithm reads it</p>
+    <div class="prose" lang="tr">
+      <p><b>Saat küçük bir durum makinesi.</b> Her taraf için kalan süre, kip, periyot tablosu ve
+      hamle sayacı yetiyor. Saate her basışta harcanan süre düşülüyor, kipin eki uygulanıyor,
+      sayaç periyodun sınırına geldiyse sonraki periyodun süresi ekleniyor.</p>
+      <p><b>Artış hamleden önce mi, sonra mı?</b> Kitap önce veriyor; birçok çevrimiçi saat
+      hamleden sonra ekliyor. Hamle bitince kalan süre aynı, fark hamlenin içinde: önce verilen
+      artış o hamlede de harcanabiliyor, yani bayrak her hamlede bir artış kadar geç düşüyor.</p>
+      <p><b>Bronstein ve basit gecikme.</b> 6.3.2'nin tarif ettiği davranış, saat üreticilerinin
+      <em>basit gecikme</em> dediği kip: ana süre gecikme boyunca donuk. Bronstein'da süre baştan
+      akıyor, hamleden sonra harcananın gecikme kadarı iade ediliyor. Çoğu hamlede sonuç aynı; fark
+      zaman sıkıntısında çıkıyor: basit gecikmede oyuncu o hamlede ana süresine ek olarak
+      gecikmenin tamamını kullanabiliyor, Bronstein'da bayrak ana süre bittiği an düşüyor. Sözlük
+      iki adı tek kip için kullandığından, ikisini ayrı sunan bir yazılım farkı kendisi tanımlamak
+      zorunda.</p>
+      <p><b>FideLite'ta.</b> Oyun 10 + 5 oynanıyor: Fischer kipinde, tek periyot. Kitabın
+      hesabıyla 15 dakika, yani hızlı oyun. <a href="#special">Özel sürümler</a>'deki LUX'ta bu
+      kontrol başlarken değiştirilebiliyor: Fischer, Bronstein ya da basit gecikme; beyaza ve
+      siyaha ayrı süre; iki ek periyot.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p><b>The clock is a small state machine.</b> It needs each side's remaining time, the mode,
+      the period table and a move counter. At every press the time used is deducted, the mode's
+      extra is applied, and if the counter has reached the period's boundary, the next period's
+      time is added.</p>
+      <p><b>Increment before the move, or after?</b> The book gives it before; many online clocks
+      add it after the move. Once the move is over the remaining time is the same; the difference is
+      inside the move: an increment given beforehand can be spent on that very move, so the flag
+      falls one increment later on every move.</p>
+      <p><b>Bronstein and simple delay.</b> What 6.3.2 describes is the mode clock makers call
+      <em>simple delay</em>: the main time is frozen for the length of the delay. Under Bronstein
+      the time runs from the start, and after the move the time used is refunded up to the delay.
+      On most moves the result is the same; the difference shows in time trouble: under simple
+      delay a player can spend the whole delay on top of the main time in that move, while under
+      Bronstein the flag falls the moment the main time runs out. Since the glossary uses both
+      names for one mode, software that offers the two separately has to define the difference
+      itself.</p>
+      <p><b>In FideLite.</b> The game is played at 10 + 5: Fischer mode, a single period. By the
+      book's sum that is 15 minutes, a rapid game. In LUX, among the
+      <a href="#special">Special builds</a>, the control can be changed at the start: Fischer,
+      Bronstein or simple delay; separate times for White and Black; two further periods.</p>
+    </div>
+
+    <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Saat kural motorunun dışında: birkaç sayı ve saate her basışta birkaç toplama. Zamanın pahalı sorusu tek: bayrak düştüğünde rakip mat edebilir mi (6.9). Tür ve kip ne olursa olsun bayrak oraya varıyor.</p>
+    <p class="cost" lang="en"><b>What it costs to apply.</b> The clock sits outside the rule engine: a few numbers and a few additions at every press. Time has only one expensive question: when a flag falls, could the opponent mate (6.9)? Whatever the kind and the mode, flag fall ends up there.</p>
 
     </div>
 </section>
@@ -11410,7 +11857,9 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       <a href="/extra/Board_Delta_Index.html" target="_blank" rel="noopener">Board_Delta_Index.html</a>
       — bir kare seç, her hedefe giden indeks farkı üstüne yazılıyor. Aynı farkın tahtanın iki
       ucunda iki ayrı hamle anlamına geldiği ve kenardan taşan farkların nereye düştüğü orada
-      tek bakışta görünüyor.</p>
+      tek bakışta görünüyor. Düz 8×8, 0x88 ve 10×12 arasında geçince aynı taş aynı karede
+      kalıyor; düz tahtada yanlış kareye sızan farkın dolgulu tahtada nasıl emildiği yan yana
+      izlenebiliyor.</p>
     </div>
     <div class="prose" lang="en">
       <p>Once distance had turned into shape, the next question was: could the shape test go too?
@@ -11465,7 +11914,9 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       <a href="/extra/Board_Delta_Index.html" target="_blank" rel="noopener">Board_Delta_Index.html</a>
       — pick a square and the index difference to every target is written on it. That the same
       delta means two different moves at opposite ends of the board, and where the deltas that
-      spill over an edge land, are both visible at a glance.</p>
+      spill over an edge land, are both visible at a glance. Switching between the flat 8×8, 0x88
+      and 10×12 keeps the same piece on the same square, so a delta that leaks onto the wrong
+      square on the flat board can be watched being absorbed by the padding, side by side.</p>
     </div>
 
     <h3 lang="tr">Tahtayı sayı olarak tutmak — iki deneme, iki eksen</h3>
@@ -14873,28 +15324,44 @@ f = K[2] + K[3] - 0</pre></div>
     <h3 lang="en" data-id="delta">Board_Delta_Index — moves defined by index delta</h3>
     <div class="prose" lang="tr">
       <p>İndeks farkı ve dolgulu tahta denemesinden kalan ikinci simülasyon. Her kare kendi
-      indeksini taşıyor; bir kareye tıklayınca o kare referans oluyor ve tanımladığın farklar hangi
-      karelere düşüyorsa onlar yanıyor. Bir farkın eksisi (±) ve katları (n, 2n, 3n…) da hesaba
-      katılabiliyor, farklar gruplara ayrılabiliyor, indeksleme tersine çevrilebiliyor.</p>
-      <p>Düz 8×8'de <code>+1</code>'in h dikeyinde bir üst yatayın a'sına sardığı,
-      <code>+7</code> / <code>+9</code>'un ve atın farklarının kenarda nereye düştüğü burada
-      doğrudan görünüyor. Satır ve sütun sayısı da değiştirilebiliyor: tahtayı 10×12 mailbox'a
-      (12 satır, 10 sütun) ya da 0x88'in 8×16'sına çevirip içteki 8×8'i alan seçimiyle
-      çerçevelersen, kenardan taşan farkların dolguya düştüğünü görürsün. Ayarlar tarayıcıda
-      saklanıyor. Neden elendiği yine <a href="#alternatives">Denenip elenen yollar</a>'da.</p>
+      indeksini taşıyor; bir kareye tıklayınca o kare referans oluyor, tanımlı farklar hangi
+      karelere düşüyorsa onlar yanıyor ve her hedefin üstüne ona giden fark yazılıyor. Üç tahta
+      tipi hazır geliyor: düz 8×8, 0x88 (16×8) ve 10×12 mailbox. Boyutlar literatürdeki gibi
+      sütun × satır yazılı. Her tip at, şah, fil, kale, vezir ve piyonun o tahtadaki farklarıyla
+      açılıyor ve içteki gerçek 8×8'i kendiliğinden çerçeveliyor. Tipler arasında geçince aynı taş
+      aynı karede kalıyor, yani üç tahta birebir karşılaştırılabiliyor.</p>
+      <p>Her hedef ayrı işaretleniyor: farkın kastettiği kareye düşenler dolu renkle, kenardan
+      sarıp yanlış bir gerçek kareye düşenler taralı, dolguya düşüp reddedilenler ✕ ile. Düz
+      8×8'de <code>+1</code>'in h dikeyinden bir sonraki yatayın a'sına sardığı,
+      <code>+7</code> / <code>+9</code>'un ve atın farklarının kenarda nereye düştüğü böyle
+      doğrudan görünüyor. 0x88'de aynı farklar sağdaki yarıya düşüp <code>i &amp; 0x88</code>
+      testine takılıyor; bekçi, indeksin kendi bitlerinde. 10×12'de ise gözcü kenarına
+      çarpıyor; bekçi orada bit değil, hücredeki değer. Altındaki tablo her adımı indeksi,
+      karesi ve sonucuyla sıralıyor, yanlış sonuçlanan satırlar kırmızı. Serbest modda satır,
+      sütun ve farklar elle kuruluyor, alan seçimiyle kendi dolgunu çizebiliyorsun. Ayarlar
+      tarayıcıda saklanıyor. Neden elendiği yine <a href="#alternatives">Denenip elenen
+      yollar</a>'da.</p>
       <p><a href="/extra/Board_Delta_Index.html" target="_blank" rel="noopener">fidelite.art/extra/Board_Delta_Index.html</a></p>
     </div>
     <div class="prose" lang="en">
       <p>The second simulation, left over from the index-delta and padded-board attempt. Every
-      square carries its own index; click one and it becomes the reference, and the squares your
-      deltas land on light up. A delta's negative (±) and its multiples (n, 2n, 3n…) can be
-      included, deltas can be split into groups, and the indexing can be reversed.</p>
-      <p>On a flat 8×8 you can see directly how <code>+1</code> wraps from the h-file to the a-file
-      of the rank above, and where <code>+7</code> / <code>+9</code> and the knight's deltas land
-      at the edge. The number of rows and columns can be changed too: turn the board into a 10×12
-      mailbox (12 rows, 10 columns) or 0x88's 8×16, frame the inner 8×8 with the area selection,
-      and you can watch the deltas that spill over an edge land in the padding. Your settings are
-      kept in the browser. Why it was eliminated is again in
+      square carries its own index; click one and it becomes the reference, the squares your
+      deltas land on light up, and each target shows the delta that reached it. Three board types
+      come ready: a flat 8×8, 0x88 (16×8) and a 10×12 mailbox, with sizes written columns × rows
+      as in the literature. Each opens with the knight, king, bishop, rook, queen and pawn deltas
+      for that board and frames the real 8×8 inside it on its own. Switching between types keeps
+      the same piece on the same square, so the three boards can be compared one to one.</p>
+      <p>Every target is marked on its own: squares the delta meant to reach are filled with
+      colour, squares reached by wrapping around the edge onto the wrong real square are hatched,
+      and deltas that fall into the padding and are rejected are crossed out. On a flat 8×8 you
+      can see directly how <code>+1</code> wraps from the h-file to the a-file of the next rank,
+      and where <code>+7</code> / <code>+9</code> and the knight's deltas land at the edge. On
+      0x88 the same deltas fall into the right half and fail the <code>i &amp; 0x88</code> test;
+      the guard lives in the bits of the index itself. On 10×12 they hit the sentinel border;
+      there the guard is not a bit but the value in the cell. The table below lists every step
+      with its index, square and result, and the rows that come out wrong are red. In free mode
+      you set rows, columns and deltas yourself and can frame your own padding with the area
+      selection. Your settings are kept in the browser. Why it was eliminated is again in
       <a href="#alternatives">Roads tried and eliminated</a>.</p>
       <p><a href="/extra/Board_Delta_Index.html" target="_blank" rel="noopener">fidelite.art/extra/Board_Delta_Index.html</a></p>
     </div>
@@ -14911,10 +15378,11 @@ f = K[2] + K[3] - 0</pre></div>
       c dikeyine, kale f ya da d dikeyine), ama yol koşulları şahın ve kalenin başlangıç dikeylerine
       bağlı hâle geliyor. Rok yalnızca bu üç taşın dikeylerine baktığı ve şah hep iki kalenin
       arasında durduğu için 960 diziliş rok açısından C(8,3) = 56 iskelete iniyor.</p>
-      <p>Sitede bugün bir Chess960 sürümü henüz yok; eski sürümlerde vardı, yeni sürüme henüz
-      taşımadım. Eski sürümlerde rok sabit kodlandığı için o sürümler 56 iskelette toplanıyordu:
-      56 iskeleti tek tek bir formülle üretip 960 dizilişin hepsini elde etmiştim. Taşıdığımda
-      muhtemelen yine bundan faydalanacağım. Golfstack'in bayt sınırı olmayan, bütçesi geniş bir
+      <p>Chess960 bugün <a href="#special">Özel sürümler</a>'deki LUX'ta oynanabiliyor: başlarken
+      dizilişin numarası (0–959) yazılıyor ya da zarla seçiliyor; kuralları Kurallar sekmesinin
+      <a href="#c960">10. bölümünde</a>. Eski sürümlerde rok sabit kodlandığı için o sürümler 56
+      iskelette toplanıyordu: 56 iskeleti tek tek bir formülle üretip 960 dizilişin hepsini elde
+      etmiştim. Golfstack'in bayt sınırı olmayan, bütçesi geniş bir
       algoritmada hepsini kapsayan tek bir genel sürüm yazılabilir; yine de bence onu yazan da bir
       yerde 56 sayısına rastlar.</p>
       <p>Sayfa her iskeleti bir kartta gösteriyor: sekiz karelik şerit, <code>-R--K-R-</code>
@@ -14934,10 +15402,11 @@ f = K[2] + K[3] - 0</pre></div>
       or d-file), but the path conditions come to depend on the files the king and rook start on.
       Because castling looks only at the files of these three pieces, and the king always stands
       between the rooks, the 960 setups reduce for castling to C(8,3) = 56 skeletons.</p>
-      <p>The site has no Chess960 build yet; earlier versions did, and I have not moved it to the
-      new version yet. Because castling was hard-coded in those versions, they gathered into 56
-      skeletons: I generated the 56 skeletons one by one with a formula and obtained all 960 setups
-      from them. When I move it over I will most likely use this again. In an algorithm with a
+      <p>Chess960 can now be played in LUX, among the <a href="#special">Special builds</a>: at the
+      start you type the position number (0–959) or roll the die; its rules are in
+      <a href="#c960">section 10</a> of the Rules tab. Because castling was hard-coded in earlier
+      versions, they gathered into 56 skeletons: I generated the 56 skeletons one by one with a
+      formula and obtained all 960 setups from them. In an algorithm with a
       generous budget, free of Golfstack's byte limit, a single generic version covering them all
       could be written; even so, I think whoever writes it will run into the number 56
       somewhere.</p>

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Board - Index Delta</title>
 <style>
   * { box-sizing: border-box; }
@@ -12,37 +13,88 @@
     margin: 0;
     padding: 24px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  h1 {
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
+    max-width: 900px;
+    line-height: 1.4;
   }
   .container {
     display: flex;
     gap: 24px;
     align-items: flex-start;
+    justify-content: center;
     flex-wrap: wrap;
-    max-width: 1100px;
+    width: 100%;
+    max-width: 1160px;
   }
+  .board-col {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .board-wrap { overflow: auto; max-width: 100%; }
   .board {
     display: grid;
+    width: max-content;
     gap: 2px;
     background: #d0d0c8;
     padding: 2px;
     border-radius: 8px;
     position: relative;
   }
+
+  /* ----- Cells ----- */
   .cell {
     background: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 13px;
     font-weight: 500;
     color: #666;
     cursor: pointer;
     user-select: none;
     transition: background 0.1s, color 0.1s;
     border-radius: 2px;
+    position: relative;
   }
+  .cell .sq {
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    font-size: 9px;
+    font-weight: 400;
+    line-height: 1;
+    opacity: 0.6;
+  }
+  .cell .off {
+    position: absolute;
+    bottom: 3px;
+    right: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .board.compact .sq,
+  .board.compact .off { display: none; }
+
   .cell:hover { background: #f0f0e8; }
+  .cell.pad,
+  .cell.pad:hover {
+    background: #e9e8e0;
+    color: #b2b1a7;
+    cursor: not-allowed;
+  }
+  .board.selecting .cell,
+  .board.selecting .cell.pad { cursor: crosshair; }
   .cell.reference {
     background: #d6e9f8;
     color: #0c447c;
@@ -51,29 +103,186 @@
     background: #c0dd97;
     color: #27500a;
   }
+  .cell.wrap {
+    background: repeating-linear-gradient(45deg, rgba(200, 50, 42, 0.34) 0 5px, rgba(200, 50, 42, 0.08) 5px 10px);
+    color: #7a1a14;
+    outline: 2px dashed #c8322a;
+    outline-offset: -2px;
+  }
+  .cell.dual {
+    outline: 2px dashed #c8322a;
+    outline-offset: -2px;
+  }
+  .cell.pad.pad-hit,
+  .cell.pad.pad-hit:hover {
+    background: #cdccc2;
+    color: #4f4e47;
+  }
+  .cell.pad-hit::before {
+    content: '✕';
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    font-size: 10px;
+    line-height: 1;
+    color: #6b6a62;
+  }
   .cell.pending {
     background: #fde9d8;
     color: #854f0b;
   }
-  .board.selecting .cell { cursor: crosshair; }
+  .cell.hl { box-shadow: inset 0 0 0 3px #1a1a1a; }
 
+  /* Frame of the virtual board (the real squares) */
   .selection-overlay {
     position: absolute;
     pointer-events: none;
     box-sizing: border-box;
-    border: 2px dashed #c44b75;
+    border: 2px solid #2f2f2a;
     border-radius: 4px;
   }
 
+  /* ----- Under the board ----- */
+  .info {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.5;
+  }
+  .info b { color: #1a1a1a; font-weight: 600; }
+  .info .bad-text { color: #a8261e; font-weight: 600; }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    font-size: 12px;
+    color: #555;
+  }
+  .legend > div { display: flex; align-items: center; gap: 6px; }
+  .sw {
+    width: 20px;
+    height: 16px;
+    border-radius: 3px;
+    display: inline-block;
+    flex-shrink: 0;
+    position: relative;
+    vertical-align: -3px;
+  }
+  .sw.ref   { background: #d6e9f8; border: 1px solid #a0c8eb; }
+  .sw.ok    { background: #c0dd97; }
+  .sw.wrap  {
+    background: repeating-linear-gradient(45deg, rgba(200, 50, 42, 0.34) 0 4px, rgba(200, 50, 42, 0.08) 4px 8px);
+    outline: 2px dashed #c8322a;
+    outline-offset: -2px;
+  }
+  .sw.padhit { background: #cdccc2; }
+  .sw.padhit::before {
+    content: '✕';
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    font-size: 9px;
+    line-height: 1;
+    color: #6b6a62;
+  }
+  .sw.pad   { background: #e9e8e0; border: 1px solid #d6d5cc; }
+  .sw.frame { background: #fff; border: 2px solid #2f2f2a; }
+  .sw.out   { background: transparent; border: 1px dashed #aaa9a0; }
+  .sw.mini  { width: 12px; height: 12px; margin-right: 6px; vertical-align: -1px; }
+  .sw.mini.padhit::before { top: 1px; left: 2px; font-size: 8px; }
+
+  .results {
+    max-height: 360px;
+    overflow: auto;
+    border: 1px solid #e0e0d8;
+    border-radius: 8px;
+    background: #fff;
+  }
+  .results table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+    font-variant-numeric: tabular-nums;
+  }
+  .results th {
+    position: sticky;
+    top: 0;
+    background: #fafaf6;
+    text-align: left;
+    font-weight: 500;
+    color: #666;
+    padding: 7px 10px;
+    border-bottom: 1px solid #e5e5dd;
+  }
+  .results td {
+    padding: 5px 10px;
+    border-bottom: 1px solid #f0f0ea;
+    white-space: nowrap;
+  }
+  .results tr:last-child td { border-bottom: none; }
+  .results td .k { color: #999; font-size: 11px; margin-left: 6px; }
+  .results tr.wrap td {
+    background: #fbe7e5;
+    color: #8a1f18;
+    font-weight: 500;
+  }
+  .results tr.pad td,
+  .results tr.outside td { color: #77766e; }
+  .results tr:hover td { background: #f4f4ee; }
+  .results tr.wrap:hover td { background: #f7d6d2; }
+  .results td.empty { color: #999; white-space: normal; padding: 12px 10px; }
+  .results code {
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 11.5px;
+  }
+
+  /* ----- Panel ----- */
   .panel {
     flex: 1;
     min-width: 300px;
+    max-width: 420px;
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
 
-  .reverse-card {
+  .tpl-row { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tpl-btn {
+    padding: 7px 16px;
+    border: 1px solid #d0d0c8;
+    background: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #1a1a1a;
+    font-family: inherit;
+  }
+  .tpl-btn:hover { background: #f0f0e8; }
+  .tpl-btn.active {
+    background: #d6e9f8;
+    border-color: #a0c8eb;
+    color: #0c447c;
+    font-weight: 600;
+  }
+  .tpl-desc {
+    font-size: 12.5px;
+    color: #555;
+    line-height: 1.55;
+    background: #fff;
+    border: 1px solid #e5e5dd;
+    border-radius: 6px;
+    padding: 9px 11px;
+  }
+  .tpl-desc code,
+  .hint code {
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 11.5px;
+    background: #f0efe8;
+    padding: 0 3px;
+    border-radius: 3px;
+  }
+
+  .toggle-card {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -86,13 +295,13 @@
     font-size: 13px;
     color: #1a1a1a;
   }
-  .reverse-card input { margin: 0; cursor: pointer; }
-  .reverse-card .hint-small {
+  .toggle-card input { margin: 0; cursor: pointer; }
+  .toggle-card .hint-small {
     color: #888;
     font-size: 11px;
     margin-left: auto;
   }
-  .reverse-card.on {
+  .toggle-card.on {
     background: #ede0c8;
     border-color: #c8b582;
   }
@@ -122,6 +331,8 @@
     font-family: inherit;
   }
   .dim-field input:focus { border-color: #888; }
+  .dim-field input:disabled { background: #f3f3ee; color: #999; }
+  .size-note { font-size: 12px; color: #999; margin-top: 4px; }
 
   .divider {
     height: 1px;
@@ -164,6 +375,7 @@
     background: rgba(0,0,0,0.08);
   }
   .group-pill.active .group-del { color: #5a87b6; }
+  .btn-row { display: flex; gap: 6px; flex-wrap: wrap; }
 
   .active-header {
     display: flex;
@@ -184,6 +396,7 @@
   }
   .group-name-input:focus { border-color: #888; }
 
+  #diff-list { display: flex; flex-direction: column; gap: 6px; }
   .diff-row { display: flex; align-items: center; gap: 8px; }
   .diff-row input.diff-val {
     width: 80px;
@@ -259,6 +472,8 @@
     border-color: #c44b75;
     color: #80284b;
   }
+  .sel-btn:disabled { opacity: 0.45; cursor: default; }
+  .sel-btn:disabled:hover { background: #fff; }
   .sel-status {
     font-size: 12px;
     color: #c44b75;
@@ -267,10 +482,11 @@
 
   .hint {
     font-size: 12px;
-    color: #999;
-    line-height: 1.5;
+    color: #888;
+    line-height: 1.55;
     margin-top: 6px;
   }
+  .hint b { color: #555; }
   .ref-info { font-size: 13px; color: #666; }
   .ref-info span { font-weight: 500; color: #1a1a1a; }
 
@@ -290,41 +506,92 @@
     color: #c00;
     border-color: #c00;
   }
-  .board-wrap { overflow: auto; max-width: 100%; }
+
+  @media (max-width: 600px) {
+    body { padding: 14px; }
+    .panel { min-width: 0; width: 100%; }
+  }
 </style>
 </head>
 <body>
 
+<h1>Click a square. The active group's deltas are added to its index, and every target shows whether the delta landed where the move meant to go.</h1>
+
 <div class="container">
 
-  <div class="board-wrap">
-    <div class="board" id="board"></div>
+  <div class="board-col" id="board-col">
+    <div class="board-wrap">
+      <div class="board" id="board"></div>
+    </div>
+
+    <div class="info" id="info"></div>
+
+    <div class="legend">
+      <div><span class="sw ref"></span>Reference</div>
+      <div><span class="sw ok"></span>Legal: landed where the move meant to go</div>
+      <div><span class="sw wrap"></span>Wrong square: wrapped around the edge</div>
+      <div><span class="sw padhit"></span>Fell into padding, so it is rejected</div>
+      <div><span class="sw pad"></span>Padding cell</div>
+      <div><span class="sw frame"></span>Real board (virtual board)</div>
+      <div><span class="sw out"></span>Left the array: listed in the table only</div>
+    </div>
+
+    <div class="results">
+      <table>
+        <thead>
+          <tr><th>Delta</th><th>Index</th><th>Square</th><th>Result</th></tr>
+        </thead>
+        <tbody id="results-body"></tbody>
+      </table>
+    </div>
   </div>
 
   <div class="panel">
-    <label class="reverse-card" id="reverse-card">
+    <div class="section-label">Board type</div>
+    <div class="tpl-row" id="tpl-row">
+      <button class="tpl-btn" data-t="flat">8×8</button>
+      <button class="tpl-btn" data-t="x88">0x88 (16×8)</button>
+      <button class="tpl-btn" data-t="mailbox">10×12</button>
+      <button class="tpl-btn" data-t="free">Free</button>
+    </div>
+    <div class="tpl-desc" id="tpl-desc"></div>
+
+    <div class="divider"></div>
+
+    <label class="toggle-card" id="reverse-card">
       <input type="checkbox" id="reverse-toggle">
       <span>Reverse indexing</span>
       <span class="hint-small">(n−1 → 0)</span>
     </label>
+    <label class="toggle-card" id="continue-card">
+      <input type="checkbox" id="continue-toggle">
+      <span>Keep rays going after a miss</span>
+      <span class="hint-small">(no edge check)</span>
+    </label>
 
     <div class="section-label">Board size</div>
-    <div class="dim-row">
-      <div class="dim-field">
-        <label>Rows</label>
-        <input type="number" id="rows" min="1" value="8">
+    <div>
+      <div class="dim-row">
+        <div class="dim-field">
+          <label for="rows">Rows</label>
+          <input type="number" id="rows" min="1" value="8">
+        </div>
+        <div class="dim-field">
+          <label for="cols">Columns</label>
+          <input type="number" id="cols" min="1" value="8">
+        </div>
       </div>
-      <div class="dim-field">
-        <label>Columns</label>
-        <input type="number" id="cols" min="1" value="8">
-      </div>
+      <div class="size-note" id="size-note" hidden>Set by the board type. Choose Free to change it.</div>
     </div>
 
     <div class="divider"></div>
 
     <div class="section-label">Groups</div>
     <div class="groups-list" id="groups-list"></div>
-    <button class="add-btn" id="add-group-btn">+ New group</button>
+    <div class="btn-row">
+      <button class="add-btn" id="add-group-btn">+ New group</button>
+      <button class="add-btn" id="restore-btn" hidden>Restore pieces</button>
+    </div>
 
     <div class="divider"></div>
 
@@ -337,7 +604,7 @@
 
     <div class="divider"></div>
 
-    <div class="section-label">Marked area</div>
+    <div class="section-label">Virtual board (marked area)</div>
     <div class="sel-row">
       <button class="sel-btn" id="select-btn">Select area</button>
       <button class="sel-btn" id="clear-selection-btn">Clear</button>
@@ -345,12 +612,16 @@
     </div>
 
     <div class="hint">
-      Click a cell → that cell becomes the reference.<br>
+      <b>Board type</b> → loads the piece groups and frames the real 8×8. Switching keeps the same square and piece, so the three boards can be compared directly.<br>
+      Click a square inside the frame → it becomes the reference. Padding cells can't hold a piece.<br>
       <b>±</b> → the negative of the delta is included too.<br>
-      <b>mul</b> → multiples of the delta are included too (n, 2n, 3n…).<br>
+      <b>mul</b> → multiples of the delta are included too (n, 2n, 3n…), for sliding pieces.<br>
+      A ray stops at its first miss, as a move generator would. <b>Keep rays going</b> shows what a loop without an edge check produces.<br>
       <b>Reverse indexing</b> → cells are counted from the highest number down to 0; deltas still work on the displayed index.<br>
-      <b>Select area</b> → click two corners and the area is framed.<br>
-      Everything is saved to the browser automatically.
+      <b>Free</b> → your own size and groups. <b>Select area</b> → click two corners; the framed area becomes the real board and everything outside it becomes padding.<br>
+      Sizes are written columns × rows, as in the literature: 8×8, 16×8, 10×12.<br>
+      Index 0 is a8, the top-left corner, so on 0x88 the last real square 0x77 = 119 is h1. Many sources number from a1 instead, where 0x77 is h8; the delta values are the same.<br>
+      Hover a row in the table to find its cell. Everything is saved to the browser automatically.
     </div>
     <div class="ref-info">
       Reference cell: <span id="ref-display">0</span>
@@ -362,50 +633,140 @@
 
 <script>
 (function() {
-  const STORAGE_KEY = 'tahta_index_fark_v1';
+  const STORAGE_KEY     = 'tahta_index_fark_v2';
+  const OLD_STORAGE_KEY = 'tahta_index_fark_v1';
+
+  // ----- Board types -----
+  // inner = [firstRow, firstCol, lastRow, lastCol] of the real 8×8
+  const TEMPLATES = {
+    flat:    { rows: 8,  cols: 8,  inner: [0, 0, 7, 7] },
+    x88:     { rows: 8,  cols: 16, inner: [0, 0, 7, 7] },
+    mailbox: { rows: 12, cols: 10, inner: [2, 1, 9, 8] },
+    free:    null
+  };
+  const TEMPLATE_DESC = {
+    flat:
+      'A flat 64-cell array with no padding. A delta that crosses the edge doesn\'t fail: ' +
+      'it wraps onto a real square of the next or previous rank, and nothing in the index says so.',
+    x88:
+      '16×8 = 128 cells: 16 columns and 8 rows, and the right half is padding. The name is the test mask: ' +
+      '0x88 is binary <code>1000 1000</code>: one guard bit just above the file bits and one just above the rank bits. A delta that crosses ' +
+      'the edge sets one of them, so <code>i &amp; 0x88</code> is non-zero and the move is rejected. ' +
+      'The guard sits in the index itself.',
+    mailbox:
+      '10×12 = 120 cells: 10 columns and 12 rows. Here the guard is not a bit of the index but a value in the cell: ' +
+      'the border holds sentinels, and reading one stops the move. Two sentinel rows above and below catch the ' +
+      'knight\'s two-rank jump; one column per side is enough, because after the row wrap the right and left ' +
+      'columns sit side by side.',
+    free:
+      'Your own size, groups and virtual board. Use <b>Select area</b> below to frame the real board; ' +
+      'everything outside it becomes padding.'
+  };
+  const SLOT_KEYS = ['rows', 'cols', 'referenceIndex', 'groups', 'activeGroupId', 'selection'];
 
   // ----- DOM -----
   const board          = document.getElementById('board');
+  const boardCol       = document.getElementById('board-col');
+  const info           = document.getElementById('info');
+  const resultsBody    = document.getElementById('results-body');
+  const tplButtons     = Array.from(document.querySelectorAll('.tpl-btn'));
+  const tplDesc        = document.getElementById('tpl-desc');
   const groupsList     = document.getElementById('groups-list');
   const addGroupBtn    = document.getElementById('add-group-btn');
+  const restoreBtn     = document.getElementById('restore-btn');
   const groupNameInput = document.getElementById('group-name-input');
   const diffList       = document.getElementById('diff-list');
   const addDiffBtn     = document.getElementById('add-diff-btn');
   const refDisplay     = document.getElementById('ref-display');
   const rowsInput      = document.getElementById('rows');
   const colsInput      = document.getElementById('cols');
+  const sizeNote       = document.getElementById('size-note');
   const resetBtn       = document.getElementById('reset-btn');
   const selectBtn      = document.getElementById('select-btn');
   const clearSelBtn    = document.getElementById('clear-selection-btn');
   const selStatus      = document.getElementById('sel-status');
   const reverseToggle  = document.getElementById('reverse-toggle');
   const reverseCard    = document.getElementById('reverse-card');
+  const continueToggle = document.getElementById('continue-toggle');
+  const continueCard   = document.getElementById('continue-card');
 
   // ----- State -----
   function genId() { return Math.random().toString(36).slice(2, 10); }
 
-  function defaultState() {
-    const g = { id: genId(), name: 'Group 1', diffs: [{ value: '', neg: false, mul: false }] };
+  function newGroup(name, diffs) {
+    return { id: genId(), name, diffs: diffs || [{ value: '', neg: false, mul: false }] };
+  }
+
+  // Piece deltas for a board W columns wide (index grows left→right, then top→bottom; a8 at the top-left).
+  function pieceGroups(W) {
+    const d = (v, neg, mul) => ({ value: String(v), neg, mul });
+    return [
+      newGroup('Knight', [d(W - 2, true, false), d(W + 2, true, false), d(2 * W - 1, true, false), d(2 * W + 1, true, false)]),
+      newGroup('King',   [d(1, true, false), d(W - 1, true, false), d(W, true, false), d(W + 1, true, false)]),
+      newGroup('Bishop', [d(W - 1, true, true), d(W + 1, true, true)]),
+      newGroup('Rook',   [d(1, true, true), d(W, true, true)]),
+      newGroup('Queen',  [d(1, true, true), d(W - 1, true, true), d(W, true, true), d(W + 1, true, true)]),
+      newGroup('Pawn (white)', [d(-W, false, false), d(-2 * W, false, false), d(-(W - 1), false, false), d(-(W + 1), false, false)])
+    ];
+  }
+
+  function innerSelection(T) {
+    const [r0, c0, r1, c1] = T.inner;
+    return { start: r0 * T.cols + c0, end: r1 * T.cols + c1 };
+  }
+
+  function presetSlot(t) {
+    const T = TEMPLATES[t];
+    const groups = pieceGroups(T.cols);
     return {
-      rows: 8,
-      cols: 8,
-      referenceIndex: 0,   // stored as POSITION on the grid (0..total-1)
-      groups: [g],
-      activeGroupId: g.id,
-      selection: { start: null, end: null }, // also positions
-      reversed: false
+      rows: T.rows,
+      cols: T.cols,
+      referenceIndex: (T.inner[0] + 6) * T.cols + (T.inner[1] + 7), // h2
+      groups,
+      activeGroupId: groups[0].id,                                   // Knight
+      selection: innerSelection(T)
     };
+  }
+
+  function freeSlot() {
+    const g = newGroup('Group 1');
+    return { rows: 8, cols: 8, referenceIndex: 0, groups: [g], activeGroupId: g.id, selection: { start: null, end: null } };
+  }
+
+  function defaultState() {
+    return Object.assign({ template: 'flat', reversed: false, continueRays: false, slots: {} }, presetSlot('flat'));
+  }
+
+  function snapshot() {
+    const o = {};
+    SLOT_KEYS.forEach(k => { o[k] = state[k]; });
+    return JSON.parse(JSON.stringify(o));
   }
 
   function loadState() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return null;
-      const s = JSON.parse(raw);
-      if (!s || typeof s !== 'object') return null;
-      if (!Array.isArray(s.groups)) return null;
-      return s;
-    } catch (e) { return null; }
+      if (raw) {
+        const s = JSON.parse(raw);
+        if (s && typeof s === 'object' && Array.isArray(s.groups)) return s;
+      }
+    } catch (e) {}
+    // Older version: keep its setup in the Free slot
+    try {
+      const raw = localStorage.getItem(OLD_STORAGE_KEY);
+      if (raw) {
+        const old = JSON.parse(raw);
+        if (old && typeof old === 'object' && Array.isArray(old.groups)) {
+          const s = defaultState();
+          const free = {};
+          SLOT_KEYS.forEach(k => { if (k in old) free[k] = old[k]; });
+          s.slots.free = free;
+          s.reversed = !!old.reversed;
+          return s;
+        }
+      }
+    } catch (e) {}
+    return null;
   }
 
   function saveState() {
@@ -413,8 +774,13 @@
   }
 
   function ensureValidState() {
-    if (!state.groups || state.groups.length === 0) {
-      state.groups = [{ id: genId(), name: 'Group 1', diffs: [{ value: '', neg: false, mul: false }] }];
+    if (!(state.template in TEMPLATES)) state.template = 'free';
+    if (!state.slots || typeof state.slots !== 'object') state.slots = {};
+    if (typeof state.reversed !== 'boolean') state.reversed = false;
+    if (typeof state.continueRays !== 'boolean') state.continueRays = false;
+
+    if (!Array.isArray(state.groups) || state.groups.length === 0) {
+      state.groups = [newGroup('Group 1')];
     }
     state.groups.forEach(g => {
       if (!g.id) g.id = genId();
@@ -431,27 +797,38 @@
     if (!state.activeGroupId || !state.groups.find(g => g.id === state.activeGroupId)) {
       state.activeGroupId = state.groups[0].id;
     }
+
+    const T = TEMPLATES[state.template];
+    if (T) {
+      state.rows = T.rows;
+      state.cols = T.cols;
+      state.selection = innerSelection(T);
+    }
     if (!Number.isFinite(state.rows) || state.rows < 1) state.rows = 8;
     if (!Number.isFinite(state.cols) || state.cols < 1) state.cols = 8;
+    const total = state.rows * state.cols;
     if (!Number.isFinite(state.referenceIndex) || state.referenceIndex < 0) state.referenceIndex = 0;
-    if (state.referenceIndex >= state.rows * state.cols) state.referenceIndex = 0;
+    if (state.referenceIndex >= total) state.referenceIndex = 0;
 
     if (!state.selection || typeof state.selection !== 'object') {
       state.selection = { start: null, end: null };
     }
-    const total = state.rows * state.cols;
-    const s = state.selection.start, e = state.selection.end;
-    if (s !== null && (s < 0 || s >= total)) state.selection.start = null;
-    if (e !== null && (e < 0 || e >= total)) state.selection.end = null;
-    if (state.selection.start === null || state.selection.end === null) {
-      state.selection = { start: null, end: null };
-    }
+    let s = state.selection.start, e = state.selection.end;
+    if (typeof s !== 'number' || s < 0 || s >= total) s = null;
+    if (typeof e !== 'number' || e < 0 || e >= total) e = null;
+    state.selection = (s === null || e === null) ? { start: null, end: null } : { start: s, end: e };
 
-    if (typeof state.reversed !== 'boolean') state.reversed = false;
+    if (!isReal(state.referenceIndex)) {
+      const vb = virtualBoard();
+      state.referenceIndex = vb ? vb.r0 * state.cols + vb.c0 : 0;
+    }
   }
 
   let state = loadState() || defaultState();
-  ensureValidState();
+
+  // ----- Selection mode -----
+  let selectionMode = null;
+  let pendingStart  = null;
 
   // ----- Index <-> Position mapping -----
   function displayedValue(position) {
@@ -464,9 +841,51 @@
     return state.reversed ? (total - 1 - v) : v;
   }
 
-  // ----- Selection mode -----
-  let selectionMode = null;
-  let pendingStart  = null;
+  // ----- Virtual board -----
+  function virtualBoard() {
+    const s = state.selection.start, e = state.selection.end;
+    if (s === null || e === null) return null;
+    const W = state.cols;
+    const ra = Math.floor(s / W), ca = s % W, rb = Math.floor(e / W), cb = e % W;
+    return { r0: Math.min(ra, rb), c0: Math.min(ca, cb), r1: Math.max(ra, rb), c1: Math.max(ca, cb) };
+  }
+  function boardRect() {
+    return virtualBoard() || { r0: 0, c0: 0, r1: state.rows - 1, c1: state.cols - 1 };
+  }
+  function isReal(pos) {
+    const vb = virtualBoard();
+    if (!vb) return true;
+    const r = Math.floor(pos / state.cols), c = pos % state.cols;
+    return r >= vb.r0 && r <= vb.r1 && c >= vb.c0 && c <= vb.c1;
+  }
+  // Square names appear only when the real board is exactly 8×8 (a8 at the top-left)
+  function sqName(pos) {
+    const b = boardRect();
+    if (b.r1 - b.r0 !== 7 || b.c1 - b.c0 !== 7) return null;
+    const r = Math.floor(pos / state.cols), c = pos % state.cols;
+    if (r < b.r0 || r > b.r1 || c < b.c0 || c > b.c1) return null;
+    return 'abcdefgh'[c - b.c0] + (8 - (r - b.r0));
+  }
+  function posFromSquare(name) {
+    const b = boardRect();
+    if (!name || b.r1 - b.r0 !== 7 || b.c1 - b.c0 !== 7) return null;
+    const c = 'abcdefgh'.indexOf(name[0]);
+    const rank = parseInt(name.slice(1), 10);
+    if (c < 0 || !(rank >= 1 && rank <= 8)) return null;
+    return (b.r0 + 8 - rank) * state.cols + (b.c0 + c);
+  }
+
+  // The move a delta means: split it into (rows, cols) with the column part as small as possible.
+  // e.g. on 8 columns +7 = (1, −1), +10 = (1, +2); on 16 columns +15 = (1, −1).
+  function intendedVector(step, W) {
+    if (step < 0) {
+      const v = intendedVector(-step, W);
+      return [-v[0], -v[1]];
+    }
+    let dc = step % W;
+    if (dc > W / 2) dc -= W;
+    return [(step - dc) / W, dc];
+  }
 
   // ----- Helpers -----
   function getActiveGroup() {
@@ -478,53 +897,133 @@
     const n = parseInt(s, 10);
     return Number.isFinite(n) ? n : null;
   }
+  function fmtSigned(n) { return n > 0 ? '+' + n : n < 0 ? '−' + (-n) : '0'; }
+  function fmtNum(n)    { return n < 0 ? '−' + (-n) : String(n); }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+  }
+  function refLabel() {
+    const disp = displayedValue(state.referenceIndex);
+    const sq = sqName(state.referenceIndex);
+    return sq ? disp + ' (' + sq + ')' : String(disp);
+  }
+
+  // ----- Targets -----
+  // One row per step: status is 'ok' | 'wrap' | 'pad' | 'outside'
+  function computeTargets() {
+    const total = state.rows * state.cols;
+    const W = state.cols;
+    const group = getActiveGroup();
+    const refPos = state.referenceIndex;
+    const refDisp = displayedValue(refPos);
+    const rr = Math.floor(refPos / W), rc = refPos % W;
+    const out = [];
+
+    group.diffs.forEach(d => {
+      const n = parseDiffValue(d.value);
+      if (n === null || n === 0) return;
+      const signs = d.neg ? [1, -1] : [1];
+      signs.forEach(sg => {
+        const step = sg * n;                                   // on the displayed index
+        const [dr, dc] = intendedVector(state.reversed ? -step : step, W); // on the grid
+        const maxK = d.mul ? Math.ceil(total / Math.abs(n)) : 1;
+        for (let k = 1; k <= maxK; k++) {
+          const index = refDisp + k * step;
+          const row = { step, k, off: k * step, index, pos: null, square: null, status: 'outside' };
+          out.push(row);
+          if (index < 0 || index >= total) break;
+          const pos = positionFromDisplayed(index);
+          row.pos = pos;
+          row.square = sqName(pos);
+          const onIntended = Math.floor(pos / W) === rr + k * dr && pos % W === rc + k * dc;
+          row.status = !isReal(pos) ? 'pad' : onIntended ? 'ok' : 'wrap';
+          if (row.status !== 'ok' && !state.continueRays) break;
+        }
+      });
+    });
+    return out;
+  }
+
+  function resultText(row) {
+    const t = state.template;
+    const total = state.rows * state.cols;
+    const show88 = t === 'x88' && !state.reversed;
+    switch (row.status) {
+      case 'ok':   return 'legal';
+      case 'wrap': return 'wrapped onto a wrong square';
+      case 'pad':
+        if (show88) return 'padding (<code>i &amp; 0x88 = ' + (row.index & 0x88) + '</code>)';
+        if (t === 'mailbox') return 'sentinel padding';
+        return 'padding';
+      default:
+        if (show88) return 'left the array (<code>i &amp; 0x88 = ' + (row.index & 0x88) + '</code>)';
+        if (t === 'flat') return 'left the array (0–' + (total - 1) + ')';
+        return 'left the array';
+    }
+  }
+  const SW_CLASS = { ok: 'ok', wrap: 'wrap', pad: 'padhit', outside: 'out' };
 
   // ----- Board -----
   let cells = [];
+  let parts = [];
   let currentCellSize = 48;
   const GAP = 2;
   const PAD = 2;
 
+  // Fits the board to the screen width as well (phones)
+  function computeCellSize() {
+    const availW = Math.min(640, (window.innerWidth || 1024) - 40);
+    const byWidth = Math.floor((availW - 2 * PAD - (state.cols - 1) * GAP) / state.cols);
+    const byHeight = Math.floor(640 / state.rows);
+    return Math.max(22, Math.min(48, byWidth, byHeight));
+  }
+
   function buildBoard() {
     const total = state.rows * state.cols;
-    const cellSize = Math.max(22, Math.min(48, Math.floor(640 / Math.max(state.rows, state.cols))));
+    const cellSize = computeCellSize();
     const fontSize = Math.max(9, Math.min(14, Math.floor(cellSize * 0.32)));
     currentCellSize = cellSize;
 
     board.style.gridTemplateColumns = `repeat(${state.cols}, ${cellSize}px)`;
     board.style.gridTemplateRows    = `repeat(${state.rows}, ${cellSize}px)`;
+    board.classList.toggle('compact', cellSize < 34);
 
     board.innerHTML = '';
     cells = [];
-
-    if (state.referenceIndex >= total) state.referenceIndex = 0;
+    parts = [];
 
     for (let i = 0; i < total; i++) {
       const cell = document.createElement('div');
       cell.className = 'cell';
-      cell.textContent = displayedValue(i);
-      cell.style.fontSize = fontSize + 'px';
+      const idx = document.createElement('span');
+      idx.className = 'idx';
+      idx.style.fontSize = fontSize + 'px';
+      const sq = document.createElement('span');
+      sq.className = 'sq';
+      const off = document.createElement('span');
+      off.className = 'off';
+      cell.append(idx, sq, off);
       cell.addEventListener('click', () => onCellClick(i));
       board.appendChild(cell);
       cells.push(cell);
+      parts.push({ idx, sq, off });
     }
 
-    const ss = state.selection.start, ee = state.selection.end;
-    if (ss !== null && ss >= total) state.selection = { start: null, end: null };
-    if (ee !== null && ee >= total) state.selection = { start: null, end: null };
+    const boardWidth = state.cols * cellSize + (state.cols - 1) * GAP + 2 * PAD;
+    boardCol.style.width = Math.max(boardWidth, Math.min(380, (window.innerWidth || 1024) - 28)) + 'px';
 
-    refDisplay.textContent = displayedValue(state.referenceIndex);
-
+    labelCells();
     paintBoard();
     drawSelection();
   }
 
-  function relabelCells() {
-    // Only update cell text contents (used when toggling reversed)
+  // Index text, square names and padding (changes with reverse / selection)
+  function labelCells() {
     cells.forEach((cell, i) => {
-      cell.textContent = displayedValue(i);
+      parts[i].idx.textContent = displayedValue(i);
+      parts[i].sq.textContent = sqName(i) || '';
+      cell.classList.toggle('pad', !isReal(i));
     });
-    refDisplay.textContent = displayedValue(state.referenceIndex);
   }
 
   function onCellClick(pos) {
@@ -539,52 +1038,110 @@
       state.selection = { start: pendingStart, end: pos };
       selectionMode = null;
       pendingStart = null;
+      if (!isReal(state.referenceIndex)) {
+        const vb = virtualBoard();
+        state.referenceIndex = vb.r0 * state.cols + vb.c0;
+      }
       saveState();
       updateSelectionUI();
+      labelCells();
       paintBoard();
       drawSelection();
       return;
     }
+    if (!isReal(pos)) return; // a piece can't stand on padding
     state.referenceIndex = pos;
-    refDisplay.textContent = displayedValue(pos);
     saveState();
     paintBoard();
   }
 
   function paintBoard() {
-    const total = state.rows * state.cols;
-    const group = getActiveGroup();
-    const targets = new Set();  // set of POSITIONS
+    const rows = computeTargets();
+    const hits = new Map();
+    rows.forEach(r => {
+      if (r.pos === null) return;
+      const h = hits.get(r.pos) || { ok: false, wrap: false, pad: false };
+      h[r.status] = true;
+      hits.set(r.pos, h);
+    });
 
     const refDisp = displayedValue(state.referenceIndex);
-
-    group.diffs.forEach(d => {
-      const n = parseDiffValue(d.value);
-      if (n === null) return;
-      const absN = Math.abs(n);
-      if (absN === 0) return;
-      const maxK = d.mul ? Math.ceil(total / absN) : 1;
-      for (let k = 1; k <= maxK; k++) {
-        const offs = [k * n];
-        if (d.neg) offs.push(-k * n);
-        offs.forEach(off => {
-          const targetDisp = refDisp + off;
-          if (targetDisp >= 0 && targetDisp < total) {
-            targets.add(positionFromDisplayed(targetDisp));
-          }
-        });
+    cells.forEach((cell, i) => {
+      cell.classList.remove('reference', 'target', 'wrap', 'dual', 'pad-hit', 'pending', 'hl');
+      parts[i].off.textContent = '';
+      cell.title = '';
+      if (i === pendingStart && selectionMode === 'waiting_end') {
+        cell.classList.add('pending');
+        return;
+      }
+      if (i === state.referenceIndex) {
+        cell.classList.add('reference');
+        cell.title = 'Reference';
+        return;
+      }
+      const h = hits.get(i);
+      if (!h) return;
+      const off = fmtSigned(displayedValue(i) - refDisp);
+      parts[i].off.textContent = off;
+      if (h.ok) {
+        cell.classList.add('target');
+        cell.title = off + ': legal';
+        if (h.wrap) {
+          cell.classList.add('dual');
+          cell.title += ', and also reached by a delta that wrapped';
+        }
+      } else if (h.wrap) {
+        cell.classList.add('wrap');
+        cell.title = off + ': wrong square, the delta wrapped around the edge';
+      } else if (h.pad) {
+        cell.classList.add('pad-hit');
+        cell.title = off + ': fell into padding, rejected';
       }
     });
 
-    cells.forEach((cell, i) => {
-      cell.classList.remove('reference', 'target', 'pending');
-      if (i === pendingStart && selectionMode === 'waiting_end') {
-        cell.classList.add('pending');
-      } else if (i === state.referenceIndex) {
-        cell.classList.add('reference');
-      } else if (targets.has(i)) {
-        cell.classList.add('target');
+    refDisplay.textContent = refLabel();
+    renderResults(rows);
+  }
+
+  function renderResults(rows) {
+    const group = getActiveGroup();
+    const counts = { ok: 0, wrap: 0, pad: 0, outside: 0 };
+    rows.forEach(r => { counts[r.status]++; });
+
+    const disp = displayedValue(state.referenceIndex);
+    const sq = sqName(state.referenceIndex);
+    const where = sq ? `<b>${sq}</b> (index ${disp})` : `index <b>${disp}</b>`;
+    const summary = [];
+    if (counts.ok)      summary.push(`${counts.ok} legal`);
+    if (counts.wrap)    summary.push(`<span class="bad-text">${counts.wrap} wrapped onto a wrong square</span>`);
+    if (counts.pad)     summary.push(`${counts.pad} fell into padding`);
+    if (counts.outside) summary.push(`${counts.outside} left the array`);
+    info.innerHTML = `<b>${esc(group.name)}</b> on ${where}: ` +
+      (summary.length ? summary.join(', ') + '.' : 'no deltas yet.');
+
+    resultsBody.innerHTML = '';
+    if (!rows.length) {
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td class="empty" colspan="4">Add a delta to the active group to see where it lands.</td>';
+      resultsBody.appendChild(tr);
+      return;
+    }
+    rows.forEach(r => {
+      const tr = document.createElement('tr');
+      tr.className = r.status;
+      const delta = fmtSigned(r.off) + (r.k > 1 ? `<span class="k">${r.k} × ${Math.abs(r.step)}</span>` : '');
+      const square = r.status === 'pad' ? 'padding' : (r.square || '—');
+      tr.innerHTML =
+        `<td>${delta}</td>` +
+        `<td>${fmtNum(r.index)}</td>` +
+        `<td>${square}</td>` +
+        `<td><span class="sw mini ${SW_CLASS[r.status]}"></span>${resultText(r)}</td>`;
+      if (r.pos !== null) {
+        const cell = cells[r.pos];
+        tr.addEventListener('mouseenter', () => cell.classList.add('hl'));
+        tr.addEventListener('mouseleave', () => cell.classList.remove('hl'));
       }
+      resultsBody.appendChild(tr);
     });
   }
 
@@ -592,24 +1149,14 @@
     const old = board.querySelector('.selection-overlay');
     if (old) old.remove();
 
-    const s = state.selection.start, e = state.selection.end;
-    if (s === null || e === null) return;
-
-    const r1 = Math.floor(s / state.cols);
-    const c1 = s % state.cols;
-    const r2 = Math.floor(e / state.cols);
-    const c2 = e % state.cols;
-
-    const minR = Math.min(r1, r2);
-    const maxR = Math.max(r1, r2);
-    const minC = Math.min(c1, c2);
-    const maxC = Math.max(c1, c2);
+    const vb = virtualBoard();
+    if (!vb) return;
 
     const cs = currentCellSize;
-    const left   = PAD + minC * (cs + GAP);
-    const top    = PAD + minR * (cs + GAP);
-    const width  = (maxC - minC + 1) * cs + (maxC - minC) * GAP;
-    const height = (maxR - minR + 1) * cs + (maxR - minR) * GAP;
+    const left   = PAD + vb.c0 * (cs + GAP);
+    const top    = PAD + vb.r0 * (cs + GAP);
+    const width  = (vb.c1 - vb.c0 + 1) * cs + (vb.c1 - vb.c0) * GAP;
+    const height = (vb.r1 - vb.r0 + 1) * cs + (vb.r1 - vb.r0) * GAP;
 
     const expand = 1;
     const overlay = document.createElement('div');
@@ -640,10 +1187,77 @@
     }
   }
 
-  function updateReverseUI() {
+  function updateToggleUI() {
     reverseToggle.checked = !!state.reversed;
     reverseCard.classList.toggle('on', !!state.reversed);
+    continueToggle.checked = !!state.continueRays;
+    continueCard.classList.toggle('on', !!state.continueRays);
   }
+
+  function updateTemplateUI() {
+    tplButtons.forEach(b => b.classList.toggle('active', b.dataset.t === state.template));
+    tplDesc.innerHTML = TEMPLATE_DESC[state.template];
+    const locked = state.template !== 'free';
+    rowsInput.disabled = locked;
+    colsInput.disabled = locked;
+    sizeNote.hidden = !locked;
+    selectBtn.disabled = locked;
+    clearSelBtn.disabled = locked;
+    restoreBtn.hidden = !locked;
+    rowsInput.value = state.rows;
+    colsInput.value = state.cols;
+  }
+
+  function refreshAll() {
+    selectionMode = null;
+    pendingStart = null;
+    updateTemplateUI();
+    buildBoard();
+    renderGroups();
+    renderDiffs();
+    updateSelectionUI();
+    updateToggleUI();
+  }
+
+  // ----- Board types -----
+  function switchTemplate(t) {
+    if (t === state.template || !(t in TEMPLATES)) return;
+    const prevSquare = sqName(state.referenceIndex);
+    const prevGroup = getActiveGroup();
+    const prevName = prevGroup ? prevGroup.name : null;
+
+    state.slots[state.template] = snapshot();
+    const base = t === 'free' ? freeSlot() : presetSlot(t);
+    const saved = state.slots[t] ? JSON.parse(JSON.stringify(state.slots[t])) : {};
+    Object.assign(state, base, saved);
+    state.template = t;
+    ensureValidState();
+
+    // Same square and same piece on the new board, so they can be compared
+    if (t !== 'free') {
+      const p = posFromSquare(prevSquare);
+      if (p !== null) state.referenceIndex = p;
+      const g = state.groups.find(x => x.name === prevName);
+      if (g) state.activeGroupId = g.id;
+    }
+    saveState();
+    refreshAll();
+  }
+
+  tplButtons.forEach(b => b.addEventListener('click', () => switchTemplate(b.dataset.t)));
+
+  restoreBtn.addEventListener('click', () => {
+    if (state.template === 'free') return;
+    if (!confirm('Reload the piece groups for this board type? Changes you made to them will be lost.')) return;
+    const name = getActiveGroup().name;
+    state.groups = pieceGroups(state.cols);
+    const g = state.groups.find(x => x.name === name);
+    state.activeGroupId = (g || state.groups[0]).id;
+    saveState();
+    renderGroups();
+    renderDiffs();
+    paintBoard();
+  });
 
   // ----- Groups -----
   function renderGroups() {
@@ -752,27 +1366,22 @@
   }
 
   // ----- Events -----
-  rowsInput.addEventListener('input', () => {
+  function onSizeInput() {
+    if (state.template !== 'free') return;
     const r = parseInt(rowsInput.value, 10);
-    if (!Number.isFinite(r) || r < 1) return;
-    state.rows = r;
-    saveState();
-    buildBoard();
-  });
-  colsInput.addEventListener('input', () => {
     const c = parseInt(colsInput.value, 10);
-    if (!Number.isFinite(c) || c < 1) return;
+    if (!Number.isFinite(r) || r < 1 || !Number.isFinite(c) || c < 1) return;
+    state.rows = r;
     state.cols = c;
+    ensureValidState();
     saveState();
     buildBoard();
-  });
+  }
+  rowsInput.addEventListener('input', onSizeInput);
+  colsInput.addEventListener('input', onSizeInput);
 
   addGroupBtn.addEventListener('click', () => {
-    const ng = {
-      id: genId(),
-      name: 'Group ' + (state.groups.length + 1),
-      diffs: [{ value: '', neg: false, mul: false }]
-    };
+    const ng = newGroup('Group ' + (state.groups.length + 1));
     state.groups.push(ng);
     state.activeGroupId = ng.id;
     saveState();
@@ -796,6 +1405,7 @@
     group.name = groupNameInput.value || 'Group';
     saveState();
     renderGroups();
+    paintBoard();
   });
 
   selectBtn.addEventListener('click', () => {
@@ -816,6 +1426,7 @@
     pendingStart = null;
     saveState();
     updateSelectionUI();
+    labelCells();
     paintBoard();
     drawSelection();
   });
@@ -832,36 +1443,40 @@
   reverseToggle.addEventListener('change', () => {
     state.reversed = reverseToggle.checked;
     saveState();
-    updateReverseUI();
-    // Re-label cells and re-compute targets, no need to rebuild grid
-    relabelCells();
+    updateToggleUI();
+    labelCells();
+    paintBoard();
+  });
+
+  continueToggle.addEventListener('change', () => {
+    state.continueRays = continueToggle.checked;
+    saveState();
+    updateToggleUI();
     paintBoard();
   });
 
   resetBtn.addEventListener('click', () => {
     if (!confirm('Delete all groups, deltas, the marked area and board settings?')) return;
-    try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(OLD_STORAGE_KEY);
+    } catch (e) {}
     state = defaultState();
     ensureValidState();
-    rowsInput.value = state.rows;
-    colsInput.value = state.cols;
-    selectionMode = null;
-    pendingStart = null;
-    buildBoard();
-    renderGroups();
-    renderDiffs();
-    updateSelectionUI();
-    updateReverseUI();
+    refreshAll();
+  });
+
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (computeCellSize() !== currentCellSize) buildBoard();
+    }, 150);
   });
 
   // ----- Init -----
-  rowsInput.value = state.rows;
-  colsInput.value = state.cols;
-  buildBoard();
-  renderGroups();
-  renderDiffs();
-  updateSelectionUI();
-  updateReverseUI();
+  ensureValidState();
+  refreshAll();
 })();
 </script>
 
