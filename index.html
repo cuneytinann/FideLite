@@ -152,6 +152,12 @@ if (FLOLD[location.hash.slice(1)]) {
   /* tehdit / sah sartrez, gecerlilik gri camgobegi */
   --cc-th:   light-dark(#4d7a00,  #b8f06a);
   --cc-lg:   light-dark(#2f5f5f,  #8fbcbc);
+  /* tas tanima akuamarin, hamle akisi kul rengi */
+  --cc-id:   light-dark(#00755f,  #6ee0c8);
+  --cc-fl:   light-dark(#5c4b3c,  #c9b8a8);
+  /* pozisyon (FEN) mavi-mor, oyun durumu soluk celik */
+  --cc-ps:   light-dark(#4b38c7,  #a99cff);
+  --cc-gs:   light-dark(#3f4a59,  #d6dde6);
   /* paketli surumler: siyaha yakin kahverengi. Koyu temada ayni koyu renk
      sicak bir isiltiyla okunur kaliyor. */
   --pk:      light-dark(#3a2214,  #2a170c);
@@ -251,7 +257,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --code-bg:#ffffff; --code-fg:#0d4f26; --code-ink:#16307a; --code-teal:#12595f; --code-tbl:#12595f; --code-glow:transparent;
     --hl-ui:#1f5fa8; --hl-html:#a3246b; --hl-bot:#8c4e0c; --hl-mix:#4c4e19;
     --pc-r:#8f1d13; --pc-n:#146a33; --pc-b:#6b3fa0; --pc-q:#7e5a05; --pc-k:#1f5fa8;
-    --pc-p:#0f6b70; --cc-n:#a3246b; --cc-o:#b3470b; --cc-e:#5b6e00; --cc-t:#44403c; --cc-r5:#3547b5; --cc-75:#7a5230; --cc-im:#a3123a; --cc-lk:#8a2fb3; --cc-mt:#b3001b; --cc-cl:#7a6400; --cc-ag:#0b6c94; --cc-tm:#3d5a7a; --cc-mm:#a14a1c; --cc-hs:#9d1fa8; --cc-hp:#5b4f73; --cc-th:#4d7a00; --cc-lg:#2f5f5f; --pk:#3a2214; --pk-glow:rgba(204,170,120,.55); --pk-acc:#3a2214;
+    --pc-p:#0f6b70; --cc-n:#a3246b; --cc-o:#b3470b; --cc-e:#5b6e00; --cc-t:#44403c; --cc-r5:#3547b5; --cc-75:#7a5230; --cc-im:#a3123a; --cc-lk:#8a2fb3; --cc-mt:#b3001b; --cc-cl:#7a6400; --cc-ag:#0b6c94; --cc-tm:#3d5a7a; --cc-mm:#a14a1c; --cc-hs:#9d1fa8; --cc-hp:#5b4f73; --cc-th:#4d7a00; --cc-lg:#2f5f5f; --cc-id:#00755f; --cc-fl:#5c4b3c; --cc-ps:#4b38c7; --cc-gs:#3f4a59; --pk:#3a2214; --pk-glow:rgba(204,170,120,.55); --pk-acc:#3a2214;
     --lg-knight:#fffdf6; --lg-rook:#93cfe0;
     --lg-bishop:#e0a3da; --lg-start:#0f1626; --lg-king:#8f1d13; --lg-pawn:#1a3970; --lg-chip:#fffdf6;
     --lux-a:#c99111; --lux-b:#8f6a06; --lux-hi:#ffd23f; --lux-glow:rgba(201,145,17,.40);
@@ -271,7 +277,7 @@ if (FLOLD[location.hash.slice(1)]) {
       --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-ink:#fff; --code-teal:#7fc9cf; --code-tbl:#fff; --code-glow:rgba(255,255,255,.42);
       --hl-ui:#86b6ef; --hl-html:#f08ccf; --hl-bot:#dfa250; --hl-mix:#9cb467;
       --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
-      --pc-p:#5fc3ca; --cc-n:#f08ccf; --cc-o:#ff9a4a; --cc-e:#cfe35a; --cc-t:#e7e5e4; --cc-r5:#8c9eff; --cc-75:#cfa57c; --cc-im:#ff6b8b; --cc-lk:#d68cff; --cc-mt:#ff4d4d; --cc-cl:#f2d24b; --cc-ag:#5fd4f5; --cc-tm:#9fb3c8; --cc-mm:#ffb38a; --cc-hs:#ea7cf5; --cc-hp:#a898c0; --cc-th:#b8f06a; --cc-lg:#8fbcbc; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
+      --pc-p:#5fc3ca; --cc-n:#f08ccf; --cc-o:#ff9a4a; --cc-e:#cfe35a; --cc-t:#e7e5e4; --cc-r5:#8c9eff; --cc-75:#cfa57c; --cc-im:#ff6b8b; --cc-lk:#d68cff; --cc-mt:#ff4d4d; --cc-cl:#f2d24b; --cc-ag:#5fd4f5; --cc-tm:#9fb3c8; --cc-mm:#ffb38a; --cc-hs:#ea7cf5; --cc-hp:#a898c0; --cc-th:#b8f06a; --cc-lg:#8fbcbc; --cc-id:#6ee0c8; --cc-fl:#c9b8a8; --cc-ps:#a99cff; --cc-gs:#d6dde6; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
       --lg-knight:#1c1714; --lg-rook:#7ab6c9;
       --lg-bishop:#c895c4; --lg-start:#ece3d8; --lg-king:#5c1a10; --lg-pawn:#1a3970; --lg-chip:#d7ccbd; --lux-a:#f5c518;
     --lux-b:#e0a21c; --lux-hi:#fff8d6; --lux-glow:rgba(255,210,70,.60);
@@ -292,7 +298,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-ink:#fff; --code-teal:#7fc9cf; --code-tbl:#fff; --code-glow:rgba(255,255,255,.42);
       --hl-ui:#86b6ef; --hl-html:#f08ccf; --hl-bot:#dfa250; --hl-mix:#9cb467;
     --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
-    --pc-p:#5fc3ca; --cc-n:#f08ccf; --cc-o:#ff9a4a; --cc-e:#cfe35a; --cc-t:#e7e5e4; --cc-r5:#8c9eff; --cc-75:#cfa57c; --cc-im:#ff6b8b; --cc-lk:#d68cff; --cc-mt:#ff4d4d; --cc-cl:#f2d24b; --cc-ag:#5fd4f5; --cc-tm:#9fb3c8; --cc-mm:#ffb38a; --cc-hs:#ea7cf5; --cc-hp:#a898c0; --cc-th:#b8f06a; --cc-lg:#8fbcbc; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
+    --pc-p:#5fc3ca; --cc-n:#f08ccf; --cc-o:#ff9a4a; --cc-e:#cfe35a; --cc-t:#e7e5e4; --cc-r5:#8c9eff; --cc-75:#cfa57c; --cc-im:#ff6b8b; --cc-lk:#d68cff; --cc-mt:#ff4d4d; --cc-cl:#f2d24b; --cc-ag:#5fd4f5; --cc-tm:#9fb3c8; --cc-mm:#ffb38a; --cc-hs:#ea7cf5; --cc-hp:#a898c0; --cc-th:#b8f06a; --cc-lg:#8fbcbc; --cc-id:#6ee0c8; --cc-fl:#c9b8a8; --cc-ps:#a99cff; --cc-gs:#d6dde6; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
     --lg-knight:#1c1714; --lg-rook:#7ab6c9;
     --lg-bishop:#c895c4; --lg-start:#ece3d8; --lg-king:#5c1a10; --lg-pawn:#1a3970; --lg-chip:#d7ccbd; --lux-a:#f5c518;
     --lux-b:#e0a21c; --lux-hi:#fff8d6; --lux-glow:rgba(255,210,70,.60);
@@ -16119,7 +16125,7 @@ var engKey = 'engine',
    terfi ayri kavramlar. Siralama taslarin kod sirasi: 2/3'ten 12/13'e; ardindan
    ozel hamleler. */
 var SLIDE = '(h*v?h==v:2)&P&&S()';
-var GEO = [['G=(i,f,T,P=b[i]>>1', 'i,f'], ['a=Math.abs', 'a=Math.abs'],
+var GEO = [['G=(i,f,T,P=b[i]>>1', 'G=('], ['G=(i,f,T,P=b[i]>>1', 'i,f'], ['a=Math.abs', 'a=Math.abs'],
            ['y=i>>3,h=', 'y=i>>3'], ['h=a(i%8-f%8)', 'h=a(i%8-f%8)'],
            ['v=a(y-(f>>3))', 'v=a(y-(f>>3))']],
     GEO_D = [['d=h|v', 'd=h|v']],
@@ -16136,6 +16142,56 @@ var ENGC = [
         ['b[N](10+s)', '[N]'],
         ['~L(x)[N](e)', '[N]'],
         ['!~b[N](u+g)', '[N]']] },
+  /* Durum iki katman. Pozisyon FEN'in bes alani: b tas yerlesimi, t sira, c rok haklari,
+     e gecerken alma karesi, n yarim hamle sayaci (tam hamle sayisi motorda yok). Surucu
+     bir pozisyondan baslamak icin tam bunlari yaziyor. Oyun durumu pozisyonda olmayan
+     ama oyunun tasidigi her sey: tekrar gecmisi (R, $), teklifler (o), saatler (U),
+     sonuc (z). Ikisi de yalniz baslangic bildirimlerini boyuyor; durumu degistiren
+     yerler kural bantlarinda ve hamle akisinda. Tekrar anahtari b+t+e+c, FEN'in
+     sayacsiz hali. */
+  { k: 'pos', c: 'var(--cc-ps)', tr: 'Pozisyon (FEN)', en: 'Position (FEN)',
+    s: [['b=[...`5d37b3d5', 'b=[...`5d37b3d5', ',z=n=o=0'],
+        [',t=1,b=', 't=1'],
+        ['c=15,U=', 'c=15'],
+        ['e=Y=-1', 'e=Y=-1'],
+        ['z=n=o=0', 'n'],
+        ['z=n=o=0', '=0']] },
+  { k: 'game', c: 'var(--cc-gs)', tr: 'Oyun durumu', en: 'Game state',
+    s: [['U=[600,600]', 'U=[600,600]'],
+        ['z=n=o=0', 'z'],
+        ['z=n=o=0', 'o'],
+        ['z=n=o=0', '=0'],
+        ['R={[b+t+e+c]:$=1}', 'R={[b+t+e+c]:$=1}']] },
+  /* Tas tanima: motorun koddan "hangi tas, kimin tasi" okudugu her yer. Tip >>1 ve
+     karsilastirmalarla, renk &1 ya da %2 ile okunuyor; birkac yerde kod dogrudan:
+     sahi bulan 10+s, karsi renk piyonu 17-p, terfide kodu kuran u*2+t, Im'deki
+     O(12)/O(8)/O(4), l'de kodlari bitboard adlarina dagitan yikim. Kayan taslarda &P
+     tipi yetenek biti olarak okuyor. Bos kare testleri (!b[i], b[f], !p) "tas var mi"
+     sorusu; hangi tas ya da kimin tasi degil, bu yuzden disarida. */
+  { k: 'ident', c: 'var(--cc-id)', tr: 'Taş tanıma', en: 'Piece identification',
+    s: [['G=(i,f,T,P=b[i]>>1', 'P=b[i]>>1'],
+        [')=>P>5?h*v==2', 'P>5?'],
+        ['==2:P>4?', 'P>4?'],
+        [':P>3?f<i', 'P>3?'],
+        ['f<i^b[i]&1&&', 'b[i]&1'],
+        [SLIDE, '&P'],
+        ['b[N](10+s)', '10+s'],
+        ['p&1^s&&G(i,u,1)', 'p&1^s'],
+        ['q=[],g=b[i]&1', 'g=b[i]&1'],
+        ['!p|p&1^g&&G(i,f)', 'p&1^g'],
+        ['P=p>>1==4,d', 'P=p>>1==4'],
+        ['d==2&p>9', 'p>9'],
+        ['b[x]==17-p', '17-p'],
+        ['P&f%56<8?u*2+t', 'u*2+t'],
+        ['p&&p%2^g&&(p<4?', 'p%2^g'],
+        ['p&&p%2^g&&(p<4?', 'p<4'],
+        ['W+=p<10?9:p>11', 'p<10?9:p>11'],
+        ['O=u=>!~b[N](u+g)', 'u+g'],
+        ['O(12)&O(8)&O(4)', 'O(12)&O(8)&O(4)'],
+        ["b.some((p,i)=>p%2==t&&L(i)+'')", 'p%2==t'],
+        ['b.every((p,i)=>p&1^t||L(i)', 'p&1^t'],
+        ['x&&p>>1^4|f%56>7', 'p>>1^4'],
+        ['[j,q,,,,,,,B,W,v,V,,,r]=h', '[j,q,,,,,,,B,W,v,V,,,r]=h']] },
   /* Her tas kendi kosulunu ve o kosulun dayandigi baslik geometrisini kokenine kadar
      boyuyor: G'nin i ve f parametreleri, a=Math.abs, y=i>>3, h ve v. d yalniz kullananlarda
      (sah, kayan taslar, piyon; at kullanmiyor), k ile S yuruyus isteyenlerde (kayan
@@ -16177,6 +16233,27 @@ var ENGC = [
          'L=(i,q=[],g=b[i]&1)=>b.map((p,f)=>!p|p&1^g&&G(i,f)&&(p=[b,e,n,c],M(i,f),V(g)||q.push(f),[b,e,n,c]=p))&&q'],
         ['&&!V(t)&&!V(t,i+k)&&S()', '&&!V(t)&&!V(t,i+k)'],
         ['&&~L(x)[N](e)', '&&~L(x)[N](e)']] },
+  /* Hamle akisi: hicbir kurala ait olmayan, hamleyi tasiyan iskelet. A'nin cercevesi
+     (M'yi cagir, sirayi cevir, Z'yi dondur), M'nin cercevesi ve basligindaki ortak
+     turetilmis degerler (p, P, d; u=3 terfinin, q rokla gecerken almanin), tahtanin
+     klonlanmasi, tasin hedefe konmasi ve cikis karesinin bosalmasi. Aradaki kural
+     parcalari (terfi, gecerken alma kurbani, sayac, rok) kendi bantlarinda. L'nin ve
+     H'nin deneme-geri alma donguleri gecerlilik ve aramanin. A'nin dondurdugu Z'nin
+     adi ve "oyun suruyor" cevabi (:0) da bu cercevenin parcasi. */
+  { k: 'flow', c: 'var(--cc-fl)', tr: 'Hamle akışı', en: 'Move flow',
+    s: [['A=(i,f,u)=>(M(i,f,u),t^=1,', 'A=(i,f,u)=>(M(i,f,u),t^=1,'],
+        ['-~R[s],Z()),D=', ',Z())'],
+        ['M=(i,f,u=3', 'M=(i,f,'],
+        ['p=b[i],P=p>>1==4,d=a(i-f)', 'p=b[i],P=p>>1==4,d=a(i-f)'],
+        ['q=i+f>>1)=>(c&=', ')=>('],
+        ['b=[...b],n=', 'b=[...b]'],
+        ['b[f]=P&f%56<8?u*2+t:p', 'b[f]='],
+        ['b[f]=P&f%56<8?u*2+t:p', ':p'],
+        ['b[i]=b[P&f==e?f^8:i]=0', 'b[i]=b['],
+        ['b[i]=b[P&f==e?f^8:i]=0', ']=0'],
+        [':Y),I=g=>', ')'],
+        ['Z=Q=>b.some', 'Z=Q=>'],
+        ['n>149?4:0:V(t)', ':0']] },
   /* Ozel hamleler: yalniz kurali, legalitesi degil. Rokta sahin sahta olmamasi ve
      gectigi karenin tehdit altinda olmamasi (!V(t), !V(t,i+k)) legalite; gecerken
      almada da yakalayan piyonun almayi gercekten yapabilmesi (~L(x)[N](e)).
@@ -16237,12 +16314,14 @@ var ENGC = [
   { k: 'claim', c: 'var(--cc-cl)', tr: '3R / 50 iddiası', en: '3R / 50 claim',
     s: [['D=g=>(o^=2-g,n>99?7:$>2?8', 'D=g=>'],
         ['D=g=>(o^=2-g,n>99?7:$>2?8', 'o^=2-g'],
-        ['D=g=>(o^=2-g,n>99?7:$>2?8', 'n>99?7:$>2?8']] },
+        ['D=g=>(o^=2-g,n>99?7:$>2?8', 'n>99?7:$>2?8'],
+        ['o>2?9:Z())', ':Z())']] },
   { k: 'agree', c: 'var(--cc-ag)', tr: 'Anlaşmalı beraberlik', en: 'Draw by agreement',
     s: [['z=n=o=0', 'o'],
         ['D=g=>(o^=2-g', 'D=g=>'],
         ['D=g=>(o^=2-g', 'o^=2-g'],
-        ['o>2?9', 'o>2?9']] },
+        ['o>2?9', 'o>2?9'],
+        ['o>2?9:Z())', ':Z())']] },
   /* Sure ve terk tek ifade: k sureyi terkten, g tarafi ayiriyor; motor saati saymiyor,
      U yalniz surucu icin tasiniyor. Istisnasi rakibin mat edip edemeyecegi: olu
      pozisyondaki I / l ayriminin aynasi olarak materyal kolu (Im) ile arama (H) iki
