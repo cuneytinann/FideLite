@@ -128,6 +128,17 @@ if (FLOLD[location.hash.slice(1)]) {
   /* motor kaynagindaki at bandi: --pc-n kodun kendi yesiliyle ayni tonda, bant
      orada kaybolurdu. Kod kuyusunda yalniz at icin ayri bir ton. */
   --cc-n:    light-dark(#a3246b,  #f08ccf);
+  /* ozel hamle bantlari: rok turuncu, gecerken alma limon, terfi gumus. Alti tasin
+     tonlarindan ve kodun yesilinden ayri kalsinlar diye. */
+  --cc-o:    light-dark(#b3470b,  #ff9a4a);
+  --cc-e:    light-dark(#5b6e00,  #cfe35a);
+  --cc-t:    light-dark(#44403c,  #e7e5e4);
+  /* kendiliginden bitenler: tekrar civit, 75 hamle taba, yetersiz materyal gul,
+     kilitli pozisyon orkide. */
+  --cc-r5:   light-dark(#3547b5,  #8c9eff);
+  --cc-75:   light-dark(#7a5230,  #cfa57c);
+  --cc-im:   light-dark(#a3123a,  #ff6b8b);
+  --cc-lk:   light-dark(#8a2fb3,  #d68cff);
   /* paketli surumler: siyaha yakin kahverengi. Koyu temada ayni koyu renk
      sicak bir isiltiyla okunur kaliyor. */
   --pk:      light-dark(#3a2214,  #2a170c);
@@ -227,7 +238,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --code-bg:#ffffff; --code-fg:#0d4f26; --code-ink:#16307a; --code-teal:#12595f; --code-tbl:#12595f; --code-glow:transparent;
     --hl-ui:#1f5fa8; --hl-html:#a3246b; --hl-bot:#8c4e0c; --hl-mix:#4c4e19;
     --pc-r:#8f1d13; --pc-n:#146a33; --pc-b:#6b3fa0; --pc-q:#7e5a05; --pc-k:#1f5fa8;
-    --pc-p:#0f6b70; --cc-n:#a3246b; --pk:#3a2214; --pk-glow:rgba(204,170,120,.55); --pk-acc:#3a2214;
+    --pc-p:#0f6b70; --cc-n:#a3246b; --cc-o:#b3470b; --cc-e:#5b6e00; --cc-t:#44403c; --cc-r5:#3547b5; --cc-75:#7a5230; --cc-im:#a3123a; --cc-lk:#8a2fb3; --pk:#3a2214; --pk-glow:rgba(204,170,120,.55); --pk-acc:#3a2214;
     --lg-knight:#fffdf6; --lg-rook:#93cfe0;
     --lg-bishop:#e0a3da; --lg-start:#0f1626; --lg-king:#8f1d13; --lg-pawn:#1a3970; --lg-chip:#fffdf6;
     --lux-a:#c99111; --lux-b:#8f6a06; --lux-hi:#ffd23f; --lux-glow:rgba(201,145,17,.40);
@@ -247,7 +258,7 @@ if (FLOLD[location.hash.slice(1)]) {
       --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-ink:#fff; --code-teal:#7fc9cf; --code-tbl:#fff; --code-glow:rgba(255,255,255,.42);
       --hl-ui:#86b6ef; --hl-html:#f08ccf; --hl-bot:#dfa250; --hl-mix:#9cb467;
       --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
-      --pc-p:#5fc3ca; --cc-n:#f08ccf; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
+      --pc-p:#5fc3ca; --cc-n:#f08ccf; --cc-o:#ff9a4a; --cc-e:#cfe35a; --cc-t:#e7e5e4; --cc-r5:#8c9eff; --cc-75:#cfa57c; --cc-im:#ff6b8b; --cc-lk:#d68cff; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
       --lg-knight:#1c1714; --lg-rook:#7ab6c9;
       --lg-bishop:#c895c4; --lg-start:#ece3d8; --lg-king:#5c1a10; --lg-pawn:#1a3970; --lg-chip:#d7ccbd; --lux-a:#f5c518;
     --lux-b:#e0a21c; --lux-hi:#fff8d6; --lux-glow:rgba(255,210,70,.60);
@@ -268,7 +279,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-ink:#fff; --code-teal:#7fc9cf; --code-tbl:#fff; --code-glow:rgba(255,255,255,.42);
       --hl-ui:#86b6ef; --hl-html:#f08ccf; --hl-bot:#dfa250; --hl-mix:#9cb467;
     --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
-    --pc-p:#5fc3ca; --cc-n:#f08ccf; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
+    --pc-p:#5fc3ca; --cc-n:#f08ccf; --cc-o:#ff9a4a; --cc-e:#cfe35a; --cc-t:#e7e5e4; --cc-r5:#8c9eff; --cc-75:#cfa57c; --cc-im:#ff6b8b; --cc-lk:#d68cff; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
     --lg-knight:#1c1714; --lg-rook:#7ab6c9;
     --lg-bishop:#c895c4; --lg-start:#ece3d8; --lg-king:#5c1a10; --lg-pawn:#1a3970; --lg-chip:#d7ccbd; --lux-a:#f5c518;
     --lux-b:#e0a21c; --lux-hi:#fff8d6; --lux-glow:rgba(255,210,70,.60);
@@ -16089,12 +16100,14 @@ var engKey = 'engine',
    capa kaynakta tam bir kez gecmeli, boyanan da capanin icindeki ilk eslesme. Boylece
    ayni parca kodda birkac kez gecse de (&&S() gibi) dogru yere oturur. Capa bulunmaz
    ya da birden fazla eslesirse kavram bos kalir ve konsola uyari duser.
+   Ucuncu eleman 1 ise aralik capadan dosyanin sonuna kadar uzanir (l, son bildirim).
    Taslar yalnizca geometri: tip dagitimi (P>5? ...), legalite, rok, gecerken alma ve
-   terfi ayri kavramlar. Siralama taslarin kod sirasi: 2/3'ten 12/13'e. */
+   terfi ayri kavramlar. Siralama taslarin kod sirasi: 2/3'ten 12/13'e; ardindan
+   ozel hamleler. */
 var SLIDE = '(h*v?h==v:2)&P&&S()';
 var ENGC = [
   { k: 'bishop', c: 'var(--pc-b)', tr: 'Fil', en: 'Bishop', v: '2/3',
-    s: [[SLIDE, '(h*v?h==v'], [SLIDE, ')&P&&S()']] },
+    s: [[SLIDE, 'h==v'], [SLIDE, '&P&&S()']] },
   { k: 'rook', c: 'var(--pc-r)', tr: 'Kale', en: 'Rook', v: '4/5',
     s: [[SLIDE, '(h*v'], [SLIDE, ':2)&P&&S()']] },
   { k: 'queen', c: 'var(--pc-q)', tr: 'Vezir', en: 'Queen', v: '6/7',
@@ -16106,7 +16119,53 @@ var ENGC = [
   { k: 'king', c: 'var(--pc-k)', tr: 'Şah', en: 'King', v: '10/11',
     s: [['h^2?d<2', 'd<2']] },
   { k: 'knight', c: 'var(--cc-n)', tr: 'At', en: 'Knight', v: '12/13',
-    s: [['P>5?h*v==2', 'h*v==2']] }
+    s: [['P>5?h*v==2', 'h*v==2']] },
+  /* Ozel hamleler: yalniz kurali, legalitesi degil. Rokta sahin sahta olmamasi ve
+     gectigi karenin tehdit altinda olmamasi (!V(t), !V(t,i+k)) legalite; gecerken
+     almada da yakalayan piyonun almayi gercekten yapabilmesi (~L(x)[N](e)).
+     q=i+f>>1 hem rokun hem gecerken almanin: kalenin indigi kare, atlanan kare. */
+  { k: 'castle', c: 'var(--cc-o)', tr: 'Rok', en: 'Castling',
+    s: [['c=15,U=', 'c=15'],
+        ["C=i=>'20003001'[i%56]<<i/28", "C=i=>'20003001'[i%56]<<i/28"],
+        ['T|v|h^2?d<2:c&C(f+=1.5*k-.5)', 'T|v|h^2?'],
+        ['T|v|h^2?d<2:c&C(f+=1.5*k-.5)', ':c&C(f+=1.5*k-.5)'],
+        ['!V(t,i+k)&&S()', '&&S()'],
+        ['q=i+f>>1', 'q=i+f>>1'],
+        ['c&=~C(i)&~C(f)', 'c&=~C(i)&~C(f)'],
+        ['d==2&p>9&&(b[q]=b[r=f>i?i+3:i-4],b[r]=0)', 'd==2&p>9&&(b[q]=b[r=f>i?i+3:i-4],b[r]=0)']] },
+  { k: 'ep', c: 'var(--cc-e)', tr: 'Geçerken alma', en: 'En passant',
+    s: [['e=Y=-1', 'e=Y=-1'],
+        ['h*v==1?x|f==e', '|f==e'],
+        ['q=i+f>>1', 'q=i+f>>1'],
+        ['b[P&f==e?f^8:i]', 'P&f==e?f^8:i'],
+        ['e=P&d>9&&[f-1,f+1,e=q].some(x=>b[x]==17-p', 'e=P&d>9&&[f-1,f+1,e=q].some(x=>b[x]==17-p'],
+        [')?e:Y', ')?e:Y']] },
+  { k: 'promo', c: 'var(--cc-t)', tr: 'Terfi', en: 'Promotion',
+    s: [['u=3,p=b[i]', 'u=3'],
+        ['P&f%56<8?u*2+t:p', 'P&f%56<8?u*2+t']] },
+  /* Kendiliginden bitenler: yalnizca otomatik esikler ($>4, n>149), talepler (D'deki
+     $>2, n>99) degil. Tekrarda gecerken almanin legalite testi de boyali: anahtardaki
+     e ancak alma gercekten yapilabiliyorsa yaziliyor, sayim buna dayaniyor.
+     Olu pozisyonun iki yolu Z'de tek sonuca (6) cikiyor; ?6 ikisinde de boyali.
+     H'nin icindeki kullanimlar (n>149, l()) 6.9 kavramina kaliyor. */
+  { k: 'rep5', c: 'var(--cc-r5)', tr: 'Beşli tekrar', en: 'Fivefold repetition',
+    s: [['R={[b+t+e+c]:$=1}', 'R={[b+t+e+c]:$=1}'],
+        ['&&~L(x)[N](e)', '&&~L(x)[N](e)'],
+        ['$=R[s=b+t+e+c]=-~R[s]', '$=R[s=b+t+e+c]=-~R[s]'],
+        ['$>4?5:n>149?4', '$>4?5']] },
+  { k: 'm75', c: 'var(--cc-75)', tr: '75 hamle', en: '75-move rule',
+    s: [['z=n=o=0', 'n'],
+        ['n=P|b[f]?0:n+1', 'n=P|b[f]?0:n+1'],
+        ['$>4?5:n>149?4', 'n>149?4']] },
+  { k: 'im', c: 'var(--cc-im)', tr: 'Yetersiz materyal', en: 'Insufficient material',
+    s: [['I=g=>(m=W=0,b.map((p,i)=>p&&p%2^g&&(p<4?m|=1<<i*9/8%2:W+=p<10?9:p>11)),W*2+m<3)',
+         'I=g=>(m=W=0,b.map((p,i)=>p&&p%2^g&&(p<4?m|=1<<i*9/8%2:W+=p<10?9:p>11)),W*2+m<3)'],
+        ['I(2)|l()?6', 'I(2)'],
+        ['I(2)|l()?6', '?6']] },
+  { k: 'lock', c: 'var(--cc-lk)', tr: 'Kilitli pozisyon', en: 'Blocked position',
+    s: [['l=(f=2n**64n-1n', '', 1],
+        ['I(2)|l()?6', 'l()'],
+        ['I(2)|l()?6', '?6']] }
 ];
 var engC = null,
     engFoot = document.getElementById('engfoot');
@@ -16119,7 +16178,7 @@ function engSpans(src, con) {
       if (window.console) console.warn('engine kavrami eslesmedi: ' + con.k + ' <' + x[0] + '>');
       return;
     }
-    out.push([a + j, a + j + x[1].length]);
+    out.push([a + j, x[2] ? src.replace(/\s+$/, '').length : a + j + x[1].length]);
   });
   return out.sort(function (p, q) { return p[0] - q[0]; });
 }
@@ -16148,7 +16207,7 @@ function engChips() {
   engFoot.innerHTML = ENGC.map(function (x) {
     return '<button type="button" class="cc" data-k="' + x.k + '" style="--c:' + x.c + '"' +
       ' aria-pressed="' + (x.k === engC && !off ? 'true' : 'false') + '"' + (off ? ' disabled' : '') + '>' +
-      (tr ? x.tr : x.en) + ' <span class="cv">(' + x.v + ')</span></button>';
+      (tr ? x.tr : x.en) + (x.v ? ' <span class="cv">(' + x.v + ')</span>' : '') + '</button>';
   }).join('');
 }
 engFoot.addEventListener('click', function (ev) {
