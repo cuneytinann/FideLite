@@ -61,12 +61,13 @@ it. The `.cjs` builds run in a terminal with `node`.
 **Eleven front ends carry the full arbiter.** `L3` and `L3_light` are played by clicking;
 `numerical`, `prompt`, `prompt_blindfold`, `input`, `input_blindfold`, `prompt_string`,
 `prompt_string_flip` and two terminal builds take moves as text. The rules are identical in all
-eleven. `L1` and `L2` vary the *rules* instead of the interface; each has its own set of front
-ends and a build with a bot, and both sit outside the claim. `builds/special/` holds what fits no level: the builds of five sibling projects, each with a
-repository of its own — [lichess-equivalent](https://github.com/cuneytinann/lichess-equivalent), [chesscom-equivalent](https://github.com/cuneytinann/chesscom-equivalent),
-[ChessMiniature](https://github.com/cuneytinann/ChessMiniature), [chessinbytes](https://github.com/cuneytinann/chessinbytes) and [Chess-LUX](https://github.com/cuneytinann/Chess-LUX) — and Toledo's program. The two
-packed `L3` builds live there too; they are `L3` itself, but open under *special* because their
-unpacker relies on `with` and `eval`.
+eleven. The two packed forms, [`L3_packed`](builds/L3_packed.html) and
+[`L3_numerical_packed`](builds/L3_numerical_packed.html), are `L3` itself; their unpacker relies on
+`with` and `eval`. `L1` and `L2` vary the *rules* instead of the interface; each has its own set of
+front ends, and both sit outside the claim. `builds/special/` holds what sits off the ladder: the
+builds of five sibling projects, each with a repository of its own ([lichess-equivalent](https://github.com/cuneytinann/lichess-equivalent), [chesscom-equivalent](https://github.com/cuneytinann/chesscom-equivalent),
+[ChessMiniature](https://github.com/cuneytinann/ChessMiniature), [chessinbytes](https://github.com/cuneytinann/chessinbytes) and [Chess-LUX](https://github.com/cuneytinann/Chess-LUX)); the bot builds of `L1` and `L2`,
+`L1_1250elo` and `L2_aybars_2500`; and Toledo's program with the bot written against it.
 [Details.](https://www.fidelite.art/#builds)
 
 ## Detailed documentation
@@ -79,11 +80,11 @@ Everything below is on the site, in English and Turkish.
 | Dead position — 5.2.2 and its two branches | [/#dead](https://www.fidelite.art/#dead) |
 | Resignation and flag fall — 5.1.2 and 6.9 | [/#flag](https://www.fidelite.art/#flag) |
 | A proposed hybrid ruleset — FIDE and USCF combined | [/#hybrid](https://www.fidelite.art/#hybrid) |
-| The builds — two axes and the `L3` family | [/#builds](https://www.fidelite.art/#builds) |
-| How the main-axis builds are played | [/#gameplay](https://www.fidelite.art/#gameplay) |
+| The builds — three axes (interface, rules, bot) and the `L3` family | [/#builds](https://www.fidelite.art/#builds) |
+| How the `L3` builds are played | [/#gameplay](https://www.fidelite.art/#gameplay) |
 | The fifteen result codes | [/#codes](https://www.fidelite.art/#codes) |
-| `L1` and `L2` — the rules axis | [/#levels](https://www.fidelite.art/#levels) |
-| Special builds — five sibling projects and Toledo | [/#special](https://www.fidelite.art/#special) |
+| `L1` and `L2` — the lower rule levels | [/#levels](https://www.fidelite.art/#levels) |
+| Off the ladder — sibling projects, bots and Toledo | [/#special](https://www.fidelite.art/#special) |
 | Engine structure, board representation, driver API | [/#engine](https://www.fidelite.art/#engine) |
 | Line-by-line source analysis | [/#flow](https://www.fidelite.art/#flow) |
 | The pipeline of endings — which result wins when two coincide | [/#endings](https://www.fidelite.art/#endings) |
@@ -173,13 +174,14 @@ tıklamak yeterli. `.cjs` sürümleri terminalde `node` ile koşar.
 
 **On bir önyüz tam hakemi taşıyor.** `L3` ve `L3_light` tıklanarak oynanır; `numerical`,
 `prompt`, `prompt_blindfold`, `input`, `input_blindfold`, `prompt_string`, `prompt_string_flip` ve
-iki terminal sürümü hamleyi metin olarak alır. Kurallar on birinde de aynıdır. `L1` ve `L2`
-arayüzü değil *kuralları* değiştirir; her birinin kendi önyüzleri ve botlu bir sürümü var, ikisi de
-iddianın dışındadır. `builds/special/` hiçbir seviyeye girmeyenleri tutar: her birinin kendi deposu olan beş kardeş projenin
-sürümleri — [lichess-equivalent](https://github.com/cuneytinann/lichess-equivalent), [chesscom-equivalent](https://github.com/cuneytinann/chesscom-equivalent), [ChessMiniature](https://github.com/cuneytinann/ChessMiniature),
-[chessinbytes](https://github.com/cuneytinann/chessinbytes) ve [Chess-LUX](https://github.com/cuneytinann/Chess-LUX) — ve Toledo'nun programı. Paketli iki `L3` sürümü de
-orada; kural seviyeleri `L3`, ama açıcıları `with` ve `eval`'e dayandığı için *special*
-altından açılıyorlar.
+iki terminal sürümü hamleyi metin olarak alır. Kurallar on birinde de aynıdır. Paketli iki hâl,
+[`L3_packed`](builds/L3_packed.html) ve [`L3_numerical_packed`](builds/L3_numerical_packed.html),
+`L3`'ün kendisi; açıcıları `with` ve `eval`'e dayanıyor. `L1` ve `L2` arayüzü değil *kuralları*
+değiştirir; her birinin kendi önyüzleri var, ikisi de iddianın dışındadır. `builds/special/`
+merdivenin dışında kalanları tutar: her birinin kendi deposu olan beş kardeş projenin sürümleri
+([lichess-equivalent](https://github.com/cuneytinann/lichess-equivalent), [chesscom-equivalent](https://github.com/cuneytinann/chesscom-equivalent), [ChessMiniature](https://github.com/cuneytinann/ChessMiniature),
+[chessinbytes](https://github.com/cuneytinann/chessinbytes) ve [Chess-LUX](https://github.com/cuneytinann/Chess-LUX)); `L1` ve `L2`'nin botlu sürümleri,
+`L1_1250elo` ile `L2_aybars_2500`; ve Toledo'nun programıyla ona karşı yazılan bot.
 [Ayrıntı.](https://www.fidelite.art/tr#builds)
 
 ## Ayrıntılı belge
@@ -192,11 +194,11 @@ Aşağıdakilerin hepsi sitede, Türkçe ve İngilizce.
 | Ölü pozisyon — 5.2.2 ve iki kolu | [/tr#dead](https://www.fidelite.art/tr#dead) |
 | Terk ve süre bitimi — 5.1.2 ve 6.9 | [/tr#flag](https://www.fidelite.art/tr#flag) |
 | Önerilen karma sistem — FIDE ve USCF'nin birleşimi | [/tr#hybrid](https://www.fidelite.art/tr#hybrid) |
-| Varyantlar — iki eksen ve `L3` ailesi | [/tr#builds](https://www.fidelite.art/tr#builds) |
-| Asıl eksen varyantları nasıl oynanır | [/tr#gameplay](https://www.fidelite.art/tr#gameplay) |
+| Varyantlar — üç eksen (arayüz, kural, bot) ve `L3` ailesi | [/tr#builds](https://www.fidelite.art/tr#builds) |
+| `L3` sürümleri nasıl oynanır | [/tr#gameplay](https://www.fidelite.art/tr#gameplay) |
 | On beş sonuç kodu | [/tr#codes](https://www.fidelite.art/tr#codes) |
-| `L1` ve `L2` — kural ekseni | [/tr#levels](https://www.fidelite.art/tr#levels) |
-| Özel sürümler — beş kardeş proje ve Toledo | [/tr#special](https://www.fidelite.art/tr#special) |
+| `L1` ve `L2` — alt kural seviyeleri | [/tr#levels](https://www.fidelite.art/tr#levels) |
+| Merdivenin dışında — kardeş projeler, botlar ve Toledo | [/tr#special](https://www.fidelite.art/tr#special) |
 | Motorun yapısı, tahta temsili, sürücü API'si | [/tr#engine](https://www.fidelite.art/tr#engine) |
 | Satır satır kaynak çözümlemesi | [/tr#flow](https://www.fidelite.art/tr#flow) |
 | Bitişin boru hattı — iki sonuç çakışınca hangisi kazanır | [/tr#endings](https://www.fidelite.art/tr#endings) |

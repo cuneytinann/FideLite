@@ -125,6 +125,9 @@ if (FLOLD[location.hash.slice(1)]) {
   --pc-q:    light-dark(#7e5a05,  #e8b641);
   --pc-k:    light-dark(#1f5fa8,  #86b6ef);
   --pc-p:    light-dark(#0f6b70,  #5fc3ca);
+  /* motor kaynagindaki at bandi: --pc-n kodun kendi yesiliyle ayni tonda, bant
+     orada kaybolurdu. Kod kuyusunda yalniz at icin ayri bir ton. */
+  --cc-n:    light-dark(#a3246b,  #f08ccf);
   /* paketli surumler: siyaha yakin kahverengi. Koyu temada ayni koyu renk
      sicak bir isiltiyla okunur kaliyor. */
   --pk:      light-dark(#3a2214,  #2a170c);
@@ -224,7 +227,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --code-bg:#ffffff; --code-fg:#0d4f26; --code-ink:#16307a; --code-teal:#12595f; --code-tbl:#12595f; --code-glow:transparent;
     --hl-ui:#1f5fa8; --hl-html:#a3246b; --hl-bot:#8c4e0c; --hl-mix:#4c4e19;
     --pc-r:#8f1d13; --pc-n:#146a33; --pc-b:#6b3fa0; --pc-q:#7e5a05; --pc-k:#1f5fa8;
-    --pc-p:#0f6b70; --pk:#3a2214; --pk-glow:rgba(204,170,120,.55); --pk-acc:#3a2214;
+    --pc-p:#0f6b70; --cc-n:#a3246b; --pk:#3a2214; --pk-glow:rgba(204,170,120,.55); --pk-acc:#3a2214;
     --lg-knight:#fffdf6; --lg-rook:#93cfe0;
     --lg-bishop:#e0a3da; --lg-start:#0f1626; --lg-king:#8f1d13; --lg-pawn:#1a3970; --lg-chip:#fffdf6;
     --lux-a:#c99111; --lux-b:#8f6a06; --lux-hi:#ffd23f; --lux-glow:rgba(201,145,17,.40);
@@ -244,7 +247,7 @@ if (FLOLD[location.hash.slice(1)]) {
       --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-ink:#fff; --code-teal:#7fc9cf; --code-tbl:#fff; --code-glow:rgba(255,255,255,.42);
       --hl-ui:#86b6ef; --hl-html:#f08ccf; --hl-bot:#dfa250; --hl-mix:#9cb467;
       --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
-      --pc-p:#5fc3ca; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
+      --pc-p:#5fc3ca; --cc-n:#f08ccf; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
       --lg-knight:#1c1714; --lg-rook:#7ab6c9;
       --lg-bishop:#c895c4; --lg-start:#ece3d8; --lg-king:#5c1a10; --lg-pawn:#1a3970; --lg-chip:#d7ccbd; --lux-a:#f5c518;
     --lux-b:#e0a21c; --lux-hi:#fff8d6; --lux-glow:rgba(255,210,70,.60);
@@ -265,7 +268,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-ink:#fff; --code-teal:#7fc9cf; --code-tbl:#fff; --code-glow:rgba(255,255,255,.42);
       --hl-ui:#86b6ef; --hl-html:#f08ccf; --hl-bot:#dfa250; --hl-mix:#9cb467;
     --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
-    --pc-p:#5fc3ca; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
+    --pc-p:#5fc3ca; --cc-n:#f08ccf; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
     --lg-knight:#1c1714; --lg-rook:#7ab6c9;
     --lg-bishop:#c895c4; --lg-start:#ece3d8; --lg-king:#5c1a10; --lg-pawn:#1a3970; --lg-chip:#d7ccbd; --lux-a:#f5c518;
     --lux-b:#e0a21c; --lux-hi:#fff8d6; --lux-glow:rgba(255,210,70,.60);
@@ -970,6 +973,27 @@ h3 + .layer, h4 + .layer, h3 + .layer + .layer, h4 + .layer + .layer { margin-to
   padding:.7rem 1rem; border-bottom:1px solid var(--rule); background:var(--panel);
   font-family:var(--mono); font-size:.75rem; color:var(--ink-2) }
 .srchead .fn { color:var(--ink); font-weight:500 }
+/* Kod kuyusunun alt bandi: basligin aynasi. Ayni zemin, ayni cizgi, ayni yukseklik;
+   bos dururken de cerceveyi kapatiyor. Motor kaynaginin kavram cipleri burada duracak. */
+.srcfoot { display:flex; flex-wrap:wrap; gap:.5rem; align-items:center;
+  padding:.7rem 1rem; border-top:1px solid var(--rule); background:var(--panel);
+  font-family:var(--mono); font-size:.75rem; color:var(--ink-2);
+  min-height:calc(3.3125rem + 3px) }
+/* Motor kaynagi kaydirma cubugu acmiyor: blok, kod ne kadar uzunsa o kadar uzun.
+   Satirlar zaten kiriliyor (pre-wrap + overflow-wrap:anywhere), yatayda da tasmiyor. */
+#engsrc { max-height:none; overflow:visible }
+/* Kavram cipleri ust banttaki dugmelerin govdesini tasiyor; rengi --c'den. Basili
+   olan dolgun, digerleri yalniz cerceve. Kaynakta ayni --c ile boyali araliklar. */
+.srcfoot .cc { color:var(--c); background:transparent;
+  border-color:color-mix(in srgb, var(--c) 55%, transparent) }
+.srcfoot .cc:hover { background:color-mix(in srgb, var(--c) 12%, transparent) }
+.srcfoot .cc[aria-pressed="true"] { background:color-mix(in srgb, var(--c) 24%, transparent);
+  border-color:var(--c) }
+.srcfoot .cc .cv { opacity:.72 }
+.srcfoot .cc[disabled] { opacity:.38 }
+pre.src .cpt { color:var(--c); background:color-mix(in srgb, var(--c) 18%, transparent);
+  box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--c) 55%, transparent);
+  -webkit-box-decoration-break:clone; box-decoration-break:clone }
 /* Fosfor terminali: acikta bembeyaz kagit uzerine koyu yesil, koyuda simsiyah
    uzerine acik yesil. Sayfanin sicak kremi ikisinde de disarida kaliyor, blok
    boylece sayfadan tamamen ayriliyor. Sol serit .snip ile ayni altin. */
@@ -7521,7 +7545,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       birebir aynı — her derinlikte aynı hamleler, aynı düğüm sayıları, aynı sonuç kodları.
       Farkın nereden geldiği ve ölçümleri <a href="#speed">ayrı bir başlıkta</a>.</p>
       <p><b>string</b> anahtarı üçüncüsünü getiriyor: <code>engine_string.js</code>,
-      <b>1.933 bayt</b> — tahtayı sayı yerine FEN harfleriyle tutan önceki nesil. Burada yalnızca gösterim için duruyor; anlatımı <a href=\"#letters\">ayrı bir başlıkta</a>.</p>
+      <b>1.933 bayt</b> — tahtayı sayı yerine FEN harfleriyle tutan önceki nesil. Burada yalnızca gösterim için duruyor; anlatımı <a href="#letters">ayrı bir başlıkta</a>.</p>
 
       <p>Dosyanın tamamı <b>yirmi iki bildirim</b>: yedisi başlangıç durumu, ikisi takma ad,
       on üçü fonksiyon. Bunlara bildirim içinde doğan altı isim — <code>n</code>, <code>o</code>,
@@ -7562,7 +7586,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       differently, and the measurements behind it, are <a href="#speed">under a separate
       heading</a>.</p>
       <p>The <b>string</b> switch brings up the third: <code>engine_string.js</code>,
-      <b>1,933 bytes</b> — the previous generation, which holds the board as FEN letters rather than numbers. It is here for display only; <a href=\"#letters\">a separate heading</a> covers it.</p>
+      <b>1,933 bytes</b> — the previous generation, which holds the board as FEN letters rather than numbers. It is here for display only; <a href="#letters">a separate heading</a> covers it.</p>
 
       <p>The whole file is <b>twenty-two declarations</b>: seven of initial state, two aliases and
       thirteen functions. To those add six names born inside a declaration — <code>n</code>,
@@ -7610,6 +7634,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
         </span>
       </div>
       <pre class="src" id="engsrc"></pre>
+      <div class="srcfoot" id="engfoot"></div>
     </div>
 
     <h3 lang="tr">Sürücü yazmak için altı çağrı</h3>
@@ -7625,7 +7650,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       for the ways a game can end away from the board.</p>
     </div>
     <dl class="api" lang="tr">
-      <dt>L(kare)</dt><dd>Kare bir <a href="#board">0–63 indeksi</a>. O karedeki taşın <b>geçerli</b> varış karelerinin dizisi — şahı açıkta bırakan hamleler zaten elenmiş hâlde. Boş dizi: o taş oynayamıyor.</dd>
+      <dt>L(kare)</dt><dd>Kare bir <a href="#board">0–63 indeksi</a>. O karedeki taşın <b>geçerli</b> varış karelerinin dizisi — şahı açıkta bırakan hamleler zaten elenmiş hâlde. Boş dizi: o taş oynayamıyor. Taş sırası gelen tarafın olmalı: öbür tarafın şahı için rok testi yanlış şaha bakar, o şahın kendi kalesi ya da veziri geçilen karedeyse de <a href="#pitfalls">yürüyüş bitmez</a>.</dd>
       <dt>A(başlangıç, varış, terfi)</dt><dd>Hamleyi gerçekten oynar: rok haklarını günceller, sırayı çevirir, tekrar tablosuna yazar ve <a href="#codes">sonuç kodunu</a> döndürür. Terfi türü <code>1</code> fil, <code>2</code> kale, <code>3</code> vezir, <code>6</code> at; verilmezse vezir.</dd>
       <dt>Z()</dt><dd>Yalnızca pozisyondan doğan <a href="#codes">sonuç</a>: mat, pat, ölü pozisyon, beşli tekrar, 75 hamle. Oyun sürerken <code>0</code>. <code>A</code> zaten dönüşünde bunu çağırır; ayrıca çağırmak gerekmez.</dd>
       <dt>D(taraf)</dt><dd>O taraf beraberlik teklif eder ya da bekleyen teklifi kabul eder; talebe bağlı beraberlikleri de burada döner. Argümansız <code>D()</code> teklif bitlerine dokunmadan yalnızca değerlendirir.</dd>
@@ -7633,7 +7658,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <dt>V(taraf)</dt><dd>O taraf şahta mı? Tek argümanla çağrıldığında şahın karesini kendisi bulup sorar. Yalnızca gösterge için; geçerlilik <code>L</code>'nin işi.</dd>
     </dl>
     <dl class="api" lang="en">
-      <dt>L(square)</dt><dd>The square is a <a href="#board">0–63 index</a>. Returns the array of <b>legal</b> destination squares for the piece on it — moves that would leave the king exposed are already filtered out. An empty array means that piece cannot move.</dd>
+      <dt>L(square)</dt><dd>The square is a <a href="#board">0–63 index</a>. Returns the array of <b>legal</b> destination squares for the piece on it — moves that would leave the king exposed are already filtered out. An empty array means that piece cannot move. The piece must belong to the side to move: for the other side's king the castling test asks about the wrong king, and if that king's own rook or queen stands on the square it crosses, <a href="#pitfalls">the walk never ends</a>.</dd>
       <dt>A(from, to, promotion)</dt><dd>Actually plays the move: updates castling rights, flips the side to move, writes to the repetition table and returns the <a href="#codes">result code</a>. The promotion type is <code>1</code> bishop, <code>2</code> rook, <code>3</code> queen, <code>6</code> knight; omitted, it queens.</dd>
       <dt>Z()</dt><dd>The <a href="#codes">result</a> arising from the position alone: checkmate, stalemate, dead position, fivefold repetition, 75 moves. <code>0</code> while the game continues. <code>A</code> calls it on the way out; there is no need to call it separately.</dd>
       <dt>D(side)</dt><dd>That side offers a draw or accepts a pending offer; draws that depend on a claim also return from here. <code>D()</code> with no argument only evaluates, without touching the offer bits.</dd>
@@ -7748,7 +7773,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <thead><tr><th>Ad</th><th>İmza</th><th>Bayt</th><th>İşi</th></tr></thead>
 <tbody>
 <tr><td><code>G</code></td><td><code>G(i, f, T)</code></td><td>249</td><td>Geometri. <code>i</code>'deki taş <code>f</code>'ye gidebilir mi — şah güvenliğine bakmadan. <code>T</code> tehdit modu: açıkken piyonun yalnızca alma hamlelerini sayar, şah da rok yapmaz.</td></tr>
-<tr><td><code>V</code></td><td><code>V(s, u)</code></td><td>50</td><td><code>u</code> karesi <code>s</code>'nin rakibi tarafından tehdit ediliyor mu. <code>u</code> verilmezse <code>s</code>'nin şahının karesi kullanılır, yani <code>V(s)</code> doğrudan şah testidir.</td></tr>
+<tr><td><code>V</code></td><td><code>V(s, u)</code></td><td>50</td><td><code>u</code> karesi <code>s</code>'nin rakibi tarafından tehdit ediliyor mu. <code>u</code> verilmezse <code>s</code>'nin şahının karesi kullanılır, yani <code>V(s)</code> doğrudan şah testidir. <code>u</code>'da <code>s</code>'nin rakibinin kalesi ya da veziri durmamalı; o taş için <code>G</code> aynı kareyi iki kez görür.</td></tr>
 <tr><td><code>L</code></td><td><code>L(i)</code></td><td>104</td><td>Geçerli varış listesi. Her adayı <code>M</code> ile oynayıp <code>V</code> ile bakar, sonra geri alır.</td></tr>
 <tr><td><code>C</code></td><td><code>C(i)</code></td><td>27</td><td>Kare → hangi rok hakkını düşürdüğü. Şah ve kale kareleri dışında <code>0</code>.</td></tr>
 <tr><td><code>M</code></td><td><code>M(i, f, u)</code></td><td>234</td><td>Ham hamle. Tahtayı klonlar, taşı taşır, rok kalesini oynatır, geçerken alınanı siler, terfi eder. <b>Rok haklarını düşürür; sıraya ve tekrar tablosuna dokunmaz</b> — çünkü <code>L</code>'nin deneme döngüsü içinde de çalışır.</td></tr>
@@ -7768,7 +7793,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <thead><tr><th>Name</th><th>Signature</th><th>Bytes</th><th>What it does</th></tr></thead>
 <tbody>
 <tr><td><code>G</code></td><td><code>G(i, f, T)</code></td><td>249</td><td><b>G</b>eometry. Can the piece on <code>i</code> reach <code>f</code> — without regard to king safety. <code>T</code> is attack mode: when set, the pawn counts only its capturing moves and the king does not castle.</td></tr>
-<tr><td><code>V</code></td><td><code>V(s, u)</code></td><td>50</td><td>Is square <code>u</code> <b>v</b>ulnerable to the opponent of <code>s</code>? Omit <code>u</code> and the square of <code>s</code>'s king is used, so <code>V(s)</code> is the check test itself.</td></tr>
+<tr><td><code>V</code></td><td><code>V(s, u)</code></td><td>50</td><td>Is square <code>u</code> <b>v</b>ulnerable to the opponent of <code>s</code>? Omit <code>u</code> and the square of <code>s</code>'s king is used, so <code>V(s)</code> is the check test itself. <code>u</code> must not hold a rook or queen of <code>s</code>'s opponent; for that piece <code>G</code> would see the same square twice.</td></tr>
 <tr><td><code>L</code></td><td><code>L(i)</code></td><td>104</td><td>The list of <b>l</b>egal destinations. Plays each candidate with <code>M</code>, checks with <code>V</code>, then takes it back.</td></tr>
 <tr><td><code>C</code></td><td><code>C(i)</code></td><td>27</td><td>Square → which <b>c</b>astling right it forfeits. <code>0</code> for anything but the king and rook squares.</td></tr>
 <tr><td><code>M</code></td><td><code>M(i, f, u)</code></td><td>234</td><td>The raw <b>m</b>ove. Clones the board, moves the piece, moves the castling rook, removes the en passant victim, promotes. <b>It clips the castling rights; it does not touch the side to move or the repetition table</b> — because it also runs inside <code>L</code>'s trial loop.</td></tr>
@@ -8231,12 +8256,14 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       bölmek saçma bir vektör verir — ama at dalı ikisini de hiç okumaz. Geometrisi hiçbir taşa
       uymayan kare çiftleri ise <code>S</code>'ye hiç ulaşmaz: dal koşulları onları önce eler, bu
       yüzden tarayıcı yalnızca gerçek bir düz hat ya da çapraz boyunca yürür ve <code>f</code>'ye
-      tam olarak varır. Bozuk bir adımla ona ulaşan iki girdi var: aynı karenin iki kez verilmesi —
-      <code>d</code> sıfır, <code>k</code> <code>NaN</code> olur — ve tahtada şah olmaması, o zaman
-      <code>V</code> <code>-1</code> karesini arar. Bu ikisinde yürüyüş bitmez, çünkü
+      tam olarak varır. Bozuk bir adımla ona ulaşan iki girdi var. Birincisi aynı karenin iki kez
+      verilmesi: <code>d</code> sıfır, <code>k</code> <code>NaN</code> olur ve yürüyüş bitmez, çünkü
       <code>!b[i]</code> tahta dışı ya da kesirli bir indeksin <code>undefined</code>'ını boş kare
-      sayar. Hiçbir sürücü bu girdileri üretmez; ikisi de <a href="#pitfalls">Tuzaklar</a>'da
-      anlatılıyor.</p>
+      sayar. İkincisi tahtada şah olmaması; o zaman <code>V</code> <code>-1</code> karesini arar.
+      Adım kesirliyse — c3, e5, f6 ya da g7'de bir fil veya vezir — yürüyüş <code>-1</code>'e hiç
+      denk gelmez ve o da bitmez; adım tam sayıysa biter, ama verdiği cevabın bir anlamı yoktur.
+      Hiçbir sürücü bu girdileri üretmez, çünkü sürücüler <code>L</code>'yi yalnızca sırası gelen
+      tarafın taşı için çağırıyor; ikisi de <a href="#pitfalls">Tuzaklar</a>'da anlatılıyor.</p>
     </div>
     <div class="prose" lang="en">
       <p>The first thing to notice is that the piece code is not held in a variable of its own: the
@@ -8265,12 +8292,15 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       three, and dividing by three gives an absurd vector — but the knight branch never reads
       either. Pairs whose geometry fits no piece at all never reach <code>S</code>: the branch
       conditions filter them out first, so the walker only ever runs along a genuine straight line
-      or diagonal and lands on <code>f</code> exactly. Two inputs do reach it with a broken step —
-      the same square twice, where <code>d</code> is zero and <code>k</code> is <code>NaN</code>,
-      and a missing king, where <code>V</code> looks for square <code>-1</code>. There the walk never
-      ends, because <code>!b[i]</code> reads the <code>undefined</code> of an off-board or fractional
-      index as an empty square. No driver ever produces either input; <a href="#pitfalls">Pitfalls</a>
-      covers both.</p>
+      or diagonal and lands on <code>f</code> exactly. Two inputs do reach it with a broken step. The
+      first is the same square twice: <code>d</code> is zero, <code>k</code> is <code>NaN</code>, and
+      the walk never ends, because <code>!b[i]</code> reads the <code>undefined</code> of an
+      off-board or fractional index as an empty square. The second is a missing king, where
+      <code>V</code> looks for square <code>-1</code>. With a fractional step — a bishop or queen on
+      c3, e5, f6 or g7 — the walk never lands on <code>-1</code> and never ends either; with a
+      whole-number step it ends, but with an answer that means nothing. No driver ever produces
+      either input, because drivers only call <code>L</code> for a piece of the side to move;
+      <a href="#pitfalls">Pitfalls</a> covers both.</p>
     </div>
 
     <h4 lang="tr">Dört dal, altı taş</h4>
@@ -8303,8 +8333,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       kale karesine çevriliyor: <code>f += 1.5*k - .5</code> — g1'den bir kare ileri (h1), c1'den iki
       kare geri (a1); asimetriyi üçlü operatör yerine <b>1,5 ile 0,5</b> kapatıyor.
       <code>c&amp;C(f)</code> hakkın hâlâ maskede olduğunu, <code>!V(t)</code> şahın şahta
-      olmadığını — <code>V</code>'nin varsayılan karesi zaten sıradaki tarafın şahı, yani
-      <code>i</code> —, <code>!V(t,i+k)</code> geçtiği karenin tehdit
+      olmadığını — <code>V</code>'nin varsayılan karesi zaten sıradaki tarafın şahı, <code>L</code>
+      yalnızca sırası gelen taraf için çağrıldığından da <code>i</code> —, <code>!V(t,i+k)</code> geçtiği karenin tehdit
       edilmediğini sınıyor. En sondaki <code>S()</code> şahtan kaleye yürüyüp aradaki karelerin
       boş olduğuna bakıyor; uzun rokta <code>b1</code> da bu yürüyüşün içinde. <code>S</code>
       yürüdükçe <code>i</code>'yi değiştirdiği için tehdit testlerinden sonra geliyor. Kalenin
@@ -8338,7 +8368,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       back from c1 (a1); the asymmetry is closed by <b>1.5 and 0.5</b> rather than by a ternary.
       <code>c&amp;C(f)</code> tests that the right is still in the mask, <code>!V(t)</code> that
       the king is not in check — <code>V</code>'s default square is already the king of the side
-      to move, that is <code>i</code> — and
+      to move, and since <code>L</code> is only called for the side to move, that is <code>i</code> — and
       <code>!V(t,i+k)</code> that the square it crosses is not attacked. The final
       <code>S()</code> walks from the king to the rook and checks that every square in between is
       empty; on the queenside <code>b1</code> is part of that walk. Because <code>S</code> moves
@@ -8530,8 +8560,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       destination square being <em>occupied</em>, not on the type of the piece standing there.</p>
     </div>
 
-    <h4 lang="tr"><code>M</code> — beş adım, sırası değişmez</h4>
-    <h4 lang="en"><code>M</code> — five steps, in an order that cannot change</h4>
+    <h4 lang="tr"><code>M</code> — beş adım, ikisinin sırası bağlı</h4>
+    <h4 lang="en"><code>M</code> — five steps, two of them bound in order</h4>
 
     <div class="prose" lang="tr">
       <p><code>M</code> hamleyi tahtaya yazıyor ve rok haklarını düşürüyor; başka hiçbir şey
@@ -8539,8 +8569,12 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       yazıldığı yere ait — çünkü arama da hamle oynuyor ve <code>c</code> güncellenmezse dallarda
       çoktan kaybedilmiş bir rok hâlâ mümkün görünüyor. Geri alma işi çağıranın:
       <code>L</code> denemeden önce <code>[b,e,n,c]</code>'yi saklıyor, arama da
-      <code>[b,e,n,t,c]</code>'yi. Kalan her kalıcı şey bir kat üstte, <code>A</code>'da.
+      <code>[b,e,n,t,c]</code>'yi. Kalan her kalıcı şey iki kat üstte, <code>A</code>'da.
       <b>234 bayt.</b></p>
+      <p>Adımlardan ikisinin sırası bağlı. Sayaç (1) hedef karedeki taşa bakıyor, o yüzden hedef
+      kare (2) yazılmadan önce gelmeli. Geçerken alma denetimi (5) bitmiş tahtada bir geçerlilik
+      sorusu soruyor, o yüzden kurbanı kaldıran adımdan (3) sonra gelmeli. Geri kalanlar — rok
+      hakları, klonlama, 2 ile 3, rok kalesi — birbirinin yerine geçebilir; hiçbir hamle değişmez.</p>
     </div>
     <div class="prose" lang="en">
       <p><code>M</code> writes the move to the board and forfeits castling rights; nothing else — it
@@ -8549,8 +8583,13 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <code>c</code> is left alone a castling right already lost still looks available deeper in
       the tree. Taking the move back is the caller's job: <code>L</code> saves
       <code>[b,e,n,c]</code> before the trial, the search saves <code>[b,e,n,t,c]</code>.
-      Everything permanent that is left lives one layer up, in <code>A</code>.
+      Everything permanent that is left lives two layers up, in <code>A</code>.
       <b>234 bytes.</b></p>
+      <p>Two of the steps are bound in order. The counter (1) looks at the piece on the destination
+      square, so it has to come before that square is written (2). The en passant check (5) asks a
+      legality question of the finished board, so it has to come after the victim is removed (3).
+      The rest — the castling rights, the clone, steps 2 and 3, the castling rook — could trade
+      places without changing a single move.</p>
     </div>
 
     <pre class="snip">M=(i,f,u=3,p=b[i],P=p&gt;&gt;1==4,d=a(i-f),q=i+f&gt;&gt;1)=&gt;(
@@ -13626,20 +13665,22 @@ f = K[2] + K[3] - 0</pre></div>
     <h3 lang="tr">Quirks modu</h3>
     <h3 lang="en">Quirks mode</h3>
     <div class="prose" lang="tr">
-      <p><code class="vn">L1</code>–<code class="vn">L3</code> merdiveninde 21 HTML dosyası var ve iki gruba
-      ayrılıyorlar. Beşi — <code>L1.html</code>, <code>L2.html</code>, <code>L3.html</code> ve
-      iki botlu sürüm — <code>&lt;!DOCTYPE html&gt;</code> ile başlıyor, standart modda açılıyor
-      ve W3C Nu Html Checker'dan tek bir hata ya da uyarı almadan geçiyor: taşları ve gidilecek
-      kareleri boyayan, modern DOM'lu sürümler bunlar. Kalan on altısında DOCTYPE yok, dolayısıyla
-      hepsi quirks modunda açılıyor. Bu bir gözden kaçma değil, bayt tercihi; doğrulayıcı onlara
-      DOCTYPE, <code>&lt;title&gt;</code> ve kapanmamış ya da yerinde olmayan ögeler için hata veriyor, ama
-      <b>hiçbirinde eskimiş öge ya da nitelik yok</b>. Üç JavaScript dosyası —
+      <p><code class="vn">L1</code>–<code class="vn">L3</code> merdiveninde 23 HTML dosyası var ve iki gruba
+      ayrılıyorlar. Üçü — <code>L1.html</code>, <code>L2.html</code> ve <code>L3.html</code> —
+      <code>&lt;!DOCTYPE html&gt;</code> ile başlıyor, standart modda açılıyor ve W3C Nu Html
+      Checker'dan tek bir hata ya da uyarı almadan geçiyor: taşları ve gidilecek kareleri boyayan,
+      modern DOM'lu sürümler bunlar. Kalan yirmisinde DOCTYPE yok, dolayısıyla hepsi quirks modunda
+      açılıyor. Bu bir gözden kaçma değil, bayt tercihi; doğrulayıcı onlara DOCTYPE,
+      <code>&lt;title&gt;</code> ve kapanmamış ya da yerinde olmayan ögeler için hata veriyor,
+      <code class="vn">L3</code>'ün paketli iki hâline de paket dizgisindeki kontrol karakterleri için
+      yüzlerce hata ekleniyor. <b>Eskimiş öge ya da nitelik yalnızca <code class="vn">L3_packed</code>'te
+      var</b>, o da çalışırken ürettiği işaretlemede. Üç JavaScript dosyası —
       <code>engine.js</code>, <code>engine_4x.js</code> ve <code>engine_string.js</code>
       — için ne DOCTYPE'ın ne de render modunun bir karşılığı var. <code>builds/special/</code>
-      klasöründeki dosyalar bu sayımın dışında: her dosyanın ya da dosya çiftinin <a href="https://github.com/cuneytinann" target="_blank" rel="noopener">GitHub</a>'da kendi
-      deposu var ve ayrıntısı orada, README'sinde anlatılıyor. İstisna <code class="vn">L3</code>'ün paketli
-      iki hâli, <code class="vn">L3_packed</code> ve <code class="vn">L3_numerical_packed</code>; onlar bu sayfada,
-      <a href="#packing">paketleme bölümünde</a>.</p>
+      klasöründeki dosyalar bu sayımın dışında: çoğu kendi başına bir proje, <a href="https://github.com/cuneytinann" target="_blank" rel="noopener">GitHub</a>'daki beş ayrı
+      deponun dosyaları, ve ayrıntısı her deponun README'sinde. Paketli iki hâlin,
+      <code class="vn">L3_packed</code> ile <code class="vn">L3_numerical_packed</code>'in ayrıntısı ise
+      bu sayfada, <a href="#packing">paketleme bölümünde</a>.</p>
       <p>Yaygın bir yanılgıyı burada ayırmak gerekiyor: <b>eskimiş sunum nitelikleri quirks
       moduna ait değil.</b> <code>bgcolor</code>, <code>width</code> ve
       <code>cellspacing</code>, spesifikasyonun sunum ipucu olarak tanımladığı niteliklerdir ve
@@ -13670,21 +13711,22 @@ f = K[2] + K[3] - 0</pre></div>
       hiç işaretleme taşımıyor, <code class="vn">input</code> ailesinin ise CSS'i yok.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The <code class="vn">L1</code>–<code class="vn">L3</code> ladder holds 21 HTML files, and they fall into two
-      groups. Five of them — <code>L1.html</code>, <code>L2.html</code>, <code>L3.html</code> and
-      the two builds with a bot — start with <code>&lt;!DOCTYPE html&gt;</code>, open in standards
-      mode and pass the W3C Nu Html Checker without a single error or warning: these are the
-      modern-DOM builds that colour the pieces and the target squares. The other sixteen carry no
-      DOCTYPE, so all of them open in quirks mode. That is not an oversight but a choice made for
-      bytes; the validator reports errors for the DOCTYPE, the <code>&lt;title&gt;</code> and
-      unclosed or misplaced elements, but <b>none of them contains an obsolete element or attribute</b>. For
-      the three JavaScript files — <code>engine.js</code>, <code>engine_4x.js</code> and
-      <code>engine_string.js</code> — neither a DOCTYPE nor a rendering mode means
-      anything. The files in <code>builds/special/</code> are outside this count: each file, or pair of
-      files, has a repository of its own on <a href="https://github.com/cuneytinann" target="_blank" rel="noopener">GitHub</a>, and its README tells the details. The
-      exception is the two packed forms of <code class="vn">L3</code>, <code class="vn">L3_packed</code> and
-      <code class="vn">L3_numerical_packed</code>; they are covered on this page, in the
-      <a href="#packing">packing section</a>.</p>
+      <p>The <code class="vn">L1</code>–<code class="vn">L3</code> ladder holds 23 HTML files, and they fall into two
+      groups. Three of them — <code>L1.html</code>, <code>L2.html</code> and <code>L3.html</code> —
+      start with <code>&lt;!DOCTYPE html&gt;</code>, open in standards mode and pass the W3C Nu Html
+      Checker without a single error or warning: these are the modern-DOM builds that colour the
+      pieces and the target squares. The other twenty carry no DOCTYPE, so all of them open in quirks
+      mode. That is not an oversight but a choice made for bytes; the validator reports errors for
+      the DOCTYPE, the <code>&lt;title&gt;</code> and unclosed or misplaced elements, and on the two
+      packed forms of <code class="vn">L3</code> it adds hundreds more for the control characters in the
+      packed string. <b>Only <code class="vn">L3_packed</code> contains obsolete elements or
+      attributes</b>, and only in the markup it generates at run time. For the three JavaScript files —
+      <code>engine.js</code>, <code>engine_4x.js</code> and <code>engine_string.js</code> — neither a
+      DOCTYPE nor a rendering mode means anything. The files in <code>builds/special/</code> are outside
+      this count: most are projects in their own right, the files of five separate repositories on
+      <a href="https://github.com/cuneytinann" target="_blank" rel="noopener">GitHub</a>, and each repository's README tells the details. The two packed forms,
+      <code class="vn">L3_packed</code> and <code class="vn">L3_numerical_packed</code>, are covered on this
+      page, in the <a href="#packing">packing section</a>.</p>
       <p>One common confusion is worth separating out here: <b>obsolete presentational attributes do
       not belong to quirks mode.</b> <code>bgcolor</code>, <code>width</code> and
       <code>cellspacing</code> are attributes the specification defines as presentational hints,
@@ -13720,48 +13762,48 @@ f = K[2] + K[3] - 0</pre></div>
     <h3 lang="en" data-id="compat">Build by build: mode, validator and legacy constructs</h3>
     <div class="prose" lang="tr">
       <p>Yukarıdaki sayımı <code>builds/special/</code> ile birlikte bütün dosyalara genişletince tablo
-      şöyle çıkıyor. Hata ve uyarı sütunu W3C Nu Html Checker 26.9.16'nın, CSS denetimi açıkken
+      şöyle çıkıyor. Hata ve uyarı sütunu W3C Nu Html Checker 26.9.27'nin, CSS denetimi açıkken
       verdiği sayılar.</p>
     </div>
     <div class="prose" lang="en">
       <p>Extend the count above to every file, <code>builds/special/</code> included, and this is the
       table that comes out. The error and warning column gives the counts from the W3C Nu Html
-      Checker 26.9.16 with CSS checking on.</p>
+      Checker 26.9.27 with CSS checking on.</p>
     </div>
 <div class="tw" lang="tr"><table>
 <thead><tr><th>Grup</th><th>Dosyalar</th><th>Belge modu</th><th>Hata / uyarı</th><th>Eskimiş öge ve nitelikler</th><th>JavaScript</th></tr></thead>
 <tbody>
-<tr><td>Ana DOM sürümleri</td><td><code>L1</code>, <code>L1_1250elo</code>, <code>L2</code>, <code>L2_aybars_2500</code>, <code>L3</code></td><td>standart</td><td>0 / 0</td><td>yok</td><td>modern</td></tr>
+<tr><td>Ana DOM sürümleri</td><td><code>L1</code>, <code>L2</code>, <code>L3</code></td><td>standart</td><td>0 / 0</td><td>yok</td><td>modern</td></tr>
 <tr><td><code class="vn">input</code>, <code class="vn">prompt</code> ve <code class="vn">numerical</code> aileleri</td><td>L1 ve L2: <code>input</code>, <code>input_blindfold</code>, <code>numerical</code>, <code>prompt_string_flip</code> · L3: <code>input</code>, <code>input_blindfold</code>, <code>numerical</code>, <code>prompt</code>, <code>prompt_blindfold</code>, <code>prompt_string</code>, <code>prompt_string_flip</code></td><td>quirks</td><td>2 / 1 — DOCTYPE, <code>&lt;title&gt;</code>; <code>lang</code> uyarısı</td><td>yok</td><td>modern</td></tr>
-<tr><td><code class="vn">light</code></td><td><code>L1_light</code>, <code>L2_light</code>, <code>L3_light</code></td><td>quirks</td><td>4–5 / 1 — aynıları ve kapanmamış <code>table</code> ya da <code>style</code></td><td>yok</td><td>modern</td></tr>
-<tr><td><code>builds/special/</code>, standart</td><td><code>Lichess-equivalent</code>, <code>Chesscom-equivalent</code>, <code>L2_noBlockedDetector</code>, <code>L2_string_flip_noBlockedDetector</code></td><td>standart</td><td>0 / 0</td><td>yok</td><td>modern</td></tr>
-<tr><td><code>builds/LUX/</code></td><td><code>LUX</code></td><td>standart</td><td>0 / 0</td><td>yok</td><td>modern</td></tr>
-<tr><td><code>builds/special/</code>, paketli</td><td><code>L3_packed</code>, <code>L3_numerical_packed</code>, <code>Lichess-equivalent_numerical</code>, <code>Chesscom-equivalent_numerical</code>, <code>DOM_998</code>, <code>DOM_minimum</code>, <code>Lowest</code></td><td>quirks</td><td>122–314 / 4–11 — neredeyse tamamı paket dizgisindeki kontrol karakterleri</td><td><code>L3_packed</code> ile <code>DOM_998</code>'ün ürettiği işaretlemede <code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>width</code>; <code>L3_packed</code>'te ayrıca <code>cellspacing</code></td><td><code>with</code>, <code>eval</code>; <code>L3_packed</code>'te ayrıca <code>document.write</code> ve <code>.bgColor</code></td></tr>
+<tr><td><code class="vn">light</code></td><td><code>L1_light</code>, <code>L2_light</code>, <code>L3_light</code></td><td>quirks</td><td>4–9 / 1 — aynıları ve kapanmamış <code>table</code> ya da <code>style</code>; <code>L3_light</code>'ta ayrıca gövdedeki <code>&lt;style&gt;</code> için yer ve seçici hataları</td><td>yok</td><td>modern</td></tr>
+<tr><td><code>builds/</code>, paketli</td><td><code>L3_packed</code>, <code>L3_numerical_packed</code></td><td>quirks</td><td>213–275 / 16–29 — neredeyse tamamı paket dizgisindeki kontrol karakterleri</td><td><code>L3_packed</code>'in ürettiği işaretlemede <code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>width</code>, <code>cellspacing</code></td><td><code>with</code>, <code>eval</code>; <code>L3_packed</code>'te ayrıca <code>document.write</code> ve <code>.bgColor</code></td></tr>
+<tr><td><code>builds/special/</code>, standart</td><td><code>Lichess-equivalent</code>, <code>Chesscom-equivalent</code>, <code>L2_noBlockedDetector</code>, <code>L2_string_flip_noBlockedDetector</code>, <code>L1_1250elo</code>, <code>L2_aybars_2500</code>, <code>LUX</code></td><td>standart</td><td>0 / 0</td><td>yok</td><td>modern</td></tr>
+<tr><td><code>builds/special/</code>, paketli</td><td><code>Lichess-equivalent_numerical</code>, <code>Chesscom-equivalent_numerical</code>, <code>DOM_998</code>, <code>DOM_minimum</code>, <code>Lowest</code></td><td>quirks</td><td>111–185 / 4–11 — neredeyse tamamı paket dizgisindeki kontrol karakterleri</td><td><code>DOM_998</code>'ün ürettiği işaretlemede <code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>width</code></td><td><code>with</code>, <code>eval</code></td></tr>
 <tr><td>Toledo</td><td><code>Toledos-ES6-optimized</code></td><td>quirks</td><td>8 / 1 — <code>&lt;center&gt;</code>, birimsiz CSS değerleri, ikinci <code>&lt;body&gt;</code></td><td><code>&lt;center&gt;</code>, <code>bgcolor</code>; ürettiği tabloda <code>cellspacing</code></td><td><code>document.write</code>, dizgiyle <code>setTimeout</code></td></tr>
-<tr><td>Toledo'nun rakibi</td><td><code>ToledosOpponentbyMe</code></td><td>quirks</td><td>8 / 3 — <code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>cellspacing</code>, kapanmamış ögeler</td><td><code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>cellspacing</code>; ürettiği hücrelerde <code>width</code></td><td><code>.bgColor</code></td></tr>
+<tr><td>Toledo'nun rakibi</td><td><code>ToledosOpponentbyMe</code></td><td>quirks</td><td>10 / 3 — <code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>cellspacing</code>, gövdedeki <code>&lt;style&gt;</code>, kapanmamış ögeler</td><td><code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>cellspacing</code>; ürettiği hücrelerde <code>width</code></td><td><code>.bgColor</code></td></tr>
 </tbody>
 </table></div>
 <div class="tw" lang="en"><table>
 <thead><tr><th>Group</th><th>Files</th><th>Document mode</th><th>Errors / warnings</th><th>Obsolete elements and attributes</th><th>JavaScript</th></tr></thead>
 <tbody>
-<tr><td>Main DOM builds</td><td><code>L1</code>, <code>L1_1250elo</code>, <code>L2</code>, <code>L2_aybars_2500</code>, <code>L3</code></td><td>standards</td><td>0 / 0</td><td>none</td><td>modern</td></tr>
+<tr><td>Main DOM builds</td><td><code>L1</code>, <code>L2</code>, <code>L3</code></td><td>standards</td><td>0 / 0</td><td>none</td><td>modern</td></tr>
 <tr><td>The <code class="vn">input</code>, <code class="vn">prompt</code> and <code class="vn">numerical</code> families</td><td>L1 and L2: <code>input</code>, <code>input_blindfold</code>, <code>numerical</code>, <code>prompt_string_flip</code> · L3: <code>input</code>, <code>input_blindfold</code>, <code>numerical</code>, <code>prompt</code>, <code>prompt_blindfold</code>, <code>prompt_string</code>, <code>prompt_string_flip</code></td><td>quirks</td><td>2 / 1 — DOCTYPE, <code>&lt;title&gt;</code>; a <code>lang</code> warning</td><td>none</td><td>modern</td></tr>
-<tr><td><code class="vn">light</code></td><td><code>L1_light</code>, <code>L2_light</code>, <code>L3_light</code></td><td>quirks</td><td>4–5 / 1 — the same, plus an unclosed <code>table</code> or <code>style</code></td><td>none</td><td>modern</td></tr>
-<tr><td><code>builds/special/</code>, standards</td><td><code>Lichess-equivalent</code>, <code>Chesscom-equivalent</code>, <code>L2_noBlockedDetector</code>, <code>L2_string_flip_noBlockedDetector</code></td><td>standards</td><td>0 / 0</td><td>none</td><td>modern</td></tr>
-<tr><td><code>builds/LUX/</code></td><td><code>LUX</code></td><td>standards</td><td>0 / 0</td><td>none</td><td>modern</td></tr>
-<tr><td><code>builds/special/</code>, packed</td><td><code>L3_packed</code>, <code>L3_numerical_packed</code>, <code>Lichess-equivalent_numerical</code>, <code>Chesscom-equivalent_numerical</code>, <code>DOM_998</code>, <code>DOM_minimum</code>, <code>Lowest</code></td><td>quirks</td><td>122–314 / 4–11 — almost all of them control characters in the packed string</td><td>in the markup <code>L3_packed</code> and <code>DOM_998</code> generate: <code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>width</code>; <code>cellspacing</code> too in <code>L3_packed</code></td><td><code>with</code>, <code>eval</code>; <code>document.write</code> and <code>.bgColor</code> too in <code>L3_packed</code></td></tr>
+<tr><td><code class="vn">light</code></td><td><code>L1_light</code>, <code>L2_light</code>, <code>L3_light</code></td><td>quirks</td><td>4–9 / 1 — the same, plus an unclosed <code>table</code> or <code>style</code>; in <code>L3_light</code> also placement and selector errors for the <code>&lt;style&gt;</code> in the body</td><td>none</td><td>modern</td></tr>
+<tr><td><code>builds/</code>, packed</td><td><code>L3_packed</code>, <code>L3_numerical_packed</code></td><td>quirks</td><td>213–275 / 16–29 — almost all of them control characters in the packed string</td><td>in the markup <code>L3_packed</code> generates: <code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>width</code>, <code>cellspacing</code></td><td><code>with</code>, <code>eval</code>; <code>document.write</code> and <code>.bgColor</code> too in <code>L3_packed</code></td></tr>
+<tr><td><code>builds/special/</code>, standards</td><td><code>Lichess-equivalent</code>, <code>Chesscom-equivalent</code>, <code>L2_noBlockedDetector</code>, <code>L2_string_flip_noBlockedDetector</code>, <code>L1_1250elo</code>, <code>L2_aybars_2500</code>, <code>LUX</code></td><td>standards</td><td>0 / 0</td><td>none</td><td>modern</td></tr>
+<tr><td><code>builds/special/</code>, packed</td><td><code>Lichess-equivalent_numerical</code>, <code>Chesscom-equivalent_numerical</code>, <code>DOM_998</code>, <code>DOM_minimum</code>, <code>Lowest</code></td><td>quirks</td><td>111–185 / 4–11 — almost all of them control characters in the packed string</td><td>in the markup <code>DOM_998</code> generates: <code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>width</code></td><td><code>with</code>, <code>eval</code></td></tr>
 <tr><td>Toledo</td><td><code>Toledos-ES6-optimized</code></td><td>quirks</td><td>8 / 1 — <code>&lt;center&gt;</code>, unitless CSS values, a second <code>&lt;body&gt;</code></td><td><code>&lt;center&gt;</code>, <code>bgcolor</code>; <code>cellspacing</code> in the table it writes</td><td><code>document.write</code>, <code>setTimeout</code> with a string</td></tr>
-<tr><td>Toledo's opponent</td><td><code>ToledosOpponentbyMe</code></td><td>quirks</td><td>8 / 3 — <code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>cellspacing</code>, unclosed elements</td><td><code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>cellspacing</code>; <code>width</code> on the cells it writes</td><td><code>.bgColor</code></td></tr>
+<tr><td>Toledo's opponent</td><td><code>ToledosOpponentbyMe</code></td><td>quirks</td><td>10 / 3 — <code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>cellspacing</code>, a <code>&lt;style&gt;</code> in the body, unclosed elements</td><td><code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>cellspacing</code>; <code>width</code> on the cells it writes</td><td><code>.bgColor</code></td></tr>
 </tbody>
 </table></div>
     <div class="prose" lang="tr">
-      <p>Doğrulayıcının saydıkları biçimsel: 35 dosyanın hiçbiri Chromium'da hata fırlatmıyor ya da
+      <p>Doğrulayıcının saydıkları biçimsel: 37 dosyanın hiçbiri Chromium'da hata fırlatmıyor ya da
       konsola uyarı düşürmüyor. Belge modu DOCTYPE'tan geliyor; <code>document.compatMode</code>
-      okunabildiği 28 dosyada buna birebir uyuyor, kalan yedisinde açık diyalog sayfayı kilitlediği
-      için okunamıyor.
+      okunabildiği 32 dosyada buna birebir uyuyor, kalan beşinde diyalog her kapatılışında yeniden
+      açıldığı için sayfa kilitli kalıyor ve okunamıyor.
       Paketlerdeki yüzlerce hata, RegPack'in token olarak kullandığı kontrol karakterlerinden
       geliyor; HTML bu kod noktalarını yasaklıyor, tarayıcı yine de okuyor. Eskimiş öge ve
-      nitelikler yalnızca <code>builds/special/</code>'da ve çoğu doğrulayıcının göremediği yerde: paketin ya
+      nitelikler yalnızca <code>L3_packed</code>'te ve <code>builds/special/</code>'da, çoğu da doğrulayıcının göremediği yerde: paketin ya
       da <code>document.write</code>'ın çalışırken ürettiği işaretlemede. Toledo'da doğrulayıcı ikinci
       <code>&lt;body&gt;</code>'den sonra durduğu için <code>bgcolor</code>'a hiç ulaşmıyor. Ortamı
       gerçekten ilgilendiren iki şey var: <code>with</code> katı kipte sözdizimi hatası;
@@ -13769,13 +13811,13 @@ f = K[2] + K[3] - 0</pre></div>
       içerik güvenlik politikası altında engelleniyor.</p>
     </div>
     <div class="prose" lang="en">
-      <p>What the validator counts is formal: none of the 35 files throws in Chromium or drops a
+      <p>What the validator counts is formal: none of the 37 files throws in Chromium or drops a
       warning into the console. The document mode follows from the DOCTYPE; <code>document.compatMode</code>
-      matches it exactly in the 28 files where it can be read, and the other seven cannot be read
-      because an open dialog locks the page. The
+      matches it exactly in the 32 files where it can be read; in the other five the dialog reopens
+      every time it is closed, so the page stays locked and it cannot be read. The
       hundreds of errors in the packed files come from the control characters RegPack uses as
       tokens; HTML forbids those code points, and the browser reads them anyway. Obsolete elements
-      and attributes appear only in <code>builds/special/</code>, and mostly where the validator cannot see
+      and attributes appear only in <code>L3_packed</code> and in <code>builds/special/</code>, and mostly where the validator cannot see
       them: in the markup the pack or <code>document.write</code> generates at run time. In Toledo
       the validator stops after the second <code>&lt;body&gt;</code>, so it never reaches
       <code>bgcolor</code>. Two things genuinely concern the environment: <code>with</code> is a syntax
@@ -13893,7 +13935,10 @@ f = K[2] + K[3] - 0</pre></div>
       geçiyor. <code>L(i)</code> aynı kareyi hiç üretmiyor — <code>f==i</code> için süzgeç
       <code>!p|p&amp;1^g</code> sıfır verdiğinden <code>G</code> çağrılmıyor bile — ve
       <code>L(-1)</code>, <code>L(64)</code>, <code>L(NaN)</code> gibi uç girdiler boş dizi
-      döndürüyor. Yani UCI'de <code>e2e2</code> yazmak hamleyi reddettiriyor, patlatmıyor.
+      döndürüyor. Tek istisna <code>L</code>'nin sırası gelmeyen tarafın şahı için çağrılması: rok
+      dalı o zaman geçilen kareyi <code>V(t,i+k)</code> ile soruyor ve orada o şahın kendi kalesi ya
+      da veziri duruyorsa <code>G</code> aynı kareyi iki kez görüyor. Sürücüler yalnızca sırası gelen
+      tarafın taşını seçtiği için buna da değmiyor. Yani UCI'de <code>e2e2</code> yazmak hamleyi reddettiriyor, patlatmıyor.
       Risk yalnızca motoru kütüphane gibi kullanıp <code>G</code> ya da iki argümanlı
       <code>V(s,u)</code> çağıran üçüncü bir sürücü için.
       Aynı kısaltmanın ikinci bir deliği daha var: <b>tahtada şah yoksa</b> <code>V</code>'nin
@@ -13981,6 +14026,10 @@ f = K[2] + K[3] - 0</pre></div>
       <code>L(i)</code> never produces the same square — for <code>f==i</code> the filter
       <code>!p|p&amp;1^g</code> is zero, so <code>G</code> is not even called — and edge inputs
       like <code>L(-1)</code>, <code>L(64)</code> or <code>L(NaN)</code> return an empty array.
+      The one exception is <code>L</code> called for the king of the side not to move: the
+      castling branch then asks about the square it crosses with <code>V(t,i+k)</code>, and if that
+      king's own rook or queen stands there, <code>G</code> sees the same square twice. Drivers
+      only let the side to move select a piece, so they never reach it either.
       So typing <code>e2e2</code> in UCI has the move refused, not the engine blown up. The risk
       is only for a third-party driver that uses the engine as a library and calls
       <code>G</code> or the two-argument <code>V(s,u)</code>. The same shortcut has a second hole:
@@ -16035,6 +16084,81 @@ var engKey = 'engine',
     engSrc = document.getElementById('engsrc'),
     engPlain = document.getElementById('engplain');
 
+/* ---- motor kaynagi: kavram bantlari ----
+   Her kavram engine.js metninde araliklar boyar. Bir aralik [capa, boyanan] ciftidir:
+   capa kaynakta tam bir kez gecmeli, boyanan da capanin icindeki ilk eslesme. Boylece
+   ayni parca kodda birkac kez gecse de (&&S() gibi) dogru yere oturur. Capa bulunmaz
+   ya da birden fazla eslesirse kavram bos kalir ve konsola uyari duser.
+   Taslar yalnizca geometri: tip dagitimi (P>5? ...), legalite, rok, gecerken alma ve
+   terfi ayri kavramlar. Siralama taslarin kod sirasi: 2/3'ten 12/13'e. */
+var SLIDE = '(h*v?h==v:2)&P&&S()';
+var ENGC = [
+  { k: 'bishop', c: 'var(--pc-b)', tr: 'Fil', en: 'Bishop', v: '2/3',
+    s: [[SLIDE, '(h*v?h==v'], [SLIDE, ')&P&&S()']] },
+  { k: 'rook', c: 'var(--pc-r)', tr: 'Kale', en: 'Rook', v: '4/5',
+    s: [[SLIDE, '(h*v'], [SLIDE, ':2)&P&&S()']] },
+  { k: 'queen', c: 'var(--pc-q)', tr: 'Vezir', en: 'Queen', v: '6/7',
+    s: [[SLIDE, SLIDE]] },
+  { k: 'pawn', c: 'var(--pc-p)', tr: 'Piyon', en: 'Pawn', v: '8/9',
+    s: [['x=T|b[f]', 'x=T|b[f]'],
+        ['f<i^b[i]&1&&(h*v==1?x|f==e', 'f<i^b[i]&1&&(h*v==1?x'],
+        [':h|x?0:v<2+(y%5==1)&&S())', ':h|x?0:v<2+(y%5==1)&&S())']] },
+  { k: 'king', c: 'var(--pc-k)', tr: 'Şah', en: 'King', v: '10/11',
+    s: [['h^2?d<2', 'd<2']] },
+  { k: 'knight', c: 'var(--cc-n)', tr: 'At', en: 'Knight', v: '12/13',
+    s: [['P>5?h*v==2', 'h*v==2']] }
+];
+var engC = null,
+    engFoot = document.getElementById('engfoot');
+
+function engSpans(src, con) {
+  var out = [];
+  con.s.forEach(function (x) {
+    var a = src.indexOf(x[0]), j = x[0].indexOf(x[1]);
+    if (a < 0 || src.indexOf(x[0], a + 1) > -1 || j < 0) {
+      if (window.console) console.warn('engine kavrami eslesmedi: ' + con.k + ' <' + x[0] + '>');
+      return;
+    }
+    out.push([a + j, a + j + x[1].length]);
+  });
+  return out.sort(function (p, q) { return p[0] - q[0]; });
+}
+function engEsc(t) { return t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+/* Kaynagi yazar: kavram secili ve engine.js acikken boyali, yoksa duz metin. */
+function engPaint() {
+  var t = engCache[engKey];
+  if (t == null) return;
+  var con = engKey === 'engine' && engC && ENGC.filter(function (x) { return x.k === engC; })[0];
+  if (!con) { engSrc.textContent = t; return; }
+  var html = '', at = 0;
+  engSpans(t, con).forEach(function (r) {
+    if (r[0] < at) return;
+    html += engEsc(t.slice(at, r[0])) + '<span class="cpt" style="--c:' + con.c + '">' +
+            engEsc(t.slice(r[0], r[1])) + '</span>';
+    at = r[1];
+  });
+  engSrc.innerHTML = html + engEsc(t.slice(at));
+}
+
+/* Cipler: dil degisiminde yeniden yazilir. 4x ve string'de kapali, cunku capalar
+   engine.js'in metnine bagli. */
+function engChips() {
+  var tr = document.documentElement.getAttribute('data-lang') !== 'en', off = engKey !== 'engine';
+  engFoot.innerHTML = ENGC.map(function (x) {
+    return '<button type="button" class="cc" data-k="' + x.k + '" style="--c:' + x.c + '"' +
+      ' aria-pressed="' + (x.k === engC && !off ? 'true' : 'false') + '"' + (off ? ' disabled' : '') + '>' +
+      (tr ? x.tr : x.en) + ' <span class="cv">(' + x.v + ')</span></button>';
+  }).join('');
+}
+engFoot.addEventListener('click', function (ev) {
+  var b = ev.target.closest && ev.target.closest('.cc');
+  if (!b || b.disabled) return;
+  engC = engC === b.getAttribute('data-k') ? null : b.getAttribute('data-k');
+  engChips();
+  engPaint();
+});
+
 /* Yalnizca metinler. Dil degisiminde de cagrilir, o yuzden kaynak yuklemesi
    disarida birakildi: yoksa dil her degistiginde yeniden fetch olurdu. Sayilar
    da buraya dahil, cunku fmt() FL('locale') kullaniyor ve binlik ayraci
@@ -16053,17 +16177,18 @@ function engLabels() {
   engSBtn.classList.toggle('on', st);
   engSBtn.setAttribute('aria-pressed', st ? 'true' : 'false');
   engSBtn.title = FL(st ? 'to1x' : 'toStr');
+  engChips();
 }
 
 function engShow() {
   var a = ART[engKey];
   engLabels();
-  if (engCache[engKey]) { engSrc.textContent = engCache[engKey]; return; }
+  if (engCache[engKey]) { engPaint(); return; }
   engSrc.textContent = FL('loading');
   var want = engKey;
   load(a.p).then(function (t) {
     engCache[want] = t;
-    if (engKey === want) engSrc.textContent = t;
+    if (engKey === want) engPaint();
   }).catch(function () {
     if (engKey === want) engSrc.textContent = unreadable(a.p);
   });
