@@ -383,6 +383,12 @@ table code { color:var(--code-tbl); text-shadow:0 0 7px var(--code-glow) }
 thead th code { color:inherit; text-transform:none; letter-spacing:0 }
 /* Baglanti icindeki code kendi rengini birakir, yoksa link belli olmuyor. */
 a code { color:inherit }
+/* Baslik icindeki kod basligin kendi bicimini alir: h3'te mavi ve egik, h4'te
+   yesil, h2'de basligin rengi. Parlak kod murekkebi ve isiltisi yalnizca akan
+   metinde; baslikta tek harflik adlar (L, M) basliktan kopup ayri parlamasin.
+   Boyut zaten ayarli: basliklar telafiyi kapatan mono kaplar listesinde. */
+h1 code:not(.lux), h2 code:not(.lux), h3 code:not(.lux), h4 code:not(.lux) {
+  color:inherit; font-weight:inherit; font-style:inherit; text-shadow:none }
 /* Govdesi zaten mono olan her kap telafiyi kapatir. Bu liste, font-family'ye
    var(--mono) yazan kaplarin aynisi: ikisi birlikte guncellenmeli. */
 h1, h2, h3, h4,
