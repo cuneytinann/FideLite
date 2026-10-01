@@ -1032,7 +1032,7 @@ code.vn, table code.vn, tbody tr code.vn, tbody tr.alt code.vn { font:inherit; c
 .dtag { display:inline-block; font:600 .68rem/1.6 var(--mono); letter-spacing:.03em;
   padding:0 .55em; border:1px solid var(--acc-edge); border-radius:999px; color:var(--acc-tx);
   background:var(--acc-wash); vertical-align:.12em; white-space:nowrap; margin:0 .35em }
-h4 .dtag { vertical-align:.3em; margin-left:.6em }
+:is(h2,h3,h4) .dtag { vertical-align:.3em; margin-left:.6em }
 /* Sekme haritasi: uzun sekmelerin basinda bolumlerin kisa bir listesi. */
 .tabmap { color:var(--ink-2); padding-bottom:1.1rem; margin-bottom:1.6rem;
   border-bottom:1px solid var(--rule) }
@@ -1040,13 +1040,34 @@ h4 .dtag { vertical-align:.3em; margin-left:.6em }
    nasil okunur" diye ayirir. Basliklardan sessiz, govdeden belirgin. */
 .layer { font:600 .72rem/1.4 var(--mono); letter-spacing:.09em; text-transform:uppercase;
   color:var(--ink-3); margin:1.8rem 0 .55rem }
-h3 + .layer, h4 + .layer, h3 + .layer + .layer, h4 + .layer + .layer { margin-top:.4rem }
+h2 + .layer, h3 + .layer, h4 + .layer,
+h2 + .layer + .layer, h3 + .layer + .layer, h4 + .layer + .layer { margin-top:.4rem }
 /* FideLite kutusu: kural anlatiminin arasinda bu motora ozgu notlar. Maliyet kutusuyla
    ayni aile, ama yesil serit ve hafif zeminle ayri okunuyor. */
 .fl { border-left:3px solid var(--live); background:var(--acc-wash);
   padding:.8rem 1.1rem; margin:1.3rem 0 1.5rem; max-width:44rem }
 .fl > p:last-child { margin-bottom:0 }
 .fl > p:first-child > b:first-child { color:var(--live) }
+/* ---- icindekiler ----
+   Wikipedia usulu: numara bolum (h2), harf alt bolum (h3); daha derini yok.
+   Kutu sekmenin basliklarindan betikle uretilir, yani yeni bir baslik eklenince
+   kendiliginden girer. Iki dilin listesi yan yana durur, hangisinin gorunecegini
+   [lang] secer; derlenmis sayfada zaten yalnizca biri uretilir. */
+.toc { max-width:44rem; margin:2rem 0 0; border:1px solid var(--rule);
+  border-radius:4px; background:var(--panel) }
+.toc summary { cursor:pointer; padding:.7rem 1rem; font:600 .72rem/1.4 var(--mono);
+  letter-spacing:.09em; text-transform:uppercase; color:var(--ink-2) }
+.toc details[open] summary { border-bottom:1px solid var(--rule-2); margin-bottom:.5rem }
+.toc ol { list-style:none; margin:0; padding:0 1rem .9rem }
+.toc ol ol { padding:.15rem 0 .35rem 2rem }
+.toc li { margin:.22rem 0; line-height:1.45 }
+.toc a { display:flex; gap:.5rem; color:var(--ink); text-decoration:none }
+.toc ol ol a { font-size:.93rem; color:var(--ink-2) }
+.toc + .eyebrow { margin-top:2.5rem }
+.wrap > .toc:first-child { margin-top:0 }
+.toc .tn { flex:0 0 auto; min-width:4ch; font-family:var(--mono); color:var(--ink-3) }
+.toc ol ol .tn { min-width:3ch }
+.toc a:hover .tt, .toc a:focus-visible .tt { color:var(--link); text-decoration:underline }
 .note { border-left:3px solid var(--warn); background:var(--warn-bg); padding:.75rem 1rem;
   margin:1.25rem 0; font-size:.9375rem; max-width:44rem }
 .note p:last-child { margin-bottom:0 }
@@ -1351,6 +1372,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 
 <section id="golfstack">
   <div class="wrap">
+    <nav class="toc" data-toc></nav>
     <p class="eyebrow">Golfstack</p>
     <h2 lang="tr">Kodun kendisi, değeri ve Golfstack sanatı</h2>
     <h2 lang="en">The code itself, its worth, and the craft of Golfstack</h2>
@@ -1392,8 +1414,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       cannot mate, the ruling answers the question 5.1.2 and 6.9 ask. Most large platforms take their own shortcut at these articles.</p>
     </div>
 
-    <h3 lang="tr">Teknik özellikler</h3>
-    <h3 lang="en">Technical features</h3>
+    <h3 id="techfeatures" lang="tr">Teknik özellikler</h3>
+    <h3 lang="en" data-id="techfeatures">Technical features</h3>
     <ul class="tight" lang="tr">
       <li><b>Modern bir siteye yakın arayüz.</b> Varsayılan sürümlerde seçili kare ve geçerli
       hedefler işaretlenir, terfi seçici açılır, şah ve bekleyen beraberlik teklifi göstergelerden
@@ -1693,8 +1715,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       word “complete” begins.</p>
     </div>
 
-    <h3 lang="tr">Neyi çıkarırsak hâlâ satranç kalır (Chesseus problemi)</h3>
-    <h3 lang="en">What can we remove and still have chess (the Chesseus problem)</h3>
+    <h3 id="chesseus" lang="tr">Neyi çıkarırsak hâlâ satranç kalır (Chesseus problemi)</h3>
+    <h3 lang="en" data-id="chesseus">What can we remove and still have chess (the Chesseus problem)</h3>
     <div class="prose" lang="tr">
       <p>Motoru yazarken kendimi bir anda Theseus'un Gemisi paradoksunun ortasında buldum:
       bir satranç oyunundan neleri söküp atabiliriz ki geriye yine satranç kalsın?</p>
@@ -1725,8 +1747,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>With the core in hand there was only one direction left: adding.</p>
     </div>
 
-    <h3 lang="tr">Çekirdekten tam hakemliğe</h3>
-    <h3 lang="en">From core to full arbitration</h3>
+    <h3 id="corefull" lang="tr">Çekirdekten tam hakemliğe</h3>
+    <h3 lang="en" data-id="corefull">From core to full arbitration</h3>
     <div class="prose" lang="tr">
       <p>Motor tek seferde doğmadı, üst üste binen turlarla büyüdü.</p>
       <p>Önce seçimli terfi geldi; piyon vezire mahkûm olmaktan çıktı, at, fil ve kale de
@@ -1772,8 +1794,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       and in far more detail in a separate “Build log” section.</p>
     </div>
 
-    <h3 lang="tr">Yontma nerede biter</h3>
-    <h3 lang="en">Where the carving stops</h3>
+    <h3 id="carving" lang="tr">Yontma nerede biter</h3>
+    <h3 lang="en" data-id="carving">Where the carving stops</h3>
     <div class="prose" lang="tr">
       <p>Michelangelo'ya heykellerini nasıl yaptığı sorulduğunda şöyle cevap verdiği anlatılır:</p>
     </div>
@@ -1812,8 +1834,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       authoring.</p>
     </div>
 
-    <h3 lang="tr">Neden tarayıcı ve JavaScript</h3>
-    <h3 lang="en">Why the browser, and why JavaScript</h3>
+    <h3 id="whyjs" lang="tr">Neden tarayıcı ve JavaScript</h3>
+    <h3 lang="en" data-id="whyjs">Why the browser, and why JavaScript</h3>
     <div class="prose" lang="tr">
       <p>Akla gelen ilk sorulardan biri şu: neden tarayıcı, neden JavaScript?</p>
       <p>Cevabın ilk yarısı erişimle ilgili. Hangi cihazda, hangi işletim sisteminde, hangi
@@ -1883,8 +1905,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       someone ships something smaller. Until then it stands.</p>
     </div>
 
-    <h3 lang="tr">Kural katmanı ayrı, bot ayrı</h3>
-    <h3 lang="en">The rule layer is one thing, the bot another</h3>
+    <h3 id="rulesbot" lang="tr">Kural katmanı ayrı, bot ayrı</h3>
+    <h3 lang="en" data-id="rulesbot">The rule layer is one thing, the bot another</h3>
     <div class="prose" lang="tr">
       <p>İkinci soru daha zor: bu sayfada botlu sürümler duruyorken, iddia neden onları hiç
       saymıyor?</p>
@@ -1963,8 +1985,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     </div>
 
 
-    <h3 lang="tr">Baytların ötesinde</h3>
-    <h3 lang="en">Beyond the bytes</h3>
+    <h3 id="beyond" lang="tr">Baytların ötesinde</h3>
+    <h3 lang="en" data-id="beyond">Beyond the bytes</h3>
     <div class="prose" lang="tr">
       <p>Code golf dünyasındaki satranç projeleri genellikle 50 hamle sınırından, üçlü tekrardan, yetersiz materyalden, çoğu zaman rok ve geçerken almadan taviz verip yalnızca
       temel çekirdeğe odaklanıyor. Ben kimsenin pek uğramadığı tarafa baktım; projenin
@@ -2001,8 +2023,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       its function.</p>
     </div>
 
-    <h3 lang="tr">FideLite — adın ve logonun anlamı</h3>
-    <h3 lang="en">FideLite — what the name and the logo mean</h3>
+    <h3 id="name" lang="tr">FideLite — adın ve logonun anlamı</h3>
+    <h3 lang="en" data-id="name">FideLite — what the name and the logo mean</h3>
     <div class="brandbox">
       <img class="logo-l" src="images/logo.svg" width="264" height="264"
            alt="FideLite logosu: beş kare eninde bir ızgarada, ortadaki kareden çıkan taş hamleleri renklerle işaretli"
@@ -2058,7 +2080,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 
 <div class="panel" id="panelrules" role="tabpanel" aria-labelledby="tabrules" tabindex="0" hidden>
 
-<section id="rules">
+<section id="rules" data-notoc>
   <div class="wrap">
     <p class="eyebrow" lang="tr">Kurallar</p>
     <p class="eyebrow" lang="en">Rules</p>
@@ -2092,8 +2114,15 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>Article numbers follow the FIDE Laws of Chess that took effect on 1 January 2023 — <a class="ext" href="https://handbook.fide.com/chapter/E012023" target="_blank" rel="noopener">FIDE Handbook ↗️</a>.</p>
     </div>
 
-    <h3 lang="tr">1. Taş hareketleri ve geçerlilik</h3>
-    <h3 lang="en">1. How the pieces move, and what makes a move legal</h3>
+
+    <nav class="toc" data-toc></nav>
+  </div>
+</section>
+
+<section id="moves">
+  <div class="wrap">
+    <h2 lang="tr">1. Taş hareketleri ve geçerlilik</h2>
+    <h2 lang="en">1. How the pieces move, and what makes a move legal</h2>
 
     <p class="layer" lang="tr">Kitap ne diyor</p>
     <p class="layer" lang="en">What the book says</p>
@@ -2150,11 +2179,16 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Dördüncü koşul ilk üçünden pahalı: bir hamlenin şahı açıkta bırakıp bırakmadığı, hamle yapılmadan bakarak anlaşılmıyor. Bir hakem algoritmasında en sık çalışan kontrol de bu.</p>
     <p class="cost" lang="en"><b>What it costs to apply.</b> The fourth condition costs more than the first three: whether a move leaves the king exposed cannot be seen without making it. It is also the check an arbiter algorithm runs most often.</p>
 
-    <h3 lang="tr">2. Özel hamleler</h3>
-    <h3 lang="en">2. The special moves</h3>
+  </div>
+</section>
 
-    <h4 lang="tr">Rok — 3.8.2</h4>
-    <h4 lang="en">Castling — 3.8.2</h4>
+<section id="specials">
+  <div class="wrap">
+    <h2 lang="tr">2. Özel hamleler</h2>
+    <h2 lang="en">2. The special moves</h2>
+
+    <h3 id="castling" lang="tr">Rok — 3.8.2</h3>
+    <h3 lang="en" data-id="castling">Castling — 3.8.2</h3>
     <p class="layer" lang="tr">Kitap ne diyor</p>
     <p class="layer" lang="en">What the book says</p>
 
@@ -2326,8 +2360,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Rok tek bir hamle değil, dört ayrı koşulun kesişimi: hakkın hâlâ durması, şahla kale arasının boş olması, şahın o an tehdit altında olmaması ve geçeceği ile varacağı karelerin tehdit edilmemesi. Maddeyi ötekilerden pahalı yapan, bu tehdit sorguları.</p>
     <p class="cost" lang="en"><b>What it costs to apply.</b> Castling is not a single move but the intersection of four conditions: the right still stands, the squares between king and rook are empty, the king is not in check right now, and the squares it crosses and lands on are not attacked. Those attack queries are what make this article dearer than its neighbours.</p>
 
-    <h4 lang="tr">Geçerken alma — 3.7.4.1</h4>
-    <h4 lang="en">En passant — 3.7.4.1</h4>
+    <h3 id="enpassant" lang="tr">Geçerken alma — 3.7.4.1</h3>
+    <h3 lang="en" data-id="enpassant">En passant — 3.7.4.1</h3>
     <p class="layer" lang="tr">Kitap ne diyor</p>
     <p class="layer" lang="en">What the book says</p>
     <div class="prose" lang="tr">
@@ -2360,8 +2394,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Alışın kendisi ucuz: piyonun gerçekten vardığı kareyle ifade edildiği için ayrı bir kural gerektirmiyor. Pahalı olan, hakkın <em>doğup doğmadığına</em> karar vermek — buna dördüncü bölümde dönüyoruz.</p>
     <p class="cost" lang="en"><b>What it costs to apply.</b> The capture itself is cheap: it is expressed through the square the pawn actually lands on, so it needs no rule of its own. What is costly is deciding whether the right <em>arises at all</em> — we come back to that in section four.</p>
 
-    <h4 lang="tr">Terfi — 3.7.5</h4>
-    <h4 lang="en">Promotion — 3.7.5</h4>
+    <h3 id="promotion" lang="tr">Terfi — 3.7.5</h3>
+    <h3 lang="en" data-id="promotion">Promotion — 3.7.5</h3>
     <p class="layer" lang="tr">Kitap ne diyor</p>
     <p class="layer" lang="en">What the book says</p>
 
@@ -2395,8 +2429,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Terfi bir seçim olduğu için arayüzün bir soru sorması, algoritmanın da dört seçeneği birden hesaba katması gerekiyor. Otomatik vezir olsaydı bu maddenin maliyeti neredeyse sıfır olurdu.</p>
     <p class="cost" lang="en"><b>What it costs to apply.</b> Because promotion is a choice, the interface has to ask a question and the algorithm has to account for all four answers. Promote automatically to a queen and this article would cost almost nothing.</p>
 
-    <h4 lang="tr">Özel hamleler oyuna ne katıyor</h4>
-    <h4 lang="en">What the special moves add</h4>
+    <h3 id="specialsadd" lang="tr">Özel hamleler oyuna ne katıyor</h3>
+    <h3 lang="en" data-id="specialsadd">What the special moves add</h3>
     <div class="prose" lang="tr">
       <p>Rok ve iki adım tahtada yeni bir görüntü yaratmıyor: şahla kalenin rokla vardığı karelere
       de, piyonun iki adımda vardığı kareye de sıradan hamlelerle ulaşılabiliyor. Katkıları
@@ -2418,8 +2452,13 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       queen's ancestor.</p>
     </div>
 
-    <h3 lang="tr">3. Şah, mat ve pat</h3>
-    <h3 lang="en">3. Check, checkmate and stalemate</h3>
+  </div>
+</section>
+
+<section id="mate">
+  <div class="wrap">
+    <h2 lang="tr">3. Şah, mat ve pat</h2>
+    <h2 lang="en">3. Check, checkmate and stalemate</h2>
     <p class="layer" lang="tr">Kitap ne diyor</p>
     <p class="layer" lang="en">What the book says</p>
 
@@ -2441,8 +2480,13 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Tek bakışta çözülür. Sıradaki tarafın bir geçerli hamlesi var mı ve şahı tehdit altında mı — ikisi de mevcut tahtadan okunur, ileriye bakmak gerekmez.</p>
     <p class="cost" lang="en"><b>What it costs to apply.</b> Settled at a glance. Does the side to move have a legal move, and is its king attacked — both are read off the board in front of you; no looking ahead is needed.</p>
 
-    <h3 id="counters" lang="tr">4. Sayaçlar ve tekrar — 9.2 · 9.3 · 9.6</h3>
-    <h3 lang="en" data-id="counters">4. Counters and repetition — 9.2 · 9.3 · 9.6</h3>
+  </div>
+</section>
+
+<section id="counters">
+  <div class="wrap">
+    <h2 lang="tr">4. Sayaçlar ve tekrar — 9.2 · 9.3 · 9.6</h2>
+    <h2 lang="en">4. Counters and repetition — 9.2 · 9.3 · 9.6</h2>
 
     <p class="layer" lang="tr">Kitap ne diyor</p>
     <p class="layer" lang="en">What the book says</p>
@@ -2470,8 +2514,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <li><b>Mate takes precedence — 9.6.2.</b> If a move delivers mate, the mate stands even when the 50- or 75-move limit is reached on that same move: a 50-move claim attached to the move is ignored, and the automatic 75-move draw does not arise. It is a coincidence that does turn up in long endgames. With repetition it cannot happen: a checkmated position cannot have appeared before — had it, the game would have ended there. The book says so in two places: for 75 moves it is written out in 9.6.2 itself, and for a 50-move claim 5.1.1 is enough — mate ends the game on the spot.</li>
     </ul>
 
-    <h4 lang="tr">“Mümkün hamleler” ne demek</h4>
-    <h4 lang="en">What “possible moves” means</h4>
+    <h3 id="possible" lang="tr">“Mümkün hamleler” ne demek</h3>
+    <h3 lang="en" data-id="possible">What “possible moves” means</h3>
 
     <div class="prose" lang="tr">
       <p>Tekrarın bütün ağırlığı bu ifadede. Kitap iki durumu açıkça istisna olarak sayıyor ve ikisini
@@ -2616,8 +2660,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     </div>
 
 
-    <h4 lang="tr">Üç ölçü, iki hak</h4>
-    <h4 lang="en">Three measures for two rights</h4>
+    <h3 id="measures" lang="tr">Üç ölçü, iki hak</h3>
+    <h3 lang="en" data-id="measures">Three measures for two rights</h3>
 
     <div class="prose" lang="tr">
       <p>Geçerken alma ve rok için tekrar sayımında üç ayrı ölçü kullanılabiliyor — hak izi, ham-geçerli (şah güvenliğine bakılmadan, yalnızca geometrik olarak mümkün olan hareket) ve geçerli — ve her biri aynı tahtadan farklı bir pozisyon kümesi çıkarıyor. Tablonun üst satırı pozisyonları en çok
@@ -2893,8 +2937,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p><b>In FideLite.</b> The en passant square is written only if the capture is legal — an opposing pawn stands alongside, and the capture, though it moves two pawns at once, does not expose its own king. Castling is kept as the permanent right: together with the board, the side to move and the en passant square, the castling rights are part of the repetition key. FideLite thus applies FIDE's two rows exactly.</p>
     </div>
 
-    <h4 lang="tr">Oyunu sonlu kılan iki sınır</h4>
-    <h4 lang="en">The two limits that keep a game finite</h4>
+    <h3 id="finite" lang="tr">Oyunu sonlu kılan iki sınır</h3>
+    <h3 lang="en" data-id="finite">The two limits that keep a game finite</h3>
     <div class="prose" lang="tr">
       <p>Bu bölümdeki kendiliğinden gelen iki sınır — <b>75 hamle</b> ve <b>beşli tekrar</b> — oyunun
       sonsuza kadar sürmesini tek başına engelleyebiliyor; ikisi farklı bir sonluluğa dayanıyor.</p>
@@ -2981,8 +3025,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       there is no tournament chess.</p>
     </div>
 
-    <h4 lang="tr">Geri alınamaz hamle geçmişi budar</h4>
-    <h4 lang="en">An irreversible move prunes the past</h4>
+    <h3 id="prune" lang="tr">Geri alınamaz hamle geçmişi budar</h3>
+    <h3 lang="en" data-id="prune">An irreversible move prunes the past</h3>
     <div class="prose" lang="tr">
       <p>Yarım hamle sayacını sıfırlayan bir hamle (piyon hamlesi ya da alış) ve bir rok hakkının
       düşmesi, tekrar tablosunu o andan itibaren budar: öncesindeki pozisyonların hiçbiri bir daha
@@ -3030,8 +3074,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       would have been bytes spent for nothing.</p>
     </div>
 
-    <h4 lang="tr">Hamle listesi yerine sayaçlar <span class="dtag">8.1 · dijitalde sayaçlara dönüşür</span></h4>
-    <h4 lang="en">Counters instead of a scoresheet <span class="dtag">8.1 · becomes counters digitally</span></h4>
+    <h3 id="scoresheet" lang="tr">Hamle listesi yerine sayaçlar <span class="dtag">8.1 · dijitalde sayaçlara dönüşür</span></h3>
+    <h3 lang="en" data-id="scoresheet">Counters instead of a scoresheet <span class="dtag">8.1 · becomes counters digitally</span></h3>
 
     <div class="prose" lang="tr">
       <p>Bu sayaçların tahta başındaki karşılığı oyuncunun kendi tuttuğu kayıt. FIDE oyuncudan
@@ -3124,8 +3168,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p><b>In FideLite.</b> Both numbers stay current on the status line after every move; the <a href="#indicators">indicators section</a> explains how to read them.</p>
     </div>
 
-    <h4 lang="tr">FIDE'nin çevrimiçi yönetmeliği <span class="dtag">dijitalde talep kendiliğinden</span></h4>
-    <h4 lang="en">FIDE's online regulations <span class="dtag">claims become automatic digitally</span></h4>
+    <h3 id="online" lang="tr">FIDE'nin çevrimiçi yönetmeliği <span class="dtag">dijitalde talep kendiliğinden</span></h3>
+    <h3 lang="en" data-id="online">FIDE's online regulations <span class="dtag">claims become automatic digitally</span></h3>
     <div class="prose" lang="tr">
       <p>FIDE'nin tahta başı kurallarının yanında bir de <a class="ext" href="https://handbook.fide.com/chapter/OnlineChessRegulations" target="_blank" rel="noopener">çevrimiçi yönetmeliği ↗️</a> var:
       resmî çevrimiçi turnuvalar ve oyuncuların bir hakemin gözetiminde bir arada ama ekranda
@@ -3196,8 +3240,13 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Tekrar, kitabın tahtanın dışında bilgi tutmayı gerektiren ilk maddesi. Pozisyonu tanımlayan şey yalnızca taşların yeri değil: sıra, rok hakları ve geçerken alma imkânı da o tanımın parçası. Bunlardan birini yanlış saymak, sayacı sessizce bozar.</p>
     <p class="cost" lang="en"><b>What it costs to apply.</b> Repetition is the first article in the book that requires keeping information beyond the board. What defines a position is not only where the pieces stand: the side to move, the castling rights and the availability of an en passant capture are all part of the definition. Get one of them wrong and the counter fails silently.</p>
 
-    <h3 id="deadpos" lang="tr">5. Ölü pozisyon — 5.2.2</h3>
-    <h3 lang="en" data-id="deadpos">5. Dead position — 5.2.2</h3>
+  </div>
+</section>
+
+<section id="deadpos">
+  <div class="wrap">
+    <h2 lang="tr">5. Ölü pozisyon — 5.2.2</h2>
+    <h2 lang="en">5. Dead position — 5.2.2</h2>
     <p class="layer" lang="tr">Kitap ne diyor</p>
     <p class="layer" lang="en">What the book says</p>
 
@@ -3227,8 +3276,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 
     <p class="layer" lang="tr">Algoritmada nasıl okunur</p>
     <p class="layer" lang="en">How an algorithm reads it</p>
-    <h4 lang="tr">Birinci kol: materyalden</h4>
-    <h4 lang="en">The first branch: from material</h4>
+    <h3 id="material" lang="tr">Birinci kol: materyalden</h3>
+    <h3 lang="en" data-id="material">The first branch: from material</h3>
 
     <div class="prose" lang="tr">
       <p>Aşağıdaki tablo <b>iki tarafın taşlarına birden</b> bakar; sorduğu soru “bu tahtada mat diye
@@ -3272,8 +3321,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 </tbody>
 </table></div>
 
-    <h4 id="dead" lang="tr">İkinci kol: yapıdan — kilitli pozisyonlar</h4>
-    <h4 lang="en" data-id="dead">The second branch: from structure — blocked positions</h4>
+    <h3 id="dead" lang="tr">İkinci kol: yapıdan — kilitli pozisyonlar</h3>
+    <h3 lang="en" data-id="dead">The second branch: from structure — blocked positions</h3>
 
     <div class="prose" lang="tr">
       <p>Materyal fazlasıyla yeterliyken de mat imkânsız olabilir. Piyonlar birbirini kilitlemiştir,
@@ -3896,8 +3945,13 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Kitabın hem kod boyutu hem hız bakımından en pahalı maddesi. Materyal kolu taş saymaktır, ucuzdur; yapı kolu tahtanın kendisine bakmayı gerektirir. Rakamları <a href="#lscan">motorun kendisinde</a>. Bugün hiçbir uygulama bütün satranç uzayını kapsadığını ispatlayamıyor.</p>
     <p class="cost" lang="en"><b>What it costs to apply.</b> The most expensive article in the book, in code size and in speed alike. The material branch is counting pieces and is cheap; the structural branch requires looking at the position itself. The figures are in <a href="#lscan">the engine itself</a>. Today no implementation can prove that it covers the whole space of chess.</p>
 
-    <h3 id="flag" lang="tr">6. Terk ve süre bitimi — 5.1.2 · 6.9</h3>
-    <h3 lang="en" data-id="flag">6. Resignation and flag fall — 5.1.2 · 6.9</h3>
+  </div>
+</section>
+
+<section id="flag">
+  <div class="wrap">
+    <h2 lang="tr">6. Terk ve süre bitimi — 5.1.2 · 6.9</h2>
+    <h2 lang="en">6. Resignation and flag fall — 5.1.2 · 6.9</h2>
     <p class="layer" lang="tr">Kitap ne diyor</p>
     <p class="layer" lang="en">What the book says</p>
 
@@ -3996,8 +4050,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <a href="#resignside">Pitfalls</a>.</p>
     </div>
 
-    <h4 lang="tr">Ucuz yarı: tahtadaki taşlar</h4>
-    <h4 lang="en">The cheap half: the pieces on the board</h4>
+    <h3 id="cheaphalf" lang="tr">Ucuz yarı: tahtadaki taşlar</h3>
+    <h3 lang="en" data-id="cheaphalf">The cheap half: the pieces on the board</h3>
 
     <div class="prose" lang="tr">
       <p>İlk soru taş saymakla cevaplanır: rakibin elindeki taşlarla mat diye bir şey var mı. Aşağıdaki
@@ -4240,8 +4294,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       material” — and that is exactly what 6.9 and 5.1.2 ask.</p>
     </div>
 
-    <h4 lang="tr">Zor yarı: tahtanın zorunlu olarak neye dönüşeceği</h4>
-    <h4 lang="en">The hard half: what the board is forced to become</h4>
+    <h3 id="hardhalf" lang="tr">Zor yarı: tahtanın zorunlu olarak neye dönüşeceği</h3>
+    <h3 lang="en" data-id="hardhalf">The hard half: what the board is forced to become</h3>
 
     <div class="prose" lang="tr">
       <p>Taş saymak sorunun yalnızca yarısını kapatıyor, üstelik kolay yarısını. Rakibinin tahtada
@@ -5287,8 +5341,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Bu maddeyi uygulamamanın gerekçesi hep aynı olmuştur: hesaplanamayacağı. Gerekçe sanıldığı kadar sağlam değil — ileriye bakmak gerekiyor, ama zorunlu dallar tanım gereği dar ve pratikte karar birkaç milisaniye içinde veriliyor. Bütçeyi sonuna kadar harcayan uç örnekler saniyeler sürebiliyor, ama milyonlarda bir görülüyorlar; <a href="#hbudget">bütçenin kendisi</a> motor sekmesinde. Pratikteki karar bir insanın hamle düşünme süresinin yanında fark edilmiyor bile.</p>
     <p class="cost" lang="en"><b>What it costs to apply.</b> The standing reason for not applying this article has always been the same: it is intractable. The reason is less solid than it looks. Looking ahead is required, but forced branches are narrow by definition, and in practice the ruling lands within a few milliseconds. The extremes that spend the whole budget can take seconds, but they turn up once in millions; <a href="#hbudget">the budget itself</a> is on the engine tab. Set against a human thinking about a move, the practical ruling does not register.</p>
 
-    <h4 lang="tr">Kenar not: yarı kilitli pozisyon</h4>
-    <h4 lang="en">A note in the margin: the half-blocked position</h4>
+    <h3 id="semilocked" lang="tr">Kenar not: yarı kilitli pozisyon</h3>
+    <h3 lang="en" data-id="semilocked">A note in the margin: the half-blocked position</h3>
     <div class="prose" lang="tr">
       <p>Çok uç bir vaka, pratikte milyarda bir görülür ve bu bölümün ana fikri için gerekli
       değil — ama 6.9'un neden 5.2.2'den ayrı bir madde olduğunu tek bir tahtayla gösterdiği için
@@ -5641,8 +5695,13 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       dead position (½‑½) before a single move is played.</p>
     </div>
 
-    <h3 id="claims" lang="tr">7. Talep ve anlaşma — 9.1 · 9.2 · 9.3 · 9.5</h3>
-    <h3 lang="en" data-id="claims">7. Claims and agreement — 9.1 · 9.2 · 9.3 · 9.5</h3>
+  </div>
+</section>
+
+<section id="claims">
+  <div class="wrap">
+    <h2 lang="tr">7. Talep ve anlaşma — 9.1 · 9.2 · 9.3 · 9.5</h2>
+    <h2 lang="en">7. Claims and agreement — 9.1 · 9.2 · 9.3 · 9.5</h2>
 
     <p class="layer" lang="tr">Kitap ne diyor</p>
     <p class="layer" lang="en">What the book says</p>
@@ -5659,8 +5718,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 
     <p class="layer" lang="tr">Algoritmada nasıl okunur</p>
     <p class="layer" lang="en">How an algorithm reads it</p>
-    <h4 lang="tr">Talep penceresi</h4>
-    <h4 lang="en">The claim window</h4>
+    <h3 id="claimwindow" lang="tr">Talep penceresi</h3>
+    <h3 lang="en" data-id="claimwindow">The claim window</h3>
     <div class="prose" lang="tr">
       <p>Kitap talebi <em>hamleye bağlı</em> kuruyor: ya oynayacağın hamleyi bildirip talep
       edersin ya da pozisyon doğduğunda, sıra sendeyken. Tahta başında bu pencere düşünme süren
@@ -5701,8 +5760,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       automatically. Leave it to a separate button and the window closes again.</p>
     </div>
 
-    <h4 lang="tr">Teklif de hamleye bağlıdır</h4>
-    <h4 lang="en">The offer, too, is tied to a move</h4>
+    <h3 id="offermove" lang="tr">Teklif de hamleye bağlıdır</h3>
+    <h3 lang="en" data-id="offermove">The offer, too, is tied to a move</h3>
     <div class="prose" lang="tr">
       <p>Kitap talep ile teklifi birbirine bağlıyor: 9.2 ya da 9.3'e göre yapılan her talep aynı
       zamanda bir beraberlik teklifidir (9.1.2.3). Şartı tutmayan bir talep boşa gitmez; rakibin
@@ -5747,8 +5806,13 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       side to move, because both travel <b>on the move's own channel</b>.</p>
     </div>
 
-    <h3 id="federations" lang="tr">8. Federasyon farkı: FIDE, USCF ve platformlar</h3>
-    <h3 lang="en" data-id="federations">8. Federation differences: FIDE, USCF and the platforms</h3>
+  </div>
+</section>
+
+<section id="federations">
+  <div class="wrap">
+    <h2 lang="tr">8. Federasyon farkı: FIDE, USCF ve platformlar</h2>
+    <h2 lang="en">8. Federation differences: FIDE, USCF and the platforms</h2>
 
     <div class="prose" lang="tr">
       <p>Hamle kuralları, taşların hareketi, mat ve pat iki federasyonda birebir aynı. Ayrışma
@@ -5761,8 +5825,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       claim. The two books govern the same game but read differently the points where the player, the clock and the arbiter step in.</p>
     </div>
 
-    <h4 lang="tr">Usul farkları</h4>
-    <h4 lang="en">Procedural differences</h4>
+    <h3 id="procedure" lang="tr">Usul farkları</h3>
+    <h3 lang="en" data-id="procedure">Procedural differences</h3>
 
     <ul class="tight" lang="tr">
       <li><b>50 hamle ve üçlü tekrar — ortak.</b> İki kitapta da oyun kendiliğinden bitmiyor; beraberlik için oyunculardan birinin talep etmesi gerekiyor.</li>
@@ -5777,8 +5841,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <li><b>Dead position — shared.</b> FIDE 5.2.2 and USCF 14D lay down the same principle: once neither side can mate, the game ends at that moment, blocked positions included.</li>
     </ul>
 
-    <h4 lang="tr">Asıl ayrım: yardımlı mat ve zorlamalı mat</h4>
-    <h4 lang="en">The main divide: helpmate and forced mate</h4>
+    <h3 id="helpmate" lang="tr">Asıl ayrım: yardımlı mat ve zorlamalı mat</h3>
+    <h3 lang="en" data-id="helpmate">The main divide: helpmate and forced mate</h3>
 
     <div class="prose" lang="tr">
       <p>Bayrak düştüğünde iki kitap da aynı soruyu soruyor — rakip bu oyuncuyu mat edebilir mi —
@@ -5845,8 +5909,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 </tbody>
 </table></div>
 
-    <h4 lang="tr">Platformlar</h4>
-    <h4 lang="en">The platforms</h4>
+    <h3 id="platforms" lang="tr">Platformlar</h3>
+    <h3 lang="en" data-id="platforms">The platforms</h3>
 
         <div class="sidefig" lang="tr">
       <figure class="fig">
@@ -5947,8 +6011,13 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       material comparison alone. The same position can be played in all three side by side.</p>
     </div>
 
-    <h3 id="hybrid" lang="tr">9. Önerilen karma sistem</h3>
-    <h3 lang="en" data-id="hybrid">9. A proposed hybrid ruleset</h3>
+  </div>
+</section>
+
+<section id="hybrid">
+  <div class="wrap">
+    <h2 lang="tr">9. Önerilen karma sistem</h2>
+    <h2 lang="en">9. A proposed hybrid ruleset</h2>
 
     <div class="prose" lang="tr">
       <p>Dijital bir platformda iki kitaptan birini olduğu gibi uygulamak her zaman en iyi sonucu
@@ -6037,8 +6106,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       the flag falls and the players never wait for it.</p>
     </div>
 
-    <h4 id="reset" lang="tr">Sayacı ne sıfırlamalı</h4>
-    <h4 lang="en" data-id="reset">What should reset the counter</h4>
+    <h3 id="reset" lang="tr">Sayacı ne sıfırlamalı</h3>
+    <h3 lang="en" data-id="reset">What should reset the counter</h3>
     <div class="prose" lang="tr">
       <p>9.3 ve 9.6.2 sayacı yalnızca iki olaya bağlıyor: piyon hareketi ve taş alma. İkisinin ortak
       noktası geri alınamaz olmaları; sayacın bütün anlamı da buradan geliyor. Ama kitabın kendi
@@ -6088,8 +6157,13 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     </div>
 
 
-    <h3 id="frame" lang="tr">10. Çerçeveyi değiştiren kurallar</h3>
-    <h3 lang="en" data-id="frame">10. Rules that change the frame</h3>
+  </div>
+</section>
+
+<section id="frame">
+  <div class="wrap">
+    <h2 lang="tr">10. Çerçeveyi değiştiren kurallar</h2>
+    <h2 lang="en">10. Rules that change the frame</h2>
     <div class="prose" lang="tr">
       <p>İlk dokuz bölüm standart oyun üzerineydi. Bu bölüm oyunun kendisini değil çerçevesini
       değiştiren kurallara bakıyor. Kitap bunların bir kısmını ana maddelerden sonra, ek ve
@@ -6103,8 +6177,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       that the rules on the board stay as they are; what changes is everything around them.</p>
     </div>
 
-    <h4 id="c960" lang="tr">Chess960 — Kılavuz II</h4>
-    <h4 lang="en" data-id="c960">Chess960 — Guidelines II</h4>
+    <h3 id="c960" lang="tr">Chess960 — Kılavuz II</h3>
+    <h3 lang="en" data-id="c960">Chess960 — Guidelines II</h3>
     <p class="layer" lang="tr">Kitap ne diyor</p>
     <p class="layer" lang="en">What the book says</p>
 
@@ -6341,9 +6415,6 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       varış karesinin yanına alınıyor, sonra kale yerine konuyor, en son şah bırakılıyor; yanlış
       anlaşılmasın diye önceden “rok yapıyorum” demek de öneriliyor. Dijitalde bu işi hamlenin
       kodlanışı görüyor.</p>
-      <p><b>FideLite'ta.</b> Sürümler standart satrancı oynuyor; 960 <a href="#special">Özel
-      sürümler</a>'deki LUX'ta var: başlarken 960 kutusu işaretlenip diziliş numarası (0–959)
-      yazılıyor ya da zarla rastgele seçiliyor. Yandaki dizilişi açmak için 777 yazmak yeterli.</p>
     </div>
     <div class="prose" lang="en">
       <p><b>Castling can no longer be written as a two-square king move.</b> In standard chess
@@ -6373,6 +6444,14 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       is first lifted off the board and set beside its destination, then the rook is placed, and
       only then is the king put down; saying “I am about to castle” beforehand is recommended too.
       On a screen, the encoding of the move does that job.</p>
+    </div>
+
+    <div class="prose fl" lang="tr">
+      <p><b>FideLite'ta.</b> Sürümler standart satrancı oynuyor; 960 <a href="#special">Özel
+      sürümler</a>'deki LUX'ta var: başlarken 960 kutusu işaretlenip diziliş numarası (0–959)
+      yazılıyor ya da zarla rastgele seçiliyor. Yandaki dizilişi açmak için 777 yazmak yeterli.</p>
+    </div>
+    <div class="prose fl" lang="en">
       <p><b>In FideLite.</b> The builds play standard chess; Chess960 is in LUX, among the
       <a href="#special">Special builds</a>: at the start you tick the 960 box and type the
       position number (0–959), or roll the die for a random one. Typing 777 opens the position
@@ -6382,8 +6461,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Diziliş kural değil veri: oyunu başka bir FEN'le başlatmak kadar ucuz. Maliyetin tamamı rokta: sabit karelerle yazılmış kontroller dikeylere bağlı aralıklara genelleşiyor, hamle kodlaması şahın kendi kalesini alması biçimine geçiyor ve rok hakkı kaleyi dikeyiyle tanıyor. Hamle üretimi, şah kontrolü, mat, pat, tekrar ve sayaçlar olduğu gibi kalıyor.</p>
     <p class="cost" lang="en"><b>What it costs to apply.</b> The starting position is data, not a rule: as cheap as starting the game from a different FEN. The whole cost is in castling: checks written over fixed squares generalise to ranges tied to files, the move encoding switches to the king capturing its own rook, and the castling right learns its rook by file. Move generation, check detection, mate, stalemate, repetition and the counters stay as they are.</p>
 
-    <h4 id="timectl" lang="tr">Zaman türleri ve çoklu periyot — 6 · Ek A · Ek B · Kılavuz III</h4>
-    <h4 lang="en" data-id="timectl">Time controls and multiple periods — 6 · Appendix A · Appendix B · Guidelines III</h4>
+    <h3 id="timectl" lang="tr">Zaman türleri ve çoklu periyot — 6 · Ek A · Ek B · Kılavuz III</h3>
+    <h3 lang="en" data-id="timectl">Time controls and multiple periods — 6 · Appendix A · Appendix B · Guidelines III</h3>
     <p class="layer" lang="tr">Kitap ne diyor</p>
     <p class="layer" lang="en">What the book says</p>
 
@@ -6461,10 +6540,6 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       gecikmenin tamamını kullanabiliyor, Bronstein'da bayrak ana süre bittiği an düşüyor. Sözlük
       iki adı tek kip için kullandığından, ikisini ayrı sunan bir yazılım farkı kendisi tanımlamak
       zorunda.</p>
-      <p><b>FideLite'ta.</b> Oyun 10 + 5 oynanıyor: Fischer kipinde, tek periyot. Kitabın
-      hesabıyla 15 dakika, yani hızlı oyun. <a href="#special">Özel sürümler</a>'deki LUX'ta bu
-      kontrol başlarken değiştirilebiliyor: Fischer, Bronstein ya da basit gecikme; beyaza ve
-      siyaha ayrı süre; iki ek periyot.</p>
     </div>
     <div class="prose" lang="en">
       <p><b>The clock is a small state machine.</b> It needs each side's remaining time, the mode,
@@ -6483,6 +6558,15 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       Bronstein the flag falls the moment the main time runs out. Since the glossary uses both
       names for one mode, software that offers the two separately has to define the difference
       itself.</p>
+    </div>
+
+    <div class="prose fl" lang="tr">
+      <p><b>FideLite'ta.</b> Oyun 10 + 5 oynanıyor: Fischer kipinde, tek periyot. Kitabın
+      hesabıyla 15 dakika, yani hızlı oyun. <a href="#special">Özel sürümler</a>'deki LUX'ta bu
+      kontrol başlarken değiştirilebiliyor: Fischer, Bronstein ya da basit gecikme; beyaza ve
+      siyaha ayrı süre; iki ek periyot.</p>
+    </div>
+    <div class="prose fl" lang="en">
       <p><b>In FideLite.</b> The game is played at 10 + 5: Fischer mode, a single period. By the
       book's sum that is 15 minutes, a rapid game. In LUX, among the
       <a href="#special">Special builds</a>, the control can be changed at the start: Fischer,
@@ -6491,6 +6575,108 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 
     <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Saat kural motorunun dışında: birkaç sayı ve saate her basışta birkaç toplama. Zamanın pahalı sorusu tek: bayrak düştüğünde rakip mat edebilir mi (6.9). Tür ve kip ne olursa olsun bayrak oraya varıyor.</p>
     <p class="cost" lang="en"><b>What it costs to apply.</b> The clock sits outside the rule engine: a few numbers and a few additions at every press. Time has only one expensive question: when a flag falls, could the opponent mate (6.9)? Whatever the kind and the mode, flag fall ends up there.</p>
+
+    <h3 id="drawlimit" lang="tr">Beraberlik teklifi periyodu — 9.1.1 · 11.5</h3>
+    <h3 lang="en" data-id="drawlimit">Draw-offer periods — 9.1.1 · 11.5</h3>
+    <p class="layer" lang="tr">Kitap ne diyor</p>
+    <p class="layer" lang="en">What the book says</p>
+    <ul class="tight" lang="tr">
+      <li><b>Hamle eşiği — 9.1.1.</b> Turnuva yönetmeliği, hakemin onayı olmadan beraberlik teklif etmeyi ve kabul etmeyi belli bir hamleden önce ya da oyunun tamamında yasaklayabiliyor; sık görülen eşikler 30 ve 40. hamle. Yasak yalnızca teklif ve anlaşmayı kapsıyor: 50 hamle ya da üçlü tekrar talebi doğruysa oyunu yine bitiriyor.</li>
+      <li><b>Rahatsız edici teklif — 11.5.</b> <span class="dtag">dijitalde kurala dönüşür</span> Kitap teklifin sıklığına bir sayı koymuyor; rakibi rahatsız eden teklif 11.5'e giriyor ve hüküm hakemin takdiri. Dijitalde bu takdiri verecek hakem yok, o yüzden sınır önceden kurala yazılmak zorunda.</li>
+    </ul>
+    <ul class="tight" lang="en">
+      <li><b>A move threshold — 9.1.1.</b> The regulations of an event may forbid offering or agreeing to a draw without the arbiter's consent before a given move, or altogether; common thresholds are move 30 and move 40. The ban covers only offers and agreements: a correct 50-move or threefold repetition claim still ends the game.</li>
+      <li><b>An annoying offer — 11.5.</b> <span class="dtag">becomes a rule digitally</span> The book puts no number on how often a draw may be offered; an offer that annoys the opponent falls under 11.5, and the ruling is the arbiter's call. Digitally there is no arbiter to make that call, so the limit has to be written into a rule in advance.</li>
+    </ul>
+
+    <p class="layer" lang="tr">Algoritmada nasıl okunur</p>
+    <p class="layer" lang="en">How an algorithm reads it</p>
+    <div class="prose" lang="tr">
+      <p><b>Teklif, talep gibi sessiz değil.</b> Talebi sistem kendisi doğrulayıp sonuçlandırıyor;
+      rakip hiçbir şey görmüyor. Teklif ise ancak rakip görüp karar verirse sonuç doğuruyor: her
+      teklif rakibin ekranına düşen bir sinyal, tekrarlandığında da düşünmesini bölen bir araç
+      (<a href="#claims">7. bölüm</a>). Platformlar ve uygulamalar bu yüzden teklifi kendi
+      kurallarıyla sınırlayabiliyor: belli bir hamleden önce kapalı tutmak, bir periyoda bağlamak
+      (örneğin on hamlede bir) ya da reddedilen tekliften sonra bir süre yenisini almamak gibi.
+      Hepsi hamle sayacına bakan birer karşılaştırma.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p><b>An offer is not silent the way a claim is.</b> A claim is verified and settled by the
+      system itself; the opponent sees nothing. An offer takes effect only if the opponent sees it
+      and decides: every offer is a signal landing on the opponent's screen, and repeated, a tool
+      that breaks their thinking (<a href="#claims">section 7</a>). That is why platforms and apps
+      may limit offers by rules of their own: keeping them closed before a given move, tying them to
+      a period (once every ten moves, say), or refusing a new one for a while after one has been
+      declined. Each is a single comparison against the move counter.</p>
+    </div>
+
+    <div class="prose fl" lang="tr">
+      <p><b>FideLite'ta.</b> Bununla ilgili bir sınırlama yok. Kural daha çok oyunu yürüten
+      tarafı, yani organizatörü ya da platformu ilgilendiriyor; kitabın değil yönetmeliğin seçeneği
+      olduğu için karar ona bırakıldı. Bazı özel sürümlerde istenen şekilde ayarlanabiliyor.</p>
+    </div>
+    <div class="prose fl" lang="en">
+      <p><b>In FideLite.</b> There is no restriction of this kind. The rule concerns the side that
+      runs the game, the organiser or the platform, more than anyone else; since it is an option for
+      an event's regulations rather than a rule of the book, the decision is left to them. Some of
+      the special builds can be set up as wanted.</p>
+    </div>
+
+    <h3 id="armageddon" lang="tr">Armageddon — dengeyi bozan oyun</h3>
+    <h3 lang="en" data-id="armageddon">Armageddon — the game that breaks the balance</h3>
+    <div class="prose" lang="tr">
+      <p>Üst düzeyde satranç beraberliğe doğru akıyor: iki taraf da hata yapmadıkça sonuç çoğu
+      zaman eşitlikte kalıyor. Armageddon bu dengeyi kesin olarak alt üst etmek için var; bir
+      sonuç çıkması gereken yerde oynanan son oyun. Süper GM düzeyinde beyazla başlamak zaten
+      başlı başına ciddi bir avantajken, kısa bir yıldırım oyununda beyaza bir de kayda değer
+      farkla daha fazla süre veriliyor. Karşılığında siyah beraberliği galibiyet sayıyor. Beyaz
+      kazanmak zorunda; siyahın kaybetmemesi yetiyor.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>At the top level chess drifts towards the draw: as long as neither side errs, the result
+      mostly stays level. Armageddon exists to overturn that balance for good; it is the last game,
+      played where a result has to come out. At super-GM level starting with White is already a
+      serious advantage in itself, and yet in a short blitz game White is also given noticeably
+      more time. In return, Black counts a draw as a win. White has to win; Black need only avoid
+      losing.</p>
+    </div>
+
+    <p class="layer" lang="tr">Yönetmelik ne diyor</p>
+    <p class="layer" lang="en">What the regulations say</p>
+    <div class="prose" lang="tr">
+      <p>Armageddon kitapta yok; eşitlik bozma ve turnuva yönetmeliklerinde tanımlanıyor. Genel
+      biçimi:</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>Armageddon is not in the book; it is defined in tie-break and event regulations. Its
+      general shape:</p>
+    </div>
+    <ul class="tight" lang="tr">
+      <li><b>Beraberlik siyahın.</b> Berabere biten her oyun siyahın galibiyeti sayılıyor: pat, ölü pozisyon, tekrar, 50 hamle.</li>
+      <li><b>Süre farkı yönetmelikte yazılı.</b> En yaygın biçim 5'e 4 dakika ve iki periyot: ikinci periyot 61. hamlede başlıyor, süre eklemiyor, yalnızca küçük bir artışı devreye sokuyor. Örneğin 2021 Dünya Kupası'nda beyaz 5, siyah 4 dakika aldı ve 61. hamleden itibaren hamle başına 2 saniye eklendi. Norveç Satrancı'nda beyaz 10, siyah 7 dakikayla oynuyor; 41. hamleden itibaren ikisine de hamle başına 1 saniye ekleniyor.</li>
+      <li><b>Renk kurayla ya da teklifle.</b> Genelde kurayı kazanan rengini seçiyor; teklif usulünde siyahla oynamak için en az süreye razı olan siyahı alıyor.</li>
+    </ul>
+    <ul class="tight" lang="en">
+      <li><b>The draw belongs to Black.</b> Every game that ends drawn counts as a win for Black: stalemate, dead position, repetition, the 50-move rule.</li>
+      <li><b>The time difference is written into the regulations.</b> The most common form is 5 minutes against 4 in two periods: the second starts at move 61, adds no time and only switches on a small increment. At the 2021 World Cup, for instance, White had 5 minutes and Black 4, with 2 seconds added per move from move 61. At Norway Chess White plays with 10 minutes and Black with 7, both receiving 1 second per move from move 41.</li>
+      <li><b>Colour by lot or by bid.</b> Usually the winner of the lot chooses; under bidding, whoever accepts the least time for Black gets Black.</li>
+    </ul>
+
+    <p class="layer" lang="tr">Algoritmada nasıl okunur</p>
+    <p class="layer" lang="en">How an algorithm reads it</p>
+    <ul class="tight" lang="tr">
+      <li><b>Beyaz neyle kazanır.</b> Mat, siyahın terki ya da siyahın bayrağıyla. Son ikisinde 5.1.2 ve 6.9 aynen işliyor: beyaz hiçbir geçerli hamle dizisiyle mat edemiyorsa sonuç beraberlik, yani yine siyah.</li>
+      <li><b>Talep formaliteye dönüşüyor.</b> 50 hamle ve üçlü tekrar normalde talep ister. Armageddonda siyahın talep etmemek için, beyazın talep etmek için hiçbir sebebi yok; eşik dolduğu an siyah her durumda talep edebiliyor (9.2, 9.3). Dijitalde oyunu 50. hamlede ve üçüncü tekrarda kendiliğinden bitirmek bu yüzden kuralı değiştirmiyor, aynı sonucu hakemi beklemeden veriyor.</li>
+      <li><b>Tek taraflı ölü pozisyon.</b> 5.2.2 iki tarafa birden bakar: kimse mat edemiyorsa oyun biter. Armageddonda yalnızca beyaza bakmak yetiyor. Beyaz artık hiçbir geçerli hamle dizisiyle mat edemiyorsa oyun nasıl biterse bitsin sonuç siyahın: siyah mat eder, beyazın bayrağı düşer ya da siyahın bayrağı düşer ve 6.9 bunu beraberliğe çevirir. Bunu söyleyen yazılı bir kural yok; ama sonuç artık değişmediği için bir hakem algoritması oyunu burada bitirebilir. Gereken arama da zaten var: 6.9'un “rakip mat edebilir mi” sorusu, bu kez her hamlede beyaz için soruluyor.</li>
+    </ul>
+    <ul class="tight" lang="en">
+      <li><b>How White wins.</b> By mate, by Black's resignation or by Black's flag. In the last two, 5.1.2 and 6.9 work as usual: if White cannot mate by any series of legal moves, the result is a draw, which again means Black.</li>
+      <li><b>The claim becomes a formality.</b> The 50-move rule and threefold repetition normally need a claim. In Armageddon Black has no reason not to claim and White no reason to; the moment a threshold is reached, Black can claim in every case (9.2, 9.3). Ending the game digitally at the 50th move and at the third repetition therefore does not change the rule; it gives the same result without waiting for an arbiter.</li>
+      <li><b>A one-sided dead position.</b> 5.2.2 looks at both sides at once: if no one can mate, the game ends. In Armageddon it is enough to look at White. If White can no longer mate by any series of legal moves, the result is Black's however the game ends: Black mates, White's flag falls, or Black's flag falls and 6.9 turns it into a draw. No written rule says so; but since the result can no longer change, an arbiter algorithm can end the game here. The search it needs already exists: 6.9's question “could the opponent mate”, this time asked for White after every move.</li>
+    </ul>
+
+    <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Sonuç kuralı tek satır: beraberlik siyaha yazılıyor. Tek taraflı ölü pozisyon ise 6.9 aramasını bayrağı beklemeden, hafif taşlı pozisyonlarda arka planda çalıştırmak demek.</p>
+    <p class="cost" lang="en"><b>What it costs to apply.</b> The result rule is one line: the draw goes to Black. The one-sided dead position means running the 6.9 search in the background in positions with few pieces, without waiting for a flag.</p>
 
     </div>
 </section>
@@ -6518,8 +6704,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p><b>Bot ekseni.</b> Ne arayüz ne kural tartılıyor; kuralların üstüne konan arama tartılıyor:
       <code class="vn">L1_1250elo</code>, <code class="vn">L2_aybars_2500</code> ve Toledo'nun programına karşı yazılan
       <code class="vn">ToledosOpponentbyMe</code>. <a href="#bots">Özel sürümlerin içinde</a>, kendi grubunda.</p>
-      <p>Bu eksenlere sığmayanlar sekmenin sonunda, <a href="#special">Özel sürümlerde</a>. <code class="vn">L3</code>'ün paketli iki hâli
-      eskimiş yöntem kullansa da iddianın parçası; <a href="#l3packed"><code class="vn">L3</code> ailesiyle birlikte</a> anlatılıyor.</p>
+      <p>Eksenlere sığmayanlar <a href="#special">Özel sürümlerde</a>. <code class="vn">L3</code>'ün
+      <a href="#l3packed">paketli iki hâli</a> ise eskimiş yöntem kullansa da iddianın parçası.</p>
     </div>
     <div class="prose" lang="en">
       <p>The builds multiply along three separate axes; they should not be confused.</p>
@@ -6535,10 +6721,12 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p><b>The bot axis.</b> Neither the interface nor the rules are measured here, but the search placed
       on top of the rules: <code class="vn">L1_1250elo</code>, <code class="vn">L2_aybars_2500</code>, and <code class="vn">ToledosOpponentbyMe</code>, written
       against Toledo's program. <a href="#bots">Inside the special builds</a>, as a group of its own.</p>
-      <p>What fits none of these axes is at the end of this tab, among the <a href="#special">special builds</a>.
-      The two packed forms of <code class="vn">L3</code> use deprecated methods but are part of the claim; they are
-      described <a href="#l3packed">with the <code class="vn">L3</code> family</a>.</p>
+      <p>What fits none of the axes is among the <a href="#special">special builds</a>. The
+      <a href="#l3packed">two packed forms</a> of <code class="vn">L3</code>, though they use deprecated
+      methods, are part of the claim.</p>
     </div>
+
+    <nav class="toc" data-toc></nav>
 
     <h3 id="l3" lang="tr"><code class="vn">L3</code> ailesi — tam hakem</h3>
     <h3 lang="en" data-id="l3">The <code class="vn">L3</code> family — the full arbiter</h3>
@@ -6998,8 +7186,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>The awkwardness of this interface is deliberate: the aim is to do everything the other builds do, with good-faith input, in the fewest bytes. This is the lowest rung on which the game can be played without breaking the engine.</p>
     </div>
 
-    <h3 lang="tr">Terfi, terk ve beraberlik</h3>
-    <h3 lang="en">Promotion, resignation and draws</h3>
+    <h3 id="promoresign" lang="tr">Terfi, terk ve beraberlik</h3>
+    <h3 lang="en" data-id="promoresign">Promotion, resignation and draws</h3>
     <div class="prose" lang="tr">
       <p>Hamle dışındaki her eylem sürümden sürüme farklı yapılıyor. <code class="vn">main</code> ve <code class="vn">light</code>'ta hepsi ayrı bir arayüz öğesi; kalanlarda hepsi hamlenin girildiği kanaldan geçiyor.</p>
     </div>
@@ -7438,8 +7626,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>A packed implementation of the <code class="vn">L1</code> rules is among the <a href="#special">special builds</a>: <code class="vn">DOM_998</code>; at the end of the game the board turns a single colour.</p>
     </div>
 
-    <h3 lang="tr">Oynanış</h3>
-    <h3 lang="en">Gameplay</h3>
+    <h3 id="levelplay" lang="tr">Oynanış</h3>
+    <h3 lang="en" data-id="levelplay">Gameplay</h3>
     <div class="prose" lang="tr">
       <p>Oynanış <a href="#gameplay"><code class="vn">L3</code>'teki</a> gibi; farklar kuraldan geliyor ve yukarıdaki
       tabloda okunuyor. Oyuncu katmanı olmadığı için saat, terk, teklif ve talep yok, dolayısıyla
@@ -7508,8 +7696,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       level; the details of each repository are in its own README.</p>
     </div>
 
-    <h3 lang="tr"><a class="ext" href="https://github.com/cuneytinann/Chess-LUX" target="_blank" rel="noopener">Chess-LUX ↗️</a></h3>
-    <h3 lang="en"><a class="ext" href="https://github.com/cuneytinann/Chess-LUX" target="_blank" rel="noopener">Chess-LUX ↗️</a></h3>
+    <h3 id="lux" lang="tr"><a class="ext" href="https://github.com/cuneytinann/Chess-LUX" target="_blank" rel="noopener">Chess-LUX ↗️</a></h3>
+    <h3 lang="en" data-id="lux"><a class="ext" href="https://github.com/cuneytinann/Chess-LUX" target="_blank" rel="noopener">Chess-LUX ↗️</a></h3>
     <div class="prose" lang="tr">
       <p>Chess LUX, FideLite'ın daha gevşek bir bayt bütçesiyle ve daha yüksek kural doğruluğuyla
       yazılmış hâli. Motoru <a href="#speed"><code>engine_4x</code></a>; kurallar <code class="vn">L3</code>'le aynı, ama iki
@@ -7535,7 +7723,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       geçersiz bir girdide oyun başlamıyor.
       Zaman türü seçilebiliyor: Fischer artışı, Bronstein gecikmesi
       ve basit gecikme; artış sıfırlanınca sudden death. FIDE 5.2.3 de uygulanıyor: iki taraf da en az
-      bir hamle yapmadan anlaşmalı beraberlik olmuyor. Beraberlik radyosu, rakibin açık teklifinde
+      bir hamle yapmadan anlaşmalı beraberlik olmuyor; teklifin hangi hamleden itibaren açılacağı da
+      ayarlanabiliyor (½ Offer, varsayılanı 1). Beraberlik radyosu, rakibin açık teklifinde
       olduğu gibi, 50 hamle ya da üçlü tekrar talebi geçerli olduğunda da yeşile dönüyor.</p>
       <p>Sağ tuşa basılı tutup sürükleyerek tahtada çemberlerle desenler çizilebiliyor: düz ya da çapraz bir hat
       boyunca bütün kareler, öbür durumlarda iki uç kare işaretleniyor; tek bir kareye sağ tıklamak
@@ -7543,6 +7732,30 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       halka. Şah çekildiğinde, eşdeğerlerde olduğu gibi, şahın karesi kırmızı bir ışıkla
       vurgulanıyor. Alınan taşlar ve materyal farkı saatlerin yanında duruyor. Bitiş göstergeleri ve
       bütün yerleşim daha ferah.</p>
+      <p><b>Armageddon.</b> LUX'ta armageddon için ayrı bir kip yok; başlangıç penceresinden
+      kuruluyor:</p>
+      <ol class="tight">
+        <li><b>Auto 3R/50</b> işaretlenir: üçlü tekrar ve 50 hamle, talep beklemeden oyunu bitirir. Armageddonda beraberlik zaten siyahın işine yaradığı için talep bir formalite; kendiliğinden bitirmek sonucu değiştirmiyor.</li>
+        <li><b>⚖</b> kaldırılıp siyaha daha az süre verilir; örneğin beyaza 5, siyaha 4 dakika.</li>
+        <li>Armageddonda genelde iki periyot olur: ikinci periyot süre eklemez, yalnızca artışı devreye sokar. 61. hamleden itibaren hamle başına 2 saniye için ana artış 0 bırakılır, <b>per2</b> <code># 60 +0 min +2 s</code> girilir.</li>
+        <li>İstenirse <b>½ Offer</b> çok büyük bir sayıya, örneğin 99999'a ayarlanır; teklif hiç açılmaz. Bu şart değil: anlaşmalı beraberlik de zaten siyahın galibiyeti.</li>
+      </ol>
+      <p>Hakem berabere biten oyunu her beraberlikte olduğu gibi ½-½ gösteriyor. Buna, beyazın mat
+      edemeyeceği bir durumda siyahın bayrağının düşmesi de dahil (6.9). Armageddonda bu sonucun
+      anlamı siyahın galibiyeti. Kuralların okunuşu Kurallar sekmesinin
+      <a href="#armageddon">10. bölümünde</a>.</p>
+      <div class="note">
+        <p><b>Tek taraflı sonlandırma yok.</b> Kurallardaki tek taraflı ölü pozisyon, yani beyazın
+        artık mat edemediği anda oyunu bitirmek, LUX'a yazılmadı. Bu hiçbir sonucu değiştirmiyor;
+        oyun yalnızca daha geç bitebiliyor. Siyah kazandığından eminse bunu kendisi ilan edebilir:
+        ya kendi süresini bitirerek ya da, ironik biçimde, terk düğmesine (⚐) basarak. İkisinde de
+        hakem 5.1.2 ve 6.9'a bakıyor; beyaz mat edemiyorsa sonuç ½-½, yani siyahın galibiyeti.</p>
+        <p>Ama siyah kuralı bildiğinden emin olmalı! Beyazda yalnız şah ve at, siyahta şah ve kale
+        kalmışken bile yardımlı mat kurulabiliyor: siyahın kendi kalesi, şahının kaçış karesini
+        kapatıyor. O anda terk eden ya da süresini bitiren siyah gerçekten kaybediyor (<a href="#flag">6. bölümdeki tablo</a>). Hakemin de beraberliği
+        kanıtlayabilmesi gerekiyor: kanıt bulunamazsa tedbiren beyaza kazanç veriliyor. LUX'ta bu çok
+        nadir, ama sıfır değil.</p>
+      </div>
     </div>
     <div class="prose" lang="en">
       <p>Chess LUX is FideLite written with a looser byte budget and higher rule accuracy. Its engine
@@ -7570,13 +7783,38 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       in check; castling rights and an en passant square that disagree with the board are ignored,
       and on invalid input the game does not start. The time control type can be chosen: Fischer increment, Bronstein delay and simple delay, with sudden death when the
       increment is zero. FIDE 5.2.3 is applied too: there is no draw by agreement until both sides have
-      made at least one move. The draw radio turns green not only when the opponent has an offer
+      made at least one move; the move from which offers open can be set as well (½ Offer, default
+      1). The draw radio turns green not only when the opponent has an offer
       open but also when a 50-move or threefold claim would be valid.</p>
       <p>Holding the right button and
       dragging draws patterns of circles on the board: every square along a straight or diagonal line,
       and otherwise the two end squares; right-clicking a single square marks just that one. The squares a piece can go to are marked in two ways, as in the Lichess and Chess.com equivalents: a dot in the middle of an empty square and a ring round the edge of a square holding an enemy
       piece. When a king is in check its square lights up in red, as in the equivalents. The captured
       pieces and the material balance sit beside the clocks. The end-of-game indicators and the whole layout are more spacious.</p>
+      <p><b>Armageddon.</b> LUX has no separate mode for Armageddon; it is set up from the start
+      dialog:</p>
+      <ol class="tight">
+        <li>Tick <b>Auto 3R/50</b>: threefold repetition and the 50-move rule end the game without waiting for a claim. In Armageddon a draw serves Black anyway, so the claim is a formality, and ending the game automatically does not change the result.</li>
+        <li>Untick <b>⚖</b> and give Black less time, for example 5 minutes for White and 4 for Black.</li>
+        <li>Armageddon usually has two periods: the second adds no time and only switches the increment on. For 2 seconds per move from move 61, leave the main increment at 0 and enter <b>per2</b> <code># 60 +0 min +2 s</code>.</li>
+        <li>Optionally, set <b>½ Offer</b> to a very large number, such as 99999, so that no draw can be offered. This is not required: an agreed draw counts as a win for Black anyway.</li>
+      </ol>
+      <p>The arbiter reports a drawn game as ½-½, like any other draw, including a flag fall after
+      which White cannot mate (6.9). Under Armageddon rules that result means Black wins. How the
+      rules read is in <a href="#armageddon">section 10</a> of the Rules tab.</p>
+      <div class="note">
+        <p><b>No one-sided ending.</b> The one-sided dead position from the rules, ending the game
+        the moment White can no longer mate, has not been written into LUX. That changes no result;
+        the game may only end later. If Black is sure of the win, Black can declare it: either by
+        letting their own time run out or, ironically, by pressing the resign button (⚐). Either way
+        the arbiter looks at 5.1.2 and 6.9: if White cannot mate, the result is ½-½, which means Black
+        wins.</p>
+        <p>But Black must be sure of the rule! Even with White down to king and knight and Black to
+        king and rook, a helpmate exists: Black's own rook shuts the king's escape square. A Black
+        player who resigns or lets the clock run out at that point really loses (<a href="#flag">the table in section 6</a>). The arbiter also has to
+        be able to prove the draw: if no proof is found, the win goes to White as a precaution. In
+        LUX this is very rare, but not zero.</p>
+      </div>
     </div>
     <div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th>Ne</th><th>Giriş</th><th>Bayt</th></tr></thead>
@@ -7591,8 +7829,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 </tbody>
 </table></div>
 
-<h3 lang="tr"><a class="ext" href="https://github.com/cuneytinann/Lichess-equivalent" target="_blank" rel="noopener">Lichess-equivalent ↗️</a></h3>
-    <h3 lang="en"><a class="ext" href="https://github.com/cuneytinann/Lichess-equivalent" target="_blank" rel="noopener">Lichess-equivalent ↗️</a></h3>
+<h3 id="lichesseq" lang="tr"><a class="ext" href="https://github.com/cuneytinann/Lichess-equivalent" target="_blank" rel="noopener">Lichess-equivalent ↗️</a></h3>
+    <h3 lang="en" data-id="lichesseq"><a class="ext" href="https://github.com/cuneytinann/Lichess-equivalent" target="_blank" rel="noopener">Lichess-equivalent ↗️</a></h3>
     <div class="prose" lang="tr">
       <p>Lichess'in kurallarını uygulayan bir hakem: tıklanan tahtayla 3.022 bayt, tahtası çıkarılmış sayısal hâliyle 1.206 bayt. Tıklanan sürümde oynanış da Lichess'e benziyor — platformun renkleri, gidilebilecek karelerin işaretleri, vurgulanan son hamle ve tehdit altındaki şah, tahtanın üstünde açılan terfi seçimi; saat <code class="vn">L3</code>'teki gibi 600 + 5 saniye. Sayısal hâli <code class="vn">L3_numerical</code>'ın arayüzünü kullanıyor ve paketli.</p>
     </div>
@@ -7614,8 +7852,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 </tbody>
 </table></div>
 
-    <h3 lang="tr"><a class="ext" href="https://github.com/cuneytinann/Chesscom-equivalent" target="_blank" rel="noopener">Chesscom-equivalent ↗️</a></h3>
-    <h3 lang="en"><a class="ext" href="https://github.com/cuneytinann/Chesscom-equivalent" target="_blank" rel="noopener">Chesscom-equivalent ↗️</a></h3>
+    <h3 id="chesscomeq" lang="tr"><a class="ext" href="https://github.com/cuneytinann/Chesscom-equivalent" target="_blank" rel="noopener">Chesscom-equivalent ↗️</a></h3>
+    <h3 lang="en" data-id="chesscomeq"><a class="ext" href="https://github.com/cuneytinann/Chesscom-equivalent" target="_blank" rel="noopener">Chesscom-equivalent ↗️</a></h3>
     <div class="prose" lang="tr">
       <p>Aynı fikir, Chess.com'un kurallarıyla: tıklanan tahtayla 2.837 bayt, sayısal hâliyle 1.161 bayt. Tıklanan sürüm Chess.com'un renklerini ve işaretlerini taşıyor; oynanış öbür yönlerden Lichess eşdeğeriyle aynı. Sayısal hâli yine <code class="vn">L3_numerical</code>'ın arayüzünü kullanıyor ve paketli.</p>
     </div>
@@ -7682,8 +7920,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       the main builds.</p>
     </div>
 
-    <h3 lang="tr"><a class="ext" href="https://github.com/cuneytinann/ChessMiniature" target="_blank" rel="noopener">ChessMiniature ↗️</a></h3>
-    <h3 lang="en"><a class="ext" href="https://github.com/cuneytinann/ChessMiniature" target="_blank" rel="noopener">ChessMiniature ↗️</a></h3>
+    <h3 id="miniature" lang="tr"><a class="ext" href="https://github.com/cuneytinann/ChessMiniature" target="_blank" rel="noopener">ChessMiniature ↗️</a></h3>
+    <h3 lang="en" data-id="miniature"><a class="ext" href="https://github.com/cuneytinann/ChessMiniature" target="_blank" rel="noopener">ChessMiniature ↗️</a></h3>
     <div class="prose" lang="tr">
       <p><b>Satrancın temel kuralları, satır satır.</b> Bu depo bir ders malzemesi olarak yazıldı.
       Sayfada sağ tıklayıp “Sayfa kaynağını görüntüle” demek yetiyor: tahtanın kendisinden doğan
@@ -7739,8 +7977,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <code>IM</code> rather than <code>DP</code>.</p>
     </div>
 
-    <h3 lang="tr"><a class="ext" href="https://github.com/cuneytinann/chessinbytes" target="_blank" rel="noopener">chessinbytes ↗️</a></h3>
-    <h3 lang="en"><a class="ext" href="https://github.com/cuneytinann/chessinbytes" target="_blank" rel="noopener">chessinbytes ↗️</a></h3>
+    <h3 id="chessinbytes" lang="tr"><a class="ext" href="https://github.com/cuneytinann/chessinbytes" target="_blank" rel="noopener">chessinbytes ↗️</a></h3>
+    <h3 lang="en" data-id="chessinbytes"><a class="ext" href="https://github.com/cuneytinann/chessinbytes" target="_blank" rel="noopener">chessinbytes ↗️</a></h3>
     <div class="prose" lang="tr">
       <p>Bayt bayt iki kişilik satranç: her biri tek HTML dosyası ve 1 KB'nin altında olan üç sürüm, üçü de paketli. Üçü aynı kuralları uyguluyor — tam geçerlilik, bütün şartlarıyla rok, geçerken alma, her taşa terfi. Kural seviyeleri <code class="vn">L1</code>'le aynı; oynanışları ve göstergeleri ise farklı. Saat, sayaç, tekrar, materyal testi, teklif ve sonuç kodu yok; mat ile pat ayırt edilmiyor. Adı bayt bütçelerinden geliyor: 998 baytlık ana sürümden 794 baytlık ara sürüme ve 712 baytlık en küçük sürüme kadar iniyor.</p>
     </div>
@@ -7889,27 +8127,14 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <section id="engine">
   <div class="wrap">
     <div class="prose tabmap" lang="tr">
-      <p>Bu sekme motorun kendisini anlatıyor ve üç bölümden oluşuyor.
-      <a href="#engine">Arayüzsüz çekirdek</a>: kaynak ve kavram bantları, tahtanın nasıl
-      tutulduğu, bir sürücü yazmak için gereken altı çağrı, durum değişkenleri, fonksiyonlar ve
-      adlar. <a href="#flow">Satır satır</a>: motorun katları aşağıdan yukarıya — geometri, tehdit,
-      geçerlilik, rok hakkı; ölü pozisyonun iki kolu ve hüküm; mat imkânsızlığının iki kolu;
-      işlem — ardından bir hamlenin tam izi ve iki bitiş çakıştığında hangisinin kazandığı.
-      <a href="#tests">Testler</a>: kural iddialarının perft ile nasıl sınandığı ve testleri
-      kendin nasıl çalıştırabileceğin. Kuralların kendisi <a href="#rules">Kurallar ve
+      <p>Bu sekme motorun kendisini anlatıyor. Kuralların kendisi <a href="#rules">Kurallar ve
       uygulanışı</a> sekmesinde; tasarım kararlarının geçmişi ve sınır durumları, <code>engine_4x.js</code> ile <code>engine_string.js</code>'in kaynakları da <b>Ayrıntılı teknik</b> sekmesinde.</p>
     </div>
     <div class="prose tabmap" lang="en">
-      <p>This tab is about the engine itself, in three sections. <a href="#engine">The core without
-      an interface</a>: the source and its concept bands, how the board is held, the six calls a
-      driver needs, the state variables, the functions and the names. <a href="#flow">Line by
-      line</a>: the engine's layers from the bottom up — geometry, attack, legality, castling
-      rights; the two branches of the dead position and the ruling; the two branches of the
-      impossibility of mate; application — then the full trace of one move and which ending wins
-      when two coincide. <a href="#tests">Tests</a>:
-      how the rule claims are checked with perft, and how to run the tests yourself. The rules
-      themselves are on the <a href="#rules">Rules</a> tab; the history of the design decisions, the edge cases and the sources of <code>engine_4x.js</code> and <code>engine_string.js</code> are on the <b>Technical detail</b> tab.</p>
+      <p>This tab is about the engine itself. The rules themselves are on the <a href="#rules">Rules</a>
+      tab; the history of the design decisions, the edge cases and the sources of <code>engine_4x.js</code> and <code>engine_string.js</code> are on the <b>Technical detail</b> tab.</p>
     </div>
+    <nav class="toc" data-toc></nav>
     <p class="eyebrow" lang="tr">Motor</p>
     <p class="eyebrow" lang="en">Engine</p>
     <h2 lang="tr"><code>engine.js</code> — arayüzsüz çekirdek</h2>
@@ -8196,8 +8421,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 </table></div>
 
 
-    <h3 lang="tr">Fonksiyonlar</h3>
-    <h3 lang="en">Functions</h3>
+    <h3 id="functions" lang="tr">Fonksiyonlar</h3>
+    <h3 lang="en" data-id="functions">Functions</h3>
     <div class="prose" lang="tr">
       <p>Altısını yukarıda gördün. Kalan yedisi iç mekanizma; sürücünün çağırması gerekmez ama
       motoru okumak için gerekli. Bayt sütunu her fonksiyonun kaç bayt tuttuğunu veriyor —
@@ -8614,8 +8839,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 </tbody>
 </table></div>
 
-    <h3 lang="tr">Tahtanın kurulması</h3>
-    <h3 lang="en">Setting up the board</h3>
+    <h3 id="setup" lang="tr">Tahtanın kurulması</h3>
+    <h3 lang="en" data-id="setup">Setting up the board</h3>
 
     <div class="prose" lang="tr">
       <p>Tahtayı kuran bildirim tek bir ifade:</p>
@@ -8921,8 +9146,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       fit, the left side is zero and short-circuiting means <code>S()</code> never runs.</p>
     </div>
 
-    <h3 lang="tr">Tehdit — <code>V</code></h3>
-    <h3 lang="en">Attack — <code>V</code></h3>
+    <h3 id="vfn" lang="tr">Tehdit — <code>V</code></h3>
+    <h3 lang="en" data-id="vfn">Attack — <code>V</code></h3>
 
     <div class="prose" lang="tr">
       <p>Geometri katı tek bir taşı biliyor. Tehdit katı bütün tahtaya soruyor — ve 50 bayt tutuyor.</p>
@@ -8970,8 +9195,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       comes back in <a href="#speed">the speed section</a> — harmless, but not free.</p>
     </div>
 
-    <h3 lang="tr">Geçerlilik — <code>L</code> ve <code>M</code></h3>
-    <h3 lang="en">Legality — <code>L</code> and <code>M</code></h3>
+    <h3 id="lfn" lang="tr">Geçerlilik — <code>L</code> ve <code>M</code></h3>
+    <h3 lang="en" data-id="lfn">Legality — <code>L</code> and <code>M</code></h3>
 
     <h4 lang="tr"><code>L</code> — üret, dene, geri al</h4>
     <h4 lang="en"><code>L</code> — generate, try, take back</h4>
@@ -9179,8 +9404,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       difference as a diagonal capture.</p>
     </div>
 
-    <h3 lang="tr">Rok hakkı — <code>C</code></h3>
-    <h3 lang="en">Castling rights — <code>C</code></h3>
+    <h3 id="cfn" lang="tr">Rok hakkı — <code>C</code></h3>
+    <h3 lang="en" data-id="cfn">Castling rights — <code>C</code></h3>
 
     <div class="prose" lang="tr">
       <p>Dört rok hakkı <code>c</code>'de dört bit. Hangi karenin hangi biti düşürdüğünü söyleyen fonksiyon <b>27 bayt</b> — dosyanın en kısası.</p>
@@ -9254,8 +9479,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       piece is in the way, the bit stays put.</p>
     </div>
 
-    <h3 lang="tr">Yetersiz materyal — <code>I</code></h3>
-    <h3 lang="en">Insufficient material — <code>I</code></h3>
+    <h3 id="ifn" lang="tr">Yetersiz materyal — <code>I</code></h3>
+    <h3 lang="en" data-id="ifn">Insufficient material — <code>I</code></h3>
 
     <div class="prose" lang="tr">
       <p><code>I(g)</code> tahtayı bir kez tarayıp iki geçici değer dolduruyor ve tek bir soruya cevap veriyor: bu materyalle mat kurulabilir mi?</p>
@@ -9723,8 +9948,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       depends on whose turn it is — the measurement is <a href="#trace">below</a>.</p>
     </div>
 
-    <h3 lang="tr">Mat edemeyen materyal — <code>Im</code></h3>
-    <h3 lang="en">Material that can't mate — <code>Im</code></h3>
+    <h3 id="imfn" lang="tr">Mat edemeyen materyal — <code>Im</code></h3>
+    <h3 lang="en" data-id="imfn">Material that can't mate — <code>Im</code></h3>
 
     <div class="prose" lang="tr">
       <p><a href="#flag">6.9</a> ve 5.1.2'nin materyal kolu. Soru tek taraflı: süresi biten ya
@@ -10061,8 +10286,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       and 99 plies.</p>
     </div>
 
-    <h3 lang="tr">İşlem — <code>A</code>, <code>D</code>, <code>F</code></h3>
-    <h3 lang="en">Application — <code>A</code>, <code>D</code>, <code>F</code></h3>
+    <h3 id="ops" lang="tr">İşlem — <code>A</code>, <code>D</code>, <code>F</code></h3>
+    <h3 lang="en" data-id="ops">Application — <code>A</code>, <code>D</code>, <code>F</code></h3>
 
     <h4 lang="tr"><code>A</code> — dört adım, her biri bir öncekini okur</h4>
     <h4 lang="en"><code>A</code> — four steps, each reading the one before</h4>
@@ -10404,8 +10629,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       table.</figcaption>
     </figure>
 
-    <h3 lang="tr">Kısa devre merdiveni</h3>
-    <h3 lang="en">The ladder of short circuits</h3>
+    <h3 id="shortcircuit" lang="tr">Kısa devre merdiveni</h3>
+    <h3 lang="en" data-id="shortcircuit">The ladder of short circuits</h3>
 
     <div class="prose" lang="tr">
       <p>Beş ayrı test aynı sonuca çıkıyor. <code>Im</code>, <code>I</code>, <code>l</code>, tekrar
@@ -10550,8 +10775,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       layer.</p>
     </div>
 
-    <h3 lang="tr">CPW standart pozisyonları</h3>
-    <h3 lang="en">The standard CPW positions</h3>
+    <h3 id="cpw" lang="tr">CPW standart pozisyonları</h3>
+    <h3 lang="en" data-id="cpw">The standard CPW positions</h3>
     <div class="prose" lang="tr">
       <p>Yedi pozisyon, dördüncünün renk aynası dahil. Ayna tesadüfi değil: renk
       simetrisini bozan bir hata yalnızca orada görünür.</p>
@@ -10585,8 +10810,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 </tbody>
 </table></div>
 
-    <h3 lang="tr">van Kervinck zor pozisyonları</h3>
-    <h3 lang="en">van Kervinck's tricky positions</h3>
+    <h3 id="kervinck" lang="tr">van Kervinck zor pozisyonları</h3>
+    <h3 lang="en" data-id="kervinck">van Kervinck's tricky positions</h3>
     <div class="prose" lang="tr">
       <p>Geçersiz geçerken alma, şah altında rok, geçerken almanın açtığı keşif şahı, şah
       çeken terfi ve alt terfi, pat–mat ayrımı, fil açmazından kaçınma. On beş pozisyonun
@@ -10641,8 +10866,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 </tbody>
 </table></div>
 
-    <h3 lang="tr">Toplu koşular</h3>
-    <h3 lang="en">Bulk runs</h3>
+    <h3 id="bulk" lang="tr">Toplu koşular</h3>
+    <h3 lang="en" data-id="bulk">Bulk runs</h3>
     <div class="prose" lang="tr">
       <p>Tek tek seçilmiş pozisyonlar kenar durumları yakalar; toplu koşular sıradan
       oyunda ortaya çıkanı yakalar.</p>
@@ -10680,8 +10905,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       çalışıyor. <code>engine.js</code> dosyasının kendisini sınamak için
       <code>ENGINE=./engine.js</code> yeterli.</p>
     </div>
-    <h3 lang="tr">Kendin çalıştır</h3>
-    <h3 lang="en">Run them yourself</h3>
+    <h3 id="runtests" lang="tr">Kendin çalıştır</h3>
+    <h3 lang="en" data-id="runtests">Run them yourself</h3>
     <div class="prose" lang="tr">
       <p>Yukarıdaki sayıların hepsi tek bir iddia: motor şu pozisyonlarda şu düğümleri
       üretiyor. Bana güvenmen gerekmiyor; kendin kontrol edebilirsin.</p>
@@ -15268,6 +15493,7 @@ f = K[2] + K[3] - 0</pre></div>
 
 <section id="sims">
   <div class="wrap">
+    <nav class="toc" data-toc></nav>
     <p class="eyebrow" lang="tr">Simülasyonlar</p>
     <p class="eyebrow" lang="en">Simulations</p>
     <h2 lang="tr">Kodlamada kullandığım simülasyonlar</h2>
@@ -15651,6 +15877,20 @@ f = K[2] + K[3] - 0</pre></div>
       the opponent always sees the look they chose.</p>
     </div>
     <figure class="shot"><img src="images/lotr-chess-set.webp" width="436" height="458" loading="lazy" alt="Yüzüklerin Efendisi konseptiyle yapılmış fiziksel bir satranç takımı; taşlar karakter figürleri" data-en-alt="A physical chess set made on a Lord of the Rings concept; the pieces are character figures"><figcaption><span lang="tr">Görsel: Tolkien.Creations</span><span lang="en">Image: Tolkien.Creations</span></figcaption></figure>
+  </div>
+</section>
+
+<section id="champion">
+  <div class="wrap">
+    <h2 lang="tr">Geleceğin Şampiyonu</h2>
+    <h2 lang="en">The Champion of the Future</h2>
+    <div class="prose" lang="tr">
+      <p>GM Yağız Kaan ERDOĞMUŞ (D. 3 Haziran 2011) – 2716 rating</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>GM Yağız Kaan ERDOĞMUŞ (b. 3 June 2011) – rating 2716</p>
+    </div>
+    <figure class="shot"><img src="images/GOAT.webp" width="447" height="447" loading="lazy" alt="GM Yağız Kaan Erdoğmuş satranç tahtasının başında, eli bir taşa uzanmış" data-en-alt="GM Yağız Kaan Erdoğmuş at the board, reaching for a piece"></figure>
   </div>
 </section>
 
@@ -17025,6 +17265,75 @@ xBoxes.forEach(function (box) {
   box.querySelector('.xdl').addEventListener('click', function () { save(ART[k].p); });
 });
 engShow();
+</script>
+
+<script>
+/* ---- icindekiler ----
+   <nav class="toc" data-toc> bulundugu panelin bolumlerinden doldurulur:
+   numara bolum (section > h2), harf o bolumun alt basliklari (h3). data-notoc
+   tasiyan bolum (sekmenin giris metni) sayilmaz. Baslik metnindeki "1." gibi
+   numara ve .dtag etiketleri kutuda tekrarlanmaz. Master dosyada capa gizli
+   ikizde durabildigi icin tiklama hedefi baglantiyla birlikte tutulur. */
+(function () {
+  var navs = document.querySelectorAll('nav.toc[data-toc]');
+  function clean(h) {
+    var c = h.cloneNode(true), x = c.querySelectorAll('.dtag'), i;
+    for (i = 0; i < x.length; i++) x[i].parentNode.removeChild(x[i]);
+    return c.textContent.replace(/\u2197\uFE0F?/g, '').replace(/^\s*\d+\.\s*/, '')
+      .replace(/\s+/g, ' ').trim();
+  }
+  function item(href, num, text, target) {
+    var li = document.createElement('li'), a = document.createElement('a'),
+        n = document.createElement('span'), t = document.createElement('span');
+    a.href = href; n.className = 'tn'; n.textContent = num;
+    t.className = 'tt'; t.textContent = text;
+    a.appendChild(n); a.appendChild(t);
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      target.scrollIntoView();
+      if (history.replaceState) history.replaceState(null, '', href);
+    });
+    li.appendChild(a);
+    return li;
+  }
+  Array.prototype.forEach.call(navs, function (nav) {
+    var panel = nav.parentNode;
+    while (panel && !(panel.classList && panel.classList.contains('panel'))) panel = panel.parentNode;
+    if (!panel) return;
+    var secs = Array.prototype.filter.call(panel.querySelectorAll('section[id]'),
+                 function (x) { return !x.hasAttribute('data-notoc'); }),
+        det = document.createElement('details'), sum = document.createElement('summary');
+    det.open = true;
+    /* Etiketler DOM ile kuruluyor: build.mjs karsi dilin lang'li bloklarini metin
+       uzerinden siliyor, betik icindeki bir HTML dizgisi de buna takilirdi. */
+    [['tr', 'İçindekiler'], ['en', 'Contents']].forEach(function (p) {
+      var sp = document.createElement('span');
+      sp.setAttribute('lang', p[0]); sp.textContent = p[1]; sum.appendChild(sp);
+    });
+    det.appendChild(sum);
+    ['tr', 'en'].forEach(function (lg) {
+      var ol = document.createElement('ol'), n = 0;
+      ol.setAttribute('lang', lg);
+      secs.forEach(function (sec) {
+        var h2 = sec.querySelector('h2[lang="' + lg + '"]');
+        if (!h2) return;
+        var li = item('#' + sec.id, (++n) + ' –', clean(h2), sec),
+            hs = sec.querySelectorAll('h3[lang="' + lg + '"]'), sub = null, k = 0, i, id;
+        for (i = 0; i < hs.length; i++) {
+          id = hs[i].id || hs[i].getAttribute('data-id');
+          if (!id) continue;
+          if (!sub) sub = document.createElement('ol');
+          sub.appendChild(item('#' + id, String.fromCharCode(97 + k++) + ')', clean(hs[i]), hs[i]));
+        }
+        if (sub) li.appendChild(sub);
+        ol.appendChild(li);
+      });
+      if (n) det.appendChild(ol);
+    });
+    nav.setAttribute('aria-label', document.documentElement.getAttribute('data-lang') === 'en' ? 'Contents' : 'İçindekiler');
+    nav.appendChild(det);
+  });
+})();
 </script>
 
 <script>
