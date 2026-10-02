@@ -3321,6 +3321,242 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 </tbody>
 </table></div>
 
+    <h3 id="bishopcolour" lang="tr">Atlar toplanır, filler birleşir</h3>
+    <h3 lang="en" data-id="bishopcolour">Knights add up, bishops merge</h3>
+
+    <div class="prose" lang="tr">
+      <p>Ölü pozisyonda taşlar taraf ayrılmadan, tahta bir bütün olarak sayılıyor ve bu sayımda at ile
+      fil aynı terazide tartılmıyor. Atta <b>sayı</b> belirleyici: tahtada tek at varsa pozisyon ölü;
+      ikinci at, hangi tarafa gelirse gelsin, ölülüğü bitiriyor. Filde öyle değil. Tahtadaki bütün
+      filler tek renkteyse, kaç tane olurlarsa olsunlar ve kimin elinde bulunurlarsa bulunsunlar
+      pozisyon ölü. Aynı renkte gelen her yeni fil hükmü olduğu yerde bırakıyor; ölülük ancak
+      <b>öbür renkte bir fil</b>, ya da filden başka bir taş geldiği an bitiyor.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>In a dead position the pieces are counted without regard to side, the board taken as a whole,
+      and in that count knights and bishops are not weighed on the same scale. With knights the
+      <b>number</b> decides: with a single knight on the board the position is dead; a second knight,
+      whichever side it joins, ends the deadness. Bishops are different. If every bishop on the board
+      stands on one colour, the position is dead however many there are and whoever holds them. Each
+      new bishop of that colour leaves the ruling where it was; the deadness ends only the moment
+      <b>a bishop of the other colour</b>, or any piece other than a bishop, arrives.</p>
+    </div>
+
+    <div class="sidefig" lang="tr">
+      <figure class="fig fig-wide">
+<div class="mb et el eb er" role="img" aria-label="On altı fil, dokuzu beyazın, yedisi siyahın, hepsi koyu karelerde. Siyah şah f8'de, beyaz şah f1'de. Siyah şahın açık renkli komşuları e8, g8 ve f7 işaretli.">
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"><b class="b">♝</b></i>
+<i class="m"></i>
+<i class="d"><b class="b">♚</b></i>
+<i class="m"></i>
+<i class="d" data-r="8"><b class="b">♝</b></i>
+<i class="d"><b class="w">♝</b></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"><b class="b">♝</b></i>
+<i class="m"></i>
+<i class="d"><b class="b">♝</b></i>
+<i data-r="7"></i>
+<i></i>
+<i class="d"><b class="w">♝</b></i>
+<i></i>
+<i class="d"><b class="b">♝</b></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="6"></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"><b class="w">♝</b></i>
+<i data-r="5"></i>
+<i></i>
+<i class="d"><b class="w">♝</b></i>
+<i></i>
+<i class="d"><b class="b">♝</b></i>
+<i></i>
+<i class="d"><b class="w">♝</b></i>
+<i></i>
+<i class="d" data-r="4"></i>
+<i class="d"><b class="w">♝</b></i>
+<i></i>
+<i class="d"><b class="w">♝</b></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i data-r="3"></i>
+<i></i>
+<i class="d"><b class="w">♝</b></i>
+<i></i>
+<i class="d"><b class="w">♝</b></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="2"><b class="b">♝</b></i>
+<i class="d" data-f="a"></i>
+<i data-f="b"></i>
+<i class="d" data-f="c"></i>
+<i data-f="d"></i>
+<i class="d" data-f="e"></i>
+<i data-f="f"><b class="w">♚</b></i>
+<i class="d" data-f="g"></i>
+<i data-f="h" data-r="1"></i>
+</div>
+        <figcaption>On altı fil, hepsi koyu karelerde. İşaretli e8, g8 ve f7 siyah şahın yatay ve dikey komşuları: açık kare oldukları için tahtadaki fillerin hiçbiri onlara hiçbir zaman dokunamaz. Beyaz şah ise açık karede; orada durdukça ona şah bile çekilemez.</figcaption>
+      </figure>
+      <div class="prose">
+        <p>Yandaki tahtada on altı fil var: dokuzu beyazın, yedisi siyahın, hepsi koyu karelerde.
+        Beyazın dokuz fili ulaşılabilecek en yüksek sayı: başlangıçtaki koyu kareli fil ve sekiz terfi.</p>
+        <p>Doğru hüküm: <b>ölü pozisyon</b>, oyun berabere biter. Fil sayan bir sistem on altı fili
+        görür, materyali fazlasıyla yeterli sayar ve oyunu sürdürür. Oysa bu fillerin on beşi yerine
+        öbür renkte tek bir fil olsaydı, tahtada yalnızca iki fille, pozisyon ölü olmazdı.</p>
+      </div>
+    </div>
+    <div class="sidefig" lang="en">
+      <figure class="fig fig-wide">
+<div class="mb et el eb er" role="img" aria-label="Sixteen bishops, nine White's and seven Black's, all on dark squares. Black king on f8, white king on f1. The black king's light neighbours e8, g8 and f7 are marked.">
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"><b class="b">♝</b></i>
+<i class="m"></i>
+<i class="d"><b class="b">♚</b></i>
+<i class="m"></i>
+<i class="d" data-r="8"><b class="b">♝</b></i>
+<i class="d"><b class="w">♝</b></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"><b class="b">♝</b></i>
+<i class="m"></i>
+<i class="d"><b class="b">♝</b></i>
+<i data-r="7"></i>
+<i></i>
+<i class="d"><b class="w">♝</b></i>
+<i></i>
+<i class="d"><b class="b">♝</b></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="6"></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"><b class="w">♝</b></i>
+<i data-r="5"></i>
+<i></i>
+<i class="d"><b class="w">♝</b></i>
+<i></i>
+<i class="d"><b class="b">♝</b></i>
+<i></i>
+<i class="d"><b class="w">♝</b></i>
+<i></i>
+<i class="d" data-r="4"></i>
+<i class="d"><b class="w">♝</b></i>
+<i></i>
+<i class="d"><b class="w">♝</b></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i data-r="3"></i>
+<i></i>
+<i class="d"><b class="w">♝</b></i>
+<i></i>
+<i class="d"><b class="w">♝</b></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="2"><b class="b">♝</b></i>
+<i class="d" data-f="a"></i>
+<i data-f="b"></i>
+<i class="d" data-f="c"></i>
+<i data-f="d"></i>
+<i class="d" data-f="e"></i>
+<i data-f="f"><b class="w">♚</b></i>
+<i class="d" data-f="g"></i>
+<i data-f="h" data-r="1"></i>
+</div>
+        <figcaption>Sixteen bishops, all on dark squares. The marked e8, g8 and f7 are the black king's horizontal and vertical neighbours: being light squares, none of the bishops on the board can ever touch them. The white king stands on a light square; as long as it stays there, it cannot even be checked.</figcaption>
+      </figure>
+      <div class="prose">
+        <p>The board alongside holds sixteen bishops: nine White's, seven Black's, all on dark squares.
+        White's nine is the highest number reachable: the original dark-squared bishop and eight
+        promotions.</p>
+        <p>The correct ruling: a <b>dead position</b>, the game is drawn. A system that counts bishops
+        sees sixteen of them, judges the material more than sufficient and plays on. Yet had there been
+        a single bishop of the other colour in place of fifteen of these, with only two bishops on the
+        board, the position would not be dead.</p>
+      </div>
+    </div>
+
+    <div class="prose" lang="tr">
+      <p>Bu bir rastlantı değil, satrancın geometrisinden çıkan bir zorunluluk.</p>
+      <p><b>Fil rengini değiştirmez.</b> Çapraz adımda dikey de yatay da birer değişiyor; karenin rengi
+      bu yüzden hiç değişmiyor. Terfiyle doğan fil de doğduğu karenin renginde kalıyor. Koyu kareli bir
+      filin bütün etkisi koyu karelerde: saldırdığı, durduğu ve önünü kestiği kareler hep koyu. Açık
+      kareler onun için yok hükmünde.</p>
+      <p><b>Kaçış karesi hep açıkta kalır.</b> Tahtada şahlardan başka yalnız koyu kareli filler varken,
+      şah çekilebilecek şah koyu karede durur; yatay ve dikey komşuları ise açık. Bu kareleri iki tarafın
+      hiçbir fili ne tehdit edebilir ne doldurabilir; onları ancak karşı şah tutabilir. Karşı şah bunu en
+      elverişli yerde bile başaramıyor: köşedeki şahın iki açık komşusu var ve ikisini birden tutmak için
+      karşı şahın, mat edilecek şaha bitişik bir kareye girmesi gerekir. Kenarda üç, ortada dört komşu
+      var. Dolayısıyla hiçbir taraf mat edemez. Fillerin sayısı da hangi tarafa ait oldukları da bu
+      ispatın hiçbir adımına girmiyor.</p>
+      <p><b>Koşul kalıcı.</b> Tahtada piyon olmadığı için yeni bir taş türü doğamaz; alışlar yalnızca fil
+      eksiltir. Öbür renk tahtaya hiçbir zaman giremez. Koşul bir kez doğduysa hiç bozulmaz ve 5.2.2'nin
+      “herhangi bir geçerli hamle dizisi” sorusu ileriye bakmadan, tek bakışta cevaplanır.</p>
+      <p>At böyle bir değişmez taşımıyor: her adımda renk değiştiriyor ve iki at, ister aynı tarafta ister
+      iki ayrı tarafta olsun, bir mat pozisyonunu kurulabilir kılıyor. Atta hükmü sayı veriyor, filde
+      renk.</p>
+      <p><b>Kapsam.</b> Bu materyal kolunun sonucu. <a href="#dead">İkinci koldaki</a> kilitli yapılarda
+      filin nereye kapandığı ayrıca önem kazanıyor.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>This is no coincidence but a necessity that follows from the geometry of chess.</p>
+      <p><b>A bishop never changes colour.</b> A diagonal step changes both the file and the rank by
+      one, so the colour of the square never changes. A bishop born by promotion stays on the colour of
+      the square it was born on. Everything a dark-squared bishop does happens on dark squares: the
+      squares it attacks, stands on and blocks are all dark. For it, the light squares might as well not
+      exist.</p>
+      <p><b>The escape square always stays open.</b> With nothing on the board but the kings and
+      dark-squared bishops, a king that can be checked stands on a dark square, and its horizontal and
+      vertical neighbours are light. No bishop of either side can attack those squares or fill them;
+      only the opposing king can cover them. It cannot manage this even in the most favourable place: a
+      king in the corner has two light neighbours, and to cover both at once the opposing king would
+      have to step onto a square next to the king being mated. On the edge there are three, in the middle
+      four. So neither side can mate. Neither the number of bishops nor the side they belong to enters
+      any step of this proof.</p>
+      <p><b>The condition is permanent.</b> With no pawns on the board no new kind of piece can appear,
+      and captures only remove bishops. The other colour can never enter the board. Once the condition
+      has arisen it never breaks, and 5.2.2's question of “any series of legal moves” is answered at a
+      glance, without looking ahead.</p>
+      <p>The knight carries no such invariant: it changes colour with every step, and two knights,
+      whether on the same side or on opposite sides, make a mating position constructible. With knights
+      the number decides the ruling; with bishops, the colour.</p>
+      <p><b>Scope.</b> This is a result of the material branch. In the blocked structures of the
+      <a href="#dead">second branch</a>, where a bishop is shut in matters as well.</p>
+    </div>
+    <div class="prose fl" lang="tr">
+      <p><b>FideLite'ta.</b> Materyal yoklaması filleri tek tek saymıyor, yalnızca
+      <a href="#ifn">hangi renklerde</a> fil bulunduğuna bakıyor.</p>
+    </div>
+    <div class="prose fl" lang="en">
+      <p><b>In FideLite.</b> The material check does not count bishops one by one; it only looks at
+      <a href="#ifn">which colours</a> have a bishop.</p>
+    </div>
+
     <h3 id="dead" lang="tr">İkinci kol: yapıdan — kilitli pozisyonlar</h3>
     <h3 lang="en" data-id="dead">The second branch: from structure — blocked positions</h3>
 
@@ -4292,6 +4528,173 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>These are positions that can be <b>constructed</b>, not results that can be forced. None of
       them is a winning method; they are only the answer to “does mate exist at all with this
       material” — and that is exactly what 6.9 and 5.1.2 ask.</p>
+    </div>
+
+    <h3 id="unbuildable" lang="tr">Hani kurulamıyordu?</h3>
+    <h3 lang="en" data-id="unbuildable">Not constructible, was it?</h3>
+
+    <div class="prose" lang="tr">
+      <p>Tabloya göre Ş+F, Ş+V'ye de Ş+K'ye de karşı mat kuramaz. <a href="#bishopcolour">Beşinci
+      bölümdeki</a> sonuç burada da geçerli: aynı renkte ikinci bir fil, kimin elinde olursa olsun, bu
+      satırları değiştirmez; savunanın taşı her şaha ya araya girer ya da şah çekeni alır.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>According to the table, K+B cannot build a mate against K+Q or against K+R. The result of
+      <a href="#bishopcolour">section 5</a> holds here too: a second bishop of the same colour, whoever
+      holds it, does not change these rows; the defender's piece answers every check either by
+      stepping in between or by taking the checking bishop.</p>
+    </div>
+
+    <div class="sidefig" lang="tr">
+      <figure class="fig fig-wide">
+<div class="mb et el er" role="img" aria-label="Siyah şah d8'de, siyah vezir c8'de, siyah kale e8'de, beyaz şah d6'da; b6 ve g5'teki beyaz filler d8'e aynı anda şah çekiyor. c7 ve e7 işaretli.">
+<i></i>
+<i class="d"></i>
+<i><b class="b">♛</b></i>
+<i class="d a"><b class="b">♚</b></i>
+<i><b class="b">♜</b></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="8"></i>
+<i class="d"></i>
+<i></i>
+<i class="d m"></i>
+<i></i>
+<i class="d m"></i>
+<i></i>
+<i class="d"></i>
+<i data-r="7"></i>
+<i></i>
+<i class="d"><b class="w">♝</b></i>
+<i></i>
+<i class="d"><b class="w">♚</b></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="6"></i>
+<i class="d" data-f="a"></i>
+<i data-f="b"></i>
+<i class="d" data-f="c"></i>
+<i data-f="d"></i>
+<i class="d" data-f="e"></i>
+<i data-f="f"></i>
+<i class="d" data-f="g"><b class="w">♝</b></i>
+<i data-f="h" data-r="5"></i>
+</div>
+        <figcaption>b6 ve g5'teki koyu kareli filler d8'e aynı anda şah çekiyor. İşaretli c7 ve e7, ağır taşların tek bir şaha karşı araya gireceği kareler; çift şahta yalnızca şah oynayabildiği için ikisi de kullanılamıyor.</figcaption>
+      </figure>
+      <div class="prose">
+        <p>Yine de tahtada duruyor. Siyah şah d8'de; yanında kendi ağır taşları duruyor: c8'de vezir,
+        e8'de kale. Beyaz şah d6'da, b6 ve g5'teki filler aynı anda şah çekiyor. Tek fil olsaydı mat
+        olmazdı: b6'dakinin şahına c8'deki vezir c7'den, g5'tekininkine e8'deki kale e7'den araya
+        girerdi. Her ağır taş bir şahı karşılayabiliyor; ikisini birden ancak çift şah aşıyor.</p>
+        <p>Ama aynı renkte iki fil aynı anda şah çekemez. Öndeki fil, öbürünün hattını açmak için
+        kesişen köşegene geçmek zorunda ve oradan şah çekemez; terfi, geçerken alma ve rok da aynı
+        renkte iki hattı birden açamaz. Bu tahta çizilebiliyor, oynanamıyor.</p>
+      </div>
+    </div>
+    <div class="sidefig" lang="en">
+      <figure class="fig fig-wide">
+<div class="mb et el er" role="img" aria-label="Black king on d8, black queen on c8, black rook on e8, white king on d6; the white bishops on b6 and g5 check d8 at the same time. c7 and e7 are marked.">
+<i></i>
+<i class="d"></i>
+<i><b class="b">♛</b></i>
+<i class="d a"><b class="b">♚</b></i>
+<i><b class="b">♜</b></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="8"></i>
+<i class="d"></i>
+<i></i>
+<i class="d m"></i>
+<i></i>
+<i class="d m"></i>
+<i></i>
+<i class="d"></i>
+<i data-r="7"></i>
+<i></i>
+<i class="d"><b class="w">♝</b></i>
+<i></i>
+<i class="d"><b class="w">♚</b></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="6"></i>
+<i class="d" data-f="a"></i>
+<i data-f="b"></i>
+<i class="d" data-f="c"></i>
+<i data-f="d"></i>
+<i class="d" data-f="e"></i>
+<i data-f="f"></i>
+<i class="d" data-f="g"><b class="w">♝</b></i>
+<i data-f="h" data-r="5"></i>
+</div>
+        <figcaption>The dark-squared bishops on b6 and g5 check d8 at the same time. The marked c7 and e7 are where the heavy pieces would step in against a single check; in a double check only the king may move, so neither can be used.</figcaption>
+      </figure>
+      <div class="prose">
+        <p>And yet here it is on the board. The black king stands on d8 with its own heavy pieces beside
+        it: the queen on c8, the rook on e8. The white king is on d6, and the bishops on b6 and g5 give
+        check at the same time. With a single bishop it would not be mate: against the one on b6 the
+        queen on c8 would step in on c7, against the one on g5 the rook on e8 on e7. Each heavy piece
+        can answer one check; only a double check gets past both.</p>
+        <p>But two bishops of the same colour cannot give check at the same time. To open the other
+        bishop's line, the front bishop has to cross onto the other diagonal, and from there it cannot
+        give check; promotion, en passant and castling cannot open two lines of one colour at once
+        either. This board can be drawn, not played.</p>
+      </div>
+    </div>
+
+    <div class="sidefig" lang="tr">
+      <figure class="fig">
+<div class="mb et" style="--c:3" role="img" aria-label="Siyah şah d8'de, beyaz şah hemen yanında d7'de.">
+<i></i>
+<i class="d a"><b class="b">♚</b></i>
+<i data-r="8"></i>
+<i class="d"></i>
+<i><b class="w">♚</b></i>
+<i class="d" data-r="7"></i>
+<i data-f="c"></i>
+<i class="d" data-f="d"></i>
+<i data-f="e" data-r="6"></i>
+</div>
+        <figcaption>İki şah yan yana. Siyah şah tehdit altında ve kaçabileceği her kare beyaz şahın yanında.</figcaption>
+      </figure>
+      <div class="prose">
+        <p>Kurulabilseydi, bunu da şah mat saymamız gerekirdi. İki şah yan yana duruyor; siyah şah tehdit
+        altında ve gidecek karesi yok. Tahtada yalnız iki çıplak şah var, ama tanımın harfine göre bu bir
+        mat.</p>
+        <p>Bunu mat saymak oyunun önkabullerini çiğner ve o zaman hiçbir sınır kalmaz: çıplak şah bile
+        mat edebilir, materyal tablolarının hepsi çöker. İki tahta eşdeğer: ikisi de yasal hamlelerle
+        hiç doğamayan birer çizim. Sınırı nereye çektiğimiz bize kalmış, ama ikisi için aynı yerden
+        çekmek zorundayız; birini mat sayan öbürünü de saymak zorunda kalır. Kural yalnızca oynanabilen
+        pozisyonlar için konuşuyor.</p>
+      </div>
+    </div>
+    <div class="sidefig" lang="en">
+      <figure class="fig">
+<div class="mb et" style="--c:3" role="img" aria-label="Black king on d8, the white king right next to it on d7.">
+<i></i>
+<i class="d a"><b class="b">♚</b></i>
+<i data-r="8"></i>
+<i class="d"></i>
+<i><b class="w">♚</b></i>
+<i class="d" data-r="7"></i>
+<i data-f="c"></i>
+<i class="d" data-f="d"></i>
+<i data-f="e" data-r="6"></i>
+</div>
+        <figcaption>The two kings side by side. The black king is attacked, and every square it could flee to is next to the white king.</figcaption>
+      </figure>
+      <div class="prose">
+        <p>Were it constructible, we would have to count this as checkmate too. The two kings stand side
+        by side; the black king is attacked and has no square to go to. There is nothing on the board
+        but two bare kings, yet by the letter of the definition this is mate.</p>
+        <p>Counting it as mate breaks the game's premises, and then no limit is left: even a bare king
+        could mate, and every material table collapses. The two boards are equivalent: each is a
+        drawing that no series of legal moves can produce. Where we draw the line is up to us, but it
+        has to be drawn in the same place for both; whoever counts one as mate has to count the other
+        too. The rule speaks only of positions that can be played.</p>
+      </div>
     </div>
 
     <h3 id="hardhalf" lang="tr">Zor yarı: tahtanın zorunlu olarak neye dönüşeceği</h3>
@@ -5341,8 +5744,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Bu maddeyi uygulamamanın gerekçesi hep aynı olmuştur: hesaplanamayacağı. Gerekçe sanıldığı kadar sağlam değil — ileriye bakmak gerekiyor, ama zorunlu dallar tanım gereği dar ve pratikte karar birkaç milisaniye içinde veriliyor. Bütçeyi sonuna kadar harcayan uç örnekler saniyeler sürebiliyor, ama milyonlarda bir görülüyorlar; <a href="#hbudget">bütçenin kendisi</a> motor sekmesinde. Pratikteki karar bir insanın hamle düşünme süresinin yanında fark edilmiyor bile.</p>
     <p class="cost" lang="en"><b>What it costs to apply.</b> The standing reason for not applying this article has always been the same: it is intractable. The reason is less solid than it looks. Looking ahead is required, but forced branches are narrow by definition, and in practice the ruling lands within a few milliseconds. The extremes that spend the whole budget can take seconds, but they turn up once in millions; <a href="#hbudget">the budget itself</a> is on the engine tab. Set against a human thinking about a move, the practical ruling does not register.</p>
 
-    <h3 id="semilocked" lang="tr">Kenar not: yarı kilitli pozisyon</h3>
-    <h3 lang="en" data-id="semilocked">A note in the margin: the half-blocked position</h3>
+    <h3 id="semilocked" lang="tr">Kenar not: asimetrik kilitli pozisyon</h3>
+    <h3 lang="en" data-id="semilocked">A note in the margin: the asymmetric blocked position</h3>
     <div class="prose" lang="tr">
       <p>Çok uç bir vaka, pratikte milyarda bir görülür ve bu bölümün ana fikri için gerekli
       değil — ama 6.9'un neden 5.2.2'den ayrı bir madde olduğunu tek bir tahtayla gösterdiği için
