@@ -552,6 +552,7 @@
       <button class="tpl-btn" data-t="flat">8×8</button>
       <button class="tpl-btn" data-t="x88">0x88 (16×8)</button>
       <button class="tpl-btn" data-t="mailbox">10×12</button>
+      <button class="tpl-btn" data-t="x1612">16×12</button>
       <button class="tpl-btn" data-t="free">Free</button>
     </div>
     <div class="tpl-desc" id="tpl-desc"></div>
@@ -612,15 +613,15 @@
     </div>
 
     <div class="hint">
-      <b>Board type</b> → loads the piece groups and frames the real 8×8. Switching keeps the same square and piece, so the three boards can be compared directly.<br>
+      <b>Board type</b> → loads the piece groups and frames the real 8×8. Switching keeps the same square and piece, so the four boards can be compared directly.<br>
       Click a square inside the frame → it becomes the reference. Padding cells can't hold a piece.<br>
       <b>±</b> → the negative of the delta is included too.<br>
       <b>mul</b> → multiples of the delta are included too (n, 2n, 3n…), for sliding pieces.<br>
       A ray stops at its first miss, as a move generator would. <b>Keep rays going</b> shows what a loop without an edge check produces.<br>
       <b>Reverse indexing</b> → cells are counted from the highest number down to 0; deltas still work on the displayed index.<br>
       <b>Free</b> → your own size and groups. <b>Select area</b> → click two corners; the framed area becomes the real board and everything outside it becomes padding.<br>
-      Sizes are written columns × rows, as in the literature: 8×8, 16×8, 10×12.<br>
-      Index 0 is a8, the top-left corner, so on 0x88 the last real square 0x77 = 119 is h1. Many sources number from a1 instead, where 0x77 is h8; the delta values are the same.<br>
+      Sizes are written columns × rows, as in the literature: 8×8, 16×8, 10×12, 16×12.<br>
+      Index 0 is a8, the top-left corner, so on 0x88 the last real square 0x77 = 119 is h1. Many sources number from a1 instead, where 0x77 is h8; the delta values are the same. On 16×12 two sentinel rows and four sentinel files come first, so a8 is 36 and h1 is 155.<br>
       Hover a row in the table to find its cell. Everything is saved to the browser automatically.
     </div>
     <div class="ref-info">
@@ -642,6 +643,7 @@
     flat:    { rows: 8,  cols: 8,  inner: [0, 0, 7, 7] },
     x88:     { rows: 8,  cols: 16, inner: [0, 0, 7, 7] },
     mailbox: { rows: 12, cols: 10, inner: [2, 1, 9, 8] },
+    x1612:   { rows: 12, cols: 16, inner: [2, 4, 9, 11] },
     free:    null
   };
   const TEMPLATE_DESC = {
@@ -658,6 +660,11 @@
       'the border holds sentinels, and reading one stops the move. Two sentinel rows above and below catch the ' +
       'knight\'s two-rank jump; one column per side is enough, because after the row wrap the right and left ' +
       'columns sit side by side.',
+    x1612:
+      '16×12 = 192 cells: 16 columns and 12 rows. The width is 0x88\'s, and with it every delta, but the border works like ' +
+      'the mailbox\'s: the guard is a value in the cell rather than a bit of the index. Two sentinel rows above and below ' +
+      'catch the knight\'s two-rank jump. The eight border files are usually split four and four, so the real board starts ' +
+      'at index 36; after the row wrap the four files on the right and the four on the left sit side by side.',
     free:
       'Your own size, groups and virtual board. Use <b>Select area</b> below to frame the real board; ' +
       'everything outside it becomes padding.'
@@ -953,7 +960,7 @@
       case 'wrap': return 'wrapped onto a wrong square';
       case 'pad':
         if (show88) return 'padding (<code>i &amp; 0x88 = ' + (row.index & 0x88) + '</code>)';
-        if (t === 'mailbox') return 'sentinel padding';
+        if (t === 'mailbox' || t === 'x1612') return 'sentinel padding';
         return 'padding';
       default:
         if (show88) return 'left the array (<code>i &amp; 0x88 = ' + (row.index & 0x88) + '</code>)';

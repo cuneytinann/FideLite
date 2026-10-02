@@ -2485,60 +2485,64 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <h3 lang="en" data-id="doublecheck">Not every double check can happen</h3>
 
     <div class="prose" lang="tr">
-      <p>Bir taş şaha üç biçimde şah çekebilir:</p>
+      <p>Bir taş üç biçimde şah çekebilir:</p>
     </div>
     <ul class="tight" lang="tr">
-      <li><b>Sıçrayışla.</b> At, bir eksende iki, öbüründe bir kare atlar: (±1, ±2) ve (±2, ±1). Arada taş olması sonucu değiştirmez; bu şah kapatılamaz.</li>
-      <li><b>Çapraz ışınla.</b> İki eksende eşit adımla, (±1, ±1) yönünde. Işın olarak fil ve vezir çeker; piyonun alışı bunun tek adımlık hâli.</li>
-      <li><b>Düz ışınla.</b> Yalnız bir eksende, (±1, 0) ve (0, ±1) yönünde. Kale ve vezir çeker.</li>
+      <li><b>Sıçrayışla.</b> At, bir eksende iki, öbüründe bir kare atlar: (±1, ±2) ve (±2, ±1). Aradaki taşlar bir şey değiştirmez; bu şahta araya girilemez.</li>
+      <li><b>Çapraz ışınla.</b> Taş iki eksende eşit ilerler, (±1, ±1) yönünde. Bu ışından fil ve vezir şah çeker; piyonun alışı da bunun tek adımlık biçimidir.</li>
+      <li><b>Düz ışınla.</b> Taş yalnız bir eksende ilerler, (±1, 0) ve (0, ±1) yönünde. Bu ışından kale ve vezir şah çeker.</li>
     </ul>
     <div class="prose" lang="en">
-      <p>A piece can give check to a king in three ways:</p>
+      <p>A piece can give check in three ways:</p>
     </div>
     <ul class="tight" lang="en">
-      <li><b>By a leap.</b> The knight jumps two squares along one axis and one along the other: (±1, ±2) and (±2, ±1). A piece in between changes nothing; this check cannot be blocked.</li>
-      <li><b>Along a diagonal ray.</b> Equal steps on both axes, in the direction (±1, ±1). As a ray it is given by the bishop and the queen; the pawn's capture is its one-step form.</li>
-      <li><b>Along a straight ray.</b> Along one axis only, in the directions (±1, 0) and (0, ±1). Rook and queen.</li>
+      <li><b>By a leap.</b> The knight jumps two squares along one axis and one along the other: (±1, ±2) and (±2, ±1). Pieces in between change nothing; this check cannot be blocked.</li>
+      <li><b>Along a diagonal ray.</b> The piece moves equally along both axes, in the directions (±1, ±1). The bishop and the queen give check along this ray; the pawn's capture is its one-step form.</li>
+      <li><b>Along a straight ray.</b> The piece moves along one axis only, in the directions (±1, 0) and (0, ±1). The rook and the queen give check along this ray.</li>
     </ul>
 
     <div class="prose" lang="tr">
-      <p>Çifte şahta iki şah aynı hamleyle doğar: bir taş çekilir, arkasındaki ışını açar ve kendisi de
-      şah verir. Terfi ve geçerken alma bunun özel hâlleri. Geçerken almanın bir ayrıcalığı daha var:
-      iki kare birden boşalttığı için iki ışını birlikte açabilir; o zaman piyonun kendisi şah vermez.
-      Rok ise şah verebilir, ama yalnızca kaleyle. Boşalttığı kareler kenarda kalır ve rok yapan kale
-      hemen yanlarına gelir; bu yüzden şaha giden hiçbir ışını açamaz ve çifte şah veremez.</p>
-      <p>Açılabilen tek şey ışındır, bu yüzden her çifte şahta en az bir ışın vardır. Sıçrayış da
-      piyonun tek adımı da açılamaz: iki at, iki piyon ya da at ile piyon birlikte şah çekemez.</p>
-      <p>Açılan ışını kapatan taş o ışının ailesinden olamaz; olsaydı, hamleden önce kendisi o ışından
-      şah çekiyor olurdu. Çapraz bir ışını ancak kale, at, piyon ya da şah kapatabilir; düz bir ışını
-      ancak fil, at, piyon ya da şah.</p>
-      <p>Buradan şu sonuçlar çıkıyor:</p>
+      <p>Çifte şah tek bir hamleyle çekilir: bir taş yerinden çekilir, arkasında kalan ışını açar ve
+      kendisi de şah çeker. Terfi ve geçerken alma da bu kalıbın özel hâlleridir. Geçerken almanın bir
+      ayrıcalığı daha var: iki kareyi birden boşalttığı için iki ışını birlikte açabilir; bu durumda iki
+      şahı da açılan ışınlar çeker, piyonun kendisi şah çekmez.</p>
+      <p>Rokla da şah çekilebilir, ama yalnızca kaleyle. Rokta boşalan kareler ilk yatayda, yani tahtanın
+      kenarındadır; bu yatayda açılabilecek her ışının önünde de rok yapan kalenin kendisi durur. Bu
+      yüzden rok şaha giden bir ışın açamaz ve çifte şah çekemez.</p>
+      <p>Açılabilen tek şey ışındır; bu yüzden her çifte şahta şahlardan en az biri bir ışından gelir.
+      Sıçrayış da piyonun tek adımı da açılamaz: iki at, iki piyon ya da bir at ile bir piyon aynı anda
+      şah çekemez.</p>
+      <p>Açılan ışının önünde duran taş o ışının ailesinden olamaz; olsaydı, hamleden önce o ışından
+      kendisi şah çekiyor olurdu. Çapraz bir ışının önünde ancak kale, at, piyon ya da şah durabilir;
+      düz bir ışının önünde ancak fil, at, piyon ya da şah.</p>
+      <p>Buradan üç sonuç çıkıyor:</p>
     </div>
     <ul class="tight" lang="tr">
-      <li><b>Başka aileden ikinci şah.</b> Açılan ışının yanındaki ikinci şah başka bir aileden geliyorsa çifte şah olağandır: at ile ışın, çapraz ışın ile düz ışın, piyon ile düz ışın.</li>
-      <li><b>İki çapraz şah.</b> Çapraz aileden iki şah hiçbir zaman birlikte olmaz. Çapraz ışını kapatabilen taşlar içinde çaprazdan şah verebilen tek taş piyon, ama iki yolu da kapalı: ilerleyişi tek düz adım, rengi değiştirir ve şahın köşegenine düşemez; çapraz alırsa ya aynı köşegende kalır ya da kesişen köşegene geçer. Geçerken almada boşalan iki kare de farklı renkte.</li>
-      <li><b>İki düz şah.</b> Düz aileden iki şah yalnızca tek bir yoldan birlikte olur: piyon çapraz alıp kale ya da vezir olarak terfi eder. Çapraz adım onu dikeyden çıkarıp şahın yatayına indirir.</li>
+      <li><b>Farklı aileler.</b> İkinci şah açılan ışından farklı bir aileden geliyorsa çifte şah olağandır: at ile bir ışın, çapraz ışın ile düz ışın, piyon ile düz ışın.</li>
+      <li><b>Çapraz ile çapraz.</b> Çapraz aileden iki taş hiçbir zaman aynı anda şah çekemez. Çapraz bir ışının önünde durabilen taşlardan çaprazdan şah çekebilecek olan yalnızca piyon, onun da iki yolu kapalı: ilerlerken tek bir düz adım atar, bu adım karenin rengini değiştirir ve piyon şahın köşegenine düşemez; çapraz alırsa ya aynı köşegende kalır ya da kesişen köşegene geçer. Geçerken almada boşalan iki kare de farklı renktedir.</li>
+      <li><b>Düz ile düz.</b> Düz aileden iki taş yalnızca tek bir yolla aynı anda şah çekebilir: piyon çapraz alarak kale ya da vezir olarak terfi eder. Bu çapraz adım onu dikeyden çıkarıp şahın yatayına taşır.</li>
     </ul>
     <div class="prose" lang="en">
-      <p>In a double check both checks arise from one move: a piece steps aside, opens the ray behind
-      it and gives check itself. Promotion and en passant are special cases of this. En passant has one
-      more privilege: since it empties two squares at once, it can open two rays together, and then
-      the pawn itself gives no check. Castling can give check, but only with the rook. The squares it
-      empties lie on the edge and the castling rook lands right beside them, so it cannot open any ray
-      towards the king and cannot give double check.</p>
-      <p>Only a ray can be opened, so every double check contains at least one ray. Neither a leap nor
-      the pawn's single step can be opened: two knights, two pawns, or a knight and a pawn cannot give
-      check together.</p>
-      <p>The piece that blocked the opened ray cannot belong to that ray's family; if it did, it would
-      already have been giving check along that ray before the move. A diagonal ray can be blocked only
-      by a rook, a knight, a pawn or a king; a straight ray only by a bishop, a knight, a pawn or a
-      king.</p>
-      <p>From this follow the results:</p>
+      <p>A double check is given by a single move: a piece steps aside, opens the ray behind it and
+      gives check itself. Promotion and en passant are special cases of this pattern. En passant has
+      one more privilege: since it empties two squares at once, it can open two rays together; then
+      both checks come from the opened rays and the pawn itself gives none.</p>
+      <p>Castling can give check too, but only with the rook. The squares it empties lie on the first
+      rank, the edge of the board, and any ray it could open along that rank is blocked by the castling
+      rook itself. So castling cannot open a ray towards the king and cannot give double check.</p>
+      <p>Only a ray can be opened, so in every double check at least one of the checks comes from a
+      ray. Neither a leap nor the pawn's single step can be opened: two knights, two pawns, or a knight
+      and a pawn cannot give check at the same time.</p>
+      <p>The piece standing in front of the opened ray cannot belong to that ray's family; if it did,
+      it would already have been giving check along that ray before the move. Only a rook, a knight, a
+      pawn or a king can stand in front of a diagonal ray; only a bishop, a knight, a pawn or a king in
+      front of a straight one.</p>
+      <p>Three results follow:</p>
     </div>
     <ul class="tight" lang="en">
-      <li><b>A second check from another family.</b> If the second check beside the opened ray comes from another family, the double check is ordinary: a knight with a ray, a diagonal ray with a straight ray, a pawn with a straight ray.</li>
-      <li><b>Two diagonal checks.</b> Two checks of the diagonal family never occur together. Among the pieces that can block a diagonal ray, the only one that can give a diagonal check is the pawn, and both its ways are closed: its advance is a single straight step, which changes colour, so it cannot land on the king's diagonal; if it captures diagonally, it either stays on the same diagonal or crosses onto the intersecting one. The two squares emptied by en passant are of different colours too.</li>
-      <li><b>Two straight checks.</b> Two checks of the straight family occur together in only one way: a pawn captures diagonally and promotes to a rook or a queen. The diagonal step takes it off the file and onto the king's rank.</li>
+      <li><b>Different families.</b> If the second check comes from a family other than the opened ray's, the double check is ordinary: a knight with a ray, a diagonal ray with a straight ray, a pawn with a straight ray.</li>
+      <li><b>Diagonal with diagonal.</b> Two pieces of the diagonal family can never give check at the same time. Of the pieces that can stand in front of a diagonal ray, only the pawn could give a diagonal check, and both its ways are closed: its advance is a single straight step, which changes the colour of its square, so it cannot land on the king's diagonal; if it captures diagonally, it either stays on the same diagonal or crosses onto the intersecting one. The two squares emptied by en passant are of different colours as well.</li>
+      <li><b>Straight with straight.</b> Two pieces of the straight family can give check at the same time in only one way: a pawn captures diagonally and promotes to a rook or a queen. That diagonal step takes it off the file and onto the king's rank.</li>
     </ul>
 
     <div class="sidefig" lang="tr">
@@ -2570,10 +2574,10 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <i data-f="g"></i>
 <i class="d" data-f="h" data-r="4"><b class="w">♚</b></i>
 </div>
-        <figcaption>e7'deki piyon f8'deki atı alıp kaleye terfi etti. e4'teki kale dikeyden, f8'deki yeni kale yataydan şah çekiyor. Vezire terfi etseydi aynı çifte şahı kale ile vezirin düz ışını verirdi. Yeşil çerçeveler çıkış ve varış karesi.</figcaption>
+        <figcaption>e7'deki piyon f8'deki atı alıp kale olarak terfi etti. e4'teki kale dikeyden, f8'deki yeni kale yataydan şah çekiyor. Piyon vezir olarak terfi etseydi de aynı çifte şah olurdu; bu kez ikinci şahı vezir, düz ışınından çekerdi. Yeşil çerçeveler piyonun çıkış ve varış kareleri.</figcaption>
       </figure>
       <div class="prose">
-        <p>Aynı aileden iki ışının birlikte şah çekebildiği tek yer burası: düz ışınlarda tek bir istisna
+        <p>Aynı aileden iki ışının birlikte şah çekebildiği tek durum bu: düz ışınlarda tek bir istisna
         var, çapraz ışınlarda hiç yok.</p>
       </div>
     </div>
@@ -2606,11 +2610,11 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <i data-f="g"></i>
 <i class="d" data-f="h" data-r="4"><b class="w">♚</b></i>
 </div>
-        <figcaption>The pawn on e7 took the knight on f8 and promoted to a rook. The rook on e4 checks along the file, the new rook on f8 along the rank. Had it promoted to a queen, the same double check would come from the rook and the queen's straight ray. The green frames are the squares of departure and arrival.</figcaption>
+        <figcaption>The pawn on e7 took the knight on f8 and promoted to a rook. The rook on e4 checks along the file, the new rook on f8 along the rank. Had the pawn promoted to a queen, the double check would be the same, with the queen giving the second check along its straight ray. The green frames mark the pawn's squares of departure and arrival.</figcaption>
       </figure>
       <div class="prose">
-        <p>This is the only place where two rays of the same family can give check together: the straight
-        rays have a single exception, the diagonal rays none.</p>
+        <p>This is the only case in which two rays of the same family can give check together: straight
+        rays have a single exception, diagonal rays none.</p>
       </div>
     </div>
 
@@ -3459,21 +3463,21 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <h3 lang="en" data-id="bishopcolour">Knights add up, bishops merge</h3>
 
     <div class="prose" lang="tr">
-      <p>Ölü pozisyonda taşlar taraf ayrılmadan, tahta bir bütün olarak sayılıyor ve bu sayımda at ile
-      fil aynı terazide tartılmıyor. Atta <b>sayı</b> belirleyici: tahtada tek at varsa pozisyon ölü;
-      ikinci at, hangi tarafa gelirse gelsin, ölülüğü bitiriyor. Filde öyle değil. Tahtadaki bütün
-      filler tek renkteyse, kaç tane olurlarsa olsunlar ve kimin elinde bulunurlarsa bulunsunlar
-      pozisyon ölü. Aynı renkte gelen her yeni fil hükmü olduğu yerde bırakıyor; ölülük ancak
-      <b>öbür renkte bir fil</b>, ya da filden başka bir taş geldiği an bitiyor.</p>
+      <p>Ölü pozisyonda taşlar taraf ayrımı yapılmadan, tahtanın bütünü üzerinden sayılıyor; bu sayımda
+      at ile fil aynı terazide tartılmıyor. Atta <b>sayı</b> belirleyici: tahtada tek at varsa pozisyon
+      ölüdür; ikinci bir at, hangi tarafa gelirse gelsin, pozisyonu ölü olmaktan çıkarır. Filde öyle
+      değil. Tahtadaki bütün filler aynı renkteyse, kaç tane olurlarsa ve kimin elinde bulunurlarsa
+      bulunsunlar pozisyon ölüdür. O renkte gelen her yeni fil hükmü değiştirmez; pozisyon ancak
+      <b>öbür renkte bir fil</b> ya da filden başka bir taş geldiği an ölü olmaktan çıkar.</p>
     </div>
     <div class="prose" lang="en">
-      <p>In a dead position the pieces are counted without regard to side, the board taken as a whole,
+      <p>In a dead position the pieces are counted without regard to side, over the board as a whole,
       and in that count knights and bishops are not weighed on the same scale. With knights the
       <b>number</b> decides: with a single knight on the board the position is dead; a second knight,
-      whichever side it joins, ends the deadness. Bishops are different. If every bishop on the board
-      stands on one colour, the position is dead however many there are and whoever holds them. Each
-      new bishop of that colour leaves the ruling where it was; the deadness ends only the moment
-      <b>a bishop of the other colour</b>, or any piece other than a bishop, arrives.</p>
+      whichever side it joins, makes it no longer dead. Bishops are different. If every bishop on the
+      board stands on one colour, the position is dead however many there are and whoever holds them.
+      Each new bishop of that colour leaves the ruling unchanged; the position stops being dead only
+      when <b>a bishop of the other colour</b>, or any piece other than a bishop, arrives.</p>
     </div>
 
     <div class="sidefig" lang="tr">
@@ -3544,14 +3548,14 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <i class="d" data-f="g"></i>
 <i data-f="h" data-r="1"></i>
 </div>
-        <figcaption>On altı fil, hepsi koyu karelerde. İşaretli e8, g8 ve f7 siyah şahın yatay ve dikey komşuları: açık kare oldukları için tahtadaki fillerin hiçbiri onlara hiçbir zaman dokunamaz. Beyaz şah ise açık karede; orada durdukça ona şah bile çekilemez.</figcaption>
+        <figcaption>On altı fil, hepsi koyu karelerde. İşaretli e8, g8 ve f7 siyah şahın yatay ve dikey komşuları: açık kare oldukları için tahtadaki fillerin hiçbiri bu karelere ulaşamaz. Beyaz şah ise açık karede duruyor; orada kaldıkça ona şah bile çekilemez.</figcaption>
       </figure>
       <div class="prose">
         <p>Yandaki tahtada on altı fil var: dokuzu beyazın, yedisi siyahın, hepsi koyu karelerde.
-        Beyazın dokuz fili ulaşılabilecek en yüksek sayı: başlangıçtaki koyu kareli fil ve sekiz terfi.</p>
+        Beyazın dokuz fili ulaşılabilecek en yüksek sayı: başlangıçtaki koyu kareli fil ile sekiz terfi.</p>
         <p>Doğru hüküm: <b>ölü pozisyon</b>, oyun berabere biter. Fil sayan bir sistem on altı fili
-        görür, materyali fazlasıyla yeterli sayar ve oyunu sürdürür. Oysa bu fillerin on beşi yerine
-        öbür renkte tek bir fil olsaydı, tahtada yalnızca iki fille, pozisyon ölü olmazdı.</p>
+        görür, materyali fazlasıyla yeterli sayar ve oyunu sürdürür. Oysa bu fillerin on beşinin yerinde
+        öbür renkte tek bir fil olsaydı, tahtada yalnızca iki fil kalırdı ve pozisyon ölü olmazdı.</p>
       </div>
     </div>
     <div class="sidefig" lang="en">
@@ -3622,69 +3626,70 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <i class="d" data-f="g"></i>
 <i data-f="h" data-r="1"></i>
 </div>
-        <figcaption>Sixteen bishops, all on dark squares. The marked e8, g8 and f7 are the black king's horizontal and vertical neighbours: being light squares, none of the bishops on the board can ever touch them. The white king stands on a light square; as long as it stays there, it cannot even be checked.</figcaption>
+        <figcaption>Sixteen bishops, all on dark squares. The marked e8, g8 and f7 are the black king's horizontal and vertical neighbours: being light squares, they can never be reached by any of the bishops on the board. The white king stands on a light square; as long as it stays there, it cannot even be checked.</figcaption>
       </figure>
       <div class="prose">
         <p>The board alongside holds sixteen bishops: nine White's, seven Black's, all on dark squares.
         White's nine is the highest number reachable: the original dark-squared bishop and eight
         promotions.</p>
         <p>The correct ruling: a <b>dead position</b>, the game is drawn. A system that counts bishops
-        sees sixteen of them, judges the material more than sufficient and plays on. Yet had there been
-        a single bishop of the other colour in place of fifteen of these, with only two bishops on the
+        sees sixteen of them, judges the material more than sufficient and plays on. Yet if fifteen of
+        these were replaced by a single bishop of the other colour, leaving only two bishops on the
         board, the position would not be dead.</p>
       </div>
     </div>
 
     <div class="prose" lang="tr">
       <p>Bu bir rastlantı değil, satrancın geometrisinden çıkan bir zorunluluk.</p>
-      <p><b>Fil rengini değiştirmez.</b> Çapraz adımda dikey de yatay da birer değişiyor; karenin rengi
-      bu yüzden hiç değişmiyor. Terfiyle doğan fil de doğduğu karenin renginde kalıyor. Koyu kareli bir
-      filin bütün etkisi koyu karelerde: saldırdığı, durduğu ve önünü kestiği kareler hep koyu. Açık
-      kareler onun için yok hükmünde.</p>
+      <p><b>Fil rengini değiştirmez.</b> Çapraz adımda hem dikey hem yatay birer kare değişir; bu yüzden
+      karenin rengi hiç değişmez. Terfiyle doğan fil de doğduğu karenin renginde kalır. Koyu kareli bir
+      filin bütün etkisi koyu karelerdedir: saldırdığı, üzerinde durduğu ve başka taşların yolunu
+      kestiği kareler hep koyudur. Açık kareler onun için yok hükmündedir.</p>
       <p><b>Kaçış karesi hep açıkta kalır.</b> Tahtada şahlardan başka yalnız koyu kareli filler varken,
-      şah çekilebilecek şah koyu karede durur; yatay ve dikey komşuları ise açık. Bu kareleri iki tarafın
-      hiçbir fili ne tehdit edebilir ne doldurabilir; onları ancak karşı şah tutabilir. Karşı şah bunu en
-      elverişli yerde bile başaramıyor: köşedeki şahın iki açık komşusu var ve ikisini birden tutmak için
-      karşı şahın, mat edilecek şaha bitişik bir kareye girmesi gerekir. Kenarda üç, ortada dört komşu
-      var. Dolayısıyla hiçbir taraf mat edemez. Fillerin sayısı da hangi tarafa ait oldukları da bu
-      ispatın hiçbir adımına girmiyor.</p>
+      şah çekilen bir şah mutlaka koyu karededir; yatay ve dikey komşuları ise açıktır. Bu kareleri iki
+      tarafın hiçbir fili ne tehdit edebilir ne de üzerlerine çıkabilir; onları ancak karşı şah
+      tutabilir. Karşı şah bunu en elverişli yerde, köşede bile başaramaz: köşedeki şahın iki açık
+      komşusu vardır ve ikisini birden tutmak için karşı şahın, mat edilecek şaha bitişik bir kareye
+      girmesi gerekir. Kenarda üç, ortada dört komşu vardır. Dolayısıyla hiçbir taraf mat edemez.
+      Fillerin sayısı da hangi tarafa ait oldukları da bu ispatın hiçbir adımına girmiyor.</p>
       <p><b>Koşul kalıcı.</b> Tahtada piyon olmadığı için yeni bir taş türü doğamaz; alışlar yalnızca fil
-      eksiltir. Öbür renk tahtaya hiçbir zaman giremez. Koşul bir kez doğduysa hiç bozulmaz ve 5.2.2'nin
-      “herhangi bir geçerli hamle dizisi” sorusu ileriye bakmadan, tek bakışta cevaplanır.</p>
-      <p>At böyle bir değişmez taşımıyor: her adımda renk değiştiriyor ve iki at, ister aynı tarafta ister
-      iki ayrı tarafta olsun, bir mat pozisyonunu kurulabilir kılıyor. Atta hükmü sayı veriyor, filde
+      eksiltir. Öbür renkte bir fil tahtaya hiçbir zaman giremez. Koşul bir kez oluştuysa hiç bozulmaz
+      ve 5.2.2'nin “herhangi bir geçerli hamle dizisi” sorusu ileriye bakmadan, tek bakışta
+      cevaplanır.</p>
+      <p>Atta böyle bir değişmez yok: at her adımda renk değiştirir ve iki at, ister aynı tarafta ister
+      iki ayrı tarafta olsun, bir mat pozisyonunu kurulabilir kılar. Atta hükmü sayı verir, filde
       renk.</p>
-      <p><b>Kapsam.</b> Bu materyal kolunun sonucu. <a href="#dead">İkinci koldaki</a> kilitli yapılarda
-      filin nereye kapandığı ayrıca önem kazanıyor.</p>
+      <p><b>Kapsam.</b> Bu, materyal kolunun bir sonucu. <a href="#dead">İkinci koldaki</a> kilitli
+      yapılarda filin nereye kapandığı ayrıca önem kazanır.</p>
     </div>
     <div class="prose" lang="en">
       <p>This is no coincidence but a necessity that follows from the geometry of chess.</p>
       <p><b>A bishop never changes colour.</b> A diagonal step changes both the file and the rank by
       one, so the colour of the square never changes. A bishop born by promotion stays on the colour of
       the square it was born on. Everything a dark-squared bishop does happens on dark squares: the
-      squares it attacks, stands on and blocks are all dark. For it, the light squares might as well not
-      exist.</p>
+      squares it attacks, the squares it stands on and the squares where it blocks other pieces are all
+      dark. For it, the light squares might as well not exist.</p>
       <p><b>The escape square always stays open.</b> With nothing on the board but the kings and
-      dark-squared bishops, a king that can be checked stands on a dark square, and its horizontal and
-      vertical neighbours are light. No bishop of either side can attack those squares or fill them;
-      only the opposing king can cover them. It cannot manage this even in the most favourable place: a
-      king in the corner has two light neighbours, and to cover both at once the opposing king would
-      have to step onto a square next to the king being mated. On the edge there are three, in the middle
-      four. So neither side can mate. Neither the number of bishops nor the side they belong to enters
-      any step of this proof.</p>
+      dark-squared bishops, a king in check always stands on a dark square, and its horizontal and
+      vertical neighbours are light. No bishop of either side can attack those squares or stand on
+      them; only the opposing king can cover them. It cannot manage this even in the most favourable
+      place, the corner: a king in the corner has two light neighbours, and to cover both at once the
+      opposing king would have to step onto a square next to the king being mated. On the edge there
+      are three such neighbours, in the middle four. So neither side can mate. Neither the number of
+      bishops nor the side they belong to enters any step of this proof.</p>
       <p><b>The condition is permanent.</b> With no pawns on the board no new kind of piece can appear,
-      and captures only remove bishops. The other colour can never enter the board. Once the condition
-      has arisen it never breaks, and 5.2.2's question of “any series of legal moves” is answered at a
-      glance, without looking ahead.</p>
-      <p>The knight carries no such invariant: it changes colour with every step, and two knights,
-      whether on the same side or on opposite sides, make a mating position constructible. With knights
-      the number decides the ruling; with bishops, the colour.</p>
+      and captures only remove bishops. A bishop of the other colour can never enter the board. Once
+      the condition has arisen it never breaks, and 5.2.2's question of “any series of legal moves” is
+      answered at a glance, without looking ahead.</p>
+      <p>The knight has no such invariant: it changes colour with every step, and two knights, whether
+      on the same side or on opposite sides, make a mating position constructible. With knights the
+      number decides the ruling; with bishops, the colour.</p>
       <p><b>Scope.</b> This is a result of the material branch. In the blocked structures of the
       <a href="#dead">second branch</a>, where a bishop is shut in matters as well.</p>
     </div>
     <div class="prose fl" lang="tr">
-      <p><b>FideLite'ta.</b> Materyal yoklaması filleri tek tek saymıyor, yalnızca
-      <a href="#ifn">hangi renklerde</a> fil bulunduğuna bakıyor.</p>
+      <p><b>FideLite'ta.</b> Materyal yoklaması filleri tek tek saymaz; yalnızca
+      <a href="#ifn">hangi renklerde</a> fil bulunduğuna bakar.</p>
     </div>
     <div class="prose fl" lang="en">
       <p><b>In FideLite.</b> The material check does not count bishops one by one; it only looks at
@@ -4670,7 +4675,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="prose" lang="tr">
       <p>Tabloya göre Ş+F, Ş+V'ye de Ş+K'ye de karşı mat kuramaz. <a href="#bishopcolour">Beşinci
       bölümdeki</a> sonuç burada da geçerli: aynı renkte ikinci bir fil, kimin elinde olursa olsun, bu
-      satırları değiştirmez; savunanın taşı her şaha ya araya girer ya da şah çekeni alır.</p>
+      satırları değiştirmez; savunanın taşı her şaha ya araya girerek ya da şah çeken fili alarak
+      karşılık verir.</p>
     </div>
     <div class="prose" lang="en">
       <p>According to the table, K+B cannot build a mate against K+Q or against K+R. The result of
@@ -4681,7 +4687,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 
     <div class="sidefig" lang="tr">
       <figure class="fig fig-wide">
-<div class="mb et el er" role="img" aria-label="Siyah şah d8'de, siyah vezir c8'de, siyah kale e8'de, beyaz şah d6'da; b6 ve g5'teki beyaz filler d8'e aynı anda şah çekiyor. c7 ve e7 işaretli.">
+<div class="mb et el er" role="img" aria-label="Siyah şah d8'de, siyah vezir c8'de, siyah kale e8'de, beyaz şah d6'da; b6 ve g5'teki beyaz filler d8'deki şahı aynı anda tehdit ediyor. c7 ve e7 işaretli.">
 <i></i>
 <i class="d"></i>
 <i><b class="b">♛</b></i>
@@ -4715,21 +4721,21 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <i class="d" data-f="g"><b class="w">♝</b></i>
 <i data-f="h" data-r="5"></i>
 </div>
-        <figcaption>b6 ve g5'teki koyu kareli filler d8'e aynı anda şah çekiyor. İşaretli c7 ve e7, ağır taşların tek bir şaha karşı araya gireceği kareler; çifte şahta yalnızca şah oynayabildiği için ikisi de kullanılamıyor.</figcaption>
+        <figcaption>b6 ve g5'teki koyu kareli filler d8'deki şahı aynı anda tehdit ediyor. İşaretli c7 ve e7, tek bir şaha karşı ağır taşların araya gireceği kareler; çifte şaha karşı yalnızca şah hamlesi yapılabildiği için ikisi de kullanılamıyor.</figcaption>
       </figure>
       <div class="prose">
-        <p>Yine de tahtada duruyor. Siyah şah d8'de; yanında kendi ağır taşları duruyor: c8'de vezir,
-        e8'de kale. Beyaz şah d6'da, b6 ve g5'teki filler aynı anda şah çekiyor. Tek fil olsaydı mat
-        olmazdı: b6'dakinin şahına c8'deki vezir c7'den, g5'tekininkine e8'deki kale e7'den araya
+        <p>Yine de tahtada böyle bir mat duruyor. Siyah şah d8'de; yanında kendi ağır taşları var: c8'de
+        vezir, e8'de kale. Beyaz şah d6'da, b6 ve g5'teki filler aynı anda şah çekiyor. Tek fil olsaydı
+        mat olmazdı: b6'daki filin şahına karşı c8'deki vezir c7'ye, g5'tekine karşı e8'deki kale e7'ye
         girerdi. Her ağır taş bir şahı karşılayabiliyor; ikisini birden ancak çifte şah aşıyor.</p>
         <p>Ama iki çapraz ışın aynı anda şah çekemez: öndeki fil, hamleden önce zaten şah çekiyor
-        olurdu. Gerekçenin tamamı <a href="#doublecheck">üçüncü bölümde</a>. Bu tahta çizilebiliyor,
+        olurdu. Gerekçenin tamamı <a href="#doublecheck">üçüncü bölümde</a>. Bu tahta çizilebiliyor ama
         oynanamıyor.</p>
       </div>
     </div>
     <div class="sidefig" lang="en">
       <figure class="fig fig-wide">
-<div class="mb et el er" role="img" aria-label="Black king on d8, black queen on c8, black rook on e8, white king on d6; the white bishops on b6 and g5 check d8 at the same time. c7 and e7 are marked.">
+<div class="mb et el er" role="img" aria-label="Black king on d8, black queen on c8, black rook on e8, white king on d6; the white bishops on b6 and g5 check the king on d8 at the same time. c7 and e7 are marked.">
 <i></i>
 <i class="d"></i>
 <i><b class="b">♛</b></i>
@@ -4763,17 +4769,17 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <i class="d" data-f="g"><b class="w">♝</b></i>
 <i data-f="h" data-r="5"></i>
 </div>
-        <figcaption>The dark-squared bishops on b6 and g5 check d8 at the same time. The marked c7 and e7 are where the heavy pieces would step in against a single check; in a double check only the king may move, so neither can be used.</figcaption>
+        <figcaption>The dark-squared bishops on b6 and g5 check the king on d8 at the same time. The marked c7 and e7 are where the heavy pieces would step in against a single check; against a double check only the king may move, so neither can be used.</figcaption>
       </figure>
       <div class="prose">
-        <p>And yet here it is on the board. The black king stands on d8 with its own heavy pieces beside
-        it: the queen on c8, the rook on e8. The white king is on d6, and the bishops on b6 and g5 give
-        check at the same time. With a single bishop it would not be mate: against the one on b6 the
-        queen on c8 would step in on c7, against the one on g5 the rook on e8 on e7. Each heavy piece
-        can answer one check; only a double check gets past both.</p>
+        <p>And yet here is such a mate on the board. The black king stands on d8 with its own heavy
+        pieces beside it: the queen on c8, the rook on e8. The white king is on d6, and the bishops on b6
+        and g5 give check at the same time. With a single bishop it would not be mate: against the
+        bishop on b6 the queen on c8 would step in on c7, and against the one on g5 the rook on e8 would
+        step in on e7. Each heavy piece can answer one check; only a double check gets past both.</p>
         <p>But two diagonal rays cannot give check at the same time: the front bishop would already
         have been giving check before the move. The full reasoning is in <a href="#doublecheck">section
-        3</a>. This board can be drawn, not played.</p>
+        3</a>. This board can be drawn but not played.</p>
       </div>
     </div>
 
@@ -4798,9 +4804,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
         mat.</p>
         <p>Bunu mat saymak oyunun önkabullerini çiğner ve o zaman hiçbir sınır kalmaz: çıplak şah bile
         mat edebilir, materyal tablolarının hepsi çöker. İki tahta eşdeğer: ikisi de yasal hamlelerle
-        hiç doğamayan birer çizim. Sınırı nereye çektiğimiz bize kalmış, ama ikisi için aynı yerden
-        çekmek zorundayız; birini mat sayan öbürünü de saymak zorunda kalır. Kural yalnızca oynanabilen
-        pozisyonlar için konuşuyor.</p>
+        hiçbir zaman ortaya çıkamayan birer çizim. Sınırı nereye çektiğimiz bize kalmış, ama ikisi için
+        aynı yerden çekmeliyiz; birini mat sayan öbürünü de saymak zorunda kalır. Kural yalnızca
+        oynanabilen pozisyonlar için konuşuyor.</p>
       </div>
     </div>
     <div class="sidefig" lang="en">
@@ -4824,8 +4830,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
         but two bare kings, yet by the letter of the definition this is mate.</p>
         <p>Counting it as mate breaks the game's premises, and then no limit is left: even a bare king
         could mate, and every material table collapses. The two boards are equivalent: each is a
-        drawing that no series of legal moves can produce. Where we draw the line is up to us, but it
-        has to be drawn in the same place for both; whoever counts one as mate has to count the other
+        drawing that no series of legal moves can ever produce. Where we draw the line is up to us, but
+        it has to be drawn in the same place for both; whoever counts one as mate has to count the other
         too. The rule speaks only of positions that can be played.</p>
       </div>
     </div>
@@ -16087,18 +16093,19 @@ f = K[2] + K[3] - 0</pre></div>
     <div class="prose" lang="tr">
       <p>İndeks farkı ve dolgulu tahta denemesinden kalan ikinci simülasyon. Her kare kendi
       indeksini taşıyor; bir kareye tıklayınca o kare referans oluyor, tanımlı farklar hangi
-      karelere düşüyorsa onlar yanıyor ve her hedefin üstüne ona giden fark yazılıyor. Üç tahta
-      tipi hazır geliyor: düz 8×8, 0x88 (16×8) ve 10×12 mailbox. Boyutlar literatürdeki gibi
+      karelere düşüyorsa onlar yanıyor ve her hedefin üstüne ona giden fark yazılıyor. Dört tahta
+      tipi hazır geliyor: düz 8×8, 0x88 (16×8), 10×12 mailbox ve 16×12. Boyutlar literatürdeki gibi
       sütun × satır yazılı. Her tip at, şah, fil, kale, vezir ve piyonun o tahtadaki farklarıyla
       açılıyor ve içteki gerçek 8×8'i kendiliğinden çerçeveliyor. Tipler arasında geçince aynı taş
-      aynı karede kalıyor, yani üç tahta birebir karşılaştırılabiliyor.</p>
+      aynı karede kalıyor, yani dört tahta birebir karşılaştırılabiliyor.</p>
       <p>Her hedef ayrı işaretleniyor: farkın kastettiği kareye düşenler dolu renkle, kenardan
       sarıp yanlış bir gerçek kareye düşenler taralı, dolguya düşüp reddedilenler ✕ ile. Düz
       8×8'de <code>+1</code>'in h dikeyinden bir sonraki yatayın a'sına sardığı,
       <code>+7</code> / <code>+9</code>'un ve atın farklarının kenarda nereye düştüğü böyle
       doğrudan görünüyor. 0x88'de aynı farklar sağdaki yarıya düşüp <code>i &amp; 0x88</code>
       testine takılıyor; bekçi, indeksin kendi bitlerinde. 10×12'de ise gözcü kenarına
-      çarpıyor; bekçi orada bit değil, hücredeki değer. Altındaki tablo her adımı indeksi,
+      çarpıyor; bekçi orada bit değil, hücredeki değer. 16×12 ikisini birleştiriyor: farklar
+      0x88'inkiler, bekçi 10×12'deki gibi gözcü kenarı. Altındaki tablo her adımı indeksi,
       karesi ve sonucuyla sıralıyor, yanlış sonuçlanan satırlar kırmızı. Serbest modda satır,
       sütun ve farklar elle kuruluyor, alan seçimiyle kendi dolgunu çizebiliyorsun. Ayarlar
       tarayıcıda saklanıyor. Neden elendiği yine <a href="#alternatives">Denenip elenen
@@ -16108,11 +16115,11 @@ f = K[2] + K[3] - 0</pre></div>
     <div class="prose" lang="en">
       <p>The second simulation, left over from the index-delta and padded-board attempt. Every
       square carries its own index; click one and it becomes the reference, the squares your
-      deltas land on light up, and each target shows the delta that reached it. Three board types
-      come ready: a flat 8×8, 0x88 (16×8) and a 10×12 mailbox, with sizes written columns × rows
+      deltas land on light up, and each target shows the delta that reached it. Four board types
+      come ready: a flat 8×8, 0x88 (16×8), a 10×12 mailbox and 16×12, with sizes written columns × rows
       as in the literature. Each opens with the knight, king, bishop, rook, queen and pawn deltas
       for that board and frames the real 8×8 inside it on its own. Switching between types keeps
-      the same piece on the same square, so the three boards can be compared one to one.</p>
+      the same piece on the same square, so the four boards can be compared one to one.</p>
       <p>Every target is marked on its own: squares the delta meant to reach are filled with
       colour, squares reached by wrapping around the edge onto the wrong real square are hatched,
       and deltas that fall into the padding and are rejected are crossed out. On a flat 8×8 you
@@ -16120,7 +16127,8 @@ f = K[2] + K[3] - 0</pre></div>
       and where <code>+7</code> / <code>+9</code> and the knight's deltas land at the edge. On
       0x88 the same deltas fall into the right half and fail the <code>i &amp; 0x88</code> test;
       the guard lives in the bits of the index itself. On 10×12 they hit the sentinel border;
-      there the guard is not a bit but the value in the cell. The table below lists every step
+      there the guard is not a bit but the value in the cell. 16×12 joins the two: the deltas are
+      0x88's, the guard is the 10×12 sentinel border. The table below lists every step
       with its index, square and result, and the rows that come out wrong are red. In free mode
       you set rows, columns and deltas yourself and can frame your own padding with the area
       selection. Your settings are kept in the browser. Why it was eliminated is again in
