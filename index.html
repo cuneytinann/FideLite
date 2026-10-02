@@ -2480,6 +2480,140 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Tek bakışta çözülür. Sıradaki tarafın bir geçerli hamlesi var mı ve şahı tehdit altında mı — ikisi de mevcut tahtadan okunur, ileriye bakmak gerekmez.</p>
     <p class="cost" lang="en"><b>What it costs to apply.</b> Settled at a glance. Does the side to move have a legal move, and is its king attacked — both are read off the board in front of you; no looking ahead is needed.</p>
 
+
+    <h3 id="doublecheck" lang="tr">Çifte şah her biçimde olmaz</h3>
+    <h3 lang="en" data-id="doublecheck">Not every double check can happen</h3>
+
+    <div class="prose" lang="tr">
+      <p>Bir taş şaha üç biçimde şah çekebilir:</p>
+    </div>
+    <ul class="tight" lang="tr">
+      <li><b>Sıçrayışla.</b> At, bir eksende iki, öbüründe bir kare atlar: (±1, ±2) ve (±2, ±1). Arada taş olması sonucu değiştirmez; bu şah kapatılamaz.</li>
+      <li><b>Çapraz ışınla.</b> İki eksende eşit adımla, (±1, ±1) yönünde. Işın olarak fil ve vezir çeker; piyonun alışı bunun tek adımlık hâli.</li>
+      <li><b>Düz ışınla.</b> Yalnız bir eksende, (±1, 0) ve (0, ±1) yönünde. Kale ve vezir çeker.</li>
+    </ul>
+    <div class="prose" lang="en">
+      <p>A piece can give check to a king in three ways:</p>
+    </div>
+    <ul class="tight" lang="en">
+      <li><b>By a leap.</b> The knight jumps two squares along one axis and one along the other: (±1, ±2) and (±2, ±1). A piece in between changes nothing; this check cannot be blocked.</li>
+      <li><b>Along a diagonal ray.</b> Equal steps on both axes, in the direction (±1, ±1). As a ray it is given by the bishop and the queen; the pawn's capture is its one-step form.</li>
+      <li><b>Along a straight ray.</b> Along one axis only, in the directions (±1, 0) and (0, ±1). Rook and queen.</li>
+    </ul>
+
+    <div class="prose" lang="tr">
+      <p>Çifte şahta iki şah aynı hamleyle doğar: bir taş çekilir, arkasındaki ışını açar ve kendisi de
+      şah verir. Terfi ve geçerken alma bunun özel hâlleri. Geçerken almanın bir ayrıcalığı daha var:
+      iki kare birden boşalttığı için iki ışını birlikte açabilir; o zaman piyonun kendisi şah vermez.
+      Rok ise şah verebilir, ama yalnızca kaleyle. Boşalttığı kareler kenarda kalır ve rok yapan kale
+      hemen yanlarına gelir; bu yüzden şaha giden hiçbir ışını açamaz ve çifte şah veremez.</p>
+      <p>Açılabilen tek şey ışındır, bu yüzden her çifte şahta en az bir ışın vardır. Sıçrayış da
+      piyonun tek adımı da açılamaz: iki at, iki piyon ya da at ile piyon birlikte şah çekemez.</p>
+      <p>Açılan ışını kapatan taş o ışının ailesinden olamaz; olsaydı, hamleden önce kendisi o ışından
+      şah çekiyor olurdu. Çapraz bir ışını ancak kale, at, piyon ya da şah kapatabilir; düz bir ışını
+      ancak fil, at, piyon ya da şah.</p>
+      <p>Buradan şu sonuçlar çıkıyor:</p>
+    </div>
+    <ul class="tight" lang="tr">
+      <li><b>Başka aileden ikinci şah.</b> Açılan ışının yanındaki ikinci şah başka bir aileden geliyorsa çifte şah olağandır: at ile ışın, çapraz ışın ile düz ışın, piyon ile düz ışın.</li>
+      <li><b>İki çapraz şah.</b> Çapraz aileden iki şah hiçbir zaman birlikte olmaz. Çapraz ışını kapatabilen taşlar içinde çaprazdan şah verebilen tek taş piyon, ama iki yolu da kapalı: ilerleyişi tek düz adım, rengi değiştirir ve şahın köşegenine düşemez; çapraz alırsa ya aynı köşegende kalır ya da kesişen köşegene geçer. Geçerken almada boşalan iki kare de farklı renkte.</li>
+      <li><b>İki düz şah.</b> Düz aileden iki şah yalnızca tek bir yoldan birlikte olur: piyon çapraz alıp kale ya da vezir olarak terfi eder. Çapraz adım onu dikeyden çıkarıp şahın yatayına indirir.</li>
+    </ul>
+    <div class="prose" lang="en">
+      <p>In a double check both checks arise from one move: a piece steps aside, opens the ray behind
+      it and gives check itself. Promotion and en passant are special cases of this. En passant has one
+      more privilege: since it empties two squares at once, it can open two rays together, and then
+      the pawn itself gives no check. Castling can give check, but only with the rook. The squares it
+      empties lie on the edge and the castling rook lands right beside them, so it cannot open any ray
+      towards the king and cannot give double check.</p>
+      <p>Only a ray can be opened, so every double check contains at least one ray. Neither a leap nor
+      the pawn's single step can be opened: two knights, two pawns, or a knight and a pawn cannot give
+      check together.</p>
+      <p>The piece that blocked the opened ray cannot belong to that ray's family; if it did, it would
+      already have been giving check along that ray before the move. A diagonal ray can be blocked only
+      by a rook, a knight, a pawn or a king; a straight ray only by a bishop, a knight, a pawn or a
+      king.</p>
+      <p>From this follow the results:</p>
+    </div>
+    <ul class="tight" lang="en">
+      <li><b>A second check from another family.</b> If the second check beside the opened ray comes from another family, the double check is ordinary: a knight with a ray, a diagonal ray with a straight ray, a pawn with a straight ray.</li>
+      <li><b>Two diagonal checks.</b> Two checks of the diagonal family never occur together. Among the pieces that can block a diagonal ray, the only one that can give a diagonal check is the pawn, and both its ways are closed: its advance is a single straight step, which changes colour, so it cannot land on the king's diagonal; if it captures diagonally, it either stays on the same diagonal or crosses onto the intersecting one. The two squares emptied by en passant are of different colours too.</li>
+      <li><b>Two straight checks.</b> Two checks of the straight family occur together in only one way: a pawn captures diagonally and promotes to a rook or a queen. The diagonal step takes it off the file and onto the king's rank.</li>
+    </ul>
+
+    <div class="sidefig" lang="tr">
+      <figure class="fig fig-wide">
+<div class="mb et er" style="--c:5" role="img" aria-label="Siyah şah e8'de; beyaz kaleler f8 ve e4'te, beyaz şah h4'te. e7 ve f8 çerçeveli.">
+<i class="d"></i>
+<i><b class="b">♚</b></i>
+<i class="d p"><b class="w">♜</b></i>
+<i></i>
+<i class="d" data-r="8"></i>
+<i></i>
+<i class="d p"></i>
+<i></i>
+<i class="d"></i>
+<i data-r="7"></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="6"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i data-r="5"></i>
+<i class="d" data-f="d"></i>
+<i data-f="e"><b class="w">♜</b></i>
+<i class="d" data-f="f"></i>
+<i data-f="g"></i>
+<i class="d" data-f="h" data-r="4"><b class="w">♚</b></i>
+</div>
+        <figcaption>e7'deki piyon f8'deki atı alıp kaleye terfi etti. e4'teki kale dikeyden, f8'deki yeni kale yataydan şah çekiyor. Vezire terfi etseydi aynı çifte şahı kale ile vezirin düz ışını verirdi. Yeşil çerçeveler çıkış ve varış karesi.</figcaption>
+      </figure>
+      <div class="prose">
+        <p>Aynı aileden iki ışının birlikte şah çekebildiği tek yer burası: düz ışınlarda tek bir istisna
+        var, çapraz ışınlarda hiç yok.</p>
+      </div>
+    </div>
+    <div class="sidefig" lang="en">
+      <figure class="fig fig-wide">
+<div class="mb et er" style="--c:5" role="img" aria-label="Black king on e8; white rooks on f8 and e4, white king on h4. e7 and f8 are framed.">
+<i class="d"></i>
+<i><b class="b">♚</b></i>
+<i class="d p"><b class="w">♜</b></i>
+<i></i>
+<i class="d" data-r="8"></i>
+<i></i>
+<i class="d p"></i>
+<i></i>
+<i class="d"></i>
+<i data-r="7"></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="6"></i>
+<i></i>
+<i class="d"></i>
+<i></i>
+<i class="d"></i>
+<i data-r="5"></i>
+<i class="d" data-f="d"></i>
+<i data-f="e"><b class="w">♜</b></i>
+<i class="d" data-f="f"></i>
+<i data-f="g"></i>
+<i class="d" data-f="h" data-r="4"><b class="w">♚</b></i>
+</div>
+        <figcaption>The pawn on e7 took the knight on f8 and promoted to a rook. The rook on e4 checks along the file, the new rook on f8 along the rank. Had it promoted to a queen, the same double check would come from the rook and the queen's straight ray. The green frames are the squares of departure and arrival.</figcaption>
+      </figure>
+      <div class="prose">
+        <p>This is the only place where two rays of the same family can give check together: the straight
+        rays have a single exception, the diagonal rays none.</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -4581,16 +4715,16 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <i class="d" data-f="g"><b class="w">♝</b></i>
 <i data-f="h" data-r="5"></i>
 </div>
-        <figcaption>b6 ve g5'teki koyu kareli filler d8'e aynı anda şah çekiyor. İşaretli c7 ve e7, ağır taşların tek bir şaha karşı araya gireceği kareler; çift şahta yalnızca şah oynayabildiği için ikisi de kullanılamıyor.</figcaption>
+        <figcaption>b6 ve g5'teki koyu kareli filler d8'e aynı anda şah çekiyor. İşaretli c7 ve e7, ağır taşların tek bir şaha karşı araya gireceği kareler; çifte şahta yalnızca şah oynayabildiği için ikisi de kullanılamıyor.</figcaption>
       </figure>
       <div class="prose">
         <p>Yine de tahtada duruyor. Siyah şah d8'de; yanında kendi ağır taşları duruyor: c8'de vezir,
         e8'de kale. Beyaz şah d6'da, b6 ve g5'teki filler aynı anda şah çekiyor. Tek fil olsaydı mat
         olmazdı: b6'dakinin şahına c8'deki vezir c7'den, g5'tekininkine e8'deki kale e7'den araya
-        girerdi. Her ağır taş bir şahı karşılayabiliyor; ikisini birden ancak çift şah aşıyor.</p>
-        <p>Ama aynı renkte iki fil aynı anda şah çekemez. Öndeki fil, öbürünün hattını açmak için
-        kesişen köşegene geçmek zorunda ve oradan şah çekemez; terfi, geçerken alma ve rok da aynı
-        renkte iki hattı birden açamaz. Bu tahta çizilebiliyor, oynanamıyor.</p>
+        girerdi. Her ağır taş bir şahı karşılayabiliyor; ikisini birden ancak çifte şah aşıyor.</p>
+        <p>Ama iki çapraz ışın aynı anda şah çekemez: öndeki fil, hamleden önce zaten şah çekiyor
+        olurdu. Gerekçenin tamamı <a href="#doublecheck">üçüncü bölümde</a>. Bu tahta çizilebiliyor,
+        oynanamıyor.</p>
       </div>
     </div>
     <div class="sidefig" lang="en">
@@ -4637,10 +4771,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
         check at the same time. With a single bishop it would not be mate: against the one on b6 the
         queen on c8 would step in on c7, against the one on g5 the rook on e8 on e7. Each heavy piece
         can answer one check; only a double check gets past both.</p>
-        <p>But two bishops of the same colour cannot give check at the same time. To open the other
-        bishop's line, the front bishop has to cross onto the other diagonal, and from there it cannot
-        give check; promotion, en passant and castling cannot open two lines of one colour at once
-        either. This board can be drawn, not played.</p>
+        <p>But two diagonal rays cannot give check at the same time: the front bishop would already
+        have been giving check before the move. The full reasoning is in <a href="#doublecheck">section
+        3</a>. This board can be drawn, not played.</p>
       </div>
     </div>
 
