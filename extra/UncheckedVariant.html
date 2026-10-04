@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Unchecked</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* Gece baykuşu: alacakaranlık mavisi, ay ışığı kareler, kehribar göz */
+  :root{
+    --bg:#e6ebf2; --glow:rgba(176,106,16,.09); --panel:#f7f9fc; --rule:#c3ccda;
+    --text:#18203a; --dim:#56637e; --accent:#9a5608; --amber:#f2a93b; --on-amber:#21160a;
+    --bad:#b23a26; --good:#3a7428; --even:#56637e;
+    --sq-light:#dde4ec; --sq-dark:#8296af;
+    --f1:#553823; --f2:#a3744a; --f3:#ecdab8;
+    --pw:#fcf8ef; --pw-edge:#1d2439; --pb:#1a2238; --pb-edge:#e6ebf2;
+    --dot:rgba(24,32,58,.34); --last:rgba(242,169,59,.45); --scrim:rgba(14,20,36,.62);
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#121a2c; --glow:rgba(242,169,59,.11); --panel:#1b2540; --rule:#2f3c5d;
+      --text:#ecf0f7; --dim:#97a6c0; --accent:#f2a93b; --bad:#ff806e; --good:#a3dc8c; --even:#c3cee0;
+      --scrim:rgba(6,10,20,.78); color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#121a2c; --glow:rgba(242,169,59,.11); --panel:#1b2540; --rule:#2f3c5d;
+    --text:#ecf0f7; --dim:#97a6c0; --accent:#f2a93b; --bad:#ff806e; --good:#a3dc8c; --even:#c3cee0;
+    --scrim:rgba(6,10,20,.78); color-scheme:dark;
+  }
+  :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+  html{scroll-padding-top:env(safe-area-inset-top,0px);background:var(--bg)}
+  *,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;overscroll-behavior:none}
+  body{background:var(--bg);background-image:radial-gradient(circle at 92% -6%,var(--glow),transparent 46%);
+    color:var(--text);font-family:"Alegreya",Georgia,"Times New Roman",serif;font-size:17px;line-height:1.5;
+    display:flex;justify-content:center;padding:12px 14px 30px;min-height:100%}
+  .wrap{width:100%;max-width:520px}
+  button,select{font-family:"Alegreya Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+
+  .topbar{display:flex;justify-content:space-between;align-items:center;margin:0 0 10px}
+  .links{display:flex;gap:16px}
+  .quiet{font-size:15px;color:var(--dim);background:none;border:0;padding:6px 2px;cursor:pointer;text-decoration:underline;
+    text-decoration-color:var(--rule);text-underline-offset:4px}
+  .quiet:hover{color:var(--text);text-decoration-color:var(--amber)}
+  [hidden]{display:none!important}
+  .setup{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin:0 0 12px}
+  .lvl{display:flex;align-items:center;gap:8px;font:400 15px/1.2 "Alegreya Sans",system-ui,sans-serif;color:var(--dim)}
+  .lang,.pick{-webkit-appearance:none;appearance:none;font-size:14px;line-height:1.2;color:var(--dim);cursor:pointer;
+    background:var(--panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%2397a6c0' stroke-width='1.4'/%3E%3C/svg%3E") no-repeat right 11px center;
+    border:1px solid var(--rule);border-radius:8px;padding:6px 30px 6px 12px}
+  .pick{font-size:15px;color:var(--text);padding:8px 32px 8px 12px}
+  .lang:hover,.pick:hover:not(:disabled){color:var(--text);border-color:var(--amber)}
+
+  header{display:flex;align-items:baseline;gap:8px;margin-bottom:4px}
+  h1{font-size:30px;line-height:1;margin:0;font-weight:700;letter-spacing:-.3px}
+  .owl{font-size:28px;line-height:1;display:inline-block}
+  .round{margin-left:auto;text-align:right;font-family:"Alegreya Sans",system-ui,sans-serif;font-size:15px;color:var(--text);line-height:1.2}
+  .round small{display:block;font-size:13px;color:var(--dim)}
+  .goal{margin:6px 0 12px;font-size:17px;color:var(--dim);min-height:25px}
+  .pips{display:flex;gap:6px;margin:0 0 10px;min-height:6px}
+  .pip{width:30px;height:6px;border-radius:3px;background:var(--rule)}
+  .pip.done{background:var(--amber)}
+
+  /* Tek cesur şey: baykuş tüyü çizgili çerçeve */
+  .board-frame{position:relative;border-radius:9px;padding:8px;
+    background:repeating-linear-gradient(118deg,var(--f1) 0 7px,var(--f2) 7px 13px,var(--f3) 13px 15px,var(--f2) 15px 18px);
+    box-shadow:0 16px 30px rgba(10,16,30,.30)}
+  .board{display:grid;grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(8,1fr);aspect-ratio:1/1;width:100%;
+    touch-action:none;border-radius:3px;overflow:hidden}
+  .sq{position:relative;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center;line-height:1;cursor:pointer;user-select:none;-webkit-user-select:none}
+  .sq.light{background:var(--sq-light)}
+  .sq.dark{background:var(--sq-dark)}
+  .coord{position:absolute;z-index:1;pointer-events:none;font:700 clamp(8px,2.3vw,11px)/1 "Alegreya Sans",system-ui,sans-serif}
+  .coord.rank{top:3px;left:3px}
+  .coord.file{bottom:2px;right:4px}
+  .sq.light .coord{color:var(--sq-dark)}
+  .sq.dark .coord{color:var(--sq-light)}
+  .pc{position:relative;z-index:2;pointer-events:none;paint-order:stroke fill;transform:translateY(-3%);
+    font-family:"Segoe UI Symbol","Apple Symbols","Noto Sans Symbols 2","DejaVu Sans",sans-serif;font-weight:400}
+  .pc.w{color:var(--pw);-webkit-text-stroke:.055em var(--pw-edge)}
+  .pc.b{color:var(--pb);-webkit-text-stroke:.03em var(--pb-edge)}
+  .sq.dragging .pc{opacity:.2}
+  .sq.last::before{content:"";position:absolute;inset:0;z-index:0;background:var(--last)}
+  .sq.sel::after,.sq.hover::after,.sq.taken::after,.sq.hang::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none}
+  .sq.hang::after{box-shadow:inset 0 0 0 4px var(--bad)}
+  .sq.sel::after{box-shadow:inset 0 0 0 4px var(--amber)}
+  .sq.hover::after{box-shadow:inset 0 0 0 4px rgba(255,255,255,.92)}
+  .sq.taken::after{box-shadow:inset 0 0 0 5px var(--amber);animation:taken 1.1s ease-out 2}
+  @keyframes taken{0%{box-shadow:inset 0 0 0 0 var(--amber)}40%{box-shadow:inset 0 0 0 9px var(--amber)}100%{box-shadow:inset 0 0 0 5px var(--amber)}}
+  .dot{position:absolute;z-index:1;pointer-events:none;width:27%;height:27%;border-radius:50%;background:var(--dot)}
+  .dot.cap{width:88%;height:88%;background:none;box-shadow:inset 0 0 0 4px var(--dot)}
+  .board-frame.flash{animation:shake .34s}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+  #ghost{position:fixed;z-index:20;pointer-events:none;display:none;align-items:center;justify-content:center;line-height:1;
+    filter:drop-shadow(0 8px 10px rgba(0,0,0,.4))}
+
+  .status{min-height:27px;margin-top:14px;font:500 17px/1.4 "Alegreya Sans",system-ui,sans-serif}
+  .status.bad{color:var(--bad);font-weight:700}
+  .status.good{color:var(--good);font-weight:700}
+  .status.even{color:var(--even);font-weight:700}
+  .controls{display:flex;gap:8px;margin:12px 0 14px;flex-wrap:wrap}
+  .controls button,.opts button,.mlist button{font-size:15px;color:var(--text);background:var(--panel);border:1px solid var(--rule);
+    border-radius:8px;padding:10px 16px;cursor:pointer;transition:border-color .15s}
+  .controls button{flex:1 1 auto}
+  .controls button:hover:not(:disabled),.opts button:hover,.mlist button:hover{border-color:var(--amber)}
+  button:disabled{opacity:.42;cursor:default}
+  button:focus-visible,select:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+  .hint{margin:0 0 14px;font-style:italic;font-size:17px;color:var(--accent);min-height:0}
+  .hint:empty{display:none}
+  .hint.note{font-style:normal;color:var(--text);line-height:1.55;min-height:3.1em}
+  .status .cnt{display:inline-block;margin-right:18px;color:var(--dim)}
+  .status .res{display:block;font-weight:700}
+  .status .res.good{color:var(--good)}
+  .status .res.even{color:var(--even)}
+  .controls button.primary{background:var(--amber);color:var(--on-amber);border-color:transparent;font-weight:700}
+  .controls button.primary:disabled{background:var(--panel);color:var(--text);border-color:var(--rule)}
+
+  .log{border-top:1px solid var(--rule);padding-top:8px;max-height:30vh;overflow:auto;
+    font:400 15px/1.35 "Alegreya Sans",system-ui,sans-serif;font-variant-numeric:tabular-nums}
+  .log .row{display:grid;grid-template-columns:30px 1fr 1fr;gap:10px;padding:4px 0;align-items:baseline}
+  .log .n{color:var(--dim);text-align:right}
+  .log .mw,.log .mb{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:baseline}
+  .log .san{font-weight:500}
+  .log .tag{font-style:normal;font-size:12px;line-height:1.5;padding:0 6px;border-radius:4px;border:1px solid currentColor}
+  .log .tag.missed,.log .tag.exposed{color:var(--bad)}
+  .log .tag.panic{color:var(--accent)}
+  .log .tag.took.w{color:var(--good)}
+  .log .tag.took.b{color:var(--bad)}
+  .log .empty{color:var(--dim)}
+
+  .modal{position:fixed;inset:0;z-index:30;background:var(--scrim);display:none;align-items:center;justify-content:center;
+    padding:max(16px,env(safe-area-inset-top,0px)) 16px max(16px,env(safe-area-inset-bottom,0px))}
+  .modal.on{display:flex}
+  .modal .card{background:var(--panel);color:var(--text);border-top:4px solid var(--amber);padding:22px 22px 18px;border-radius:12px;
+    max-width:440px;width:100%;max-height:100%;overflow:auto;box-shadow:0 20px 40px rgba(0,0,0,.3)}
+  .modal h2{margin:0 0 10px;font-size:25px;line-height:1.15;font-weight:700}
+  .modal p{margin:0 0 12px;font-size:16.5px;line-height:1.55;color:var(--dim)}
+  .modal p.lead{color:var(--text)}
+  .modal p b{color:var(--text);font-weight:700}
+  .opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .opts button{flex:1 1 40%}
+  .opts:not(.plain) button:first-child{background:var(--amber);color:var(--on-amber);border-color:transparent;font-weight:700}
+  .mlist{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+  .mlist button{display:flex;justify-content:space-between;align-items:baseline;gap:12px;text-align:left;padding:12px 14px}
+  .mlist .mname{font-weight:500}
+  .mlist .mlim{font-size:13px;color:var(--dim);white-space:nowrap}
+  .promo .opts button{font-size:36px;padding:4px 12px;line-height:1.1;flex:0 0 auto;background:var(--sq-light);border-color:var(--rule)}
+  .promo .opts button .pc{transform:none}
+
+  @media (min-width:520px){body{padding-top:20px}h1{font-size:34px}.controls button{flex:0 0 auto}}
+  @media (prefers-reduced-motion:reduce){
+    .board-frame.flash{animation:none;outline:3px solid var(--bad);outline-offset:2px}
+    .sq.taken::after{animation:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <select class="lang" id="lang" aria-label="Language" autocomplete="off">
+      <option value="en" lang="en">English</option>
+      <option value="tr" lang="tr">Türkçe</option>
+    </select>
+    <div class="links"><button type="button" class="quiet" id="rulesBtn">Rules</button><button type="button" class="quiet" id="presBtn">Presentation</button></div>
+  </div>
+  <header>
+    <h1 id="opp">Opponent:</h1><span class="owl" id="owl" aria-hidden="true">🦉</span>
+    <span class="round" id="round"></span>
+  </header>
+  <p class="goal" id="goal"></p>
+  <div class="setup" id="setup">
+    <select class="pick" id="modeSel" autocomplete="off"><option value="owl">Against the owl</option><option value="2p">Two players</option></select>
+    <label class="lvl" id="levelWrap"><span id="levelLbl">Level</span>
+      <select class="pick" id="levelSel" autocomplete="off"><option value="1">Easy</option><option value="2">Medium</option><option value="3" selected>Hard</option><option value="4">Master</option></select></label>
+  </div>
+  <div class="pips" id="pips"></div>
+  <div class="board-frame" id="frame"><div class="board" id="board" aria-label="Board"></div></div>
+  <div class="status" id="status" role="status" aria-live="polite"></div>
+  <div class="controls" id="controls"></div>
+  <p class="hint" id="hint"></p>
+  <div class="log" id="log"></div>
+</div>
+<div id="ghost"></div>
+<div class="modal promo" id="promo"><div class="card"><p class="lead" id="promoLead">Choose a piece to promote to.</p>
+  <div class="opts"><button type="button" data-p="q"><span class="pc w">&#9819;&#65038;</span></button><button type="button" data-p="r"><span class="pc w">&#9820;&#65038;</span></button><button type="button" data-p="b"><span class="pc w">&#9821;&#65038;</span></button><button type="button" data-p="n"><span class="pc w">&#9822;&#65038;</span></button></div>
+</div></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle"><div class="card"><h2 id="mTitle"></h2><div id="mBody"></div><div class="opts" id="mOpts"></div></div></div>
+<script>
+/* ===================== MOTOR =====================
+   Tahta: 64 kare, i = r*8 + c, r=0 → 8. yatay, c=0 → a hattı.
+   Taş: "wk","bq" ... ya da null.
+   Varyant: hamleler yalnızca geometrik (pseudo-legal). Şah yenince oyun biter.
+   Klasikçi: klasik kurallarla oynar; açıkta şah görürse alır; klasik hamlesi
+   yoksa (mat/pat) en değerli taşı alan hamleyi, o da yoksa ilk hamleyi oynar. */
+const ENG = (function () {
+  const FILES = "abcdefgh";
+  const N_OFF = [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]];
+  const K_OFF = [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
+  const B_DIR = [[-1,-1],[-1,1],[1,-1],[1,1]];
+  const R_DIR = [[-1,0],[1,0],[0,-1],[0,1]];
+  const VAL = { p: 100, n: 320, b: 330, r: 500, q: 900, k: 20000 };
+  const inside = (r, c) => r >= 0 && r < 8 && c >= 0 && c < 8;
+  const other = c => (c === "w" ? "b" : "w");
+  const alg = i => FILES[i & 7] + (8 - (i >> 3));
+  const sqOf = s => (8 - +s[1]) * 8 + FILES.indexOf(s[0]);
+
+  function initState() { return fromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"); }
+  function fromFEN(fen) {
+    const [pl, turn, cr, ep, half] = fen.split(" ");
+    const b = new Array(64).fill(null);
+    let i = 0;
+    for (const ch of pl) {
+      if (ch === "/") continue;
+      if (/\d/.test(ch)) { i += +ch; continue; }
+      const col = ch === ch.toUpperCase() ? "w" : "b";
+      b[i++] = col + ch.toLowerCase();
+    }
+    return { b, turn, cr: { wK: cr.includes("K"), wQ: cr.includes("Q"), bK: cr.includes("k"), bQ: cr.includes("q") },
+      ep: ep && ep !== "-" ? sqOf(ep) : null, half: +(half || 0) };
+  }
+  function findKing(st, color) { const k = color + "k"; for (let i = 0; i < 64; i++) if (st.b[i] === k) return i; return -1; }
+
+  function attacked(b, sq, by) {
+    const r = sq >> 3, c = sq & 7, pd = by === "w" ? 1 : -1;
+    for (const dc of [-1, 1]) { const rr = r + pd, cc = c + dc; if (inside(rr, cc) && b[rr * 8 + cc] === by + "p") return true; }
+    for (const o of N_OFF) { const rr = r + o[0], cc = c + o[1]; if (inside(rr, cc) && b[rr * 8 + cc] === by + "n") return true; }
+    for (const o of K_OFF) { const rr = r + o[0], cc = c + o[1]; if (inside(rr, cc) && b[rr * 8 + cc] === by + "k") return true; }
+    const scan = (dirs, t1, t2) => {
+      for (const d of dirs) { let rr = r + d[0], cc = c + d[1];
+        while (inside(rr, cc)) { const p = b[rr * 8 + cc];
+          if (p) { if (p[0] === by && (p[1] === t1 || p[1] === t2)) return true; break; }
+          rr += d[0]; cc += d[1]; } }
+      return false; };
+    return scan(R_DIR, "r", "q") || scan(B_DIR, "b", "q");
+  }
+  function inCheck(st, color) { const k = findKing(st, color); return k >= 0 && attacked(st.b, k, other(color)); }
+
+  /* classical=true → rok için klasik tehdit şartları (Klasikçi). false → varyant: sadece boşluk + hak. */
+  function genPseudo(st, color, classical, capsOnly) {
+    const b = st.b, out = [];
+    const add = capsOnly
+      ? (f, t, x) => { if (b[t] || (x && (x.ep || x.promo === "q"))) out.push(x ? Object.assign({ f, t }, x) : { f, t }); }
+      : (f, t, x) => out.push(x ? Object.assign({ f, t }, x) : { f, t });
+    for (let i = 0; i < 64; i++) {
+      const p = b[i]; if (!p || p[0] !== color) continue;
+      const r = i >> 3, c = i & 7, t = p[1];
+      if (t === "p") {
+        const dir = color === "w" ? -1 : 1, start = color === "w" ? 6 : 1, last = color === "w" ? 0 : 7;
+        const pAdd = (to, x) => { if ((to >> 3) === last) for (const q of ["q", "r", "b", "n"]) add(i, to, Object.assign({ promo: q }, x || {})); else add(i, to, x); };
+        const nr = r + dir;
+        if (inside(nr, c) && !b[nr * 8 + c]) { pAdd(nr * 8 + c); if (r === start && !b[(r + 2 * dir) * 8 + c]) add(i, (r + 2 * dir) * 8 + c); }
+        for (const dc of [-1, 1]) { const nc = c + dc; if (!inside(nr, nc)) continue;
+          const to = nr * 8 + nc, tg = b[to];
+          if (tg && tg[0] !== color) pAdd(to);
+          else if (!tg && st.ep === to) pAdd(to, { ep: true }); }
+      } else if (t === "n" || t === "k") {
+        for (const o of (t === "n" ? N_OFF : K_OFF)) { const rr = r + o[0], cc = c + o[1]; if (!inside(rr, cc)) continue;
+          const tg = b[rr * 8 + cc]; if (!tg || tg[0] !== color) add(i, rr * 8 + cc); }
+      } else {
+        const dirs = t === "r" ? R_DIR : t === "b" ? B_DIR : R_DIR.concat(B_DIR);
+        for (const d of dirs) { let rr = r + d[0], cc = c + d[1];
+          while (inside(rr, cc)) { const tg = b[rr * 8 + cc];
+            if (!tg) add(i, rr * 8 + cc); else { if (tg[0] !== color) add(i, rr * 8 + cc); break; }
+            rr += d[0]; cc += d[1]; } }
+      }
+    }
+    const row = color === "w" ? 7 : 0, en = other(color), base = row * 8;
+    if (!capsOnly && b[base + 4] === color + "k") {
+      const kS = color === "w" ? st.cr.wK : st.cr.bK, qS = color === "w" ? st.cr.wQ : st.cr.bQ;
+      const safe = s => !classical || !attacked(b, base + s, en);
+      if (kS && b[base + 7] === color + "r" && !b[base + 5] && !b[base + 6] && safe(4) && safe(5) && safe(6)) add(base + 4, base + 6, { castle: "K" });
+      if (qS && b[base] === color + "r" && !b[base + 1] && !b[base + 2] && !b[base + 3] && safe(4) && safe(3) && safe(2)) add(base + 4, base + 2, { castle: "Q" });
+    }
+    return out;
+  }
+
+  function makeMove(st, m) {
+    const b = st.b.slice(), p = b[m.f], color = p[0], type = p[1];
+    let cap = b[m.t];
+    if (m.ep) { const cs = (m.f & ~7) | (m.t & 7); cap = b[cs]; b[cs] = null; }
+    if (m.castle) { const base = m.f & ~7;
+      if (m.castle === "K") { b[base + 5] = b[base + 7]; b[base + 7] = null; } else { b[base + 3] = b[base]; b[base] = null; } }
+    b[m.t] = m.promo ? color + m.promo : p; b[m.f] = null;
+    const cr = { wK: st.cr.wK, wQ: st.cr.wQ, bK: st.cr.bK, bQ: st.cr.bQ };
+    if (type === "k") { if (color === "w") cr.wK = cr.wQ = false; else cr.bK = cr.bQ = false; }
+    for (const s of [m.f, m.t]) { if (s === 56) cr.wQ = false; if (s === 63) cr.wK = false; if (s === 0) cr.bQ = false; if (s === 7) cr.bK = false; }
+    return { b, turn: other(color), cr, ep: type === "p" && Math.abs(m.t - m.f) === 16 ? (m.f + m.t) >> 1 : null,
+      half: type === "p" || cap ? 0 : st.half + 1, cap };
+  }
+  const isCapture = (st, m) => !!st.b[m.t] || !!m.ep;
+  const capturesKing = (st, m) => { const x = st.b[m.t]; return !!x && x[1] === "k"; };
+
+  function genClassical(st, capsOnly) {
+    const color = st.turn, en = other(color);
+    return genPseudo(st, color, true, capsOnly).filter(m => { const ns = makeMove(st, m); const k = findKing(ns, color); return k >= 0 && !attacked(ns.b, k, en); });
+  }
+
+  /* --- değerlendirme (Klasikçi'nin kafası) --- */
+  const PST = {
+    p: [0,0,0,0,0,0,0,0,50,50,50,50,50,50,50,50,10,10,20,30,30,20,10,10,5,5,10,25,25,10,5,5,0,0,0,20,20,0,0,0,5,-5,-10,0,0,-10,-5,5,5,10,10,-20,-20,10,10,5,0,0,0,0,0,0,0,0],
+    n: [-50,-40,-30,-30,-30,-30,-40,-50,-40,-20,0,0,0,0,-20,-40,-30,0,10,15,15,10,0,-30,-30,5,15,20,20,15,5,-30,-30,0,15,20,20,15,0,-30,-30,5,10,15,15,10,5,-30,-40,-20,0,5,5,0,-20,-40,-50,-40,-30,-30,-30,-30,-40,-50],
+    b: [-20,-10,-10,-10,-10,-10,-10,-20,-10,0,0,0,0,0,0,-10,-10,0,5,10,10,5,0,-10,-10,5,5,10,10,5,5,-10,-10,0,10,10,10,10,0,-10,-10,10,10,10,10,10,10,-10,-10,5,0,0,0,0,5,-10,-20,-10,-10,-10,-10,-10,-10,-20],
+    r: [0,0,0,0,0,0,0,0,5,10,10,10,10,10,10,5,-5,0,0,0,0,0,0,-5,-5,0,0,0,0,0,0,-5,-5,0,0,0,0,0,0,-5,-5,0,0,0,0,0,0,-5,-5,0,0,0,0,0,0,-5,0,0,0,5,5,0,0,0],
+    q: [-20,-10,-10,-5,-5,-10,-10,-20,-10,0,0,0,0,0,0,-10,-10,0,5,5,5,5,0,-10,-5,0,5,5,5,5,0,-5,0,0,5,5,5,5,0,-5,-10,5,5,5,5,5,0,-10,-10,0,5,0,0,0,0,-10,-20,-10,-10,-5,-5,-10,-10,-20],
+    k: [-30,-40,-40,-50,-50,-40,-40,-30,-30,-40,-40,-50,-50,-40,-40,-30,-30,-40,-40,-50,-50,-40,-40,-30,-30,-40,-40,-50,-50,-40,-40,-30,-20,-30,-30,-40,-40,-30,-30,-20,-10,-20,-20,-20,-20,-20,-20,-10,20,20,0,0,0,0,20,20,20,30,10,0,0,10,30,20],
+    ke: [-50,-40,-30,-20,-20,-30,-40,-50,-30,-20,-10,0,0,-10,-20,-30,-30,-10,20,30,30,20,-10,-30,-30,-10,30,40,40,30,-10,-30,-30,-10,30,40,40,30,-10,-30,-30,-10,20,30,30,20,-10,-30,-30,-30,0,0,0,0,-30,-30,-50,-30,-30,-30,-30,-30,-30,-50]
+  };
+  function evaluate(st) { // beyaz açısından
+    const b = st.b; let s = 0, nonPawn = 0, queens = 0;
+    for (let i = 0; i < 64; i++) { const p = b[i]; if (!p || p[1] === "k" || p[1] === "p") continue; nonPawn += VAL[p[1]]; if (p[1] === "q") queens++; }
+    const endg = queens === 0 || nonPawn <= 1800;
+    for (let i = 0; i < 64; i++) {
+      const p = b[i]; if (!p) continue;
+      const t = p[1], idx = p[0] === "w" ? i : (7 - (i >> 3)) * 8 + (i & 7);
+      const v = (t === "k" ? 0 : VAL[t]) + (t === "k" ? (endg ? PST.ke : PST.k)[idx] : PST[t][idx]);
+      s += p[0] === "w" ? v : -v;
+    }
+    return s;
+  }
+  const MATE = 100000;
+  function order(st, ms) {
+    const sc = m => { const tg = m.ep ? "xp" : st.b[m.t]; let v = 0;
+      if (tg) v += 10 * VAL[tg[1]] - VAL[st.b[m.f][1]] / 10 + 100000;
+      if (m.promo) v += VAL[m.promo] + 50000; return v; };
+    return ms.map((m, i) => [sc(m), i, m]).sort((a, b) => b[0] - a[0] || a[1] - b[1]).map(x => x[2]);
+  }
+  let nodes = 0;
+  const ABORT = { abort: true };
+  function quiesce(st, alpha, beta, qd) {
+    nodes++;
+    if (nodes > budget) throw ABORT;
+    const sign = st.turn === "w" ? 1 : -1;
+    const stand = sign * evaluate(st);
+    if (stand >= beta) return stand;
+    if (stand > alpha) alpha = stand;
+    if (qd <= 0) return stand;
+    const caps = order(st, genClassical(st, true));
+    for (const m of caps) {
+      const v = -quiesce(makeMove(st, m), -beta, -alpha, qd - 1);
+      if (v >= beta) return v;
+      if (v > alpha) alpha = v;
+    }
+    return alpha;
+  }
+  let budget = Infinity;
+  function negamax(st, depth, alpha, beta, ply) {
+    nodes++;
+    if (nodes > budget) throw ABORT;
+    const ms = genClassical(st);
+    if (!ms.length) return inCheck(st, st.turn) ? -MATE + ply : 0; // klasik inanç: pat = beraberlik
+    if (depth <= 0) return useQ ? quiesce(st, alpha, beta, 4) : (st.turn === "w" ? 1 : -1) * evaluate(st);
+    let best = -Infinity;
+    for (const m of order(st, ms)) {
+      const v = -negamax(makeMove(st, m), depth - 1, -beta, -alpha, ply + 1);
+      if (v > best) best = v;
+      if (v > alpha) alpha = v;
+      if (alpha >= beta) break;
+    }
+    return best;
+  }
+  /* Seviyeler: her adım bir derinlik; cap düğüm sınırı (zamana değil düğüme bağlı, her cihazda aynı hamle).
+     Sınıra takılan adım atılır, son tamamlanan derinliğin hamlesi oynanır. Görevler hep seviye 3 ile çözüldü. */
+  const LEVELS = {
+    1: { steps: [{ d: 1 }], q: false },
+    2: { steps: [{ d: 2 }], q: true },
+    3: { steps: [{ d: 2 }, { d: 3, cap: 40000 }], q: true },
+    4: { steps: [{ d: 2 }, { d: 3, cap: 40000 }, { d: 4, cap: 120000 }], q: true }
+  };
+  let useQ = true;
+  /* Klasikçi'nin hamlesi. kind: "king" (şahı aldı), "normal", "panic" (klasik hamlesi yok). */
+  function botMove(st, level) {
+    const lv = LEVELS[level] || LEVELS[3];
+    const color = st.turn, pseudo = genPseudo(st, color, true);
+    const kc = pseudo.find(m => capturesKing(st, m));
+    if (kc) return { move: kc, kind: "king" };
+    const L = genClassical(st);
+    if (L.length) {
+      let res = null; useQ = lv.q;
+      for (const step of lv.steps) {
+        nodes = 0; budget = step.cap || Infinity;
+        try {
+          let best = null, bv = -Infinity, alpha = -Infinity;
+          for (const m of order(st, L)) {
+            const v = -negamax(makeMove(st, m), step.d - 1, -Infinity, -alpha, 1);
+            if (v > bv) { bv = v; best = m; }
+            if (v > alpha) alpha = v;
+          }
+          res = { move: best, kind: "normal", score: bv, depth: step.d };
+        } catch (e) { if (e !== ABORT) throw e; break; }
+      }
+      budget = Infinity; useQ = true;
+      return res;
+    }
+    if (!pseudo.length) return null;
+    let best = pseudo[0], bv = -1;
+    for (const m of pseudo) { const tg = m.ep ? "xp" : st.b[m.t]; const v = tg ? VAL[tg[1]] : 0; if (v > bv) { bv = v; best = m; } }
+    return { move: best, kind: "panic" };
+  }
+
+  /* --- notasyon (SAN; şah işareti yok, bilerek) --- */
+  const LET = { en: { k: "K", q: "Q", r: "R", b: "B", n: "N" }, tr: { k: "Ş", q: "V", r: "K", b: "F", n: "A" } };
+  function san(st, m, lang) {
+    const L = LET[lang] || LET.en, p = st.b[m.f];
+    if (m.castle) return m.castle === "K" ? "O-O" : "O-O-O";
+    const cap = isCapture(st, m), to = alg(m.t);
+    if (p[1] === "p") return (cap ? FILES[m.f & 7] + "x" : "") + to + (m.promo ? "=" + L[m.promo] : "");
+    let dis = "";
+    const rivals = genPseudo(st, p[0], false).filter(o => o.t === m.t && o.f !== m.f && st.b[o.f] === p);
+    if (rivals.length) {
+      const sameFile = rivals.some(o => (o.f & 7) === (m.f & 7)), sameRank = rivals.some(o => (o.f >> 3) === (m.f >> 3));
+      dis = !sameFile ? FILES[m.f & 7] : !sameRank ? String(8 - (m.f >> 3)) : alg(m.f);
+    }
+    return L[p[1]] + dis + (cap ? "x" : "") + to;
+  }
+  const key = m => alg(m.f) + alg(m.t) + (m.promo || "");
+  function posKey(st) {
+    let epOk = "-";
+    if (st.ep !== null && genPseudo(st, st.turn, false).some(m => m.ep)) epOk = String(st.ep);
+    return st.b.map(p => p || ".").join("") + st.turn + (st.cr.wK ? 1 : 0) + (st.cr.wQ ? 1 : 0) + (st.cr.bK ? 1 : 0) + (st.cr.bQ ? 1 : 0) + epOk;
+  }
+  return { FILES, VAL, alg, sqOf, other, initState, fromFEN, findKing, attacked, inCheck, genPseudo, genClassical, makeMove,
+    isCapture, capturesKing, botMove, san, key, posKey, evaluate, get nodes() { return nodes; } };
+})();
+
+/* ===================== GÖREVLER =====================
+   Her görevin başlangıç pozisyonu (FEN) ve beyaz hamle sınırı var.
+   lines: bilinen çözümler, yalnızca beyazın hamleleri; baykuşun cevapları deterministik.
+   Tüm çözümler ve "daha kısası yok" iddiaları tam aramayla doğrulandı. */
+const START_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+const MISSIONS = [
+  { id: "warmup", kind: "free", fen: START_FEN, limit: 0, lines: [] },
+  { id: "onemore", fen: "6k1/5ppp/8/8/8/8/q1Q2PPP/4R1K1 w - - 0 1", limit: 2, lines: [["e1e8", "e8g8"], ["c2c8", "c8g8"]] },
+  { id: "first", fen: "4R1k1/5ppp/1b6/8/3Q4/8/6PP/6K1 b - - 0 1", limit: 1, lines: [["e8g8"]] },
+  { id: "silent", fen: "7k/pp4pp/8/4Q3/8/2B2n2/PP3PPP/6K1 w - - 0 1", limit: 3, lines: [["g2f3", "e5g7", "c3g7"], ["g2f3", "e5e8", "e8f8"]] },
+  { id: "pinned", fen: "2r4k/pp4Qp/8/8/8/2B5/PP6/2K5 b - - 0 1", limit: 1, lines: [["c3g7"]] },
+  { id: "castle", fen: "3k3r/6pp/1P2Q3/8/8/8/6n1/R3K3 w Q - 0 1", limit: 2, lines: [["e1c1", "e6c8"]] },
+  { id: "stale", fen: "8/6k1/8/5K1P/8/8/8/8 w - - 0 1", limit: 5, lines: [["f5g5", "h5h6", "g5g6", "h6h7", "g6h7"]] },
+  { id: "knight", fen: "7k/8/5K2/8/8/4N3/8/8 w - - 0 1", limit: 4, lines: [["f6f7", "e3g4", "g4f6", "f7g8"], ["e3f5", "f5e7", "f6g6", "e7g8"]] }
+];
+
+/* ===================== DİL ===================== */
+const TEXT = {
+tr: {
+ ui: {
+  title: "Unchecked", opponent: "Rakip:", twoPlayers: "İki oyuncu",
+  twoGoal: "Şahı ilk yiyen kazanır. Tahta her hamlede sırası gelen tarafa döner.",
+  turnW: "Sıra beyazda", turnB: "Sıra siyahta",
+  wTook: "Beyaz şahı aldı.", bTook: "Siyah şahı aldı.", resignW: "Beyaz pes etti.", resignB: "Siyah pes etti.",
+  modeOwl: "Baykuşa karşı", modeTwo: "İki oyuncu", modeLabel: "Oyun türü",
+  levelLabel: "Seviye", level1: "Kolay", level2: "Orta", level3: "Zor", level4: "Usta", langLabel: "Dil", rules: "Kurallar", promo: "Piyon terfi ediyor. Hangi taş?",
+  warmup: "Isınma", mission: n => "Görev " + n, attempt: n => n + ". deneme",
+  restart: "Baştan", newGame: "Yeni oyun", undo: "Geri al", resign: "Pes et", missions: "Görevler",
+  yourMove: "Sıra sende", thinking: "Baykuş düşünüyor", moveOf: (n, lim) => "Hamle " + n + " / " + lim,
+  warmGoal: "Şahı ye. Süre yok, sınır yok.",
+  logEmpty: "Bir taşı sürükle ya da dokun.",
+  tag_missed: "kaçırıldı", tag_panic: "çaresiz", tag_exposed: "açıkta", tag_took: "şahı aldı",
+  wonKing: "Şahı aldın.", lostKing: "Baykuş şahını aldı.", fifty: "50 hamle kuralı. Berabere.",
+  threefold: "Üç kez tekrar. Berabere.", noMoves: "Hamle kalmadı. Berabere.", resigned: "Pes ettin.",
+  timeout: "Hamlelerin bitti.", lost: "Şahın açıktaydı; baykuş aldı.", restarting: "Baştan.",
+  solution: x => "<p>Çözüm: <b>" + x + "</b></p>",
+  solutions: xs => "<p>Çözümler:</p><p>" + xs.map(x => "<b>" + x + "</b>").join("<br>") + "</p>",
+  watchSolution: "Çözümü izle", nextMission: "Sıradaki görev", close: "Kapat",
+  allDone: "<p class='lead'>Bütün görevleri bitirdin. Artık açıkta kalan bir şahı kolay kolay kaçırmazsın.</p>",
+  introTitle: "Unchecked",
+  introBody:
+   "<p class='lead'>Satranç, tek bir farkla: oyun mat ile değil, şahın yenmesiyle biter.</p>" +
+   "<p>Taşlar bildiğin gibi oynar ve her hamle geometrik olarak geçerli olmalı. Ama şahını tehdit altında bırakmak serbest. Açmazdaki taşı oynayabilir, şahını tehdit edilen bir kareye sürebilirsin.</p>" +
+   "<p>Mat, şahın bir hamle sonra yeneceği anlamına gelir. O hamleyi oynamazsan oyun sürer. Şahını açıkta bırakırsan ve rakip görürse kaybedersin.</p>" +
+   "<p>Pat, yetersiz materyal ve ölü pozisyon yok. Klasik kurallara göre yasal hamlesi kalmayan taraf da oynamak zorunda. Beraberliğin iki yolu var: 50 hamle kuralı ve üç kez tekrar.</p>" +
+   "<p>Rok için şah ile kale oynamamış, aradaki kareler boş olmalı. Tehdit altındaki karelere bakılmaz.</p>" +
+   "<p class='lead'>Tahta sana yardım etmez: şah vurgusu yok, notasyonda + yok, rakip şahın karesinde yeme işareti yok.</p>" +
+   "<p>Isınmada baykuşun seviyesini seçebilir ya da aynı cihazda iki kişi oynayabilirsin; o zaman tahta her hamlede sırası gelen tarafa döner.</p>",
+  startWarmup: "Isınmaya başla",
+  revealTitle: r => ({ wonKing: "Şahı aldın.", lostKing: "Şahını aldı.", resigned: "Pes ettin." })[r] || "Berabere.",
+  revealBody:
+   "<p class='lead'>Rakibin satrancı eski kurallarla oynayan bir baykuş. Bu varyanttan haberi yok.</p>" +
+   "<p>Kendi şahını hiçbir zaman tehdit altında bırakmaz. Seninkini açıkta görürse düşünmeden alır.</p>" +
+   "<p>Ama mat ya da pat olduğunda ne yapacağını bilmez; klasik satrançta oyun orada biterdi. Burada bitmiyor. O yüzden alabildiği en değerli taşı alır, alamıyorsa aklına gelen ilk hamleyi oynar. O an şahı açıkta kalır. Görmek sana kalmış.</p>" +
+   "<p>Oyun bitince hamle listesinde etiketler çıkar: kaçırılan şahlar, çaresiz hamleler, açıkta bırakılan şahlar.</p>" +
+   "<p class='lead'>Görevler açıldı. Hepsi aynı baykuşa karşı ve her biri bu varyantın bir köşesini gösteriyor.</p>",
+  openMissions: "Görevleri aç", warmupAgain: "Bir el daha",
+  menuIntro: "<p>Aynı baykuş, farklı pozisyonlar. Her görevin bir hamle sınırı var. Görevlerde baykuş hep Zor seviyede oynar; çözümler buna göre kurulu.</p>", backToWarmup: "Isınmaya dön",
+  thatsAll: "Bu kadar.", watchAgain: "Tekrar izle",
+  demoPrefix: (i, n) => n > 1 ? "Çözüm " + (i + 1) + " / " + n + ": " : "Çözüm: "
+ },
+ missions: {
+  warmup: { name: "Isınma", short: "", goal: "", hints: [] },
+  onemore: { name: "Bir hamle daha", short: "2 hamle",
+   goal: "Şahı ye. İki hamlen var.",
+   hints: ["Mat edebilirsin. Ama bu varyantta oyun matla bitmiyor.",
+           "Mattan sonra sıra baykuşa geçer. Bir şey oynayacak; sonra senin bir hamlen daha var.",
+           "1.Ke8. Baykuş ne yaparsa yapsın, kalen g8'e bakmaya devam ediyor."],
+   timeout: "İki hamle bitti, siyah şah hâlâ tahtada.",
+   win: "Şah yendi.",
+   why: "<p class='lead'>Klasik satrançta oyun 1.Ke8 ile biterdi: mat. Burada bitmiyor. Sıra baykuşa geçti ve oynamak zorundaydı.</p>" +
+        "<p>Klasik kurallara göre yapabileceği tek bir hamle yoktu. Baykuş bu durumda alabildiği en değerli taşı alıyor: vezirini aldı. Şahı ise yerinde, kalenin karşısında açıkta duruyordu.</p>" +
+        "<p>Mat, şahın bir sonraki hamlede yeneceği anlamına gelir. O hamleyi oynamazsan mat hiçbir şey ifade etmez. 1.Vc8 de mattı; o zaman baykuş f2'yi alıyor.</p>" },
+  first: { name: "Önce sen al", short: "1 hamle",
+   goal: "Baykuş ilk hamleyi yapıyor. Sonra şahı ye; tek hamlen var.",
+   hints: ["Fil vezirini aldı ve şahına bakıyor. Bu bir sorun mu?",
+           "Şahın tehdit altında. Ama sıra sende.",
+           "e8'deki kale nereye bakıyor?"],
+   timeout: "Tek hamleni kullandın, siyah şah hâlâ tahtada.",
+   win: "Önce sen aldın.",
+   why: "<p class='lead'>Siyah zaten mattaydı: e8'deki kale g8'e bakıyordu ve şahın kaçacak karesi yoktu. Baykuş yine de oynamak zorundaydı ve vezirini, şahına şah çekerek aldı.</p>" +
+        "<p>Klasik refleks şahı kurtarmaktır. Burada gerek yok. Oyun şah yenince bitiyor ve sıra sende. Şahın tehdit altında olsa da önce sen alırsan o tehdit hiç gerçekleşmez.</p>" +
+        "<p>Bu varyantta şah çekmek bir uyarı değil, bir fırsat. Fırsatı kullanan, sırası gelen.</p>" },
+  silent: { name: "Sessiz şah", short: "3 hamle",
+   goal: "Şahı ye. Üç hamlen var.",
+   hints: ["g7'de mat var. Ama önce kendi şahına bak.",
+           "f3'teki at ne yapıyor? Bu tahtada kimse sana şah çekildiğini söylemez.",
+           "1.gxf3. Mat tehdidi yerinde duruyor ve baykuş onu durduramaz."],
+   lost: "Siyahı mat ettin, ama sıra baykuştaydı ve şahın açıktaydı.",
+   timeout: "Üç hamle bitti, siyah şah hâlâ tahtada.",
+   win: "Önce kendi şahın.",
+   why: "<p class='lead'>Başlangıçta şahın f3'teki atın tehdidi altındaydı. Tahta bunu göstermedi; bu varyantta hiçbir zaman göstermez.</p>" +
+        "<p>Vxg7 mattı, ama mat rakibin şahını hemen almaz. Sıra baykuşa geçer ve önünde açıkta bir şah durur. Hiç düşünmeden alır.</p>" +
+        "<p>Doğrusu önce tehdidi kaldırmaktı. 1.gxf3 hem atı aldı hem şahını kurtardı, g7'deki mat tehdidi de yerinde kaldı ve siyahın onu durduracak hamlesi yok. Mat yapmadan önce kendi şahına bak: iki şah aynı anda açıktaysa, sırası gelen alır.</p>" },
+  pinned: { name: "Açmazdaki fil", short: "1 hamle",
+   goal: "Baykuş ilk hamleyi yapıyor. Sonra şahı ye; tek hamlen var.",
+   hints: ["Siyah şah veziri aldı. g7'ye uzanan tek taşın hangisi?",
+           "c3'teki fil açmazda: c8'deki kale, filin arkasında senin şahını görüyor.",
+           "Açmaz, taş oynarsa şahın bir sonraki hamlede yenir demek. Ama oyun senin hamlende biterse?"],
+   timeout: "Tek hamleni kullandın, siyah şah hâlâ tahtada.",
+   win: "Açmaz bir hamle geç kaldı.",
+   why: "<p class='lead'>Vg7 mattı ve baykuşun kaçacak yeri yoktu. Alabildiği en değerli taşı aldı: veziri, şahıyla.</p>" +
+        "<p>g7'ye uzanan tek taş c3'teki fil ve o fil c8'deki kaleye karşı açmazda. Klasik satrançta oynayamazdın. Burada açmaz bir yasak değil, bir hesap: fil oynarsa kale bir sonraki hamlede şahını alabilir. Ama Fxg7 şahı alıyor ve oyun orada bitiyor; o sonraki hamle hiç gelmiyor.</p>" +
+        "<p>Bir incelik: baykuşun gözünde de Vg7 mattı. Açmazdaki taş klasik kurallarda da tehdit eder, o yüzden şahıyla veziri alamazdı. Aldı, çünkü başka hamlesi yoktu.</p>" },
+  castle: { name: "Ateş altında rok", short: "2 hamle",
+   goal: "Şahı ye. İki hamlen var.",
+   hints: ["Şahın g2'deki atın tehdidi altında. Kaçabilirsin, ama bu bir tempo kaybettirir.",
+           "Klasik satrançta şah tehdit altındayken rok yapılamaz. Burada yapılabilir.",
+           "Uzun rok. Kale d1'e geliyor ve d hattı boş."],
+   timeout: "İki hamle bitti, siyah şah hâlâ tahtada.",
+   win: "Rok, sonra şah.",
+   why: "<p class='lead'>Klasik kurallarda 1.O-O-O imkânsızdı: şah g2'deki atın tehdidi altındaydı. Bu varyantta rokun tek şartı şahla kalenin hiç oynamamış ve aradaki karelerin boş olması. Tehdit altındayken ya da tehdit edilen bir kareden geçerek rok yapabilirsin.</p>" +
+        "<p>Uzun rok iki iş birden yaptı: şahını attan kaçırdı ve d1'e gelen kaleyle d8'e şah çekti. c7'yi b6 piyonu, c8, d7, e7 ve e8'i vezir tutuyor. Baykuşun klasik hamlesi kalmadı; şahını c8'e sürdü ve vezir onu aldı.</p>" +
+        "<p>Şahı kaçırmak bir tempo harcardı ve siyah şah kurtulurdu. İki hamlede tek yol bu rok.</p>" },
+  stale: { name: "Pat kaybettirir", short: "5 hamle",
+   goal: "Şahı ye. Beş hamlen var.",
+   hints: ["Kale piyonu ve köşeye kaçan şah: klasik satrançta bu oyun berabere. Burada değil.",
+           "Terfiyi unut. Siyah şahı köşeye kapat ve hamlesiz bırak.",
+           "Pat olan taraf yine oynamak zorunda ve her hamlesi şahını açığa düşürür.",
+           "1.Şg5. Baykuş köşeye gitmek istiyor; bırak gitsin."],
+   timeout: "Beş hamle bitti, siyah şah hâlâ tahtada.",
+   win: "Pat, sonra şah.",
+   why: "<p class='lead'>Kale piyonlu bu oyun klasik satrançta teorik beraberliktir. Siyah şah köşeye girer; beyaz ya terfi edemez ya da pat yapar. Orada pat bir kurtuluştur.</p>" +
+        "<p>Burada pat yok. 4.h7'den sonra siyah şah h8'de kaldı: g8'i piyon, g7'yi senin şahın tutuyor, h7'deki piyon korunuyor. Klasik kurallara göre yasal hamlesi kalmayan baykuş yine de oynamak zorundaydı; piyonu aldı ve şahını senin şahının yanına götürdü.</p>" +
+        "<p>Baykuş köşeye kendi isteğiyle girdi. Klasik kafasında pat beraberlikti, yani kurtuluş. Beş hamleden kısası yok ve bu tek yol.</p>" },
+  knight: { name: "Tek at", short: "4 hamle",
+   goal: "Şahı ye. Dört hamlen var.",
+   hints: ["Klasik satrançta şah ve tek atla mat yapılamaz; oyun yetersiz materyalden berabere biter. Burada o kural yok.",
+           "Mat gerekmiyor. Pat yeter.",
+           "Siyah şahı h8'e kapat: g8 ile g7'yi şahın, h7'yi atın tutsun.",
+           "1.Şf7. Sonra at g4 üzerinden f6'ya."],
+   timeout: "Dört hamle bitti, siyah şah hâlâ tahtada.",
+   win: "Tek at yetti.",
+   why: "<p class='lead'>Şah ve at, yalnız şaha karşı mat yapamaz. Klasik satrançta bu pozisyon yetersiz materyal sayılır ve oyun hemen berabere biter. Burada o kural yok, çünkü mata gerek yok: pat yeter.</p>" +
+        "<p>Siyah şahı köşeye kapatıp her kaçış karesini tuttuğunda baykuş oynamak zorunda kalır ve şahını senin alabileceğin bir kareye sürer. İki yol var, ikisi de dört hamle; daha kısası yok.</p>" +
+        "<p>Tek fille de pat kurulabilir. Çıplak şahlarda ise kimse kazanmaya zorlayamaz: biri şahını rakip şahın yanına sürmedikçe oyun 50 hamle kuralı ya da üç kez tekrarla berabere biter.</p>" }
+ }
+},
+en: {
+ ui: {
+  title: "Unchecked", opponent: "Opponent:", twoPlayers: "Two players",
+  twoGoal: "First to take a king wins. The board turns to face the side to move.",
+  turnW: "White to move", turnB: "Black to move",
+  wTook: "White took the king.", bTook: "Black took the king.", resignW: "White resigned.", resignB: "Black resigned.",
+  modeOwl: "Against the owl", modeTwo: "Two players", modeLabel: "Game mode",
+  levelLabel: "Level", level1: "Easy", level2: "Medium", level3: "Hard", level4: "Master", langLabel: "Language", rules: "Rules", promo: "Choose a piece to promote to.",
+  warmup: "Warm-up", mission: n => "Mission " + n, attempt: n => "attempt " + n,
+  restart: "Restart", newGame: "New game", undo: "Undo", resign: "Resign", missions: "Missions",
+  yourMove: "Your move", thinking: "The owl is thinking", moveOf: (n, lim) => "Move " + n + " of " + lim,
+  warmGoal: "Take the king. No clock, no move limit.",
+  logEmpty: "Drag or tap a piece.",
+  tag_missed: "missed", tag_panic: "desperate", tag_exposed: "hanging", tag_took: "took the king",
+  wonKing: "You took the king.", lostKing: "The owl took your king.", fifty: "50-move rule. Draw.",
+  threefold: "Threefold repetition. Draw.", noMoves: "No moves left. Draw.", resigned: "You resigned.",
+  timeout: "You're out of moves.", lost: "Your king was left hanging, and the owl took it.", restarting: "Restarting.",
+  solution: x => "<p>Solution: <b>" + x + "</b></p>",
+  solutions: xs => "<p>Solutions:</p><p>" + xs.map(x => "<b>" + x + "</b>").join("<br>") + "</p>",
+  watchSolution: "Watch the solution", nextMission: "Next mission", close: "Close",
+  allDone: "<p class='lead'>You've finished every mission. A hanging king won't slip past you now.</p>",
+  introTitle: "Unchecked",
+  introBody:
+   "<p class='lead'>Chess, with one difference: the game ends when a king is captured, not when it's checkmated.</p>" +
+   "<p>Pieces move the way you know, and every move has to be geometrically valid. But you're allowed to leave your king under attack. You can move a pinned piece, or walk your king onto an attacked square.</p>" +
+   "<p>Checkmate means the king will be taken on the next move. If you don't play that move, the game goes on. Leave your king hanging and let your opponent see it, and you lose.</p>" +
+   "<p>There is no stalemate, no insufficient material and no dead position. A side with no legal move under classical rules still has to move. A game is drawn in only two ways: the 50-move rule and threefold repetition.</p>" +
+   "<p>To castle, the king and rook must not have moved and the squares between them must be empty. Attacked squares don't matter.</p>" +
+   "<p class='lead'>The board won't help you: no check highlight, no + in the notation, no capture marker on the enemy king's square.</p>" +
+   "<p>In the warm-up you can pick the owl's level, or play two players on one device; the board then turns to face the side to move.</p>",
+  startWarmup: "Start the warm-up",
+  revealTitle: r => ({ wonKing: "You took the king.", lostKing: "It took your king.", resigned: "You resigned." })[r] || "Draw.",
+  revealBody:
+   "<p class='lead'>Your opponent is an owl that plays by the old rules. It has never heard of this variant.</p>" +
+   "<p>It never leaves its own king under attack. If it sees yours hanging, it takes it without a second thought.</p>" +
+   "<p>But when it's checkmated or stalemated, it doesn't know what to do; in classical chess the game would be over. Here it isn't. So it grabs the most valuable piece it can, and if it can't capture anything, it plays the first move that comes to mind. That's the moment its king is left hanging. Spotting it is up to you.</p>" +
+   "<p>When a game ends, the move list shows tags: missed kings, desperate moves, kings left hanging.</p>" +
+   "<p class='lead'>Missions unlocked. They're all against the same owl, and each one shows a different corner of the variant.</p>",
+  openMissions: "Open missions", warmupAgain: "Play again",
+  menuIntro: "<p>Same owl, different positions. Every mission has a move limit. In missions the owl always plays on Hard; the solutions are built around it.</p>", backToWarmup: "Back to warm-up",
+  thatsAll: "That's it.", watchAgain: "Watch again",
+  demoPrefix: (i, n) => n > 1 ? "Solution " + (i + 1) + " of " + n + ": " : "Solution: "
+ },
+ missions: {
+  warmup: { name: "Warm-up", short: "", goal: "", hints: [] },
+  onemore: { name: "One more move", short: "2 moves",
+   goal: "Take the king. You have two moves.",
+   hints: ["You can checkmate. But in this variant, checkmate doesn't end the game.",
+           "After the mate, it's the owl's turn. It will play something, and then you get one more move.",
+           "1.Re8. Whatever the owl does, your rook keeps looking at g8."],
+   timeout: "Two moves are up, and the black king is still on the board.",
+   win: "King taken.",
+   why: "<p class='lead'>In classical chess the game would end with 1.Re8: checkmate. Here it doesn't. It was the owl's turn, and it had to move.</p>" +
+        "<p>It had no legal move under classical rules. In that situation the owl grabs the most valuable piece it can: it took your queen. Its king stayed right where it was, hanging in front of your rook.</p>" +
+        "<p>Checkmate means the king will be taken on the next move. If you don't play that move, the mate means nothing. 1.Qc8 is mate too; then the owl takes f2.</p>" },
+  first: { name: "Take first", short: "1 move",
+   goal: "The owl moves first. Then take the king; you have one move.",
+   hints: ["The bishop took your queen and is staring at your king. Is that a problem?",
+           "Your king is under attack. But it's your move.",
+           "Where is the rook on e8 looking?"],
+   timeout: "You used your only move, and the black king is still on the board.",
+   win: "You took it first.",
+   why: "<p class='lead'>Black was already checkmated: the rook on e8 was looking at g8, and the king had nowhere to go. The owl still had to move, and it took your queen with check.</p>" +
+        "<p>The classical reflex is to save your king. No need here. The game ends when a king is taken, and it's your move. Your king may be under attack, but if you take first, that attack never happens.</p>" +
+        "<p>In this variant a check isn't a warning, it's an opportunity. It belongs to whoever moves next.</p>" },
+  silent: { name: "Silent check", short: "3 moves",
+   goal: "Take the king. You have three moves.",
+   hints: ["There's a mate on g7. But look at your own king first.",
+           "What is the knight on f3 doing? Nobody on this board will tell you you're in check.",
+           "1.gxf3. The mate threat stays, and the owl can't stop it."],
+   lost: "You checkmated Black, but it was the owl's turn and your king was hanging.",
+   timeout: "Three moves are up, and the black king is still on the board.",
+   win: "Your own king first.",
+   why: "<p class='lead'>At the start your king was attacked by the knight on f3. The board didn't show it; in this variant it never does.</p>" +
+        "<p>Qxg7 is mate, but mate doesn't take the enemy king right away. It's the owl's turn, and there's a king hanging in front of it. It takes it without hesitating.</p>" +
+        "<p>The right order was to remove the threat first. 1.gxf3 took the knight and saved your king, and the mate threat on g7 stayed put, with nothing Black could do about it. Look at your own king before you mate: when both kings are hanging, whoever moves next takes.</p>" },
+  pinned: { name: "The pinned bishop", short: "1 move",
+   goal: "The owl moves first. Then take the king; you have one move.",
+   hints: ["The black king took your queen. Which of your pieces reaches g7?",
+           "The bishop on c3 is pinned: the rook on c8 sees your king behind it.",
+           "A pin means your king gets taken on the next move if the piece moves. But what if the game ends on your move?"],
+   timeout: "You used your only move, and the black king is still on the board.",
+   win: "The pin came one move too late.",
+   why: "<p class='lead'>Qg7 was mate and the owl had nowhere to go. It grabbed the most valuable piece it could: your queen, with its king.</p>" +
+        "<p>The only piece that reaches g7 is the bishop on c3, and it's pinned by the rook on c8. In classical chess you couldn't move it. Here a pin isn't a prohibition, it's a calculation: if the bishop moves, the rook can take your king next move. But Bxg7 takes the king and the game ends right there; that next move never comes.</p>" +
+        "<p>A subtlety: in the owl's eyes Qg7 was mate too. A pinned piece still attacks under classical rules, so its king couldn't legally take the queen. It did anyway, because it had no other move.</p>" },
+  castle: { name: "Castling under fire", short: "2 moves",
+   goal: "Take the king. You have two moves.",
+   hints: ["Your king is attacked by the knight on g2. You could run, but that costs a tempo.",
+           "In classical chess you can't castle out of check. Here you can.",
+           "Castle long. The rook lands on d1, and the d-file is open."],
+   timeout: "Two moves are up, and the black king is still on the board.",
+   win: "Castle, then capture.",
+   why: "<p class='lead'>Under classical rules 1.O-O-O was impossible: your king was attacked by the knight on g2. In this variant the only conditions for castling are that the king and rook haven't moved and the squares between them are empty. You can castle out of check, or through an attacked square.</p>" +
+        "<p>Castling long did two jobs at once: it took your king away from the knight, and the rook landing on d1 gave check down the d-file. The b6 pawn covers c7, and the queen covers c8, d7, e7 and e8. The owl had no classical move left; it walked to c8 and the queen took it.</p>" +
+        "<p>Moving your king would have cost a tempo and let the black king escape. In two moves, castling is the only way.</p>" },
+  stale: { name: "Stalemate loses", short: "5 moves",
+   goal: "Take the king. You have five moves.",
+   hints: ["A rook pawn and a king heading for the corner: in classical chess this is a draw. Not here.",
+           "Forget about promoting. Box the black king into the corner and leave it with no moves.",
+           "A stalemated side still has to move, and every move leaves its king hanging.",
+           "1.Kg5. The owl wants to go to the corner; let it."],
+   timeout: "Five moves are up, and the black king is still on the board.",
+   win: "Stalemate, then the king.",
+   why: "<p class='lead'>With a rook pawn, this endgame is a textbook draw in classical chess. The black king reaches the corner, and White either can't promote or stalemates. There, stalemate is a lifeline.</p>" +
+        "<p>Here there's no stalemate. After 4.h7 the black king was stuck on h8: the pawn covers g8, your king covers g7, and the pawn on h7 is protected. With no legal move under classical rules, the owl still had to play; it took the pawn and walked its king next to yours.</p>" +
+        "<p>The owl went into the corner of its own accord. In its classical mind, stalemate was a draw, a way out. Nothing shorter than five moves exists, and this is the only line.</p>" },
+  knight: { name: "A lone knight", short: "4 moves",
+   goal: "Take the king. You have four moves.",
+   hints: ["In classical chess you can't mate with king and a lone knight; the game is drawn by insufficient material. That rule doesn't exist here.",
+           "You don't need mate. Stalemate is enough.",
+           "Box the black king into h8: your king covers g8 and g7, your knight covers h7.",
+           "1.Kf7. Then bring the knight to f6 via g4."],
+   timeout: "Four moves are up, and the black king is still on the board.",
+   win: "One knight was enough.",
+   why: "<p class='lead'>King and knight can't checkmate a lone king. In classical chess this position counts as insufficient material and the game is drawn on the spot. That rule doesn't exist here, because you don't need mate: stalemate is enough.</p>" +
+        "<p>Once the black king is boxed into the corner with every escape square covered, the owl is forced to move and walks its king onto a square you can take. There are two ways, both four moves long; nothing shorter exists.</p>" +
+        "<p>A lone bishop can build a stalemate too. With two bare kings, though, neither side can force a win: unless someone walks their king next to the other, the game ends in a draw by the 50-move rule or threefold repetition.</p>" }
+ }
+}
+};
+
+/* ===================== SUNUM =====================
+   Kilitsiz, adım adım uç durumlar. Hamleler iki taraf için de elle yazıldı (bot yok).
+   notes: adım numarası → açıklama; bir adımın notu yoksa en son not kalır. */
+const SCENES = [
+  { id: "mate", fen: START_FEN, moves: ["e2e4", "e7e5", "f1c4", "b8c6", "d1h5", "g8f6", "h5f7", "d8e7", "f7e8"] },
+  { id: "stale", fen: "7k/5K2/8/8/6Q1/8/8/8 w - - 0 1", moves: ["g4g6", "h8h7", "g6h7"] },
+  { id: "dead", fen: "8/8/8/4k3/8/2K5/8/5B2 w - - 96 70", moves: ["f1d3", "e5d5", "c3d2", "d5e5"] },
+  { id: "rep", fen: "8/8/8/3k4/8/8/3K4/8 w - - 0 1", moves: ["d2e2", "d5e5", "e2d2", "e5d5", "d2e2", "d5e5", "e2d2", "e5d5"] },
+  { id: "unseen", fen: "6k1/5ppp/8/8/8/8/q4PPP/4R1K1 w - - 0 1", moves: ["e1e8", "a2b1", "e8e1", "b1e1", "h2h3", "e1g1"] },
+  { id: "spot", fen: START_FEN, moves: ["e2e4", "e7e5", "b1c3", "f8b4", "d2d3", "g8f6", "c3d5", "b4e1"] },
+  { id: "miss", fen: START_FEN, moves: ["e2e4", "e7e5", "b1c3", "f8b4", "d2d3", "g8f6", "c3d5", "f6d5", "c2c3"] }
+];
+Object.assign(TEXT.tr.ui, {
+  pres: "Sunum", presBtn: "Sunum", sceneOf: (i, n) => "Sahne " + i + " / " + n,
+  prev: "Önceki", next: "Sonraki", nextScene: "Sonraki sahne", scenes: "Sahneler", exitPres: "Oyuna dön",
+  counter: h => "Yarım hamle: " + h + " / 100", repCount: n => "Tekrar: " + n + " / 3",
+  watchPres: "Sunumu izle",
+  scenesIntro: "<p>Varyantın uç durumları, adım adım. Kırmızı halka, sırası gelen tarafın alabileceği şahı gösterir; oyunda bu işaret yok.</p>"
+});
+Object.assign(TEXT.en.ui, {
+  pres: "Presentation", presBtn: "Presentation", sceneOf: (i, n) => "Scene " + i + " of " + n,
+  prev: "Previous", next: "Next", nextScene: "Next scene", scenes: "Scenes", exitPres: "Back to the game",
+  counter: h => "Half-moves: " + h + " / 100", repCount: n => "Repetition: " + n + " / 3",
+  watchPres: "Watch the presentation",
+  scenesIntro: "<p>The variant's edge cases, step by step. The red ring marks a king that the side to move can take; the game itself never shows it.</p>"
+});
+TEXT.tr.scenes = {
+  mate: { title: "Mat, bir hamle sonra", notes: {
+    0: "Çoban matı, bu varyantta oynanıyor. Açılış bildiğin gibi.",
+    5: "Beyaz vezir h5'te, fil c4'te; ikisi de f7'ye bakıyor.",
+    6: "Siyah veziri atla kovalamayı seçti ve f7'yi savunmasız bıraktı.",
+    7: "Klasik satrançta oyun burada biter: mat. Burada bitmez. Sıra siyahta ve siyah bir hamle yapmak zorunda.",
+    8: "Siyahın klasik kurallara göre yasal hamlesi yok. Ne oynarsa oynasın şahı e8'de, vezirin yanında açık kalıyor. Kırmızı halka, sırası gelen tarafın alabileceği şahı gösteriyor.",
+    9: "Beyaz şahı aldı ve oyun ancak şimdi bitti. Mat, şahın bir hamle sonra yenmesi demek; o hamle oynanmadan hiçbir şey bitmez." } },
+  stale: { title: "Pat yok", notes: {
+    0: "Şah ve veziri olan beyaz kazanıyor. Klasik satrançta bu tür sonlar dikkat ister: dikkatsiz bir vezir hamlesi pat yapar ve oyun berabere biter.",
+    1: "Klasik satrançta bu pat: siyahın yasal hamlesi yok, şahı da tehdit altında değil. Oyun berabere biterdi. Burada pat yok; siyah oynamak zorunda.",
+    2: "Şahın gidebileceği her kare tehdit altında. Siyah hangisini seçerse seçsin, şahı yenebilir bir kareye gidiyor.",
+    3: "Pat kazandırdı. Ama beyaz şahı görmeyip başka bir hamle yapsaydı oyun sürerdi; onu ancak 50 hamle kuralı ya da üç kez tekrar bitirirdi." } },
+  dead: { title: "Ölü pozisyon yok", notes: {
+    0: "Şah ve fil, yalnız şaha karşı. Klasik satrançta bu ölü pozisyon: mat imkânsız olduğu için oyun anında berabere biter. Burada mat gerekmiyor, o yüzden ölü pozisyon diye bir şey yok.",
+    1: "Şah ve fille pat kurulabilir, siyah da şahını yanlış kareye sürebilir. Oyunu bitirebilecek olan sayaçlar. Yarım hamle sayacı 97'de: son piyon hamlesinden ya da taş alınmasından beri oynanan yarım hamleler.",
+    3: "Bir yarım hamle kaldı.",
+    4: "Sayaç 100'e ulaştı: 50 hamle boyunca piyon oynamadı, taş alınmadı. Berabere." } },
+  rep: { title: "Çıplak şahlar ve üç kez tekrar", notes: {
+    0: "İki çıplak şah. Klasik satrançta bu da ölü pozisyon. Burada değil: şahını rakip şahın yanına süren, onu yedirir. Kimse hata yapmazsa oyunu tekrar ya da 50 hamle sayacı bitirir.",
+    4: "Başlangıç pozisyonu ikinci kez geldi; tekrar sayacı 2.",
+    8: "Üçüncü kez: berabere. Pozisyonlar karşılaştırılırken sıranın kimde olduğuna, taşların yerine, rok haklarına ve geçerken alma hakkına bakılır. Geçerken alma hakkı yalnızca o pozisyonda geometrik olarak geçerken alma yapılabiliyorsa sayılır; rok hakkı ise o an rok yapılamasa bile hak olarak sayılır." } },
+  unseen: { title: "Fark edilmeyen mat", notes: {
+    0: "Beyaz şah çekmek istiyor. Çekeceği şahın mat olduğunu fark etmeyecek.",
+    1: "1.Ke8 aslında mat: siyah şahın kaçacak karesi yok, araya girecek ya da kaleyi alacak taşı yok. Beyaz bunu bilmiyor.",
+    2: "Siyahın klasik hamlesi yok. Çaresizce şah çekiyor ve şahını kalenin önünde açık bırakıyor. Kırmızı halka orada.",
+    3: "Beyaz klasik refleksle şahını korudu: kaleyi geri çekip araya soktu. Oysa Kxg8 oyunu bitiriyordu. Kazanç kaçtı, siyah şah kurtuldu.",
+    4: "Siyah kaleyi aldı. Şimdi mat olan beyaz: f1 ve h1 tehdit altında, öbür kareler kendi piyonlarıyla dolu.",
+    5: "Beyazın klasik hamlesi yok; ne oynarsa oynasın şahı açıkta.",
+    6: "Siyah şahı aldı. Beyaz önce mat etti, sonra kaybetti." } },
+  spot: { title: "Kural dışını gören kazanır", notes: {
+    0: "Bu varyantta kural dışı hamle yok; yalnızca bedeli olan hamle var. Bedeli ödetecek olan rakip.",
+    5: "3.d3 ile d2 boşaldı. c3'teki at artık açmazda: arkasında beyaz şah var.",
+    7: "4.Ad5. Klasik satrançta bu hamle yapılamazdı; açmazdaki at oynayınca şah tehdit altında kalır. Burada yapılabilir. Beyaz fili kovalamak istedi ve şahını unuttu.",
+    8: "Siyah fark etti ve şahı aldı. Kural dışı hamleyi gören kazanır." } },
+  miss: { title: "Kural dışını görmeyen kaçırır", notes: {
+    0: "Aynı açılış, aynı hata. Bu sefer siyah görmeyecek.",
+    7: "4.Ad5 yine şahı açık bırakıyor. b4'teki fil e1'e kadar bakıyor.",
+    8: "Siyah atı aldı. Fxe1 oyunu bitiriyordu; hamle listesi bunu kaçırılmış olarak işaretliyor.",
+    9: "Beyaz c3 ile çaprazı kapattı. Kazanç kaçtı, oyun sürüyor. Beyaz bir at verdi ama oyunda kaldı." } }
+};
+TEXT.en.scenes = {
+  mate: { title: "Mate, one move later", notes: {
+    0: "Scholar's mate, played in this variant. The opening is the one you know.",
+    5: "White's queen is on h5 and the bishop on c4; both are aiming at f7.",
+    6: "Black chose to chase the queen with the knight and left f7 undefended.",
+    7: "In classical chess the game ends here: checkmate. Here it doesn't. It's Black's turn, and Black has to move.",
+    8: "Black has no legal move under classical rules. Whatever it plays, its king stays on e8, hanging next to the queen. The red ring marks a king that the side to move can take.",
+    9: "White took the king, and only now is the game over. Checkmate means the king will be taken on the next move; until that move is played, nothing is over." } },
+  stale: { title: "No stalemate", notes: {
+    0: "White, with king and queen, is winning. In classical chess this kind of ending needs care: one careless queen move stalemates and the game is drawn.",
+    1: "In classical chess this is stalemate: Black has no legal move and its king isn't attacked. The game would be drawn. Here there's no stalemate; Black has to move.",
+    2: "Every square the king can reach is attacked. Whichever one Black picks, its king walks onto a square where it can be taken.",
+    3: "Stalemate won the game. But if White had missed the king and played something else, the game would have gone on, and only the 50-move rule or threefold repetition would end it." } },
+  dead: { title: "No dead positions", notes: {
+    0: "King and bishop against a lone king. In classical chess this is a dead position: mate is impossible, so the game is drawn on the spot. Here you don't need mate, so dead positions don't exist.",
+    1: "King and bishop can build a stalemate, and Black can walk its king onto the wrong square. What can end the game is the counters. The half-move counter is at 97: half-moves played since the last pawn move or capture.",
+    3: "One half-move to go.",
+    4: "The counter has reached 100: fifty moves without a pawn move or a capture. Draw." } },
+  rep: { title: "Bare kings and threefold repetition", notes: {
+    0: "Two bare kings. In classical chess this is also a dead position. Not here: walk your king next to the enemy king and it gets taken. If nobody blunders, repetition or the 50-move counter ends the game.",
+    4: "The starting position has come up a second time; the repetition count is 2.",
+    8: "Third time: draw. When positions are compared, what counts is the side to move, the piece placement, castling rights and the en passant right. The en passant right counts only if an en passant capture is geometrically possible in that position; castling rights count as rights, even when castling isn't possible at that moment." } },
+  unseen: { title: "The unnoticed mate", notes: {
+    0: "White wants to give a check. It won't notice that the check is mate.",
+    1: "1.Re8 is actually mate: the black king has no square, and nothing can block or take the rook. White doesn't know that.",
+    2: "Black has no classical move. In desperation it gives check, leaving its own king hanging in front of the rook. That's the red ring.",
+    3: "White protected its king out of classical reflex, pulling the rook back to block. But Rxg8 ended the game. The win slipped away, and the black king got out.",
+    4: "Black took the rook. Now White is the one checkmated: f1 and h1 are attacked, and its own pawns fill the other squares.",
+    5: "White has no classical move; whatever it plays, its king is left hanging.",
+    6: "Black took the king. White mated first and lost anyway." } },
+  spot: { title: "Spot the illegal move, win", notes: {
+    0: "In this variant there are no illegal moves, only moves with a price. The opponent is the one who collects it.",
+    5: "3.d3 has emptied d2. The knight on c3 is now pinned: the white king stands behind it.",
+    7: "4.Nd5. In classical chess this move is impossible, since moving the pinned knight leaves the king under attack. Here it's allowed. White wanted to chase the bishop and forgot about its king.",
+    8: "Black saw it and took the king. Whoever spots the illegal move wins." } },
+  miss: { title: "Miss the illegal move, miss the win", notes: {
+    0: "Same opening, same mistake. This time Black won't see it.",
+    7: "4.Nd5 leaves the king hanging again. The bishop on b4 looks all the way to e1.",
+    8: "Black took the knight. Bxe1 would have ended the game; the move list marks it as missed.",
+    9: "White closed the diagonal with c3. The win is gone and the game goes on. White gave up a knight but stayed in the game." } }
+};
+
+/* ===================== UYGULAMA ===================== */
+const E = ENG;
+const GLYPH = { k: "\u265A", q: "\u265B", r: "\u265C", b: "\u265D", n: "\u265E", p: "\u265F" };
+const VS = "\uFE0E"; // emoji yerine metin çizimi (iOS piyon sorunu)
+
+let lang = "en"; // varsayılan İngilizce; Türkçe sol üstteki seçiciden
+const t = (k, ...a) => { const v = TEXT[lang].ui[k]; return typeof v === "function" ? v(...a) : v; };
+const M = () => MISSIONS[mi];
+const MT = m => TEXT[lang].missions[(m || M()).id];
+const tries = () => attempts[M().id] || 0;
+const $ = id => document.getElementById(id);
+
+const boardEl = $("board"), statusEl = $("status"), logEl = $("log"), promoEl = $("promo"), ghostEl = $("ghost"),
+  modalEl = $("modal"), frameEl = $("frame"), goalEl = $("goal"), roundEl = $("round"), pipsEl = $("pips"),
+  hintEl = $("hint"), controlsEl = $("controls"), langEl = $("lang"), setupEl = $("setup"), modeSel = $("modeSel"), levelSel = $("levelSel");
+
+let st, sel = -1, targets = [], last = null, hist = [], plies = [], over = null, busy = false, pending = null;
+let drag = null, hoverCell = null, rep = {}, cells = [], flash = "", wMoves = 0, takenSq = -1, gen = 0;
+let mi = 0, attempts = {}, completed = {}, unlocked = false;
+let mode = "owl", level = 3, orient = "w";
+const twoP = () => mi === 0 && mode === "2p";
+const botLevel = () => (mi === 0 ? level : 3); // görevler hep seviye 3 (Zor) ile çözüldü
+let demo = false, demoMission = 0, demoQueue = [], demoPos = 0, demoKeys = null, demoStep = 0, demoCap = null;
+let modalBuild = null;
+let pres = null, saved = null; // sunum: {i, step}; saved: sunuma girerken oyunun durumu
+
+const later = (fn, ms) => { const g = gen; setTimeout(() => { if (g === gen) fn(); }, ms); };
+const clone = x => JSON.parse(JSON.stringify(x));
+
+/* ---------- oyun akışı ---------- */
+function newGame() {
+  gen++;
+  st = E.fromFEN(M().fen);
+  sel = -1; targets = []; last = null; hist = []; plies = []; over = null; busy = false; pending = null;
+  drag = null; flash = ""; wMoves = 0; takenSq = -1; rep = {}; rep[E.posKey(st)] = 1; orient = "w";
+  promoEl.classList.remove("on"); ghostEl.style.display = "none";
+  render(); renderChrome();
+  if (st.turn === "b" && !demo) { busy = true; renderChrome(); later(botTurn, 900); }
+}
+function startMission(i) { mi = i; if (attempts[M().id] === undefined) attempts[M().id] = 0; newGame(); }
+function bump() { const k = E.posKey(st); rep[k] = (rep[k] || 0) + 1; }
+
+function applyHuman(m) {
+  const pre = st, c = pre.turn, en = E.other(c);
+  const canTake = E.genPseudo(pre, c, false).some(x => E.capturesKing(pre, x));
+  const took = E.capturesKing(pre, m), tags = [];
+  if (took) tags.push("took"); else if (canTake) tags.push("missed");
+  if (!E.genClassical(pre).length) tags.push("panic"); // klasik kuralda mat ya da pattaydı
+  const san = { tr: E.san(pre, m, "tr"), en: E.san(pre, m, "en") };
+  st = E.makeMove(pre, m); last = { f: m.f, t: m.t };
+  if (c === "w") wMoves++;
+  if (!took) { const k = E.findKing(st, c); if (k >= 0 && E.attacked(st.b, k, en)) tags.push("exposed"); }
+  plies.push({ c, san, tags }); bump();
+  if (took) takenSq = m.t;
+  return took;
+}
+function applyBot() {
+  const pre = st, r = E.botMove(pre, botLevel());
+  if (!r) return { none: true };
+  const m = r.move, took = r.kind === "king", tags = [];
+  if (took) tags.push("took"); if (r.kind === "panic") tags.push("panic");
+  const san = { tr: E.san(pre, m, "tr"), en: E.san(pre, m, "en") };
+  st = E.makeMove(pre, m); last = { f: m.f, t: m.t };
+  plies.push({ c: "b", san, tags }); bump();
+  if (took) takenSq = m.t;
+  return { took };
+}
+function drawReason() {
+  if (st.half >= 100) return "fifty";
+  if (rep[E.posKey(st)] >= 3) return "threefold";
+  if (!E.genPseudo(st, st.turn, false).length) return "noMoves";
+  return null;
+}
+function playHuman(m) {
+  hist.push({ st, plies: clone(plies), last, rep: Object.assign({}, rep), wMoves, takenSq });
+  clearSel(); flash = "";
+  const color = st.turn, took = applyHuman(m);
+  render();
+  if (took) return settle(twoP() ? (color === "w" ? "wTook" : "bTook") : "wonKing");
+  const d = drawReason(); if (d) return settle(d);
+  if (M().limit && wMoves >= M().limit) return fail("timeout");
+  busy = true; renderChrome();
+  /* iki kişilikte hamle bir an görünsün, sonra tahta sırası gelen tarafa dönsün */
+  if (twoP()) return later(() => { busy = false; orient = st.turn; render(); renderChrome(); }, 520);
+  later(botTurn, 380);
+}
+function botTurn() {
+  const r = applyBot(); busy = false; render();
+  if (r.none) return settle("noMoves");
+  if (r.took) return settle("lostKing");
+  const d = drawReason(); if (d) return settle(d);
+  renderChrome();
+}
+function settle(reason) {
+  over = reason; busy = false; render(); renderChrome();
+  if (demo || twoP()) return;
+  const m = M();
+  if (m.kind === "free") return later(() => warmupOver(reason), 900);
+  if (reason === "wonKing") return later(win, 700);
+  later(() => fail(reason === "lostKing" ? "lost" : reason), 900);
+}
+function fail(code) {
+  attempts[M().id] = tries() + 1; busy = true; flash = code; render();
+  frameEl.classList.add("flash");
+  later(() => { frameEl.classList.remove("flash"); newGame(); }, 1900);
+}
+function win() {
+  const m = M(); completed[m.id] = true;
+  showModal(() => {
+    const tx = MT(m), ls = m.lines.map(L => lineText(m, L));
+    const sol = ls.length > 1 ? t("solutions", ls) : t("solution", ls[0]);
+    const all = MISSIONS.every(x => x.kind === "free" || completed[x.id]);
+    const opts = [[t("watchSolution"), () => playDemo(mi)]];
+    if (mi + 1 < MISSIONS.length) opts.push([t("nextMission"), () => { hideModal(); startMission(mi + 1); }]);
+    opts.push([t("missions"), openMenu]);
+    return [tx.win, tx.why + sol + (all ? t("allDone") : ""), opts];
+  });
+}
+function undo() {
+  if ((busy && !twoP()) || demo || !hist.length || M().limit) return;
+  const h = hist.pop();
+  st = h.st; plies = h.plies; last = h.last; rep = h.rep; wMoves = h.wMoves; takenSq = h.takenSq;
+  over = null; flash = ""; gen++; busy = false; orient = twoP() ? st.turn : "w"; clearSel(); render(); renderChrome();
+}
+function resign() { if (busy || demo || over) return; settle(twoP() ? (st.turn === "w" ? "resignW" : "resignB") : "resigned"); }
+
+/* çözüm satırı: beyazın hamleleri + baykuşun deterministik cevapları, seçili dilde */
+function lineText(m, keys) {
+  let s = E.fromFEN(m.fen), out = [], n = 1;
+  const botStep = () => { const r = E.botMove(s); if (!r) return false; out.push((s.turn === "b" && !out.length ? n + "\u2026" : "") + E.san(s, r.move, lang)); s = E.makeMove(s, r.move); return true; };
+  if (s.turn === "b") { botStep(); n++; }
+  for (const k of keys) {
+    const mv = E.genPseudo(s, "w", false).find(x => E.key(x) === k);
+    if (!mv) break;
+    out.push(n + "." + E.san(s, mv, lang));
+    if (E.capturesKing(s, mv)) break;
+    s = E.makeMove(s, mv);
+    if (!botStep()) break;
+    n++;
+  }
+  return out.join(" ");
+}
+
+/* ---------- çözüm oynatma ---------- */
+function playDemo(idx) {
+  hideModal(); demo = true; demoMission = idx;
+  demoQueue = MISSIONS[idx].lines.map((_, i) => i); demoPos = 0; runVariant();
+}
+function runVariant() {
+  const m = MISSIONS[demoMission];
+  if (demoPos >= demoQueue.length) {
+    demo = false; demoCap = null; busy = false; renderChrome();
+    showModal(() => {
+      const opts = [[t("watchAgain"), () => playDemo(demoMission)]];
+      if (demoMission + 1 < MISSIONS.length) opts.push([t("nextMission"), () => { hideModal(); startMission(demoMission + 1); }]);
+      opts.push([t("missions"), openMenu]);
+      return [t("thatsAll"), "<p class='lead'>" + m.lines.map(L => lineText(m, L)).join("<br>") + "</p>", opts];
+    });
+    return;
+  }
+  const li = demoQueue[demoPos];
+  mi = demoMission; newGame(); busy = true;
+  demoKeys = m.lines[li]; demoStep = 0; demoCap = [demoPos, li];
+  renderChrome();
+  later(demoTick, 900);
+}
+function demoTick() {
+  if (st.turn === "b") {
+    const r = applyBot(); render(); renderChrome();
+    if (r.none || r.took) { over = r.none ? "noMoves" : "lostKing"; render(); demoPos++; later(runVariant, 1800); return; }
+    later(demoTick, 650); return;
+  }
+  const want = demoKeys[demoStep++];
+  const mv = want && E.genPseudo(st, "w", false).find(x => E.key(x) === want);
+  if (!mv) { demoPos++; later(runVariant, 900); return; }
+  const took = applyHuman(mv); render(); renderChrome();
+  if (took) { over = "wonKing"; render(); demoPos++; later(runVariant, 2200); return; }
+  later(demoTick, 650);
+}
+function demoCaption() {
+  const m = MISSIONS[demoMission];
+  return t("demoPrefix", demoCap[0], demoQueue.length) + lineText(m, m.lines[demoCap[1]]);
+}
+
+/* ---------- çizim ---------- */
+function renderChrome() {
+  if (pres) return renderPresChrome();
+  hintEl.className = "hint";
+  const m = M(), tx = MT(m), tp = twoP();
+  $("opp").textContent = tp ? t("twoPlayers") : t("opponent");
+  $("owl").hidden = tp;
+  roundEl.innerHTML = "";
+  const b = document.createElement("span"); b.textContent = mi ? t("mission", mi) : tp ? "" : t("warmup"); roundEl.appendChild(b);
+  setupEl.hidden = mi !== 0 || demo;
+  modeSel.value = mode; levelSel.value = String(level);
+  $("levelWrap").hidden = tp;
+  modeSel.disabled = levelSel.disabled = demo;
+  if (m.limit) { const a = document.createElement("small"); a.textContent = t("attempt", tries() + 1); roundEl.appendChild(a); }
+  goalEl.textContent = m.kind === "free" ? (tp ? t("twoGoal") : t("warmGoal")) : tx.goal;
+  pipsEl.innerHTML = ""; pipsEl.hidden = !m.limit;
+  for (let i = 0; i < m.limit; i++) { const d = document.createElement("div"); d.className = "pip" + (wMoves > i ? " done" : ""); pipsEl.appendChild(d); }
+  hintEl.textContent = demo && demoCap ? demoCaption() : (tries() > 0 && tx.hints.length ? tx.hints[Math.min(tries(), tx.hints.length) - 1] : "");
+  controlsEl.innerHTML = "";
+  const mk = (label, fn, dis) => { const x = document.createElement("button"); x.type = "button"; x.textContent = label; x.disabled = !!dis; x.onclick = fn; controlsEl.appendChild(x); };
+  const lock = (busy && !(tp && !over)) || demo;
+  if (m.limit) mk(t("restart"), newGame, lock);
+  else {
+    mk(t("newGame"), newGame, lock);
+    mk(t("undo"), undo, lock || !hist.length);
+    if (!over) mk(t("resign"), resign, lock || !plies.length);
+  }
+  if (unlocked) mk(t("missions"), openMenu, lock);
+}
+function sizeBoard() { const w = boardEl.clientWidth; if (w) boardEl.style.fontSize = (w / 8 * 0.8) + "px"; }
+function render() {
+  boardEl.innerHTML = ""; cells = new Array(64);
+  const enemyKing = E.findKing(st, E.other(st.turn)), flip = orient === "b";
+  /* yalnız sunumda: sırası gelen tarafın alabileceği şah kırmızı halkayla gösterilir */
+  const hangSq = pres && !over && enemyKing >= 0 && E.attacked(st.b, enemyKing, st.turn) ? enemyKing : -1;
+  for (let k = 0; k < 64; k++) {
+    const i = flip ? 63 - k : k, r = i >> 3, c = i & 7, dr = k >> 3, dc = k & 7, light = (r + c) % 2 === 0;
+    const d = document.createElement("div");
+    d.className = "sq " + (light ? "light" : "dark");
+    if (last && (last.f === i || last.t === i)) d.classList.add("last");
+    if (sel === i) d.classList.add("sel");
+    if (over && takenSq === i) d.classList.add("taken");
+    if (hangSq === i) d.classList.add("hang");
+    /* yeme işareti rakip şahın karesinde asla çizilmez */
+    const tg = i !== enemyKing && targets.find(m => m.t === i);
+    if (tg) { const dot = document.createElement("div"); dot.className = "dot" + (st.b[i] || tg.ep ? " cap" : ""); d.appendChild(dot); }
+    if (dc === 0) { const x = document.createElement("span"); x.className = "coord rank"; x.textContent = 8 - r; d.appendChild(x); }
+    if (dr === 7) { const x = document.createElement("span"); x.className = "coord file"; x.textContent = E.FILES[c]; d.appendChild(x); }
+    const p = st.b[i];
+    if (p) { const s = document.createElement("span"); s.className = "pc " + p[0]; s.textContent = GLYPH[p[1]] + VS; d.appendChild(s); }
+    cells[i] = d; boardEl.appendChild(d);
+  }
+  sizeBoard(); drawStatus(); drawLog();
+}
+function failText(code) {
+  if (code === "timeout") return MT().timeout || t("timeout");
+  if (code === "lost") return MT().lost || t("lost");
+  return t(code);
+}
+function drawStatus() {
+  statusEl.className = "status";
+  if (pres) {
+    const res = over ? '<b class="res ' + (over === "fifty" || over === "threefold" ? "even" : "good") + '">' + t(over) + "</b>" : "";
+    statusEl.innerHTML = '<span class="cnt">' + t("counter", st.half) + '</span><span class="cnt">' + t("repCount", rep[E.posKey(st)] || 1) + "</span>" + res;
+    return;
+  }
+  let s;
+  if (flash) { statusEl.classList.add("bad"); s = failText(flash) + " " + t("restarting"); }
+  else if (over) { statusEl.classList.add(over === "wonKing" ? "good" : over === "lostKing" || over === "resigned" ? "bad" : "even"); s = t(over); }
+  else if (twoP()) s = st.turn === "w" ? t("turnW") : t("turnB");
+  else if (st.turn === "w") s = M().limit ? t("moveOf", wMoves + 1, M().limit) : t("yourMove");
+  else s = t("thinking");
+  statusEl.textContent = s;
+}
+function drawLog() {
+  if (!plies.length) { logEl.innerHTML = '<div class="empty">' + t("logEmpty") + "</div>"; return; }
+  const rows = []; let i = 0, n = 1;
+  if (plies[0].c === "b") { rows.push([n++, null, plies[0]]); i = 1; }
+  for (; i < plies.length; i += 2) rows.push([n++, plies[i], plies[i + 1]]);
+  const cell = (p, cls) => {
+    if (!p) return '<span class="' + cls + '">' + (cls === "mw" ? "\u2026" : "") + "</span>";
+    const side = twoP() ? "w" : p.c;
+    const tags = over || pres ? p.tags.map(x => '<em class="tag ' + x + " " + side + '">' + t("tag_" + x) + "</em>").join("") : "";
+    return '<span class="' + cls + '"><span class="san">' + p.san[lang] + "</span>" + tags + "</span>";
+  };
+  logEl.innerHTML = rows.map(([num, w, b]) => '<div class="row"><span class="n">' + num + ".</span>" + cell(w, "mw") + cell(b, "mb") + "</div>").join("");
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+/* ---------- girdi ---------- */
+function sqFromPoint(x, y) {
+  const r0 = boardEl.getBoundingClientRect();
+  const c = Math.floor((x - r0.left) / r0.width * 8), r = Math.floor((y - r0.top) / r0.height * 8);
+  if (!(r >= 0 && r < 8 && c >= 0 && c < 8)) return -1;
+  return orient === "b" ? 63 - (r * 8 + c) : r * 8 + c;
+}
+function hoverable(sq) { return sq >= 0 && sq !== E.findKing(st, E.other(st.turn)) && targets.some(m => m.t === sq); }
+function setHover(sq) {
+  const el = hoverable(sq) ? cells[sq] : null;
+  if (hoverCell === el) return;
+  if (hoverCell) hoverCell.classList.remove("hover");
+  hoverCell = el; if (hoverCell) hoverCell.classList.add("hover");
+}
+function showGhost(p, x, y) {
+  const s = boardEl.clientWidth / 8;
+  ghostEl.textContent = GLYPH[p[1]] + VS; ghostEl.style.display = "flex";
+  ghostEl.style.width = s + "px"; ghostEl.style.height = s + "px"; ghostEl.style.fontSize = (s * 0.88) + "px";
+  ghostEl.className = "pc " + p[0]; moveGhost(x, y);
+}
+function moveGhost(x, y) { const s = boardEl.clientWidth / 8; ghostEl.style.left = (x - s / 2) + "px"; ghostEl.style.top = (y - s / 2) + "px"; }
+function selectAt(sq) { sel = sq; targets = E.genPseudo(st, st.turn, false).filter(m => m.f === sq); }
+function clearSel() { sel = -1; targets = []; }
+function tryMoveTo(sq) {
+  const opts = targets.filter(m => m.t === sq);
+  if (!opts.length) return false;
+  if (opts[0].promo) {
+    pending = opts; promoEl.querySelectorAll(".opts .pc").forEach(x => x.className = "pc " + st.turn);
+    promoEl.classList.add("on"); return true; }
+  playHuman(opts[0]); return true;
+}
+const canAct = () => !pres && !over && !busy && !demo && !pending && (twoP() || st.turn === "w") && !modalEl.classList.contains("on");
+boardEl.addEventListener("pointerdown", e => {
+  if (!canAct()) return;
+  const sq = sqFromPoint(e.clientX, e.clientY); if (sq < 0) return;
+  const p = st.b[sq];
+  if (sel >= 0 && sq !== sel && targets.some(m => m.t === sq)) { e.preventDefault(); tryMoveTo(sq); return; }
+  if (!p || p[0] !== st.turn) { clearSel(); render(); return; }
+  e.preventDefault(); try { boardEl.setPointerCapture(e.pointerId); } catch (_) {}
+  selectAt(sq); render();
+  drag = { sq, piece: p, x: e.clientX, y: e.clientY, moving: false };
+});
+boardEl.addEventListener("pointermove", e => {
+  if (!drag) return;
+  const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+  if (!drag.moving) {
+    if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
+    drag.moving = true; cells[drag.sq].classList.add("dragging"); showGhost(drag.piece, e.clientX, e.clientY);
+  }
+  moveGhost(e.clientX, e.clientY); setHover(sqFromPoint(e.clientX, e.clientY));
+});
+function endDrag(e, cancelled) {
+  if (!drag) return;
+  const d = drag; drag = null; ghostEl.style.display = "none"; setHover(-1);
+  if (cells[d.sq]) cells[d.sq].classList.remove("dragging");
+  if (!d.moving) return;
+  if (cancelled) { render(); return; }
+  const sq = sqFromPoint(e.clientX, e.clientY);
+  if (sq < 0 || sq === d.sq || !tryMoveTo(sq)) render();
+}
+boardEl.addEventListener("pointerup", e => endDrag(e, false));
+boardEl.addEventListener("pointercancel", e => endDrag(e, true));
+promoEl.querySelectorAll("button").forEach(btn => btn.addEventListener("click", () => {
+  if (!pending) return;
+  const m = pending.find(o => o.promo === btn.dataset.p);
+  promoEl.classList.remove("on"); pending = null;
+  if (m) playHuman(m); else { clearSel(); render(); }
+}));
+
+/* ---------- sunum ---------- */
+function enterPres(i) {
+  if (!pres) saved = { mi, st, plies, last, rep, wMoves, takenSq, over, hist, orient, flash };
+  gen++; busy = false; pending = null; promoEl.classList.remove("on"); clearSel(); hideModal();
+  frameEl.classList.remove("flash");
+  pres = { i, step: 0 }; presLoad();
+}
+function presLoad() {
+  const sc = SCENES[pres.i];
+  st = E.fromFEN(sc.fen); plies = []; last = null; rep = {}; rep[E.posKey(st)] = 1;
+  takenSq = -1; over = null; orient = "w"; wMoves = 0; flash = ""; hist = [];
+  for (const k of sc.moves.slice(0, pres.step)) {
+    const m = E.genPseudo(st, st.turn, false).find(x => E.key(x) === k);
+    if (!m) break;
+    const c = st.turn, took = applyHuman(m);
+    if (took) { over = c === "w" ? "wTook" : "bTook"; break; }
+    if (st.half >= 100) { over = "fifty"; break; }
+    if (rep[E.posKey(st)] >= 3) { over = "threefold"; break; }
+  }
+  render(); renderChrome();
+}
+function presNext() {
+  const sc = SCENES[pres.i];
+  if (pres.step < sc.moves.length) pres.step++;
+  else if (pres.i + 1 < SCENES.length) pres = { i: pres.i + 1, step: 0 };
+  else return;
+  presLoad();
+}
+function presPrev() {
+  if (pres.step > 0) pres.step--;
+  else if (pres.i > 0) pres = { i: pres.i - 1, step: SCENES[pres.i - 1].moves.length };
+  else return;
+  presLoad();
+}
+function exitPres() {
+  if (!pres) return;
+  pres = null; hideModal(); gen++;
+  const s0 = saved; saved = null;
+  if (!s0 || s0.flash) { startMission(s0 ? s0.mi : 0); return; }
+  ({ mi, st, plies, last, rep, wMoves, takenSq, over, hist, orient } = s0);
+  flash = ""; busy = false; clearSel();
+  if (twoP()) orient = st.turn;
+  render(); renderChrome();
+  if (!over && !twoP() && st.turn === "b") { busy = true; renderChrome(); later(botTurn, 500); }
+}
+function presNote() {
+  const sc = SCENES[pres.i], notes = TEXT[lang].scenes[sc.id].notes;
+  for (let k = pres.step; k >= 0; k--) if (notes[k] !== undefined) return notes[k];
+  return "";
+}
+function renderPresChrome() {
+  const sc = SCENES[pres.i], atEnd = pres.step >= sc.moves.length, lastScene = pres.i + 1 >= SCENES.length;
+  $("opp").textContent = t("pres"); $("owl").hidden = true;
+  roundEl.textContent = t("sceneOf", pres.i + 1, SCENES.length);
+  goalEl.textContent = TEXT[lang].scenes[sc.id].title;
+  setupEl.hidden = true; pipsEl.hidden = true;
+  hintEl.className = "hint note"; hintEl.textContent = presNote();
+  controlsEl.innerHTML = "";
+  const mk = (label, fn, dis, cls) => { const x = document.createElement("button"); x.type = "button"; x.textContent = label; x.disabled = !!dis; x.onclick = fn; if (cls) x.className = cls; controlsEl.appendChild(x); };
+  mk(t("prev"), presPrev, pres.i === 0 && pres.step === 0);
+  mk(atEnd ? t("nextScene") : t("next"), presNext, atEnd && lastScene, "primary");
+  mk(t("scenes"), openScenes);
+  mk(t("exitPres"), exitPres);
+}
+function openScenes() {
+  showModal(() => {
+    let html = t("scenesIntro") + "<div class='mlist'>";
+    SCENES.forEach((sc, i) => {
+      html += "<button type='button' data-i='" + i + "'><span class='mname'>" + (pres && pres.i === i ? "\u25B8 " : "") + (i + 1) + ". " + TEXT[lang].scenes[sc.id].title + "</span></button>";
+    });
+    html += "</div>";
+    const opts = pres ? [[t("exitPres"), exitPres], [t("close"), hideModal]] : [[t("close"), hideModal]];
+    return [t("scenes"), html, opts,
+      () => modalEl.querySelectorAll(".mlist button").forEach(b => b.onclick = () => { hideModal(); if (pres) { pres = { i: +b.dataset.i, step: 0 }; presLoad(); } else enterPres(+b.dataset.i); }), true];
+  });
+}
+
+/* ---------- modallar ---------- */
+function showModal(build) { modalBuild = build; drawModal(); modalEl.classList.add("on"); const b = modalEl.querySelector(".mlist button") || modalEl.querySelector("#mOpts button"); if (b) b.focus({ preventScroll: true }); }
+function drawModal() {
+  const [title, html, opts, after, plain] = modalBuild();
+  $("mTitle").textContent = title; $("mBody").innerHTML = html;
+  const o = $("mOpts"); o.innerHTML = ""; o.classList.toggle("plain", !!plain);
+  opts.forEach(([l, fn]) => { const b = document.createElement("button"); b.type = "button"; b.textContent = l; b.onclick = fn; o.appendChild(b); });
+  $("mBody").scrollTop = 0; modalEl.querySelector(".card").scrollTop = 0;
+  if (after) after();
+}
+function hideModal() { modalEl.classList.remove("on"); modalBuild = null; }
+function showIntro(first) {
+  showModal(() => [t("introTitle"), t("introBody"),
+    pres ? [[t("close"), hideModal]] : [[first ? t("startWarmup") : t("close"), hideModal], [t("watchPres"), () => enterPres(0)]]]);
+}
+function warmupOver(reason) {
+  unlocked = true; renderChrome();
+  showModal(() => [t("revealTitle", reason), t("revealBody"),
+    [[t("openMissions"), openMenu], [t("warmupAgain"), () => { hideModal(); startMission(0); }], [t("close"), hideModal]]]);
+}
+function openMenu() {
+  showModal(() => {
+    let html = t("menuIntro") + "<div class='mlist'>";
+    MISSIONS.forEach((m, i) => {
+      if (!i) return; const tx = MT(m);
+      html += "<button type='button' data-i='" + i + "'><span class='mname'>" + (completed[m.id] ? "\u2713 " : "") + t("mission", i) + ": " + tx.name +
+        "</span><span class='mlim'>" + tx.short + "</span></button>";
+    });
+    html += "</div>";
+    return [t("missions"), html, [[t("backToWarmup"), () => { hideModal(); startMission(0); }], [t("close"), hideModal]],
+      () => modalEl.querySelectorAll(".mlist button").forEach(b => b.onclick = () => { hideModal(); startMission(+b.dataset.i); }), true];
+  });
+}
+document.addEventListener("keydown", e => {
+  if (pres && !modalEl.classList.contains("on") && !e.altKey && !e.ctrlKey && !e.metaKey) {
+    if (e.key === "ArrowRight") { e.preventDefault(); presNext(); return; }
+    if (e.key === "ArrowLeft") { e.preventDefault(); presPrev(); return; }
+  }
+  if (e.key === "Escape" && modalEl.classList.contains("on") && modalBuild) {
+    const btns = $("mOpts").querySelectorAll("button"); const lastB = btns[btns.length - 1];
+    if (lastB) lastB.click();
+  }
+});
+
+/* ---------- dil ---------- */
+function applyLang() {
+  document.documentElement.lang = lang; document.title = t("title");
+  $("opp").textContent = t("opponent"); $("promoLead").textContent = t("promo");
+  $("rulesBtn").textContent = t("rules"); $("presBtn").textContent = t("presBtn");
+  modeSel.options[0].textContent = t("modeOwl"); modeSel.options[1].textContent = t("modeTwo");
+  modeSel.setAttribute("aria-label", t("modeLabel")); $("levelLbl").textContent = t("levelLabel");
+  [...levelSel.options].forEach(o => o.textContent = t("level" + o.value));
+  langEl.setAttribute("aria-label", t("langLabel")); langEl.value = lang;
+  promoEl.querySelectorAll("button").forEach(b => b.setAttribute("aria-label", TEXT[lang] === TEXT.tr ? { q: "Vezir", r: "Kale", b: "Fil", n: "At" }[b.dataset.p] : { q: "Queen", r: "Rook", b: "Bishop", n: "Knight" }[b.dataset.p]));
+}
+langEl.addEventListener("change", () => {
+  lang = TEXT[langEl.value] ? langEl.value : "en";
+  applyLang(); render(); renderChrome(); if (modalBuild) drawModal();
+});
+$("rulesBtn").addEventListener("click", () => { if (!demo) showIntro(false); });
+$("presBtn").addEventListener("click", () => { if (demo) return; if (pres) openScenes(); else enterPres(0); });
+modeSel.addEventListener("change", () => { mode = modeSel.value === "2p" ? "2p" : "owl"; startMission(0); });
+levelSel.addEventListener("change", () => { level = +levelSel.value || 3; renderChrome(); });
+window.addEventListener("resize", sizeBoard);
+
+applyLang();
+startMission(0);
+showIntro(true);
+
+</script>
+</body>
+</html>
