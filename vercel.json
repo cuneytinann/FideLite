@@ -20,6 +20,7 @@
     { "source": "/special/L3_numerical_packed.html", "destination": "/builds/L3_numerical_packed.html", "permanent": true },
     { "source": "/builds/special/L3_packed.html", "destination": "/builds/L3_packed.html", "permanent": true },
     { "source": "/builds/special/L3_numerical_packed.html", "destination": "/builds/L3_numerical_packed.html", "permanent": true },
+    { "source": "/builds/special/DOM_998.html", "destination": "/builds/special/DOM_996.html", "permanent": true },
     { "source": "/special/:path*", "destination": "/builds/special/:path*", "permanent": true }
   ],
 
