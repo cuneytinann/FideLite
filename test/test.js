@@ -253,7 +253,18 @@ function loadEngine(p = ENGINE_FILE) {
   let loaded = 0;
   for (const stmt of splitTop(src)) {
     if (/^\s*(for|while)\s*\(/.test(stmt)) break;          // a driver loop begins
-    try { vm.runInContext(stmt, sb); loaded++; } catch (e) { /* interface statement */ }
+    try { vm.runInContext(stmt, sb); loaded++; }
+    catch (e) {
+      // An interface statement fails when it runs (there is no DOM here).
+      // A statement that does not even parse is a broken definition, never an
+      // interface line: swallowing it once let an engine with a syntax error
+      // in H() pass sanity 3/3.
+      if (e && e.name === 'SyntaxError') {
+        console.error(`ERROR: a statement does not parse: ${stmt.trim().slice(0, 60)}...`);
+        console.error(`  ${e.message}`);
+        process.exit(1);
+      }
+    }
   }
   if (!loaded) {
     console.error('ERROR: engine failed to load: no statement could be evaluated');

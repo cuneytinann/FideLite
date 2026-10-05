@@ -11537,6 +11537,7 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <a href="#pitfalls">Pitfalls</a>: the engine's fragile spots and what to watch when changing
       it.</p>
     </div>
+    <nav class="toc" data-toc></nav>
     <p class="eyebrow" lang="tr">Hız</p>
     <p class="eyebrow" lang="en">Speed</p>
     <h2 lang="tr"><code>engine_4x.js</code> — aynı kurallar, +91 bayt, 1,4 ilâ 75 kat hız</h2>
@@ -11755,8 +11756,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <code>builds/</code>, with a copy in <a href="#tests">the test bundle</a>.</p>
     </div>
     
-<h3 lang="tr">28 bayt gökten inmedi</h3>
-    <h3 lang="en">The 28 bytes were not plucked from the air</h3>
+<h3 id="4x-28-bytes" lang="tr">28 bayt gökten inmedi</h3>
+    <h3 lang="en" data-id="4x-28-bytes">The 28 bytes were not plucked from the air</h3>
     <div class="prose" lang="tr">
       <p>Yukarıdaki değişiklikler bir tahmin değil. Aday listesi ölçüldü: dördü kaldı, birkaçı elendi; bu turda aynı listeden bir aday daha, <code>V</code>'deki saldıran bekçisi, ölçülüp alındı. Kalanların ne olduğu yukarıda tek tek yazılı; burada <b>elenenler ve
       neden elendikleri</b> var.</p>
@@ -11998,8 +11999,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       that. What comes after neither speeds things up enough nor earns its bytes.</p>
     </div>
 
-    <h3 lang="tr">Ters yön — 1x'in hızdan verdiği baytlar</h3>
-    <h3 lang="en">The other direction — bytes 1x takes from speed</h3>
+    <h3 id="4x-reverse" lang="tr">Ters yön — 1x'in hızdan verdiği baytlar</h3>
+    <h3 lang="en" data-id="4x-reverse">The other direction — bytes 1x takes from speed</h3>
     <div class="prose" lang="tr">
       <p>Yukarıdaki liste 4x'in bayt harcayıp hız aldığı yerleri sayıyor. Aynı eksende ters yönde
       üç kalem var: <code>engine.js</code> üç yerde hızdan <b>verip</b> birer bayt
@@ -12070,8 +12071,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       the parentheses cost two bytes.</p>
     </div>
 
-    <h3 lang="tr">65 bayt daha — <code>H</code> ve <code>l</code></h3>
-    <h3 lang="en">65 bytes more — <code>H</code> and <code>l</code></h3>
+    <h3 id="4x-65-bytes" lang="tr">65 bayt daha — <code>H</code> ve <code>l</code></h3>
+    <h3 lang="en" data-id="4x-65-bytes">65 bytes more — <code>H</code> and <code>l</code></h3>
     <div class="prose" lang="tr">
       <p>Yukarıdaki 26 bayt motorun tabanına ait.
       <a href="#dead">Ölü pozisyon</a> ile mat imkânsızlığı araması gelince fark 91 bayta
@@ -12289,8 +12290,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <pre class="src"></pre>
     </div>
 
-    <h3 lang="tr">Kodlama nasıl işliyor</h3>
-    <h3 lang="en">How the encoding works</h3>
+    <h3 id="letters-encoding" lang="tr">Kodlama nasıl işliyor</h3>
+    <h3 lang="en" data-id="letters-encoding">How the encoding works</h3>
 
     <div class="prose" lang="tr">
       <p>Tahta tek bir dizgiden doğuyor ve boş kareler <code>padEnd</code> ile dolduruluyor:</p>
@@ -12350,8 +12351,8 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
 
     <div class="srcwrap"><pre class="src">b=[...`rnbqkbnrpppppppp${(_='-').repeat(32)}PPPPPPPPRNBQKBNR`],t=1,c=15,e=_,n=0</pre></div>
 
-    <h3 lang="tr">Ne kaybediliyor</h3>
-    <h3 lang="en">What it costs</h3>
+    <h3 id="letters-cost" lang="tr">Ne kaybediliyor</h3>
+    <h3 lang="en" data-id="letters-cost">What it costs</h3>
 
     <div class="prose" lang="tr">
       <p>Aynı arayüz, aynı kural katmanı, iki tahta temsili. Ölçüm:</p>
@@ -12498,8 +12499,8 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       <b>the byte difference depends on the file.</b></p>
     </div>
 
-    <h3 lang="tr">Öklid uzaklığı — ilk tasarım, iki karede çöktü</h3>
-    <h3 lang="en">Euclidean distance — the first design, collapsed on two squares</h3>
+    <h3 id="euclidean" lang="tr">Öklid uzaklığı — ilk tasarım, iki karede çöktü</h3>
+    <h3 lang="en" data-id="euclidean">Euclidean distance — the first design, collapsed on two squares</h3>
     <div class="prose" lang="tr">
       <p>İlk fikir hareketi mutlak uzaklıkla tanımlamaktı: kesikli düzlemde bir kareden
       ötekine Pisagor uzaklığı. Boş bir 8×8 tahta çizip seçilen kareye göre bütün
@@ -12575,8 +12576,8 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       görünüyor.</p>
     </div>
 
-    <h3 lang="tr">Dolgulu tahta ve indeks farkı — aynı karar</h3>
-    <h3 lang="en">Padded board and index delta — one and the same decision</h3>
+    <h3 id="padded-board" lang="tr">Dolgulu tahta ve indeks farkı — aynı karar</h3>
+    <h3 lang="en" data-id="padded-board">Padded board and index delta — one and the same decision</h3>
     <div class="prose" lang="tr">
       <p>Uzaklık şekle dönüştükten sonraki soru şuydu: şekil testi de gidebilir mi? Geçerliliği <code>i</code> ile <code>f</code> arasındaki ham indeks farkından ya da taş başına
       hamle vektörü tablolarından okumak denendi.</p>
@@ -12686,8 +12687,8 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       square on the flat board can be watched being absorbed by the padding, side by side.</p>
     </div>
 
-    <h3 lang="tr">Tahtayı sayı olarak tutmak — iki deneme, iki eksen</h3>
-    <h3 lang="en">Holding the board as a number — two attempts, two axes</h3>
+    <h3 id="board-as-number" lang="tr">Tahtayı sayı olarak tutmak — iki deneme, iki eksen</h3>
+    <h3 lang="en" data-id="board-as-number">Holding the board as a number — two attempts, two axes</h3>
     <div class="prose" lang="tr">
       <p>Bu bölümün tezi iki kelimeye dayanıyor: kare merkezli ve dizi. Denenen iki
       alternatif bunlardan birini reddediyor.</p>
@@ -12751,8 +12752,8 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
     </div>
 
 
-    <h3 lang="tr">Tahtayı dedektöre göre kurmak — bitboard ikinci kez</h3>
-    <h3 lang="en">Building the board around the detector — bitboards, a second time</h3>
+    <h3 id="board-for-detector" lang="tr">Tahtayı dedektöre göre kurmak — bitboard ikinci kez</h3>
+    <h3 lang="en" data-id="board-for-detector">Building the board around the detector — bitboards, a second time</h3>
     <div class="prose" lang="tr">
       <p>Yukarıdaki deneme bitboard'u bütün motor için tarttı. Bu ikincisi daha dar bir soruydu.
       Kural katmanının en pahalı parçası ölü pozisyon taraması <a href="#lscan"><code>l</code></a>
@@ -13080,8 +13081,8 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       back.</p>
     </div>
 
-    <h3 lang="tr">Boşta kalan yuvalarla iki deneme daha</h3>
-    <h3 lang="en">Two more attempts on the free slots</h3>
+    <h3 id="free-slot-attempts" lang="tr">Boşta kalan yuvalarla iki deneme daha</h3>
+    <h3 lang="en" data-id="free-slot-attempts">Two more attempts on the free slots</h3>
     <div class="prose" lang="tr">
       <p>Hayalet fikri “tahtada boşta duran değerler işe yarar mı” sorusunu açıyor. Aynı soruyla
       iki şey daha denendi, ikisi de aynı duvara çarptı.</p>
@@ -13122,8 +13123,8 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       through <code>undefined → NaN → 0</code>. Moving it onto the board would cost exactly that
       free behaviour.</p>
     </div>
-    <h3 lang="tr">Piyon yönü için işaretli değişken — denendi, kazandırmadı</h3>
-    <h3 lang="en">A signed variable for pawn direction — tried, gained nothing</h3>
+    <h3 id="signed-pawn-direction" lang="tr">Piyon yönü için işaretli değişken — denendi, kazandırmadı</h3>
+    <h3 lang="en" data-id="signed-pawn-direction">A signed variable for pawn direction — tried, gained nothing</h3>
     <div class="prose" lang="tr">
       <p>Renk başına ±1'lik bir yön değişkeni tutup piyon hamlesini o çarpanla yazmak
       denendi. Kazandırmadı. Sebebi seçilen temsilin daha ucuz olması değil, <b>daha çok iş görmesi</b>: renk bilgisi bir bit olarak duruyor ve motor ile sürücüleri onu aynı anda doğruluk
@@ -13146,6 +13147,669 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       direction is meaningful for one piece only. The pawn carries no separate variable today:
       <code>f&lt;i^b[i]&amp;1</code> asks whether the destination index is lower than the source and XORs
       that with the colour bit — direction and colour in one expression.</p>
+    </div>
+
+    <h3 id="alphabet" lang="tr">Taş alfabesi — onaltılık kodların daha iyisi var mı?</h3>
+    <h3 lang="en" data-id="alphabet">The piece alphabet — is there a better set of hex codes?</h3>
+    <div class="prose" lang="tr">
+      <p>Motorun önceki nesli tahtayı FEN harfleriyle tutuyordu. Harflerden onaltılık sayılara geçmek yüz
+      baytın üzerinde kazandırdı: taşın türü, rengi ve menzili artık bir karşılaştırma zinciriyle değil,
+      bit işlemleriyle okunuyordu (<a href="#board">tahta</a>). Ardından doğal bir soru geldi: bugünkü
+      dizilim, dört bitlik bu alfabenin en iyi hâli mi? Kodlar başka türlü dizilseydi motor kısalır
+      mıydı?</p>
+      <p>Bugünkü alfabede her taş türü bir kod çifti: fil 2/3, kale 4/5, vezir 6/7, piyon 8/9, şah a/b,
+      at c/d. Tek sayı beyaz, 0 boş kare; 1, e ve f tahtada hiç geçmiyor. Ama hiç geçmemek işsiz kalmak
+      demek değil. Kilit taramasının eski hâli 1 ve e kodlarının bit-tahtalarını sıfırdan başlayan
+      akümülatörler olarak kullanıyordu; hayalet geçerken alma ve rok hakları da birer boş koda talip.
+      Yani on altı kodun on altı ayrı rolü var: on iki taş, boş kare ve üç boş kod.</p>
+      <p>Arama bu uzayı adım adım daralttı. Daraltan kuralların bir kısmı aksiyom: motorun nasıl
+      yazıldığından gelen, vazgeçilmesi motoru baştan yazmak demek olan kurallar. Öteki kısmı aksiyom
+      değil, birer hareket noktası: aramayı ucuz ve anlaşılır bir yerden başlatmak için konmuş
+      varsayımlar. Önce aksiyomlar geliyor.</p>
+      <p>İlk aksiyom tanımın kendisi: her kare dört bitlik tek bir kod tutuyor ve on altı rol on altı
+      koda dağılıyor. Bu 16! = <b>20.922.789.888.000</b> dizilim. İkincisi boş karenin 0 olması; uzay
+      15!'e, 1,3 trilyona iniyor. Üçüncüsü kayan taşlar: üç kayan taş tek bir ifadeyle yürüdüğü için
+      kodda bir çapraz, bir de düz bit bulunmalı; fil yalnız birinde, kale yalnız ötekinde, vezir
+      ikisinde birden. Altı kayan taşın on beş koda dizilişlerinin yalnızca 20.544'ü buna uyuyor ve uzay
+      7,5 milyara iniyor.</p>
+      <p>Aksiyomlar burada bitiyor; geri kalan daralmanın tamamı hareket noktalarından geliyor. Boştaki
+      üç kodu birbirinin aynı saymak uzayı altıda birine indirdi. Asıl kırılma, rengin tek bir bit
+      olduğu ve bir türün iki renginin aynı deseni paylaştığı varsayıldığında geldi: kodun geri kalan
+      üç biti altı türe dağıtılacak yedi desenden ibaret kaldı ve milyarlar sekiz bine indi. Renk bitinin
+      bir uçta durması, çapraz bitin türün en alt bitinde, renk bitinin en altta ve iki yön bitinin yan
+      yana olması kalanı 384'e indirdi.</p>
+    </div>
+    <div class="tw" lang="tr"><table>
+<thead><tr><th class="num">Adım</th><th>Daraltma</th><th>Tür</th><th class="num">Kalan dizilim</th></tr></thead>
+<tbody>
+<tr><td class="num">0</td><td>her kare dört bitlik bir kod: on altı rol, on altı kod</td><td>aksiyom</td><td class="num">20.922.789.888.000</td></tr>
+<tr><td class="num">1</td><td>boş kare 0</td><td>aksiyom</td><td class="num">1.307.674.368.000</td></tr>
+<tr><td class="num">2</td><td>kayan taşlar çapraz ve düz bitle yürür: vezir = fil ∪ kale</td><td>aksiyom</td><td class="num">7.455.006.720</td></tr>
+<tr><td class="num">3</td><td>boştaki üç kod birbirinin aynı</td><td>hareket noktası</td><td class="num">1.242.501.120</td></tr>
+<tr><td class="num">4</td><td>renk tek bir bit; bir türün iki rengi aynı desende</td><td>hareket noktası</td><td class="num">8.064</td></tr>
+<tr><td class="num">5</td><td>renk biti bir uçta</td><td>hareket noktası</td><td class="num">4.032</td></tr>
+<tr><td class="num">6</td><td>çapraz bit, türün en alt bitinde</td><td>hareket noktası</td><td class="num">1.440</td></tr>
+<tr><td class="num">7</td><td>renk biti en altta</td><td>hareket noktası</td><td class="num">720</td></tr>
+<tr><td class="num">8</td><td>iki yön biti yan yana</td><td>hareket noktası</td><td class="num">384</td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="tr">
+      <p>Kalan 384 dizilim, renkleri birbirinin tersi olan 192 çift; çiftin iki üyesi aynı kodu veriyor.
+      Her çiftin biri için koda bağlı her ifadenin en kısa hâli kaba kuvvetle arandı:
+      <code>G</code>'nin dağıtımı, materyal testinin fil testi ve ağırlığı, <code>M</code>'nin piyon ve rok
+      testleri, 6.9 aramasının piyon testi ve kilit taramasının eşlemesi. En iyi adaylar sonra gerçek
+      motor dosyası olarak kuruldu.</p>
+      <p><b>Budamanın gücü.</b> Taranan 192 dizilimde tek bir kural bile uzayı dörtte bire, sekizde
+      bire indiriyor. Tahta hilesini korumak (beyaz piyon 9 olmalı, yani piyon tür 4) 48 dizilim bırakıyor;
+      materyal ağırlığını tek bir XOR'a indirmek (şah ile at tek bitlik bir çift olmalı) 32; ilk turun
+      biçimiyle tek maskeli kilit kapısı 24. İlk turun hesabıyla kazandıran 48 dizilim var, 8 bayt ya da
+      daha fazla kazandıran 11, tahtayı da koruyarak kazandıran 21. En kötüsü +18: fil 5, kale 2, vezir 7,
+      piyon 3, şah 6, at 1; hiçbir mekanizmayı tutturamıyor.</p>
+      <p><b>Aksiyomlar.</b> Bunlar aramanın tartışmadığı, motorun kendisinden gelen kurallar.</p>
+      <p><b>Dört bitlik kod.</b> Tahta dizgisi kare başına bir onaltılık basamak tutuyor. Bir kare on üç
+      durumdan birinde olabiliyor: on iki taş ya da boş. Bunun bilgisi log₂13 ≈ 3,7 bit ve dört bitlik
+      kod onu taşıyan en kısa sabit uzunluklu kod; artan üç kod boştaki yuvalar.</p>
+      <p><b>Küçültülen ne?</b> Bu hesap tahtanın bellekteki boyuyla ilgili; küçültülen şey ise programın
+      boyu. Onun kuramsal çerçevesi Shannon değil, bir çıktıyı üreten en kısa programı soran Kolmogorov
+      karmaşıklığı. Kolmogorov karmaşıklığı hesaplanamaz: bir programın en kısa olduğunu genel olarak
+      kanıtlamanın yolu yok. Bu yüzden yöntem, uzayı kurallarla daraltıp kalan adayları tek tek ölçmek.
+      Aranan şey bir ispat değil, ölçülmüş en iyi.</p>
+      <p><b>Boş kare 0.</b> JavaScript'te yanlış sayılan tek sayı 0. Motorun boş kare sorgularının hepsi
+      birer doğruluk testi: <code>!p</code>, <code>!b[i]</code>, <code>p&amp;&amp;</code>,
+      <code>T|b[f]</code>, <code>P|b[f]</code>. Boşa başka bir değer veren her alfabe bunların her birini
+      bir karşılaştırmaya çevirir. Tahtayı üreten dizgi hilesi de boşları zaten 0 olarak çıkarıyor.</p>
+      <p><b>Kayan ve kısa menzilli taşlar.</b> Üç kayan taş tek bir ifadeyle yürüyor:
+      <code>(h*v?h==v:2)&amp;P</code>. Çapraz bir hamlede ifade <code>h==v</code>'nin sonucunu, düz bir
+      hamlede sabit 2'yi veriyor; sonra taşın türüyle <code>&amp;</code> alınıyor. Yani türün bir biti
+      "çapraz yürür", bir biti "düz yürür" demek: fil yalnız çapraz bitte, kale yalnız düz bitte, vezir
+      ikisinde birden. Şah, at ve piyon kısa menzilli; <code>G</code>'nin dağıtımı onları kendi
+      testleriyle ayırıyor. Bu ayrım ve vezir = fil ∪ kale aksiyom: kayan taş ifadesi üç taşı birden
+      yürütmeye devam etsin diye. Hangi bitin çapraz, hangisinin düz olduğu ise aksiyom değil;
+      aşağıdaki tabloda.</p>
+      <p><b>Taraf bilgisi.</b> Her taş hangi tarafın olduğunu söylemek zorunda. Nasıl söylediği, bir bitle
+      mi işaretle mi, serbest.</p>
+      <p><b>Yalnız yasal pozisyonlar.</b> Hiç oluşmayan bir durum serbesttir. Piyon 1. ve 8. yatayda hiç
+      durmadığı için çift adım testi <code>y%5==1</code> yerine <code>y%6&lt;2</code> olabiliyor: ikincisi
+      1., 2., 7. ve 8. yatayları seçiyor, ama piyon bunların yalnız ikisinde bulunabiliyor.</p>
+      <p><b>Sabit geometri.</b> a1 = 0, doğrusal 64 kare. Bu bir varsayım: kenar boşluklu tahtalar (0x88,
+      10×12) bir "tahta dışı" kodu ister ve boştaki yuvalara talip olur; onlar
+      <a href="#alternatives">bu bölümün başında</a> ayrıca elendi.</p>
+      <p><b>Hareket noktaları.</b> Huniyi asıl daraltanlar bunlar ve hiçbiri zorunluluk değil. Her biri
+      aramayı bir yerden başlatmak için kondu ve her birinin durumu sonradan sınandı:</p>
+    </div>
+    <div class="tw" lang="tr"><table>
+<thead><tr><th>Hareket noktası</th><th>Neden oradan başlandı</th><th>Durumu</th></tr></thead>
+<tbody>
+<tr><td>boştaki üç kod birbirinin aynı</td><td>işleri alfabeye bağlı; ayrı ayrı incelemek daha kolay</td><td>rolleri ayrı incelendi: hayalet, rok hakları, kilit taramasının sıfırları. Hepsi birden istenirse durum sayısı 18'e çıkıyor, dört bit yetmiyor; beş bitle 32!/14! ≈ 3·10²⁴</td></tr>
+<tr><td>renk tek bir bit</td><td>renk testi ve tür okuma tek işlem: <code>p&amp;1</code>, <code>p&gt;&gt;1</code></td><td>zorunlu değil: taraf sayının işaretinden de okunabiliyor. İşaretli alfabe kuruldu ve ölçüldü (aşağıda)</td></tr>
+<tr><td>bir türün iki rengi aynı desende</td><td>tür, renge bakmadan okunuyor</td><td>eşikle okunan ayna dizilim (<code>p&gt;c?K-p:p</code>) tür okumayı pahalılaştırıyor. Bedava tek ayna sıfır etrafındaki, yani işaret</td></tr>
+<tr><td>renk biti bir uçta</td><td>ortadaki bir bit hem renk testini hem tür okumayı iki işleme çıkarıyor</td><td>çıkarımla elendi: ortadaki iki konum, 8.064 dizilimin yarısı</td></tr>
+<tr><td>çapraz bit, türün en alt bitinde</td><td><code>h==v</code> yalnız 0 ya da 1 veriyor ve doğrudan <code>&amp;P</code>'ye giriyor</td><td>öteki dört rol dağılımı ifadeyi yaklaşık 3 bayt uzatıyor (hesap)</td></tr>
+<tr><td>renk biti en altta</td><td>bugünkü kodla uyumlu</td><td>en üst bit denenmedi; o da aynı sayıda dizilim getiriyor. Piyonun türü 1 olursa tahta hilesi korunuyor</td></tr>
+<tr><td>iki yön biti yan yana</td><td>bugünkü ifade <code>(h*v?h==v:2)&amp;P</code></td><td>zorunlu değil: düz bit 4'te, serbest bit ortada durunca ifade <code>(h*v?h==v:4)&amp;P</code>, aynı uzunluk. Getirdiği 7 kayan taş yerleşimi taranmadı. İki biçimin ortak tek yerleşimi (fil 1, kale 6, vezir 7) "kale ve vezir üstte" alfabesininki</td></tr>
+<tr><td>serbest bit üç kayan taşta aynı</td><td>anlatımdaki "sekizler basamağı menzildir" okuması</td><td>taramada uygulanmadı: serbest bit taş başına serbest. "Kale ve vezir üstte" alfabesi bu katı ağacın dışında kalıyor</td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="tr">
+      <p><b>Fil için taraf değil, maske önemli.</b> "Renk tek bir bit" kuralının iki gerekçesi var: renk
+      testi ve tür okuma tek işlem kalsın. Fil için bunlardan biri zayıf. Materyal testlerinde bir filin
+      sayısı da tarafı da sonucu değiştirmiyor; değiştiren tek şey hangi renk karede durduğu. Tek renkteki
+      bütün filler, kaç tane ve hangi tarafın olursa olsun, mat kuramaz. Motor da filleri böyle okuyor:
+      <code>I(2)</code> iki tarafı birden tarıyor ve iki tarafın fillerini aynı maskeye, <code>m</code>'ye
+      atıyor. <code>Im</code>'in fil kısmı rakibin maskesini kendi maskesiyle karşılaştırıyor,
+      <code>!(B&amp;~m)</code>; taraf orada yalnız iki maskeyi birbirinden ayırmaya yarıyor.</p>
+      <p>Bu gözlem bir aile doğurdu: tarafı bitle değil eşikle ayıran ayna dizilim. Kodlar bir dikişin iki
+      yanına simetrik diziliyor, taraf tek bir karşılaştırmayla okunuyor (<code>p&gt;6</code>) ve bir taşın
+      öbür rengi <code>13-p</code>. Örnek düzen:</p>
+    </div>
+    <div class="tw" lang="tr"><table>
+<thead><tr><th>Kod</th><th class="num">1</th><th class="num">2</th><th class="num">3</th><th class="num">4</th><th class="num">5</th><th class="num">6</th><th class="num">7</th><th class="num">8</th><th class="num">9</th><th class="num">10</th><th class="num">11</th><th class="num">12</th></tr></thead>
+<tbody>
+<tr><td>Taş</td><td class="num">şah</td><td class="num">piyon</td><td class="num">at</td><td class="num">vezir</td><td class="num">kale</td><td class="num">fil</td><td class="num">fil</td><td class="num">kale</td><td class="num">vezir</td><td class="num">at</td><td class="num">piyon</td><td class="num">şah</td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="tr">
+      <p>Bu düzende 1–6 beyaz, 7–12 siyah, ve iki tarafı birlikte soran testler iç içe simetrik aralıklara
+      iniyor: fil dikişteki iki kod (6, 7), kayan taş 4–9, "şah ya da piyon" iki uçtaki bloklar. Materyal
+      testlerinin fil kısmı ve kilit taramasının kapısı tam bu tür sorular. Ama bedel motorun en sık
+      çalışan yerinde çıkıyor: türler artık tekrar eden bir desen olmadığı için <code>G</code>'nin dağıtımı
+      ve kayan taş ifadesi tür okumayı <code>p&gt;6?13-p:p</code> gibi bir ifadeyle ödüyor. Aile ikinci
+      turda kapandı, iki gerekçeyle: filin maskesi zaten koddan değil karenin renginden okunuyor, ve sıfır
+      etrafındaki ayna, yani işaret, tür okumayı bedava bırakan tek ayna (<code>a(p)</code>). O ayna
+      işaretli alfabe olarak aşağıda ölçüldü.</p>
+    </div>
+    <div class="prose" lang="tr">
+      <p><b>Neden kazanç bu kadar az?</b> Harf tahtasından sayılara geçerken bütün taş testleri değişmişti.
+      Sayısal motorda ise taş koduna dokunan yer az: tahta dizgisi, <code>G</code>'nin dağıtımı,
+      <code>V</code>'nin şah araması, <code>M</code>'nin piyon, rok, terfi ve karşı renk piyon ifadeleri,
+      materyal testleri, 6.9 aramasının piyon testi ve terfi döngüsü, kilit taramasının indeksi ve kapısı.
+      Hepsi birlikte kabaca 200 bayt, bunun 70'i tahta dizgisi. Hamle geometrisi, kilit taramasının
+      taşkın dolgusu ve 6.9 araması taş kodunu hiç okumuyor. En iyi alfabe bile ancak bu küçük yüzeyin bir
+      kısmını kısaltabilir ve kısalttığının bir kısmını tahtada geri öder.</p>
+      <p><b>Adil karşılaştırma.</b> İlk turda en iyi aday 16 bayt kazandırıyor görünüyordu. Kazancın büyük
+      kısmı alfabeden değil, aramanın yan ürünü olan kısaltmalardan geliyordu ve bunlar bugünkü alfabeye
+      de uygulanabiliyordu. Kural bu yüzden şöyle kondu: <b>alfabeden bağımsız her iyileştirme önce
+      bugünkü motora verilir, aday ancak ondan sonra karşılaştırılır.</b> Bugünkü motor şunları kendisi
+      aldı:</p>
+    </div>
+    <div class="tw" lang="tr"><table>
+<thead><tr><th>Yer</th><th>Önce</th><th>Sonra</th><th class="num">Fark</th></tr></thead>
+<tbody>
+<tr><td>materyal testinin ağırlığı</td><td><code>W+=p&lt;10?9:p&gt;11</code></td><td><code>W+=p&gt;9?p&gt;11:9</code></td><td class="num">−1</td></tr>
+<tr><td>6.9 aramasının "piyon değil" testi</td><td><code>p&gt;&gt;1^4</code></td><td><code>p&amp;6</code></td><td class="num">−3</td></tr>
+<tr><td>piyonun çift adımı</td><td><code>y%5==1</code></td><td><code>y%6&lt;2</code></td><td class="num">−1</td></tr>
+<tr><td>kilit taramasının kapısı</td><td><code>!(f^j^W^B^V^v)</code></td><td><code>!q</code></td><td class="num">−8</td></tr>
+<tr><td>rok kalesinin karesi</td><td><code>f+=1.5*k-.5</code></td><td><code>f+=k&gt;0||-2</code></td><td class="num">−1</td></tr>
+<tr><td>filin kare rengi</td><td><code>m|=1&lt;&lt;i*9/8%2</code></td><td><code>m|=i*9/8%2+1</code></td><td class="num">−1</td></tr>
+<tr><td>kilit taramasının başlangıç değerleri</td><td><code>C=W,P=W</code></td><td><code>C=P=W</code></td><td class="num">−2</td></tr>
+<tr><td colspan="3"><b>Toplam</b></td><td class="num"><b>−17</b></td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="tr">
+      <p>Kilit taramasının kapısı ayrıca bir ders oldu. Eski tarama her taş koduna ayrı bir bit-tahtası
+      açıyor, kapıda da şah ve piyon dışındaki bütün tahtaların boş olduğunu tek tek soruyordu. Yeni
+      eşleme şah ve piyon dışındaki bütün taşları tek bir indekse, <code>q</code>'ya topluyor:</p>
+    </div>
+<pre class="snip" lang="tr">önce   h[p]|=u              [j,q,,,,,,,B,W,v,V,,,r]=h    !(f^j^W^B^V^v)
+sonra  h[p&gt;&gt;2^2?!p*6:p-6]|=u  [q,r,B,W,v,V]=h               !q</pre>
+    <div class="prose" lang="tr">
+      <p>Bugünkü alfabede piyon ve şah 8–11'de bitişik duruyor ve <code>p&gt;&gt;2^2</code> onları tek bir
+      testle ayırıyor. Kapı geçtiyse <code>q</code> zaten <code>0n</code>; aynı değişken taşkın
+      dolgusunun sıfırdan başlayan akümülatörlerinden biri olarak da kullanılabiliyor, böylece hem
+      <code>j</code> hem ayrı bir sıfır yuvası düşüyor. İlk tur bu kapının "yalnız şah ve piyonun bitişik
+      bir blok olduğu alfabelerde" çalıştığını kaydetmişti ve bu yanlıştı. Koşullu bir eşleme bugünkü
+      alfabede de aynı kazancı veriyor; ilk turun aradığı ifade ailesinde yalnızca o koşul biçimi
+      yoktu. <b>Arama uzayı yalnız alfabelerden değil, denenen ifadelerden de oluşuyor.</b></p>
+      <p><b>Bir tuzak: kısa devrenin değeri.</b> Listeye bir kısaltma daha girmişti: rokta tehdit testi
+      <code>!V(t)&amp;&amp;!V(t,i+k)</code> yerine <code>!V(t)&amp;!V(t,i+k)</code>, −1 bayt. Yan yana
+      oynatmada fark çıkmadı, ama test süitinin "Castling Prevented" pozisyonu 2. derinlikte yığın
+      taşmasıyla düştü. <code>&amp;&amp;</code> kısa devre yapıyordu: şah zaten şahtaysa geçiş karesine
+      hiç bakılmıyordu. <code>&amp;</code> ile iki taraf her durumda hesaplanıyor. Geçiş karesinde şah
+      çeken bir vezir ya da kale duruyorsa <code>V</code> o taşın kendi karesine saldırıp saldırmadığını
+      soruyor, <code>G</code>'de <code>k=0/0</code> NaN oluyor ve <code>S</code> sonsuz özyinelemeye
+      giriyor. Kısaltma geri alındı. Yan yana oynatma bunu göremezdi: karşılaştırılan iki motor da aynı
+      kısaltmayı taşıyordu. <b>Aynı hatayı taşıyan iki motoru birbiriyle karşılaştırmak, hatayı
+      bulmaz.</b> Kısa devrenin bu işi <a href="#fragile-spots">Tuzaklar</a> bölümünde zaten yazılıydı.</p>
+      <p><b>Adaylar.</b> Her aday aynı tabanda kuruldu: yukarıdaki kısaltmalar ve her alfabenin kendi en iyi
+      kilit kapısı. Alfabeler şunlar:</p>
+    </div>
+    <div class="tw" lang="tr"><table>
+<thead><tr><th>Alfabe</th><th class="num">Fil</th><th class="num">Kale</th><th class="num">Vezir</th><th class="num">Piyon</th><th class="num">Şah</th><th class="num">At</th></tr></thead>
+<tbody>
+<tr><td>bugünkü</td><td class="num">2/3</td><td class="num">4/5</td><td class="num">6/7</td><td class="num">8/9</td><td class="num">a/b</td><td class="num">c/d</td></tr>
+<tr><td>kayanlar üstte, piyon en altta</td><td class="num">a/b</td><td class="num">c/d</td><td class="num">e/f</td><td class="num">2/3</td><td class="num">4/5</td><td class="num">6/7</td></tr>
+<tr><td>at ile piyon yer değiştiriyor</td><td class="num">2/3</td><td class="num">4/5</td><td class="num">6/7</td><td class="num">c/d</td><td class="num">a/b</td><td class="num">8/9</td></tr>
+<tr><td>şah ve at bir tür yukarı</td><td class="num">2/3</td><td class="num">4/5</td><td class="num">6/7</td><td class="num">8/9</td><td class="num">c/d</td><td class="num">e/f</td></tr>
+<tr><td>kale ve vezir üstte</td><td class="num">2/3</td><td class="num">c/d</td><td class="num">e/f</td><td class="num">8/9</td><td class="num">4/5</td><td class="num">6/7</td></tr>
+<tr><td>işaretli: taraf sayının işaretinde</td><td class="num">±1</td><td class="num">±2</td><td class="num">±3</td><td class="num">±6</td><td class="num">±5</td><td class="num">±4</td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="tr">
+      <p>Çekirdekte, yani tek başına motorda, bugünkü alfabeye göre sonuçlar:</p>
+    </div>
+    <div class="tw" lang="tr"><table>
+<thead><tr><th>Alfabe</th><th class="num">Fark</th><th>Kazancın kaynağı</th><th>Bedeli</th></tr></thead>
+<tbody>
+<tr><td>kayanlar üstte</td><td class="num">−6</td><td>piyon testi <code>p&lt;4</code>, şah araması <code>4+s</code>, karşı renk piyon <code>5-p</code>, en ucuz kilit kapısı <code>p&gt;5?1:p</code></td><td>tahta dizgisi +5, <code>G</code>'nin dağıtımı +3</td></tr>
+<tr><td>at ile piyon</td><td class="num">−4</td><td>piyon testi <code>p&gt;11</code>, tek XOR'luk ağırlık <code>p&gt;&gt;1^5</code>, kilit kapısı <code>p&gt;9</code></td><td>tahta +5, 6.9 aramasının piyon testi +1</td></tr>
+<tr><td>işaretli</td><td class="num">−4</td><td><code>p*t</code> ile kısalan renk süzgeçleri, terfi <code>u*t</code>, karşı renk piyon <code>-p</code>, ağırlık <code>a(p)^5</code></td><td>tahta +4, sıranın ±1 olması</td></tr>
+<tr><td>şah ve at yukarı</td><td class="num">−3</td><td>ağırlık <code>p&gt;&gt;1^6</code>; tahta dizgisi korunuyor</td><td>kilit kapısı +1: şah ve piyon artık bitişik değil</td></tr>
+<tr><td>kale ve vezir üstte</td><td class="num">+2</td><td>ağırlık, şah araması</td><td><code>G</code>'nin dağıtımı +3; tek maskeli kapı kurulamıyor</td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="tr">
+      <p>Çekirdekteki en büyük adil kazanç 6 bayt. Asıl soru ise bu kazancın bütün sürümlere yayılıp
+      yayılmadığıydı, çünkü sitedeki bütün sürümler aynı alfabeyi kullanıyor:</p>
+    </div>
+    <div class="tw" lang="tr"><table>
+<thead><tr><th>Alfabe</th><th class="num">Çekirdek</th><th class="num">L3 sürümleri</th><th class="num">L2 sürümleri</th><th class="num">L1 sürümleri</th></tr></thead>
+<tbody>
+<tr><td>kayanlar üstte</td><td class="num">−6</td><td class="num">−4…−9</td><td class="num">−4…−9</td><td class="num">0…+5</td></tr>
+<tr><td>at ile piyon</td><td class="num">−4</td><td class="num">−4…−7</td><td class="num">−5…−8</td><td class="num">−1…+2</td></tr>
+<tr><td>işaretli</td><td class="num">−4</td><td class="num">kurulmadı</td><td class="num">kurulmadı</td><td class="num"><code>L1</code> −7 (hesap)</td></tr>
+<tr><td>şah ve at yukarı</td><td class="num">−3</td><td class="num">−1…−3</td><td class="num">−1…−3</td><td class="num">0…+2</td></tr>
+<tr><td>kale ve vezir üstte</td><td class="num">+2</td><td class="num">+2…+4</td><td class="num">+2…+4</td><td class="num">+2…+4</td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="tr">
+      <p>Çekirdek ve L1 sütunları ölçüldü. L3 ve L2 aralıkları ilk turun ölçülmüş sürüm değerlerinden,
+      kilit kapısının yeni farkıyla düzeltilerek türetildi; çekirdekte bu düzeltme her adayda ölçümle
+      birebir tutuyor. <code>L2_light</code> kendi materyal ve kilit zincirini taşıdığı için motorun
+      kazançları ona ulaşmıyor; aralıkların dışında kalıyor.</p>
+      <p><b>L1 neden ödüyor?</b> L1'de materyal testleri, 6.9 araması ve kilit taraması yok. Adayların
+      kazancının çoğu tam bu yerlerden geliyor. L1'e kalan; tahtanın, <code>G</code>'nin dağıtımının ve
+      sürücü tablolarının bedeli. Kazanç çıkabilecek yer yalnız şah araması ve piyon testleri.</p>
+      <p><b>İşaretli alfabe.</b> İkinci turda kuralların kendisi de tartışıldı ve biri gevşedi: taraf
+      bilgisi zorunlu, ama taşın bitlerinden biri olması zorunlu değil. Taraf sayının işaretinden
+      okunabilir; o zaman dört bitin dördü de türe kalır: on altı desenin biri boş, altısı taş, dokuzu
+      boşta. Dizgide yalnız türün büyüklüğü duruyor, işaret karenin yerinden geliyor:</p>
+    </div>
+<pre class="snip" lang="tr">bugün     b=[...`5d37b3d5${10n**40n-10n**32n}888888884c26a2c4`].map(u=&gt;'0x'+u-0)       <i>70 bayt</i>
+işaretli  b=[...`24135142${(10n**40n+1n)*66666666n}24135142`].map((u,i)=&gt;i&gt;31?-u:+u)  <i>74 bayt</i></pre>
+    <div class="prose" lang="tr">
+      <p><code>(10n**40n+1n)*66666666n</code> iki piyon sırasını ve aradaki 32 boş kareyi tek bir
+      çarpımla üretiyor; bu ancak iki renk aynı rakamı paylaştığında mümkün. Sıra <code>t</code> = ±1
+      oluyor ve <code>p*t</code> "kendi taşım mı" sorusunu tek bir karşılaştırmaya indiriyor;
+      <code>t</code> 1/0 kalsaydı çekirdek 13 bayt uzardı. Bedeli bit hileleri ödüyor: negatif sayılarda
+      bit işlemleri tutmuyor, <code>6&amp;4</code> 4 iken <code>-6&amp;4</code> 0. Türe bakan her işlem
+      <code>a(p)</code> ya da kare almayla yeniden yazılıyor: piyon testi <code>p*p&gt;25</code>, rok tanıma
+      <code>p*p&gt;9</code>, fil testi <code>p*p&lt;2</code>. Çekirdekteki 4 baytın biri, mat kodunu
+      <code>~t</code> ile serbest bırakmaktan geliyor; bugünkü alfabe de <code>V(t)?~t:3</code> ile aynı
+      baytı alabilir, ama sonuç kodlarının 1–15 düzeni bozulmasın diye almadı.</p>
+      <p><code>t</code> = ±1'in bir yan kazancı daha var: <code>~t</code> onu bedavaya doğru ya da yanlışa
+      çeviriyor, <code>~1</code> −2, <code>~-1</code> 0. Sonuç kodları da yalnız birbirinden farklı olmak
+      zorunda olduğu için serbest bırakıldı: W# −1, B# 1, WT −10, BT 10, WR −11, BR 11; bir kararın
+      işareti kaybeden tarafın işareti. Tahta için takma adlar da denendi ve hepsi kaybettirdi: sekiz
+      haneli bir dizgi yalnız iki kez geçtiği için takma adın tanımı tekrarın kazancını aşıyor (+1 ile +10
+      arası). Kurulumda boş kareler −0 da olabiliyor; yanlış sayılıyor ve <code>==0</code> doğru, ama
+      <code>Object.is</code> ya da <code>1/p</code> onu 0'dan ayırıyor.</p>
+      <p><b>Kapanan sorular.</b> <a href="#ghostep">Hayalet geçerken alma</a>nın ikinci tasarımı, işareti
+      atlanan kareye değil piyonun kendisine yazmak, daha iyisi çıktı ama yine kaybettiriyor: L1'de
+      yaklaşık +8, L2'de +10, L3'te +4. Hamle sayacının sıfırlama koşulu <code>P|b[f]</code> iki ayrı kareyi
+      okuyor ve hiçbir dizilim bunu teke indiremiyor. Rok ve çift adımdaki ara karelerin boşluğunu
+      yoklayan <code>S</code> taş kodunu bilmiyor; bunlar alfabeden bağımsız. Materyal testleri fili
+      kodundan değil durduğu karenin renginden okuduğu için fil için ayrı kod gereksiz. 6.9 aramasının
+      terfi döngüsü vezir, kale, fil, at sırasını korumak zorunda: sıra değişirse aramanın bütçe
+      sınırındaki hükümler dönebilir. Terfi taşlarının kodlarının ardışık olması ise çekirdekte
+      kazandırmıyor; yalnız sürücüde, kör sürümlerin harf tablosunda 2 bayt. Beyaz piyonun 9 olması da yalnız bugünkü tahta hilesine özgü;
+      <code>10n**40n-10n**32n</code> yalnız 9 ve 0 üretebiliyor. Rok haklarını tahtaya gömmek ise
+      denenmedi: bit ailelerinde boşta yalnız üç kod var, hayalet, hakkı olan kaleler ve şahlar için
+      yetmiyor; işaretli alfabenin dokuz boş deseni ise yeterdi. Tahtaya konan her işaretin bir bedeli
+      daha var: tekrar anahtarı <code>b+t+e+c</code> tahtanın kendisini içeriyor, yani hayalet ya da rok
+      hakkı tahtaya girerse tekrar tespiti de onlarla birlikte değişir.</p>
+      <p>Bazı fikirler dosya kurulmadan, kodun yapısından hesaplanarak elendi:</p>
+    </div>
+    <div class="tw" lang="tr"><table>
+<thead><tr><th>Fikir</th><th class="num">Fark</th></tr></thead>
+<tbody>
+<tr><td>şahı kayan taş dalına katmak: şah = "menzili 1 olan vezir"</td><td class="num">+13 / +16</td></tr>
+<tr><td>fil ile kalenin yer değiştirmesi: çapraz bit en alttan çıkıyor</td><td class="num">en az +6</td></tr>
+<tr><td>materyal testindeki üç aramayı tek taramaya indirmek</td><td class="num">+4…+16</td></tr>
+<tr><td>filin kare rengini koda gömmek: açık kare fili ayrı kod</td><td class="num">+21, asıl bedel terfi</td></tr>
+<tr><td>materyal testinin taradığı türleri kaydedip ikinci teste vermek</td><td class="num">+8</td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="tr">
+      <p>Ölçülüp kaybettirenler de var:</p>
+    </div>
+    <div class="tw" lang="tr"><table>
+<thead><tr><th>Deneme</th><th>Fark</th></tr></thead>
+<tbody>
+<tr><td>L2 ve L3'te at tür 4 (piyon 5, şah 6)</td><td>çekirdekte +10</td></tr>
+<tr><td>L1'de şah tür 7</td><td>0…+2</td></tr>
+<tr><td>L1'e özel at tür 4</td><td>yalnız <code class="vn">L1_numerical</code>'da −2; L2 ve L3'te +3…+10</td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="tr">
+      <p><b>Açık kalanlar.</b> Tahtanın +5'lik bedeli bugünkü hileden ucuza ödenebilseydi kayanlar üstte
+      −11'e, at ile piyon −9'a çıkardı. Denenmemiş yollar belli. Tek bir bölme yalnız 9'un bölenlerinde (1,
+      3, 9) işliyor; öbür rakamlar çarpma da ister. Ayrıştırıcı <code>'0x'+u-0</code> başka bir
+      çözümlemeyle değiştirilebilir, ama boş karelerin 0 kalması şart olduğu için sabit bir kaydırma
+      doğrudan işlemiyor. <code>10n**32n</code>'nin ürettiği baştaki "1" anlamlı bir koda denk getirilebilirse
+      <code>dddddddd${10n**32n}</code> gibi bir biçim mümkün olabilir. Renk en üst bite alınır ve piyonun türü
+      1 olursa beyaz piyon yine 9 olur ve bugünkü hile aynen çalışır. Taranmayanlar da kayıtlı: rengin en
+      üst bitte olduğu dizilimler, yön bitlerinin ayrık durduğu biçim, paketli sürümler ve
+      <code>engine_4x</code>; orada yalnız "şah ve at yukarı" ölçüldü (ilk turda −8). İfade aileleri de
+      genişletilebilir. Kilit kapısındaki ders bunun için: aranmayan bir ifade biçimi, bulunmayan bir
+      kazanç demek.</p>
+      <p><b>Nasıl doğrulandı.</b> Her aday gerçek motor dosyası olarak kuruldu. Perft başlangıç pozisyonu,
+      Kiwipete ve CPW 3–6 pozisyonlarında 3. ve 4. derinlikte yayımlanmış değerlerle tuttu. Sonra her aday
+      bugünkü motorla yan yana oynatıldı: taş kodları, sıra, terfi ve sonuç kodları birbirine çevrilip
+      her yarım hamlede tahta, sıra, geçerken alma karesi, rok hakları, sayaç ve tekrar sayısı, bütün
+      yasal hamle listeleri, materyal testleri, kilit taraması, beraberlik talebi, süre ve terk hükümleri
+      ve hamle sonrası sonuç karşılaştırıldı. Girdiler rastgele oyunlar, terfiye yakın piyonlu
+      oyunsonları, sayacı 75 hamle sınırına yakın pozisyonlar ve kilitli piyon duvarlarıydı. Testin
+      hassasiyeti, motor kasıtlı olarak bozularak sınandı: materyal ağırlığı ya da 6.9 bütçesi bozulunca
+      farklar hemen yakalandı.</p>
+      <p><b>Karar.</b> Hiçbir alfabe alınmadı. Çekirdekte en büyük adil kazanç 6 bayt, en az şey
+      değiştiren aday 4 bayt. Buna karşılık hero'daki tahta şeridi, kod tabloları, tahtanın anlatımı,
+      terfi API'si, test süiti ve bütün sürümler değişir; yeniden doğrulama ve yeniden paketleme dahil.
+      Kazanç da bütün sürümlere yayılmıyor: L1 ödüyor. Aramanın asıl getirisi alfabeden bağımsız
+      kısaltmalar oldu; motoru 17 bayt kısaltan onlardı. Adaylar bir gün bir rekor denemesi ya da
+      sitenin baştan yazılacağı büyük bir revizyon için duruyor: o gün en çok kazandıran "kayanlar
+      üstte", en az değiştiren "at ile piyon".</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The engine's previous generation held the board as FEN letters. Moving from letters to hex
+      numbers saved over a hundred bytes: a piece's type, colour and range were now read with bit
+      operations instead of a chain of comparisons (<a href="#board">the board</a>). A natural question
+      followed: is today's layout the best form of this four-bit alphabet? Would the engine be shorter
+      if the codes were arranged differently?</p>
+      <p>In today's alphabet every piece type is a pair of codes: bishop 2/3, rook 4/5, queen 6/7, pawn
+      8/9, king a/b, knight c/d. Odd is White, 0 is the empty square; 1, e and f never appear on the
+      board. But never appearing is not the same as having no job. The lock scan's old form used the
+      bitboards of codes 1 and e as accumulators that start from zero, and the ghost en passant and
+      castling rights each lay claim to a free code as well. So the sixteen codes have sixteen distinct
+      roles: twelve pieces, the empty square and three free codes.</p>
+      <p>The search narrowed this space step by step. Some of the narrowing rules are axioms: they come
+      from how the engine is written, and giving one up would mean rewriting the engine. The others are
+      not axioms but starting points: assumptions made so the search could begin somewhere cheap and
+      readable. The axioms come first.</p>
+      <p>The first axiom is the definition itself: every square holds a single four-bit code, and the
+      sixteen roles are spread over the sixteen codes. That is 16! = <b>20,922,789,888,000</b> layouts.
+      The second is the empty square being 0; the space falls to 15!, 1.3 trillion. The third concerns
+      the sliders: since all three move with one expression, the code must carry a diagonal bit and an
+      orthogonal bit, the bishop only the one, the rook only the other, the queen both. Of all the ways
+      to place the six sliders on fifteen codes, only 20,544 comply, and the space falls to 7.5
+      billion.</p>
+      <p>The axioms end there; all the remaining narrowing comes from starting points. Treating the
+      three free codes as identical cut the space to a sixth. The real break came with the assumption
+      that the colour is a single bit and that both colours of a type share one pattern: the remaining
+      three bits of the code became just seven patterns to spread over six types, and billions became
+      eight thousand. The colour bit at one end, the diagonal bit on the type's lowest bit, the colour bit
+      lowest and the two direction bits next to each other brought what was left down to 384.</p>
+    </div>
+    <div class="tw" lang="en"><table>
+<thead><tr><th class="num">Step</th><th>Narrowing</th><th>Kind</th><th class="num">Layouts left</th></tr></thead>
+<tbody>
+<tr><td class="num">0</td><td>every square is a four-bit code: sixteen roles, sixteen codes</td><td>axiom</td><td class="num">20,922,789,888,000</td></tr>
+<tr><td class="num">1</td><td>empty square is 0</td><td>axiom</td><td class="num">1,307,674,368,000</td></tr>
+<tr><td class="num">2</td><td>sliders move by a diagonal and an orthogonal bit: queen = bishop ∪ rook</td><td>axiom</td><td class="num">7,455,006,720</td></tr>
+<tr><td class="num">3</td><td>the three free codes are identical</td><td>starting point</td><td class="num">1,242,501,120</td></tr>
+<tr><td class="num">4</td><td>colour is a single bit; both colours of a type share one pattern</td><td>starting point</td><td class="num">8,064</td></tr>
+<tr><td class="num">5</td><td>colour bit at one end</td><td>starting point</td><td class="num">4,032</td></tr>
+<tr><td class="num">6</td><td>diagonal bit on the type's lowest bit</td><td>starting point</td><td class="num">1,440</td></tr>
+<tr><td class="num">7</td><td>colour bit lowest</td><td>starting point</td><td class="num">720</td></tr>
+<tr><td class="num">8</td><td>the two direction bits next to each other</td><td>starting point</td><td class="num">384</td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="en">
+      <p>The remaining 384 layouts are 192 pairs whose colours are the reverse of each other; both members
+      of a pair give the same code. For one of each pair, the shortest form of every code-dependent
+      expression was searched by brute force: <code>G</code>'s dispatch, the material test's bishop test and weight,
+      <code>M</code>'s pawn and castling tests, the 6.9 search's pawn test and the lock scan's mapping.
+      The best candidates were then built as real engine files.</p>
+      <p><b>The power of pruning.</b> Among the 192 layouts scanned, a single rule cuts the space to a
+      quarter or an eighth. Keeping the board trick (the white pawn must be 9, so the pawn is type 4) leaves
+      48 layouts; bringing the material weight down to a single XOR (king and knight must be a one-bit
+      pair) leaves 32; the first round's single-mask lock gate, 24. By the first round's calculation 48
+      layouts save bytes, 11 save 8 or more, and 21 save bytes while keeping the board. The worst is +18:
+      bishop 5, rook 2, queen 7, pawn 3, king 6, knight 1; it hits none of the mechanisms.</p>
+      <p><b>The axioms.</b> These are rules the search did not question; they come from the engine
+      itself.</p>
+      <p><b>A four-bit code.</b> The board string holds one hex digit per square. A square can be in one
+      of thirteen states: twelve pieces or empty. That is log₂13 ≈ 3.7 bits of information, and a
+      four-bit code is the shortest fixed-length code that carries it; the three codes left over are the
+      free slots.</p>
+      <p><b>What is being shrunk?</b> That count is about the size of the board in memory; what is being
+      shrunk is the size of the program. Its theoretical frame is not Shannon but Kolmogorov complexity,
+      which asks for the shortest program that produces a given output. Kolmogorov complexity is
+      uncomputable: there is no general way to prove that a program is the shortest. So the method is
+      to narrow the space with rules and measure the remaining candidates one by one. What is sought is
+      not a proof but the best measured.</p>
+      <p><b>Empty is 0.</b> In JavaScript, 0 is the only falsy number. Every empty-square query in the
+      engine is a truthiness test: <code>!p</code>, <code>!b[i]</code>, <code>p&amp;&amp;</code>,
+      <code>T|b[f]</code>, <code>P|b[f]</code>. Any alphabet that gives the empty square another value
+      turns each of them into a comparison. The string trick that builds the board also produces the
+      empty squares as 0.</p>
+      <p><b>Sliders and short-range pieces.</b> All three sliders move with a single expression:
+      <code>(h*v?h==v:2)&amp;P</code>. On a diagonal move it gives the result of <code>h==v</code>, on an
+      orthogonal move the constant 2, and then takes <code>&amp;</code> with the piece's type. So one bit
+      of the type means "moves diagonally" and one means "moves orthogonally": the bishop has only the
+      diagonal bit, the rook only the orthogonal bit, the queen both. King, knight and pawn are short-range,
+      and <code>G</code>'s dispatch separates them with tests of their own. This split, and queen = bishop
+      ∪ rook, are axioms, so that the slider expression keeps moving all three pieces at once. Which bit is
+      diagonal and which orthogonal is not an axiom; it is in the table below.</p>
+      <p><b>Side information.</b> Every piece has to tell which side it belongs to. How it tells it, with a
+      bit or with a sign, is free.</p>
+      <p><b>Legal positions only.</b> A state that never occurs is free. Because a pawn never stands on the
+      first or eighth rank, the double-step test can be <code>y%6&lt;2</code> instead of
+      <code>y%5==1</code>: the new test selects ranks 1, 2, 7 and 8, but a pawn can only be on two of
+      them.</p>
+      <p><b>Fixed geometry.</b> a1 = 0, 64 linear squares. This one is an assumption: padded boards (0x88,
+      10×12) need an off-board code and compete for the free slots; they were eliminated separately
+      <a href="#alternatives">at the start of this section</a>.</p>
+      <p><b>The starting points.</b> These are what really narrowed the funnel, and none of them is a
+      necessity. Each was set so the search could start somewhere, and each was tested afterwards:</p>
+    </div>
+    <div class="tw" lang="en"><table>
+<thead><tr><th>Starting point</th><th>Why the search started there</th><th>Where it stands</th></tr></thead>
+<tbody>
+<tr><td>the three free codes are identical</td><td>their jobs depend on the alphabet; easier to study one by one</td><td>their roles were studied separately: the ghost, castling rights, the lock scan's zeros. Asking for all of them at once takes the states to 18, and four bits are not enough; with five bits, 32!/14! ≈ 3·10²⁴</td></tr>
+<tr><td>colour is a single bit</td><td>the colour test and the type read are single operations: <code>p&amp;1</code>, <code>p&gt;&gt;1</code></td><td>not required: the side can also be read from the sign of the number. The signed alphabet was built and measured (below)</td></tr>
+<tr><td>both colours of a type share one pattern</td><td>the type is read without looking at the colour</td><td>a mirrored layout read through a threshold (<code>p&gt;c?K-p:p</code>) makes the type read expensive. The only free mirror is the one around zero, the sign</td></tr>
+<tr><td>colour bit at one end</td><td>a bit in the middle makes both the colour test and the type read two operations</td><td>eliminated by inference: the two middle positions, half of the 8,064 layouts</td></tr>
+<tr><td>diagonal bit on the type's lowest bit</td><td><code>h==v</code> only gives 0 or 1 and goes straight into <code>&amp;P</code></td><td>the other four role assignments lengthen the expression by about 3 bytes (computed)</td></tr>
+<tr><td>colour bit lowest</td><td>compatible with today's code</td><td>the top bit was not tried; it brings as many layouts again. With the pawn as type 1, the board trick survives</td></tr>
+<tr><td>the two direction bits next to each other</td><td>today's expression <code>(h*v?h==v:2)&amp;P</code></td><td>not required: with the orthogonal bit at 4 and the free bit in the middle, the expression is <code>(h*v?h==v:4)&amp;P</code>, the same length. The 7 slider placements this adds were not scanned. The one placement both forms share (bishop 1, rook 6, queen 7) is that of the "rook and queen on top" alphabet</td></tr>
+<tr><td>the free bit is the same for all three sliders</td><td>the account's reading that "the eights digit is range"</td><td>not applied in the scan: the free bit is free per piece. The "rook and queen on top" alphabet falls outside that strict tree</td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="en">
+      <p><b>For the bishop, the mask matters, not the side.</b> The rule "colour is a single bit" has two
+      reasons: the colour test and the type read should stay single operations. For the bishop, one of them
+      is weak. In the material tests, neither the number of bishops nor their side changes the result; the
+      only thing that does is the colour of the squares they stand on. Bishops all on one colour, however
+      many and whichever side they belong to, cannot build a mate. The engine reads bishops exactly that
+      way: <code>I(2)</code> scans both sides at once and sends both sides' bishops to the same mask,
+      <code>m</code>. The bishop part of <code>Im</code> compares the opponent's mask with its own,
+      <code>!(B&amp;~m)</code>; the side only serves there to keep the two masks apart.</p>
+      <p>That observation gave rise to a family: the mirrored layout, which separates the sides by a
+      threshold instead of a bit. The codes are laid out symmetrically on either side of a seam, the side
+      is read with a single comparison (<code>p&gt;6</code>), and a piece's other colour is
+      <code>13-p</code>. An example layout:</p>
+    </div>
+    <div class="tw" lang="en"><table>
+<thead><tr><th>Code</th><th class="num">1</th><th class="num">2</th><th class="num">3</th><th class="num">4</th><th class="num">5</th><th class="num">6</th><th class="num">7</th><th class="num">8</th><th class="num">9</th><th class="num">10</th><th class="num">11</th><th class="num">12</th></tr></thead>
+<tbody>
+<tr><td>Piece</td><td class="num">king</td><td class="num">pawn</td><td class="num">knight</td><td class="num">queen</td><td class="num">rook</td><td class="num">bishop</td><td class="num">bishop</td><td class="num">rook</td><td class="num">queen</td><td class="num">knight</td><td class="num">pawn</td><td class="num">king</td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="en">
+      <p>In this layout 1–6 are White and 7–12 Black, and the tests that ask about both sides at once
+      reduce to nested symmetric ranges: the bishop is the two codes at the seam (6, 7), the sliders are
+      4–9, "king or pawn" the blocks at either end. The bishop part of the material tests and the lock
+      scan's gate are exactly that kind of question. But the cost lands on the engine's busiest code:
+      since types are no longer a repeating pattern, <code>G</code>'s dispatch and the slider expression
+      pay for the type read with something like <code>p&gt;6?13-p:p</code>. The family was closed in the
+      second round, for two reasons: the bishop's mask is already read from the square's colour, not from
+      the code, and the mirror around zero, the sign, is the only mirror that leaves the type read free
+      (<code>a(p)</code>). That mirror was measured below as the signed alphabet.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p><b>Why so little to gain?</b> Moving from the letter board to numbers had changed every piece test.
+      In the numeric engine, few places touch the piece code: the board string, <code>G</code>'s
+      dispatch, <code>V</code>'s king lookup, <code>M</code>'s pawn, castling, promotion and opposite-colour
+      pawn expressions, the material tests, the 6.9 search's pawn test and promotion loop, and the lock
+      scan's index and gate. Together they come to about 200 bytes, 70 of them the board string. Move
+      geometry, the lock scan's flood fill and the 6.9 search never read a piece code. Even the best
+      alphabet can only shorten part of this small surface, and it pays some of that back in the
+      board.</p>
+      <p><b>A fair comparison.</b> In the first round the best candidate seemed to save 16 bytes. Most of
+      that came not from the alphabet but from shortenings the search turned up as a by-product, and those
+      applied to today's alphabet as well. So the rule became: <b>every alphabet-independent improvement
+      goes to today's engine first, and only then is a candidate compared.</b> Today's engine took these
+      for itself:</p>
+    </div>
+    <div class="tw" lang="en"><table>
+<thead><tr><th>Where</th><th>Before</th><th>After</th><th class="num">Change</th></tr></thead>
+<tbody>
+<tr><td>material test weight</td><td><code>W+=p&lt;10?9:p&gt;11</code></td><td><code>W+=p&gt;9?p&gt;11:9</code></td><td class="num">−1</td></tr>
+<tr><td>the 6.9 search's "not a pawn" test</td><td><code>p&gt;&gt;1^4</code></td><td><code>p&amp;6</code></td><td class="num">−3</td></tr>
+<tr><td>pawn double step</td><td><code>y%5==1</code></td><td><code>y%6&lt;2</code></td><td class="num">−1</td></tr>
+<tr><td>lock scan gate</td><td><code>!(f^j^W^B^V^v)</code></td><td><code>!q</code></td><td class="num">−8</td></tr>
+<tr><td>castling rook square</td><td><code>f+=1.5*k-.5</code></td><td><code>f+=k&gt;0||-2</code></td><td class="num">−1</td></tr>
+<tr><td>bishop square colour</td><td><code>m|=1&lt;&lt;i*9/8%2</code></td><td><code>m|=i*9/8%2+1</code></td><td class="num">−1</td></tr>
+<tr><td>lock scan initial values</td><td><code>C=W,P=W</code></td><td><code>C=P=W</code></td><td class="num">−2</td></tr>
+<tr><td colspan="3"><b>Total</b></td><td class="num"><b>−17</b></td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="en">
+      <p>The lock scan's gate turned into a lesson of its own. The old scan opened a separate bitboard for
+      every piece code and, at the gate, asked one by one whether every board other than kings and pawns
+      was empty. The new mapping gathers every piece other than kings and pawns into a single index,
+      <code>q</code>:</p>
+    </div>
+<pre class="snip" lang="en">before  h[p]|=u              [j,q,,,,,,,B,W,v,V,,,r]=h    !(f^j^W^B^V^v)
+after   h[p&gt;&gt;2^2?!p*6:p-6]|=u  [q,r,B,W,v,V]=h               !q</pre>
+    <div class="prose" lang="en">
+      <p>In today's alphabet pawns and kings sit next to each other at 8–11, and <code>p&gt;&gt;2^2</code>
+      separates them with a single test. If the gate passes, <code>q</code> is already <code>0n</code>,
+      so the same variable can serve as one of the flood fill's accumulators that start from zero; both
+      <code>j</code> and a separate zero slot drop out. The first round had recorded that this gate
+      works "only in alphabets where kings and pawns form a contiguous block", and that was wrong. A
+      conditional mapping gives the same gain in today's alphabet; the family of expressions the first
+      round searched simply lacked that conditional form. <b>The search space is made of the expressions
+      tried, not only of the alphabets.</b></p>
+      <p><b>A trap: what short-circuiting is worth.</b> One more shortening had entered the list: in
+      castling, the threat test <code>!V(t)&amp;!V(t,i+k)</code> instead of
+      <code>!V(t)&amp;&amp;!V(t,i+k)</code>, −1 byte. Side-by-side play showed no difference, but the test
+      suite's "Castling Prevented" position fell over at depth 2 with a stack overflow.
+      <code>&amp;&amp;</code> short-circuited: if the king was already in check, the transit square was
+      never examined. With <code>&amp;</code> both sides are always evaluated. If a checking queen or rook
+      stands on the transit square, <code>V</code> asks whether that piece attacks its own square,
+      <code>k=0/0</code> becomes NaN in <code>G</code>, and <code>S</code> recurses forever. The
+      shortening was reverted. Side-by-side play could not have seen it: both engines being compared
+      carried the same shortening. <b>Comparing two engines that share a bug does not find the
+      bug.</b> The job this short circuit does was already written down under
+      <a href="#fragile-spots">Pitfalls</a>.</p>
+      <p><b>The candidates.</b> Every candidate was built on the same base: the shortenings above, plus
+      each alphabet's own best lock gate. The alphabets are:</p>
+    </div>
+    <div class="tw" lang="en"><table>
+<thead><tr><th>Alphabet</th><th class="num">Bishop</th><th class="num">Rook</th><th class="num">Queen</th><th class="num">Pawn</th><th class="num">King</th><th class="num">Knight</th></tr></thead>
+<tbody>
+<tr><td>today's</td><td class="num">2/3</td><td class="num">4/5</td><td class="num">6/7</td><td class="num">8/9</td><td class="num">a/b</td><td class="num">c/d</td></tr>
+<tr><td>sliders on top, pawn at the bottom</td><td class="num">a/b</td><td class="num">c/d</td><td class="num">e/f</td><td class="num">2/3</td><td class="num">4/5</td><td class="num">6/7</td></tr>
+<tr><td>knight and pawn swap places</td><td class="num">2/3</td><td class="num">4/5</td><td class="num">6/7</td><td class="num">c/d</td><td class="num">a/b</td><td class="num">8/9</td></tr>
+<tr><td>king and knight one type up</td><td class="num">2/3</td><td class="num">4/5</td><td class="num">6/7</td><td class="num">8/9</td><td class="num">c/d</td><td class="num">e/f</td></tr>
+<tr><td>rook and queen on top</td><td class="num">2/3</td><td class="num">c/d</td><td class="num">e/f</td><td class="num">8/9</td><td class="num">4/5</td><td class="num">6/7</td></tr>
+<tr><td>signed: side in the sign of the number</td><td class="num">±1</td><td class="num">±2</td><td class="num">±3</td><td class="num">±6</td><td class="num">±5</td><td class="num">±4</td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="en">
+      <p>In the core, the engine on its own, the results against today's alphabet:</p>
+    </div>
+    <div class="tw" lang="en"><table>
+<thead><tr><th>Alphabet</th><th class="num">Change</th><th>Where the gain comes from</th><th>What it costs</th></tr></thead>
+<tbody>
+<tr><td>sliders on top</td><td class="num">−6</td><td>pawn test <code>p&lt;4</code>, king lookup <code>4+s</code>, opposite-colour pawn <code>5-p</code>, the cheapest lock gate <code>p&gt;5?1:p</code></td><td>board string +5, <code>G</code>'s dispatch +3</td></tr>
+<tr><td>knight and pawn</td><td class="num">−4</td><td>pawn test <code>p&gt;11</code>, a one-XOR weight <code>p&gt;&gt;1^5</code>, lock gate <code>p&gt;9</code></td><td>board +5, the 6.9 search's pawn test +1</td></tr>
+<tr><td>signed</td><td class="num">−4</td><td>colour filters shortened by <code>p*t</code>, promotion <code>u*t</code>, opposite-colour pawn <code>-p</code>, weight <code>a(p)^5</code></td><td>board +4, the side to move becoming ±1</td></tr>
+<tr><td>king and knight up</td><td class="num">−3</td><td>weight <code>p&gt;&gt;1^6</code>; the board string survives</td><td>lock gate +1: kings and pawns no longer adjacent</td></tr>
+<tr><td>rook and queen on top</td><td class="num">+2</td><td>weight, king lookup</td><td><code>G</code>'s dispatch +3; no single-mask gate is possible</td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="en">
+      <p>The largest fair gain in the core is 6 bytes. The real question was whether that gain spreads to
+      every build, since every build on this site uses the same alphabet:</p>
+    </div>
+    <div class="tw" lang="en"><table>
+<thead><tr><th>Alphabet</th><th class="num">Core</th><th class="num">L3 builds</th><th class="num">L2 builds</th><th class="num">L1 builds</th></tr></thead>
+<tbody>
+<tr><td>sliders on top</td><td class="num">−6</td><td class="num">−4…−9</td><td class="num">−4…−9</td><td class="num">0…+5</td></tr>
+<tr><td>knight and pawn</td><td class="num">−4</td><td class="num">−4…−7</td><td class="num">−5…−8</td><td class="num">−1…+2</td></tr>
+<tr><td>signed</td><td class="num">−4</td><td class="num">not built</td><td class="num">not built</td><td class="num"><code>L1</code> −7 (computed)</td></tr>
+<tr><td>king and knight up</td><td class="num">−3</td><td class="num">−1…−3</td><td class="num">−1…−3</td><td class="num">0…+2</td></tr>
+<tr><td>rook and queen on top</td><td class="num">+2</td><td class="num">+2…+4</td><td class="num">+2…+4</td><td class="num">+2…+4</td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="en">
+      <p>The core and L1 columns were measured. The L3 and L2 ranges were derived from the first round's
+      measured build values, corrected by the new difference of the lock gate; in the core this correction
+      matches the measurement exactly for every candidate. <code>L2_light</code> carries its own material
+      and lock chain, so the engine's gains do not reach it; it stays outside the ranges.</p>
+      <p><b>Why does L1 pay?</b> L1 has no material tests, no 6.9 search and no lock scan. Most of each
+      candidate's gain comes from exactly those places. What remains for L1 is the cost: the board,
+      <code>G</code>'s dispatch and the driver tables. The only places a gain could come from are the king
+      lookup and the pawn tests.</p>
+      <p><b>The signed alphabet.</b> In the second round the rules themselves were put on trial, and one of
+      them gave way: the side to move is mandatory information, but it does not have to be one of the
+      piece's bits. It can be read from the sign of the number; then all four bits go to the type: one of
+      the sixteen patterns is empty, six are pieces, nine are free. The string holds only the size of the
+      type, and the sign comes from where the square is:</p>
+    </div>
+<pre class="snip" lang="en">today   b=[...`5d37b3d5${10n**40n-10n**32n}888888884c26a2c4`].map(u=&gt;'0x'+u-0)       <i>70 bytes</i>
+signed  b=[...`24135142${(10n**40n+1n)*66666666n}24135142`].map((u,i)=&gt;i&gt;31?-u:+u)  <i>74 bytes</i></pre>
+    <div class="prose" lang="en">
+      <p><code>(10n**40n+1n)*66666666n</code> produces both pawn ranks and the 32 empty squares between them
+      with one multiplication; that is only possible when both colours share the digit. The side to move
+      becomes <code>t</code> = ±1, and <code>p*t</code> reduces "is this my piece" to a single comparison;
+      with <code>t</code> as 1/0 the core would be 13 bytes longer. The bit tricks pay the price: bitwise
+      operations do not hold for negative numbers, <code>6&amp;4</code> is 4 but <code>-6&amp;4</code> is
+      0. Every operation that reads the type is rewritten with <code>a(p)</code> or a square: pawn test
+      <code>p*p&gt;25</code>, castling recognition <code>p*p&gt;9</code>, bishop test
+      <code>p*p&lt;2</code>. One of the 4 bytes in the core comes from freeing the mate code with
+      <code>~t</code>; today's alphabet could take the same byte with <code>V(t)?~t:3</code>, but did not,
+      so that the 1–15 order of the result codes would stay intact.</p>
+      <p><code>t</code> = ±1 has one more side benefit: <code>~t</code> turns it into true or false for
+      free, <code>~1</code> is −2 and <code>~-1</code> is 0. The result codes, which only need to differ
+      from one another, were freed as well: W# −1, B# 1, WT −10, BT 10, WR −11, BR 11; the sign of a
+      verdict is the sign of the losing side. Aliases for the board were tried too, and all of them lost:
+      an eight-digit string occurs only twice, so defining an alias costs more than the repetition saves
+      (+1 to +10). Empty squares can also come out as −0 during set-up; it is falsy and <code>==0</code>
+      holds, but <code>Object.is</code> or <code>1/p</code> tells it apart from 0.</p>
+      <p><b>Closed questions.</b> A second design for the <a href="#ghostep">ghost en passant</a>, writing the
+      mark onto the pawn itself instead of onto the skipped square, turned out better but still loses:
+      about +8 in L1, +10 in L2, +4 in L3. The halfmove counter's reset condition <code>P|b[f]</code> reads
+      two different squares, and no layout can reduce that to one. <code>S</code>, which checks that the
+      squares in between are empty in castling and the double step, does not know the piece code; both
+      are independent of the alphabet. The material tests read a bishop from the colour of its square, not
+      from its code, so a separate code per bishop is unnecessary. The 6.9 search's promotion loop has to
+      keep the order queen, rook, bishop, knight: if the order changes, verdicts at the search's budget
+      limit can flip. Promotion pieces having consecutive codes gains nothing in the core; only in the
+      drivers, 2 bytes in the blind builds' letter table. The white pawn being 9 is specific to today's board trick;
+      <code>10n**40n-10n**32n</code> can only produce 9s and 0s. Embedding castling rights in the board was
+      not tried: the bit families have only three free codes, not enough for the ghost and for rooks and
+      kings that hold a right, while the signed alphabet's nine free patterns would suffice. Every mark
+      placed on the board has one more cost: the repetition key <code>b+t+e+c</code> contains the board
+      itself, so if the ghost or a castling right goes onto the board, repetition detection changes with
+      it.</p>
+      <p>Some ideas were eliminated without building a file, by calculating from the structure of the
+      code:</p>
+    </div>
+    <div class="tw" lang="en"><table>
+<thead><tr><th>Idea</th><th class="num">Change</th></tr></thead>
+<tbody>
+<tr><td>folding the king into the slider branch: king = "a queen with range 1"</td><td class="num">+13 / +16</td></tr>
+<tr><td>swapping bishop and rook: the diagonal bit leaves the bottom</td><td class="num">at least +6</td></tr>
+<tr><td>merging the material test's three lookups into one scan</td><td class="num">+4…+16</td></tr>
+<tr><td>embedding the bishop's square colour in its code: a separate code for the light-squared bishop</td><td class="num">+21, the real cost is promotion</td></tr>
+<tr><td>recording the types the material test scans and passing them to the second test</td><td class="num">+8</td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="en">
+      <p>Some lost when measured:</p>
+    </div>
+    <div class="tw" lang="en"><table>
+<thead><tr><th>Attempt</th><th>Change</th></tr></thead>
+<tbody>
+<tr><td>knight as type 4 in L2 and L3 (pawn 5, king 6)</td><td>+10 in the core</td></tr>
+<tr><td>king as type 7 in L1</td><td>0…+2</td></tr>
+<tr><td>knight as type 4, an L1-only trial</td><td>−2 in <code class="vn">L1_numerical</code> only; +3…+10 in L2 and L3</td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="en">
+      <p><b>Still open.</b> If the board's +5 could be paid for more cheaply than with today's trick,
+      "sliders on top" would reach −11 and "knight and pawn" −9. The untried roads are known. A single
+      division only works for the divisors of 9 (1, 3, 9); other digits need a multiplication as well. The
+      parser <code>'0x'+u-0</code> could be replaced by another decoding, but since the empty squares must
+      stay 0, a fixed shift does not work directly. If the leading "1" that <code>10n**32n</code> produces
+      could be made to land on a meaningful code, a form like <code>dddddddd${10n**32n}</code> might be
+      possible. With the colour on the top bit and the pawn as type 1, the white pawn is 9 again and
+      today's trick works unchanged. What was not scanned is on record too: the layouts with the colour on
+      the top bit, the form with the direction bits apart, the packed builds, and <code>engine_4x</code>,
+      where only "king and knight up" was measured (−8 in the first round). The families of expressions
+      can be widened as well. That is what the lesson of the lock gate is for: an expression form nobody
+      searched is a gain nobody finds.</p>
+      <p><b>How it was verified.</b> Every candidate was built as a real engine file. Perft matched the
+      published values for the starting position, Kiwipete and CPW positions 3–6 at depths 3 and 4. Then
+      each candidate was played side by side with today's engine: piece codes, side to move, promotion and
+      result codes were translated into each other, and at every half-move the board, side to move, en
+      passant square, castling rights, counter and repetition count, every legal move list, the material
+      tests, the lock scan, the draw claim, the time-out and resignation verdicts and the result after the
+      move were compared. The inputs were random games, endgames with pawns close to promotion, positions
+      with the counter near the 75-move limit and locked pawn walls. The test's sensitivity was checked
+      by breaking the engine on purpose: with the material weight or the 6.9 budget broken, the
+      differences were caught at once.</p>
+      <p><b>The decision.</b> No alphabet was adopted. The largest fair gain in the core is 6 bytes; the
+      candidate that changes least saves 4. Against that, the board strip in the hero, the code tables,
+      the account of the board, the promotion API, the test suite and every build would change, with
+      re-verification and repacking. And the gain does not spread to every build: L1 pays. The search's
+      real yield was the alphabet-independent shortenings; they are what shortened the engine by 17 bytes.
+      The candidates are kept for a record attempt one day, or for a major revision in which the site is
+      rewritten from scratch: on that day the one that saves most is "sliders on top", the one that
+      changes least is "knight and pawn".</p>
     </div>
 
     <h3 id="a8zero" lang="tr"><code>a8=0</code> indeksleme — render için seçildi, motor için bırakıldı</h3>
@@ -13374,8 +14038,8 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       <a href="#codes">result codes</a> that come back are on the Builds tab.</p>
     </div>
 
-    <h3 lang="tr">Tıklama — bir durum makinesi</h3>
-    <h3 lang="en">Clicking — a state machine</h3>
+    <h3 id="parse-click" lang="tr">Tıklama — bir durum makinesi</h3>
+    <h3 lang="en" data-id="parse-click">Clicking — a state machine</h3>
 
     <div class="prose" lang="tr">
       <p>Tıklamalı sürümde ayrıştırılacak metin yok. Altmış dört karenin her biri kendi
@@ -13467,8 +14131,8 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       itself and a request bit is still lit, <code>D()</code> weighs the claim or the agreement.</p>
     </div>
 
-    <h3 lang="tr">UCI — iki karakteri bir çağrıda okumak</h3>
-    <h3 lang="en">UCI — reading two characters in one call</h3>
+    <h3 id="parse-uci" lang="tr">UCI — iki karakteri bir çağrıda okumak</h3>
+    <h3 lang="en" data-id="parse-uci">UCI — reading two characters in one call</h3>
 
     <div class="prose" lang="tr">
       <p>UCI sürümlerinde bir kare iki karakter: dikey harfi ve yatay rakamı. Dönüşümün tamamı
@@ -13514,8 +14178,8 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       by-product of one call.</p>
     </div>
 
-    <h3 lang="tr">Sayısal — birleştir, sonra sayıya çevir</h3>
-    <h3 lang="en">Numeric — concatenate, then coerce</h3>
+    <h3 id="parse-numeric" lang="tr">Sayısal — birleştir, sonra sayıya çevir</h3>
+    <h3 lang="en" data-id="parse-numeric">Numeric — concatenate, then coerce</h3>
 
     <div class="prose" lang="tr">
       <p>Sayısal sürümde <code>k</code> yok, çünkü ihtiyacı yok. Kareler zaten 0–63 arası sayı
@@ -13566,8 +14230,8 @@ f = K[2] + K[3] - 0</pre></div>
       from a check but from a language rule, and it costs zero bytes in all three parsers.</p>
     </div>
 
-    <h3 lang="tr">Ters yön — sonucu yazmak</h3>
-    <h3 lang="en">The other direction — writing the result</h3>
+    <h3 id="parse-output" lang="tr">Ters yön — sonucu yazmak</h3>
+    <h3 lang="en" data-id="parse-output">The other direction — writing the result</h3>
 
     <div class="prose" lang="tr">
       <p>Motor bir sayı döndürüyor: <a href="#codes">1–15 arası bir kod</a>. Ekrana ne yazılacağı
@@ -13617,8 +14281,8 @@ f = K[2] + K[3] - 0</pre></div>
       turned out to be the rarest result.</p>
     </div>
 
-    <h3 lang="tr">Üç döngü biçimi</h3>
-    <h3 lang="en">Three loop shapes</h3>
+    <h3 id="loop-shapes" lang="tr">Üç döngü biçimi</h3>
+    <h3 lang="en" data-id="loop-shapes">Three loop shapes</h3>
 
     <div class="prose" lang="tr">
       <p>Ayrıştırıcıyı kimin çağırdığı da sürümden sürüme değişiyor ve bu seçim saatin nasıl
@@ -13667,8 +14331,8 @@ f = K[2] + K[3] - 0</pre></div>
       never touches the rule layer.</p>
     </div>
 
-    <h3 lang="tr">Sürücü sınırı</h3>
-    <h3 lang="en">The driver boundary</h3>
+    <h3 id="driver-boundary" lang="tr">Sürücü sınırı</h3>
+    <h3 lang="en" data-id="driver-boundary">The driver boundary</h3>
 
     <div class="prose" lang="tr">
       <p>Metin sürücülerinden sekizi <code>A</code>'yı olduğu gibi çağırıyor:
@@ -13726,8 +14390,8 @@ f = K[2] + K[3] - 0</pre></div>
 <i>castling</i>      c&amp;C(f+=1.5*k-.5)                 !c[i]&amp;!c[f+=1.5*k-.5]
 <i>table</i>         C=i=&gt;'20003001'[i%56]&lt;&lt;i/28      —</pre>
 
-    <h3 lang="tr">Nasıl çalışıyor</h3>
-    <h3 lang="en">How it works</h3>
+    <h3 id="castlebook-how" lang="tr">Nasıl çalışıyor</h3>
+    <h3 lang="en" data-id="castlebook-how">How it works</h3>
     <div class="prose" lang="tr">
       <p>Hamle gerçekten oynandığında <code>c[i]=c[f]=1</code> iki kareyi işaretliyor. Rok dalında
       <code>!c[i]</code> şahın bulunduğu kareye, <code>!c[f+=1.5*k-.5]</code> hesaplanan kale karesine
@@ -13762,8 +14426,8 @@ f = K[2] + K[3] - 0</pre></div>
       section</a> covers how.</p>
     </div>
 
-    <h3 lang="tr">Neden <code class="vn">L2</code> ve <code class="vn">L3</code>'te maske şart</h3>
-    <h3 lang="en">Why <code class="vn">L2</code> and <code class="vn">L3</code> need the mask</h3>
+    <h3 id="castlebook-mask" lang="tr">Neden <code class="vn">L2</code> ve <code class="vn">L3</code>'te maske şart</h3>
+    <h3 lang="en" data-id="castlebook-mask">Why <code class="vn">L2</code> and <code class="vn">L3</code> need the mask</h3>
     <div class="prose" lang="tr">
       <p>Bu kestirme yalnızca tekrarın sayılmadığı bir seviyede mümkün. Rok hakları tekrar anahtarının
       parçası (9.2.3.2) ve anahtar <b>kanonik</b> olmak zorunda: aynı haklara sahip iki pozisyon aynı
@@ -13793,8 +14457,8 @@ f = K[2] + K[3] - 0</pre></div>
       counting needs.</p>
     </div>
 
-    <h3 lang="tr">Ne kadar tutuyor</h3>
-    <h3 lang="en">What it costs</h3>
+    <h3 id="castlebook-cost" lang="tr">Ne kadar tutuyor</h3>
+    <h3 lang="en" data-id="castlebook-cost">What it costs</h3>
     <div class="prose" lang="tr">
       <p>Fark küçük. <code class="vn">L1</code> defteri
       <a href="https://github.com/cuneytinann/FideLite/commit/decb288f3c53c8885175b173844ce237d96772b3" target="_blank" rel="noopener">tek bir değişiklikle ↗️</a>
@@ -13858,8 +14522,8 @@ f = K[2] + K[3] - 0</pre></div>
       format comes first, and the string build's differences are <a href="#fenstring">at the end</a>.</p>
     </div>
 
-    <h3 lang="tr">Değişkenler</h3>
-    <h3 lang="en">The variables</h3>
+    <h3 id="fen-variables" lang="tr">Değişkenler</h3>
+    <h3 lang="en" data-id="fen-variables">The variables</h3>
 <div class="tw" lang="tr"><table>
 <thead><tr><th>FEN alanı</th><th><code class="vn">L1</code> değişkeni</th><th>Sayısal sürümler</th><th>Harf dizgili sürüm</th></tr></thead>
 <tbody>
@@ -13910,8 +14574,8 @@ f = K[2] + K[3] - 0</pre></div>
       is 0. Indices often needed: a1=0, e1=4, f1=5, h1=7, a8=56, e8=60, h8=63.</p>
     </div>
 
-    <h3 lang="tr">Rok</h3>
-    <h3 lang="en">Castling</h3>
+    <h3 id="fen-castling" lang="tr">Rok</h3>
+    <h3 lang="en" data-id="fen-castling">Castling</h3>
     <div class="prose" lang="tr">
       <p>Bir hak ancak üç koşul birden tutarsa geçerli: FEN'de yazıyor (<code>K</code>, <code>Q</code>,
       <code>k</code>, <code>q</code>), şah e1'de (siyah için e8'de) ve kendi kalesi o köşede
@@ -13965,8 +14629,8 @@ f = K[2] + K[3] - 0</pre></div>
       castling is possible there too.</p>
     </div>
 
-    <h3 lang="tr">Geçerken alma</h3>
-    <h3 lang="en">En passant</h3>
+    <h3 id="fen-ep" lang="tr">Geçerken alma</h3>
+    <h3 lang="en" data-id="fen-ep">En passant</h3>
     <div class="prose" lang="tr">
       <p><code>e</code>, piyonun <b>atladığı</b> kare, durduğu kare değil: siyah d7–d5 oynadıysa
       <code>e</code> d6'dır (dizin 43). Kare ancak şunların hepsi tutarsa yazılır, yoksa
@@ -14068,8 +14732,8 @@ f = K[2] + K[3] - 0</pre></div>
       being a number is mandatory here.</p>
     </div>
 
-    <h3 lang="tr">Örnekler</h3>
-    <h3 lang="en">Examples</h3>
+    <h3 id="fen-examples" lang="tr">Örnekler</h3>
+    <h3 lang="en" data-id="fen-examples">Examples</h3>
     <div class="prose" lang="tr">
       <p>Aşağıdaki pozisyonların hepsi hem <code class="vn">input</code>'a hem
       <code class="vn">prompt_string_flip</code>'e yüklendi. Açılan roklar ve geçerken alma, her sürümde
@@ -14112,8 +14776,8 @@ f = K[2] + K[3] - 0</pre></div>
       decide.</p>
     </div>
 
-    <h3 lang="tr">Yükleyiciler</h3>
-    <h3 lang="en">The loaders</h3>
+    <h3 id="fen-loaders" lang="tr">Yükleyiciler</h3>
+    <h3 lang="en" data-id="fen-loaders">The loaders</h3>
     <div class="prose" lang="tr">
       <p>Örneklerde kullanılan iki yükleyici. <code class="vn">L1</code>'in global değişkenlerini doğrudan
       yazıyorlar. Önce sayısal sürümler:</p>
@@ -14241,8 +14905,8 @@ f = K[2] + K[3] - 0</pre></div>
       <code class="vn">main</code> there is a fourth: obsolete markup.</p>
     </div>
 
-    <h3 lang="tr">Paketin kendi kaynağı</h3>
-    <h3 lang="en">A source of its own</h3>
+    <h3 id="pack-source" lang="tr">Paketin kendi kaynağı</h3>
+    <h3 lang="en" data-id="pack-source">A source of its own</h3>
     <div class="prose" lang="tr">
       <p>Paketlenen kaynak düz kaynaktan hem uzun hem ayrı: düz kaynak bayt için, paket kaynağı
       <b>tekrar</b> için ayarlanmış. İkisini aynı dosyadan üretmek işe yaramıyor, çünkü <b>golf her
@@ -14364,8 +15028,8 @@ f = K[2] + K[3] - 0</pre></div>
       <b>2,652</b>. The settings are in the table below.</p>
     </div>
 
-    <h3 lang="tr">Takma adlar ve gömülen fonksiyonlar</h3>
-    <h3 lang="en">Aliases and inlined functions</h3>
+    <h3 id="pack-aliases" lang="tr">Takma adlar ve gömülen fonksiyonlar</h3>
+    <h3 lang="en" data-id="pack-aliases">Aliases and inlined functions</h3>
 <div class="tw" lang="tr"><table>
 <thead><tr><th>Dosya</th><th>Açılan takma ad</th><th>Gömülen fonksiyon</th><th>Fonksiyon kalan</th></tr></thead>
 <tbody>
@@ -14529,8 +15193,8 @@ f = K[2] + K[3] - 0</pre></div>
       no longer be JS that <code>eval</code> can run.</li>
     </ul>
 
-    <h3 lang="tr">Boşta harfler</h3>
-    <h3 lang="en">Free letters</h3>
+    <h3 id="pack-free-letters" lang="tr">Boşta harfler</h3>
+    <h3 lang="en" data-id="pack-free-letters">Free letters</h3>
     <div class="prose" lang="tr">
       <p><a href="#state">Motor sekmesindeki dört tablo</a> hangi harfin kullanıldığını anlatıyor. Bu tablo tersini: her dosyada tanımlayıcı olarak hiç geçmeyen harfler. Yedi düz dosyanın kaynağı ayrıştırılıp tek harfli bütün tanımlayıcılar toplandı; aşağıdakiler geriye
       kalanlar.</p>
@@ -14635,8 +15299,8 @@ f = K[2] + K[3] - 0</pre></div>
       kaybediyor.</p>
     </div>
 
-    <h3 lang="tr">Token karakterleri</h3>
-    <h3 lang="en">Token characters</h3>
+    <h3 id="pack-tokens" lang="tr">Token karakterleri</h3>
+    <h3 lang="en" data-id="pack-tokens">Token characters</h3>
     <div class="prose" lang="tr">
       <p>RegPack token'larını kaynakta <b>hiç geçmeyen</b> karakterlerden seçiyor. Kontrol
       karakterleri neredeyse bedava, çünkü regexp sınıfında tek bir
@@ -14679,8 +15343,8 @@ f = K[2] + K[3] - 0</pre></div>
 </tbody>
 </table></div>
 
-    <h3 lang="tr">Hangi ayarlarla paketleniyor</h3>
-    <h3 lang="en">Which settings do the packing</h3>
+    <h3 id="pack-settings" lang="tr">Hangi ayarlarla paketleniyor</h3>
+    <h3 lang="en" data-id="pack-settings">Which settings do the packing</h3>
     <div class="prose" lang="tr">
       <p>L3'ün iki paketiyle Lichess ve Chess.com eşdeğerlerinin sayısal paketleri RegPack 5.0.4 ile (bu ikisinde 5.0.1 birebir aynı dosyayı veriyor), öbür paketler 5.0.1 ile üretildi. Her pakette <code>reassignVars</code> <b>kapalı</b> — açık bırakılırsa
       adlandırma elden gider ve imza harfleri ilk kurban olur. <code>withMath</code> ile
@@ -14787,8 +15451,8 @@ f = K[2] + K[3] - 0</pre></div>
       both were taken.</p>
     </div>
 
-    <h3 lang="tr">Paketten sonra ne doğrulanıyor</h3>
-    <h3 lang="en">What gets checked after packing</h3>
+    <h3 id="pack-checks" lang="tr">Paketten sonra ne doğrulanıyor</h3>
+    <h3 lang="en" data-id="pack-checks">What gets checked after packing</h3>
     <div class="prose" lang="tr">
       <p>Paketleme kaynağı okunamaz hâle getirdiği için, çıktının doğru olduğuna gözle karar
       vermek mümkün değil. Her iki dosya için çalıştırılan sınamalar şunlar:</p>
@@ -14864,8 +15528,8 @@ f = K[2] + K[3] - 0</pre></div>
       a few bytes shorter.</p>
     </div>
 
-    <h3 lang="tr">Esnetmeler — eskimiş teknikler ve quirks modu</h3>
-    <h3 lang="en">The concessions — obsolete techniques and quirks mode</h3>
+    <h3 id="concessions" lang="tr">Esnetmeler — eskimiş teknikler ve quirks modu</h3>
+    <h3 lang="en" data-id="concessions">The concessions — obsolete techniques and quirks mode</h3>
     <div class="prose" lang="tr">
       <p>Motor tarafı yeni: BigInt literalleri, şablon literalleri, varsayılan parametreler.
       Eskiyen her şey <b>paketlenmiş tarafta</b> — ve orada da sebep tek kelimeyle bayt. HTML'in
@@ -14891,8 +15555,8 @@ f = K[2] + K[3] - 0</pre></div>
       the plain build dropped all of them.</p>
     </div>
 
-    <h3 lang="tr">Eskimiş olanlar</h3>
-    <h3 lang="en">The obsolete ones</h3>
+    <h3 id="obsolete" lang="tr">Eskimiş olanlar</h3>
+    <h3 lang="en" data-id="obsolete">The obsolete ones</h3>
 <div class="tw" lang="tr"><table>
 <thead><tr><th>Ne</th><th>Kaynakta</th><th>Durumu</th><th>Modern karşılığı</th><th class="num">Bedeli</th></tr></thead>
 <tbody>
@@ -14941,8 +15605,8 @@ f = K[2] + K[3] - 0</pre></div>
       başvurulan bir şey — yer açılır açılmaz düz sürüm altısını da bıraktı.</p>
     </div>
 
-    <h3 lang="tr"><code>document.write</code>, <code>with</code> ve <code>eval</code></h3>
-    <h3 lang="en"><code>document.write</code>, <code>with</code> and <code>eval</code></h3>
+    <h3 id="docwrite-with-eval" lang="tr"><code>document.write</code>, <code>with</code> ve <code>eval</code></h3>
+    <h3 lang="en" data-id="docwrite-with-eval"><code>document.write</code>, <code>with</code> and <code>eval</code></h3>
     <div class="prose" lang="tr">
       <p><code>document.write()</code> üçünün içinde en tartışmalısı. MDN doğrudan “kullanımdan kaldırılmış” diye işaretliyor ve spesifikasyonun kendisi de uyarı kutusu taşıyor: metot ayrıştırıcı
       çalışırken belgenin durumunu değiştirebiliyor, kaynağa karşılık gelmeyen bir DOM
@@ -14990,8 +15654,8 @@ f = K[2] + K[3] - 0</pre></div>
       inherits the same policy, so the page's own test answers for the iframe too.</p>
     </div>
 
-    <h3 lang="tr">Quirks modu</h3>
-    <h3 lang="en">Quirks mode</h3>
+    <h3 id="quirks" lang="tr">Quirks modu</h3>
+    <h3 lang="en" data-id="quirks">Quirks mode</h3>
     <div class="prose" lang="tr">
       <p><code class="vn">L1</code>–<code class="vn">L3</code> merdiveninde 23 HTML dosyası var ve iki gruba
       ayrılıyorlar. Üçü — <code>L1.html</code>, <code>L2.html</code> ve <code>L3.html</code> —
@@ -15153,8 +15817,8 @@ f = K[2] + K[3] - 0</pre></div>
       blocked under a content security policy that does not allow <code>unsafe-eval</code>.</p>
     </div>
 
-    <h3 lang="tr">Eskimiş sanılanlar</h3>
-    <h3 lang="en">Wrongly assumed obsolete</h3>
+    <h3 id="not-obsolete" lang="tr">Eskimiş sanılanlar</h3>
+    <h3 lang="en" data-id="not-obsolete">Wrongly assumed obsolete</h3>
     <div class="prose" lang="tr">
       <p>Denetimlerde sık sık işaretlenen ama aslında güncel olan kullanımlar da var; bunları listeye almamın sebebi, bir daha sorulmaması.</p>
     </div>
@@ -15245,8 +15909,8 @@ f = K[2] + K[3] - 0</pre></div>
       points that break silently when touched, or that are misread at first glance.</p>
     </div>
 
-    <h3 lang="tr">Motorun kırılgan yerleri</h3>
-    <h3 lang="en">The engine's fragile spots</h3>
+    <h3 id="fragile-spots" lang="tr">Motorun kırılgan yerleri</h3>
+    <h3 lang="en" data-id="fragile-spots">The engine's fragile spots</h3>
     <ul class="tight" lang="tr">
       <li><b><code>S</code>'deki <code>!b[i]</code> aynı kareyi kaldırmıyor.</b> Işın tarayıcı
       <code>S=Q=&gt;(i+=k)==f||!b[i]&amp;&amp;S()</code> biçiminde. Eskiden burada
@@ -15303,7 +15967,11 @@ f = K[2] + K[3] - 0</pre></div>
         bir test düzeneği yazmak;</li>
         <li>rok satırındaki ikinci <code>&amp;&amp;</code>'i kaldırmak — o kısa devre, şah şahtayken <code>V(t,i+k)</code>'nin, şahın geçeceği karede duran
         rakip kale ya da vezire kendi karesini sormasını engelliyor
-        (<a href="#speed">hız bölümünde</a> ölçülmüş hâli var).</li>
+        (<a href="#speed">hız bölümünde</a> ölçülmüş hâli var);</li>
+        <li><code>L</code>'yi sırası gelmeyen tarafın bir taşı için çağırmak — rok dalı sırayı genel
+        <code>t</code>'den okuyor; rakibin şahı için çağrılınca <code>V(t,i+k)</code>, geçiş karesinde duran o
+        şahın kendi kalesine ya da vezirine kendi karesini sorabiliyor ve aynı sonsuz özyineleme başlıyor.
+        Sürücüler <code>L</code>'yi yalnız sırası gelen tarafın taşları için çağırıyor.</li>
       </ul>
     </div>
     <ul class="tight" lang="tr">
@@ -15395,7 +16063,11 @@ f = K[2] + K[3] - 0</pre></div>
         harness that works with such positions;</li>
         <li>removing the second <code>&amp;&amp;</code> on the castling line — that short circuit keeps
         <code>V(t,i+k)</code> from asking an enemy rook or queen on the crossing square about its own
-        square while the king is in check (the measured case is in <a href="#speed">the speed section</a>).</li>
+        square while the king is in check (the measured case is in <a href="#speed">the speed section</a>);</li>
+        <li>calling <code>L</code> for a piece of the side not to move — the castling branch reads the side
+        from the global <code>t</code>; called for the opponent's king, <code>V(t,i+k)</code> can ask that
+        king's own rook or queen on the crossing square about its own square, and the same endless recursion
+        starts. The drivers only ever call <code>L</code> for the side to move.</li>
       </ul>
     </div>
     <ul class="tight" lang="en">
@@ -15434,8 +16106,8 @@ f = K[2] + K[3] - 0</pre></div>
       <code>.length</code> is correct but 4 characters expensive.</li>
     </ul>
 
-    <h3 lang="tr">İlk bakışta yanlış okunan yerler</h3>
-    <h3 lang="en">Places that are misread at first glance</h3>
+    <h3 id="misread-spots" lang="tr">İlk bakışta yanlış okunan yerler</h3>
+    <h3 lang="en" data-id="misread-spots">Places that are misread at first glance</h3>
     <ul class="tight" lang="tr">
       <li><b>Argümansız <code>D()</code> teklif bitlerine dokunmaz.</b> Fonksiyon
       <code>D=g=&gt;(o^=2-g,…)</code> ile başlıyor; <code>g</code> verilmezse
@@ -15579,8 +16251,8 @@ f = K[2] + K[3] - 0</pre></div>
       exactly this, and <code class="vn">numerical</code> is the build that uses it as it stands.</p>
     </div>
 
-    <h3 lang="tr">Durum değişkenleri sürüme göre değişir</h3>
-    <h3 lang="en">State variables vary by build</h3>
+    <h3 id="state-vars" lang="tr">Durum değişkenleri sürüme göre değişir</h3>
+    <h3 lang="en" data-id="state-vars">State variables vary by build</h3>
     <div class="prose" lang="tr">
       <p><a href="#state">Durum tablosu</a> motorun genel hâlini anlatıyor. Dört değişken
       bunun dışına çıkıyor ve bir sürücüden ötekine kod taşırken ilk kırılan yer burası.
@@ -15646,8 +16318,8 @@ f = K[2] + K[3] - 0</pre></div>
       bayrak sessizce erken düşmeye başlar.</p>
     </div>
 
-    <h3 lang="tr">Terfi paneli üçüncü bir giriş yolu</h3>
-    <h3 lang="en">The promotion panel is a third way in</h3>
+    <h3 id="promo-panel" lang="tr">Terfi paneli üçüncü bir giriş yolu</h3>
+    <h3 lang="en" data-id="promo-panel">The promotion panel is a third way in</h3>
     <div class="prose" lang="tr">
       <p><code class="vn">main</code>'de tahtaya iki yoldan girildiği sanılır: kareye tıklamak ve
       düğmeye basmak. Üçüncü bir yol daha var ve gözden kaçması kolay. Terfi panelinin
@@ -15712,8 +16384,8 @@ f = K[2] + K[3] - 0</pre></div>
       <code>z</code>, the <code>-1</code> would collide with their results.</p>
     </div>
 
-    <h3 lang="tr"><code>L3_packed.html</code>: BOM ve kırılmaz boşluk</h3>
-    <h3 lang="en"><code>L3_packed.html</code>: the BOM and the non-breaking space</h3>
+    <h3 id="packed-bom" lang="tr"><code>L3_packed.html</code>: BOM ve kırılmaz boşluk</h3>
+    <h3 lang="en" data-id="packed-bom"><code>L3_packed.html</code>: the BOM and the non-breaking space</h3>
     <div class="prose" lang="tr">
       <p>ASCII dışı glif taşıyan dosyalar kodlamayı aynı yoldan bildirmiyor. Tahta çizen düz
       sürümler — <code>L1.html</code>, <code>L2.html</code>, <code>L3.html</code> ve botlu ikisi —
@@ -15755,8 +16427,8 @@ f = K[2] + K[3] - 0</pre></div>
       itself — but only in the packed file; the escape protects the plain builds.</p>
     </div>
 
-    <h3 lang="tr"><code>Y</code> ve imza</h3>
-    <h3 lang="en"><code>Y</code> and the signature</h3>
+    <h3 id="y-signature" lang="tr"><code>Y</code> ve imza</h3>
+    <h3 lang="en" data-id="y-signature"><code>Y</code> and the signature</h3>
     <div class="prose" lang="tr">
       <p>İmzanın kendisi — <code>b</code>'den önceki altı adın baş harfleri — Motor sekmesinde,
       <a href="#names">Adlar</a>'da anlatılıyor. Burada bakım tarafı: sıranın hangi sürümlerde
@@ -15834,8 +16506,8 @@ f = K[2] + K[3] - 0</pre></div>
       Sessiz ve kozmetik bir hata; testten geçer, ekranda durur.</p>
     </div>
 
-    <h3 lang="tr">Gölgelemeler</h3>
-    <h3 lang="en">Shadowed letters</h3>
+    <h3 id="shadowing" lang="tr">Gölgelemeler</h3>
+    <h3 lang="en" data-id="shadowing">Shadowed letters</h3>
     <div class="prose" lang="tr">
       <p>Aynı harfin iki ayrı şey olduğu on yedi yer var ve hiçbiri hata değil. Sebebi
       basit: motor DOM'a hiç dokunmuyor, gölgeleyen taraf da gölgelediğini hiç okumuyor.
@@ -15934,8 +16606,8 @@ f = K[2] + K[3] - 0</pre></div>
       globali eklerken önce bu tabloya bakılmalı.</p>
     </div>
 
-    <h3 lang="tr">Yeniden adlandırma</h3>
-    <h3 lang="en">Renaming</h3>
+    <h3 id="renaming" lang="tr">Yeniden adlandırma</h3>
+    <h3 lang="en" data-id="renaming">Renaming</h3>
     <div class="prose" lang="tr">
       <p>Bir harfi değiştirmek göründüğü kadar mekanik değil; kör bir arama-değiştirme üç
       yerde birden bozar.</p>
@@ -15980,8 +16652,8 @@ f = K[2] + K[3] - 0</pre></div>
       düğümlerini değiştirmek; <code>id=</code> taşımasını ayrıca elle yapmak. Literal ve şablon parçaları böylece hiç görülmemiş olur.</p>
     </div>
 
-    <h3 lang="tr">Değişiklikten sonra</h3>
-    <h3 lang="en">After a change</h3>
+    <h3 id="after-change" lang="tr">Değişiklikten sonra</h3>
+    <h3 lang="en" data-id="after-change">After a change</h3>
     <div class="prose" lang="tr">
       <p><a href="#tests">Perft koşularının</a> tamamı dış ölçüye bakar: ölçü FIDE'nin
       kendisi, motorun geçmişi ilgisiz. Kaynağa dokunulduğunda ise soru değişir — kural doğru
@@ -16021,10 +16693,25 @@ f = K[2] + K[3] - 0</pre></div>
     <div class="prose" lang="en">
       <p>Perft is not on this list: if move generation was not touched it is not needed, and if it
       was, all the runs above rerun from the start anyway.</p>
+      <p><a href="#alphabet">The piece-alphabet search</a> showed why that matters: a one-byte shortening
+      that removed the castling short circuit slipped past both the internal differential and the CPW
+      positions, and the tricky suite's "Castling Prevented" caught it at depth 2. Random games do not
+      produce rare positions. The harness's loader taught a lesson too. It ran the engine statement by
+      statement and took any statement that failed for an interface line, so an engine with a syntax error
+      in <code>H</code> passed sanity 3/3. Interface lines only fail when they run; a statement that does
+      not parse is never an interface line. The loader now stops at such a statement and says which
+      definition is broken.</p>
     </div>
     <div class="prose" lang="tr">
       <p>Perft bu listede yok: hamle üretimine dokunulmadıysa gerekmiyor, dokunulduysa zaten
       yukarıdaki koşuların tamamı baştan çalışır.</p>
+      <p>Bunun neden şart olduğunu <a href="#alphabet">taş alfabesi araştırması</a> gösterdi: rokun kısa
+      devresini kaldıran bir baytlık kısaltmayı iç diferansiyel de CPW pozisyonları da kaçırdı, tricky
+      süitindeki "Castling Prevented" 2. derinlikte yakaladı. Rastgele oyunlar nadir pozisyonları üretmiyor.
+      Düzeneğin yükleyicisi de bir ders verdi. Motoru ifade ifade çalıştırıp hata vereni arayüz satırı
+      sayıyordu; bu yüzden <code>H</code>'sinde sözdizimi hatası olan bir motor sanity'yi 3/3 geçiyordu.
+      Arayüz satırları ancak çalışırken hata verir; ayrıştırılamayan bir ifade hiçbir zaman arayüz satırı
+      değildir. Yükleyici artık böyle bir ifadede duruyor ve hangi tanımın bozuk olduğunu söylüyor.</p>
     </div>
   </div>
 </section>
@@ -16243,56 +16930,27 @@ f = K[2] + K[3] - 0</pre></div>
     <h3 id="unchecked" lang="tr">Unchecked — şahı ilk yiyen kazanır</h3>
     <h3 lang="en" data-id="unchecked">Unchecked — first to take a king wins</h3>
     <div class="prose" lang="tr">
-      <p>Bu sitenin motoru bir hakem: tek işi kuralsız hamleyi durdurmak. Unchecked o işi bilerek
-      kaldıran bir varyant. Taşlar bildiğin gibi hareket ediyor, ama hamlenin yalnızca hareket
-      kurallarına uyması yetiyor: kendi şahını tehdit altında bırakmak, açmazdaki taşı oynatmak,
-      şahı saldırı altındaki bir kareye yürütmek serbest. Oyun mat ile değil, şahın yenmesiyle
-      bitiyor. Şah çekildiğini kimse söylemiyor: tehdit altındaki şah işaretlenmiyor, notasyonda
-      <code>+</code> yok, rakip şahın karesine alış işareti konmuyor. Görmek oyunculara kalıyor; kimsenin
-      görmediği bir hata oyunu bitirmiyor.</p>
-      <p>Pat, yetersiz materyal ve ölü pozisyon da yok; oyun yalnızca 50 hamle ya da üçlü tekrarla,
-      ikisi de talep beklemeden, berabere bitiyor. Amaç üç: geride olanı kurtaran beraberlikleri
-      kaldırıp üstünlüğü kazanca çevirmeyi kolaylaştırmak, kuralsız hamleyi engellemek yerine
-      cezalandırmak, ve strateji ile hesabın yanında dikkati de ölçmek. Bir platforma eklenirse süre
-      bitimi her zaman kaybettirmeli. Mat gerekmediği ve rakip şahın yanına yürüyen şah yenebildiği
-      için, tahtada yalnız iki şah kalsa bile şahı alan bir hamle dizisi hemen her zaman var;
-      <a href="#flag">6. bölümde</a> uzun uzun tartışılan 6.9 istisnası burada neredeyse hiç
-      işlemez.</p>
-      <p>Rakip bir baykuş: standart satranç oynuyor ve bu varyanttan haberi yok. Isınmada seviyesi
-      seçilebiliyor, istenirse iki kişi aynı cihazda oynuyor; baykuşa karşı ilk oyun bitince yedi
-      görev açılıyor. Sunum, varyantın sınır durumlarını adım adım gösteriyor: mattan sonra bir
-      hamle daha, pat olmadığı için kaybedilen bir oyun, kimsenin fark etmediği bir mat. Yapısı
-      ParrotPuzzle'ı izliyor: ısınma, sırayla açılan görevler, her başarısız denemede bir ipucu
-      daha, çözülünce açıklama ve çözümün tahtada oynatılması. Arayüz Türkçe ve İngilizce.</p>
-      <p><a href="/extra/Unchecked.html" target="_blank" rel="noopener">fidelite.art/extra/Unchecked.html</a>
-      · <a href="https://github.com/cuneytinann/Unchecked" target="_blank" rel="noopener">github.com/cuneytinann/Unchecked</a></p>
+      <p>Bir satranç varyantı. Taşlar bildiğin gibi oynuyor, tek fark: kendi şahını tehdit altında
+      bırakmak serbest ve oyun mat ile değil, şahın yenmesiyle bitiyor. Şah çekildiğini kimse
+      söylemiyor, tahta da göstermiyor; görmek sana kalıyor. Pat, yetersiz materyal ve ölü pozisyon
+      yok, beraberlik yalnızca 50 hamle ve üçlü tekrarla geliyor.</p>
+      <p>Rakibin bir baykuş: standart satranç oynuyor ve bu varyanttan haberi yok. İlk oyun bitince
+      yedi görev açılıyor, ParrotPuzzle'daki gibi her başarısız denemede bir ipucu daha. İki kişilik
+      oyun da var; sunum ise varyantın sınır durumlarını adım adım gösteriyor. Arayüz Türkçe ve
+      İngilizce.</p>
+      <p><a href="/extra/Unchecked.html" target="_blank" rel="noopener">fidelite.art/extra/Unchecked.html</a></p>
     </div>
     <div class="prose" lang="en">
-      <p>This site's engine is an arbiter: its one job is to stop illegal moves. Unchecked is a
-      variant that takes that job away on purpose. The pieces move as you know them, but a move
-      only has to follow the movement rules: leaving your own king in check, moving a pinned
-      piece, walking your king onto an attacked square are all allowed. The game ends not on mate
-      but when a king is taken. Nobody tells you that you are in check: a king under attack is not
-      highlighted, the notation has no <code>+</code>, and no capture marker is drawn on the enemy king's
-      square. Seeing it is up to the players; a mistake nobody sees does not end the game.</p>
-      <p>There is no stalemate, no insufficient material and no dead position either; a game is
-      drawn only by the 50-move rule or threefold repetition, both applied without a claim. It has
-      three aims: to remove the draws that rescue the side that is behind, so an advantage is easier
-      to convert; to punish illegal moves instead of preventing them; and to measure attention
-      alongside strategy and calculation. If a platform added it, running out of time should always
-      lose. Mate is not needed and a king that walks next to the enemy king can be taken, so even
-      with two bare kings there is almost always a series of moves that takes a king; the 6.9
-      exception argued at length in <a href="#flag">section 6</a> would almost never apply
-      here.</p>
-      <p>The opponent is an owl: it plays standard chess and has never heard of this variant. In the
-      warm-up its level can be chosen, or two people can play on one device; once the first game
-      against the owl is over, seven missions open. The presentation walks through the variant's
-      edge cases step by step: one more move after mate, a game lost because stalemate does not
-      exist, a mate nobody noticed. The structure follows ParrotPuzzle: a warm-up, missions that
-      unlock in turn, one more hint after every failed attempt, and once a mission is solved, an
-      explanation and a replay of the solution. The interface is in English and Turkish.</p>
-      <p><a href="/extra/Unchecked.html" target="_blank" rel="noopener">fidelite.art/extra/Unchecked.html</a>
-      · <a href="https://github.com/cuneytinann/Unchecked" target="_blank" rel="noopener">github.com/cuneytinann/Unchecked</a></p>
+      <p>A chess variant. The pieces move as you know them, with one difference: you may leave your
+      own king in check, and the game ends not on mate but when a king is taken. Nobody tells you
+      that you are in check, and the board does not show it; spotting it is up to you. There is no
+      stalemate, no insufficient material and no dead position; a game is drawn only by the 50-move
+      rule or threefold repetition.</p>
+      <p>Your opponent is an owl: it plays standard chess and has never heard of this variant. Once
+      the first game is over, seven missions open, and as in ParrotPuzzle every failed attempt
+      unlocks one more hint. There is a two-player mode too, and a presentation walks through the
+      variant's edge cases step by step. The interface is in English and Turkish.</p>
+      <p><a href="/extra/Unchecked.html" target="_blank" rel="noopener">fidelite.art/extra/Unchecked.html</a></p>
     </div>
     <figure class="shot" lang="tr"><img src="images/unchecked-tr.webp" width="591" height="645" loading="lazy" alt="Unchecked, iki oyunculu mod: siyah, çoban matına rağmen oynamaya devam etti; beyaz vezir f7'den e8'e geçip şahı aldı, altta Beyaz şahı aldı yazıyor"></figure>
     <figure class="shot" lang="en"><img src="images/unchecked-en.webp" width="571" height="640" loading="lazy" alt="Unchecked in two-player mode: Black played on after the scholar's mate, and the white queen went from f7 to e8 and took the king; below it reads White took the king"></figure>
