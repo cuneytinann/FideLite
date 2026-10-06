@@ -2,8 +2,8 @@
 
 *[Türkçe ↓](#türkçe)*
 
-A full-FIDE chess arbiter in **1,837 bytes** of plain JavaScript — no dependencies, no install,
-no server. Packed into a playable game it comes to **1,756 bytes**; with a clickable board, a
+A full-FIDE chess arbiter in **1,807 bytes** of plain JavaScript — no dependencies, no install,
+no server. Packed into a playable game it comes to **1,737 bytes**; with a clickable board, a
 clock and indicators, **2.6 KB**.
 
 The exhibit build, for playing or sharing:
@@ -51,9 +51,9 @@ the book asks what that board is forced to become.**
 
 | File | Bytes | What it is |
 | --- | --- | --- |
-| `builds/engine.js` | 1,837 | The rule engine. One line, no front end. |
-| `builds/engine_4x.js` | 1,928 | The same rules, +91 bytes, 1.4 to 75 times the speed. |
-| `builds/engine_string.js` | 1,933 | The same rules on a board of FEN letters instead of numbers. |
+| `builds/engine.js` | 1,807 | The rule engine. One line, no front end. |
+| `builds/engine_4x.js` | 1,899 | The same rules, +92 bytes, 1.4 to 75 times the speed. |
+| `builds/engine_string.js` | 1,930 | The same rules on a board of FEN letters instead of numbers. |
 
 Every file under `builds/` runs on its own — download an HTML file and double-click
 it. The `.cjs` builds run in a terminal with `node`.
@@ -65,9 +65,9 @@ eleven. The two packed forms, [`L3_packed`](builds/L3_packed.html) and
 [`L3_numerical_packed`](builds/L3_numerical_packed.html), are `L3` itself; their unpacker relies on
 `with` and `eval`. `L1` and `L2` vary the *rules* instead of the interface; each has its own set of
 front ends, and both sit outside the claim. `builds/special/` holds what sits off the ladder: the
-builds of five sibling projects, each with a repository of its own ([lichess-equivalent](https://github.com/cuneytinann/lichess-equivalent), [chesscom-equivalent](https://github.com/cuneytinann/chesscom-equivalent),
-[ChessMiniature](https://github.com/cuneytinann/ChessMiniature), [chessinbytes](https://github.com/cuneytinann/chessinbytes) and [Chess-LUX](https://github.com/cuneytinann/Chess-LUX)); the bot builds of `L1` and `L2`,
-`L1_1250elo` and `L2_aybars_2500`; and Toledo's program with the bot written against it.
+builds of six sibling projects, each with a repository of its own ([lichess-equivalent](https://github.com/cuneytinann/lichess-equivalent), [chesscom-equivalent](https://github.com/cuneytinann/chesscom-equivalent),
+[ChessMiniature](https://github.com/cuneytinann/ChessMiniature), [chessinbytes](https://github.com/cuneytinann/chessinbytes), [Chess-LUX](https://github.com/cuneytinann/Chess-LUX) and [Aybars_ChessAI](https://github.com/cuneytinann/Aybars_ChessAI) — the last is
+`L2_aybars_2500`, the bot build of `L2`); the bot build of `L1`, `L1_1250elo`; and Toledo's program with the bot written against it.
 [Details.](https://www.fidelite.art/#builds)
 
 ## Detailed documentation
@@ -118,8 +118,8 @@ ships something smaller. Until then it stands.
 
 # Türkçe
 
-Tam FIDE kurallı satranç hakem motoru, **1.837 bayt** saf JavaScript — bağımlılık yok, kurulum
-yok, sunucu yok. Paketlenip oynanabilir bir oyuna dönüştüğünde **1.756 bayt**; tıklanabilir
+Tam FIDE kurallı satranç hakem motoru, **1.807 bayt** saf JavaScript — bağımlılık yok, kurulum
+yok, sunucu yok. Paketlenip oynanabilir bir oyuna dönüştüğünde **1.737 bayt**; tıklanabilir
 tahtası, saati ve göstergeleriyle birlikte **2,6 KB**.
 
 Oynamak ya da paylaşmak için sergi sürümü:
@@ -165,9 +165,9 @@ zorunlu olarak neye dönüşeceğini soruyor.**
 
 | Dosya | Bayt | Ne |
 | --- | --- | --- |
-| `builds/engine.js` | 1.837 | Kural motoru. Tek satır, önyüz yok. |
-| `builds/engine_4x.js` | 1.928 | Aynı kurallar, +91 bayt, 1,4 ilâ 75 kat hız. |
-| `builds/engine_string.js` | 1.933 | Aynı kurallar, tahta sayı yerine FEN harfleriyle. |
+| `builds/engine.js` | 1.807 | Kural motoru. Tek satır, önyüz yok. |
+| `builds/engine_4x.js` | 1.899 | Aynı kurallar, +92 bayt, 1,4 ilâ 75 kat hız. |
+| `builds/engine_string.js` | 1.930 | Aynı kurallar, tahta sayı yerine FEN harfleriyle. |
 
 `builds/` altındaki her dosya tek başına çalışır — HTML dosyasını indirip çift
 tıklamak yeterli. `.cjs` sürümleri terminalde `node` ile koşar.
@@ -178,10 +178,10 @@ iki terminal sürümü hamleyi metin olarak alır. Kurallar on birinde de aynıd
 [`L3_packed`](builds/L3_packed.html) ve [`L3_numerical_packed`](builds/L3_numerical_packed.html),
 `L3`'ün kendisi; açıcıları `with` ve `eval`'e dayanıyor. `L1` ve `L2` arayüzü değil *kuralları*
 değiştirir; her birinin kendi önyüzleri var, ikisi de iddianın dışındadır. `builds/special/`
-merdivenin dışında kalanları tutar: her birinin kendi deposu olan beş kardeş projenin sürümleri
+merdivenin dışında kalanları tutar: her birinin kendi deposu olan altı kardeş projenin sürümleri
 ([lichess-equivalent](https://github.com/cuneytinann/lichess-equivalent), [chesscom-equivalent](https://github.com/cuneytinann/chesscom-equivalent), [ChessMiniature](https://github.com/cuneytinann/ChessMiniature),
-[chessinbytes](https://github.com/cuneytinann/chessinbytes) ve [Chess-LUX](https://github.com/cuneytinann/Chess-LUX)); `L1` ve `L2`'nin botlu sürümleri,
-`L1_1250elo` ile `L2_aybars_2500`; ve Toledo'nun programıyla ona karşı yazılan bot.
+[chessinbytes](https://github.com/cuneytinann/chessinbytes), [Chess-LUX](https://github.com/cuneytinann/Chess-LUX) ve [Aybars_ChessAI](https://github.com/cuneytinann/Aybars_ChessAI) — sonuncusu
+`L2`'nin botlu sürümü `L2_aybars_2500`); `L1`'in botlu sürümü `L1_1250elo`; ve Toledo'nun programıyla ona karşı yazılan bot.
 [Ayrıntı.](https://www.fidelite.art/tr#builds)
 
 ## Ayrıntılı belge

@@ -1,0 +1,2 @@
+Yüklenecek: bu klasörün tamamı (değişen 51 dosya + yeni DOM_996.html).
+Silinecek: builds/special/DOM_998.html
