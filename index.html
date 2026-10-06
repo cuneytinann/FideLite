@@ -1457,7 +1457,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       içinde, bayrak düştüğü anda. Hız bu yüzden süs değil. Hızın önem taşıdığı ikinci yer testler: perft
       <span class="gloss">(bir pozisyondan çıkan bütün hamle dizilerini sayan standart doğruluk
       sınaması)</span> milyonlarca düğüm sayıyor. <a href="#speed"><code>engine_4x</code></a> ikisine
-      de hizmet ediyor: aynı kuralları uygulayan, 91 bayt daha uzun, mantıksal olarak birebir aynı
+      de hizmet ediyor: aynı kuralları uygulayan, 92 bayt daha uzun, mantıksal olarak birebir aynı
       ve belirgin biçimde daha hızlı bir varyant. Ölçümler
       <a href="#speed">ayrı bir başlıkta</a>.</li>
       <li><b>Bot ayrı bir katman.</b> İddia bayt başına kural yoğunluğu üzerine kurulu; bot şart değil ve üstüne eklenmesi kural eşdeğerliğini bozmuyor. Botlu sürümler iddianın dışında; gerekçesi aşağıda, ölçümleri <a href="#bots">Varyantlar</a> sekmesinde.</li>
@@ -1505,7 +1505,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       it counts is testing, where perft <span class="gloss">(the standard correctness test that
       counts every move sequence from a position)</span> counts millions of nodes.
       <a href="#speed"><code>engine_4x</code></a> serves both: a variant that enforces the same
-      rules, 91 bytes longer, logically identical and markedly faster. The measurements are
+      rules, 92 bytes longer, logically identical and markedly faster. The measurements are
       <a href="#speed">under a separate heading</a>.</li>
       <li><b>The bot is a separate layer.</b> The claim is about rule density per byte; no bot is required, and adding one does not break rule equivalence. The builds with a bot sit outside the claim; the reasons are below, the measurements on the <a href="#bots">Builds</a> tab.</li>
       
@@ -8972,7 +8972,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <tr><td><code>c</code></td><td>Rok hakları</td><td>Dört bitlik maske: <code>1</code> beyaz kısa, <code>2</code> beyaz uzun, <code>4</code> siyah kısa, <code>8</code> siyah uzun. Tutulan şey <a href="#counters">hak</a>; rokun o an yapılabilir olup olmadığı değil.</td></tr>
 <tr><td><code>e</code></td><td>Geçerken alma karesi</td><td>Yoksa <code>-1</code>. Yalnızca komşu piyon gerçekten alabiliyorsa yazılır — tekrar sayımının doğruluğu buna bağlı.</td></tr>
 <tr><td><code>R</code></td><td>Tekrar tablosu</td><td>Pozisyon → kaç kez görüldüğü. Pozisyonu tanımlayan dört şey: tahta, sıra, geçerken alma karesi, rok maskesi.</td></tr>
-<tr><td><code>Hn</code></td><td>Arama bütçesi</td><td>6.9 aramasının deneyebileceği hamle sayısı. <code>F</code> her çağrıda <code>2e4</code>'e kuruyor. Sıfıra inince arama kesiliyor ve <b>mat mümkün</b> diyor — kanıtlanamayan imkânsızlık beraberlik sayılmıyor.</td></tr>
+<tr><td><code>Hn</code></td><td>Arama bütçesi</td><td>6.9 aramasının deneyebileceği hamle sayısı; terfide her taş ayrı bir hamle. <code>F</code> her çağrıda <code>2e4</code>'e kuruyor. Sıfıra inince arama kesiliyor ve <b>mat mümkün</b> diyor — kanıtlanamayan imkânsızlık beraberlik sayılmıyor.</td></tr>
 <tr><td><code>Ht</code></td><td>Arama tablosu</td><td>Aranmış pozisyon → hangi derinliğe kadar arandığı. Doğru/yanlış değil, <b>derinlik</b> tutuyor; böylece sığ bir sonuç derin bir sorguyu yanlışlıkla karşılamıyor.</td></tr>
 </tbody>
 </table></div>
@@ -8989,7 +8989,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <tr><td><code>c</code></td><td><b>C</b>astling rights</td><td>A four-bit mask: <code>1</code> white kingside, <code>2</code> white queenside, <code>4</code> black kingside, <code>8</code> black queenside. The <a href="#counters">right</a>, not the current availability.</td></tr>
 <tr><td><code>e</code></td><td><b>E</b>n passant square</td><td><code>-1</code> when there is none. Written only if an adjacent pawn can genuinely capture — the correctness of the repetition count depends on this.</td></tr>
 <tr><td><code>R</code></td><td><b>R</b>epetition table</td><td>Position → number of times seen. Four things define the position: the board, the side to move, the en passant square and the castling mask.</td></tr>
-<tr><td><code>Hn</code></td><td>Search budget</td><td>How many moves the 6.9 search may try. <code>F</code> sets it to <code>2e4</code> on every call. When it reaches zero the search stops and answers that <b>mate is possible</b> — an impossibility that cannot be proved does not count as a draw.</td></tr>
+<tr><td><code>Hn</code></td><td>Search budget</td><td>How many moves the 6.9 search may try; in a promotion every piece counts as a move of its own. <code>F</code> sets it to <code>2e4</code> on every call. When it reaches zero the search stops and answers that <b>mate is possible</b> — an impossibility that cannot be proved does not count as a draw.</td></tr>
 <tr><td><code>Ht</code></td><td>Search table</td><td>Searched position → the depth it was searched to. It stores a <b>depth</b>, not a boolean, so a shallow result can never satisfy a deeper query by accident.</td></tr>
 </tbody>
 </table></div>
@@ -10626,10 +10626,11 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
   Im(g) || Ht[s=b+t+e+c]&gt;=d || l()            <i>üç kapı</i>
   || (Ht[s]=d, b.every((p,i)=&gt;p&amp;1^t
      || L(i).every(f=&gt; v = n&gt;149            <i>75 hamle dolduysa zaten berabere</i>
-        || d &amp;&amp; Hn--&gt;0                      <i>derinlik ve bütçe</i>
+        || d                                <i>derinlik</i>
         &amp;&amp; [3,2,1,6].every((u,x,w)=&gt;
            x &amp;&amp; p&amp;6|f%56&gt;7                  <i>terfi değilse tek tur</i>
-           || (w=[b,e,n,t,c],
+           || Hn--&gt;0                        <i>bütçe: denenen her taş bir birim</i>
+           &amp;&amp; (w=[b,e,n,t,c],
                M(i,f,u), t^=1,
                H(g,d-1)|([b,e,n,t,c]=w)))))    <i>özyinele, sonra geri al</i>
   &amp; v)                                      <i>yaprak: g mat edilmiş mi</i></pre>
@@ -10637,10 +10638,11 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
   Im(g) || Ht[s=b+t+e+c]&gt;=d || l()            <i>three gates</i>
   || (Ht[s]=d, b.every((p,i)=&gt;p&amp;1^t
      || L(i).every(f=&gt; v = n&gt;149            <i>75-move counter full → drawn anyway</i>
-        || d &amp;&amp; Hn--&gt;0                      <i>depth and budget</i>
+        || d                                <i>depth</i>
         &amp;&amp; [3,2,1,6].every((u,x,w)=&gt;
            x &amp;&amp; p&amp;6|f%56&gt;7                  <i>one pass unless promoting</i>
-           || (w=[b,e,n,t,c],
+           || Hn--&gt;0                        <i>budget: one unit per piece tried</i>
+           &amp;&amp; (w=[b,e,n,t,c],
                M(i,f,u), t^=1,
                H(g,d-1)|([b,e,n,t,c]=w)))))    <i>recurse, then undo</i>
   &amp; v)                                      <i>leaf: has g been mated</i></pre>
@@ -10813,7 +10815,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
     <div class="prose" lang="tr">
       <p><code>F</code>, <code>H</code>'yi her çağırışında iki sınır çiziyor: <code>Hn=2e4</code> ve
       <code>H(g,15)</code>. İlki bütün ağacın ortak bütçesi: denenen her hamle <code>Hn--</code> ile
-      ondan bir düşüyor, yani 20.000 dal başına değil aramanın tamamı için. İkincisi tek bir hattın
+      ondan bir düşüyor — terfide her taş ayrı bir hamle, yani dört terfi dört birim —, ve
+      20.000 dal başına değil aramanın tamamı için. İkincisi tek bir hattın
       derinliği: on beş yarım hamle. Hangisi önce biterse o hat kapanmadan kalıyor, yaprakta
       <code>v</code> sıfırlanıyor ve cevap <b>mat mümkün</b> oluyor. Sınır hiçbir zaman beraberlik
       uydurmuyor; yalnızca beraberliği ispatlama fırsatını kısıyor.</p>
@@ -10844,7 +10847,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
     <div class="prose" lang="en">
       <p>Every time <code>F</code> calls <code>H</code> it sets two limits: <code>Hn=2e4</code> and
       <code>H(g,15)</code>. The first is a budget shared by the whole tree: each move tried takes
-      one off it through <code>Hn--</code>, so the 20,000 covers the entire search, not each branch.
+      one off it through <code>Hn--</code> — in a promotion every piece counts as a move of its own,
+      so the four promotions cost four —, and the 20,000 covers the entire search, not each branch.
       The second is the depth of any single line: fifteen plies. Whichever runs out first leaves
       that line unclosed, <code>v</code> drops to zero at the leaf and the answer is that <b>mate is
       possible</b>. A limit never invents a draw; it only narrows the chance to prove one.</p>
@@ -15318,7 +15322,7 @@ f = K[2] + K[3] - 0</pre></div>
 <thead><tr><th>Dosya</th><th class="num">gain</th><th class="num">length</th><th class="num">copies</th><th class="num">tiebreaker</th></tr></thead>
 <tbody>
 <tr><td><code>L3_packed.html</code></td><td class="num">2,5</td><td class="num">0,5</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td><code>L3_numerical_packed.html</code></td><td class="num">2,5</td><td class="num">0,5</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td><code>L3_numerical_packed.html</code></td><td class="num">1,5</td><td class="num">0,5</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td><code>DOM_996.html</code></td><td class="num">1</td><td class="num">0,5</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td><code>DOM_minimum.html</code></td><td class="num">1</td><td class="num">−0,5</td><td class="num">0,75</td><td class="num">−1</td></tr>
 <tr><td><code>Lowest.html</code></td><td class="num">0</td><td class="num">0,5</td><td class="num">0,5</td><td class="num">0</td></tr>
@@ -15330,7 +15334,7 @@ f = K[2] + K[3] - 0</pre></div>
 <thead><tr><th>File</th><th class="num">gain</th><th class="num">length</th><th class="num">copies</th><th class="num">tiebreaker</th></tr></thead>
 <tbody>
 <tr><td><code>L3_packed.html</code></td><td class="num">2.5</td><td class="num">0.5</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td><code>L3_numerical_packed.html</code></td><td class="num">2.5</td><td class="num">0.5</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td><code>L3_numerical_packed.html</code></td><td class="num">1.5</td><td class="num">0.5</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td><code>DOM_996.html</code></td><td class="num">1</td><td class="num">0.5</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td><code>DOM_minimum.html</code></td><td class="num">1</td><td class="num">−0.5</td><td class="num">0.75</td><td class="num">−1</td></tr>
 <tr><td><code>Lowest.html</code></td><td class="num">0</td><td class="num">0.5</td><td class="num">0.5</td><td class="num">0</td></tr>
@@ -15340,13 +15344,14 @@ f = K[2] + K[3] - 0</pre></div>
 </table></div>
         <div class="prose" lang="tr">
       <p>L3'ün iki paketi için dörtlü tarandı: gain 0–3, length 0–2, copies 0–2 (yarımlık
-      adımlarla), tiebreaker 0 ya da 1 — dosya başına <b>350 kombinasyon</b>. En iyisi iki dosyada
-      da 2,5 / 0,5 / 0 / 0 çıktı. Aynı kaynaklar 5.0.1 ile de tarandı:</p>
+      adımlarla), tiebreaker 0 ya da 1 — dosya başına <b>350 kombinasyon</b>. En iyisi
+      <code>L3_packed</code>'de 2,5 / 0,5 / 0 / 0, <code>L3_numerical_packed</code>'de 1,5 / 0,5 / 1 / 0 çıktı. Aynı kaynaklar 5.0.1 ile de tarandı:</p>
     </div>
     <div class="prose" lang="en">
       <p>For the two L3 packs the tuple was swept: gain 0–3, length 0–2, copies 0–2 (in steps of a
       half), tiebreaker 0 or 1 — <b>350 combinations</b> per file. The best came out at
-      2.5 / 0.5 / 0 / 0 in both. The same sources were swept with 5.0.1 too:</p>
+      2.5 / 0.5 / 0 / 0 for <code>L3_packed</code> and 1.5 / 0.5 / 1 / 0 for
+      <code>L3_numerical_packed</code>. The same sources were swept with 5.0.1 too:</p>
     </div>
 <div class="tw" lang="tr"><table>
 <thead><tr><th>Dosya</th><th class="num">5.0.4 en iyi</th><th class="num">5.0.4 en kötü</th><th class="num">5.0.1 en iyi</th></tr></thead>
@@ -17389,7 +17394,7 @@ var DIR = 'builds/';
    icin de gerekli: koku DIR'den turetiyoruz, boylece build.mjs'te ikinci bir
    kural tutmaya gerek kalmiyor. */
 var ROOT = DIR.slice(0, -'builds/'.length);
-var ART = {"L3": {"p": "L3.html", "ps": 3131}, "L3_light": {"p": "L3_light.html", "ps": 2651}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2051}, "L3_input": {"p": "L3_input.html", "ps": 2520}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2372}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2636}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2438}, "L1": {"p": "builds/L1/L1.html", "ps": 1531}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1111}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 824}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1128}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 1036}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1086}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1277}, "L2": {"p": "builds/L2/L2.html", "ps": 2212}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1740}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1480}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1812}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1701}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1810}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 1961}, "L2_aybars_2500": {"p": "builds/special/L2_aybars_2500.html", "ps": 7935}, "L1_1250elo": {"p": "builds/special/L1_1250elo.html", "ps": 2280}, "L3_packed": {"p": "builds/L3_packed.html", "ps": 2635}, "L3_numerical_packed": {"p": "builds/L3_numerical_packed.html", "ps": 1737}, "Chesscom-equivalent": {"p": "builds/special/Chesscom-equivalent.html", "ps": 2833}, "Chesscom-equivalent_numerical": {"p": "builds/special/Chesscom-equivalent_numerical.html", "ps": 1158}, "Lichess-equivalent": {"p": "builds/special/Lichess-equivalent.html", "ps": 3018}, "Lichess-equivalent_numerical": {"p": "builds/special/Lichess-equivalent_numerical.html", "ps": 1201}, "L2_noBlockedDetector": {"p": "builds/special/L2_noBlockedDetector.html", "ps": 1888}, "L2_string_flip_noBlockedDetector": {"p": "builds/special/L2_string_flip_noBlockedDetector.html", "ps": 1975}, "DOM_996": {"p": "builds/special/DOM_996.html", "ps": 996}, "DOM_minimum": {"p": "builds/special/DOM_minimum.html", "ps": 791}, "Lowest": {"p": "builds/special/Lowest.html", "ps": 709}, "LUX": {"p": "builds/special/LUX.html", "ps": 9812}, "Toledos-ES6-optimized": {"p": "builds/special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "builds/special/ToledosOpponentbyMe.html", "ps": 2076}, "engine": {"p": "engine.js", "ps": 1807}, "engine_4x": {"p": "engine_4x.js", "ps": 1912}, "engine_string": {"p": "engine_string.js", "ps": 1930}};
+var ART = {"L3": {"p": "L3.html", "ps": 3131}, "L3_light": {"p": "L3_light.html", "ps": 2651}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2051}, "L3_input": {"p": "L3_input.html", "ps": 2520}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2372}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2636}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2438}, "L1": {"p": "builds/L1/L1.html", "ps": 1531}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1111}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 824}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1128}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 1036}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1086}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1277}, "L2": {"p": "builds/L2/L2.html", "ps": 2212}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1740}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1480}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1812}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1701}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1810}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 1961}, "L2_aybars_2500": {"p": "builds/special/L2_aybars_2500.html", "ps": 7935}, "L1_1250elo": {"p": "builds/special/L1_1250elo.html", "ps": 2280}, "L3_packed": {"p": "builds/L3_packed.html", "ps": 2635}, "L3_numerical_packed": {"p": "builds/L3_numerical_packed.html", "ps": 1737}, "Chesscom-equivalent": {"p": "builds/special/Chesscom-equivalent.html", "ps": 2833}, "Chesscom-equivalent_numerical": {"p": "builds/special/Chesscom-equivalent_numerical.html", "ps": 1158}, "Lichess-equivalent": {"p": "builds/special/Lichess-equivalent.html", "ps": 3018}, "Lichess-equivalent_numerical": {"p": "builds/special/Lichess-equivalent_numerical.html", "ps": 1201}, "L2_noBlockedDetector": {"p": "builds/special/L2_noBlockedDetector.html", "ps": 1888}, "L2_string_flip_noBlockedDetector": {"p": "builds/special/L2_string_flip_noBlockedDetector.html", "ps": 1975}, "DOM_996": {"p": "builds/special/DOM_996.html", "ps": 996}, "DOM_minimum": {"p": "builds/special/DOM_minimum.html", "ps": 791}, "Lowest": {"p": "builds/special/Lowest.html", "ps": 709}, "LUX": {"p": "builds/special/LUX.html", "ps": 9812}, "Toledos-ES6-optimized": {"p": "builds/special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "builds/special/ToledosOpponentbyMe.html", "ps": 2076}, "engine": {"p": "engine.js", "ps": 1807}, "engine_4x": {"p": "engine_4x.js", "ps": 1899}, "engine_string": {"p": "engine_string.js", "ps": 1930}};
 
 function url(n) { return n.indexOf('/') > -1 ? ROOT + n : DIR + n; }
 /* Terminal surumu (.cjs): tarayicida calismaz. Oyna kapali; kodu ve indirme acik. */
