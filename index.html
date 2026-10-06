@@ -11563,7 +11563,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <p>Bu sekme motorun bugünkü hâline nasıl gelindiğini ve sınır durumlarını anlatıyor. Önce
       ana sürümün dışında kalan motorlar: <a href="#speed"><code>engine_4x</code></a>: aynı kurallar,
       biraz daha fazla baytla çok daha hızlı. <a href="#letters">Önceki nesil</a>: tahtayı harf
-      dizgisi olarak tutan sürüm. <a href="#alternatives">Denenip elenen yollar</a>: ölçülüp
+      dizgisi olarak tutan sürüm. <a href="#movegen">Yalnız hamle üretici</a>: testlerin koştuğu
+      çekirdeğin tek başına ne kadar küçük olabileceğini gösteren 695 baytlık dosya. <a href="#alternatives">Denenip elenen yollar</a>: ölçülüp
       bırakılan tahta temsilleri ve kısayollar. Sonra motorun dışı:
       <a href="#parsing">Sürücünün ayrıştırıcıları</a>: tıklama, UCI ve sayısal giriş; bir de
       sürücünün motora nerede bağlandığı. <a href="#castlebook"><code class="vn">L1</code>'in rok defteri</a> ve
@@ -11577,7 +11578,8 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <p>This tab is about how the engine reached its present form, and about its edge cases. First
       the engines outside the main version: <a href="#speed"><code>engine_4x</code></a>: the same
       rules, a few more bytes, far more speed. <a href="#letters">The previous generation</a>: the
-      build that holds the board as a string of letters. <a href="#alternatives">Roads tried and
+      build that holds the board as a string of letters. <a href="#movegen">The move generator
+      alone</a>: the 695-byte file that shows how small the core the tests run can be. <a href="#alternatives">Roads tried and
       eliminated</a>: board representations and shortcuts that were measured and dropped. Then what
       lies outside the engine: <a href="#parsing">The driver's parsers</a>: clicking, UCI and numeric
       input, and where a driver meets the engine. <a href="#castlebook"><code class="vn">L1</code>'s castling ledger</a> and
@@ -11820,6 +11822,10 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
     <h4 lang="tr">Önce ölçünün kendisi</h4>
     <h4 lang="en">First, the measurement itself</h4>
     <div class="prose" lang="tr">
+      <p>Bu bölümdeki süreler bir önceki motor çiftiyle ölçüldü. Sonraki kısaltmalar hızı
+      değiştirmedi; tek istisna 1x'in <code>C=P=W</code>'si: kilitli pozisyonlarda 1x'in
+      <code>l</code>'sini yaklaşık %30 yavaşlatıyor, yani 4x'in oradaki üstünlüğü tablolardakinden
+      biraz daha büyük.</p>
       <p>Bu başlıktaki her sayı yönteme bağlı ve hız ölçmenin iki kolay hatası var —
       ikisi de kazancı büyütür.</p>
       <p>Birincisi <b>en iyi koşuyu almak</b>. Aynı kodu 15 kez çalıştırıp en hızlısını
@@ -11833,6 +11839,10 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       ayrı süreçte.</p>
     </div>
     <div class="prose" lang="en">
+      <p>The timings in this section were measured on the previous pair of engines. The later
+      shortenings did not change the speed, with one exception, the 1x <code>C=P=W</code>: in locked
+      positions it makes the 1x <code>l</code> about 30% slower, so 4x's lead there is somewhat larger
+      than the tables show.</p>
       <p>Every number under this heading depends on method, and there are two easy mistakes in
       measuring speed — both of which inflate the gain.</p>
       <p>The first is <b>taking the best run</b>. Run the same code 15 times and record the
@@ -12230,10 +12240,6 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <code>S</code> döngünün en sıcak yerinde. <b>+1 bayt</b>.</p>
       <p>27 baytın karşılığı bu. Kural metninin geri kalanı iki sürümde de bayt bayt aynı —
       değişen yalnız <b>ne zaman duracağı</b> ve sayıların ne kadar büyüdüğü.</p>
-      <p>Bu bölümdeki süreler bir önceki motor çiftiyle ölçüldü. Sonraki kısaltmalar hızı
-      değiştirmedi; tek istisna 1x'in <code>C=P=W</code>'si: kilitli pozisyonlarda 1x'in
-      <code>l</code>'sini yaklaşık %30 yavaşlatıyor, yani 4x'in oradaki üstünlüğü tablolardakinden
-      biraz daha büyük.</p>
     </div>
     <div class="prose" lang="en">
       <p><b>The counted loop becomes a fixed point.</b> This is the single largest gain in the
@@ -12262,10 +12268,6 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
       <p>That is what 27 bytes buy. The rest of the rule's text is byte for byte the
       same in both versions — the only things that differ are <b>when it stops</b> and how large
       the numbers are allowed to grow.</p>
-      <p>The timings in this section were measured on the previous pair of engines. The later
-      shortenings did not change the speed, with one exception, the 1x <code>C=P=W</code>: in locked
-      positions it makes the 1x <code>l</code> about 30% slower, so 4x's lead there is somewhat larger
-      than the tables show.</p>
     </div>
     <div class="prose" lang="tr">
       <p><b>6.9 aramasında sonuç.</b> Bütçe iki sürümde aynı — 20.000 deneme, 15 yarım hamle —
@@ -12472,8 +12474,8 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
     </div>
 
     <div class="prose" lang="tr">
-      <p>Motorun kendisinde de hesap aynı yöne çıkıyor. <code>engine_string.js</code> — motor
-      sekmesindeki kod görüntüleyicide <b>string</b> anahtarıyla açılan dosya — <b>1.933 bayt</b>,
+      <p>Motorun kendisinde de hesap aynı yöne çıkıyor. <code>engine_string.js</code> — yukarıdaki
+      kod penceresinde açılan dosya — <b>1.933 bayt</b>,
       <code>engine.js</code>'ten <b>96 bayt</b> uzun. Kural katmanı aynı; değişen yalnızca tahta:
       <code>b[i]</code> artık <code>9</code> değil <code>'P'</code>, boş kare <code>0</code> değil
       <code>'-'</code>, renk testi de modülo değil karakter karşılaştırması (<code>p&lt;'a'</code> beyaz
@@ -12483,8 +12485,8 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
       temsil bir tercih, zorunluluk değil.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The engine itself tells the same story. <code>engine_string.js</code> — the file the
-      <b>string</b> switch opens in the code viewer on the engine tab — comes to <b>1,933 bytes</b>,
+      <p>The engine itself tells the same story. <code>engine_string.js</code> — the file in the
+      code window above — comes to <b>1,933 bytes</b>,
       <b>96 bytes</b> more than <code>engine.js</code>. The rule layer is the same one; only the board
       changes: <code>b[i]</code> is now <code>'P'</code> rather than <code>9</code>, an empty square
       <code>'-'</code> rather than <code>0</code>, and the colour test is a character comparison rather
@@ -12529,6 +12531,67 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
     </div>
 
       </div>
+</section>
+<section id="movegen">
+  <div class="wrap">
+    <p class="eyebrow" lang="tr">Çekirdek</p>
+    <p class="eyebrow" lang="en">The core</p>
+    <h2 lang="tr">Yalnız hamle üretici — 695 bayt</h2>
+    <h2 lang="en">The move generator alone — 695 bytes</h2>
+    <div class="prose" lang="tr">
+      <p><code>builds/special/engine_onlyMoveGenerator.js</code> motorun hamle üreten çekirdeği,
+      tek başına: <code>G</code>, <code>V</code>, <code>L</code>, <code>C</code> ve <code>M</code>.
+      Yasal hamleleri, roku, geçerken almayı ve terfiyi üretiyor; hüküm vermiyor. Sonuç kodu,
+      sayaçlar, tekrar, materyal testleri, ölü pozisyon ve 6.9 araması yok.</p>
+      <p>Dosyanın amacı bir kanıt: <a href="#tests">doğruluk testlerinin</a> — perft, CPW
+      pozisyonları, tricky süiti, Vajolet külliyatı — sınadığı şey yalnızca bu çekirdek. Perft bir
+      pozisyondan çıkan bütün hamle dizilerini sayar; sonuç kodlarına, sayaçlara ya da beraberlik
+      kurallarına hiç dokunmaz. Test süiti de bu yüzden yalnızca <code>L</code>, <code>M</code>,
+      <code>C</code> ve <code>G</code>'yi çağırıyor ve bu dosyayı dördüncü motor olarak koşabiliyor
+      (<code>node test.js --engine=4</code>); sanity, tricky ve CPW sayıları ana motorla birebir aynı.
+      Yani testlerin koştuğu temel çekirdek 695 bayta sığıyor. <code>engine.js</code>'in kalan
+      1.112 baytı bu çekirdeği bir hakeme dönüştüren kısım: motorun %62'si hamle üretmeye değil,
+      hüküm vermeye gidiyor.</p>
+      <p>Ürettiği hamleler <code>engine.js</code>'inkiyle aynı, iki yazım farkıyla. <code>V</code>
+      yalnızca sırası gelen tarafın şahına bakıyor, <code class="vn">L1</code>'deki gibi.
+      <code>M</code> geçerken alma karesini her çift adımda yazıyor; <code>engine.js</code> onu
+      yalnızca alma gerçekten mümkünse yazıyor, çünkü orada kare tekrar anahtarının parçası
+      (9.2.3.1). Bu çekirdek tekrar saymadığı için fark hamle listesine yansımıyor.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p><code>builds/special/engine_onlyMoveGenerator.js</code> is the engine's move-generating
+      core on its own: <code>G</code>, <code>V</code>, <code>L</code>, <code>C</code> and
+      <code>M</code>. It generates legal moves, castling, en passant and promotion; it passes no
+      verdict. There is no result code, no counter, no repetition, no material test, no dead position
+      and no 6.9 search.</p>
+      <p>The file exists as a proof: what <a href="#tests">the correctness tests</a> — perft, the
+      CPW positions, the tricky suite, the Vajolet corpus — actually check is this core alone. Perft
+      counts every move sequence from a position; it never touches result codes, counters or draw
+      rules. That is why the test suite only ever calls <code>L</code>, <code>M</code>,
+      <code>C</code> and <code>G</code>, and why it can run this file as its fourth engine
+      (<code>node test.js --engine=4</code>): the sanity, tricky and CPW counts match the main engine
+      exactly. So the core the tests run fits in 695 bytes. The remaining 1,112 bytes of
+      <code>engine.js</code> are what turns it into an arbiter: 62% of the engine goes into judging,
+      not into generating moves.</p>
+      <p>Its moves are the same as <code>engine.js</code>'s, with two differences in how it is
+      written. <code>V</code> looks only at the king of the side to move, as in
+      <code class="vn">L1</code>. <code>M</code> writes the en passant square on every double step;
+      <code>engine.js</code> writes it only when a capture is actually possible, because there the
+      square is part of the repetition key (9.2.3.1). This core counts no repetitions, so the
+      difference never reaches the move list.</p>
+    </div>
+    <div class="srcwrap xsrc" id="xmovegen" data-key="engine_onlyMoveGenerator">
+      <div class="srchead">
+        <span class="fn">engine_onlyMoveGenerator.js</span>
+        <span class="xmeta">—</span>
+        <span class="pacts">
+          <button class="xcopy" type="button"><span lang="tr">Kopyala</span><span lang="en">Copy</span></button>
+          <button class="dl1 xdl" type="button"><span lang="tr">İndir</span><span lang="en">Download</span></button>
+        </span>
+      </div>
+      <pre class="src"></pre>
+    </div>
+  </div>
 </section>
 
 <section id="alternatives">
@@ -15591,7 +15654,7 @@ f = K[2] + K[3] - 0</pre></div>
       packing — <b>18 bytes</b> in total. It does not carry through linearly: a change both
       disturbs <b>the repeat sequences the packer sees</b> and, for every new character entering
       the source, <a href="#packing">costs a slot in the token pool</a>. The cheapest measured
-      packing of today's plain <code>L3.html</code> is <b>2,829 bytes</b><span class="sub">2,394 of packed script + 418 of static markup + 17 of tags</span>; the shipped pack,
+      packing of today's plain <code>L3.html</code> is <b>2,808 bytes</b><span class="sub">2,373 of packed script + 418 of static markup + 17 of tags</span>; the shipped pack,
       made from its own source, sits at 2,635, and the 15 bytes of <code>&lt;!DOCTYPE html&gt;</code> fall
       outside the packed payload and land directly on top of that.</p>
       <p>Reaching for an obsolete technique remains not a preference but a last resort, turned to only
@@ -15603,7 +15666,7 @@ f = K[2] + K[3] - 0</pre></div>
       toplamı <b>18 bayt</b>. Pakete yansıması doğrusal değil: değişiklik hem paketleyicinin
       gördüğü <b>tekrar dizilerini</b> bozuyor, hem de kaynağa giren her yeni karakter
       <a href="#packing">token havuzundan bir yuva eksiltiyor</a>. Bugünkü düz
-      <code>L3.html</code>'in ölçülen en ucuz paketlenmiş hâli <b>2.829 bayt</b><span class="sub">2.394 paketlenmiş script + 418 statik işaretleme + 17 etiket</span>; kendi
+      <code>L3.html</code>'in ölçülen en ucuz paketlenmiş hâli <b>2.808 bayt</b><span class="sub">2.373 paketlenmiş script + 418 statik işaretleme + 17 etiket</span>; kendi
       kaynağından üretilen gönderilen paket 2.635'te duruyor ve <code>&lt;!DOCTYPE html&gt;</code>’in 15 baytı
       paketin dışında kaldığı için doğrudan bunun üstüne biniyor.</p>
       <p>Eskimiş yöntem kullanmak yine de bir tercih değil, yalnızca <b>yer kalmadığında</b>
@@ -17506,7 +17569,7 @@ var DIR = 'builds/';
    icin de gerekli: koku DIR'den turetiyoruz, boylece build.mjs'te ikinci bir
    kural tutmaya gerek kalmiyor. */
 var ROOT = DIR.slice(0, -'builds/'.length);
-var ART = {"L3": {"p": "L3.html", "ps": 3131}, "L3_light": {"p": "L3_light.html", "ps": 2651}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2051}, "L3_input": {"p": "L3_input.html", "ps": 2520}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2372}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2636}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2438}, "L1": {"p": "builds/L1/L1.html", "ps": 1531}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1111}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 824}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1128}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 1036}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1086}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1277}, "L2": {"p": "builds/L2/L2.html", "ps": 2212}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1740}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1480}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1812}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1701}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1810}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 1961}, "L2_aybars_2500": {"p": "builds/special/L2_aybars_2500.html", "ps": 7935}, "L1_1250elo": {"p": "builds/special/L1_1250elo.html", "ps": 2280}, "L3_packed": {"p": "builds/L3_packed.html", "ps": 2635}, "L3_numerical_packed": {"p": "builds/L3_numerical_packed.html", "ps": 1737}, "Chesscom-equivalent": {"p": "builds/special/Chesscom-equivalent.html", "ps": 2833}, "Chesscom-equivalent_numerical": {"p": "builds/special/Chesscom-equivalent_numerical.html", "ps": 1158}, "Lichess-equivalent": {"p": "builds/special/Lichess-equivalent.html", "ps": 3018}, "Lichess-equivalent_numerical": {"p": "builds/special/Lichess-equivalent_numerical.html", "ps": 1201}, "L2_noBlockedDetector": {"p": "builds/special/L2_noBlockedDetector.html", "ps": 1888}, "L2_string_flip_noBlockedDetector": {"p": "builds/special/L2_string_flip_noBlockedDetector.html", "ps": 1975}, "DOM_996": {"p": "builds/special/DOM_996.html", "ps": 996}, "DOM_minimum": {"p": "builds/special/DOM_minimum.html", "ps": 791}, "Lowest": {"p": "builds/special/Lowest.html", "ps": 709}, "LUX": {"p": "builds/special/LUX.html", "ps": 9812}, "Toledos-ES6-optimized": {"p": "builds/special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "builds/special/ToledosOpponentbyMe.html", "ps": 2076}, "engine": {"p": "engine.js", "ps": 1807}, "engine_4x": {"p": "engine_4x.js", "ps": 1899}, "engine_string": {"p": "engine_string.js", "ps": 1930}};
+var ART = {"L3": {"p": "L3.html", "ps": 3131}, "L3_light": {"p": "L3_light.html", "ps": 2651}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2051}, "L3_input": {"p": "L3_input.html", "ps": 2520}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2372}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2636}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2438}, "L1": {"p": "builds/L1/L1.html", "ps": 1531}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1111}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 824}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1128}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 1036}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1086}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1277}, "L2": {"p": "builds/L2/L2.html", "ps": 2212}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1740}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1480}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1812}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1701}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1810}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 1961}, "L2_aybars_2500": {"p": "builds/special/L2_aybars_2500.html", "ps": 7935}, "L1_1250elo": {"p": "builds/special/L1_1250elo.html", "ps": 2280}, "L3_packed": {"p": "builds/L3_packed.html", "ps": 2635}, "L3_numerical_packed": {"p": "builds/L3_numerical_packed.html", "ps": 1737}, "Chesscom-equivalent": {"p": "builds/special/Chesscom-equivalent.html", "ps": 2833}, "Chesscom-equivalent_numerical": {"p": "builds/special/Chesscom-equivalent_numerical.html", "ps": 1158}, "Lichess-equivalent": {"p": "builds/special/Lichess-equivalent.html", "ps": 3018}, "Lichess-equivalent_numerical": {"p": "builds/special/Lichess-equivalent_numerical.html", "ps": 1201}, "L2_noBlockedDetector": {"p": "builds/special/L2_noBlockedDetector.html", "ps": 1888}, "L2_string_flip_noBlockedDetector": {"p": "builds/special/L2_string_flip_noBlockedDetector.html", "ps": 1975}, "DOM_996": {"p": "builds/special/DOM_996.html", "ps": 996}, "DOM_minimum": {"p": "builds/special/DOM_minimum.html", "ps": 791}, "Lowest": {"p": "builds/special/Lowest.html", "ps": 709}, "LUX": {"p": "builds/special/LUX.html", "ps": 9812}, "Toledos-ES6-optimized": {"p": "builds/special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "builds/special/ToledosOpponentbyMe.html", "ps": 2076}, "engine": {"p": "engine.js", "ps": 1807}, "engine_4x": {"p": "engine_4x.js", "ps": 1899}, "engine_string": {"p": "engine_string.js", "ps": 1930}, "engine_onlyMoveGenerator": {"p": "builds/special/engine_onlyMoveGenerator.js", "ps": 695}};
 
 function url(n) { return n.indexOf('/') > -1 ? ROOT + n : DIR + n; }
 /* Terminal surumu (.cjs): tarayicida calismaz. Oyna kapali; kodu ve indirme acik. */
