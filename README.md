@@ -59,10 +59,10 @@ Every file under `builds/` runs on its own — download an HTML file and double-
 it. The `.cjs` builds run in a terminal with `node`.
 
 **Eleven front ends carry the full arbiter.** `L3` and `L3_light` are played by clicking;
-`numerical`, `prompt`, `prompt_blindfold`, `input`, `input_blindfold`, `prompt_string`,
-`prompt_string_flip` and two terminal builds take moves as text. The rules are identical in all
+`numerical`, `prompt`, `prompt_blindfold`, `input`, `input_blindfold`, `prompt_string_a1`,
+`prompt_string` and two terminal builds take moves as text. The rules are identical in all
 eleven. The two packed forms, [`L3_packed`](builds/L3_packed.html) and
-[`L3_numerical_packed`](builds/L3_numerical_packed.html), are `L3` itself; their unpacker relies on
+[`L3_minimum`](builds/L3_minimum.html), are `L3` itself; their unpacker relies on
 `with` and `eval`. `L1` and `L2` vary the *rules* instead of the interface; each has its own set of
 front ends, and both sit outside the claim. `builds/special/` holds what sits off the ladder: the
 builds of six sibling projects, each with a repository of its own ([lichess-equivalent](https://github.com/cuneytinann/lichess-equivalent), [chesscom-equivalent](https://github.com/cuneytinann/chesscom-equivalent),
@@ -173,9 +173,9 @@ zorunlu olarak neye dönüşeceğini soruyor.**
 tıklamak yeterli. `.cjs` sürümleri terminalde `node` ile koşar.
 
 **On bir önyüz tam hakemi taşıyor.** `L3` ve `L3_light` tıklanarak oynanır; `numerical`,
-`prompt`, `prompt_blindfold`, `input`, `input_blindfold`, `prompt_string`, `prompt_string_flip` ve
+`prompt`, `prompt_blindfold`, `input`, `input_blindfold`, `prompt_string_a1`, `prompt_string` ve
 iki terminal sürümü hamleyi metin olarak alır. Kurallar on birinde de aynıdır. Paketli iki hâl,
-[`L3_packed`](builds/L3_packed.html) ve [`L3_numerical_packed`](builds/L3_numerical_packed.html),
+[`L3_packed`](builds/L3_packed.html) ve [`L3_minimum`](builds/L3_minimum.html),
 `L3`'ün kendisi; açıcıları `with` ve `eval`'e dayanıyor. `L1` ve `L2` arayüzü değil *kuralları*
 değiştirir; her birinin kendi önyüzleri var, ikisi de iddianın dışındadır. `builds/special/`
 merdivenin dışında kalanları tutar: her birinin kendi deposu olan altı kardeş projenin sürümleri
