@@ -180,8 +180,10 @@ const DIALECT_STR = {
 let D = DIALECT_NUM;      // set by loadEngine() from the board it finds
 
 // ---- squares: newengine is a1 = 0, file = i&7, rank = i>>3 ----
-const sqName = i => String.fromCharCode(97 + (i & 7)) + ((i >> 3) + 1);
-const nameSq = s => (+s[1] - 1) * 8 + (s.charCodeAt(0) - 97);
+// engine_string.js is a8 = 0: its squares are the numeric ones ^56.
+const X = i => D.string ? i ^ 56 : i;
+const sqName = i => String.fromCharCode(97 + (X(i) & 7)) + ((X(i) >> 3) + 1);
+const nameSq = s => X((+s[1] - 1) * 8 + (s.charCodeAt(0) - 97));
 
 // ============== Engine loading ==============
 // Any shipped file can be handed over: a bare engine (.js), a plain build
@@ -303,7 +305,7 @@ function setFEN(env, fen) {
     if (ch === '/') { sq -= 16; continue; }
     if (/\d/.test(ch)) { sq += +ch; continue; }
     if (!(ch in FROM_FEN)) throw new Error('bad FEN piece: ' + ch);
-    board[sq++] = D.fromFen(ch);
+    board[X(sq++)] = D.fromFen(ch);
   }
   env.b = env.b instanceof Int8Array ? Int8Array.from(board) : board;
   env.t = side === 'w' ? 1 : 0;
@@ -314,7 +316,7 @@ function setFEN(env, fen) {
     if (castling.includes('k')) cr |= 4;
     if (castling.includes('q')) cr |= 8;
   }
-  env.c = cr;
+  env.c = D.string ? cr >> 2 | (cr & 3) << 2 : cr;   // a8 = 0: K=4 Q=8 k=1 q=2
   env.e = (!ep || ep === '-') ? D.NOEP : nameSq(ep);
   env.n = halfmove ? +halfmove : 0;
 }
@@ -324,7 +326,7 @@ function envToFEN(env) {
   for (let r = 7; r >= 0; r--) {
     let row = '', empty = 0;
     for (let f = 0; f < 8; f++) {
-      const p = env.b[r * 8 + f];
+      const p = env.b[X(r * 8 + f)];
       if (D.empty(p)) empty++;
       else { if (empty) { row += empty; empty = 0; } row += D.toFen(p); }
     }
@@ -332,10 +334,11 @@ function envToFEN(env) {
     pieces += (r < 7 ? '/' : '') + row;
   }
   let castling = '';
-  if (env.c & 1) castling += 'K';
-  if (env.c & 2) castling += 'Q';
-  if (env.c & 4) castling += 'k';
-  if (env.c & 8) castling += 'q';
+  const c = D.string ? env.c >> 2 | (env.c & 3) << 2 : env.c;
+  if (c & 1) castling += 'K';
+  if (c & 2) castling += 'Q';
+  if (c & 4) castling += 'k';
+  if (c & 8) castling += 'q';
   if (!castling) castling = '-';
   const ep = D.noEp(env.e) ? '-' : sqName(env.e);
   return `${pieces} ${env.t ? 'w' : 'b'} ${castling} ${ep} ${env.n} 1`;
@@ -509,7 +512,7 @@ function cmdDetect() {
   // Castling bit semantics, checked rather than assumed.
   const bits = [0, 4, 7, 56, 60, 63].map(i => `${sqName(i)}=${env.C(i)}`).join(' ');
   console.log(`  castling bits: ${bits}`);
-  console.log(`  board: ${env.b.length} squares, a1=${JSON.stringify(env.b[0])} h8=${JSON.stringify(env.b[63])}`);
+  console.log(`  board: ${env.b.length} squares, a1=${JSON.stringify(env.b[X(0)])} h8=${JSON.stringify(env.b[X(63)])}`);
   console.log(`  dialect: ${D.string ? "string (FEN letters, '-' empty)" : 'numeric (type*2+colour, 0 empty)'}`);
   console.log(`\n  Stockfish: ${hasStockfish() ? 'found (' + SF + ')' : 'NOT found'}\n`);
 }
