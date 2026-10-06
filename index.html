@@ -12337,12 +12337,12 @@ slider  :       (h*v ? h==v : 2) &amp; P &amp;&amp; S()</pre>
 
     <div class="prose" lang="tr">
       <p>Bu kodlamanın çekirdeği <code>engine_string.js</code>: kuralları <code>engine.js</code>'le
-      aynı, tahtası harf dizgisi; <b>1.933 bayt</b>. Aşağıdaki kaynak <code>builds/</code>
+      aynı, tahtası harf dizgisi; <b>1.918 bayt</b>. Aşağıdaki kaynak <code>builds/</code>
       dizinindeki dosyanın kendisi.</p>
     </div>
     <div class="prose" lang="en">
       <p>The core of this encoding is <code>engine_string.js</code>: the same rules as
-      <code>engine.js</code>, with the board as a string of letters; <b>1,933 bytes</b>. The source
+      <code>engine.js</code>, with the board as a string of letters; <b>1,918 bytes</b>. The source
       below is the file in the <code>builds/</code> directory itself.</p>
     </div>
     <div class="srcwrap xsrc" id="xstrcode" data-key="engine_string">
@@ -12475,24 +12475,26 @@ Y = '-'      E = 'a'      j = p =&gt; p.toUpperCase()</pre></div>
 
     <div class="prose" lang="tr">
       <p>Motorun kendisinde de hesap aynı yöne çıkıyor. <code>engine_string.js</code> — yukarıdaki
-      kod penceresinde açılan dosya — <b>1.933 bayt</b>,
-      <code>engine.js</code>'ten <b>96 bayt</b> uzun. Kural katmanı aynı; değişen yalnızca tahta:
+      kod penceresinde açılan dosya — <b>1.918 bayt</b>,
+      <code>engine.js</code>'ten <b>111 bayt</b> uzun. Kurallar aynı; değişen tahta ve onu okuyan yazım:
       <code>b[i]</code> artık <code>9</code> değil <code>'P'</code>, boş kare <code>0</code> değil
       <code>'-'</code>, renk testi de modülo değil karakter karşılaştırması (<code>p&lt;'a'</code> beyaz
-      demek). Bedelin nereye gittiği ilginç: başlangıç dizilişi bu temsilde <b>on üç bayt ucuz</b> —
-      <code>'RNBQKBNRPPPPPPPP'.padEnd(48,'-')</code> onaltılık hileden kısa — ama tahtayı okuyan her
+      demek). Bedelin nereye gittiği ilginç: başlangıç dizilişi bu temsilde <b>dokuz bayt ucuz</b> —
+      boş kare harfini de tanımlayan <code>'RNBQKBNRPPPPPPPP'.padEnd(48,_='-')</code> onaltılık hileden
+      kısa — ama tahtayı okuyan her
       test pahalı. Bu sürüm, motorun dizgiyle de aynı hükmü verdiğini göstermek için duruyor: sayısal
       temsil bir tercih, zorunluluk değil.</p>
     </div>
     <div class="prose" lang="en">
       <p>The engine itself tells the same story. <code>engine_string.js</code> — the file in the
-      code window above — comes to <b>1,933 bytes</b>,
-      <b>96 bytes</b> more than <code>engine.js</code>. The rule layer is the same one; only the board
-      changes: <code>b[i]</code> is now <code>'P'</code> rather than <code>9</code>, an empty square
+      code window above — comes to <b>1,918 bytes</b>,
+      <b>111 bytes</b> more than <code>engine.js</code>. The rules are the same; what changes is the
+      board and the code that reads it: <code>b[i]</code> is now <code>'P'</code> rather than <code>9</code>, an empty square
       <code>'-'</code> rather than <code>0</code>, and the colour test is a character comparison rather
       than a modulo (<code>p&lt;'a'</code> means White). Where the bytes go is the interesting part: the
-      starting position is <b>thirteen bytes cheaper</b> in this representation —
-      <code>'RNBQKBNRPPPPPPPP'.padEnd(48,'-')</code> beats the hexadecimal trick — while every test that
+      starting position is <b>nine bytes cheaper</b> in this representation —
+      <code>'RNBQKBNRPPPPPPPP'.padEnd(48,_='-')</code>, which also names the empty square, beats the
+      hexadecimal trick — while every test that
       reads the board is dearer. It is kept to show that the engine hands down the same verdicts on a
       board of letters, which makes the numeric board a choice rather than a requirement.</p>
     </div>
@@ -16576,9 +16578,9 @@ f = K[2] + K[3] - 0</pre></div>
 //  c     U            N            e Y     t     →  cUNeYt</pre></div>
     <div class="prose" lang="en">
       <p>The order is preserved in nearly every L3 front end that carries a clock — ten of them —
-      and it reappears intact when the two packed files are unpacked. The engine files
-      <code>engine.js</code> and <code>engine_4x.js</code> carry no signature: the clock is not in
-      the engine, so <code>U</code> has no job there. The one exception is <code class="vn">prompt_string_flip</code>, whose declarations follow
+      and it reappears intact when the two packed files are unpacked. The engine files —
+      <code>engine.js</code>, <code>engine_4x.js</code> and <code>engine_string.js</code> — carry no
+      signature: the clock is not in the engine, so <code>U</code> has no job there. The one exception is <code class="vn">prompt_string_flip</code>, whose declarations follow
       <a href="#fenstring">the order of the FEN fields</a> rather than the signature, and whose
       empty-square letter is <code>_</code>, not <code>Y</code>. A driver without a clock cannot carry the reading at all — there is no
       <code>U</code> and no <code>Y</code> to read.</p>
@@ -16610,9 +16612,9 @@ f = K[2] + K[3] - 0</pre></div>
     </div>
     <div class="prose" lang="tr">
       <p>Sıra, saati olan L3 önyüzlerinin neredeyse hepsinde korunuyor — on önyüz — ve iki
-      paketlenmiş dosya açıldığında da aynen çıkıyor. Motor dosyaları <code>engine.js</code> ile
-      <code>engine_4x.js</code> imza taşımıyor: saat motorda olmadığı için orada <code>U</code>'nun
-      işi yok. Tek istisna <code class="vn">prompt_string_flip</code>: bildirimleri imzayı değil
+      paketlenmiş dosya açıldığında da aynen çıkıyor. Motor dosyaları — <code>engine.js</code>,
+      <code>engine_4x.js</code> ve <code>engine_string.js</code> — imza taşımıyor: saat motorda
+      olmadığı için orada <code>U</code>'nun işi yok. Tek istisna <code class="vn">prompt_string_flip</code>: bildirimleri imzayı değil
       <a href="#fenstring">FEN alanlarının sırasını</a> izliyor ve boş kare harfi orada
       <code>Y</code> değil <code>_</code>. Saati olmayan bir sürücüde okunuş hiç doğmuyor —
       <code>U</code> ile <code>Y</code> orada bulunmuyor.</p>
@@ -17569,7 +17571,7 @@ var DIR = 'builds/';
    icin de gerekli: koku DIR'den turetiyoruz, boylece build.mjs'te ikinci bir
    kural tutmaya gerek kalmiyor. */
 var ROOT = DIR.slice(0, -'builds/'.length);
-var ART = {"L3": {"p": "L3.html", "ps": 3131}, "L3_light": {"p": "L3_light.html", "ps": 2651}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2051}, "L3_input": {"p": "L3_input.html", "ps": 2520}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2372}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2636}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2438}, "L1": {"p": "builds/L1/L1.html", "ps": 1531}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1111}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 824}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1128}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 1036}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1086}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1277}, "L2": {"p": "builds/L2/L2.html", "ps": 2212}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1740}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1480}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1812}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1701}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1810}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 1961}, "L2_aybars_2500": {"p": "builds/special/L2_aybars_2500.html", "ps": 7935}, "L1_1250elo": {"p": "builds/special/L1_1250elo.html", "ps": 2280}, "L3_packed": {"p": "builds/L3_packed.html", "ps": 2635}, "L3_numerical_packed": {"p": "builds/L3_numerical_packed.html", "ps": 1737}, "Chesscom-equivalent": {"p": "builds/special/Chesscom-equivalent.html", "ps": 2833}, "Chesscom-equivalent_numerical": {"p": "builds/special/Chesscom-equivalent_numerical.html", "ps": 1158}, "Lichess-equivalent": {"p": "builds/special/Lichess-equivalent.html", "ps": 3018}, "Lichess-equivalent_numerical": {"p": "builds/special/Lichess-equivalent_numerical.html", "ps": 1201}, "L2_noBlockedDetector": {"p": "builds/special/L2_noBlockedDetector.html", "ps": 1888}, "L2_string_flip_noBlockedDetector": {"p": "builds/special/L2_string_flip_noBlockedDetector.html", "ps": 1975}, "DOM_996": {"p": "builds/special/DOM_996.html", "ps": 996}, "DOM_minimum": {"p": "builds/special/DOM_minimum.html", "ps": 791}, "Lowest": {"p": "builds/special/Lowest.html", "ps": 709}, "LUX": {"p": "builds/special/LUX.html", "ps": 9812}, "Toledos-ES6-optimized": {"p": "builds/special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "builds/special/ToledosOpponentbyMe.html", "ps": 2076}, "engine": {"p": "engine.js", "ps": 1807}, "engine_4x": {"p": "engine_4x.js", "ps": 1899}, "engine_string": {"p": "engine_string.js", "ps": 1930}, "engine_onlyMoveGenerator": {"p": "builds/special/engine_onlyMoveGenerator.js", "ps": 695}};
+var ART = {"L3": {"p": "L3.html", "ps": 3131}, "L3_light": {"p": "L3_light.html", "ps": 2651}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2051}, "L3_input": {"p": "L3_input.html", "ps": 2520}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2372}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2636}, "L3_prompt_string_flip": {"p": "L3_prompt_string_flip.html", "ps": 2438}, "L1": {"p": "builds/L1/L1.html", "ps": 1531}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1111}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 824}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1128}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 1036}, "L1_prompt_string_flip": {"p": "builds/L1/L1_prompt_string_flip.html", "ps": 1086}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1277}, "L2": {"p": "builds/L2/L2.html", "ps": 2212}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1740}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1480}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1812}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1701}, "L2_prompt_string_flip": {"p": "builds/L2/L2_prompt_string_flip.html", "ps": 1810}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 1961}, "L2_aybars_2500": {"p": "builds/special/L2_aybars_2500.html", "ps": 7935}, "L1_1250elo": {"p": "builds/special/L1_1250elo.html", "ps": 2280}, "L3_packed": {"p": "builds/L3_packed.html", "ps": 2635}, "L3_numerical_packed": {"p": "builds/L3_numerical_packed.html", "ps": 1737}, "Chesscom-equivalent": {"p": "builds/special/Chesscom-equivalent.html", "ps": 2833}, "Chesscom-equivalent_numerical": {"p": "builds/special/Chesscom-equivalent_numerical.html", "ps": 1158}, "Lichess-equivalent": {"p": "builds/special/Lichess-equivalent.html", "ps": 3018}, "Lichess-equivalent_numerical": {"p": "builds/special/Lichess-equivalent_numerical.html", "ps": 1201}, "L2_noBlockedDetector": {"p": "builds/special/L2_noBlockedDetector.html", "ps": 1888}, "L2_string_flip_noBlockedDetector": {"p": "builds/special/L2_string_flip_noBlockedDetector.html", "ps": 1975}, "DOM_996": {"p": "builds/special/DOM_996.html", "ps": 996}, "DOM_minimum": {"p": "builds/special/DOM_minimum.html", "ps": 791}, "Lowest": {"p": "builds/special/Lowest.html", "ps": 709}, "LUX": {"p": "builds/special/LUX.html", "ps": 9812}, "Toledos-ES6-optimized": {"p": "builds/special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "builds/special/ToledosOpponentbyMe.html", "ps": 2076}, "engine": {"p": "engine.js", "ps": 1807}, "engine_4x": {"p": "engine_4x.js", "ps": 1899}, "engine_string": {"p": "engine_string.js", "ps": 1918}, "engine_onlyMoveGenerator": {"p": "builds/special/engine_onlyMoveGenerator.js", "ps": 695}};
 
 function url(n) { return n.indexOf('/') > -1 ? ROOT + n : DIR + n; }
 /* Terminal surumu (.cjs): tarayicida calismaz. Oyna kapali; kodu ve indirme acik. */
