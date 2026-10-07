@@ -78,7 +78,7 @@ Everything below is on the site, in English and Turkish.
 | --- | --- |
 | How the rules read, article by article | [/#rules](https://www.fidelite.art/#rules) |
 | Dead position — 5.2.2 and its two branches | [/#dead](https://www.fidelite.art/#dead) |
-| Resignation and flag fall — 5.1.2 and 6.9 | [/#flag](https://www.fidelite.art/#flag) |
+| Flag fall, resignation and the possibility of mate — 5.1.2 and 6.9 | [/#flag](https://www.fidelite.art/#flag) |
 | A proposed hybrid ruleset — FIDE and USCF combined | [/#hybrid](https://www.fidelite.art/#hybrid) |
 | The builds — three axes (interface, rules, bot) and the `L3` family | [/#builds](https://www.fidelite.art/#builds) |
 | How the `L3` builds are played | [/#gameplay](https://www.fidelite.art/#gameplay) |
@@ -192,7 +192,7 @@ Aşağıdakilerin hepsi sitede, Türkçe ve İngilizce.
 | --- | --- |
 | Kuralların okunuşu, madde madde | [/tr#rules](https://www.fidelite.art/tr#rules) |
 | Ölü pozisyon — 5.2.2 ve iki kolu | [/tr#dead](https://www.fidelite.art/tr#dead) |
-| Terk ve süre bitimi — 5.1.2 ve 6.9 | [/tr#flag](https://www.fidelite.art/tr#flag) |
+| Süre bitimi, terk ve mat imkânı — 5.1.2 ve 6.9 | [/tr#flag](https://www.fidelite.art/tr#flag) |
 | Önerilen karma sistem — FIDE ve USCF'nin birleşimi | [/tr#hybrid](https://www.fidelite.art/tr#hybrid) |
 | Varyantlar — üç eksen (arayüz, kural, bot) ve `L3` ailesi | [/tr#builds](https://www.fidelite.art/tr#builds) |
 | `L3` sürümleri nasıl oynanır | [/tr#gameplay](https://www.fidelite.art/tr#gameplay) |
