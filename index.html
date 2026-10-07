@@ -145,6 +145,9 @@ if (FLOLD[location.hash.slice(1)]) {
   --cc-ag:   light-dark(#0b6c94,  #5fd4f5);
   /* sure / terk arduvaz, mat edemeyen materyal seftali, yardimli mat aramasi macenta */
   --cc-tm:   light-dark(#3d5a7a,  #9fb3c8);
+  /* en basit surucudeki terk bandi: bordo. Arduvaz surenin; 27 rengin hepsinden iki temada da
+     en uzak ton, boylece terk baska bir kavramin rengini tasimiyor. */
+  --cc-rs:   light-dark(#77223c,  #dd88a2);
   --cc-mm:   light-dark(#a14a1c,  #ffb38a);
   --cc-hs:   light-dark(#9d1fa8,  #ea7cf5);
   /* yardimcilar: satranca ait olmadiklari icin soluk bir leylak-gri */
@@ -257,7 +260,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --code-bg:#ffffff; --code-fg:#0d4f26; --code-ink:#16307a; --code-teal:#12595f; --code-tbl:#12595f; --code-glow:transparent;
     --hl-ui:#1f5fa8; --hl-html:#a3246b; --hl-bot:#8c4e0c; --hl-mix:#4c4e19;
     --pc-r:#8f1d13; --pc-n:#146a33; --pc-b:#6b3fa0; --pc-q:#7e5a05; --pc-k:#1f5fa8;
-    --pc-p:#0f6b70; --cc-n:#a3246b; --cc-o:#b3470b; --cc-e:#5b6e00; --cc-t:#44403c; --cc-r5:#3547b5; --cc-75:#7a5230; --cc-im:#a3123a; --cc-lk:#8a2fb3; --cc-mt:#b3001b; --cc-cl:#7a6400; --cc-ag:#0b6c94; --cc-tm:#3d5a7a; --cc-mm:#a14a1c; --cc-hs:#9d1fa8; --cc-hp:#5b4f73; --cc-th:#4d7a00; --cc-lg:#2f5f5f; --cc-id:#00755f; --cc-fl:#5c4b3c; --cc-ps:#4b38c7; --cc-gs:#3f4a59; --pk:#3a2214; --pk-glow:rgba(204,170,120,.55); --pk-acc:#3a2214;
+    --pc-p:#0f6b70; --cc-n:#a3246b; --cc-o:#b3470b; --cc-e:#5b6e00; --cc-t:#44403c; --cc-r5:#3547b5; --cc-75:#7a5230; --cc-im:#a3123a; --cc-lk:#8a2fb3; --cc-mt:#b3001b; --cc-cl:#7a6400; --cc-ag:#0b6c94; --cc-tm:#3d5a7a; --cc-rs:#77223c; --cc-mm:#a14a1c; --cc-hs:#9d1fa8; --cc-hp:#5b4f73; --cc-th:#4d7a00; --cc-lg:#2f5f5f; --cc-id:#00755f; --cc-fl:#5c4b3c; --cc-ps:#4b38c7; --cc-gs:#3f4a59; --pk:#3a2214; --pk-glow:rgba(204,170,120,.55); --pk-acc:#3a2214;
     --lg-knight:#fffdf6; --lg-rook:#93cfe0;
     --lg-bishop:#e0a3da; --lg-start:#0f1626; --lg-king:#8f1d13; --lg-pawn:#1a3970; --lg-chip:#fffdf6;
     --lux-a:#c99111; --lux-b:#8f6a06; --lux-hi:#ffd23f; --lux-glow:rgba(201,145,17,.40);
@@ -277,7 +280,7 @@ if (FLOLD[location.hash.slice(1)]) {
       --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-ink:#fff; --code-teal:#7fc9cf; --code-tbl:#fff; --code-glow:rgba(255,255,255,.42);
       --hl-ui:#86b6ef; --hl-html:#f08ccf; --hl-bot:#dfa250; --hl-mix:#9cb467;
       --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
-      --pc-p:#5fc3ca; --cc-n:#f08ccf; --cc-o:#ff9a4a; --cc-e:#cfe35a; --cc-t:#e7e5e4; --cc-r5:#8c9eff; --cc-75:#cfa57c; --cc-im:#ff6b8b; --cc-lk:#d68cff; --cc-mt:#ff4d4d; --cc-cl:#f2d24b; --cc-ag:#5fd4f5; --cc-tm:#9fb3c8; --cc-mm:#ffb38a; --cc-hs:#ea7cf5; --cc-hp:#a898c0; --cc-th:#b8f06a; --cc-lg:#8fbcbc; --cc-id:#6ee0c8; --cc-fl:#c9b8a8; --cc-ps:#a99cff; --cc-gs:#d6dde6; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
+      --pc-p:#5fc3ca; --cc-n:#f08ccf; --cc-o:#ff9a4a; --cc-e:#cfe35a; --cc-t:#e7e5e4; --cc-r5:#8c9eff; --cc-75:#cfa57c; --cc-im:#ff6b8b; --cc-lk:#d68cff; --cc-mt:#ff4d4d; --cc-cl:#f2d24b; --cc-ag:#5fd4f5; --cc-tm:#9fb3c8; --cc-rs:#dd88a2; --cc-mm:#ffb38a; --cc-hs:#ea7cf5; --cc-hp:#a898c0; --cc-th:#b8f06a; --cc-lg:#8fbcbc; --cc-id:#6ee0c8; --cc-fl:#c9b8a8; --cc-ps:#a99cff; --cc-gs:#d6dde6; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
       --lg-knight:#1c1714; --lg-rook:#7ab6c9;
       --lg-bishop:#c895c4; --lg-start:#ece3d8; --lg-king:#5c1a10; --lg-pawn:#1a3970; --lg-chip:#d7ccbd; --lux-a:#f5c518;
     --lux-b:#e0a21c; --lux-hi:#fff8d6; --lux-glow:rgba(255,210,70,.60);
@@ -298,7 +301,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-ink:#fff; --code-teal:#7fc9cf; --code-tbl:#fff; --code-glow:rgba(255,255,255,.42);
       --hl-ui:#86b6ef; --hl-html:#f08ccf; --hl-bot:#dfa250; --hl-mix:#9cb467;
     --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
-    --pc-p:#5fc3ca; --cc-n:#f08ccf; --cc-o:#ff9a4a; --cc-e:#cfe35a; --cc-t:#e7e5e4; --cc-r5:#8c9eff; --cc-75:#cfa57c; --cc-im:#ff6b8b; --cc-lk:#d68cff; --cc-mt:#ff4d4d; --cc-cl:#f2d24b; --cc-ag:#5fd4f5; --cc-tm:#9fb3c8; --cc-mm:#ffb38a; --cc-hs:#ea7cf5; --cc-hp:#a898c0; --cc-th:#b8f06a; --cc-lg:#8fbcbc; --cc-id:#6ee0c8; --cc-fl:#c9b8a8; --cc-ps:#a99cff; --cc-gs:#d6dde6; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
+    --pc-p:#5fc3ca; --cc-n:#f08ccf; --cc-o:#ff9a4a; --cc-e:#cfe35a; --cc-t:#e7e5e4; --cc-r5:#8c9eff; --cc-75:#cfa57c; --cc-im:#ff6b8b; --cc-lk:#d68cff; --cc-mt:#ff4d4d; --cc-cl:#f2d24b; --cc-ag:#5fd4f5; --cc-tm:#9fb3c8; --cc-rs:#dd88a2; --cc-mm:#ffb38a; --cc-hs:#ea7cf5; --cc-hp:#a898c0; --cc-th:#b8f06a; --cc-lg:#8fbcbc; --cc-id:#6ee0c8; --cc-fl:#c9b8a8; --cc-ps:#a99cff; --cc-gs:#d6dde6; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
     --lg-knight:#1c1714; --lg-rook:#7ab6c9;
     --lg-bishop:#c895c4; --lg-start:#ece3d8; --lg-king:#5c1a10; --lg-pawn:#1a3970; --lg-chip:#d7ccbd; --lux-a:#f5c518;
     --lux-b:#e0a21c; --lux-hi:#fff8d6; --lux-glow:rgba(255,210,70,.60);
@@ -1100,7 +1103,7 @@ h2 + .layer + .layer, h3 + .layer + .layer, h4 + .layer + .layer { margin-top:.4
 #engnum[aria-pressed="true"] { background:var(--acc-tint); border-color:var(--acc-edge); color:var(--acc-tx) }
 .srcfoot .cc[disabled] { opacity:.38 }
 pre.src .cpt { color:var(--c); background:color-mix(in srgb, var(--c) 18%, transparent);
-  box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--c) 55%, transparent);
+  box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--c) 55%, transparent); border-radius:3px;
   -webkit-box-decoration-break:clone; box-decoration-break:clone }
 /* Fosfor terminali: acikta bembeyaz kagit uzerine koyu yesil, koyuda simsiyah
    uzerine acik yesil. Sayfanin sicak kremi ikisinde de disarida kaliyor, blok
@@ -18333,7 +18336,9 @@ var ENGC = [
      e gecerken alma karesi, n yarim hamle sayaci (tam hamle sayisi motorda yok). Surucu
      bir pozisyondan baslamak icin tam bunlari yaziyor. Oyun durumu pozisyonda olmayan
      ama oyunun tasidigi her sey: tekrar gecmisi (R, $), teklifler (o), sonuc (z).
-     Saat motorda yok; sureyi surucu tutuyor. Ikisi de yalniz baslangic bildirimlerini boyuyor; durumu degistiren
+     Saat motorda yok; sureyi surucu tutuyor. Ikisi de yalniz baslangic bildirimlerini boyuyor;
+     zincirleme atamada (n=o=z=0) bir degiskenin baslangici adindan degere kadar boyaniyor,
+     yani n icin n=o=z=0, o icin o=z=0;  durumu degistiren
      yerler kural bantlarinda ve hamle akisinda. Tekrar anahtari b+t+e+c, FEN'in
      sayacsiz hali. */
   { k: 'pos', c: 'var(--cc-ps)', tr: 'Pozisyon (FEN)', en: 'Position (FEN)',
@@ -18341,12 +18346,9 @@ var ENGC = [
         ['t=1,c=15', 't=1'],
         ['c=15,e=-1', 'c=15'],
         ['e=-1,n=', 'e=-1'],
-        ['n=o=z=0', 'n'],
-        ['n=o=z=0', '=0']] },
+        ['n=o=z=0', 'n=o=z=0']] },
   { k: 'game', c: 'var(--cc-gs)', tr: 'Oyun durumu', en: 'Game state',
-    s: [['n=o=z=0', 'z'],
-        ['n=o=z=0', 'o'],
-        ['n=o=z=0', '=0'],
+    s: [['n=o=z=0', 'o=z=0'],
         ['R={[b+t+e+c]:$=1}', 'R={[b+t+e+c]:$=1}']] },
   /* Tas tanima: motorun koddan "hangi tas, kimin tasi" okudugu her yer. Tip >>1 ve
      karsilastirmalarla, renk &1 ya da %2 ile okunuyor; birkac yerde kod dogrudan:
@@ -18382,7 +18384,9 @@ var ENGC = [
   /* Her tas kendi kosulunu ve o kosulun dayandigi baslik geometrisini kokenine kadar
      boyuyor: G'nin i ve f parametreleri, a=Math.abs, y=i>>3, h ve v. d yalniz kullananlarda
      (sah, kayan taslar, piyon; at kullanmiyor), k ile S yuruyus isteyenlerde (kayan
-     taslar ve piyon), P kayan taslarda (&P), T piyonda (x=T|b[f]). */
+     taslar ve piyon), P kayan taslarda (&P), T piyonda (x=T|b[f]). Sah adimla rok arasindaki
+     seciciyi (v|h^2?) de boyuyor: adimin ne zaman secildigi sahin; T tehdidin, secicinin
+     tamami rokun da bandinda. */
   { k: 'bishop', c: 'var(--pc-b)', tr: 'Fil', en: 'Bishop', v: '2/3',
     s: GEO.concat(GEO_D, GEO_S, GEO_P, [[SLIDE, 'h==v'], [SLIDE, '&P&&S()']]) },
   { k: 'rook', c: 'var(--pc-r)', tr: 'Kale', en: 'Rook', v: '4/5',
@@ -18396,7 +18400,7 @@ var ENGC = [
         ['f<i^b[i]&1&&(h*v==1?x|f==e', 'f<i^b[i]&1&&(h*v==1?x'],
         [':h|x?0:v<2+(y%6<2)&&S())', ':h|x?0:v<2+(y%6<2)&&S())']]) },
   { k: 'king', c: 'var(--pc-k)', tr: 'Şah', en: 'King', v: '10/11',
-    s: GEO.concat(GEO_D, [['h^2?d<2', 'd<2']]) },
+    s: GEO.concat(GEO_D, [['T|v|h^2?d<2', 'v|h^2?'], ['h^2?d<2', 'd<2']]) },
   { k: 'knight', c: 'var(--cc-n)', tr: 'At', en: 'Knight', v: '12/13',
     s: GEO.concat([['P>5?h*v==2', 'h*v==2']]) },
   /* Tehdit ve gecerlilik ayri katlar. Tehdit tahtaya oldugu gibi bakar, ortada hamle
@@ -18482,7 +18486,7 @@ var ENGC = [
         ['$=R[s=b+t+e+c]=-~R[s]', '$=R[s=b+t+e+c]=-~R[s]'],
         ['$>4?5:n>149?4', '$>4?5']] },
   { k: 'm75', c: 'var(--cc-75)', tr: '75 hamle', en: '75-move rule',
-    s: [['n=o=z=0', 'n'],
+    s: [['n=o=z=0', 'n=o=z=0'],
         ['n=P|b[f]?0:n+1', 'n=P|b[f]?0:n+1'],
         ['$>4?5:n>149?4', 'n>149?4']] },
   { k: 'im', c: 'var(--cc-im)', tr: 'Yetersiz materyal', en: 'Insufficient material',
@@ -18504,7 +18508,7 @@ var ENGC = [
         ['D=g=>(o^=2-g,n>99?7:$>2?8', 'n>99?7:$>2?8'],
         ['o>2?9:Z())', ':Z())']] },
   { k: 'agree', c: 'var(--cc-ag)', tr: 'Anlaşmalı beraberlik', en: 'Draw by agreement',
-    s: [['n=o=z=0', 'o'],
+    s: [['n=o=z=0', 'o=z=0'],
         ['D=g=>(o^=2-g', 'D=g=>'],
         ['D=g=>(o^=2-g', 'o^=2-g'],
         ['o>2?9', 'o>2?9'],
@@ -18546,7 +18550,7 @@ var NUMC = [
         ['x=new Date-d||1', 'x=new Date-d||1'], ['U[t]-=x', 'U[t]-=x'],
         ['`${U[1]} ${U[0]} ${y}`', '${U[1]} ${U[0]}'],
         ['z=U[t]<1|!K?F(t,U[t]>0)', 'U[t]<1'], ['z=U[t]<1|!K?F(t,U[t]>0)', '?F(t,U[t]>0)']] },
-  { k: 'nresign', c: 'var(--cc-mm)', tr: 'Terk', en: 'Resignation',
+  { k: 'nresign', c: 'var(--cc-rs)', tr: 'Terk', en: 'Resignation',
     s: [['|!K?F(', '!K'], ['z=U[t]<1|!K?F(t,U[t]>0)', '?F(t,U[t]>0)']] },
   { k: 'nclaim', c: 'var(--cc-cl)', tr: 'İddia', en: 'Claim',
     s: [[',g=t,z=', 'g=t'], ['K!=+K?z||=D(g)', 'K!=+K?z||=D(g)']] },
