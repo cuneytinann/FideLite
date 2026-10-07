@@ -8697,7 +8697,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       penceresinden rakamlarla okuyor: ikişer rakamla çıkış ve varış karesi, isteğe bağlı beşinci
       rakamla alt terfi (0 fil, 1 kale, 2 at). İki saati ve son hamleyi aynı pencerede gösteriyor,
       oyun bitince sonuç kodunu <code>alert</code> ile veriyor. Boş girdi terk, sayı olmayan girdi
-      beraberlik teklifi ya da talebi. Bu görünümde boyanan yalnız sürücünün parçaları ve imza;
+      beraberlik teklifi ya da talebi. Bu görünümde boyanan yalnız sürücünün parçaları;
       motorun gövdesi iki dosyada da aynı, tek fark imzalı başlık ve <code>M</code>'nin sonundaki
       <code>Y</code>.</p>
       <p>İmza başlıkta duruyor: <code>c=15,U=[9E5,9E5],N='indexOf',e=Y=-1,t=1</code> — baş
@@ -8718,7 +8718,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       an optional fifth for underpromotion (0 bishop, 1 rook, 2 knight). It shows both clocks and the
       last move in the same dialog and reports the result code with <code>alert</code> when the game
       ends. An empty input resigns; anything that is not a number offers or claims a draw. In this
-      view only the driver's parts and the signature are painted; the body of the engine is the same
+      view only the driver's parts are painted; the body of the engine is the same
       in both files, the only differences being the signed header and the <code>Y</code> at the end
       of <code>M</code>.</p>
       <p>The signature sits in the header: <code>c=15,U=[9E5,9E5],N='indexOf',e=Y=-1,t=1</code> —
@@ -18529,29 +18529,39 @@ var ENGC = [
         ['||Ht[s=b+t+e+c]>=d||l()||', '||Ht', ',F=(g,k)']] }
 ];
 /* En basit surucu (L3_numerical): ayni pencerede, ayni capa kuraliyla. Yalniz surucunun
-   parcalari ve imza boyaniyor; motorun govdesi engine.js'teki gibi. Imza basliktaki alti adin
-   bas harfleri: c, U, N, e, Y, t. Saat U ve Date farki; giris prompt'tan okunan K (dort rakam
-   iki kare, besinci rakam alt terfi, bos girdi terk, sayi olmayan girdi teklif ya da talep);
-   cikis prompt'un metni ve sonuc kodu; dongu sonuc gelene kadar donen for. */
+   parcalari boyaniyor; motorun govdesi engine.js'teki gibi, imza boyanmiyor. Surucu tek bir
+   for dongusu: prompt'tan K'yi okuyor, sureyi dusuyor, K'yi hamleye, terke ya da beraberlik
+   kanalina ayiriyor; sonuc gelene kadar donuyor.
+   Sure ve sure bitimi tek bant: saat (baslangic, olcum, dusme, ekrandaki yuzu) ve saat
+   bittiginde F'den istenen hukum. Sure bitimi ile terk ayni F cagrisina cikiyor; k
+   (U[t]>0) ikisini ayiriyor, F(...) ikisinde de boyali.
+   Iddia ile teklif ayni kanaldan geciyor: sayi olmayan girdi hamleden sonra D(g)'yi cagiriyor,
+   g hamleden once saklanan taraf, z||= mati one aliyor. Teklifi iddiadan ayiran tek parca
+   o*=g==t: duz bir hamle oynandiysa bekleyen teklif duser, hamle reddedildiyse durur.
+   Ayristirici metni sayiya ceviriyor (iki rakam bir kare, besinci rakam alt terfi); kapi
+   motora soruyor (kendi tasi mi, hedef L'de mi) ve hamleyi A'ya veriyor. */
 var NUMC = [
-  { k: 'nsig', c: 'var(--cc-mm)', tr: 'İmza', en: 'Signature',
-    s: [['c=15,U=', 'c'], ['U=[9E5,9E5]', 'U'], [",N='indexOf',e=", 'N'],
-        ['e=Y=-1', 'e'], ['e=Y=-1', 'Y'], [',t=1,b=', 't']] },
-  { k: 'nclock', c: 'var(--cc-tm)', tr: 'Saat', en: 'Clock',
+  { k: 'nclock', c: 'var(--cc-tm)', tr: 'Süre ve süre bitimi', en: 'Clock and flag fall',
     s: [['U=[9E5,9E5]', 'U=[9E5,9E5]'], ['d=new Date', 'd=new Date'],
         ['x=new Date-d||1', 'x=new Date-d||1'], ['U[t]-=x', 'U[t]-=x'],
-        ['z=U[t]<1|!K?F(t,U[t]>0)', 'U[t]<1'], ['z=U[t]<1|!K?F(t,U[t]>0)', 'F(t,U[t]>0)'],
-        ['${U[1]} ${U[0]}', '${U[1]} ${U[0]}']] },
-  { k: 'nin', c: 'var(--cc-lg)', tr: 'Giriş', en: 'Input',
-    s: [['K=prompt(', 'K=prompt'], ['|!K?F(', '!K'],
-        ["b[i=K[0]+K[1]-0]%2==t&&~L(i)[N](f=K[2]+K[3]-0)&&(y=K,A(i,f,'126'[K[4]]))",
-         "b[i=K[0]+K[1]-0]%2==t&&~L(i)[N](f=K[2]+K[3]-0)&&(y=K,A(i,f,'126'[K[4]]))"],
-        ['K!=+K?z||=D(g):o*=g==t', 'K!=+K?z||=D(g):o*=g==t']] },
-  { k: 'nout', c: 'var(--cc-hp)', tr: 'Çıkış', en: 'Output',
-    s: [['prompt(`${U[1]} ${U[0]} ${y}`)', '`${U[1]} ${U[0]} ${y}`'], ['(y=K,', 'y=K'],
-        ["for(y='';", "y=''"], ['alert(z)', 'alert(z)']] },
-  { k: 'nloop', c: 'var(--cc-fl)', tr: 'Döngü', en: 'Loop',
-    s: [["for(y='';!z;)", "for(y='';!z;)"], ['g=t,z=', 'g=t']] }
+        ['`${U[1]} ${U[0]} ${y}`', '${U[1]} ${U[0]}'],
+        ['z=U[t]<1|!K?F(t,U[t]>0)', 'U[t]<1'], ['z=U[t]<1|!K?F(t,U[t]>0)', '?F(t,U[t]>0)']] },
+  { k: 'nresign', c: 'var(--cc-mm)', tr: 'Terk', en: 'Resignation',
+    s: [['|!K?F(', '!K'], ['z=U[t]<1|!K?F(t,U[t]>0)', '?F(t,U[t]>0)']] },
+  { k: 'nclaim', c: 'var(--cc-cl)', tr: 'İddia', en: 'Claim',
+    s: [[',g=t,z=', 'g=t'], ['K!=+K?z||=D(g)', 'K!=+K?z||=D(g)']] },
+  { k: 'noffer', c: 'var(--cc-ag)', tr: 'Teklif', en: 'Offer',
+    s: [[',g=t,z=', 'g=t'], ['K!=+K?z||=D(g)', 'K!=+K?z||=D(g)'], [':o*=g==t', ':o*=g==t']] },
+  { k: 'nparse', c: 'var(--cc-ps)', tr: 'Hamle ayrıştırıcı', en: 'Move parser',
+    s: [['b[i=K[0]+K[1]-0]', 'i=K[0]+K[1]-0'], ['f=K[2]+K[3]-0', 'f=K[2]+K[3]-0'],
+        ["'126'[K[4]]", "'126'[K[4]]"]] },
+  { k: 'ngate', c: 'var(--cc-lg)', tr: 'Hamle kapısı', en: 'Move gate',
+    s: [['b[i=K[0]+K[1]-0]%2==t', 'b['], [']%2==t&&~L(i)[N](f=', ']%2==t&&~L(i)[N]('],
+        ['-0)&&(y=K', ')&&('], ['A(i,f,', 'A(i,f,'], ['[K[4]]))', '))']] },
+  { k: 'nloop', c: 'var(--cc-fl)', tr: 'Döngü ve çıktı', en: 'Loop and output',
+    s: [["for(y='';!z;)", "for(y='';!z;)"], ['K=prompt(`', 'K=prompt(`'],
+        ['${U[0]} ${y}`)', ' ${y}`)'], [',z=U[t]<1', 'z='], ['(y=K,', 'y=K'],
+        ['alert(z)', 'alert(z)']] }
 ];
 var ENGSETS = { engine: ENGC, L3_numerical: NUMC };
 var engC = null,
