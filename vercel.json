@@ -28,6 +28,7 @@
     { "source": "/builds/special/L2_string_flip_noBlockedDetector.html", "destination": "/builds/special/L2_string_noBlockedDetector.html", "permanent": true },
     { "source": "/builds/special/Lichess-equivalent_numerical.html", "destination": "/builds/special/Lichess-equivalent_minimum.html", "permanent": true },
     { "source": "/builds/special/Chesscom-equivalent_numerical.html", "destination": "/builds/special/Chesscom-equivalent_minimum.html", "permanent": true },
+    { "source": "/extra/Unchecked.html", "destination": "/extra/UncheckedVariant.html", "permanent": true },
     { "source": "/special/:path*", "destination": "/builds/special/:path*", "permanent": true }
   ],
 
