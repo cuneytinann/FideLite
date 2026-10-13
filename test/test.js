@@ -52,7 +52,7 @@ const { spawnSync } = require('child_process');
 //
 //   1  engine_4x.js                speed build, 0x88 board (+39 B, ~2-6x faster)
 //   2  engine.js                   byte-record build, 0x88 board, full FIDE
-//   3  engine_onlyMoveGenerator.js move generation only: engine.js's first six statements, counters dropped
+//   3  engine_onlyMoveGenerator.js move generation only: engine.js up to M(), counters dropped
 //   4  engine_string.js            string board: b[] holds FEN letters, '-' is empty
 //
 // How the engine is chosen, first match wins:
