@@ -6,7 +6,8 @@
 // positions, the tricky suite, the Vajolet corpus and, when Stockfish is
 // present, random games compared move list by move list.
 //
-// Only move generation is exercised: L(), M(), C() and G(). Perft counts every
+// Only move generation is exercised: L(), C(), G() and the raw move — U() on
+// the 0x88 board, M() on the string board. Perft counts every
 // move sequence from a position and never touches result codes, counters,
 // repetition or draw rules, so every level of the engine — down to the bare
 // move-generator core — runs the same suite and must give the same numbers.
@@ -22,14 +23,15 @@
 //             e.p.     e = the square, 8 when there is none (8 is a hole)
 //             castling c: 1 = K, 2 = Q, 4 = k, 8 = q; C(square) gives its bits
 //             legality L(i,u) -> is the move i->u legal (i must be the mover's)
-//             move     L(i,u); c &= ~C(i) & ~C(u); e = M(i,u,y); t ^= 8
-//             promo    y = 3 queen, 5 rook, 6 bishop, 4 knight
-//           L(i,u) must run right before M(i,u) for the same move: while
-//           checking a castling move it stores the rook's square, and M takes
+//             move     L(i,u); c &= ~C(i) & ~C(u); e = U(i,u,p); t ^= 8
+//             promo    p = 3 queen, 5 rook, 6 bishop, 4 knight
+//                      (the DOM builds read it from the global y instead)
+//           L(i,u) must run right before U(i,u) for the same move: while
+//           checking a castling move it stores the rook's square, and U takes
 //           the rook from there. The castling mask and the e.p. square are
-//           written by the engine's T(), which perft does not use, so the
-//           harness writes them; M() returns the e.p. square of every double
-//           step, legal capture or not, which perft does not mind.
+//           written by the engine's full move M(), which perft does not use, so
+//           the harness writes them; U() returns the e.p. square of every
+//           double step, legal capture or not, which perft does not mind.
 //
 //   string  engine_string.js and the string-board builds.
 //             square   a8 = 0, h1 = 63
@@ -50,8 +52,8 @@ const { spawnSync } = require('child_process');
 //
 //   1  engine_4x.js                speed build, 0x88 board (+39 B, ~2-6x faster)
 //   2  engine.js                   byte-record build, 0x88 board, full FIDE
-//   3  engine_string.js            string board: b[] holds FEN letters, '-' is empty
-//   4  engine_onlyMoveGenerator.js move generation only: engine.js's first six statements, counters dropped
+//   3  engine_onlyMoveGenerator.js move generation only: engine.js's first six statements, counters dropped
+//   4  engine_string.js            string board: b[] holds FEN letters, '-' is empty
 //
 // How the engine is chosen, first match wins:
 //   ENGINE=path            an explicit file, no prompt
@@ -66,8 +68,8 @@ const { spawnSync } = require('child_process');
 const ENGINES = [
   { file: 'engine_4x.js',                what: 'speed build, 0x88 board' },
   { file: 'engine.js',                   what: 'byte-record build, 0x88 board' },
-  { file: 'engine_string.js',            what: 'string board (FEN letters)' },
   { file: 'engine_onlyMoveGenerator.js', what: 'move generation only, 0x88 board' },
+  { file: 'engine_string.js',            what: 'string board (FEN letters)' },
 ];
 const ENGINE_CANDIDATES = ENGINES.map(e => './' + e.file);
 const here = f => path.join(__dirname, f);
@@ -150,15 +152,15 @@ const X88 = {
   castleOut: c => c,
   targets: (env, i) => X88.squares.filter(u => env.L(i, u)),
   play(env, i, u, q) {
-    env.L(i, u);                         // stores the castling rook's square for M
+    env.L(i, u);                         // stores the castling rook's square for U
     const p = env.b[i];
     env.n = (p & 7) === 1 || env.b[u] ? 0 : env.n + 1;
     env.c &= ~env.C(i) & ~env.C(u);
     const y = { q: 3, r: 5, b: 6, n: 4 }[q];
-    // The engine files take the promotion piece as M's third argument. The DOM
+    // The engine files take the promotion piece as U's third argument. The DOM
     // builds (L3.html, L3_light.html, L2.html) have no such parameter and read the
     // global y that their promotion panel sets; loadEngine() found out which.
-    env.e = env.__promoArg ? env.M(i, u, y) : (env.y = y, env.M(i, u));
+    env.e = env.__promoArg ? env.U(i, u, y) : (env.y = y, env.U(i, u));
     env.t ^= 8;
   },
 };
@@ -284,11 +286,14 @@ function loadEngine(p = ENGINE_FILE) {
     console.error(`ERROR: a ${sb.b.length}-square numeric board is not a dialect this suite speaks (0x88 or string board)`);
     process.exit(1);
   }
-  // Only what the suite actually calls.
-  for (const fn of ['L', 'M', 'C', 'G']) {
+  // Only what the suite actually calls. The raw move is U() on the 0x88 board
+  // and M() on the string board; on the 0x88 board M() is the full move, which
+  // also flips the side and writes the counters, so it must never stand in for U().
+  for (const fn of D === X88 ? ['L', 'U', 'C', 'G'] : ['L', 'M', 'C', 'G']) {
     if (typeof sb[fn] !== 'function') {
       console.error(`ERROR: engine is missing ${fn}()` +
-        (fn === 'C' ? ' — L1 builds keep castling in a touched-squares ledger and are not supported' : ''));
+        (fn === 'C' ? ' — L1 builds keep castling in a touched-squares ledger and are not supported' : '') +
+        (fn === 'U' && typeof sb.M === 'function' ? ' — an 0x88 build with the old names (raw move M)? This suite speaks the new names' : ''));
       process.exit(1);
     }
   }
@@ -303,13 +308,13 @@ function loadEngine(p = ENGINE_FILE) {
     console.error('ERROR: L() accepts a capture of an own piece — this build filters that in its UI and is not a full move generator');
     process.exit(1);
   }
-  // How M() takes the promotion piece: a white pawn on a7 goes to a8 with 4
+  // How U() takes the promotion piece: a white pawn on a7 goes to a8 with 4
   // (knight) as the argument and 6 (bishop) in the global y.
   if (D === X88) {
     const save = [sb.b, sb.t, sb.e, sb.y];
     sb.b = []; for (const i of X88.squares) sb.b[i] = 0;
     sb.b[96] = 9; sb.t = 8; sb.e = 8; sb.y = 6;
-    sb.M(96, 112, 4);
+    sb.U(96, 112, 4);
     sb.__promoArg = sb.b[112] === 12;
     [sb.b, sb.t, sb.e, sb.y] = save;
   }
@@ -492,8 +497,8 @@ const fmt = n => n.toLocaleString('en-US');
 const LEVELS = {
   './engine_4x.js': 'full FIDE, speed build, 0x88 board',
   './engine.js': 'full FIDE, byte-record build, 0x88 board',
-  './engine_string.js': 'full FIDE, string board (FEN letters)',
   './engine_onlyMoveGenerator.js': 'move generation only, 0x88 board',
+  './engine_string.js': 'full FIDE, string board (FEN letters)',
 };
 
 function banner() {
@@ -508,11 +513,12 @@ function banner() {
 }
 
 // ============== Command: detect ==============
-// What each name means in each dialect. Only L, M, C and G are ever called.
+// What each name means in each dialect. Only L, C, G and the raw move (U on the
+// 0x88 board, M on the string board) are ever called.
 const API = {
-  x88: [['L', 'legality of one move L(i,u)'], ['M', 'apply a move on a board copy'], ['C', 'castling bits of a square'],
-        ['G', 'geometry'], ['V', 'check / square attacked'], ['T', 'full move'], ['N', 'legal-move walker'],
-        ['Y', 'mate-ability, dead position (5.2.2)'], ['R', 'FIDE 6.9 search'], ['Z', 'result code'],
+  x88: [['L', 'legality of one move L(i,u)'], ['U', 'apply a move on a board copy'], ['C', 'castling bits of a square'],
+        ['G', 'geometry'], ['T', 'check / square attacked'], ['M', 'full move'], ['O', 'legal-move walker'],
+        ['V', 'mate-ability, dead position (5.2.2)'], ['H', 'FIDE 6.9 search'], ['Z', 'result code'],
         ['D', 'draw offer / claim'], ['F', 'flag / resign'], ['A', 'play a move with its verdict']],
   string: [['L', 'legal destinations L(i)'], ['M', 'apply a move'], ['C', 'castling bits of a square'],
            ['G', 'geometry'], ['V', 'check'], ['A', 'play a move with its verdict'], ['Z', 'result code'],
@@ -810,7 +816,7 @@ FideLite test suite
 
 Engine: a picker appears when a command is given. Skip it with
   ENGINE=./engine_string.js node test.js sanity
-  node test.js sanity --engine=4            (1 4x, 2 engine, 3 string, 4 movegen)
+  node test.js sanity --engine=3            (1 4x, 2 engine, 3 movegen, 4 string)
 
 A script that runs several commands should ask once and pin the answer:
   for /f "usebackq delims=" %%e in (\`node test.js pick\`) do set "ENGINE=%%e"
