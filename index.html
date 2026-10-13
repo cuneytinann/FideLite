@@ -1243,20 +1243,20 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p class="lede" lang="tr">Kural motoru <b>1.807 bayt</b> düz kaynak. Kural doğruluğu ve FIDE
       uyumluluğu bakımından dünyanın en eksiksiz motorlarından biri; <b>işlev başına bayt</b>
       oranında ise açık ara birinci — projenin temel iddiası da bu. Tarayıcıda çalışır, JavaScript ile yazılmıştır; kütüphane,
-      kurulum ve sunucu istemez. İddianın <a href="#l3packed">sergi sürümü</a> <b>2,6 KB</b>'lık tek bir
+      kurulum ve sunucu istemez. İddianın <a href="#l3packed">sergi sürümü</a> <b>2,5 KB</b>'lık tek bir
       HTML dosyası: bütün kurallar, tıklanan tahta ve canlı saatle tarayıcısı olan her cihazda çalışır —
       aşağıda oynanan da indirilen de o.</p>
       <p class="lede" lang="en">The rule engine is <b>1,807 bytes</b> of plain source. On rule
       correctness and FIDE compliance it stands among the most complete engines anywhere; on
       <b>function per byte</b> it is first by a wide margin — and that is the claim this project
       rests on. It is written in JavaScript and runs in the browser: no libraries, no install, no server. The claim's <a href="#l3packed">exhibit build</a> is a single
-      <b>2.6 KB</b> HTML file: every rule, a clickable board and a live clock, running on any device with a
+      <b>2.5 KB</b> HTML file: every rule, a clickable board and a live clock, running on any device with a
       browser — it is the one you play below and the one you download.</p>
 
       <div class="cta">
         <span class="cta-btns">
           <a class="go" id="ctaplay" href="#play"><span lang="tr">OYNA!</span><span lang="en">Play now</span><span class="emo" aria-hidden="true">♟️</span></a>
-          <a class="dl" href="builds/L3_packed.html" download="L3_packed.html"><span lang="tr">Hemen indir · 2,6 KB</span><span lang="en">Download · 2.6 KB</span></a>
+          <a class="dl" href="builds/L3_packed.html" download="L3_packed.html"><span lang="tr">Hemen indir · 2,5 KB</span><span lang="en">Download · 2.5 KB</span></a>
           <a class="mx" id="ctasrc" href="#engcode"><span lang="tr">Kodu gör</span><span lang="en">View the code</span></a>
           <a href="https://github.com/cuneytinann/FideLite" target="_blank" rel="noopener"><img class="fav" src="https://github.com/favicon.ico" alt="" width="16" height="16">GitHub</a>
         </span>
@@ -1385,7 +1385,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="prose" lang="tr">
       <p>Turnuva standartlarında eksiksiz bir satranç hakemi, 1.807 baytlık tek bir JavaScript
       dosyasına sığdı; oynanabilir tek bir HTML dosyası olarak da arayüzün özelliklerine
-      ve eski ya da modern HTML yazım kurallarına göre 3,1 ile 1,70 KB
+      ve eski ya da modern HTML yazım kurallarına göre 2,8 ile 1,79 KB
       <span class="gloss">(bir dosyanın diskte kapladığı yerin ölçüsü; 1 KB = 1024 bayt)</span>
       arasında değişiyor. FideLite, en küçük boyutta en çok işlevi sunmayı hedefleyen bir
       mühendislik çalışması; code golf ile yazıldı — işleve dokunmadan, gereksiz dolgu olan her
@@ -1402,7 +1402,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     </div>
     <div class="prose" lang="en">
       <p>A complete, tournament-grade chess arbiter fits into a single JavaScript file of
-      1,807 bytes; as a single playable HTML file it ranges from 1.70 to 3.1 KB
+      1,807 bytes; as a single playable HTML file it ranges from 1.79 to 2.8 KB
       <span class="gloss">(the measure of how much room a file takes on disk;
       1 KB = 1024 bytes)</span>, depending on the features of its interface and on old or modern
       HTML authoring conventions. FideLite is an engineering exercise in getting the most
@@ -1645,7 +1645,6 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <label class="rd" data-lv="L3" title="UCI, metin alanı, tahta çizilmiyor" data-en-title="UCI, text field, no board"><input type="radio" name="build" value="L3_input_blindfold"> <code>input_blindfold</code></label>
 <label class="rd cli" data-lv="L3" title="Terminal sürümü — node ile çalışır, tarayıcıda oynanmaz; kodunu göster ya da indir" data-en-title="Terminal build — runs with node, not in the browser; show its code or download it"><input type="radio" name="build" value="L3_nonbrowser"> <code>nonbrowser</code></label>
 <label class="rd" data-lv="L3" title="Sayısal arayüz, prompt penceresi" data-en-title="Numeric interface, prompt dialog"><input type="radio" name="build" value="L3_numerical"> <code>numerical</code></label>
-<label class="rd pk" data-lv="L3" title="L3, RegPack ile paketli — sayısal arayüz, prompt penceresi" data-en-title="L3 packed with RegPack — numeric interface, prompt dialog"><input type="radio" name="build" value="L3_minimum"> <code>L3_minimum</code></label>
 <label class="rd pk" data-lv="L3" title="L3, RegPack ile paketli — tıklanabilir tahta, canlı saat" data-en-title="L3 packed with RegPack — clickable board, live clock"><input type="radio" name="build" value="L3_packed"> <code>L3_packed</code></label>
 <label class="rd" data-lv="special" hidden title="Tam hakem, zengin arayüz — sürükle bırak, sağ tıkla işaretleme; başlarken süre, saat modu, FEN ve Chess960 seçimi" data-en-title="Full arbiter with a rich interface — drag and drop, right-click marking; time control, clock mode, FEN and Chess960 picked at the start"><input type="radio" name="build" value="LUX"> <code class="lux">LUX</code> <small>L3++</small></label>
 <span class="rbr" data-lv="special" hidden></span>
@@ -1824,7 +1823,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>Sorunun cevabı bu yüzden tek bir sayı: <b>1.807 bayt.</b> <code>engine.js</code>, iki
       insan oyuncu arasındaki resmî bir oyunu baştan sona yönetiyor; bir arayüzle birleşip
       oynanabilir tek bir dosya olduğunda, arayüzüne ve eski ya da modern HTML yazımına göre
-      <b>3.131</b> ile <b>1.737 bayt</b> arasında kalıyor.</p>
+      <b>2.881</b> ile <b>1.835 bayt</b> arasında kalıyor.</p>
     </div>
     <div class="prose" lang="en">
       <p>That is what I did in Golfstack. What the rules were was clear from the outset; the work was carving away every excess in the code that expressed them.</p>
@@ -1837,7 +1836,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>The answer to the question is therefore a single number: <b>1,807 bytes.</b>
       <code>engine.js</code> arbitrates an official game between two human players from the first
       move to the last; joined to a front end as a single playable file, it takes between
-      <b>1,737</b> and <b>3,131 bytes</b>, depending on the interface and on old or modern HTML
+      <b>1,835</b> and <b>2,881 bytes</b>, depending on the interface and on old or modern HTML
       authoring.</p>
     </div>
 
@@ -7254,7 +7253,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <code class="vn">L1_1250elo</code>, <code class="vn">L2_aybars_2500</code> ve Toledo'nun programına karşı yazılan
       <code class="vn">ToledosOpponentbyMe</code>. <a href="#bots">Özel sürümlerin içinde</a>, kendi grubunda.</p>
       <p>Eksenlere sığmayanlar <a href="#special">Özel sürümlerde</a>. <code class="vn">L3</code>'ün
-      <a href="#l3packed">paketli iki hâli</a> ise eskimiş yöntem kullansa da iddianın parçası.</p>
+      <a href="#l3packed">paketli hâli</a> ise eskimiş yöntem kullansa da iddianın parçası.</p>
     </div>
     <div class="prose" lang="en">
       <p>The builds multiply along three separate axes; they should not be confused.</p>
@@ -7271,8 +7270,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       on top of the rules: <code class="vn">L1_1250elo</code>, <code class="vn">L2_aybars_2500</code>, and <code class="vn">ToledosOpponentbyMe</code>, written
       against Toledo's program. <a href="#bots">Inside the special builds</a>, as a group of its own.</p>
       <p>What fits none of the axes is among the <a href="#special">special builds</a>. The
-      <a href="#l3packed">two packed forms</a> of <code class="vn">L3</code>, though they use deprecated
-      methods, are part of the claim.</p>
+      <a href="#l3packed">packed form</a> of <code class="vn">L3</code>, though it uses deprecated
+      methods, is part of the claim.</p>
     </div>
 
     <nav class="toc" data-toc></nav>
@@ -7296,39 +7295,38 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th>Giriş</th><th>Tahta</th><th>Saat</th><th>Süre</th><th>Düz</th></tr></thead>
 <tbody>
-<tr><td><code class="vn">main</code><br><span class="fn2">builds/L3.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri</td><td>⏱ <b>D:SS</b><span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>3.131</td></tr>
-<tr><td><code class="vn">light</code><br><span class="fn2">builds/L3_light.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri<span class="sub">durum satırı, koordinat, şah uyarısı ve hedef işareti yok; sonuç <a href="#lightread">tahtadan ve saatten okunuyor</a></span></td><td>⏱ <b>D:SS</b><span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>2.651</td></tr>
-<tr><td><code class="vn">numerical</code><br><span class="fn2">builds/L3_numerical.html</span></td><td>Sayısal, prompt penceresi</td><td>Yok, yalnızca son hamle</td><td>Milisaniye<span class="sub">hamlede</span></td><td>900.000 ms<span class="sub">artış yok</span></td><td>2.051</td></tr>
-<tr><td><code class="vn">prompt</code><br><span class="fn2">builds/L3_prompt.html</span><br><code class="vn">prompt_string_a1</code><br><span class="fn2">builds/L3_prompt_string_a1.html</span><br><code class="vn">prompt_string</code><br><span class="fn2">builds/L3_prompt_string.html</span></td><td>UCI, prompt penceresi</td><td>Tam tahta, tam genişlik harfler<span class="sub">üçünün ekranı birebir aynı; ikisinin farkı içeride, <a href="#l3strings">aşağıda</a></span></td><td>Saniye<span class="sub">hamlede</span></td><td>600 sn + 5 sn</td><td>2.388<br>2.496<br>2.438</td></tr>
-<tr><td><code class="vn">prompt_blindfold</code><br><span class="fn2">builds/L3_prompt_blindfold.html</span></td><td>UCI, prompt penceresi</td><td>Yok, yalnızca son hamle</td><td>Saniye<span class="sub">hamlede</span></td><td>600 sn + 5 sn</td><td>2.249</td></tr>
-<tr><td><code class="vn">input</code><br><span class="fn2">builds/L3_input.html</span></td><td>UCI, metin alanı</td><td>Tam tahta, ASCII</td><td>Saniye<span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>2.520</td></tr>
-<tr><td><code class="vn">input_blindfold</code><br><span class="fn2">builds/L3_input_blindfold.html</span></td><td>UCI, metin alanı</td><td>Yok, yalnızca son hamle</td><td>Saniye<span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>2.372</td></tr>
-<tr><td><code class="vn">nonbrowser</code><br><span class="fn2">builds/L3_nonbrowser.cjs</span></td><td>UCI, terminal</td><td>Tam tahta, ASCII</td><td>Saniye<span class="sub">hamlede</span></td><td>600 sn + 5 sn</td><td>2.636</td></tr>
-<tr><td><code class="vn">nonbrowser_blindfold</code><br><span class="fn2">builds/L3_nonbrowser_blindfold.cjs</span></td><td>UCI, terminal</td><td>Yok, yalnızca son hamle</td><td>Saniye<span class="sub">hamlede</span></td><td>600 sn + 5 sn</td><td>2.492</td></tr>
+<tr><td><code class="vn">main</code><br><span class="fn2">builds/L3.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri</td><td>⏱ <b>D:SS</b><span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>2.881</td></tr>
+<tr><td><code class="vn">light</code><br><span class="fn2">builds/L3_light.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri<span class="sub">durum satırı, koordinat, şah uyarısı ve hedef işareti yok; sonuç <a href="#lightread">tahtadan ve saatten okunuyor</a></span></td><td>⏱ <b>D:SS</b><span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>2.346</td></tr>
+<tr><td><code class="vn">numerical</code><br><span class="fn2">builds/L3_numerical.html</span></td><td>Sayısal, prompt penceresi</td><td>Yok, yalnızca son hamle</td><td>Milisaniye<span class="sub">hamlede</span></td><td>900.000 ms<span class="sub">artış yok</span></td><td>1.835</td></tr>
+<tr><td><code class="vn">prompt</code><br><span class="fn2">builds/L3_prompt.html</span><br><code class="vn">prompt_string_a1</code><br><span class="fn2">builds/L3_prompt_string_a1.html</span><br><code class="vn">prompt_string</code><br><span class="fn2">builds/L3_prompt_string.html</span></td><td>UCI, prompt penceresi</td><td>Tam tahta, tam genişlik harfler<span class="sub">üçünün ekranı birebir aynı; ikisinin farkı içeride, <a href="#l3strings">aşağıda</a></span></td><td>Saniye<span class="sub">hamlede</span></td><td>600 sn + 5 sn</td><td>2.227<br>2.496<br>2.435</td></tr>
+<tr><td><code class="vn">prompt_blindfold</code><br><span class="fn2">builds/L3_prompt_blindfold.html</span></td><td>UCI, prompt penceresi</td><td>Yok, yalnızca son hamle</td><td>Saniye<span class="sub">hamlede</span></td><td>600 sn + 5 sn</td><td>2.087</td></tr>
+<tr><td><code class="vn">input</code><br><span class="fn2">builds/L3_input.html</span></td><td>UCI, metin alanı</td><td>Tam tahta, ASCII</td><td>Saniye<span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>2.275</td></tr>
+<tr><td><code class="vn">input_blindfold</code><br><span class="fn2">builds/L3_input_blindfold.html</span></td><td>UCI, metin alanı</td><td>Yok, yalnızca son hamle</td><td>Saniye<span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>2.145</td></tr>
+<tr><td><code class="vn">nonbrowser</code><br><span class="fn2">builds/L3_nonbrowser.cjs</span></td><td>UCI, terminal</td><td>Tam tahta, ASCII</td><td>Saniye<span class="sub">hamlede</span></td><td>600 sn + 5 sn</td><td>2.377</td></tr>
+<tr><td><code class="vn">nonbrowser_blindfold</code><br><span class="fn2">builds/L3_nonbrowser_blindfold.cjs</span></td><td>UCI, terminal</td><td>Yok, yalnızca son hamle</td><td>Saniye<span class="sub">hamlede</span></td><td>600 sn + 5 sn</td><td>2.251</td></tr>
 </tbody>
 </table></div>
 
     <div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>Input</th><th>Board</th><th>Clock</th><th>Time control</th><th>Plain</th></tr></thead>
 <tbody>
-<tr><td><code class="vn">main</code><br><span class="fn2">builds/L3.html</span></td><td>Clicking</td><td>Full board, piece glyphs</td><td>⏱ <b>M:SS</b><span class="sub">live</span></td><td>600 s + 5 s</td><td>3,131</td></tr>
-<tr><td><code class="vn">light</code><br><span class="fn2">builds/L3_light.html</span></td><td>Clicking</td><td>Full board, piece glyphs<span class="sub">no status line, coordinates, check marker or target squares; the result is <a href="#lightread">read from the board and the clocks</a></span></td><td>⏱ <b>M:SS</b><span class="sub">live</span></td><td>600 s + 5 s</td><td>2,651</td></tr>
-<tr><td><code class="vn">numerical</code><br><span class="fn2">builds/L3_numerical.html</span></td><td>Numeric, prompt dialog</td><td>None, last move only</td><td>Milliseconds<span class="sub">on move</span></td><td>900,000 ms<span class="sub">no increment</span></td><td>2,051</td></tr>
-<tr><td><code class="vn">prompt</code><br><span class="fn2">builds/L3_prompt.html</span><br><code class="vn">prompt_string_a1</code><br><span class="fn2">builds/L3_prompt_string_a1.html</span><br><code class="vn">prompt_string</code><br><span class="fn2">builds/L3_prompt_string.html</span></td><td>UCI, prompt dialog</td><td>Full board, full-width letters<span class="sub">all three screens are identical; two differ inside, <a href="#l3strings">below</a></span></td><td>Seconds<span class="sub">on move</span></td><td>600 s + 5 s</td><td>2,388<br>2,496<br>2,438</td></tr>
-<tr><td><code class="vn">prompt_blindfold</code><br><span class="fn2">builds/L3_prompt_blindfold.html</span></td><td>UCI, prompt dialog</td><td>None, last move only</td><td>Seconds<span class="sub">on move</span></td><td>600 s + 5 s</td><td>2,249</td></tr>
-<tr><td><code class="vn">input</code><br><span class="fn2">builds/L3_input.html</span></td><td>UCI, text field</td><td>Full board, ASCII</td><td>Seconds<span class="sub">live</span></td><td>600 s + 5 s</td><td>2,520</td></tr>
-<tr><td><code class="vn">input_blindfold</code><br><span class="fn2">builds/L3_input_blindfold.html</span></td><td>UCI, text field</td><td>None, last move only</td><td>Seconds<span class="sub">live</span></td><td>600 s + 5 s</td><td>2,372</td></tr>
-<tr><td><code class="vn">nonbrowser</code><br><span class="fn2">builds/L3_nonbrowser.cjs</span></td><td>UCI, terminal</td><td>Full board, ASCII</td><td>Seconds<span class="sub">on move</span></td><td>600 s + 5 s</td><td>2,636</td></tr>
-<tr><td><code class="vn">nonbrowser_blindfold</code><br><span class="fn2">builds/L3_nonbrowser_blindfold.cjs</span></td><td>UCI, terminal</td><td>None, last move only</td><td>Seconds<span class="sub">on move</span></td><td>600 s + 5 s</td><td>2,492</td></tr>
+<tr><td><code class="vn">main</code><br><span class="fn2">builds/L3.html</span></td><td>Clicking</td><td>Full board, piece glyphs</td><td>⏱ <b>M:SS</b><span class="sub">live</span></td><td>600 s + 5 s</td><td>2,881</td></tr>
+<tr><td><code class="vn">light</code><br><span class="fn2">builds/L3_light.html</span></td><td>Clicking</td><td>Full board, piece glyphs<span class="sub">no status line, coordinates, check marker or target squares; the result is <a href="#lightread">read from the board and the clocks</a></span></td><td>⏱ <b>M:SS</b><span class="sub">live</span></td><td>600 s + 5 s</td><td>2,346</td></tr>
+<tr><td><code class="vn">numerical</code><br><span class="fn2">builds/L3_numerical.html</span></td><td>Numeric, prompt dialog</td><td>None, last move only</td><td>Milliseconds<span class="sub">on move</span></td><td>900,000 ms<span class="sub">no increment</span></td><td>1,835</td></tr>
+<tr><td><code class="vn">prompt</code><br><span class="fn2">builds/L3_prompt.html</span><br><code class="vn">prompt_string_a1</code><br><span class="fn2">builds/L3_prompt_string_a1.html</span><br><code class="vn">prompt_string</code><br><span class="fn2">builds/L3_prompt_string.html</span></td><td>UCI, prompt dialog</td><td>Full board, full-width letters<span class="sub">all three screens are identical; two differ inside, <a href="#l3strings">below</a></span></td><td>Seconds<span class="sub">on move</span></td><td>600 s + 5 s</td><td>2,227<br>2,496<br>2,435</td></tr>
+<tr><td><code class="vn">prompt_blindfold</code><br><span class="fn2">builds/L3_prompt_blindfold.html</span></td><td>UCI, prompt dialog</td><td>None, last move only</td><td>Seconds<span class="sub">on move</span></td><td>600 s + 5 s</td><td>2,087</td></tr>
+<tr><td><code class="vn">input</code><br><span class="fn2">builds/L3_input.html</span></td><td>UCI, text field</td><td>Full board, ASCII</td><td>Seconds<span class="sub">live</span></td><td>600 s + 5 s</td><td>2,275</td></tr>
+<tr><td><code class="vn">input_blindfold</code><br><span class="fn2">builds/L3_input_blindfold.html</span></td><td>UCI, text field</td><td>None, last move only</td><td>Seconds<span class="sub">live</span></td><td>600 s + 5 s</td><td>2,145</td></tr>
+<tr><td><code class="vn">nonbrowser</code><br><span class="fn2">builds/L3_nonbrowser.cjs</span></td><td>UCI, terminal</td><td>Full board, ASCII</td><td>Seconds<span class="sub">on move</span></td><td>600 s + 5 s</td><td>2,377</td></tr>
+<tr><td><code class="vn">nonbrowser_blindfold</code><br><span class="fn2">builds/L3_nonbrowser_blindfold.cjs</span></td><td>UCI, terminal</td><td>None, last move only</td><td>Seconds<span class="sub">on move</span></td><td>600 s + 5 s</td><td>2,251</td></tr>
 </tbody>
 </table></div>
 
-    <h4 id="l3packed" lang="tr">Paketli hâller</h4>
-    <h4 lang="en" data-id="l3packed">The packed forms</h4>
+    <h4 id="l3packed" lang="tr">Paketli hâl</h4>
+    <h4 lang="en" data-id="l3packed">The packed form</h4>
     <div class="prose" lang="tr">
-      <p><code class="vn">main</code> ve <code class="vn">numerical</code>'ın RegPack ile paketlenmiş iki hâli iddianın asıl parçası ve
-      seviye olarak <code class="vn">L3</code>'le eş: <code class="vn">L3_packed</code> (2.635 bayt) ve <code class="vn">L3_minimum</code> (1.737 bayt).
-      <code class="vn">L3_minimum</code> oynanabilir en küçük <code class="vn">L3</code>, iddianın alt eşiği. Paketleme bir sıkıştırma değil,
+      <p><code class="vn">main</code>'in RegPack ile paketlenmiş hâli iddianın asıl parçası ve
+      seviye olarak <code class="vn">L3</code>'le eş: <code class="vn">L3_packed</code> (2.530 bayt). Paketleme bir sıkıştırma değil,
       kendini açan bir sarmalayıcı: dosya açılınca asıl kaynak yeniden kuruluyor, oyun da eşdeğer çalışıyor. Ama
       bunu eskimiş yöntemlerle yapıyor: <code>with</code> katı kipte (strict mode) sözdizimi hatası,
       <code>eval</code> ise <code>unsafe-eval</code> izni vermeyen bir içerik güvenlik politikası altında
@@ -7338,14 +7336,13 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <a href="#packing">her sürümde kazandırmıyor</a>.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The <code class="vn">main</code> and <code class="vn">numerical</code> builds packed with RegPack are a core part of the claim and on
-      a par with <code class="vn">L3</code>: <code class="vn">L3_packed</code> (2,635 bytes) and <code class="vn">L3_minimum</code> (1,737 bytes).
-      <code class="vn">L3_minimum</code> is the smallest playable <code class="vn">L3</code>, the lower bound of the claim. Packing is not
+      <p>The <code class="vn">main</code> build packed with RegPack is a core part of the claim and on
+      a par with <code class="vn">L3</code>: <code class="vn">L3_packed</code> (2,530 bytes). Packing is not
       compression but a self-extracting wrapper: when the file opens, the actual source is rebuilt, and the game
       behaves equivalently. But it gets there with deprecated methods: <code>with</code> is a syntax error in
       strict mode, and <code>eval</code> is blocked under a content security policy that does not allow
       <code>unsafe-eval</code>. Browsers warn about them, and in some modes the file does not open at all.
-      Because they also contain invisible control characters, they work as shared files rather than as code
+      Because it also contains invisible control characters, it works as a shared file rather than as code
       carried over by copy and paste. In the player, <code class="vn">L3_packed</code> opens at the end of the <code class="vn">L3</code> level.
       The rest stand as plain source, because
       packing <a href="#packing">does not pay off in every build</a>.</p>
@@ -7353,15 +7350,13 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th>Giriş</th><th>Tahta</th><th>Saat</th><th>Süre</th><th>Bayt</th></tr></thead>
 <tbody>
-<tr><td><code class="vn">L3_packed</code><br><span class="fn2">builds/L3_packed.html</span><br><span class="fn2"><code class="vn">main</code>'in paketli hâli</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri</td><td>⏱ <b>D:SS</b><span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>2.635</td></tr>
-<tr><td><code class="vn">L3_minimum</code><br><span class="fn2">builds/L3_minimum.html</span><br><span class="fn2"><code class="vn">numerical</code>'ın paketli hâli</span></td><td>Sayısal, prompt penceresi</td><td>Yok, yalnızca son hamle</td><td>Milisaniye<span class="sub">hamlede</span></td><td>900.000 ms<span class="sub">artış yok</span></td><td>1.737</td></tr>
+<tr><td><code class="vn">L3_packed</code><br><span class="fn2">builds/L3_packed.html</span><br><span class="fn2"><code class="vn">main</code>'in paketli hâli</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri</td><td>⏱ <b>D:SS</b><span class="sub">canlı</span></td><td>600 sn + 5 sn</td><td>2.530</td></tr>
 </tbody>
 </table></div>
     <div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>Input</th><th>Board</th><th>Clock</th><th>Time control</th><th>Bytes</th></tr></thead>
 <tbody>
-<tr><td><code class="vn">L3_packed</code><br><span class="fn2">builds/L3_packed.html</span><br><span class="fn2">the packed form of <code class="vn">main</code></span></td><td>Clicking</td><td>Full board, piece glyphs</td><td>⏱ <b>M:SS</b><span class="sub">live</span></td><td>600 s + 5 s</td><td>2,635</td></tr>
-<tr><td><code class="vn">L3_minimum</code><br><span class="fn2">builds/L3_minimum.html</span><br><span class="fn2">the packed form of <code class="vn">numerical</code></span></td><td>Numeric, prompt dialog</td><td>None, last move only</td><td>Milliseconds<span class="sub">on move</span></td><td>900,000 ms<span class="sub">no increment</span></td><td>1,737</td></tr>
+<tr><td><code class="vn">L3_packed</code><br><span class="fn2">builds/L3_packed.html</span><br><span class="fn2">the packed form of <code class="vn">main</code></span></td><td>Clicking</td><td>Full board, piece glyphs</td><td>⏱ <b>M:SS</b><span class="sub">live</span></td><td>600 s + 5 s</td><td>2,530</td></tr>
 </tbody>
 </table></div>
 
@@ -8103,7 +8098,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       kanonik tutulmasına gerek kalmıyor. <code class="vn">L1</code> hamlenin dokunduğu kareleri <a href="#castlebook">bir deftere işaretliyor</a>; rok için
       şahın ve kalenin karesine hiç dokunulmamış olmalı. Aynı zincir <code>V</code>'nin taraf parametresini de
       düşürüyor: geçerken alma karesinin yasallık denetimi ve 6.9 araması olmayınca <code>V</code> hep sırası gelen
-      taraf için soruluyor. <code class="vn">L1</code>'in 1.531 baytta durabilmesinin sebebi bu zincir.</p>
+      taraf için soruluyor. <code class="vn">L1</code>'in 1.424 baytta durabilmesinin sebebi bu zincir.</p>
       <p>Kod tarafında fark daha da keskin. <code class="vn">L1</code>'de dört fonksiyon var — <code>G</code>,
       <code>V</code>, <code>L</code>, <code>M</code> — ve hüküm ayrı bir fonksiyon
       bile değil, hamleyi işleyen ifadenin içine gömülü. <code class="vn">L2</code> bunlara
@@ -8120,7 +8115,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       kept canonical. <code class="vn">L1</code> marks the squares a move touches <a href="#castlebook">in a ledger</a>, and castling needs the king's
       square and the rook's square never to have been touched. The same chain drops the side argument of
       <code>V</code>: with no legality test for the en passant square and no 6.9 search, <code>V</code> is only ever
-      asked about the side to move. That chain is why <code class="vn">L1</code> can stop at 1,531 bytes.</p>
+      asked about the side to move. That chain is why <code class="vn">L1</code> can stop at 1,424 bytes.</p>
       <p>On the code side the difference is sharper still. <code class="vn">L1</code> has four functions —
       <code>G</code>, <code>V</code>, <code>L</code>, <code>M</code> — and the
       verdict is not even a function of its own but inlined into the expression that applies the
@@ -8143,35 +8138,35 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th>Giriş</th><th>Tahta</th><th><code class="vn">L1</code></th><th><code class="vn">L2</code></th></tr></thead>
 <tbody>
-<tr><td><code class="vn">default</code><br><span class="fn2">L1.html · L2.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri</td><td>1.531</td><td>2.212</td></tr>
-<tr><td><code class="vn">light</code><br><span class="fn2">L1_light.html · L2_light.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri<span class="sub">gösterge yok, sonuç <a href="#lightread">tahtadan okunuyor</a></span></td><td>1.111</td><td>1.740</td></tr>
-<tr><td><code class="vn">numerical</code><br><span class="fn2">L1_numerical.html · L2_numerical.html</span></td><td>Sayısal, prompt penceresi</td><td>Yok, yalnızca son hamle<span class="sub">sonuç <a href="#indicators">pencerede, son hamlenin yerinde</a></span></td><td>824</td><td>1.480</td></tr>
-<tr><td><code class="vn">input</code><br><span class="fn2">L1_input.html · L2_input.html</span></td><td>UCI, metin alanı</td><td>Tam tahta, ASCII</td><td>1.128</td><td>1.812</td></tr>
-<tr><td><code class="vn">input_blindfold</code><br><span class="fn2">L1_input_blindfold.html · L2_input_blindfold.html</span></td><td>UCI, metin alanı</td><td>Yok, yalnızca son hamle<span class="sub">sıra satırın başında: <code>W</code> ya da <code>B</code></span></td><td>1.036</td><td>1.701</td></tr>
+<tr><td><code class="vn">default</code><br><span class="fn2">L1.html · L2.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri</td><td>1.424</td><td>2.041</td></tr>
+<tr><td><code class="vn">light</code><br><span class="fn2">L1_light.html · L2_light.html</span></td><td>Tıklama</td><td>Tam tahta, taş glifleri<span class="sub">gösterge yok, sonuç <a href="#lightread">tahtadan okunuyor</a></span></td><td>957</td><td>1.557</td></tr>
+<tr><td><code class="vn">numerical</code><br><span class="fn2">L1_numerical.html · L2_numerical.html</span></td><td>Sayısal, prompt penceresi</td><td>Yok, yalnızca son hamle<span class="sub">sonuç <a href="#indicators">pencerede, son hamlenin yerinde</a></span></td><td>774</td><td>1.369</td></tr>
+<tr><td><code class="vn">input</code><br><span class="fn2">L1_input.html · L2_input.html</span></td><td>UCI, metin alanı</td><td>Tam tahta, ASCII</td><td>1.070</td><td>1.690</td></tr>
+<tr><td><code class="vn">input_blindfold</code><br><span class="fn2">L1_input_blindfold.html · L2_input_blindfold.html</span></td><td>UCI, metin alanı</td><td>Yok, yalnızca son hamle<span class="sub">sıra satırın başında: <code>W</code> ya da <code>B</code></span></td><td>1.001</td><td>1.603</td></tr>
 <tr><td><code class="vn">prompt_string</code><br><span class="fn2">L1_prompt_string.html · L2_prompt_string.html</span></td><td>UCI, prompt penceresi</td><td>Tam tahta, tam genişlik harfler<span class="sub">ters indeks; sonuç <a href="#indicators">pencerede, <code>C!</code>'nin yerinde</a></span></td><td>1.086</td><td>1.810</td></tr>
-<tr><td><code class="vn">nonbrowser</code><br><span class="fn2">L1_nonbrowser.cjs · L2_nonbrowser.cjs</span></td><td>UCI, terminal</td><td>Tam tahta, ASCII</td><td>1.277</td><td>1.961</td></tr>
+<tr><td><code class="vn">nonbrowser</code><br><span class="fn2">L1_nonbrowser.cjs · L2_nonbrowser.cjs</span></td><td>UCI, terminal</td><td>Tam tahta, ASCII</td><td>1.198</td><td>1.818</td></tr>
 </tbody>
 </table></div>
 
     <div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>Input</th><th>Board</th><th><code class="vn">L1</code></th><th><code class="vn">L2</code></th></tr></thead>
 <tbody>
-<tr><td><code class="vn">default</code><br><span class="fn2">L1.html · L2.html</span></td><td>Clicking</td><td>Full board, piece glyphs</td><td>1,531</td><td>2,212</td></tr>
-<tr><td><code class="vn">light</code><br><span class="fn2">L1_light.html · L2_light.html</span></td><td>Clicking</td><td>Full board, piece glyphs<span class="sub">no indicators; the result is <a href="#lightread">read from the board</a></span></td><td>1,111</td><td>1,740</td></tr>
-<tr><td><code class="vn">numerical</code><br><span class="fn2">L1_numerical.html · L2_numerical.html</span></td><td>Numeric, prompt dialog</td><td>None, last move only<span class="sub">the result appears <a href="#indicators">in the dialog, in place of the last move</a></span></td><td>824</td><td>1,480</td></tr>
-<tr><td><code class="vn">input</code><br><span class="fn2">L1_input.html · L2_input.html</span></td><td>UCI, text field</td><td>Full board, ASCII</td><td>1,128</td><td>1,812</td></tr>
-<tr><td><code class="vn">input_blindfold</code><br><span class="fn2">L1_input_blindfold.html · L2_input_blindfold.html</span></td><td>UCI, text field</td><td>None, last move only<span class="sub">the side to move leads the line: <code>W</code> or <code>B</code></span></td><td>1,036</td><td>1,701</td></tr>
+<tr><td><code class="vn">default</code><br><span class="fn2">L1.html · L2.html</span></td><td>Clicking</td><td>Full board, piece glyphs</td><td>1,424</td><td>2,041</td></tr>
+<tr><td><code class="vn">light</code><br><span class="fn2">L1_light.html · L2_light.html</span></td><td>Clicking</td><td>Full board, piece glyphs<span class="sub">no indicators; the result is <a href="#lightread">read from the board</a></span></td><td>957</td><td>1,557</td></tr>
+<tr><td><code class="vn">numerical</code><br><span class="fn2">L1_numerical.html · L2_numerical.html</span></td><td>Numeric, prompt dialog</td><td>None, last move only<span class="sub">the result appears <a href="#indicators">in the dialog, in place of the last move</a></span></td><td>774</td><td>1,369</td></tr>
+<tr><td><code class="vn">input</code><br><span class="fn2">L1_input.html · L2_input.html</span></td><td>UCI, text field</td><td>Full board, ASCII</td><td>1,070</td><td>1,690</td></tr>
+<tr><td><code class="vn">input_blindfold</code><br><span class="fn2">L1_input_blindfold.html · L2_input_blindfold.html</span></td><td>UCI, text field</td><td>None, last move only<span class="sub">the side to move leads the line: <code>W</code> or <code>B</code></span></td><td>1,001</td><td>1,603</td></tr>
 <tr><td><code class="vn">prompt_string</code><br><span class="fn2">L1_prompt_string.html · L2_prompt_string.html</span></td><td>UCI, prompt dialog</td><td>Full board, full-width letters<span class="sub">flipped index; the result appears <a href="#indicators">in the dialog, in place of <code>C!</code></a></span></td><td>1,086</td><td>1,810</td></tr>
-<tr><td><code class="vn">nonbrowser</code><br><span class="fn2">L1_nonbrowser.cjs · L2_nonbrowser.cjs</span></td><td>UCI, terminal</td><td>Full board, ASCII</td><td>1,277</td><td>1,961</td></tr>
+<tr><td><code class="vn">nonbrowser</code><br><span class="fn2">L1_nonbrowser.cjs · L2_nonbrowser.cjs</span></td><td>UCI, terminal</td><td>Full board, ASCII</td><td>1,198</td><td>1,818</td></tr>
 </tbody>
 </table></div>
 
     <div class="prose" lang="tr">
-      <p>Aynı arayüzde <code class="vn">L1</code>'den <code class="vn">L2</code>'ye çıkmak 629 ile 724 bayt arası tutuyor.</p>
+      <p>Aynı arayüzde <code class="vn">L1</code>'den <code class="vn">L2</code>'ye çıkmak 595 ile 724 bayt arası tutuyor.</p>
       <p><code class="vn">L1</code> kurallarının paketli bir uygulaması <a href="#special">Özel sürümlerde</a>: <code class="vn">DOM_996</code>; oyun sonunda tahta tek renge dönüyor.</p>
     </div>
     <div class="prose" lang="en">
-      <p>Moving from <code class="vn">L1</code> to <code class="vn">L2</code> costs between 629 and 724 bytes for the same interface.</p>
+      <p>Moving from <code class="vn">L1</code> to <code class="vn">L2</code> costs between 595 and 724 bytes for the same interface.</p>
       <p>A packed implementation of the <code class="vn">L1</code> rules is among the <a href="#special">special builds</a>: <code class="vn">DOM_996</code>; at the end of the game the board turns a single colour.</p>
     </div>
 
@@ -8562,15 +8557,15 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="tw" lang="tr"><table>
 <thead><tr><th>Seviye</th><th>Botsuz</th><th>Botlu</th><th>Botun maliyeti</th></tr></thead>
 <tbody>
-<tr><td><code class="vn">L1</code></td><td>1.531<span class="sub">builds/L1/L1.html</span></td><td>2.280<span class="sub">builds/special/L1_1250elo.html</span></td><td>749</td></tr>
-<tr><td><code class="vn">L2</code></td><td>2.212<span class="sub">builds/L2/L2.html</span></td><td>7.935<span class="sub">builds/special/L2_aybars_2500.html</span></td><td>5.723</td></tr>
+<tr><td><code class="vn">L1</code></td><td>1.424<span class="sub">builds/L1/L1.html</span></td><td>2.280<span class="sub">builds/special/L1_1250elo.html</span></td><td>856</td></tr>
+<tr><td><code class="vn">L2</code></td><td>2.041<span class="sub">builds/L2/L2.html</span></td><td>7.935<span class="sub">builds/special/L2_aybars_2500.html</span></td><td>5.894</td></tr>
 </tbody>
 </table></div>
     <div class="tw" lang="en"><table>
 <thead><tr><th>Level</th><th>No bot</th><th>With bot</th><th>Cost of the bot</th></tr></thead>
 <tbody>
-<tr><td><code class="vn">L1</code></td><td>1,531<span class="sub">builds/L1/L1.html</span></td><td>2,280<span class="sub">builds/special/L1_1250elo.html</span></td><td>749</td></tr>
-<tr><td><code class="vn">L2</code></td><td>2,212<span class="sub">builds/L2/L2.html</span></td><td>7,935<span class="sub">builds/special/L2_aybars_2500.html</span></td><td>5,723</td></tr>
+<tr><td><code class="vn">L1</code></td><td>1,424<span class="sub">builds/L1/L1.html</span></td><td>2,280<span class="sub">builds/special/L1_1250elo.html</span></td><td>856</td></tr>
+<tr><td><code class="vn">L2</code></td><td>2,041<span class="sub">builds/L2/L2.html</span></td><td>7,935<span class="sub">builds/special/L2_aybars_2500.html</span></td><td>5,894</td></tr>
 </tbody>
 </table></div>
     <div class="prose" lang="tr">
@@ -8696,7 +8691,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       Alttaki bir çipe basınca o kavrama ait parçalar kaynakta vurgulanıyor; aynı anda tek kavram gösteriliyor, aynı çipe yeniden basınca vurgu kalkıyor.</p>
       <p>Pencerenin üstündeki <b>En basit sürücüyle</b> düğmesi aynı yerde
       <code>L3_numerical</code>'ı açıyor: bu motor ve onu oynanabilir yapan en kısa sürücü, tek bir
-      HTML dosyasında, 2.051 bayt. Sürücü 214 baytlık bir döngü. Hamleyi bir <code>prompt</code>
+      HTML dosyasında, 1.835 bayt. Sürücü 214 baytlık bir döngü. Hamleyi bir <code>prompt</code>
       penceresinden rakamlarla okuyor: ikişer rakamla çıkış ve varış karesi, isteğe bağlı beşinci
       rakamla alt terfi (0 fil, 1 kale, 2 at). İki saati ve son hamleyi aynı pencerede gösteriyor,
       oyun bitince sonuç kodunu <code>alert</code> ile veriyor. Boş girdi terk, sayı olmayan girdi
@@ -8716,7 +8711,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       Press a chip below to highlight the parts of the source that belong to that concept; only one concept is shown at a time, and pressing the same chip again clears it.</p>
       <p>The <b>With the simplest driver</b> button at the top of the window opens
       <code>L3_numerical</code> in the same place: this engine and the shortest driver that makes it
-      playable, in a single 2,051-byte HTML file. The driver is a 214-byte loop. It reads a move from
+      playable, in a single 1,835-byte HTML file. The driver is a 214-byte loop. It reads a move from
       a <code>prompt</code> dialog as digits: two for the origin square, two for the destination, and
       an optional fifth for underpromotion (0 bishop, 1 rook, 2 knight). It shows both clocks and the
       last move in the same dialog and reports the result code with <code>alert</code> when the game
@@ -14242,8 +14237,7 @@ f = K[2] + K[3] - 0</pre></div>
       Hemen ardındaki <code>-0</code> değeri değiştirmiyor, yalnızca dizgiyi sayıya zorluyor.
       Aynı ifadede önce dizgi, sonra sayı davranışı.</p>
       <p>Kaydırılacak bir şey yok, çünkü yazılan sayı motorun kendi indeksi;
-      <code class="vn">L1</code> ve <code class="vn">L2</code>'nin sayısal sürümleri ve
-      <code class="vn">L3_minimum</code> da aynı düzeni kullanıyor.</p>
+      <code class="vn">L1</code> ve <code class="vn">L2</code>'nin sayısal sürümleri de aynı düzeni kullanıyor.</p>
     </div>
     <div class="prose" lang="en">
       <p><code>+</code> here is not addition but <b>concatenation</b>: <code>K[0]</code> and
@@ -14252,8 +14246,7 @@ f = K[2] + K[3] - 0</pre></div>
       coerces the string to a number. String behaviour then number behaviour, in one
       expression.</p>
       <p>There is nothing to shift, because the number typed is the engine's own index; the
-      numeric builds of <code class="vn">L1</code> and <code class="vn">L2</code>, and
-      <code class="vn">L3_minimum</code> too, use the same layout.</p>
+      numeric builds of <code class="vn">L1</code> and <code class="vn">L2</code> use the same layout.</p>
     </div>
 
     <div class="note" lang="tr">
@@ -14908,24 +14901,22 @@ f = K[2] + K[3] - 0</pre></div>
   <div class="wrap">
     <p class="eyebrow" lang="tr">Paketleme</p>
     <p class="eyebrow" lang="en">Packing</p>
-    <h2 lang="tr">Paketlenmiş iki dosya</h2>
-    <h2 lang="en">The two packed files</h2>
+    <h2 lang="tr">Paketlenmiş dosya</h2>
+    <h2 lang="en">The packed file</h2>
     <div class="prose" lang="tr">
       <p>Oynanabilir dosyalar, arayüzlerine ve eski ya da modern işaretleme biçimine göre
-      <b>3,1 KB</b> ile <b>1,71 KB</b> arasında değişiyor
-      <span class="gloss">(1 KB = 1024 bayt)</span>; alt uçtaki dosya bu bölümden çıkıyor.</p>
-      <p>Paketlenmiş sürüm iki tane: <code>L3_packed.html</code> 2.635 bayt,
-      <code>L3_minimum.html</code> 1.737. İkisi de kendi kendini açan RegPack
+      <b>2,8 KB</b> ile <b>1,79 KB</b> arasında değişiyor
+      <span class="gloss">(1 KB = 1024 bayt)</span>.</p>
+      <p>Paketlenmiş sürüm tek: <code>L3_packed.html</code>, 2.530 bayt. Kendi kendini açan bir RegPack
       çıktısı — dosyanın gövdesi bir açma döngüsü, son adımı <code>eval(_)</code>.
       <code>eval(_)</code> yerine bir atama koyulduğunda dosya kendi kaynağını geri
       veriyor:</p>
     </div>
     <div class="prose" lang="en">
-      <p>The playable files range from <b>1.71 KB</b> to <b>3.1 KB</b>
+      <p>The playable files range from <b>1.79 KB</b> to <b>2.8 KB</b>
       <span class="gloss">(1 KB = 1024 bytes)</span>, depending on their interface and on old or
-      modern markup; the file at the bottom of that range comes out of this section.</p>
-      <p>There are two packed builds: <code>L3_packed.html</code> at 2,635 bytes and
-      <code>L3_minimum.html</code> at 1,737. Both are self-extracting RegPack output — the
+      modern markup.</p>
+      <p>There is one packed build: <code>L3_packed.html</code>, at 2,530 bytes. It is self-extracting RegPack output — the
       body of the file is an unpacking loop whose last step is <code>eval(_)</code>. Put an
       assignment in place of <code>eval(_)</code> and the file hands back its own source:</p>
     </div>
@@ -14935,17 +14926,15 @@ f = K[2] + K[3] - 0</pre></div>
 // c.__out  &rarr;  the packed source</pre></div>
     <div class="prose" lang="tr">
       <p>Geri gelen kaynak düz dosyanın kendisi değil. RegPack'in aradığı kısalık değil
-      tekrar, o yüzden paketlenen kaynak düz kaynaktan <b>daha uzun</b>: <code class="vn">numerical</code>'da
-      2.051 bayt yerine 2.165, <code class="vn">main</code>'de 2.713 yerine 3.266. Aradaki fark üç başlıkta
-      toplanıyor — açılan takma adlar, gömülen fonksiyonlar, uzatılan operatörler — ve
-      <code class="vn">main</code>'de bir dördüncüsü var: eskimiş işaretleme.</p>
+      tekrar, o yüzden paketlenen kaynak düz kaynaktan <b>daha uzun</b>: 2.713 bayt yerine 3.266.
+      Aradaki fark dört başlıkta toplanıyor — açılan takma adlar, gömülen fonksiyonlar, uzatılan
+      operatörler ve eskimiş işaretleme.</p>
     </div>
     <div class="prose" lang="en">
       <p>What comes back is not the plain file. What RegPack looks for is not brevity but
-      repetition, so the packed source is <b>longer</b> than the plain one: 2,165 bytes instead of 2,051
-      in <code class="vn">numerical</code>, 3,266 instead of 2,713 in <code class="vn">main</code>. The difference falls
-      under three headings — aliases expanded, functions inlined, operators widened — and in
-      <code class="vn">main</code> there is a fourth: obsolete markup.</p>
+      repetition, so the packed source is <b>longer</b> than the plain one: 3,266 bytes instead of
+      2,713. The difference falls under four headings — aliases expanded, functions inlined,
+      operators widened and obsolete markup.</p>
     </div>
 
     <h3 id="pack-source" lang="tr">Paketin kendi kaynağı</h3>
@@ -14953,8 +14942,7 @@ f = K[2] + K[3] - 0</pre></div>
     <div class="prose" lang="tr">
       <p>Paketlenen kaynak düz kaynaktan hem uzun hem ayrı: düz kaynak bayt için, paket kaynağı
       <b>tekrar</b> için ayarlanmış. İkisini aynı dosyadan üretmek işe yaramıyor, çünkü <b>golf her
-      tekrarı siler, RegPack tam olarak tekrardan beslenir</b>. Düz <code class="vn">numerical</code>
-      kaynağını olduğu gibi paketlemek, bir önceki ölçümde paketi 62 bayt büyütüyordu.</p>
+      tekrarı siler, RegPack tam olarak tekrardan beslenir</b>.</p>
       <p>O yüzden yol ters çevrildi: paket kaynağı yerinde tutuldu — açılan takma adlar, gömülen
       fonksiyonlar, uzatılan operatörler, adlandırma — ve düz kaynakta kural katmanına giren her
       değişiklik bu kaynağa <b>tek tek</b> taşındı. Her birinin pakete etkisi ayrı ölçüldü:</p>
@@ -14963,60 +14951,53 @@ f = K[2] + K[3] - 0</pre></div>
       <p>The packed source is both longer than the plain one and separate from it: the plain
       source is tuned for bytes, the packed one for <b>repetition</b>. Producing both from the same
       file does not work, because <b>golf deletes every repetition, and RegPack feeds on exactly
-      that</b>. Packing the plain <code class="vn">numerical</code> source as it stands made the pack
-      62 bytes larger at the previous measurement.</p>
+      that</b>.</p>
       <p>So the route was turned round: the packed source was kept as it is — aliases expanded,
       functions inlined, operators widened, naming — and every change that reached the rule layer
       of the plain source was carried over into it <b>one at a time</b>. Each one's effect on the
       pack was measured on its own:</p>
     </div>
 <div class="tw" lang="tr"><table>
-<thead><tr><th>Değişiklik</th><th class="num">numerical</th><th class="num">main</th></tr></thead>
+<thead><tr><th>Değişiklik</th><th class="num">main</th></tr></thead>
 <tbody>
-<tr><td>Piyon itişi <code>S()</code> ile</td><td class="num">−7</td><td class="num">−7</td></tr>
-<tr><td>Rokta <code>S()</code>; <code class="vn">main</code>'de <code>!V(t)</code></td><td class="num">−2</td><td class="num">−6</td></tr>
-<tr><td><code>l</code>: <code>N</code> yeniden yazımı</td><td class="num">−1</td><td class="num">−1</td></tr>
-<tr><td><code>l</code>: <code>w|=p</code></td><td class="num">−2</td><td class="num">−2</td></tr>
-<tr><td><code>l</code>: <code>V*v</code> kapısı</td><td class="num">−6</td><td class="num">−8</td></tr>
-<tr><td><code>I</code>: kare rengi</td><td class="num">0</td><td class="num">−1</td></tr>
-<tr><td><code>I</code> süzgeci ve <code>Im</code> takası</td><td class="num">−1</td><td class="num">−4</td></tr>
-<tr><td>Geçerken alma hilesi</td><td class="num">0</td><td class="num">−3</td></tr>
-<tr><td><code>G</code>: <code>g</code> parametresi</td><td class="num">—</td><td class="num">−2</td></tr>
-<tr><td><code>x=T|b[f]</code> <span class="sub">alınmadı</span></td><td class="num">+1</td><td class="num">0</td></tr>
-<tr><td><b>Hepsi birlikte</b> <span class="sub">gövde</span></td><td class="num">1.775 → <b>1.746</b></td><td class="num">2.682 → <b>2.648</b></td></tr>
-<tr><td><b>Dosya</b></td><td class="num">1.792 → <b>1.763</b></td><td class="num">2.702 → <b>2.668</b></td></tr>
+<tr><td>Piyon itişi <code>S()</code> ile</td><td class="num">−7</td></tr>
+<tr><td>Rokta <code>S()</code> ve <code>!V(t)</code></td><td class="num">−6</td></tr>
+<tr><td><code>l</code>: <code>N</code> yeniden yazımı</td><td class="num">−1</td></tr>
+<tr><td><code>l</code>: <code>w|=p</code></td><td class="num">−2</td></tr>
+<tr><td><code>l</code>: <code>V*v</code> kapısı</td><td class="num">−8</td></tr>
+<tr><td><code>I</code>: kare rengi</td><td class="num">−1</td></tr>
+<tr><td><code>I</code> süzgeci ve <code>Im</code> takası</td><td class="num">−4</td></tr>
+<tr><td>Geçerken alma hilesi</td><td class="num">−3</td></tr>
+<tr><td><code>G</code>: <code>g</code> parametresi</td><td class="num">−2</td></tr>
+<tr><td><code>x=T|b[f]</code> <span class="sub">alınmadı</span></td><td class="num">0</td></tr>
+<tr><td><b>Hepsi birlikte</b> <span class="sub">gövde</span></td><td class="num">2.682 → <b>2.648</b></td></tr>
+<tr><td><b>Dosya</b></td><td class="num">2.702 → <b>2.668</b></td></tr>
 </tbody>
 </table></div>
 <div class="tw" lang="en"><table>
-<thead><tr><th>Change</th><th class="num">numerical</th><th class="num">main</th></tr></thead>
+<thead><tr><th>Change</th><th class="num">main</th></tr></thead>
 <tbody>
-<tr><td>The pawn push through <code>S()</code></td><td class="num">−7</td><td class="num">−7</td></tr>
-<tr><td>Castling through <code>S()</code>; <code>!V(t)</code> in <code class="vn">main</code></td><td class="num">−2</td><td class="num">−6</td></tr>
-<tr><td><code>l</code>: <code>N</code> rewritten</td><td class="num">−1</td><td class="num">−1</td></tr>
-<tr><td><code>l</code>: <code>w|=p</code></td><td class="num">−2</td><td class="num">−2</td></tr>
-<tr><td><code>l</code>: the <code>V*v</code> gate</td><td class="num">−6</td><td class="num">−8</td></tr>
-<tr><td><code>I</code>: square colour</td><td class="num">0</td><td class="num">−1</td></tr>
-<tr><td><code>I</code>'s filter and the <code>Im</code> swap</td><td class="num">−1</td><td class="num">−4</td></tr>
-<tr><td>The en passant trick</td><td class="num">0</td><td class="num">−3</td></tr>
-<tr><td><code>G</code>: the <code>g</code> parameter</td><td class="num">—</td><td class="num">−2</td></tr>
-<tr><td><code>x=T|b[f]</code> <span class="sub">not taken</span></td><td class="num">+1</td><td class="num">0</td></tr>
-<tr><td><b>All together</b> <span class="sub">body</span></td><td class="num">1,775 → <b>1,746</b></td><td class="num">2,682 → <b>2,648</b></td></tr>
-<tr><td><b>File</b></td><td class="num">1,792 → <b>1,763</b></td><td class="num">2,702 → <b>2,668</b></td></tr>
+<tr><td>The pawn push through <code>S()</code></td><td class="num">−7</td></tr>
+<tr><td>Castling through <code>S()</code> and <code>!V(t)</code></td><td class="num">−6</td></tr>
+<tr><td><code>l</code>: <code>N</code> rewritten</td><td class="num">−1</td></tr>
+<tr><td><code>l</code>: <code>w|=p</code></td><td class="num">−2</td></tr>
+<tr><td><code>l</code>: the <code>V*v</code> gate</td><td class="num">−8</td></tr>
+<tr><td><code>I</code>: square colour</td><td class="num">−1</td></tr>
+<tr><td><code>I</code>'s filter and the <code>Im</code> swap</td><td class="num">−4</td></tr>
+<tr><td>The en passant trick</td><td class="num">−3</td></tr>
+<tr><td><code>G</code>: the <code>g</code> parameter</td><td class="num">−2</td></tr>
+<tr><td><code>x=T|b[f]</code> <span class="sub">not taken</span></td><td class="num">0</td></tr>
+<tr><td><b>All together</b> <span class="sub">body</span></td><td class="num">2,682 → <b>2,648</b></td></tr>
+<tr><td><b>File</b></td><td class="num">2,702 → <b>2,668</b></td></tr>
 </tbody>
 </table></div>
     <div class="prose" lang="tr">
       <p>Satırlar her değişikliğin tek başına etkisi (RegPack 5.0.1, 90 ayar); son iki satır
-      hepsinin birlikte, 5.0.4 ve 350 ayarla vardığı sonuç. Tek tek toplamlar birlikte kazançla
-      aynı değil: <code class="vn">numerical</code>'da tek başına ölçülenlerin toplamı −19, birlikte −29 —
-      değişiklikler birbirinin açtığı tekrarlardan besleniyor. Birini çıkarıp kalanlarla yeniden
-      paketleme sınamasında hiçbir değişikliği çıkarmak paketi küçültmedi. Tek istisna
-      <code>x=T|b[f]</code>: düz 1x'te bir bayt kazandırıyor, burada <code class="vn">numerical</code>'ı
-      bir bayt büyütüyor, <code class="vn">main</code>'de nötr — alınmadı. <code>G</code>'nin
-      <code>g</code> parametresini kaldırmak yalnız <code class="vn">main</code>'de denendi;
-      <code class="vn">numerical</code>'ın <code>G</code>'si taş kodunu ve rengi ayrı parametrelerde tutan
-      başka bir yazılışta.</p>
-      <p>Ölçüm kalibre: iki önceki paket açılıp kendi ayarlarıyla yeniden paketlendiğinde
-      yayımlanan dosyaların <b>bayt bayt aynısı</b> çıktı — yani farkın tamamı kaynaktan ve
+      hepsinin birlikte, 5.0.4 ve 350 ayarla vardığı sonuç. Birini çıkarıp kalanlarla yeniden
+      paketleme sınamasında hiçbir değişikliği çıkarmak paketi küçültmedi.
+      <code>x=T|b[f]</code> düz 1x'te bir bayt kazandırıyor, burada nötr — alınmadı.</p>
+      <p>Ölçüm kalibre: önceki paket açılıp kendi ayarlarıyla yeniden paketlendiğinde
+      yayımlanan dosyanın <b>bayt bayt aynısı</b> çıktı — yani farkın tamamı kaynaktan ve
       ayardan geliyor.</p>
       <p><b>Ne değişmiyor:</b> adlandırma ve imza; paket kaynağının yapısı (<code>Math.abs</code> ile
       <code>indexOf</code> açık, <code>Z</code> gömülü, renk <code>%2</code>).
@@ -15028,13 +15009,10 @@ f = K[2] + K[3] - 0</pre></div>
       toplayan ve materyal kapısını <code>!w</code> yerine <code>!(f^j^W^B^V^v)</code> ile kuran
       <code>l</code>. O da aynı yolla taşındı, iki harf farkla: pakette boş karelerin bitboard'u
       <code>j</code> yerine <code>d</code>, <code>h</code>'yi kuran geri çağrının parametresi
-      <code>_</code> yerine <code>p</code>. İki karakter de kaynağa girmiyor, yani token havuzunda
-      kalıyor — <code class="vn">numerical</code>'da ikisi de, <code class="vn">main</code>'de <code>_</code>.
-      <code>l</code>'nin öbür yerel adları eski paketlerdeki gibi: <code class="vn">numerical</code>'da
-      <code>W</code> yerine <code>a</code>, <code class="vn">main</code>'de <code>Z</code> yerine
-      <code>E</code>. Sonuç 5.0.4 ve 350 ayarla: gövde <code class="vn">numerical</code>'da
-      1.746 → <b>1.739</b>, <code class="vn">main</code>'de 2.648 → <b>2.632</b>; dosya
-      1.763 → <b>1.756</b> ve 2.668 → <b>2.652</b>.</p>
+      <code>_</code> yerine <code>p</code>; böylece <code>_</code> kaynağa girmiyor, token havuzunda
+      kalıyor. <code>l</code>'nin öbür yerel adı eski paketteki gibi: <code>Z</code> yerine
+      <code>E</code>. Sonuç 5.0.4 ve 350 ayarla: gövde 2.648 → <b>2.632</b>; dosya
+      2.668 → <b>2.652</b>.</p>
       <p><b>Son adım: ekim kısaltmaları.</b> Kural katmanına sonra sekiz değişiklik daha girdi ve
       hepsi aynı yolla taşındı: kilit taramasında taşları kümelere ayıran
       <code>h[p&gt;&gt;2^2?!p*6:p-6]</code> eşlemesi ile <code>!q</code> kapısı, 6.9 aramasının
@@ -15042,27 +15020,18 @@ f = K[2] + K[3] - 0</pre></div>
       maskelerinde <code>C=P=W</code>, kare rengi <code>i*9/8%2+1</code>, materyal ağırlığı
       <code>p&gt;9?p&gt;11:9</code>, çift adım testi <code>y%6&lt;2</code> ve terfide her taşı ayrı
       sayan düğüm bütçesi. Yeni kapıyla eski <code>d</code> yıkımdan düştü. Her birinin pakete etkisi,
-      öbürleri yerindeyken yalnız onu geri alarak ölçüldü (<code class="vn">numerical</code> /
-      <code class="vn">main</code>): kilit kapısı −9 / −14, <code>p&amp;6</code> −2 / −3, rok −2 / −2,
-      <code>C=P=W</code> −2 / −2, kare rengi ve ağırlık birer bayt; çift adım ile bütçe nötr. Hiçbiri
-      paketi büyütmüyor. Sonuç 5.0.4 ve 350 ayarla: gövde <code class="vn">numerical</code>'da
-      1.739 → <b>1.720</b>, <code class="vn">main</code>'de 2.632 → <b>2.615</b>; dosya
-      1.756 → <b>1.737</b> ve 2.652 → <b>2.635</b>. <code class="vn">numerical</code>'ın en iyi ayarı
-      1,5 / 0,5 / 1 / 0'a kaydı. Ayarlar aşağıdaki tabloda.</p>
+      öbürleri yerindeyken yalnız onu geri alarak ölçüldü: kilit kapısı −14, <code>p&amp;6</code> −3, rok −2,
+      <code>C=P=W</code> −2, kare rengi ve ağırlık birer bayt; çift adım ile bütçe nötr. Hiçbiri
+      paketi büyütmüyor. Sonuç 5.0.4 ve 350 ayarla: gövde 2.632 → <b>2.615</b>; dosya
+      2.652 → <b>2.635</b>. Ayarlar aşağıdaki tabloda.</p>
     </div>
     <div class="prose" lang="en">
       <p>The rows are each change on its own (RegPack 5.0.1, 90 settings); the last two rows are
-      where all of them together land with 5.0.4 and 350 settings. The single effects do not add up
-      to the joint gain: in <code class="vn">numerical</code> the ones measured alone sum to −19,
-      together they make −29 — the changes feed on repetitions they open up for one another. In a
-      leave-one-out repack, taking any single change back out never made the pack smaller. The one
-      exception is <code>x=T|b[f]</code>: a byte saved in the plain 1x, a byte added to
-      <code class="vn">numerical</code> here, neutral in <code class="vn">main</code> — not taken.
-      Dropping <code>G</code>'s <code>g</code> parameter was tried in <code class="vn">main</code> only;
-      <code class="vn">numerical</code>'s <code>G</code> is written differently, holding the piece code
-      and the colour in separate parameters.</p>
-      <p>The measurement is calibrated: unpack the two previous packs and repack them with their
-      own settings, and the published files come back <b>byte for byte</b> — so the whole difference
+      where all of them together land with 5.0.4 and 350 settings. In a
+      leave-one-out repack, taking any single change back out never made the pack smaller.
+      <code>x=T|b[f]</code> saves a byte in the plain 1x and is neutral here — not taken.</p>
+      <p>The measurement is calibrated: unpack the previous pack and repack it with its
+      own settings, and the published file comes back <b>byte for byte</b> — so the whole difference
       comes from the source and the settings.</p>
       <p><b>What does not change:</b> the naming and the signature; the structure of the packed
       source (<code>Math.abs</code> and <code>indexOf</code> expanded, <code>Z</code> inlined, colour
@@ -15073,16 +15042,12 @@ f = K[2] + K[3] - 0</pre></div>
       the rule layer: an <code>l</code> that gathers the pieces by code into an array of bitboards
       (<code>h</code>) in a single pass and builds the material gate as <code>!(f^j^W^B^V^v)</code>
       instead of <code>!w</code>. It was carried over the same way, with two letters changed: in the
-      packs the bitboard of empty squares is <code>d</code> rather than <code>j</code>, and the
+      pack the bitboard of empty squares is <code>d</code> rather than <code>j</code>, and the
       parameter of the callback that builds <code>h</code> is <code>p</code> rather than
-      <code>_</code>. Neither character enters the source, so they stay in the token pool — both of
-      them in <code class="vn">numerical</code>, <code>_</code> in <code class="vn">main</code>.
-      <code>l</code>'s other local names are as in the earlier packs: <code>a</code> for
-      <code>W</code> in <code class="vn">numerical</code>, <code>E</code> for <code>Z</code> in
-      <code class="vn">main</code>. The result with 5.0.4 and 350 settings: the body goes from 1,746
-      to <b>1,739</b> in <code class="vn">numerical</code> and from 2,648 to <b>2,632</b> in
-      <code class="vn">main</code>; the files from 1,763 to <b>1,756</b> and from 2,668 to
-      <b>2,652</b>.</p>
+      <code>_</code>; so <code>_</code> does not enter the source and stays in the token pool.
+      <code>l</code>'s other local name is as in the earlier pack: <code>E</code> for <code>Z</code>.
+      The result with 5.0.4 and 350 settings: the body goes from 2,648 to <b>2,632</b>; the file
+      from 2,668 to <b>2,652</b>.</p>
       <p><b>The last step: the October shortenings.</b> Eight more changes reached the rule layer
       afterwards, and all of them were carried over the same way: the lock scan's mapping
       <code>h[p&gt;&gt;2^2?!p*6:p-6]</code>, which sorts the pieces into sets, with its <code>!q</code>
@@ -15091,14 +15056,11 @@ f = K[2] + K[3] - 0</pre></div>
       <code>i*9/8%2+1</code>; the material weight <code>p&gt;9?p&gt;11:9</code>; the double-step test
       <code>y%6&lt;2</code>; and the node budget that counts every promotion piece on its own. The new
       gate also dropped the old <code>d</code> from the destructuring. Each one's effect on the pack
-      was measured by taking it back out with the others in place (<code class="vn">numerical</code> /
-      <code class="vn">main</code>): the lock gate −9 / −14, <code>p&amp;6</code> −2 / −3, castling
-      −2 / −2, <code>C=P=W</code> −2 / −2, the square colour and the weight a byte each; the double
+      was measured by taking it back out with the others in place: the lock gate −14, <code>p&amp;6</code> −3, castling
+      −2, <code>C=P=W</code> −2, the square colour and the weight a byte each; the double
       step and the budget are neutral. None of them makes the pack larger. The result with 5.0.4 and
-      350 settings: the body goes from 1,739 to <b>1,720</b> in <code class="vn">numerical</code> and
-      from 2,632 to <b>2,615</b> in <code class="vn">main</code>; the files from 1,756 to
-      <b>1,737</b> and from 2,652 to <b>2,635</b>. <code class="vn">numerical</code>'s best setting
-      moved to 1.5 / 0.5 / 1 / 0. The settings are in the table below.</p>
+      350 settings: the body goes from 2,632 to <b>2,615</b>; the file from 2,652 to <b>2,635</b>.
+      The settings are in the table below.</p>
     </div>
 
     <h3 id="pack-aliases" lang="tr">Takma adlar ve gömülen fonksiyonlar</h3>
@@ -15106,60 +15068,37 @@ f = K[2] + K[3] - 0</pre></div>
 <div class="tw" lang="tr"><table>
 <thead><tr><th>Dosya</th><th>Açılan takma ad</th><th>Gömülen fonksiyon</th><th>Fonksiyon kalan</th></tr></thead>
 <tbody>
-<tr><td><code>L3_minimum.html</code></td><td><code>a=Math.abs</code><span class="sub">3 yer</span><code>N='indexOf'</code><span class="sub">4 yer</span></td><td><code>Z</code> <code>A</code> <code>D</code> <code>F</code></td><td><code>G</code> <code>V</code> <code>L</code> <code>C</code> <code>M</code> <code>I</code> <code>Im</code> <code>H</code> <code>l</code></td></tr>
 <tr><td><code>L3_packed.html</code></td><td><code>a=Math.abs</code><span class="sub">3 yer</span><code>N='indexOf'</code><span class="sub">5 yer</span><span class="sub">N='innerText' açılmayan tek takma ad</span></td><td><code>Z</code> <code>Im</code></td><td><code>G</code> <code>V</code> <code>L</code> <code>C</code> <code>M</code> <code>I</code> <code>H</code> <code>l</code> <code>A</code> <code>F</code> <code>S</code> <code>d</code></td></tr>
 </tbody>
 </table></div>
 <div class="tw" lang="en"><table>
 <thead><tr><th>File</th><th>Alias expanded</th><th>Function inlined</th><th>Kept as a function</th></tr></thead>
 <tbody>
-<tr><td><code>L3_minimum.html</code></td><td><code>a=Math.abs</code><span class="sub">3 sites</span><code>N='indexOf'</code><span class="sub">4 sites</span></td><td><code>Z</code> <code>A</code> <code>D</code> <code>F</code></td><td><code>G</code> <code>V</code> <code>L</code> <code>C</code> <code>M</code> <code>I</code> <code>Im</code> <code>H</code> <code>l</code></td></tr>
 <tr><td><code>L3_packed.html</code></td><td><code>a=Math.abs</code><span class="sub">3 sites</span><code>N='indexOf'</code><span class="sub">5 sites</span><span class="sub">N='innerText' — the one alias not expanded</span></td><td><code>Z</code> <code>Im</code></td><td><code>G</code> <code>V</code> <code>L</code> <code>C</code> <code>M</code> <code>I</code> <code>H</code> <code>l</code> <code>A</code> <code>F</code> <code>S</code> <code>d</code></td></tr>
 </tbody>
 </table></div>
     <div class="prose" lang="tr">
-      <p><code>H</code> ile <code>l</code> iki dosyada da fonksiyon kalıyor; ikisi de özyinelemeli,
-      yani gömülmeleri mümkün değil. Şah testi ise iki dosyada iki ayrı hikâye anlatıyor: iki
-      <a href="#packing">paket kaynağı</a>, kural katmanları güncellense de kendi yapılarını korudu.</p>
-      <p><code class="vn">L3_minimum</code> birleşmeden <b>önceki</b> yapıyı koruyor. Orada <code>V</code>
-      yalnızca şah testi: şahın karesini kendisi arıyor ve saldırı taramasını kendi gövdesinde
-      taşıyor. Bir karenin tehdit altında olup olmadığını soran eski saldırı fonksiyonu ayrıca
-      durmuyor; gövdesi <code>V</code>'ye ve rok satırındaki iki yere gömülmüş. O nesilde üç çağrı
-      yeri vardı ve gömmek kazandırıyordu. <code class="vn">L3_packed</code> ise birleşmeden
-      <b>sonraki</b> yapıda: iki iş tek bir <code>V</code>'de toplanmış ve bu <code>V</code> sekiz
+      <p><code>H</code> ile <code>l</code> fonksiyon kalıyor; ikisi de özyinelemeli,
+      yani gömülmeleri mümkün değil. Şah testi, saldırı taramasıyla <b>birleştikten sonraki</b>
+      yapıda: iki iş tek bir <code>V</code>'de toplanmış ve bu <code>V</code> sekiz
       çağrı yeriyle fonksiyon olarak duruyor.</p>
-      <p>Yani paketleyicinin bir zamanlar bulduğu kazanç — eski şah testi sarmalayıcısının, o zamanki
+      <p>Paketleyicinin bir zamanlar bulduğu kazanç — eski şah testi sarmalayıcısının, o zamanki
       <code>l</code>'nin, gövdesi tek bir saldırı çağrısı olduğu için gömülebilmesi — sonradan
       <b>kaynağa terfi etti</b>: sarmalayıcı silinip <code>V</code>'nin ikinci parametresinin
       varsayılanına katlandı ve boşa çıkan <code>l</code> harfi ölü pozisyon taramasına geçti.
       Aynı desen <a href="#speed">hız bölümünde</a> iki kez daha görülüyor. Paketleyici ile hız
       varyantı, kaynağa neyin ait olduğunu bulan iki ayrı arama; ikisinin bulduğu da er ya da
       geç aşağı iniyor.</p>
-      <p>Operatörler doğruluk değeri beklenen yerlerde uzatılıyor:
-      <code class="vn">numerical</code>'da <code>&amp;&amp;</code> 24'ten 36'ya, <code>||</code> 10'dan 13'e;
-      <code class="vn">main</code>'de 28'den 39'a ve 15'ten 19'a. Motor tarafında renk çıkarma <code>&amp;1</code> yerine
-      <code>%2</code> yazılıyor. Adlandırma korunuyor — <code>reassignVars</code> kapalı, iki dosyada da globaller düz kaynaktakiyle aynı harflerde.
-      <code class="vn">numerical</code>'da iki harf görev değiştirmiş, ikisi de eski yapıdan kalma:
-      <code>N</code> düzde <code>'indexOf'</code> takma adı, pakette siyahın saati
-      (<code>U=N=9e5</code>) — takma ad açılınca harf boşa çıktı ve imzadaki yerini saat aldı;
-      <code>I</code> ile <code>l</code>'deki <code>a</code> da düzde <code>W</code>. İkisini düze
-      çekmek pakete sırasıyla 18 ve 3, birlikte 19 bayt bindiriyor. <code>l</code>'nin öbür iki
-      yereli son yeniden paketlemede düzdeki adlarına, <code>Z</code> ile <code>X</code>'e çekildi;
-      o bayt-nötr çıktı.</p>
+      <p>Operatörler doğruluk değeri beklenen yerlerde uzatılıyor: <code>&amp;&amp;</code> 28'den 39'a,
+      <code>||</code> 15'ten 19'a. Motor tarafında renk çıkarma <code>&amp;1</code> yerine
+      <code>%2</code> yazılıyor. Adlandırma korunuyor — <code>reassignVars</code> kapalı, globaller düz kaynaktakiyle aynı harflerde.</p>
     </div>
     <div class="prose" lang="en">
-      <p><code>H</code> and <code>l</code> stay functions in both files; both are recursive, so
-      inlining them is not an option. The check test, on the other hand, tells two
-      different stories in the two files: the two <a href="#packing">packed sources</a> kept their
-      own structure even as their rule layers were brought up to date.</p>
-      <p><code class="vn">L3_minimum</code> keeps the structure from <b>before</b> the merge. There <code>V</code> is
-      the check test alone: it looks up the king's square itself and carries the attack scan in its
-      own body. The old attack function — the one asking whether a square is attacked — no longer
-      stands on its own; its body has been inlined into <code>V</code> and into the two places on the
-      castling line. In that generation it had three call sites, and inlining paid.
-      <code class="vn">L3_packed</code> has the structure from <b>after</b> the merge: both jobs sit in a single
-      <code>V</code>, which stands as a function with eight call sites.</p>
-      <p>So the gain the packer once found — that the old check wrapper, the <code>l</code> of the
+      <p><code>H</code> and <code>l</code> stay functions; both are recursive, so
+      inlining them is not an option. The check test has the structure from <b>after</b> its merge
+      with the attack scan: both jobs sit in a single <code>V</code>, which stands as a function
+      with eight call sites.</p>
+      <p>The gain the packer once found — that the old check wrapper, the <code>l</code> of the
       day, was a single call to the attack test and could therefore be inlined — was later
       <b>promoted into the source</b>: the wrapper was deleted and folded into the default of
       <code>V</code>'s second parameter, and the letter <code>l</code> came free for the dead-position
@@ -15167,26 +15106,15 @@ f = K[2] + K[3] - 0</pre></div>
       The same pattern shows up twice more in <a href="#speed">the speed section</a>. The packer
       and the fast variant are two separate searches for what belongs in the source; and what
       either of them finds comes down, sooner or later.</p>
-      <p>Operators are widened wherever only the truth value is used: in <code class="vn">numerical</code>
-      <code>&amp;&amp;</code> goes from 24 to 36 and <code>||</code> from 10 to 13; in
-      <code class="vn">main</code> from 28 to 39 and from 15 to 19. In the engine, colour extraction is written
+      <p>Operators are widened wherever only the truth value is used: <code>&amp;&amp;</code> goes
+      from 28 to 39 and <code>||</code> from 15 to 19. In the engine, colour extraction is written
       <code>%2</code> rather than <code>&amp;1</code>. Naming is preserved —
-      <code>reassignVars</code> is off, and in both files the globals sit on the same letters as in the plain source.
-      In <code class="vn">numerical</code> two letters have changed jobs, both inherited from the older structure:
-      <code>N</code> is the <code>'indexOf'</code> alias in the plain source but Black's clock in the
-      pack (<code>U=N=9e5</code>) — once the alias was expanded the letter fell free and the clock
-      took its place in the signature; and the <code>a</code> in <code>I</code> and <code>l</code>
-      is <code>W</code> in the plain source. Bringing them in line would add 18 and 3 bytes to the
-      pack, 19 together. <code>l</code>'s other two locals were moved to their plain names,
-      <code>Z</code> and <code>X</code>, in the latest repack; that came out byte-neutral.</p>
+      <code>reassignVars</code> is off, and the globals sit on the same letters as in the plain source.</p>
     </div>
 
     <div class="prose" lang="tr">
       <p>Bir takma adı açmanın kazandırması <code>Math.abs</code>'e özel; genel bir kural değil.
-      <code class="vn">numerical</code>'da <code>h</code>, <code>v</code>, <code>d</code>,
-      <code>y</code>, <code>P</code> ve <code>g</code> takma adlarının 64 alt kümesinin tamamı
-      denendi: <b>hepsi paketi büyüttü.</b> En ucuz açma tabana bir bayt bindiriyor, en
-      pahalısı yirmi altı. Ters yön de aynı kapıya çıkıyor — <code>Math.abs</code>'i geri
+      Ters yön de aynı kapıya çıkıyor — <code>Math.abs</code>'i geri
       takma adla yazmak +3 bayt, <code>l</code>'yi açmak +11, <code>C</code>'yi açmak +21,
       <code>b.indexOf</code>'u takma adla yazmak +15.</p>
       <p>Sebebi token ekonomisi. Elle yazılmış bir takma ad bedava bir kısaltma: kaynakta zaten
@@ -15202,10 +15130,7 @@ f = K[2] + K[3] - 0</pre></div>
     </div>
     <div class="prose" lang="en">
       <p>That expanding an alias pays is specific to <code>Math.abs</code>; it is not a general
-      rule. In <code class="vn">numerical</code> all 64 subsets of the aliases <code>h</code>,
-      <code>v</code>, <code>d</code>, <code>y</code>, <code>P</code> and <code>g</code> were
-      tried, and <b>every one of them made the packed file bigger.</b> The cheapest expansion
-      adds a byte to the baseline, the dearest twenty-six. Going the other way lands in the same
+      rule. Going the other way lands in the same
       place — re-aliasing <code>Math.abs</code> costs 3 bytes, expanding <code>l</code> 11,
       expanding <code>C</code> 21, aliasing <code>b.indexOf</code> 15.</p>
       <p>The reason is token economy. A hand-written alias is a free abbreviation: it is already
@@ -15404,14 +15329,12 @@ f = K[2] + K[3] - 0</pre></div>
 <div class="tw" lang="tr"><table>
 <thead><tr><th>Dosya</th><th>Kaynakta geçmeyen yazdırılabilirler</th><th>Token sınıfı</th></tr></thead>
 <tbody>
-<tr><td><code>L3_minimum.html</code></td><td><code>" # @ A E F J W \ _ j</code></td><td><code>[\u0001-\u001f E F @ A j _ W J #]</code><span class="sub">on birden dokuzu</span></td></tr>
 <tr><td><code>L3_packed.html</code></td><td><code>" @ J Z _</code></td><td><code>[\u0001-\u001f _ Z J @]</code><span class="sub">beşten dördü</span></td></tr>
 </tbody>
 </table></div>
 <div class="tw" lang="en"><table>
 <thead><tr><th>File</th><th>Printables absent from the source</th><th>Token class</th></tr></thead>
 <tbody>
-<tr><td><code>L3_minimum.html</code></td><td><code>" # @ A E F J W \ _ j</code></td><td><code>[\u0001-\u001f E F @ A j _ W J #]</code><span class="sub">nine of the eleven</span></td></tr>
 <tr><td><code>L3_packed.html</code></td><td><code>" @ J Z _</code></td><td><code>[\u0001-\u001f _ Z J @]</code><span class="sub">four of the five</span></td></tr>
 </tbody>
 </table></div>
@@ -15419,14 +15342,14 @@ f = K[2] + K[3] - 0</pre></div>
     <h3 id="pack-settings" lang="tr">Hangi ayarlarla paketleniyor</h3>
     <h3 lang="en" data-id="pack-settings">Which settings do the packing</h3>
     <div class="prose" lang="tr">
-      <p>L3'ün iki paketiyle Lichess ve Chess.com eşdeğerlerinin sayısal paketleri RegPack 5.0.4 ile (bu ikisinde 5.0.1 birebir aynı dosyayı veriyor), öbür paketler 5.0.1 ile üretildi. Her pakette <code>reassignVars</code> <b>kapalı</b> — açık bırakılırsa
+      <p>L3'ün paketiyle Lichess ve Chess.com eşdeğerlerinin sayısal paketleri RegPack 5.0.4 ile (bu ikisinde 5.0.1 birebir aynı dosyayı veriyor), öbür paketler 5.0.1 ile üretildi. Her pakette <code>reassignVars</code> <b>kapalı</b> — açık bırakılırsa
       adlandırma elden gider ve imza harfleri ilk kurban olur. <code>withMath</code> ile
       <code>wrapInSetInterval</code> da kapalı, <code>useES6</code> açık. Değişen tek şey crush
       dörtlüsü ve her dosya kendi dörtlüsünü istiyor: aşağıdaki değerler ilgili dosyayı
       <b>bayt bayt</b> yeniden üretiyor.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The two L3 packs and the numeric packs of the Lichess and Chess.com equivalents are made with RegPack 5.0.4 (for the latter two, 5.0.1 gives the identical file), the others with 5.0.1. In every pack <code>reassignVars</code> is <b>off</b> — leave it on and the
+      <p>The L3 pack and the numeric packs of the Lichess and Chess.com equivalents are made with RegPack 5.0.4 (for the latter two, 5.0.1 gives the identical file), the others with 5.0.1. In every pack <code>reassignVars</code> is <b>off</b> — leave it on and the
       naming goes, with the signature letters the first to fall. <code>withMath</code> and
       <code>wrapInSetInterval</code> are off too, <code>useES6</code> on. The only thing that
       varies is the crush tuple, and each file wants its own: the values below reproduce that file
@@ -15436,7 +15359,6 @@ f = K[2] + K[3] - 0</pre></div>
 <thead><tr><th>Dosya</th><th class="num">gain</th><th class="num">length</th><th class="num">copies</th><th class="num">tiebreaker</th></tr></thead>
 <tbody>
 <tr><td><code>L3_packed.html</code></td><td class="num">2,5</td><td class="num">0,5</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td><code>L3_minimum.html</code></td><td class="num">1,5</td><td class="num">0,5</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td><code>DOM_996.html</code></td><td class="num">0,5</td><td class="num">0</td><td class="num">0,25</td><td class="num">−1</td></tr>
 <tr><td><code>DOM_minimum.html</code></td><td class="num">0,5</td><td class="num">1</td><td class="num">0</td><td class="num">−1</td></tr>
 <tr><td><code>Lowest.html</code></td><td class="num">0,5</td><td class="num">1</td><td class="num">0</td><td class="num">−1</td></tr>
@@ -15448,7 +15370,6 @@ f = K[2] + K[3] - 0</pre></div>
 <thead><tr><th>File</th><th class="num">gain</th><th class="num">length</th><th class="num">copies</th><th class="num">tiebreaker</th></tr></thead>
 <tbody>
 <tr><td><code>L3_packed.html</code></td><td class="num">2.5</td><td class="num">0.5</td><td class="num">0</td><td class="num">0</td></tr>
-<tr><td><code>L3_minimum.html</code></td><td class="num">1.5</td><td class="num">0.5</td><td class="num">1</td><td class="num">0</td></tr>
 <tr><td><code>DOM_996.html</code></td><td class="num">0.5</td><td class="num">0</td><td class="num">0.25</td><td class="num">−1</td></tr>
 <tr><td><code>DOM_minimum.html</code></td><td class="num">0.5</td><td class="num">1</td><td class="num">0</td><td class="num">−1</td></tr>
 <tr><td><code>Lowest.html</code></td><td class="num">0.5</td><td class="num">1</td><td class="num">0</td><td class="num">−1</td></tr>
@@ -15457,40 +15378,35 @@ f = K[2] + K[3] - 0</pre></div>
 </tbody>
 </table></div>
         <div class="prose" lang="tr">
-      <p>L3'ün iki paketi için dörtlü tarandı: gain 0–3, length 0–2, copies 0–2 (yarımlık
-      adımlarla), tiebreaker 0 ya da 1 — dosya başına <b>350 kombinasyon</b>. En iyisi
-      <code>L3_packed</code>'de 2,5 / 0,5 / 0 / 0, <code>L3_minimum</code>'da 1,5 / 0,5 / 1 / 0 çıktı. Aynı kaynaklar 5.0.1 ile de tarandı:</p>
+      <p>L3'ün paketi için dörtlü tarandı: gain 0–3, length 0–2, copies 0–2 (yarımlık
+      adımlarla), tiebreaker 0 ya da 1 — <b>350 kombinasyon</b>. En iyisi
+      <code>L3_packed</code>'de 2,5 / 0,5 / 0 / 0 çıktı. Aynı kaynak 5.0.1 ile de tarandı:</p>
     </div>
     <div class="prose" lang="en">
-      <p>For the two L3 packs the tuple was swept: gain 0–3, length 0–2, copies 0–2 (in steps of a
-      half), tiebreaker 0 or 1 — <b>350 combinations</b> per file. The best came out at
-      2.5 / 0.5 / 0 / 0 for <code>L3_packed</code> and 1.5 / 0.5 / 1 / 0 for
-      <code>L3_minimum</code>. The same sources were swept with 5.0.1 too:</p>
+      <p>For the L3 pack the tuple was swept: gain 0–3, length 0–2, copies 0–2 (in steps of a
+      half), tiebreaker 0 or 1 — <b>350 combinations</b>. The best came out at
+      2.5 / 0.5 / 0 / 0 for <code>L3_packed</code>. The same source was swept with 5.0.1 too:</p>
     </div>
 <div class="tw" lang="tr"><table>
 <thead><tr><th>Dosya</th><th class="num">5.0.4 en iyi</th><th class="num">5.0.4 en kötü</th><th class="num">5.0.1 en iyi</th></tr></thead>
 <tbody>
-<tr><td><code>L3_minimum.html</code></td><td class="num"><b>1.739</b></td><td class="num">1.915</td><td class="num">1.741 <span class="sub">2,5 / 0,5 / 0 / 0</span></td></tr>
 <tr><td><code>L3_packed.html</code></td><td class="num"><b>2.632</b></td><td class="num">2.921</td><td class="num">2.632 <span class="sub">2,5 / 0,5 / 0 / 0</span></td></tr>
 </tbody>
 </table></div>
 <div class="tw" lang="en"><table>
 <thead><tr><th>File</th><th class="num">5.0.4 best</th><th class="num">5.0.4 worst</th><th class="num">5.0.1 best</th></tr></thead>
 <tbody>
-<tr><td><code>L3_minimum.html</code></td><td class="num"><b>1,739</b></td><td class="num">1,915</td><td class="num">1,741 <span class="sub">2.5 / 0.5 / 0 / 0</span></td></tr>
 <tr><td><code>L3_packed.html</code></td><td class="num"><b>2,632</b></td><td class="num">2,921</td><td class="num">2,632 <span class="sub">2.5 / 0.5 / 0 / 0</span></td></tr>
 </tbody>
 </table></div>
     <div class="prose" lang="tr">
       <p>Sayılar paketlenmiş gövde; dosyaya <code>&lt;script&gt;</code> etiketleri (17 bayt) ve
-      <code class="vn">main</code>'de UTF-8 imi (3 bayt) ekleniyor. Ayar tek başına 180–290 bayt
-      oynatıyor; sürüm farkı yalnızca <code class="vn">numerical</code>'da, iki bayt.</p>
+      UTF-8 imi (3 bayt) ekleniyor. Ayar tek başına 290 bayta kadar oynatıyor; sürüm farkı yok.</p>
     </div>
     <div class="prose" lang="en">
       <p>The figures are the packed body; the file adds the <code>&lt;script&gt;</code> tags (17
-      bytes) and, in <code class="vn">main</code>, the UTF-8 byte order mark (3 bytes). The setting
-      alone moves the result by 180–290 bytes; the version makes a difference only in
-      <code class="vn">numerical</code>, and only of two bytes.</p>
+      bytes) and the UTF-8 byte order mark (3 bytes). The setting alone moves the result by up
+      to 290 bytes; the version makes no difference.</p>
     </div>
     <div class="prose" lang="tr">
       <p>Dörtlünün neden dosya başına değiştiğini gösteren en temiz örnek, motor tarafındaki
@@ -15498,8 +15414,8 @@ f = K[2] + K[3] - 0</pre></div>
       ölçülen <b>%3,6</b> hız. Paketli sürümlerde <b>pahalı</b>, çünkü <code>p%2</code> bu
       kaynaklarda sekiz ilâ on dört kez geçen bir tekrar ve RegPack onu tek token'a sıkıştırıyor;
       bir geçişi çevirmek o token'ı düşürüyor. Ölçüm: <code class="vn">L3_packed</code> <b>+3</b>,
-      <code class="vn">DOM_996</code> <b>+2</b>, <code class="vn">Lichess-equivalent_minimum</code> <b>+10</b>, <code class="vn">Chesscom-equivalent_minimum</code> <b>+9</b>,
-      <code class="vn">L3_minimum</code> <b>+11</b>. Hiçbir crush dörtlüsü geri getirmiyor —
+      <code class="vn">DOM_996</code> <b>+2</b>, <code class="vn">Lichess-equivalent_minimum</code> <b>+10</b>, <code class="vn">Chesscom-equivalent_minimum</code> <b>+9</b>.
+      Hiçbir crush dörtlüsü geri getirmiyor —
       dosya başına 360 kombinasyon denendi. Dolayısıyla paketli sürümlerde renk çıkarma
       <code>%2</code> olarak kalıyor. Aynı nedenle ters yönde bir örnek de var:
       <code class="vn">DOM_minimum</code>'da sürücüdeki <code>b[f]%2^t</code> → <code>b[f]&amp;1^t</code>
@@ -15514,7 +15430,7 @@ f = K[2] + K[3] - 0</pre></div>
       <b>expensive</b>, because <code>p%2</code> occurs eight to fourteen times in these sources
       and RegPack compresses it into a single token; converting one occurrence drops that token.
       Measured: <b>+3</b> in <code class="vn">L3_packed</code>, <b>+2</b> in <code class="vn">DOM_996</code>,
-      <b>+10</b> in <code class="vn">Lichess-equivalent_minimum</code>, <b>+9</b> in <code class="vn">Chesscom-equivalent_minimum</code>, <b>+11</b> in <code class="vn">L3_minimum</code>. No crush
+      <b>+10</b> in <code class="vn">Lichess-equivalent_minimum</code>, <b>+9</b> in <code class="vn">Chesscom-equivalent_minimum</code>. No crush
       tuple recovers them — 360 combinations were tried per file. So in the packed builds the
       colour is still read with <code>%2</code>. The same effect runs the other way once: in
       <code class="vn">DOM_minimum</code>, turning the driver's <code>b[f]%2^t</code> into
@@ -15529,11 +15445,11 @@ f = K[2] + K[3] - 0</pre></div>
     <h3 lang="en" data-id="pack-checks">What gets checked after packing</h3>
     <div class="prose" lang="tr">
       <p>Paketleme kaynağı okunamaz hâle getirdiği için, çıktının doğru olduğuna gözle karar
-      vermek mümkün değil. Her iki dosya için çalıştırılan sınamalar şunlar:</p>
+      vermek mümkün değil. Paket için çalıştırılan sınamalar şunlar:</p>
     </div>
     <div class="prose" lang="en">
       <p>Packing makes the source unreadable, so there is no judging the output by eye. These
-      are the checks run on both files:</p>
+      are the checks run on the pack:</p>
     </div>
     <ul class="tight" lang="tr">
       <li><b>Açılma.</b> <code>eval(_)</code> yerine bir yakalama konularak açılmış kaynak
@@ -15542,24 +15458,23 @@ f = K[2] + K[3] - 0</pre></div>
       imza harflerinin hiçbiri kaymamış.</li>
       <li><b>perft.</b> CPW'nin yedi pozisyonu dördüncü derinliğe kadar
       <span class="gloss">(perft: bir pozisyondan çıkan bütün hamle dizilerini sayan standart
-      doğruluk sınaması)</span>, iki dosyada da tamamı geçildi.</li>
+      doğruluk sınaması)</span>, tamamı geçildi.</li>
       <li><b>Kural katmanı.</b> Eski ve yeni paket kaynağı yan yana: hamle listeleri (54 oyun,
       8.269 pozisyon), rok zorlama testi (241.920 <code>G</code> çağrısı), <code>l</code>,
       <code>I</code> ve <code>Im</code> (4.000 pozisyon) ve <code>H</code> araması — harcanan bütçe
       dahil, 2.401 pozisyonda iki taraf için: <b>0 fark</b>.</li>
       <li><b>Kilit adımlı denklik.</b> Yeni paketle bir önceki paket aynı girdi ve tıklama dizisiyle
       çalıştırıldı ve her adımda <code>b</code>, <code>e</code>, <code>c</code>, <code>t</code>,
-      <code>n</code>, <code>$</code>, <code>o</code>, <code>z</code> — <code class="vn">main</code>'de ayrıca
+      <code>n</code>, <code>$</code>, <code>o</code>, <code>z</code> — ayrıca
       saatler, seçim, terfi panelinin <code>hidden</code> durumu ve durum satırı — karşılaştırıldı.
-      <code class="vn">numerical</code>'da 260 oyunda 43.878, <code class="vn">main</code>'de 38 oyunda 5.969
-      adım: <b>0 ayrılma</b>.</li>
+      38 oyunda 5.969 adım: <b>0 ayrılma</b>.</li>
       <li><b>Üretilen işaretleme.</b> <code class="vn">main</code>'in <code>document.write</code> çıktısı
       bir önceki paketle birebir aynı — <code>&lt;th width=54 onclick=S(id) id=0&gt;</code>
       içindeki boşluk dahil.</li>
       <li><b>Bitişler.</b> Kilit adımlı oyunlarda
       <a href="#codes"><code>W#</code>, <code>B#</code>, <code>SM</code>, <code>DP</code>,
       <code>DA</code>, <code>50</code>, <code>RM</code>, <code>WR</code>, <code>BR</code>,
-      <code>WT</code>, <code>BT</code></a> bitişleri görüldü; iki paketin hiçbirinde konsol hatası
+      <code>WT</code>, <code>BT</code></a> bitişleri görüldü; pakette konsol hatası
       yok.</li>
     </ul>
     <ul class="tight" lang="en">
@@ -15570,7 +15485,7 @@ f = K[2] + K[3] - 0</pre></div>
       place; not one of its letters has shifted.</li>
       <li><b>perft.</b> The seven CPW positions to depth four
       <span class="gloss">(perft: the standard correctness test that counts every move sequence
-      from a position)</span>, all passed in both files.</li>
+      from a position)</span>, all passed.</li>
       <li><b>Rule layer.</b> The old and new packed sources side by side: move lists (54 games,
       8,269 positions), the castling stress test (241,920 <code>G</code> calls), <code>l</code>,
       <code>I</code> and <code>Im</code> (4,000 positions) and the <code>H</code> search — budget
@@ -15578,17 +15493,16 @@ f = K[2] + K[3] - 0</pre></div>
       <li><b>Lock-step equivalence.</b> The new pack and the previous one were run through the same
       sequence of inputs and clicks, and at every step <code>b</code>, <code>e</code>,
       <code>c</code>, <code>t</code>, <code>n</code>, <code>$</code>, <code>o</code>,
-      <code>z</code> — plus, in <code class="vn">main</code>, the clocks, the selection, the
+      <code>z</code> — plus the clocks, the selection, the
       <code>hidden</code> state of the promotion picker and the status line — were compared.
-      43,878 steps over 260 games in <code class="vn">numerical</code>, 5,969 over 38 in
-      <code class="vn">main</code>: <b>0 divergences</b>.</li>
+      5,969 steps over 38 games: <b>0 divergences</b>.</li>
       <li><b>Generated markup.</b> <code class="vn">main</code>'s <code>document.write</code> output is
       identical to the previous pack's, down to the space inside
       <code>&lt;th width=54 onclick=S(id) id=0&gt;</code>.</li>
       <li><b>Endings.</b> The lock-step games reached
       <a href="#codes"><code>W#</code>, <code>B#</code>, <code>SM</code>, <code>DP</code>,
       <code>DA</code>, <code>50</code>, <code>RM</code>, <code>WR</code>, <code>BR</code>,
-      <code>WT</code> and <code>BT</code></a>; neither pack raised a console error.</li>
+      <code>WT</code> and <code>BT</code></a>; the pack raised no console error.</li>
     </ul>
     <div class="prose" lang="tr">
       <p>Yeniden paketleyecek olan üçünü mutlaka çalıştırsın: <b>imza</b>, <b>üretilen işaretleme</b>
@@ -15692,7 +15606,7 @@ f = K[2] + K[3] - 0</pre></div>
       yapıyor, yani müdahalenin dışında kalıyor. Yine de ayrıştırıcıyı bloklamaya devam ediyor.
       Bugünkü <code>L3.html</code> ise <code>document.write</code>'ı hiç çağırmıyor:
       işaretlemesi statik, yalnızca tablo gövdesi <code>innerHTML</code> ile yazılıyor.</p>
-      <p><code>with</code> iki paketlenmiş dosyanın ikisinde de var, ama bizim yazdığımız kod
+      <p><code>with</code> paketlenmiş dosyada var, ama bizim yazdığımız kod
       değil: RegPack'in açma döngüsü <code>with(_.split(…))</code> kalıbını kullanıyor.
       Pratik sonucu şu — <code>with</code> katı kipte (strict mode) sözdizimi hatası olduğu için
       paketlenmiş dosyalar ES modülü olarak yüklenemez ve başlarına
@@ -15716,7 +15630,7 @@ f = K[2] + K[3] - 0</pre></div>
       parser. Today's <code>L3.html</code> does not call <code>document.write</code> at all —
       its markup is static and only the table body is written, through
       <code>innerHTML</code>.</p>
-      <p><code>with</code> is present in both packed files, but it is not code we wrote:
+      <p><code>with</code> is present in the packed file, but it is not code we wrote:
       RegPack's unpacking loop uses the <code>with(_.split(…))</code> pattern. The practical
       consequence is that, since <code>with</code> is a syntax error in strict mode, the packed
       files cannot be loaded as ES modules and cannot have <code>'use strict'</code> placed at the
@@ -15731,21 +15645,21 @@ f = K[2] + K[3] - 0</pre></div>
     <h3 id="quirks" lang="tr">Quirks modu</h3>
     <h3 lang="en" data-id="quirks">Quirks mode</h3>
     <div class="prose" lang="tr">
-      <p><code class="vn">L1</code>–<code class="vn">L3</code> merdiveninde 23 HTML dosyası var ve iki gruba
+      <p><code class="vn">L1</code>–<code class="vn">L3</code> merdiveninde 22 HTML dosyası var ve iki gruba
       ayrılıyorlar. Üçü — <code>L1.html</code>, <code>L2.html</code> ve <code>L3.html</code> —
       <code>&lt;!DOCTYPE html&gt;</code> ile başlıyor, standart modda açılıyor ve W3C Nu Html
       Checker'dan tek bir hata ya da uyarı almadan geçiyor: taşları ve gidilecek kareleri boyayan,
-      modern DOM'lu sürümler bunlar. Kalan yirmisinde DOCTYPE yok, dolayısıyla hepsi quirks modunda
+      modern DOM'lu sürümler bunlar. Kalan on dokuzunda DOCTYPE yok, dolayısıyla hepsi quirks modunda
       açılıyor. Bu bir gözden kaçma değil, bayt tercihi; doğrulayıcı onlara DOCTYPE,
       <code>&lt;title&gt;</code> ve kapanmamış ya da yerinde olmayan ögeler için hata veriyor,
-      <code class="vn">L3</code>'ün paketli iki hâline de paket dizgisindeki kontrol karakterleri için
+      <code class="vn">L3</code>'ün paketli hâline de paket dizgisindeki kontrol karakterleri için
       yüzlerce hata ekleniyor. <b>Eskimiş öge ya da nitelik yalnızca <code class="vn">L3_packed</code>'te
       var</b>, o da çalışırken ürettiği işaretlemede. Üç JavaScript dosyası —
       <code>engine.js</code>, <code>engine_4x.js</code> ve <code>engine_string.js</code>
       — için ne DOCTYPE'ın ne de render modunun bir karşılığı var. <code>builds/special/</code>
       klasöründeki dosyalar bu sayımın dışında: çoğu kendi başına bir proje, <a href="https://github.com/cuneytinann" target="_blank" rel="noopener">GitHub</a>'daki beş ayrı
-      deponun dosyaları, ve ayrıntısı her deponun README'sinde. Paketli iki hâlin,
-      <code class="vn">L3_packed</code> ile <code class="vn">L3_minimum</code>'un ayrıntısı ise
+      deponun dosyaları, ve ayrıntısı her deponun README'sinde. Paketli hâlin,
+      <code class="vn">L3_packed</code>'in ayrıntısı ise
       bu sayfada, <a href="#packing">paketleme bölümünde</a>.</p>
       <p>Yaygın bir yanılgıyı burada ayırmak gerekiyor: <b>eskimiş sunum nitelikleri quirks
       moduna ait değil.</b> <code>bgcolor</code>, <code>width</code> ve
@@ -15777,21 +15691,21 @@ f = K[2] + K[3] - 0</pre></div>
       hiç işaretleme taşımıyor, <code class="vn">input</code> ailesinin ise CSS'i yok.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The <code class="vn">L1</code>–<code class="vn">L3</code> ladder holds 23 HTML files, and they fall into two
+      <p>The <code class="vn">L1</code>–<code class="vn">L3</code> ladder holds 22 HTML files, and they fall into two
       groups. Three of them — <code>L1.html</code>, <code>L2.html</code> and <code>L3.html</code> —
       start with <code>&lt;!DOCTYPE html&gt;</code>, open in standards mode and pass the W3C Nu Html
       Checker without a single error or warning: these are the modern-DOM builds that colour the
-      pieces and the target squares. The other twenty carry no DOCTYPE, so all of them open in quirks
+      pieces and the target squares. The other nineteen carry no DOCTYPE, so all of them open in quirks
       mode. That is not an oversight but a choice made for bytes; the validator reports errors for
-      the DOCTYPE, the <code>&lt;title&gt;</code> and unclosed or misplaced elements, and on the two
-      packed forms of <code class="vn">L3</code> it adds hundreds more for the control characters in the
+      the DOCTYPE, the <code>&lt;title&gt;</code> and unclosed or misplaced elements, and on the
+      packed form of <code class="vn">L3</code> it adds hundreds more for the control characters in the
       packed string. <b>Only <code class="vn">L3_packed</code> contains obsolete elements or
       attributes</b>, and only in the markup it generates at run time. For the three JavaScript files —
       <code>engine.js</code>, <code>engine_4x.js</code> and <code>engine_string.js</code> — neither a
       DOCTYPE nor a rendering mode means anything. The files in <code>builds/special/</code> are outside
       this count: most are projects in their own right, the files of five separate repositories on
-      <a href="https://github.com/cuneytinann" target="_blank" rel="noopener">GitHub</a>, and each repository's README tells the details. The two packed forms,
-      <code class="vn">L3_packed</code> and <code class="vn">L3_minimum</code>, are covered on this
+      <a href="https://github.com/cuneytinann" target="_blank" rel="noopener">GitHub</a>, and each repository's README tells the details. The packed form,
+      <code class="vn">L3_packed</code>, is covered on this
       page, in the <a href="#packing">packing section</a>.</p>
       <p>One common confusion is worth separating out here: <b>obsolete presentational attributes do
       not belong to quirks mode.</b> <code>bgcolor</code>, <code>width</code> and
@@ -15842,7 +15756,7 @@ f = K[2] + K[3] - 0</pre></div>
 <tr><td>Ana DOM sürümleri</td><td><code>L1</code>, <code>L2</code>, <code>L3</code></td><td>standart</td><td>0 / 0</td><td>yok</td><td>modern</td></tr>
 <tr><td><code class="vn">input</code>, <code class="vn">prompt</code> ve <code class="vn">numerical</code> aileleri</td><td>L1 ve L2: <code>input</code>, <code>input_blindfold</code>, <code>numerical</code>, <code>prompt_string</code> · L3: <code>input</code>, <code>input_blindfold</code>, <code>numerical</code>, <code>prompt</code>, <code>prompt_blindfold</code>, <code>prompt_string_a1</code>, <code>prompt_string</code></td><td>quirks</td><td>2 / 1 — DOCTYPE, <code>&lt;title&gt;</code>; <code>lang</code> uyarısı</td><td>yok</td><td>modern</td></tr>
 <tr><td><code class="vn">light</code></td><td><code>L1_light</code>, <code>L2_light</code>, <code>L3_light</code></td><td>quirks</td><td>4–9 / 1 — aynıları ve kapanmamış <code>table</code> ya da <code>style</code>; <code>L3_light</code>'ta ayrıca gövdedeki <code>&lt;style&gt;</code> için yer ve seçici hataları</td><td>yok</td><td>modern</td></tr>
-<tr><td><code>builds/</code>, paketli</td><td><code>L3_packed</code>, <code>L3_minimum</code></td><td>quirks</td><td>213–275 / 16–29 — neredeyse tamamı paket dizgisindeki kontrol karakterleri</td><td><code>L3_packed</code>'in ürettiği işaretlemede <code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>width</code>, <code>cellspacing</code></td><td><code>with</code>, <code>eval</code>; <code>L3_packed</code>'te ayrıca <code>document.write</code> ve <code>.bgColor</code></td></tr>
+<tr><td><code>builds/</code>, paketli</td><td><code>L3_packed</code></td><td>quirks</td><td>213–275 / 16–29 — neredeyse tamamı paket dizgisindeki kontrol karakterleri</td><td><code>L3_packed</code>'in ürettiği işaretlemede <code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>width</code>, <code>cellspacing</code></td><td><code>with</code>, <code>eval</code>; <code>L3_packed</code>'te ayrıca <code>document.write</code> ve <code>.bgColor</code></td></tr>
 <tr><td><code>builds/special/</code>, standart</td><td><code>Lichess-equivalent</code>, <code>Chesscom-equivalent</code>, <code>L2_noBlockedDetector</code>, <code>L2_string_noBlockedDetector</code>, <code>L1_1250elo</code>, <code>L2_aybars_2500</code>, <code>LUX</code></td><td>standart</td><td>0 / 0</td><td>yok</td><td>modern</td></tr>
 <tr><td><code>builds/special/</code>, paketli</td><td><code>Lichess-equivalent_minimum</code>, <code>Chesscom-equivalent_minimum</code>, <code>DOM_996</code>, <code>DOM_minimum</code>, <code>Lowest</code></td><td>quirks</td><td>111–185 / 4–11 — neredeyse tamamı paket dizgisindeki kontrol karakterleri</td><td><code>DOM_996</code>'ün ürettiği işaretlemede <code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>width</code></td><td><code>with</code>, <code>eval</code></td></tr>
 <tr><td>Toledo</td><td><code>Toledos-ES6-optimized</code></td><td>quirks</td><td>8 / 1 — <code>&lt;center&gt;</code>, birimsiz CSS değerleri, ikinci <code>&lt;body&gt;</code></td><td><code>&lt;center&gt;</code>, <code>bgcolor</code>; ürettiği tabloda <code>cellspacing</code></td><td><code>document.write</code>, dizgiyle <code>setTimeout</code></td></tr>
@@ -15855,7 +15769,7 @@ f = K[2] + K[3] - 0</pre></div>
 <tr><td>Main DOM builds</td><td><code>L1</code>, <code>L2</code>, <code>L3</code></td><td>standards</td><td>0 / 0</td><td>none</td><td>modern</td></tr>
 <tr><td>The <code class="vn">input</code>, <code class="vn">prompt</code> and <code class="vn">numerical</code> families</td><td>L1 and L2: <code>input</code>, <code>input_blindfold</code>, <code>numerical</code>, <code>prompt_string</code> · L3: <code>input</code>, <code>input_blindfold</code>, <code>numerical</code>, <code>prompt</code>, <code>prompt_blindfold</code>, <code>prompt_string_a1</code>, <code>prompt_string</code></td><td>quirks</td><td>2 / 1 — DOCTYPE, <code>&lt;title&gt;</code>; a <code>lang</code> warning</td><td>none</td><td>modern</td></tr>
 <tr><td><code class="vn">light</code></td><td><code>L1_light</code>, <code>L2_light</code>, <code>L3_light</code></td><td>quirks</td><td>4–9 / 1 — the same, plus an unclosed <code>table</code> or <code>style</code>; in <code>L3_light</code> also placement and selector errors for the <code>&lt;style&gt;</code> in the body</td><td>none</td><td>modern</td></tr>
-<tr><td><code>builds/</code>, packed</td><td><code>L3_packed</code>, <code>L3_minimum</code></td><td>quirks</td><td>213–275 / 16–29 — almost all of them control characters in the packed string</td><td>in the markup <code>L3_packed</code> generates: <code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>width</code>, <code>cellspacing</code></td><td><code>with</code>, <code>eval</code>; <code>document.write</code> and <code>.bgColor</code> too in <code>L3_packed</code></td></tr>
+<tr><td><code>builds/</code>, packed</td><td><code>L3_packed</code></td><td>quirks</td><td>213–275 / 16–29 — almost all of them control characters in the packed string</td><td>in the markup <code>L3_packed</code> generates: <code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>width</code>, <code>cellspacing</code></td><td><code>with</code>, <code>eval</code>; <code>document.write</code> and <code>.bgColor</code> too in <code>L3_packed</code></td></tr>
 <tr><td><code>builds/special/</code>, standards</td><td><code>Lichess-equivalent</code>, <code>Chesscom-equivalent</code>, <code>L2_noBlockedDetector</code>, <code>L2_string_noBlockedDetector</code>, <code>L1_1250elo</code>, <code>L2_aybars_2500</code>, <code>LUX</code></td><td>standards</td><td>0 / 0</td><td>none</td><td>modern</td></tr>
 <tr><td><code>builds/special/</code>, packed</td><td><code>Lichess-equivalent_minimum</code>, <code>Chesscom-equivalent_minimum</code>, <code>DOM_996</code>, <code>DOM_minimum</code>, <code>Lowest</code></td><td>quirks</td><td>111–185 / 4–11 — almost all of them control characters in the packed string</td><td>in the markup <code>DOM_996</code> generates: <code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>width</code></td><td><code>with</code>, <code>eval</code></td></tr>
 <tr><td>Toledo</td><td><code>Toledos-ES6-optimized</code></td><td>quirks</td><td>8 / 1 — <code>&lt;center&gt;</code>, unitless CSS values, a second <code>&lt;body&gt;</code></td><td><code>&lt;center&gt;</code>, <code>bgcolor</code>; <code>cellspacing</code> in the table it writes</td><td><code>document.write</code>, <code>setTimeout</code> with a string</td></tr>
@@ -16409,7 +16323,7 @@ f = K[2] + K[3] - 0</pre></div>
 <thead><tr><th>Ad</th><th>Genel hâli</th><th>Sapma</th></tr></thead>
 <tbody>
 <tr><td><code>U</code></td><td>Saatler, saniye — iki elemanlı dizi, indeks sırayla eşleşiyor: <code>U[0]</code> siyah, <code>U[1]</code> beyaz. <code>U=[600,600]</code><span class="sub">engine.js · engine_4x.js · prompt · prompt_blindfold · prompt_string_a1 · prompt_string · nonbrowser</span></td><td><code class="vn">main</code> ve <code class="vn">light</code>: <code>U=[600,600,new Date]</code>, <code>U[2]</code> zaman damgası baştan dizide ve indeks ters — <code>U[0]</code> beyaz, <code>U[1]</code> siyah. <code class="vn">input</code> ve <code class="vn">input_blindfold</code>: damga yine <code>U[2]</code>'de, indeks genel hâldeki gibi. <code class="vn">nonbrowser</code> ailesi damgayı her okumadan önce <code>U[2]</code>'ye yazıyor. <code class="vn">numerical</code>: milisaniye, <code>U=[9E5,9E5]</code>. <code class="vn">L2</code> ve <code class="vn">L2_aybars_2500</code>: saat yok. <code class="vn">L2</code>'de <code>U</code> hiç doğmuyor; <code class="vn">L2_aybars_2500</code>'de harf botun: aramada ilk denenen hamle, kökte bir önceki derinliğin, öteki düğümlerde hash tablosunun en iyisi</td></tr>
-<tr><td><code>N</code></td><td><code>'indexOf'</code> takma adı<span class="sub">engine.js · engine_4x.js · bütün düz <code class="vn">L3</code> sürümleri</span></td><td><code class="vn">L2</code> ve <code class="vn">L2_aybars_2500</code>: <code>'innerHTML'</code>; bot sürümünde <code>'indexOf'</code> takma adı <code>Q</code>. <code>L3_packed.html</code>: <code>'innerText'</code>. <code>L3_minimum.html</code>: <code>U=N=9e5</code>, yani <code>N</code> orada siyahın saati — iki paket de kendi kaynağından üretiliyor</td></tr>
+<tr><td><code>N</code></td><td><code>'indexOf'</code> takma adı<span class="sub">engine.js · engine_4x.js · bütün düz <code class="vn">L3</code> sürümleri</span></td><td><code class="vn">L2</code> ve <code class="vn">L2_aybars_2500</code>: <code>'innerHTML'</code>; bot sürümünde <code>'indexOf'</code> takma adı <code>Q</code>. <code>L3_packed.html</code>: <code>'innerText'</code></td></tr>
 <tr><td><code>o</code></td><td>Teklif bitleri</td><td><code class="vn">L2</code> ve <code class="vn">L2_aybars_2500</code>: teklif edecek kimse olmadığı için harf global olarak boşta</td></tr>
 <tr><td><code>z</code></td><td>Oyun sonucu</td><td><code>engine</code>, <code>engine_4x</code> ve <code class="vn">numerical</code>'da <a href="#codes">sayı kodu</a>; kalan bütün sürümlerde iki harfli dizgi</td></tr>
 </tbody>
@@ -16418,7 +16332,7 @@ f = K[2] + K[3] - 0</pre></div>
 <thead><tr><th>Name</th><th>General form</th><th>Deviation</th></tr></thead>
 <tbody>
 <tr><td><code>U</code></td><td>The clocks, in seconds — a two-element array indexed by the side to move: <code>U[0]</code> black, <code>U[1]</code> white. <code>U=[600,600]</code><span class="sub">engine.js · engine_4x.js · prompt · prompt_blindfold · prompt_string_a1 · prompt_string · nonbrowser</span></td><td><code class="vn">main</code> and <code class="vn">light</code>: <code>U=[600,600,new Date]</code>, the <code>U[2]</code> timestamp is in the array from the start and the index is reversed — <code>U[0]</code> white, <code>U[1]</code> black. <code class="vn">input</code> and <code class="vn">input_blindfold</code>: the stamp is in <code>U[2]</code> again, indexed as in the general form. The <code class="vn">nonbrowser</code> family writes the stamp into <code>U[2]</code> before every read. <code class="vn">numerical</code>: milliseconds, <code>U=[9E5,9E5]</code>. <code class="vn">L2</code> and <code class="vn">L2_aybars_2500</code>: no clock. In <code class="vn">L2</code>, <code>U</code> never comes into being; in <code class="vn">L2_aybars_2500</code> the letter belongs to the bot: the move the search tries first, the best of the previous depth at the root and the hash table's best elsewhere</td></tr>
-<tr><td><code>N</code></td><td>The <code>'indexOf'</code> alias<span class="sub">engine.js · engine_4x.js · every plain <code class="vn">L3</code> build</span></td><td><code class="vn">L2</code> and <code class="vn">L2_aybars_2500</code>: <code>'innerHTML'</code>; in the bot build the <code>'indexOf'</code> alias is <code>Q</code>. <code>L3_packed.html</code>: <code>'innerText'</code>. <code>L3_minimum.html</code>: <code>U=N=9e5</code>, so there <code>N</code> is Black's clock — both packs are built from a source of their own</td></tr>
+<tr><td><code>N</code></td><td>The <code>'indexOf'</code> alias<span class="sub">engine.js · engine_4x.js · every plain <code class="vn">L3</code> build</span></td><td><code class="vn">L2</code> and <code class="vn">L2_aybars_2500</code>: <code>'innerHTML'</code>; in the bot build the <code>'indexOf'</code> alias is <code>Q</code>. <code>L3_packed.html</code>: <code>'innerText'</code></td></tr>
 <tr><td><code>o</code></td><td>Offer bits</td><td><code class="vn">L2</code> and <code class="vn">L2_aybars_2500</code>: with no one to offer, the letter is free as a global</td></tr>
 <tr><td><code>z</code></td><td>Game result</td><td>A <a href="#codes">numeric code</a> in <code>engine</code>, <code>engine_4x</code> and <code class="vn">numerical</code>; a two-letter string in every other build</td></tr>
 </tbody>
@@ -16582,7 +16496,7 @@ f = K[2] + K[3] - 0</pre></div>
 //  c     U            N            e Y     t     →  cUNeYt</pre></div>
     <div class="prose" lang="en">
       <p>The order is preserved in nearly every L3 front end that carries a clock — ten of them —
-      and it reappears intact when the two packed files are unpacked. The engine files —
+      and it reappears intact when the packed file is unpacked. The engine files —
       <code>engine.js</code>, <code>engine_4x.js</code> and <code>engine_string.js</code> — carry no
       signature: the clock is not in the engine, so <code>U</code> has no job there. The one exception is <code class="vn">prompt_string</code>, whose declarations follow
       <a href="#fenstring">the order of the FEN fields</a> rather than the signature, and whose
@@ -16615,7 +16529,7 @@ f = K[2] + K[3] - 0</pre></div>
       bug; it passes the tests and sits on the screen.</p>
     </div>
     <div class="prose" lang="tr">
-      <p>Sıra, saati olan L3 önyüzlerinin neredeyse hepsinde korunuyor — on önyüz — ve iki
+      <p>Sıra, saati olan L3 önyüzlerinin neredeyse hepsinde korunuyor — on önyüz — ve
       paketlenmiş dosya açıldığında da aynen çıkıyor. Motor dosyaları — <code>engine.js</code>,
       <code>engine_4x.js</code> ve <code>engine_string.js</code> — imza taşımıyor: saat motorda
       olmadığı için orada <code>U</code>'nun işi yok. Tek istisna <code class="vn">prompt_string</code>: bildirimleri imzayı değil
@@ -16681,7 +16595,7 @@ f = K[2] + K[3] - 0</pre></div>
 <tr><td><code>V</code></td><td>Motorun tehdit fonksiyonu</td><td><code>l</code> içinde beyaz şahın karesi; <code>Sk</code>'nin ve <code>onkeyup</code>'ın parametresi</td></tr>
 <tr><td><code>z</code></td><td>Sonuç globali</td><td><code>w</code>'nin parametresi</td></tr>
 <tr><td><code>s</code></td><td><code>A</code>'nın kurduğu pozisyon anahtarı</td><td><code>V</code>'nin renk parametresi; <code class="vn">main</code>'in render'ında geçerli hedef listesi — <code>s=L(i)</code></td></tr>
-<tr><td><code>N</code></td><td>Motorun <code>'indexOf'</code> takma adı</td><td><code class="vn">L2</code> ailesinde <code>'innerHTML'</code> takma adı; <code>L3_packed.html</code>'de <code>'innerText'</code>, <code>L3_minimum.html</code>'de siyahın saati</td></tr>
+<tr><td><code>N</code></td><td>Motorun <code>'indexOf'</code> takma adı</td><td><code class="vn">L2</code> ailesinde <code>'innerHTML'</code> takma adı; <code>L3_packed.html</code>'de <code>'innerText'</code></td></tr>
 </tbody>
 </table></div>
 <div class="tw" lang="en"><table>
@@ -16704,7 +16618,7 @@ f = K[2] + K[3] - 0</pre></div>
 <tr><td><code>V</code></td><td>The engine's attack function</td><td>White's king square inside <code>l</code>; a parameter of <code>Sk</code> and of <code>onkeyup</code></td></tr>
 <tr><td><code>z</code></td><td>The result global</td><td>A parameter of <code>w</code></td></tr>
 <tr><td><code>s</code></td><td>The position key <code>A</code> builds</td><td><code>V</code>'s colour parameter; the legal target list in <code class="vn">main</code>'s render — <code>s=L(i)</code></td></tr>
-<tr><td><code>N</code></td><td>The engine's <code>'indexOf'</code> alias</td><td>The <code>'innerHTML'</code> alias in the <code class="vn">L2</code> family; <code>'innerText'</code> in <code>L3_packed.html</code>, Black's clock in <code>L3_minimum.html</code></td></tr>
+<tr><td><code>N</code></td><td>The engine's <code>'indexOf'</code> alias</td><td>The <code>'innerHTML'</code> alias in the <code class="vn">L2</code> family; <code>'innerText'</code> in <code>L3_packed.html</code></td></tr>
 </tbody>
 </table></div>
     <div class="prose" lang="en">
@@ -17575,7 +17489,7 @@ var DIR = 'builds/';
    icin de gerekli: koku DIR'den turetiyoruz, boylece build.mjs'te ikinci bir
    kural tutmaya gerek kalmiyor. */
 var ROOT = DIR.slice(0, -'builds/'.length);
-var ART = {"L3": {"p": "L3.html", "ps": 3131}, "L3_light": {"p": "L3_light.html", "ps": 2651}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2051}, "L3_input": {"p": "L3_input.html", "ps": 2520}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2372}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2636}, "L3_prompt_string": {"p": "L3_prompt_string.html", "ps": 2438}, "L1": {"p": "builds/L1/L1.html", "ps": 1531}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 1111}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 824}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1128}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 1036}, "L1_prompt_string": {"p": "builds/L1/L1_prompt_string.html", "ps": 1086}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1277}, "L2": {"p": "builds/L2/L2.html", "ps": 2212}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1740}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1480}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1812}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1701}, "L2_prompt_string": {"p": "builds/L2/L2_prompt_string.html", "ps": 1810}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 1961}, "L2_aybars_2500": {"p": "builds/special/L2_aybars_2500.html", "ps": 7935}, "L1_1250elo": {"p": "builds/special/L1_1250elo.html", "ps": 2280}, "L3_packed": {"p": "builds/L3_packed.html", "ps": 2635}, "L3_minimum": {"p": "builds/L3_minimum.html", "ps": 1737}, "Chesscom-equivalent": {"p": "builds/special/Chesscom-equivalent.html", "ps": 2833}, "Chesscom-equivalent_minimum": {"p": "builds/special/Chesscom-equivalent_minimum.html", "ps": 1158}, "Lichess-equivalent": {"p": "builds/special/Lichess-equivalent.html", "ps": 3018}, "Lichess-equivalent_minimum": {"p": "builds/special/Lichess-equivalent_minimum.html", "ps": 1201}, "L2_noBlockedDetector": {"p": "builds/special/L2_noBlockedDetector.html", "ps": 1888}, "L2_string_noBlockedDetector": {"p": "builds/special/L2_string_noBlockedDetector.html", "ps": 1975}, "DOM_996": {"p": "builds/special/DOM_996.html", "ps": 996}, "DOM_minimum": {"p": "builds/special/DOM_minimum.html", "ps": 791}, "Lowest": {"p": "builds/special/Lowest.html", "ps": 709}, "LUX": {"p": "builds/special/LUX.html", "ps": 9812}, "Toledos-ES6-optimized": {"p": "builds/special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "builds/special/ToledosOpponentbyMe.html", "ps": 2076}, "engine": {"p": "engine.js", "ps": 1807}, "engine_4x": {"p": "engine_4x.js", "ps": 1899}, "engine_string": {"p": "engine_string.js", "ps": 1919}, "engine_onlyMoveGenerator": {"p": "builds/special/engine_onlyMoveGenerator.js", "ps": 695}};
+var ART = {"L3": {"p": "L3.html", "ps": 2881}, "L3_light": {"p": "L3_light.html", "ps": 2346}, "L3_numerical": {"p": "L3_numerical.html", "ps": 1835}, "L3_input": {"p": "L3_input.html", "ps": 2275}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2145}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2377}, "L3_prompt_string": {"p": "L3_prompt_string.html", "ps": 2435}, "L1": {"p": "builds/L1/L1.html", "ps": 1424}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 957}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 774}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1070}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 1001}, "L1_prompt_string": {"p": "builds/L1/L1_prompt_string.html", "ps": 1086}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1198}, "L2": {"p": "builds/L2/L2.html", "ps": 2041}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1557}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1369}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1690}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1603}, "L2_prompt_string": {"p": "builds/L2/L2_prompt_string.html", "ps": 1810}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 1818}, "L2_aybars_2500": {"p": "builds/special/L2_aybars_2500.html", "ps": 7935}, "L1_1250elo": {"p": "builds/special/L1_1250elo.html", "ps": 2280}, "L3_packed": {"p": "builds/L3_packed.html", "ps": 2530}, "Chesscom-equivalent": {"p": "builds/special/Chesscom-equivalent.html", "ps": 2833}, "Chesscom-equivalent_minimum": {"p": "builds/special/Chesscom-equivalent_minimum.html", "ps": 1158}, "Lichess-equivalent": {"p": "builds/special/Lichess-equivalent.html", "ps": 3018}, "Lichess-equivalent_minimum": {"p": "builds/special/Lichess-equivalent_minimum.html", "ps": 1201}, "L2_noBlockedDetector": {"p": "builds/special/L2_noBlockedDetector.html", "ps": 1888}, "L2_string_noBlockedDetector": {"p": "builds/special/L2_string_noBlockedDetector.html", "ps": 1975}, "DOM_996": {"p": "builds/special/DOM_996.html", "ps": 996}, "DOM_minimum": {"p": "builds/special/DOM_minimum.html", "ps": 791}, "Lowest": {"p": "builds/special/Lowest.html", "ps": 709}, "LUX": {"p": "builds/special/LUX.html", "ps": 9812}, "Toledos-ES6-optimized": {"p": "builds/special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "builds/special/ToledosOpponentbyMe.html", "ps": 2076}, "engine": {"p": "engine.js", "ps": 1807}, "engine_4x": {"p": "engine_4x.js", "ps": 1899}, "engine_string": {"p": "engine_string.js", "ps": 1919}, "engine_onlyMoveGenerator": {"p": "builds/special/engine_onlyMoveGenerator.js", "ps": 695}};
 
 function url(n) { return n.indexOf('/') > -1 ? ROOT + n : DIR + n; }
 /* Terminal surumu (.cjs): tarayicida calismaz. Oyna kapali; kodu ve indirme acik. */
@@ -18005,7 +17919,7 @@ var PAINT = {
   LUX: PAINT_L3,
   'Toledos-ES6-optimized': ['m', ';while(B++<G)', 'u'],
   ToledosOpponentbyMe: ['r', ',M=(', 'u', ';d();P=[', 'b'],
-  L3_packed: PACKED, L3_minimum: PACKED,
+  L3_packed: PACKED,
   'Chesscom-equivalent_minimum': PACKED, 'Lichess-equivalent_minimum': PACKED,
   DOM_996: PACKED, DOM_minimum: PACKED, Lowest: PACKED
 };
