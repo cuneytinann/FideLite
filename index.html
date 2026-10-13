@@ -17902,13 +17902,29 @@ function start() {
    PAINT: surum -> [katman, isaret, katman, isaret, ..., katman]. Her katman,
    isaretle baslayan tanimin bitis virgulune kadar surer; son katman scriptin
    sonuna kadar. Isaret virgulle ya da noktali virgulle basliyorsa o isaret
-   onceki tanimindir, tanim ondan sonra baslar. L3'te ve L2'de motorun son
-   tanimi kilitli pozisyon dedektoru l, L1'de ve light surumlerinde M; light
-   surumlerinde tas glifleri tablosu g arayuzun ilk tanimi. Botlu surumlerde
-   arayuz ilk cizimle (d();) biter, gerisi bot.
+   onceki tanimindir, tanim ondan sonra baslar.
+   Cekirdek 21 surumde (L1, L2, L3; her birinde default, light, input,
+   input_blindfold, numerical, nonbrowser, prompt_string) dizilis ayni: bas
+   dizisi (durum), tahta, motor tanimlari ve kural yardimcilari, en sonda
+   tekrar tablosunun baslangici; arayuz ondan sonra gelir (saat, girdi ve
+   cikti, cizim, baslatma). Kural bolgesinin son tanimi: L3'te R=u[k=..]=1 ya
+   da R=G[k=..]=1, L2'de R=G[b+e+t+c]=1, L2 light'ta kilit dongusu g, L1'de L,
+   L1 light'ta U; harf tahtali surumlerde L1'de M, L2 ve L3'te l. Bas dizisi
+   durumun tamamini tasir (sira, rok, gecerken alma, sayaclar, sonuc, imza),
+   hepsi kural rengi. Botlu surumlerde arayuz ilk cizimle (d();) biter, gerisi
+   bot.
    CARVE: surucunun icine gomulmus kod, [bas, son, katman] ucluleri; katman
-   yazilmazsa kural. Cizgi kurali bunlari arayuz sayardi ama kural kodudurlar:
-   hamleyi isleyen ve hukmu veren A govdesi (rok haklari, M, sira, tekrar
+   yazilmazsa kural. Cizgi kurali bunlari arayuz sayardi ama kural kodudurlar.
+   Cekirdek 21 surumde kesim tek tip: hamleyi uygulayip hukmu veren govde. L1'de
+   rok defteriyle (G[i]=G[Y]=1, u[i]=u[Y]=1), L2'de sayacla (n=!b[Y]), L3'te
+   tekrar sayaciyla (R=..[M() baslar; harf tahtasinda c[i]=c[Y]=1, c&=~C(i),
+   M(i,Y,. L3'te teklif ve talep govdesi, arada yalniz '=' sinamasi varsa ayni
+   kesime katilir; blindfold'da araya son hamlenin metni girdigi icin ayri
+   kesilir. Sure ve terk hukmu L3'te kural bolgesindeki s'de; numerical, light
+   ve prompt_string'de satir ici, orada kesilir. Light surumlerinde cizime gomulu
+   sira degisimi (t^=8; L2'de gecerken alma, tekrar, kilit ve 75 ile) ve tiklamaya
+   gomulu hamle de kesimdir.
+   Ozel surumlerde: hamleyi isleyen ve hukmu veren A govdesi (rok haklari, M, sira, tekrar
    sayaci, sonuc ifadesi), prompt surumlerinde F'nin sure/terk hukmu, harf
    dizgili flip'te D'nin teklif/talep govdesi, light surumlerinde tiklama
    isleyicisine gomulu legallik ve oyun sonu testi. Botlu surumlerde A'nin
@@ -17965,19 +17981,24 @@ function start() {
    butunu HTML'e boyanirdi.
    Terminal surumleri (.cjs) HTML'siz, dosyanin tamami script: <script>
    araligi yerine butun metin boyanir. Surucu mantiklari input surumleriyle
-   birebir ayni, o yuzden isaretleri ve kesimleri de onlarinki: L3'te kesim yok,
-   L1 ve L2'de hamleyi isleyen govde (APPLY) kural.
+   ayni, o yuzden kesimleri de onlarinki; L3'te tekrar tablosu G'de durdugu
+   icin kural sinirinin isareti R=G[k=.
    Listede olmayan surum ya da bulunamayan bir isaret: tek renk. */
-var PAINT_L3 = ['r', ',l=(', 'u'], PAINT_L1 = ['r', ',M=(', 'u'], PACKED = ['p'];
+var PAINT_L3 = ['r', ',l=(', 'u'], PACKED = ['p'],
+    P1 = ['r', ',L=(i,x', 'u'], P1_LIGHT = ['r', ',U=(i,f,P=b[i]-t', 'u'],
+    P2 = ['r', ',R=G[b+e+t+c]=1', 'u'], P2_LIGHT = ['r', ',g=n=>', 'u'],
+    P3_U = ['r', ',R=u[k=', 'u'], P3_G = ['r', ',R=G[k=', 'u'],
+    P_STR1 = ['r', ',M=(', 'u'], P_STR = ['r', ',l=(', 'u'];
 var PAINT = {
-  L3: PAINT_L3, L3_light: PAINT_L3, L3_numerical: PAINT_L3, L3_input: PAINT_L3,
-  L3_input_blindfold: PAINT_L3, L3_prompt_string: PAINT_L3, L3_nonbrowser: PAINT_L3,
-  L2: PAINT_L3, L2_numerical: PAINT_L3, L2_input: PAINT_L3, L2_input_blindfold: PAINT_L3, L2_light: PAINT_L1,
-  L2_prompt_string: PAINT_L3, L2_nonbrowser: PAINT_L3,
+  L1: P1, L1_light: P1_LIGHT, L1_input: P1, L1_input_blindfold: P1, L1_numerical: P1,
+  L1_nonbrowser: P1, L1_prompt_string: P_STR1,
+  L2: P2, L2_light: P2_LIGHT, L2_input: P2, L2_input_blindfold: P2, L2_numerical: P2,
+  L2_nonbrowser: P2, L2_prompt_string: P_STR,
+  L3: P3_U, L3_light: P3_U, L3_input: P3_U, L3_input_blindfold: P3_U, L3_numerical: P3_G,
+  L3_nonbrowser: P3_G, L3_prompt_string: P_STR,
   L2_aybars_2500: ['r', ',t=1', 'm', ',b=Int8Array', 'r', ',a=Math.abs', 'm', ',L=(', 'r',
     ',C=i=>', 'm', ',M=(', 'r', ',l=(', 'u', ';d();U=0', 'b'],
-  L1: PAINT_L1, L1_numerical: PAINT_L1, L1_input: PAINT_L1, L1_input_blindfold: PAINT_L1, L1_light: PAINT_L1,
-  L1_prompt_string: PAINT_L1, L1_nonbrowser: PAINT_L1, L1_1250elo: ['r', ',M=(', 'u', ';d();P=[', 'b'],
+  L1_1250elo: ['r', ',M=(', 'u', ';d();P=[', 'b'],
   'Chesscom-equivalent': ['r', ',Z=Q=>', 'u'], 'Lichess-equivalent': ['r', ',F=k=>', 'u'],
   L2_noBlockedDetector: ['r', 'M=(i,f,u=', 'u'],
   L2_string_noBlockedDetector: ['r', 'M=(i,f,u=', 'u'],
@@ -17991,21 +18012,24 @@ var PAINT = {
 /* Gosterilen dosyanin kendisi paketli mi (duz hali yok)? Tek kaynak PACKED.
    PAINT henuz atanmadan cagrilirsa (dil ilk kurulurken) false doner. */
 function packedOnly(key) { return !!PAINT && PAINT[key] === PACKED; }
-var APPLY = [['c&=~C(i)', ":'SM'"]], APPLY_N = [['c&=~C(i)', 't+1:3']],
-    APPLY1 = [['c[i]=c[f]=1', ":'SM'"]], APPLY1_N = [['c[i]=c[f]=1', 't+1:3']],
-    FLAG = [['(Hn=2e4', "'WB'[g]+F"]];
+var APPLY = [['c&=~C(i)', ":'SM'"]],
+    C1 = [['G[i]=G[Y]=1', ":'SM':0"]], C2 = [['n=!b[Y]', "'75':0"]];
 var CARVE = {
-  L3: [['M(i,f,T),', 'o&&D()']], L3_light: [['M(i,f,T),', 'o&&D()']],
-  L3_prompt_string: FLAG.concat([["M(i,f,~'rbn'", '-~R[s]'], ['z=b.some', ":'SM'"],
-    ['o^=2-g', "'DA':z"]]),
-  L2: APPLY, L2_input: APPLY, L2_input_blindfold: APPLY, L2_numerical: APPLY_N, L2_prompt_string: APPLY,
-  L2_nonbrowser: APPLY,
-  L2_light: [['b[s=b+t+e+c]', 't^=1'], ['n>148|', 'o<3|o==4)']],
+  L1: [['u[i]=u[Y]=1', ":'SM':0"]], L1_light: [['t^=8', 't^=8'], ['G(i,D)', 'e=E']],
+  L1_input: C1, L1_input_blindfold: C1, L1_numerical: [['G[i]=G[Y]=1', '3:0']],
+  L1_nonbrowser: C1, L1_prompt_string: [['c[i]=c[Y]=1', ":'SM'"]],
+  L2: C2, L2_light: [['t^=8', '!(4%o)))'], ['n=!b[u]', 'e=U(i,u)']],
+  L2_input: C2, L2_input_blindfold: C2, L2_numerical: [['n=!b[Y]', 'n>149?4:0']],
+  L2_nonbrowser: C2, L2_prompt_string: [['c&=~C(i)', ":'SM'"]],
+  L3: [['R=u[M(i,Y)]', 'o&&J()'], ['o^=t||1', "'DA'"]],
+  L3_light: [['$=[I=t]', 'H(15)'], ['R=u[M(i,Y)]', 'm|o>8)']],
+  L3_input: [['R=u[M(', 'o*=g==t']],
+  L3_input_blindfold: [['R=u[M(', "'75':0"], ["n>99?'50'", 'o*=g==t']],
+  L3_numerical: [['(E=u[t]>0', '-!t'], ['R=G[M(', 'o*=g==t']],
+  L3_nonbrowser: [['R=G[M(', 'o*=g==t']],
+  L3_prompt_string: [['(Hn=2e4', "'WB'[g]+F"], ['M(i,Y,', 'o*=g==t']],
   L2_aybars_2500: APPLY.concat([['A1=0', 'A1=0', 'm'], ['PT[++Y3]', '=H2', 'b'],
     ['S1=(', 'b[q>>4]=q&15}', 'm']]),
-  L1: APPLY1, L1_input: APPLY1, L1_input_blindfold: APPLY1, L1_numerical: APPLY1_N, L1_prompt_string: APPLY1,
-  L1_nonbrowser: APPLY1,
-  L1_light: [['c[i]=c[f]=1', 't^=1'], ['!p|p&1^t&&G(i,u)', '[b,e]=p,q']],
   L1_1250elo: APPLY.concat([['z||t==D', 'setTimeout(o,9)', 'b']]),
   'Chesscom-equivalent': [['(I(!t)', "'WB'[t]+'T'"], ['c&=~C(i)', 'Z(o&=1+t)'],
     ["T?'WB'", "&&'DA'"]],
