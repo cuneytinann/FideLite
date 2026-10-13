@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FideLite.Art — 1.807 baytta tam FIDE hakemi</title>
-<meta name="description" content="Her resmî FIDE kuralını uygulayan bir satranç hakemi, 1.807 bayt saf JavaScript. Tek dosya, bağımlılık yok.">
+<title>FideLite.Art — 1.645 baytta tam FIDE hakemi</title>
+<meta name="description" content="Her resmî FIDE kuralını uygulayan bir satranç hakemi, 1.645 bayt saf JavaScript. Tek dosya, bağımlılık yok.">
 
 <link rel="canonical" href="https://www.fidelite.art/">
 <!--hreflang--><!--/hreflang-->
@@ -556,7 +556,7 @@ body::before {
 /* Dar ekranda tahta oluktan tasar: 8 sutuna 3rem daha genislik. */
 @media (max-width:34rem) {
   .hero-side { width:calc(100% + 3rem); margin-inline:-1.5rem }
-  .hexboard { border-inline-width:0 }
+  .hero-side .hexboard::before { border-left-width:0 }
   .hexcap { padding-inline:1.5rem }
 }
 
@@ -567,19 +567,24 @@ body::before {
   padding:.6rem 0; margin:2rem 0 0 }
 /* Olcu viewport'a degil tahtanin kendi genisligine bagli: bir kare 12.5cqw.
    cqw'yi anlamayan tarayici ilk bildirimdeki clamp'te kalir. */
-.hexboard { display:grid; grid-template-columns:repeat(8,1fr); width:100%;
-  border:1px solid var(--ink); container-type:inline-size }
+.hexboard { display:grid; grid-template-columns:repeat(8,minmax(0,1fr)) minmax(0,.5fr); width:100%;
+  position:relative; container-type:inline-size }
+/* Cerceve yalniz 8 gercek sutunu sariyor; hayalet sutun kesik cizgili, tahtanin disinda.
+   Kareler de konumlu oldugu icin cerceve onlarin ustunde cizilmeli (z-index), yoksa
+   kareler onu ortuyor ve yuvarlama artiginda yer yer ince bir cizgi olarak siziyor. */
+.hexboard::before { content:''; position:absolute; top:0; bottom:0; left:0; z-index:1;
+  width:calc(100% * 8 / 8.5); border:1px solid var(--ink); pointer-events:none; box-sizing:border-box }
 .hx { position:relative; aspect-ratio:1; display:flex; align-items:center;
   justify-content:center; font-family:var(--mono) }
 .lt { background:var(--lt) } .dk { background:var(--dk) }
 .hc { display:flex; align-items:baseline; gap:.14em }
 .hd { color:var(--ink); font-weight:500;
-  font-size:clamp(.85rem,2.6vw,1.15rem); font-size:4.9cqw }
+  font-size:clamp(.85rem,2.6vw,1.15rem); font-size:4.6cqw }
 .hg { line-height:1; color:var(--ink); opacity:.75;
-  font-size:.72rem; font-size:4.1cqw }
+  font-size:.72rem; font-size:3.85cqw }
 .hs, .hi { position:absolute; line-height:1; letter-spacing:.02em;
   color:var(--ink); opacity:.6;
-  font-size:.5rem; font-size:2.8cqw }
+  font-size:.5rem; font-size:2.65cqw }
 .hs { top:.22em; left:.3em; top:1cqw; left:1.3cqw }
 .hi { bottom:.22em; right:.3em; bottom:1cqw; right:1.3cqw }
 .dk .hd, .dk .hg { color:var(--on-dk) }
@@ -617,6 +622,19 @@ body::before {
 @supports not (color: light-dark(#000,#fff)) { .hexboard { --hx-ol:transparent } }
 .hexboard .hg { text-shadow:0 0 1px var(--ink), 0 0 1px var(--ink),
   1px 0 var(--hx-ol), -1px 0 var(--hx-ol), 0 1px var(--hx-ol), 0 -1px var(--hx-ol) }
+/* Hayalet sutun: her yatayin arkasindaki sekiz tahta disi goz tek sutuna sikismis.
+   Sekiz ince serit kare renklerini surduruyor, saga dogru soluyor; icinde deger yok. */
+.hexboard .gh { aspect-ratio:auto; isolation:isolate; margin-left:1.4cqw;
+  border:1px dashed color-mix(in srgb, var(--ink-3) 75%, transparent); border-top:0 }
+.hexboard .gh:nth-child(9) { border-top:1px dashed color-mix(in srgb, var(--ink-3) 75%, transparent) }
+.hexboard .gh::before { content:''; position:absolute; inset:0; z-index:-1; opacity:.6;
+  -webkit-mask-image:linear-gradient(90deg,#000,rgba(0,0,0,.35));
+  mask-image:linear-gradient(90deg,#000,rgba(0,0,0,.35)) }
+.hexboard .gh .hs, .hexboard .gh .hi { left:0; right:0; text-align:center; white-space:nowrap; font-size:2.3cqw }
+.hexboard .gd::before { background:repeating-linear-gradient(90deg, var(--dk) 0 12.5%, var(--lt) 12.5% 25%) }
+.hexboard .gl::before { background:repeating-linear-gradient(90deg, var(--lt) 0 12.5%, var(--dk) 12.5% 25%) }
+.hexboard .gh .hd { color:var(--ink-3); font-weight:400; opacity:.7 }
+.hexboard .gh .hs, .hexboard .gh .hi { opacity:.75 }
 .hexcap { font-family:var(--mono); font-size:.7rem; line-height:1.6; color:var(--ink-3);
   margin:.6rem 0 0; letter-spacing:.04em; max-width:44rem }
 .hexcap + .hexcap { margin-top:.4rem }
@@ -676,6 +694,9 @@ a.seal:hover { background:var(--live); color:var(--on-live); transform:translate
 .strip .rk { display:inline-block }
 .strip .rk + .rk { margin-left:.5em }
 .strip .w { font-weight:700 }
+/* Dizide her yatayin arkasindaki 8 delik: tahtadaki hayalet sutunla ayni isaret. */
+.strip .gap { display:inline-block; margin:0 .35em; color:var(--ink-3); opacity:.6; letter-spacing:0 }
+.strip .gap sub { font-size:.6em }
 
 .pclegend { display:flex; flex-wrap:wrap; gap:.3rem .95rem; margin-top:.7rem }
 .pclegend span { display:inline-flex; align-items:center; gap:.35rem; white-space:nowrap }
@@ -1240,13 +1261,13 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div>
       <h1 lang="tr">Her resmî kuralı uygulayan, <em>dünyanın en küçük satranç hakemi</em>.</h1>
       <h1 lang="en"><em>The world's smallest chess arbiter</em> to enforce every official rule.</h1>
-      <p class="lede" lang="tr">Kural motoru <b>1.807 bayt</b> düz kaynak. Kural doğruluğu ve FIDE
+      <p class="lede" lang="tr">Kural motoru <b>1.645 bayt</b> düz kaynak. Kural doğruluğu ve FIDE
       uyumluluğu bakımından dünyanın en eksiksiz motorlarından biri; <b>işlev başına bayt</b>
       oranında ise açık ara birinci — projenin temel iddiası da bu. Tarayıcıda çalışır, JavaScript ile yazılmıştır; kütüphane,
       kurulum ve sunucu istemez. İddianın <a href="#l3packed">sergi sürümü</a> <b>2,5 KB</b>'lık tek bir
       HTML dosyası: bütün kurallar, tıklanan tahta ve canlı saatle tarayıcısı olan her cihazda çalışır —
       aşağıda oynanan da indirilen de o.</p>
-      <p class="lede" lang="en">The rule engine is <b>1,807 bytes</b> of plain source. On rule
+      <p class="lede" lang="en">The rule engine is <b>1,645 bytes</b> of plain source. On rule
       correctness and FIDE compliance it stands among the most complete engines anywhere; on
       <b>function per byte</b> it is first by a wide margin — and that is the claim this project
       rests on. It is written in JavaScript and runs in the browser: no libraries, no install, no server. The claim's <a href="#l3packed">exhibit build</a> is a single
@@ -1277,81 +1298,89 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
         <li><a class="lk2" href="#dead">Blocked positions 5.2.2 (93%)</a></li>
       </ul>
 
-      <p class="strip"><span class="rk"><span class="pc-r w" title="beyaz kale" data-en-title="white rook">5</span><span class="pc-n w" title="beyaz at" data-en-title="white knight">d</span><span class="pc-b w" title="beyaz fil" data-en-title="white bishop">3</span><span class="pc-q w" title="beyaz vezir" data-en-title="white queen">7</span><span class="pc-k w" title="beyaz şah" data-en-title="white king">b</span><span class="pc-b w" title="beyaz fil" data-en-title="white bishop">3</span><span class="pc-n w" title="beyaz at" data-en-title="white knight">d</span><span class="pc-r w" title="beyaz kale" data-en-title="white rook">5</span></span><span class="rk"><span class="pc-p w" title="beyaz piyon ×8" data-en-title="white pawns ×8">99999999</span></span><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="rk"><span class="pc-p" title="siyah piyon ×8" data-en-title="black pawns ×8">88888888</span></span><span class="rk"><span class="pc-r" title="siyah kale" data-en-title="black rook">4</span><span class="pc-n" title="siyah at" data-en-title="black knight">c</span><span class="pc-b" title="siyah fil" data-en-title="black bishop">2</span><span class="pc-q" title="siyah vezir" data-en-title="black queen">6</span><span class="pc-k" title="siyah şah" data-en-title="black king">a</span><span class="pc-b" title="siyah fil" data-en-title="black bishop">2</span><span class="pc-n" title="siyah at" data-en-title="black knight">c</span><span class="pc-r" title="siyah kale" data-en-title="black rook">4</span></span></p>
-      <p class="hexcap" lang="tr">Başlangıç pozisyonunun tamamı: 64 onaltılık basamak <span class="gloss">(0–9 ve a–f ile yazılan, 16 tabanlı sayı)</span>, a1'den h8'e sırayla. Her basamak bir kare, her renk bir taş türü. Motorun
-      <a href="#board">tahta temsili</a> bundan ibaret.</p>
-      <p class="hexcap" lang="en">The entire starting position: 64 hexadecimal digits <span class="gloss">(base 16, written with 0–9 and a–f)</span>, a1 through h8 in order. Each digit is one square, each colour one piece type. The engine's
-      <a href="#board">board representation</a> is nothing more than this.</p>
-      <p class="hexcap pclegend" lang="tr"><span><i class="pc-0"></i>Boş <b>0</b></span><span><i class="pc-b"></i>Fil <b>2/3</b></span><span><i class="pc-r"></i>Kale <b>4/5</b></span><span><i class="pc-q"></i>Vezir <b>6/7</b></span><span><i class="pc-p"></i>Piyon <b>8/9</b></span><span><i class="pc-k"></i>Şah <b>a/b</b></span><span><i class="pc-n"></i>At <b>c/d</b></span></p>
-      <p class="hexcap pclegend" lang="en"><span><i class="pc-0"></i>Empty <b>0</b></span><span><i class="pc-b"></i>Bishop <b>2/3</b></span><span><i class="pc-r"></i>Rook <b>4/5</b></span><span><i class="pc-q"></i>Queen <b>6/7</b></span><span><i class="pc-p"></i>Pawn <b>8/9</b></span><span><i class="pc-k"></i>King <b>a/b</b></span><span><i class="pc-n"></i>Knight <b>c/d</b></span></p>
+      <p class="strip"><span class="rk"><span class="pc-r w" title="beyaz kale" data-en-title="white rook">d</span><span class="pc-n w" title="beyaz at" data-en-title="white knight">c</span><span class="pc-b w" title="beyaz fil" data-en-title="white bishop">e</span><span class="pc-q w" title="beyaz vezir" data-en-title="white queen">b</span><span class="pc-k w" title="beyaz şah" data-en-title="white king">a</span><span class="pc-b w" title="beyaz fil" data-en-title="white bishop">e</span><span class="pc-n w" title="beyaz at" data-en-title="white knight">c</span><span class="pc-r w" title="beyaz kale" data-en-title="white rook">d</span></span><span class="gap" title="8 boş göz (delik)" data-en-title="8 empty cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-p w" title="beyaz piyon ×8" data-en-title="white pawns ×8">99999999</span></span><span class="gap" title="8 boş göz (delik)" data-en-title="8 empty cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="gap" title="8 boş göz (delik)" data-en-title="8 empty cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="gap" title="8 boş göz (delik)" data-en-title="8 empty cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="gap" title="8 boş göz (delik)" data-en-title="8 empty cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="gap" title="8 boş göz (delik)" data-en-title="8 empty cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-p" title="siyah piyon ×8" data-en-title="black pawns ×8">11111111</span></span><span class="gap" title="8 boş göz (delik)" data-en-title="8 empty cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-r" title="siyah kale" data-en-title="black rook">5</span><span class="pc-n" title="siyah at" data-en-title="black knight">4</span><span class="pc-b" title="siyah fil" data-en-title="black bishop">6</span><span class="pc-q" title="siyah vezir" data-en-title="black queen">3</span><span class="pc-k" title="siyah şah" data-en-title="black king">2</span><span class="pc-b" title="siyah fil" data-en-title="black bishop">6</span><span class="pc-n" title="siyah at" data-en-title="black knight">4</span><span class="pc-r" title="siyah kale" data-en-title="black rook">5</span></span></p>
+      <p class="hexcap" lang="tr">Başlangıç pozisyonunun tamamı, motorun dizisinde: 64 onaltılık basamak <span class="gloss">(0–9 ve a–f ile yazılan, 16 tabanlı sayı)</span>, a1'den h8'e sırayla; yatayların arasında 8 gözlük boşluklar. Her basamak bir kare, her renk bir taş türü; beyaz taşın kodu siyahınkinin 8 fazlası. Motorun
+      <a href="#board">tahta temsili</a> bu.</p>
+      <p class="hexcap" lang="en">The entire starting position as the engine's array holds it: 64 hexadecimal digits <span class="gloss">(base 16, written with 0–9 and a–f)</span>, a1 through h8 in order, with an 8-cell gap between ranks. Each digit is one square, each colour one piece type; a white piece's code is the black one's plus 8. That is the engine's
+      <a href="#board">board representation</a>.</p>
+      <p class="hexcap pclegend" lang="tr"><span><i class="pc-0"></i>Boş <b>0</b></span><span><i class="pc-p"></i>Piyon <b>1/9</b></span><span><i class="pc-k"></i>Şah <b>2/a</b></span><span><i class="pc-q"></i>Vezir <b>3/b</b></span><span><i class="pc-n"></i>At <b>4/c</b></span><span><i class="pc-r"></i>Kale <b>5/d</b></span><span><i class="pc-b"></i>Fil <b>6/e</b></span></p>
+      <p class="hexcap pclegend" lang="en"><span><i class="pc-0"></i>Empty <b>0</b></span><span><i class="pc-p"></i>Pawn <b>1/9</b></span><span><i class="pc-k"></i>King <b>2/a</b></span><span><i class="pc-q"></i>Queen <b>3/b</b></span><span><i class="pc-n"></i>Knight <b>4/c</b></span><span><i class="pc-r"></i>Rook <b>5/d</b></span><span><i class="pc-b"></i>Bishop <b>6/e</b></span></p>
 
     </div>
     <div class="hero-side">
-      <div class="hexboard" role="img" aria-label="Başlangıç pozisyonu; her karede kare adı, taşın onaltılık kodu ve motorun 0-63 indeksi" data-en-aria-label="Starting position; each square shows its name, the piece's hexadecimal code and the engine's 0-63 index">
-<div class="hx lt bl"><span class="hs">a8</span><span class="hc"><span class="hd pc-r">4</span><span class="hg" aria-hidden="true">♜</span></span><span class="hi">56</span></div>
-<div class="hx dk bl"><span class="hs">b8</span><span class="hc"><span class="hd pc-n">c</span><span class="hg" aria-hidden="true">♞</span></span><span class="hi">57</span></div>
-<div class="hx lt bl"><span class="hs">c8</span><span class="hc"><span class="hd pc-b">2</span><span class="hg" aria-hidden="true">♝</span></span><span class="hi">58</span></div>
-<div class="hx dk bl"><span class="hs">d8</span><span class="hc"><span class="hd pc-q">6</span><span class="hg" aria-hidden="true">♛</span></span><span class="hi">59</span></div>
-<div class="hx lt bl"><span class="hs">e8</span><span class="hc"><span class="hd pc-k">a</span><span class="hg" aria-hidden="true">♚</span></span><span class="hi">60</span></div>
-<div class="hx dk bl"><span class="hs">f8</span><span class="hc"><span class="hd pc-b">2</span><span class="hg" aria-hidden="true">♝</span></span><span class="hi">61</span></div>
-<div class="hx lt bl"><span class="hs">g8</span><span class="hc"><span class="hd pc-n">c</span><span class="hg" aria-hidden="true">♞</span></span><span class="hi">62</span></div>
-<div class="hx dk bl"><span class="hs">h8</span><span class="hc"><span class="hd pc-r">4</span><span class="hg" aria-hidden="true">♜</span></span><span class="hi">63</span></div>
-<div class="hx dk bl"><span class="hs">a7</span><span class="hc"><span class="hd pc-p">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">48</span></div>
-<div class="hx lt bl"><span class="hs">b7</span><span class="hc"><span class="hd pc-p">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">49</span></div>
-<div class="hx dk bl"><span class="hs">c7</span><span class="hc"><span class="hd pc-p">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">50</span></div>
-<div class="hx lt bl"><span class="hs">d7</span><span class="hc"><span class="hd pc-p">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">51</span></div>
-<div class="hx dk bl"><span class="hs">e7</span><span class="hc"><span class="hd pc-p">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">52</span></div>
-<div class="hx lt bl"><span class="hs">f7</span><span class="hc"><span class="hd pc-p">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">53</span></div>
-<div class="hx dk bl"><span class="hs">g7</span><span class="hc"><span class="hd pc-p">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">54</span></div>
-<div class="hx lt bl"><span class="hs">h7</span><span class="hc"><span class="hd pc-p">8</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">55</span></div>
-<div class="hx lt"><span class="hs">a6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">40</span></div>
-<div class="hx dk"><span class="hs">b6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">41</span></div>
-<div class="hx lt"><span class="hs">c6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">42</span></div>
-<div class="hx dk"><span class="hs">d6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">43</span></div>
-<div class="hx lt"><span class="hs">e6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">44</span></div>
-<div class="hx dk"><span class="hs">f6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">45</span></div>
-<div class="hx lt"><span class="hs">g6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">46</span></div>
-<div class="hx dk"><span class="hs">h6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">47</span></div>
-<div class="hx dk"><span class="hs">a5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">32</span></div>
-<div class="hx lt"><span class="hs">b5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">33</span></div>
-<div class="hx dk"><span class="hs">c5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">34</span></div>
-<div class="hx lt"><span class="hs">d5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">35</span></div>
-<div class="hx dk"><span class="hs">e5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">36</span></div>
-<div class="hx lt"><span class="hs">f5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">37</span></div>
-<div class="hx dk"><span class="hs">g5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">38</span></div>
-<div class="hx lt"><span class="hs">h5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">39</span></div>
-<div class="hx lt"><span class="hs">a4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">24</span></div>
-<div class="hx dk"><span class="hs">b4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">25</span></div>
-<div class="hx lt"><span class="hs">c4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">26</span></div>
-<div class="hx dk"><span class="hs">d4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">27</span></div>
-<div class="hx lt"><span class="hs">e4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">28</span></div>
-<div class="hx dk"><span class="hs">f4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">29</span></div>
-<div class="hx lt"><span class="hs">g4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">30</span></div>
-<div class="hx dk"><span class="hs">h4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">31</span></div>
-<div class="hx dk"><span class="hs">a3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">16</span></div>
-<div class="hx lt"><span class="hs">b3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">17</span></div>
-<div class="hx dk"><span class="hs">c3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">18</span></div>
-<div class="hx lt"><span class="hs">d3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">19</span></div>
-<div class="hx dk"><span class="hs">e3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">20</span></div>
-<div class="hx lt"><span class="hs">f3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">21</span></div>
-<div class="hx dk"><span class="hs">g3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">22</span></div>
-<div class="hx lt"><span class="hs">h3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">23</span></div>
-<div class="hx lt wh"><span class="hs">a2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">8</span></div>
-<div class="hx dk wh"><span class="hs">b2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">9</span></div>
-<div class="hx lt wh"><span class="hs">c2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">10</span></div>
-<div class="hx dk wh"><span class="hs">d2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">11</span></div>
-<div class="hx lt wh"><span class="hs">e2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">12</span></div>
-<div class="hx dk wh"><span class="hs">f2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">13</span></div>
-<div class="hx lt wh"><span class="hs">g2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">14</span></div>
-<div class="hx dk wh"><span class="hs">h2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">15</span></div>
-<div class="hx dk wh"><span class="hs">a1</span><span class="hc"><span class="hd pc-r">5</span><span class="hg" aria-hidden="true">♜</span></span><span class="hi">0</span></div>
-<div class="hx lt wh"><span class="hs">b1</span><span class="hc"><span class="hd pc-n">d</span><span class="hg" aria-hidden="true">♞</span></span><span class="hi">1</span></div>
-<div class="hx dk wh"><span class="hs">c1</span><span class="hc"><span class="hd pc-b">3</span><span class="hg" aria-hidden="true">♝</span></span><span class="hi">2</span></div>
-<div class="hx lt wh"><span class="hs">d1</span><span class="hc"><span class="hd pc-q">7</span><span class="hg" aria-hidden="true">♛</span></span><span class="hi">3</span></div>
-<div class="hx dk wh"><span class="hs">e1</span><span class="hc"><span class="hd pc-k">b</span><span class="hg" aria-hidden="true">♚</span></span><span class="hi">4</span></div>
-<div class="hx lt wh"><span class="hs">f1</span><span class="hc"><span class="hd pc-b">3</span><span class="hg" aria-hidden="true">♝</span></span><span class="hi">5</span></div>
-<div class="hx dk wh"><span class="hs">g1</span><span class="hc"><span class="hd pc-n">d</span><span class="hg" aria-hidden="true">♞</span></span><span class="hi">6</span></div>
-<div class="hx lt wh"><span class="hs">h1</span><span class="hc"><span class="hd pc-r">5</span><span class="hg" aria-hidden="true">♜</span></span><span class="hi">7</span></div>
+      <div class="hexboard" role="img" aria-label="Başlangıç pozisyonu, 0x88 düzeninde: her karede kare adı, taşın onaltılık kodu ve motorun onaltılık indeksi; sağdaki soluk sütun her yatayın arkasındaki sekiz tahta dışı gözü temsil ediyor" data-en-aria-label="Starting position in the 0x88 layout: each square shows its name, the piece's hexadecimal code and the engine's hexadecimal index; the faint column on the right stands for the eight off-board cells behind each rank">
+<div class="hx lt bl"><span class="hs">a8</span><span class="hc"><span class="hd pc-r">5</span><span class="hg" aria-hidden="true">♜</span></span><span class="hi">70</span></div>
+<div class="hx dk bl"><span class="hs">b8</span><span class="hc"><span class="hd pc-n">4</span><span class="hg" aria-hidden="true">♞</span></span><span class="hi">71</span></div>
+<div class="hx lt bl"><span class="hs">c8</span><span class="hc"><span class="hd pc-b">6</span><span class="hg" aria-hidden="true">♝</span></span><span class="hi">72</span></div>
+<div class="hx dk bl"><span class="hs">d8</span><span class="hc"><span class="hd pc-q">3</span><span class="hg" aria-hidden="true">♛</span></span><span class="hi">73</span></div>
+<div class="hx lt bl"><span class="hs">e8</span><span class="hc"><span class="hd pc-k">2</span><span class="hg" aria-hidden="true">♚</span></span><span class="hi">74</span></div>
+<div class="hx dk bl"><span class="hs">f8</span><span class="hc"><span class="hd pc-b">6</span><span class="hg" aria-hidden="true">♝</span></span><span class="hi">75</span></div>
+<div class="hx lt bl"><span class="hs">g8</span><span class="hc"><span class="hd pc-n">4</span><span class="hg" aria-hidden="true">♞</span></span><span class="hi">76</span></div>
+<div class="hx dk bl"><span class="hs">h8</span><span class="hc"><span class="hd pc-r">5</span><span class="hg" aria-hidden="true">♜</span></span><span class="hi">77</span></div>
+<div class="hx gh gx" aria-hidden="true"><span class="hs">78</span><span class="hc"><span class="hd">∅</span></span><span class="hi">7f</span></div>
+<div class="hx dk bl"><span class="hs">a7</span><span class="hc"><span class="hd pc-p">1</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">60</span></div>
+<div class="hx lt bl"><span class="hs">b7</span><span class="hc"><span class="hd pc-p">1</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">61</span></div>
+<div class="hx dk bl"><span class="hs">c7</span><span class="hc"><span class="hd pc-p">1</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">62</span></div>
+<div class="hx lt bl"><span class="hs">d7</span><span class="hc"><span class="hd pc-p">1</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">63</span></div>
+<div class="hx dk bl"><span class="hs">e7</span><span class="hc"><span class="hd pc-p">1</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">64</span></div>
+<div class="hx lt bl"><span class="hs">f7</span><span class="hc"><span class="hd pc-p">1</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">65</span></div>
+<div class="hx dk bl"><span class="hs">g7</span><span class="hc"><span class="hd pc-p">1</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">66</span></div>
+<div class="hx lt bl"><span class="hs">h7</span><span class="hc"><span class="hd pc-p">1</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">67</span></div>
+<div class="hx gh gd" aria-hidden="true"><span class="hs">68</span><span class="hc"><span class="hd">∅</span></span><span class="hi">6f</span></div>
+<div class="hx lt"><span class="hs">a6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">50</span></div>
+<div class="hx dk"><span class="hs">b6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">51</span></div>
+<div class="hx lt"><span class="hs">c6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">52</span></div>
+<div class="hx dk"><span class="hs">d6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">53</span></div>
+<div class="hx lt"><span class="hs">e6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">54</span></div>
+<div class="hx dk"><span class="hs">f6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">55</span></div>
+<div class="hx lt"><span class="hs">g6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">56</span></div>
+<div class="hx dk"><span class="hs">h6</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">57</span></div>
+<div class="hx gh gl" aria-hidden="true"><span class="hs">58</span><span class="hc"><span class="hd">∅</span></span><span class="hi">5f</span></div>
+<div class="hx dk"><span class="hs">a5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">40</span></div>
+<div class="hx lt"><span class="hs">b5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">41</span></div>
+<div class="hx dk"><span class="hs">c5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">42</span></div>
+<div class="hx lt"><span class="hs">d5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">43</span></div>
+<div class="hx dk"><span class="hs">e5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">44</span></div>
+<div class="hx lt"><span class="hs">f5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">45</span></div>
+<div class="hx dk"><span class="hs">g5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">46</span></div>
+<div class="hx lt"><span class="hs">h5</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">47</span></div>
+<div class="hx gh gd" aria-hidden="true"><span class="hs">48</span><span class="hc"><span class="hd">∅</span></span><span class="hi">4f</span></div>
+<div class="hx lt"><span class="hs">a4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">30</span></div>
+<div class="hx dk"><span class="hs">b4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">31</span></div>
+<div class="hx lt"><span class="hs">c4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">32</span></div>
+<div class="hx dk"><span class="hs">d4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">33</span></div>
+<div class="hx lt"><span class="hs">e4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">34</span></div>
+<div class="hx dk"><span class="hs">f4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">35</span></div>
+<div class="hx lt"><span class="hs">g4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">36</span></div>
+<div class="hx dk"><span class="hs">h4</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">37</span></div>
+<div class="hx gh gl" aria-hidden="true"><span class="hs">38</span><span class="hc"><span class="hd">∅</span></span><span class="hi">3f</span></div>
+<div class="hx dk"><span class="hs">a3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">20</span></div>
+<div class="hx lt"><span class="hs">b3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">21</span></div>
+<div class="hx dk"><span class="hs">c3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">22</span></div>
+<div class="hx lt"><span class="hs">d3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">23</span></div>
+<div class="hx dk"><span class="hs">e3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">24</span></div>
+<div class="hx lt"><span class="hs">f3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">25</span></div>
+<div class="hx dk"><span class="hs">g3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">26</span></div>
+<div class="hx lt"><span class="hs">h3</span><span class="hc"><span class="hd pc-0">0</span><span class="hg" aria-hidden="true"></span></span><span class="hi">27</span></div>
+<div class="hx gh gd" aria-hidden="true"><span class="hs">28</span><span class="hc"><span class="hd">∅</span></span><span class="hi">2f</span></div>
+<div class="hx lt wh"><span class="hs">a2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">10</span></div>
+<div class="hx dk wh"><span class="hs">b2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">11</span></div>
+<div class="hx lt wh"><span class="hs">c2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">12</span></div>
+<div class="hx dk wh"><span class="hs">d2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">13</span></div>
+<div class="hx lt wh"><span class="hs">e2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">14</span></div>
+<div class="hx dk wh"><span class="hs">f2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">15</span></div>
+<div class="hx lt wh"><span class="hs">g2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">16</span></div>
+<div class="hx dk wh"><span class="hs">h2</span><span class="hc"><span class="hd pc-p">9</span><span class="hg" aria-hidden="true">♟</span></span><span class="hi">17</span></div>
+<div class="hx gh gl" aria-hidden="true"><span class="hs">18</span><span class="hc"><span class="hd">∅</span></span><span class="hi">1f</span></div>
+<div class="hx dk wh"><span class="hs">a1</span><span class="hc"><span class="hd pc-r">d</span><span class="hg" aria-hidden="true">♜</span></span><span class="hi">00</span></div>
+<div class="hx lt wh"><span class="hs">b1</span><span class="hc"><span class="hd pc-n">c</span><span class="hg" aria-hidden="true">♞</span></span><span class="hi">01</span></div>
+<div class="hx dk wh"><span class="hs">c1</span><span class="hc"><span class="hd pc-b">e</span><span class="hg" aria-hidden="true">♝</span></span><span class="hi">02</span></div>
+<div class="hx lt wh"><span class="hs">d1</span><span class="hc"><span class="hd pc-q">b</span><span class="hg" aria-hidden="true">♛</span></span><span class="hi">03</span></div>
+<div class="hx dk wh"><span class="hs">e1</span><span class="hc"><span class="hd pc-k">a</span><span class="hg" aria-hidden="true">♚</span></span><span class="hi">04</span></div>
+<div class="hx lt wh"><span class="hs">f1</span><span class="hc"><span class="hd pc-b">e</span><span class="hg" aria-hidden="true">♝</span></span><span class="hi">05</span></div>
+<div class="hx dk wh"><span class="hs">g1</span><span class="hc"><span class="hd pc-n">c</span><span class="hg" aria-hidden="true">♞</span></span><span class="hi">06</span></div>
+<div class="hx lt wh"><span class="hs">h1</span><span class="hc"><span class="hd pc-r">d</span><span class="hg" aria-hidden="true">♜</span></span><span class="hi">07</span></div>
+<div class="hx gh gd" aria-hidden="true"><span class="hs">08</span><span class="hc"><span class="hd">∅</span></span><span class="hi">0f</span></div>
       </div>
       <p class="hexcap" lang="tr">Her karede dört şey var: kare adı, taşın onaltılık kodu, glifi
       <span class="gloss">(taşın Unicode simgesi — ♞, ♛)</span>
@@ -1359,12 +1388,23 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p class="hexcap" lang="en">Every square carries four things: its name, the piece's
       hexadecimal code, its glyph <span class="gloss">(the piece's Unicode symbol — ♞, ♛)</span>,
       and the index the engine uses.</p>
-      <p class="hexcap" lang="tr">İndeks a1'de sıfırdan başlar, soldan sağa artar, h1'den sonra bir
-      üst yatayın a sütununa geçer ve h8'de 63'te biter. Bu düzenin motora ne kazandırdığı
+      <p class="hexcap" lang="tr">İndeks onaltılık okunuyor: üst hane yatay, alt hane sütun —
+      a1 <code>00</code>, h1 <code>07</code>, a2 <code>10</code>, h8 <code>77</code> (onluk 119). Alt
+      hanesi 8–f olan gözler tahtanın dışı; sağdaki soluk sütun her yatayın arkasındaki bu sekiz gözü
+      tek sütuna sıkıştırıyor. Bu gözlerde değer yok, delik var: kayan taş deliğe çarpıp duruyor,
+      dizinin döngüleri delikleri hiç dolaşmıyor. En üstteki hücre ise delik bile değil: dizi h8'de
+      bittiği için son yatayın arkasındaki sekiz göz hiç oluşmuyor (<code>b.length</code> 120, 128
+      değil). Bu düzenin motora ne kazandırdığı
       <a href="#board">motorun kendisi</a> sekmesinde anlatılıyor.</p>
-      <p class="hexcap" lang="en">The index starts at zero on a1, rises left to right, wraps from
-      h1 to the a-file of the next rank up, and ends at 63 on h8. What that layout buys the engine
-      is explained on the <a href="#board">“The engine itself”</a> tab.</p>
+      <p class="hexcap" lang="en">The index reads in hexadecimal: the high digit is the rank, the
+      low digit the file — a1 <code>00</code>, h1 <code>07</code>, a2 <code>10</code>, h8
+      <code>77</code> (119 in decimal). Cells whose low digit runs 8–f lie off the board; the faint
+      column on the right squeezes those eight cells behind each rank into one. The array holds no
+      value in these cells, only holes: a sliding piece stops when it hits one, and the array's loops
+      never visit them. The top cell is not even a hole: the array ends at h8, so the eight cells
+      behind the last rank never come into being (<code>b.length</code> is 120, not 128). What that
+      layout buys the engine is explained on the
+      <a href="#board">“The engine itself”</a> tab.</p>
       <a class="seal" href="#tests" title="Geçtiği testler" data-en-title="Tests it passes"><svg viewBox="0 0 44 30" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.2" d="M22 4 7 15M22 4v11M22 4l15 11M7 15 3 26M7 15l4 11M22 15l-4 11M22 15l4 11M37 15l-4 11M37 15l4 11"/><g fill="currentColor"><circle cx="22" cy="4" r="3"/><g opacity=".85"><circle cx="7" cy="15" r="2.5"/><circle cx="22" cy="15" r="2.5"/><circle cx="37" cy="15" r="2.5"/></g><g opacity=".7"><circle cx="3" cy="26" r="2"/><circle cx="11" cy="26" r="2"/><circle cx="18" cy="26" r="2"/><circle cx="26" cy="26" r="2"/><circle cx="33" cy="26" r="2"/><circle cx="41" cy="26" r="2"/></g></g></svg><span><b lang="tr">~1,5 milyar düğüm</b><b lang="en">~1.5 billion nodes</b><i lang="tr">0 sapma</i><i lang="en">0 deviations</i></span></a>
     </div>
   </div>
@@ -1383,7 +1423,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <h2 lang="tr">Kodun kendisi, değeri ve Golfstack sanatı</h2>
     <h2 lang="en">The code itself, its worth, and the craft of Golfstack</h2>
     <div class="prose" lang="tr">
-      <p>Turnuva standartlarında eksiksiz bir satranç hakemi, 1.807 baytlık tek bir JavaScript
+      <p>Turnuva standartlarında eksiksiz bir satranç hakemi, 1.645 baytlık tek bir JavaScript
       dosyasına sığdı; oynanabilir tek bir HTML dosyası olarak da arayüzün özelliklerine
       ve eski ya da modern HTML yazım kurallarına göre 2,8 ile 1,79 KB
       <span class="gloss">(bir dosyanın diskte kapladığı yerin ölçüsü; 1 KB = 1024 bayt)</span>
@@ -1402,7 +1442,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     </div>
     <div class="prose" lang="en">
       <p>A complete, tournament-grade chess arbiter fits into a single JavaScript file of
-      1,807 bytes; as a single playable HTML file it ranges from 1.79 to 2.8 KB
+      1,645 bytes; as a single playable HTML file it ranges from 1.79 to 2.8 KB
       <span class="gloss">(the measure of how much room a file takes on disk;
       1 KB = 1024 bytes)</span>, depending on the features of its interface and on old or modern
       HTML authoring conventions. FideLite is an engineering exercise in getting the most
@@ -1820,7 +1860,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       söyleyemez, ölçerek yürürsün. Buradaki ek kısıt, yontmanın kayıpsız olmak zorunda olması:
       kuralların gerektirdiği mantıksal veriden tek bir madde bile düşerse elde kalan şey daha
       küçük bir satranç olmaz, satranç olmayan bir şey olur.</p>
-      <p>Sorunun cevabı bu yüzden tek bir sayı: <b>1.807 bayt.</b> <code>engine.js</code>, iki
+      <p>Sorunun cevabı bu yüzden tek bir sayı: <b>1.645 bayt.</b> <code>engine.js</code>, iki
       insan oyuncu arasındaki resmî bir oyunu baştan sona yönetiyor; bir arayüzle birleşip
       oynanabilir tek bir dosya olduğunda, arayüzüne ve eski ya da modern HTML yazımına göre
       <b>2.881</b> ile <b>1.835 bayt</b> arasında kalıyor.</p>
@@ -1833,7 +1873,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       You walk by measuring. The added constraint here is that the carving has to be lossless:
       drop a single article from the logical data the rules require and what is left is not a
       smaller chess; it is something that is not chess.</p>
-      <p>The answer to the question is therefore a single number: <b>1,807 bytes.</b>
+      <p>The answer to the question is therefore a single number: <b>1,645 bytes.</b>
       <code>engine.js</code> arbitrates an official game between two human players from the first
       move to the last; joined to a front end as a single playable file, it takes between
       <b>1,835</b> and <b>2,881 bytes</b>, depending on the interface and on old or modern HTML
@@ -1859,7 +1899,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       sığıyor. Kendi kendini açan paketleyiciler de bu dilin doğal bir parçası; motorun paketlenmiş hâli
       doğrudan buna dayanıyor.</p>
       <p>Buradan bir itiraz doğuyor: tarayıcı yüzlerce megabayt, JavaScript motorunu da
-      çalışma zamanını da o veriyor. Öyleyse 1.807 bayt kelime oyunu değil mi?</p>
+      çalışma zamanını da o veriyor. Öyleyse 1.645 bayt kelime oyunu değil mi?</p>
       <p>Sıfır taban diye bir şey yok. C ile yazsam libc ve bir işletim sistemi gerekirdi,
       assembly ile yazsam bir komut kümesi ve bir makine. Çalışma zamanını da sayan ölçünün
       duracağı bir yer yok; öyle ölçülürse hiçbir dilde boyut iddiası kurulamaz. Code golf
@@ -1892,7 +1932,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       braces and no <code>return</code>. Self-extracting packers are native to this language too;
       the packed form of the engine rests directly on that.</p>
       <p>An objection follows from this: the browser is hundreds of megabytes, and it supplies
-      both the JavaScript engine and the runtime. Isn't 1,807 bytes just a play on words, then?</p>
+      both the JavaScript engine and the runtime. Isn't 1,645 bytes just a play on words, then?</p>
       <p>There is no such thing as a zero baseline. Written in C it would need libc and an
       operating system; written in assembly, an instruction set and a machine. A measure that also
       counts the runtime has nowhere to stop; measured that way, no size claim could be made in
@@ -17262,8 +17302,8 @@ var FLT = {
     readErr:  'Kaynak okunamadı. Sayfayı file:// ile açtıysan yerel bir sunucu '
             + 'gerekiyor (python3 -m http.server). Dosyanın kendisi: ',
     locale:   'tr-TR',
-    title:    'FideLite.Art — 1.807 baytta tam FIDE hakemi',
-    desc:     'Her resmî FIDE kuralını uygulayan bir satranç hakemi, 1.807 bayt saf JavaScript. '
+    title:    'FideLite.Art — 1.645 baytta tam FIDE hakemi',
+    desc:     'Her resmî FIDE kuralını uygulayan bir satranç hakemi, 1.645 bayt saf JavaScript. '
             + 'Tek dosya, bağımlılık yok.'
   },
   en: {
@@ -17292,8 +17332,8 @@ var FLT = {
     readErr:  'Could not read the source. If you opened this page over file://, '
             + 'you need a local server (python3 -m http.server). The file itself: ',
     locale:   'en-US',
-    title:    'FideLite.Art — A full FIDE arbiter in 1,807 bytes',
-    desc:     'A chess arbiter that enforces every official FIDE rule, in 1,807 bytes of '
+    title:    'FideLite.Art — A full FIDE arbiter in 1,645 bytes',
+    desc:     'A chess arbiter that enforces every official FIDE rule, in 1,645 bytes of '
             + 'plain JavaScript. One file, no dependencies.'
   }
 };
@@ -17614,7 +17654,7 @@ function naturalWidth(d) {
    display:table hem daraltip ortalar hem blok seviyesinde birakir — inline-block
    olsaydi girdi kutusu tahtanin yanina gecerdi. */
 var BASE = 'html,body{overflow:hidden!important}body{padding:16px 0}';
-var CENTER = 'body{text-align:center}#T{display:table;margin:1em auto;text-align:left}';
+var CENTER = 'body{text-align:center}pre{display:table;margin:1em auto;text-align:left}';
 /* Yerlesim secimi sahnenin genisligine gore bir kez, cerceve acilirken yapilir.
    Genis sahnede surumler kendi masaustu yerlesiminde kalir. */
 function wide() { return stage.clientWidth >= 820; }
