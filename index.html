@@ -15386,14 +15386,14 @@ f = K[2] + K[3] - 0</pre></div>
     <h3 id="pack-settings" lang="tr">Hangi ayarlarla paketleniyor</h3>
     <h3 lang="en" data-id="pack-settings">Which settings do the packing</h3>
     <div class="prose" lang="tr">
-      <p>L3'ün paketiyle Lichess ve Chess.com eşdeğerlerinin sayısal paketleri RegPack 5.0.4 ile (bu ikisinde 5.0.1 birebir aynı dosyayı veriyor), öbür paketler 5.0.1 ile üretildi. Her pakette <code>reassignVars</code> <b>kapalı</b> — açık bırakılırsa
+      <p>L3'ün paketiyle Lichess ve Chess.com eşdeğerlerinin sayısal paketleri RegPack 5.0.4 ile (üçünde de 5.0.1 birebir aynı dosyayı veriyor), öbür paketler 5.0.1 ile üretildi. Her pakette <code>reassignVars</code> <b>kapalı</b> — açık bırakılırsa
       adlandırma elden gider ve imza harfleri ilk kurban olur. <code>withMath</code> ile
       <code>wrapInSetInterval</code> da kapalı, <code>useES6</code> açık. Değişen tek şey crush
       dörtlüsü ve her dosya kendi dörtlüsünü istiyor: aşağıdaki değerler ilgili dosyayı
       <b>bayt bayt</b> yeniden üretiyor.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The L3 pack and the numeric packs of the Lichess and Chess.com equivalents are made with RegPack 5.0.4 (for the latter two, 5.0.1 gives the identical file), the others with 5.0.1. In every pack <code>reassignVars</code> is <b>off</b> — leave it on and the
+      <p>The L3 pack and the numeric packs of the Lichess and Chess.com equivalents are made with RegPack 5.0.4 (for all three, 5.0.1 gives the identical file), the others with 5.0.1. In every pack <code>reassignVars</code> is <b>off</b> — leave it on and the
       naming goes, with the signature letters the first to fall. <code>withMath</code> and
       <code>wrapInSetInterval</code> are off too, <code>useES6</code> on. The only thing that
       varies is the crush tuple, and each file wants its own: the values below reproduce that file
@@ -15402,7 +15402,7 @@ f = K[2] + K[3] - 0</pre></div>
 <div class="tw" lang="tr"><table>
 <thead><tr><th>Dosya</th><th class="num">gain</th><th class="num">length</th><th class="num">copies</th><th class="num">tiebreaker</th></tr></thead>
 <tbody>
-<tr><td><code>L3_packed.html</code></td><td class="num">2,5</td><td class="num">0,5</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td><code>L3_packed.html</code></td><td class="num">2</td><td class="num">0,25</td><td class="num">0</td><td class="num">−1</td></tr>
 <tr><td><code>DOM_996.html</code></td><td class="num">0,5</td><td class="num">0</td><td class="num">0,25</td><td class="num">−1</td></tr>
 <tr><td><code>DOM_minimum.html</code></td><td class="num">0,5</td><td class="num">1</td><td class="num">0</td><td class="num">−1</td></tr>
 <tr><td><code>Lowest.html</code></td><td class="num">0,5</td><td class="num">1</td><td class="num">0</td><td class="num">−1</td></tr>
@@ -15413,7 +15413,7 @@ f = K[2] + K[3] - 0</pre></div>
 <div class="tw" lang="en"><table>
 <thead><tr><th>File</th><th class="num">gain</th><th class="num">length</th><th class="num">copies</th><th class="num">tiebreaker</th></tr></thead>
 <tbody>
-<tr><td><code>L3_packed.html</code></td><td class="num">2.5</td><td class="num">0.5</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td><code>L3_packed.html</code></td><td class="num">2</td><td class="num">0.25</td><td class="num">0</td><td class="num">−1</td></tr>
 <tr><td><code>DOM_996.html</code></td><td class="num">0.5</td><td class="num">0</td><td class="num">0.25</td><td class="num">−1</td></tr>
 <tr><td><code>DOM_minimum.html</code></td><td class="num">0.5</td><td class="num">1</td><td class="num">0</td><td class="num">−1</td></tr>
 <tr><td><code>Lowest.html</code></td><td class="num">0.5</td><td class="num">1</td><td class="num">0</td><td class="num">−1</td></tr>
@@ -15422,35 +15422,40 @@ f = K[2] + K[3] - 0</pre></div>
 </tbody>
 </table></div>
         <div class="prose" lang="tr">
-      <p>L3'ün paketi için dörtlü tarandı: gain 0–3, length 0–2, copies 0–2 (yarımlık
-      adımlarla), tiebreaker 0 ya da 1 — <b>350 kombinasyon</b>. En iyisi
-      <code>L3_packed</code>'de 2,5 / 0,5 / 0 / 0 çıktı. Aynı kaynak 5.0.1 ile de tarandı:</p>
+      <p>L3'ün paketi için dörtlü iki aşamada tarandı, toplam <b>1.314 ayar</b>. Kaba tarama
+      (504 ayar): gain 0–3, length 0–2, copies 0–2, tiebreaker −1, 0 ya da 1. İnce tarama
+      (810 ayar): gain 1,5–3, length 0–0,5, copies 0–0,5, aynı tiebreaker'lar. En kısa sonuca
+      69 ayar ulaşıyor; seçilen <code>L3_packed</code>'de 2 / 0,25 / 0 / −1. Bir önceki paketin
+      ayarı (0 / 0 / 0 / −1) bu kaynakta bir bayt geride kalıyor. Aynı tarama 5.0.1 ile de yapıldı:</p>
     </div>
     <div class="prose" lang="en">
-      <p>For the L3 pack the tuple was swept: gain 0–3, length 0–2, copies 0–2 (in steps of a
-      half), tiebreaker 0 or 1 — <b>350 combinations</b>. The best came out at
-      2.5 / 0.5 / 0 / 0 for <code>L3_packed</code>. The same source was swept with 5.0.1 too:</p>
+      <p>For the L3 pack the tuple was swept in two passes, <b>1,314 settings</b> in all. The
+      coarse pass (504 settings): gain 0–3, length 0–2, copies 0–2, tiebreaker −1, 0 or 1. The
+      fine pass (810 settings): gain 1.5–3, length 0–0.5, copies 0–0.5, the same tiebreakers.
+      69 settings reach the shortest result; the one chosen for <code>L3_packed</code> is
+      2 / 0.25 / 0 / −1. The previous pack's setting (0 / 0 / 0 / −1) falls one byte behind on
+      this source. The same sweep was run with 5.0.1 too:</p>
     </div>
 <div class="tw" lang="tr"><table>
 <thead><tr><th>Dosya</th><th class="num">5.0.4 en iyi</th><th class="num">5.0.4 en kötü</th><th class="num">5.0.1 en iyi</th></tr></thead>
 <tbody>
-<tr><td><code>L3_packed.html</code></td><td class="num"><b>2.632</b></td><td class="num">2.921</td><td class="num">2.632 <span class="sub">2,5 / 0,5 / 0 / 0</span></td></tr>
+<tr><td><code>L3_packed.html</code></td><td class="num"><b>2.421</b></td><td class="num">2.593</td><td class="num">2.421 <span class="sub">2 / 0,25 / 0 / −1</span></td></tr>
 </tbody>
 </table></div>
 <div class="tw" lang="en"><table>
 <thead><tr><th>File</th><th class="num">5.0.4 best</th><th class="num">5.0.4 worst</th><th class="num">5.0.1 best</th></tr></thead>
 <tbody>
-<tr><td><code>L3_packed.html</code></td><td class="num"><b>2,632</b></td><td class="num">2,921</td><td class="num">2,632 <span class="sub">2.5 / 0.5 / 0 / 0</span></td></tr>
+<tr><td><code>L3_packed.html</code></td><td class="num"><b>2,421</b></td><td class="num">2,593</td><td class="num">2,421 <span class="sub">2 / 0.25 / 0 / −1</span></td></tr>
 </tbody>
 </table></div>
     <div class="prose" lang="tr">
       <p>Sayılar paketlenmiş gövde; dosyaya <code>&lt;script&gt;</code> etiketleri (17 bayt) ve
-      UTF-8 imi (3 bayt) ekleniyor. Ayar tek başına 290 bayta kadar oynatıyor; sürüm farkı yok.</p>
+      UTF-8 imi (3 bayt) ekleniyor. Ayar tek başına 172 bayta kadar oynatıyor; sürüm farkı yok.</p>
     </div>
     <div class="prose" lang="en">
       <p>The figures are the packed body; the file adds the <code>&lt;script&gt;</code> tags (17
       bytes) and the UTF-8 byte order mark (3 bytes). The setting alone moves the result by up
-      to 290 bytes; the version makes no difference.</p>
+      to 172 bytes; the version makes no difference.</p>
     </div>
     <div class="prose" lang="tr">
       <p>Dörtlünün neden dosya başına değiştiğini gösteren en temiz örnek, motor tarafındaki
