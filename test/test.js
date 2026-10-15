@@ -520,10 +520,10 @@ const API = {
         ['G', 'geometry'], ['T', 'check / square attacked'], ['M', 'full move'], ['O', 'legal-move walker'],
         ['V', 'mate-ability, dead position (5.2.2)'], ['H', 'FIDE 6.9 search'], ['Z', 'result code'],
         ['D', 'draw offer / claim'], ['F', 'flag / resign'], ['A', 'play a move with its verdict']],
-  string: [['L', 'legal destinations L(i)'], ['M', 'apply a move'], ['C', 'castling bits of a square'],
-           ['G', 'geometry'], ['V', 'check'], ['A', 'play a move with its verdict'], ['Z', 'result code'],
-           ['D', 'draw claim'], ['F', 'flag / resign'], ['H', 'FIDE 6.9 search'],
-           ['I', 'insufficient material'], ['l', 'blocked position']],
+  string: [['L', 'legal destinations L(i)'], ['M', 'apply a move (writes e and n, not t)'], ['X', 'apply a move on a board copy'],
+           ['C', 'castling bits of a square'], ['G', 'geometry'], ['T', 'check / square attacked'],
+           ['O', 'legal-move walker'], ['V', 'mate-ability, dead position (5.2.2)'], ['H', 'FIDE 6.9 search'],
+           ['Z', 'result code'], ['D', 'draw offer / claim'], ['F', 'flag / resign'], ['A', 'play a move with its verdict']],
 };
 
 function cmdDetect() {
