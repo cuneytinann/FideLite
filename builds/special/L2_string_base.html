@@ -4,7 +4,7 @@
 
 <script>N='innerHTML',a=Math.abs,U='a',j=p=>p?.toUpperCase(),
 
-b=[...'rnbqkbnrpppppppp'.padEnd(48,e=_='-')+'PPPPPPPPRNBQKBNR'],t=1,c=15,n=z=0,
+b=[...`rnbqkbnrpppppppp${(_='-').repeat(32)}PPPPPPPPRNBQKBNR`],t=1,c=15,e=_,n=0,
 
 G=(i,f,m,
 P=j(b[i]),y=i>>3,
@@ -27,7 +27,7 @@ P&d>9?Q:_),
 L=(i,x,q=b[x])=>q==_|t^q<U&&G(i,x)&&(
 q=b,M(i,x),x=T(),b=q,!x),
 C=i=>'20003001'[i%56]<<i/28,
-R=G[k=b+t+e+c]=1,
+z=0,R=G[k=b+t+e+c]=1,
 
 i=f=-1,
 p[N]='q♕r♖b♗n♘'.replace(/(.)(.)/g,`<button onclick="A('$1')">$2</button>`),
