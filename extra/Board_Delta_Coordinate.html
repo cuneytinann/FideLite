@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>8x8 Grid - Distance Selector</title>
+<title>Board - Coordinate Delta</title>
 <style>
   :root { --blue:#1a73e8; }
   * { box-sizing: border-box; }
@@ -96,24 +96,37 @@
     background: repeating-linear-gradient(45deg, rgba(147,51,234,.45) 0 5px, rgba(147,51,234,.12) 5px 10px);
     outline: 2px dashed #9333ea; outline-offset: -2px;
   }
+
+  /* Mode switch: distance or h / v */
+  .modes { display: inline-flex; border: 1px solid #ccc; border-radius: 8px; overflow: hidden; background: #fff; }
+  .modes button { border: none; background: transparent; padding: 7px 16px; font-size: 14px; cursor: pointer; color: #444; }
+  .modes button + button { border-left: 1px solid #ccc; }
+  .modes button.on { background: var(--blue); color: #fff; font-weight: 600; }
+  .cond { width: 100%; padding: 6px 8px; border: 1px solid #ccc; border-radius: 6px; font: 13px ui-monospace, Menlo, Consolas, monospace; }
+  .cond.bad { border-color: #d93025; background: #fdecea; }
+  .formula { font: 12px ui-monospace, Menlo, Consolas, monospace; color: #555; margin-bottom: 8px; }
 </style>
 </head>
 <body>
-  <h1>Click a square. Each group highlights the squares whose distance to it matches one of the group's values.</h1>
+  <div class="modes" role="group" aria-label="Mode">
+    <button type="button" class="on" data-mode="dist" onclick="setMode('dist')">Distance</button>
+    <button type="button" data-mode="hv" onclick="setMode('hv')">h / v</button>
+  </div>
+  <h1 id="title"></h1>
 
   <div class="layout">
     <div class="board-col">
       <div class="grid" id="grid"></div>
       <div class="info" id="info">No square selected — click any cell.</div>
       <div class="legend">
-        <div><span class="box ok"></span>distance matches and the move is legal</div>
-        <div><span class="box bad"></span>distance matches but the piece can't move there</div>
+        <div><span class="box ok"></span><span id="legOk"></span></div>
+        <div><span class="box bad"></span><span id="legBad"></span></div>
       </div>
       <div class="below" id="groupsBelow"></div>
     </div>
 
     <div class="panel">
-      <div class="hint">Values accept decimals (2.24) or radicals: <code>sqrt5</code>, <code>2sqrt2</code>, <code>&#8730;5</code>, <code>v8</code>. Multiple values per group = union.</div>
+      <div class="hint" id="hint"></div>
       <div id="groupsSide"></div>
       <div class="addgroup">
         <input id="newGroupName" placeholder="New group name">
@@ -131,6 +144,44 @@
   const cells = [];
   let origin = null;
   const EPS = 1e-6;
+
+  // ---- Modes ----
+  // dist: a group selects squares by Euclidean distance.
+  // hv:   a group selects squares by a condition on h and v, the way the
+  //       previous board generation (and L2_string_base) writes its geometry:
+  //       h = file difference, v = rank difference, d = h|v, k = (f-i)/d.
+  let mode = 'dist';
+  const TEXT = {
+    dist: {
+      title: "Click a square. Each group highlights the squares whose distance to it matches one of the group's values.",
+      ok: 'distance matches and the move is legal',
+      bad: "distance matches but the piece can't move there",
+      hint: 'Values accept decimals (2.24) or radicals: <code>sqrt5</code>, <code>2sqrt2</code>, <code>&#8730;5</code>, <code>v8</code>. Multiple values per group = union.',
+    },
+    hv: {
+      title: 'Click a square. Each group highlights the squares where its condition on h and v holds.',
+      ok: 'condition holds and the move is legal',
+      bad: "condition holds but the piece can't move there",
+      hint: 'Conditions use <code>h</code> (file difference), <code>v</code> (rank difference) and <code>d = h|v</code>, all absolute. Examples: <code>h*v==2</code> knight, <code>d&lt;2</code> king, <code>h==v</code> bishop. Each square shows h and v; squares on a line also show d and <code>k = (f&minus;i)/d</code>, the index step on a flat 8×8 board with a1 = 0.',
+    },
+  };
+  function setMode(m) {
+    mode = m;
+    document.querySelectorAll('.modes button').forEach(b => b.classList.toggle('on', b.dataset.mode === m));
+    document.getElementById('title').textContent = TEXT[m].title;
+    document.getElementById('legOk').textContent = TEXT[m].ok;
+    document.getElementById('legBad').textContent = TEXT[m].bad;
+    document.getElementById('hint').innerHTML = TEXT[m].hint;
+    renderGroups();
+  }
+
+  // A condition is compiled only if it uses h, v, d, digits and operators.
+  function compileCond(src) {
+    const s = (src || '').trim();
+    if (!s || !/^[hvd0-9\s+\-*/%()<>=!&|^?:.]+$/.test(s)) return null;
+    try { const f = new Function('h', 'v', 'd', `return (${s});`); f(1, 2, 3); return f; }
+    catch (e) { return null; }
+  }
 
   // ---- Movement rules: dx = column diff, dy = row diff ----
   const PATTERNS = {
@@ -197,6 +248,7 @@
       name,
       color: opts.color || palette[colorIdx++ % palette.length],
       values: rawValues.slice(),
+      cond: opts.cond || '',
       visible: opts.visible !== undefined ? opts.visible : true,
       pattern: opts.pattern || 'none',
       slot: opts.slot || 'side',
@@ -204,15 +256,16 @@
   }
 
   // Preset chess pieces — Rook / Bishop / Queen on the right, Knight / King under the board.
+  // The h/v conditions are the ones the previous engine generation uses.
   function presets() {
     groups = [
-      makeGroup('Rook',   ['1','2','3','4','5','6','7'], { pattern: 'rook', slot: 'side', visible: false }),
-      makeGroup('Bishop', ['sqrt2','2sqrt2','3sqrt2','4sqrt2','5sqrt2','6sqrt2','7sqrt2'], { pattern: 'bishop', slot: 'side', visible: false }),
-      makeGroup('Queen',  ['1','2','3','4','5','6','7','sqrt2','2sqrt2','3sqrt2','4sqrt2','5sqrt2','6sqrt2','7sqrt2'], { pattern: 'queen', slot: 'side', visible: true }),
-      makeGroup('Knight', ['sqrt5'], { pattern: 'knight', slot: 'below', visible: false }),
-      makeGroup('King',   ['1','sqrt2'], { pattern: 'king', slot: 'below', visible: false }),
+      makeGroup('Rook',   ['1','2','3','4','5','6','7'], { cond: 'h*v==0', pattern: 'rook', slot: 'side', visible: false }),
+      makeGroup('Bishop', ['sqrt2','2sqrt2','3sqrt2','4sqrt2','5sqrt2','6sqrt2','7sqrt2'], { cond: 'h==v', pattern: 'bishop', slot: 'side', visible: false }),
+      makeGroup('Queen',  ['1','2','3','4','5','6','7','sqrt2','2sqrt2','3sqrt2','4sqrt2','5sqrt2','6sqrt2','7sqrt2'], { cond: 'h*v ? h==v : 1', pattern: 'queen', slot: 'side', visible: true }),
+      makeGroup('Knight', ['sqrt5'], { cond: 'h*v==2', pattern: 'knight', slot: 'below', visible: false }),
+      makeGroup('King',   ['1','sqrt2'], { cond: 'd<2', pattern: 'king', slot: 'below', visible: false }),
     ];
-    renderGroups();
+    setMode(mode);
   }
 
   function addGroup() {
@@ -232,6 +285,11 @@
   function removeValue(id, idx) {
     groups.find(x => x.id === id).values.splice(idx, 1);
     renderGroups();
+  }
+  function setCond(id, el) {
+    groups.find(x => x.id === id).cond = el.value;
+    el.classList.toggle('bad', !!el.value.trim() && !compileCond(el.value));
+    render();
   }
   function renameGroup(id, name) { groups.find(x => x.id === id).name = name; }
   function toggleGroup(id, v) { groups.find(x => x.id === id).visible = v; render(); }
@@ -263,12 +321,16 @@
         Move:
         <select onchange="setPattern('${g.id}', this.value)">${opts}</select>
       </div>
+      ${mode === 'hv' ? `
+      <input class="cond${g.cond.trim() && !compileCond(g.cond) ? ' bad' : ''}" spellcheck="false"
+             placeholder="condition e.g. h*v==2" value="${g.cond.replace(/"/g,'&quot;')}"
+             oninput="setCond('${g.id}', this)">` : `
       <div class="chips">${chips || '<span class="hint">no values yet</span>'}</div>
       <div class="row">
         <input placeholder="add value e.g. 2sqrt2" id="in-${g.id}"
                onkeydown="if(event.key==='Enter'){addValue('${g.id}', this.value); this.value='';}">
         <button class="act" onclick="(()=>{const e=document.getElementById('in-${g.id}');addValue('${g.id}',e.value);e.value='';})()">Add</button>
-      </div>
+      </div>`}
       <div class="group-actions">
         <button class="act" onclick="moveGroup('${g.id}')">${g.slot === 'below' ? 'Move to side panel' : 'Move below board'}</button>
         <button class="act" onclick="removeGroup('${g.id}')">Delete group</button>
@@ -300,23 +362,38 @@
     const targets = groups.filter(g => g.visible).map(g => ({
       color: g.color, name: g.name,
       ok: (PATTERNS[g.pattern] || PATTERNS.none).ok,
-      dists: g.values.map(parseValue).filter(n => !isNaN(n))
+      dists: g.values.map(parseValue).filter(n => !isNaN(n)),
+      cond: compileCond(g.cond)
     }));
 
     let wrongCount = 0;
+    // Flat 8×8 index with a1 = 0: the top row of the grid is rank 8.
+    const from = (SIZE - 1 - r) * SIZE + c;
 
     for (let i = 0; i < SIZE; i++) {
       for (let j = 0; j < SIZE; j++) {
         const cell = getCell(i, j);
         if (i === r && j === c) {
           cell.classList.add('origin');
-          cell.innerHTML = '<div class="num">0</div>';
+          cell.innerHTML = mode === 'hv' ? '<div class="num">h0 v0</div>' : '<div class="num">0</div>';
           continue;
         }
         const dx = j - c, dy = i - r, sq = dx*dx + dy*dy, dist = Math.sqrt(sq);
-        cell.innerHTML = `<div class="num">${dist.toFixed(2)}</div><div class="rad">${simplifyRadical(sq)}</div>`;
-
-        const hits = targets.filter(t => t.dists.some(d => Math.abs(d - dist) < EPS));
+        const h = Math.abs(dx), v = Math.abs(dy), d = h | v;
+        let hits;
+        if (mode === 'hv') {
+          const onLine = h === 0 || v === 0 || h === v;
+          const k = ((SIZE - 1 - i) * SIZE + j - from) / d;
+          cell.innerHTML = `<div class="num">h${h} v${v}</div><div class="rad">${
+            onLine ? `d${d} k${k > 0 ? '+' : ''}${k}` : `h·v ${h * v}`}</div>`;
+          hits = targets.filter(t => {
+            if (!t.cond) return false;
+            try { return !!t.cond(h, v, d); } catch (e) { return false; }
+          });
+        } else {
+          cell.innerHTML = `<div class="num">${dist.toFixed(2)}</div><div class="rad">${simplifyRadical(sq)}</div>`;
+          hits = targets.filter(t => t.dists.some(x => Math.abs(x - dist) < EPS));
+        }
         if (!hits.length) continue;
 
         const good = hits.filter(t => t.ok(dx, dy));
@@ -343,12 +420,15 @@
           }
           cell.style.outline = `2px dashed ${col}`;
           cell.style.outlineOffset = '-2px';
-          cell.title = `${bad.map(b => b.name).join(', ')}: distance matches but the move is illegal`;
+          cell.title = `${bad.map(b => b.name).join(', ')}: ${mode === 'hv' ? 'condition holds' : 'distance matches'} but the move is illegal`;
         }
       }
     }
-    info.textContent = `Origin: row ${r}, col ${c}. `
-      + (wrongCount ? `${wrongCount} square(s) match by distance but not by move (hatched).` : 'No illegal-move matches.');
+    const sqName = 'abcdefgh'[c] + (SIZE - r);
+    info.textContent = `Origin: ${sqName}. `
+      + (wrongCount
+          ? `${wrongCount} square(s) match by ${mode === 'hv' ? 'condition' : 'distance'} but not by move (hatched).`
+          : 'No illegal-move matches.');
   }
 
   presets();
