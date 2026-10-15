@@ -8827,7 +8827,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       1 kale, 2 at). İki saati ve son hamleyi aynı pencerede gösteriyor, oyun bitince sonuç kodunu
       <code>alert</code> ile veriyor. Boş girdi terk, sayı olmayan girdi beraberlik teklifi ya da
       talebi; hamlenin ardına eklenen rakam olmayan bir karakter de hamleyi oynayıp aynı işi
-      görüyor. Bu görünümde boyanan yalnız sürücünün parçaları.</p>
+      görüyor. Bu görünümde boyanan yalnız sürücünün parçaları; bir de sürücünün motora eklediği
+      kendi taşı sınaması.</p>
       <p>Motorun gövdesi iki dosyada neredeyse aynı; üç fark var. Sürücüde <code>L</code>, çıkış
       karesindeki taşın sırası gelen tarafa ait olduğunu kendisi sınıyor
       (<code>~b[i]&amp;8^t&amp;&amp;</code>); bu yüzden <code>O</code>'nun renk süzgeci
@@ -8855,7 +8856,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       (0 bishop, 1 rook, 2 knight). It shows both clocks and the last move in the same dialog and
       reports the result code with <code>alert</code> when the game ends. An empty input resigns;
       anything that is not a number offers or claims a draw, and a non-digit typed after a move
-      plays the move and then does the same. In this view only the driver's parts are painted.</p>
+      plays the move and then does the same. In this view only the driver's parts are painted,
+      plus the own-piece check the driver adds to the engine.</p>
       <p>The body of the engine is nearly the same in both files, with three differences. In the
       driver, <code>L</code> checks for itself that the piece on the origin square belongs to the
       side to move (<code>~b[i]&amp;8^t&amp;&amp;</code>), so <code>O</code> drops its colour filter
@@ -9335,9 +9337,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <tr><td><code>e</code></td><td>Geçerken alma karesi</td><td>Yoksa <code>8</code>: tahtada karşılığı olmayan bir delik indeksi. Yalnızca komşu piyon gerçekten alabiliyorsa yazılır — tekrar sayımının doğruluğu buna bağlı.</td></tr>
 <tr><td><code>k</code></td><td>Pozisyon anahtarı</td><td><code>b+e+t+c</code> dizgisi: tahta, geçerken alma karesi, sıra ve rok maskesi yan yana. <code>M</code> her hamlede yeniden kurar; tekrar tablosu da arama tablosu da bununla sorgulanır.</td></tr>
 <tr><td><code>G[k]</code></td><td>Tekrar tablosu</td><td>Pozisyon anahtarı → kaç kez görüldüğü. Ayrı bir nesne bildirilmiyor: fonksiyon da bir nesne olduğu için tablo <code>G</code>'nin kendi özelliklerine yazılıyor.</td></tr>
-<tr><td><code>N</code></td><td>Arama bütçesi</td><td>6.9 aramasının deneyebileceği hamle sayısı; terfide her taş ayrı bir hamle. <code>F</code> her çağrıda <code>2e4</code>'e kuruyor. Sıfıra inince arama kesiliyor ve <b>mat mümkün</b> diyor — kanıtlanamayan imkânsızlık beraberlik sayılmıyor.</td></tr>
+<tr><td><code>N</code></td><td>Düğüm bütçesi</td><td>6.9 aramasının deneyebileceği hamle sayısı; terfide her taş ayrı bir hamle. <code>F</code> her çağrıda <code>2e4</code>'e kuruyor. Sıfıra inince arama kesiliyor ve <b>mat mümkün</b> diyor — kanıtlanamayan imkânsızlık beraberlik sayılmıyor.</td></tr>
 <tr><td><code>$</code></td><td>Arama tablosu</td><td>Aranmış pozisyon → ziyaret edildiği anda <code>n</code>'nin değeri. Aynı pozisyon aynı ya da daha yüksek bir sayaçla yeniden gelirse önünde daha kısa bir yol kalmış demek; önceki ziyaret onu zaten kapsıyor, arama oraya yeniden inmiyor.</td></tr>
-<tr><td><code>I</code></td><td>Arama tarafı</td><td>Bayrağı düşen ya da terk eden taraf. <code>F</code> kuruyor, <code>H</code> ile <code>V(I)</code> okuyor; arama boyunca soru hep aynı: <code>I</code> mat edilebilir mi.</td></tr>
+<tr><td><code>I</code></td><td>Arama tarafı</td><td>Bayrağı düşen ya da terk eden taraf; harf insufficient material'dan. <code>F</code> kuruyor, <code>H</code> ile <code>V(I)</code> okuyor; arama boyunca soru hep aynı: <code>I</code> mat edilebilir mi.</td></tr>
 </tbody>
 </table></div>
 
@@ -9354,9 +9356,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <tr><td><code>e</code></td><td><b>E</b>n passant square</td><td><code>8</code> when there is none: a hole's index, with no square behind it. Written only if an adjacent pawn can genuinely capture — the correctness of the repetition count depends on this.</td></tr>
 <tr><td><code>k</code></td><td>Position <b>k</b>ey</td><td>The string <code>b+e+t+c</code>: the board, the en passant square, the side to move and the castling mask side by side. <code>M</code> rebuilds it on every move; both the repetition table and the search table are looked up by it.</td></tr>
 <tr><td><code>G[k]</code></td><td>Repetition table</td><td>Position key → number of times seen. No separate object is declared: a function is an object too, so the table is written onto <code>G</code>'s own properties.</td></tr>
-<tr><td><code>N</code></td><td>Search budget</td><td>How many moves the 6.9 search may try; in a promotion every piece counts as a move of its own. <code>F</code> sets it to <code>2e4</code> on every call. When it reaches zero the search stops and answers that <b>mate is possible</b> — an impossibility that cannot be proved does not count as a draw.</td></tr>
+<tr><td><code>N</code></td><td><b>N</b>ode budget</td><td>How many moves the 6.9 search may try; in a promotion every piece counts as a move of its own. <code>F</code> sets it to <code>2e4</code> on every call. When it reaches zero the search stops and answers that <b>mate is possible</b> — an impossibility that cannot be proved does not count as a draw.</td></tr>
 <tr><td><code>$</code></td><td>Search table</td><td>Searched position → the value of <code>n</code> when it was visited. If the same position comes back with the same or a higher counter, less road is left ahead of it; the earlier visit already covers it, and the search does not descend there again.</td></tr>
-<tr><td><code>I</code></td><td>Searched side</td><td>The side whose flag fell or who resigned. <code>F</code> sets it, <code>H</code> and <code>V(I)</code> read it; throughout the search the question stays the same: can <code>I</code> be mated?</td></tr>
+<tr><td><code>I</code></td><td>Searched side</td><td>The side whose flag fell or who resigned; the letter comes from <b>i</b>nsufficient material. <code>F</code> sets it, <code>H</code> and <code>V(I)</code> read it; throughout the search the question stays the same: can <code>I</code> be mated?</td></tr>
 </tbody>
 </table></div>
 
@@ -9387,7 +9389,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <tr><td><code>L</code></td><td><code>L(i, x)</code></td><td>54</td><td>Tek bir hamlenin geçerliliği. Hedef boş ya da rakip taş mı, <code>G</code> izin veriyor mu, <code>U</code> ile oynanınca şah açıkta kalıyor mu (<code>T</code>). Tahtayı geri koyar, <code>true</code> ya da <code>false</code> döndürür.</td></tr>
 <tr><td><code>M</code></td><td><code>M(i, x, p)</code></td><td>109</td><td>Hamleyi durumla birlikte uygular: 50 hamle sayacı, rok hakları, <code>U</code>, sıra, geçerken alma karesinin süzülmesi — yalnızca gerçekten alınabiliyorsa kalır —, yeni anahtar <code>k</code>. <b>Tekrar tablosuna dokunmaz</b> — çünkü <code>H</code>'nin arama ağacında da çalışır.</td></tr>
 <tr><td><code>V</code></td><td><code>V(s)</code></td><td>409</td><td><code>s</code>'nin rakibi tarafından mat edilmesi imkânsız mı — materyalden ya da kilitli piyon yapısından. Tek yönlü bir soru: <code>Z</code> ölü pozisyon için iki tarafa birden soruyor (<code>V(0)&amp;V(8)</code>), <code>H</code> yalnızca <code>I</code> için. Kilitli yarısının kapsamı şah ve piyon; tahtada başka taş ya da bekleyen bir geçerken alma varsa o yarı hiç çalışmaz.</td></tr>
-<tr><td><code>O</code></td><td><code>O(h)</code></td><td>59</td><td>Sırası gelen tarafın her geçerli hamlesi için <code>h(i, x)</code>'i çağırır; <code>h</code> yanlış dönerse durur. <code>O(_=&gt;0)</code> yalnızca geçerli hamle yoksa doğru döner: mat ya da pat sorusu bu.</td></tr>
+<tr><td><code>O</code></td><td><code>O(h)</code></td><td>59</td><td>Yokluk testi. Sırası gelen tarafın her geçerli hamlesi için <code>h(i, x)</code>'i çağırır; <code>h</code> yanlış dönerse durur. <code>O(_=&gt;0)</code> yalnızca geçerli hamle yoksa doğru döner: mat ya da pat sorusu bu.</td></tr>
 <tr><td><code>H</code></td><td><code>H(d)</code></td><td>151</td><td>6.9'un arama yarısı. <code>I</code>, rakibi her hamlede ona yardım etse bile, <code>d</code> yarım hamle içinde mat edilebilir mi; <code>H</code> doğru dönerse <b>edilemez</b> demektir. Yardımlı matın bile imkânsız olduğunu ispatlamaya çalışır; ispat bulamazsa mat mümkün sayar.</td></tr>
 <tr><td><code>Z</code></td><td><code>Z()</code></td><td>51</td><td>Pozisyon sonucu. Önce geçerli hamle var mı diye bakar (<code>O</code>); yoksa mat mı pat mı ayırır. Varsa <code>V</code>'ye ölü pozisyonu, ardından tekrar ve hamle sayaçlarını sorar.</td></tr>
 <tr><td><code>D</code></td><td><code>D(s)</code></td><td>36</td><td>Beraberlik talebi, teklifi ve kabulü.</td></tr>
@@ -9402,11 +9404,11 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <tr><td><code>C</code></td><td><code>C(i)</code></td><td>28</td><td>Square → the <b>c</b>astling rights tied to it, as a bit mask. <code>0</code> for anything but the king and rook squares. <code>M</code> clips the rights with it, <code>G</code> asks about the right to castle with it.</td></tr>
 <tr><td><code>G</code></td><td><code>G(i, f, m)</code></td><td>241</td><td><b>G</b>eometry. Can the piece on <code>i</code> reach <code>f</code> — without regard to king safety. <code>m</code> is attack mode: when set, the pawn's direction is read for the opponent and its diagonal step counts even onto an empty square, and the king does not castle.</td></tr>
 <tr><td><code>T</code></td><td><code>T(x)</code></td><td>52</td><td>Is square <code>x</code> under <b>t</b>hreat from the opponent of the side to move? Omit <code>x</code> and the square of the side to move's king is used, so <code>T()</code> is the check test itself.</td></tr>
-<tr><td><code>U</code></td><td><code>U(i, f, p)</code></td><td>135</td><td>The raw move. Clones the board, moves the piece, promotes (<code>p</code>, a queen if omitted), removes the en passant victim, and for castling calls itself to move the rook. Returns the new en passant candidate: the square in between after a two-square pawn push, <code>8</code> otherwise. <b>It does not touch the side to move, the counters or the rights</b> — because it is also <code>L</code>'s trial move.</td></tr>
+<tr><td><code>U</code></td><td><code>U(i, f, p)</code></td><td>135</td><td>The raw move — it <b>u</b>pdates the board. Clones the board, moves the piece, promotes (<code>p</code>, a queen if omitted), removes the en passant victim, and for castling calls itself to move the rook. Returns the new en passant candidate: the square in between after a two-square pawn push, <code>8</code> otherwise. <b>It does not touch the side to move, the counters or the rights</b> — because it is also <code>L</code>'s trial move.</td></tr>
 <tr><td><code>L</code></td><td><code>L(i, x)</code></td><td>54</td><td>The <b>l</b>egality of a single move. Is the target empty or an enemy piece, does <code>G</code> allow it, does the king stay safe when <code>U</code> plays it (<code>T</code>)? Puts the board back and returns <code>true</code> or <code>false</code>.</td></tr>
 <tr><td><code>M</code></td><td><code>M(i, x, p)</code></td><td>109</td><td>Applies the <b>m</b>ove together with the state: the 50-move counter, the castling rights, <code>U</code>, the side to move, the filtering of the en passant square — it stays only if the capture is genuinely possible — and the new key <code>k</code>. <b>It does not touch the repetition table</b> — because it also runs inside <code>H</code>'s search tree.</td></tr>
-<tr><td><code>V</code></td><td><code>V(s)</code></td><td>409</td><td>Is it impossible for <code>s</code>'s opponent to mate <code>s</code> — by material or by a blocked pawn structure? A one-way question: <code>Z</code> asks it of both sides at once for a dead position (<code>V(0)&amp;V(8)</code>), <code>H</code> only of <code>I</code>. The scope of its blocked half is kings and pawns; with any other piece on the board, or an en passant capture pending, that half does not run at all.</td></tr>
-<tr><td><code>O</code></td><td><code>O(h)</code></td><td>59</td><td>Calls <code>h(i, x)</code> for every legal move of the side to move and stops if <code>h</code> returns false. <code>O(_=&gt;0)</code> returns true only when there is no legal move: that is the checkmate-or-stalemate question.</td></tr>
+<tr><td><code>V</code></td><td><code>V(s)</code></td><td>409</td><td>The <b>v</b>erdict: is it impossible for <code>s</code>'s opponent to mate <code>s</code> — by material or by a blocked pawn structure? A one-way question: <code>Z</code> asks it of both sides at once for a dead position (<code>V(0)&amp;V(8)</code>), <code>H</code> only of <code>I</code>. The scope of its blocked half is kings and pawns; with any other piece on the board, or an en passant capture pending, that half does not run at all.</td></tr>
+<tr><td><code>O</code></td><td><code>O(h)</code></td><td>59</td><td>The absence test. Calls <code>h(i, x)</code> for every legal move of the side to move and stops if <code>h</code> returns false. <code>O(_=&gt;0)</code> returns true only when there is no legal move: that is the checkmate-or-stalemate question.</td></tr>
 <tr><td><code>H</code></td><td><code>H(d)</code></td><td>151</td><td>The search half of 6.9. Can <code>I</code> be mated within <code>d</code> plies, even with its opponent helping on every move? A true return means it <b>cannot</b>. It tries to prove that even a <b>h</b>elpmate is impossible; without a proof it counts mate as possible.</td></tr>
 <tr><td><code>Z</code></td><td><code>Z()</code></td><td>51</td><td>The result of the position. First checks whether a legal move exists (<code>O</code>); if not, it tells checkmate from stalemate. If one does, it asks <code>V</code> about a dead position, then the repetition and move counters.</td></tr>
 <tr><td><code>D</code></td><td><code>D(s)</code></td><td>36</td><td><b>D</b>raw claim, offer and acceptance.</td></tr>
@@ -9467,16 +9469,18 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>İsimlendirme rastgele değil. Çoğu ad İngilizce bir kelimenin baş harfi. Fonksiyonlarda
       <code>A</code> apply, <code>C</code> castling, <code>D</code> draw, <code>F</code> flag,
       <code>G</code> geometry, <code>H</code> helpmate, <code>L</code> legal, <code>M</code> move,
-      <code>T</code> threat; durumda <code>b</code> board, <code>c</code> castling, <code>e</code>
-      en passant, <code>k</code> key, <code>o</code> offer, <code>R</code> repetition,
-      <code>t</code> turn; parametrelerde <code>i</code> initial, <code>f</code> final,
+      <code>T</code> threat, <code>U</code> update, <code>V</code> verdict; durumda <code>b</code>
+      board, <code>c</code> castling, <code>e</code> en passant, <code>I</code> insufficient
+      material, <code>k</code> key, <code>N</code> node budget, <code>o</code> offer,
+      <code>R</code> repetition, <code>t</code> turn; parametrelerde <code>i</code> initial, <code>f</code> final,
       <code>d</code> difference, <code>p</code> piece, <code>r</code> rook. Sayfanın İngilizce
       sürümünde bu harfler, geldikleri kelimenin içinde kalın yazılı. Birkaçı başka bir mantığa
       uyuyor: <code>n</code> saymanın harfi; <code>W</code> ile <code>B</code> beyaz ve siyah
       piyonlar; <code>z</code> ile <code>Z</code> oyunun sonunu taşıdıkları için alfabenin sonunda
-      duruyor (<code>z</code> artık yalnızca sürücülerde). <code>O</code> aradığı sıfıra benziyor:
-      <code>O(_=&gt;0)</code> hiç hamle kalmadığını soruyor. <code>$</code> da bir hash'e — ve
-      gerçekten de bir hash tablosu.</p>
+      duruyor (<code>z</code> artık yalnızca sürücülerde). <code>O</code> bir yokluk testi:
+      <code>O(_=&gt;0)</code> hiç geçerli hamle kalmadığını soruyor. <code>X</code> hiçbir kelimeden
+      gelmiyor; bir çarpı, yani “değil”: hamlenin terfi <em>olmadığını</em> söyleyen bayrak.
+      <code>$</code> da bir hash'e benziyor — ve gerçekten de bir hash tablosu.</p>
       <p>Büyük-küçük harf kendi başına bir düzen taşıyor: fonksiyonlar genelde büyük harfi, durum
       değişkenleriyle parametreler küçüğü alıyor. Kural değil eğilim — <code>R</code> büyük harfli
       bir sayaç, <code>W</code>, <code>B</code>, <code>S</code>, <code>X</code> büyük harfli geçici
@@ -9510,17 +9514,21 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       functions, <code>A</code> <b>a</b>pply, <code>C</code> <b>c</b>astling, <code>D</code>
       <b>d</b>raw, <code>F</code> <b>f</b>lag, <code>G</code> <b>g</b>eometry, <code>H</code>
       <b>h</b>elpmate, <code>L</code> <b>l</b>egal, <code>M</code> <b>m</b>ove, <code>T</code>
-      <b>t</b>hreat; in the state, <code>b</code> <b>b</b>oard, <code>c</code> <b>c</b>astling,
-      <code>e</code> <b>e</b>n passant, <code>k</code> <b>k</b>ey, <code>o</code> <b>o</b>ffer,
-      <code>R</code> <b>r</b>epetition, <code>t</code> <b>t</b>urn; among the parameters,
+      <b>t</b>hreat, <code>U</code> <b>u</b>pdate, <code>V</code> <b>v</b>erdict; in the state,
+      <code>b</code> <b>b</b>oard, <code>c</code> <b>c</b>astling, <code>e</code> <b>e</b>n
+      passant, <code>I</code> <b>i</b>nsufficient material, <code>k</code> <b>k</b>ey,
+      <code>N</code> <b>n</b>ode budget, <code>o</code> <b>o</b>ffer, <code>R</code>
+      <b>r</b>epetition, <code>t</code> <b>t</b>urn; among the parameters,
       <code>i</code> <b>i</b>nitial, <code>f</code> <b>f</b>inal, <code>d</code>
       <b>d</b>ifference, <code>p</code> <b>p</b>iece, <code>r</code> <b>r</b>ook — and in the
       tables that letter is <b>bolded</b> inside the word it comes from. A few follow a different
       logic: <code>n</code> is the counting letter; <code>W</code> and <code>B</code> are the white
       and black pawns; <code>z</code> and <code>Z</code> sit at the end of the alphabet because
       they carry the end of the game (<code>z</code> now lives only in the drivers).
-      <code>O</code> is shaped like the zero it looks for: <code>O(_=&gt;0)</code> asks whether no
-      move is left. And <code>$</code> is shaped like a hash — and it really is a hash table.</p>
+      <code>O</code> is an absence test: <code>O(_=&gt;0)</code> asks whether no legal move is left.
+      <code>X</code> comes from no word at all; it is a cross, that is a “not”: the flag that says a
+      move is <em>not</em> a promotion. And <code>$</code> is shaped like a hash — and it really is
+      a hash table.</p>
       <p>Case carries a convention of its own: functions tend to take the capital, state variables
       and parameters the lowercase. It is a tendency rather than a rule — <code>R</code> is an
       uppercase counter, and <code>W</code>, <code>B</code>, <code>S</code> and <code>X</code>
@@ -9544,7 +9552,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       doyma döngüsünde de ulaşabildikleri kareler; <code>S</code> kilitli beyaz piyonlar;
       <code>a</code> siyah piyonların ulaşabildiği kareler. Kalan ikisi bir fonksiyondan ötekine
       haber taşıyor: <code>r</code> rok kalesinin karesi — <code>G</code>'nin rok dalı yazıyor,
-      <code>U</code> okuyor; <code>X</code> hamlenin terfi olmadığını söyleyen bayrak —
+      <code>U</code> okuyor; <code>X</code> hamlenin terfi olmadığını söyleyen çarpı —
       <code>U</code> yazıyor, <code>H</code> okuyup terfide dört taşı ayrı ayrı deniyor.</p>
       <p><code>f</code> ile <code>S</code> başka fonksiyonlarda parametre: <code>G</code>,
       <code>U</code> ve <code>A</code>'da <code>f</code> varış karesi, <code>G</code>'de
@@ -9561,7 +9569,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <code>S</code> the blocked white pawns; <code>a</code> the squares the black pawns can reach.
       The other two carry news from one function to another: <code>r</code> is the square of the
       castling <b>r</b>ook — <code>G</code>'s castling branch writes it, <code>U</code> reads it;
-      <code>X</code> is the flag that says a move is not a promotion — <code>U</code> writes it, and
+      <code>X</code> is the cross that says a move is not a promotion — <code>U</code> writes it, and
       <code>H</code> reads it to try the four pieces of a promotion one by one.</p>
       <p><code>f</code> and <code>S</code> are parameters in other functions: <code>f</code> is
       the destination in <code>G</code>, <code>U</code> and <code>A</code>, <code>S</code> the ray
@@ -11249,7 +11257,7 @@ slider  :           P+P*4%x &amp; S()</pre>
       hamleyi atlıyor, geçerli olanda <code>h(j,x)</code> çağrılıyor. <code>h</code> yanlış dönerse
       iki <code>every</code> de orada duruyor ve <code>O</code> yanlış dönüyor; dönmezse bütün
       hamleler gezildikten sonra doğru.</p>
-      <p>Böylece <code>O(_=&gt;0)</code> tam olarak mat ve pat sorusu: ilk geçerli hamlede
+      <p>Böylece <code>O(_=&gt;0)</code> tam olarak mat ve pat sorusu — bir yokluk testi: ilk geçerli hamlede
       <code>h</code> sıfır döndürüyor ve gezinti duruyor, yani <code>O(_=&gt;0)</code> ancak hiç
       geçerli hamle yoksa doğru. <code>H</code>'de ise <code>h</code> arama adımının kendisi ve
       <code>every</code>'nin anlamı “bütün hamleler kapandı”.</p>
@@ -11271,7 +11279,7 @@ slider  :           P+P*4%x &amp; S()</pre>
       <code>h(j,x)</code> is called. If <code>h</code> returns false, both <code>every</code> calls
       stop there and <code>O</code> returns false; if not, it returns true once every move has been
       walked.</p>
-      <p>So <code>O(_=&gt;0)</code> is exactly the checkmate-or-stalemate question: on the first
+      <p>So <code>O(_=&gt;0)</code> is exactly the checkmate-or-stalemate question — an absence test: on the first
       legal move <code>h</code> returns zero and the walk stops, so <code>O(_=&gt;0)</code> is true
       only when there is no legal move at all. In <code>H</code>, <code>h</code> is the search step
       itself, and <code>every</code> means “every move has closed”.</p>
@@ -19155,265 +19163,298 @@ var engKey = 'engine',
 /* ---- motor kaynagi: kavram bantlari ----
    Her kavram engine.js metninde araliklar boyar. Bir aralik [capa, boyanan] ciftidir:
    capa kaynakta tam bir kez gecmeli, boyanan da capanin icindeki ilk eslesme. Boylece
-   ayni parca kodda birkac kez gecse de (&&S() gibi) dogru yere oturur. Capa bulunmaz
+   ayni parca kodda birkac kez gecse de (&S() gibi) dogru yere oturur. Capa bulunmaz
    ya da birden fazla eslesirse kavram bos kalir ve konsola uyari duser.
-   Ucuncu eleman 1 ise aralik capadan dosyanin sonuna kadar uzanir (l, son bildirim);
-   bir dizgiyse o dizginin basladigi yere kadar (H'nin govdesi ,F=(g,k)'dan once biter).
-   Taslar yalnizca geometri: tip dagitimi (P>5? ...), legalite, rok, gecerken alma ve
-   terfi ayri kavramlar. Siralama taslarin kod sirasi: 2/3'ten 12/13'e; ardindan
-   ozel hamleler. */
-var SLIDE = '(h*v?h==v:2)&P&&S()';
-var GEO = [['G=(i,f,T,P=b[i]>>1', 'G=('], ['G=(i,f,T,P=b[i]>>1', 'i,f'], ['a=Math.abs', 'a=Math.abs'],
-           ['y=i>>3,h=', 'y=i>>3'], ['h=a(i%8-f%8)', 'h=a(i%8-f%8)'],
-           ['v=a(y-(f>>3))', 'v=a(y-(f>>3))']],
-    GEO_D = [['d=h|v', 'd=h|v']],
-    GEO_S = [['k=(f-i)/d', 'k=(f-i)/d'], ['S=Q=>(i+=k)==f||!b[i]&&S()', 'S=Q=>(i+=k)==f||!b[i]&&S()']],
-    GEO_P = [['G=(i,f,T,P=b[i]>>1', 'P=b[i]>>1']];
+   Ucuncu eleman 1 ise aralik capadan dosyanin sonuna kadar uzanir; bir dizgiyse o
+   dizginin basladigi yere kadar (H'nin govdesi ,Z=_=> dan once biter).
+   Taslar yalnizca geometri: tip dagitimi (P-4? ...), legalite, rok, gecerken alma ve
+   terfi ayri kavramlar. Siralama taslarin kod sirasi: 1/9'dan 6/e'ye; ardindan ozel
+   hamleler. Imza (un=, y=) hicbir kavrama girmiyor: c, e, t, n, o'nun ilk degerleri
+   adlariyla degerleri ayri ayri boyaniyor, aradaki imza harfleri bos kaliyor. */
+var SLIDE = 'P+P*4%x&S()',
+    XD = 'x=d%15?d%16?d%17?1:17:16:15';
+var GEO = [['G=(i,f,m,', 'G=('], ['G=(i,f,m,', 'i,f']],
+    GEO_P = [['G=(i,f,m,P=b[i]&7', 'P=b[i]&7']],
+    GEO_D = [['P=b[i]&7,d=f-i,', 'd=f-i']],
+    GEO_X = [[XD, XD]],
+    GEO_S = [[',s=d<0?-x:x,', 's=d<0?-x:x'], ['S=_=>(i+=s)==f||b[i]<1&&S()', 'S=_=>(i+=s)==f||b[i]<1&&S()']];
 var ENGC = [
-  /* Satranctan bagimsiz yardimcilar: iki takma ad ve kullanildiklari yerler. */
-  { k: 'helper', c: 'var(--cc-hp)', tr: 'Yardımcılar', en: 'Helpers',
-    s: [["N='indexOf'", "N='indexOf'"],
-        ['a=Math.abs', 'a=Math.abs'],
-        ['h=a(i%8', 'a'],
-        ['v=a(y-(f>>3))', 'a'],
-        ['d=a(i-f)', 'a'],
-        ['b[N](10+s)', '[N]'],
-        ['~L(x)[N](e)', '[N]'],
-        ['!~b[N](u+g)', '[N]']] },
+  /* 0x88 ve delikler: tahta duzeninin is gordugu her yer. Kurulumda duz indeksi 0x88'e
+     ceviren j*2-j%8; iki kare farkindan hatti bulan kalan testleri (d=f-i, x=...);
+     deligin duvar oldugu yerler (S'nin b[i]<1'i, L'nin b[x]+~t>>3 suzgeci); 8'in
+     "yok" anlamina geldigi yerler (gecerken alma adayi ve suzgeci, V'nin kapisi);
+     yatay kaliplari (i%112, i/56, i%96<24, f%112>7, f^16, i%15%2); atin dort farki
+     (d*d%765%128==68) ve map'in delikleri atlamasindan dogan 64 bitlik sira (j+=j). */
+  { k: 'board', c: 'var(--cc-hp)', tr: '0x88 / delikler', en: '0x88 / holes',
+    s: [['b[j*2-j%8]', 'j*2-j%8'],
+        ["[i%112]<<i/56", 'i%112'], ["[i%112]<<i/56", 'i/56'],
+        GEO_D[0], GEO_X[0],
+        ['||b[i]<1&&S()', 'b[i]<1'],
+        ['d/s<2+(i%96<24)', 'i%96<24'],
+        ['d*d%765%128==68', 'd*d%765%128==68'],
+        ['(X=P-1|f%112>7)', 'f%112>7'],
+        ['P-1?i:f^16]', 'f^16'],
+        ['d-1024?8:Q', '8'],
+        ['L=(i,x,q=b)=>b[x]+~t>>3', 'b[x]+~t>>3'],
+        ['L(j,e))?e:8', '?e:8'],
+        ['|=i%15%2+1', 'i%15%2'],
+        [',j+=j)),A)', 'j+=j'],
+        ['o|m|e-8||', 'e-8']] },
   /* Durum iki katman. Pozisyon FEN'in bes alani: b tas yerlesimi, t sira, c rok haklari,
      e gecerken alma karesi, n yarim hamle sayaci (tam hamle sayisi motorda yok). Surucu
-     bir pozisyondan baslamak icin tam bunlari yaziyor. Oyun durumu pozisyonda olmayan
-     ama oyunun tasidigi her sey: tekrar gecmisi (R, $), teklifler (o), sonuc (z).
-     Saat motorda yok; sureyi surucu tutuyor. Ikisi de yalniz baslangic bildirimlerini boyuyor;
-     zincirleme atamada (n=o=z=0) bir degiskenin baslangici adindan degere kadar boyaniyor,
-     yani n icin n=o=z=0, o icin o=z=0;  durumu degistiren
-     yerler kural bantlarinda ve hamle akisinda. Tekrar anahtari b+t+e+c, FEN'in
-     sayacsiz hali. */
+     bir pozisyondan baslamak icin tam bunlari yaziyor; tahtanin kendisi de basliktaki b
+     ile onu dolduran ifade. Oyun durumu pozisyonda olmayan ama oyunun tasidigi her sey:
+     teklifler (o), tekrar sayisi (R) ve G'ye asili tekrar tablosu, pozisyon anahtari k.
+     Sonuc (z) artik yalniz suruculerde. Ikisi de yalniz baslangic bildirimlerini
+     boyuyor; durumu degistiren yerler kural bantlarinda ve hamle akisinda. */
   { k: 'pos', c: 'var(--cc-ps)', tr: 'Pozisyon (FEN)', en: 'Position (FEN)',
-    s: [['b=[...`5d37b3d5', 'b=[...`5d37b3d5', ',t=1'],
-        ['t=1,c=15', 't=1'],
-        ['c=15,e=-1', 'c=15'],
-        ['e=-1,n=', 'e=-1'],
-        ['n=o=z=0', 'n=o=z=0']] },
+    s: [['b=[c=', 'b='], ['b=[c=', 'c='], ['c=un=15,', '15'],
+        ['e=y=t=8', 'e='], ['e=y=t=8', 't=8'],
+        ['n=o=0]', 'n='], ['n=o=0]', '0'],
+        ['[...`dcebaecd', '[...`dcebaecd', '),C=']] },
   { k: 'game', c: 'var(--cc-gs)', tr: 'Oyun durumu', en: 'Game state',
-    s: [['n=o=z=0', 'o=z=0'],
-        ['R={[b+t+e+c]:$=1}', 'R={[b+t+e+c]:$=1}']] },
-  /* Tas tanima: motorun koddan "hangi tas, kimin tasi" okudugu her yer. Tip >>1 ve
-     karsilastirmalarla, renk &1 ya da %2 ile okunuyor; birkac yerde kod dogrudan:
-     sahi bulan 10+s, karsi renk piyonu 17-p, terfide kodu kuran u*2+t, Im'deki
-     O(12)/O(8)/O(4), l'de kodlari bitboard adlarina dagitan yikim. Kayan taslarda &P
-     tipi yetenek biti olarak okuyor. Bos kare testleri (!b[i], b[f], !p) "tas var mi"
-     sorusu; hangi tas ya da kimin tasi degil, bu yuzden disarida. */
+    s: [['n=o=0]', 'o=0'],
+        ['R=G[k=b+e+t+c]=1', 'R=G[k=b+e+t+c]=1']] },
+  /* Tas tanima: motorun koddan "hangi tas, kimin tasi" okudugu her yer. Tur &7 ya da
+     -t ile, renk &8 ile okunuyor; dal secicileri P-4/P-2/P-1, kayan taslarda turun
+     tekligi (P+P*4%x), sahi bulan 2+t, piyonu ayiran &6 ve P-1, sira gelen tarafin
+     piyonu 1+t, terfide kodu kuran p|t, ozel hamle imzasindaki P*, V'nin sayimi ve
+     H'nin terfi turleri. Bos kare testleri (!b[x], !b[f]) "tas var mi" sorusu; hangi tas
+     ya da kimin tasi degil, bu yuzden disarida. */
   { k: 'ident', c: 'var(--cc-id)', tr: 'Taş tanıma', en: 'Piece identification',
-    s: [['G=(i,f,T,P=b[i]>>1', 'P=b[i]>>1'],
-        [')=>P>5?h*v==2', 'P>5?'],
-        ['==2:P>4?', 'P>4?'],
-        [':P>3?f<i', 'P>3?'],
-        ['f<i^b[i]&1&&', 'b[i]&1'],
-        [SLIDE, '&P'],
-        ['b[N](10+s)', '10+s'],
-        ['p&1^s&&G(i,u,1)', 'p&1^s'],
-        ['q=[],g=b[i]&1', 'g=b[i]&1'],
-        ['!p|p&1^g&&G(i,f)', 'p&1^g'],
-        ['P=p>>1==4,d', 'P=p>>1==4'],
-        ['d==2&p>9', 'p>9'],
-        ['b[x]==17-p', '17-p'],
-        ['P&f%56<8?u*2+t', 'u*2+t'],
-        ['p&&p%2^g&&(p<4?', 'p%2^g'],
-        ['p&&p%2^g&&(p<4?', 'p<4'],
-        ['W+=p>9?p>11:9', 'p>9?p>11:9'],
-        ['O=u=>!~b[N](u+g)', 'u+g'],
-        ['O(12)&O(8)&O(4)', 'O(12)&O(8)&O(4)'],
-        ["b.some((p,i)=>p%2==t&&L(i)+'')", 'p%2==t'],
-        ['b.every((p,i)=>p&1^t||L(i)', 'p&1^t'],
-        ['x&&p&6|f%56>7', 'p&6'],
-        ['h[p>>2^2?!p*6:p-6]', 'p>>2^2?!p*6:p-6'],
-        ['[q,r,B,W,v,V]=h', '[q,r,B,W,v,V]=h']] },
+    s: [GEO_P[0],
+        ['=>P-4?P-2?P-1?', 'P-4?'], ['=>P-4?P-2?P-1?', 'P-2?'], ['=>P-4?P-2?P-1?', 'P-1?'],
+        [SLIDE, 'P+P*4%x'],
+        ['b.indexOf(2+t)', '2+t'],
+        ['p&8^t&&G(j,x,1)', 'p&8^t'],
+        ['U=(i,f,p=3,P=b[i]-t,d=P*(i-f)**2', 'P=b[i]-t'],
+        ['U=(i,f,p=3,P=b[i]-t,d=P*(i-f)**2', 'P*(i-f)**2'],
+        ['(X=P-1|f%112>7)', 'P-1'],
+        [')?b[i]:p|t,', 'p|t'],
+        ['e-f|P-1?i', 'P-1'],
+        ['L=(i,x,q=b)=>b[x]+~t>>3', 'b[x]+~t>>3'],
+        ['n=!b[x]*b[i]&6&&', 'b[i]&6'],
+        ['p==1+t&&L(j,e)', 'p==1+t'],
+        ['(p%8>5?A[p>7^!s]|=', 'p%8>5'], ['(p%8>5?A[p>7^!s]|=', 'p>7^!s'],
+        [':p%8>2?A[p>7^!s]+=4<<p*8', 'p%8>2'], [':p%8>2?A[p>7^!s]+=4<<p*8', 'p>7^!s'],
+        [':p%8>2?A[p>7^!s]+=4<<p*8', '4<<p*8'],
+        [':p&8?p>9?_=j', 'p&8?p>9?'],
+        [':p>1?f=j:p&&(B|=j)', 'p>1?'], [':p>1?f=j:p&&(B|=j)', 'p&&'],
+        ['p&8^t||b.every', 'p&8^t'],
+        ['(X?[3]:[3,5,6,4])', '[3,5,6,4]']] },
   /* Her tas kendi kosulunu ve o kosulun dayandigi baslik geometrisini kokenine kadar
-     boyuyor: G'nin i ve f parametreleri, a=Math.abs, y=i>>3, h ve v. d yalniz kullananlarda
-     (sah, kayan taslar, piyon; at kullanmiyor), k ile S yuruyus isteyenlerde (kayan
-     taslar ve piyon), P kayan taslarda (&P), T piyonda (x=T|b[f]). Sah adimla rok arasindaki
-     seciciyi (v|h^2?) de boyuyor: adimin ne zaman secildigi sahin; T tehdidin, secicinin
-     tamami rokun da bandinda. */
-  { k: 'bishop', c: 'var(--pc-b)', tr: 'Fil', en: 'Bishop', v: '2/3',
-    s: GEO.concat(GEO_D, GEO_S, GEO_P, [[SLIDE, 'h==v'], [SLIDE, '&P&&S()']]) },
-  { k: 'rook', c: 'var(--pc-r)', tr: 'Kale', en: 'Rook', v: '4/5',
-    s: GEO.concat(GEO_D, GEO_S, GEO_P, [[SLIDE, '(h*v'], [SLIDE, ':2)&P&&S()']]) },
-  { k: 'queen', c: 'var(--pc-q)', tr: 'Vezir', en: 'Queen', v: '6/7',
-    s: GEO.concat(GEO_D, GEO_S, GEO_P, [[SLIDE, SLIDE]]) },
-  { k: 'pawn', c: 'var(--pc-p)', tr: 'Piyon', en: 'Pawn', v: '8/9',
-    s: GEO.concat(GEO_D, GEO_S, [
-        ['G=(i,f,T,P=b[i]>>1', 'T'],
-        ['x=T|b[f]', 'x=T|b[f]'],
-        ['f<i^b[i]&1&&(h*v==1?x|f==e', 'f<i^b[i]&1&&(h*v==1?x'],
-        [':h|x?0:v<2+(y%6<2)&&S())', ':h|x?0:v<2+(y%6<2)&&S())']]) },
-  { k: 'king', c: 'var(--pc-k)', tr: 'Şah', en: 'King', v: '10/11',
-    s: GEO.concat(GEO_D, [['T|v|h^2?d<2', 'v|h^2?'], ['h^2?d<2', 'd<2']]) },
-  { k: 'knight', c: 'var(--cc-n)', tr: 'At', en: 'Knight', v: '12/13',
-    s: GEO.concat([['P>5?h*v==2', 'h*v==2']]) },
+     boyuyor: G'nin i ve f parametreleri, tur P ve kendi dal secicisi, d. Adim x ile
+     isaretli adim s yalniz kullananlarda (piyon, sah, kayan taslar; at kullanmiyor), S
+     yuruyus isteyenlerde (piyon ve kayan taslar). Kayan taslar ayni ifadeyi paylasiyor;
+     onlari x'in kollari ayiriyor: fil 15 ve 17'yi, kale 1 ve 16'yi, vezir hepsini boyuyor.
+     Piyon saldiri kipini (m) da boyuyor, cunku yonu ve alma kosulu ona bagli; sahta m
+     tehdidin, secicinin tamami rokun bandinda. */
+  { k: 'pawn', c: 'var(--pc-p)', tr: 'Piyon', en: 'Pawn', v: '1/9',
+    s: GEO.concat(GEO_P, GEO_D, GEO_X, GEO_S, [
+        ['G=(i,f,m,', 'm'],
+        ['=>P-4?P-2?P-1?', 'P-1?'],
+        ['m^d<d*t&&(x-16?1&~x%d&&m|b[f]', 'm^d<d*t&&(x-16?1&~x%d&&m|b[f]'],
+        [':d/s<2+(i%96<24)&!b[f]&S())', ':d/s<2+(i%96<24)&!b[f]&S())']]) },
+  { k: 'king', c: 'var(--pc-k)', tr: 'Şah', en: 'King', v: '2/a',
+    s: GEO.concat(GEO_P, GEO_D, GEO_X, [GEO_S[0],
+        ['=>P-4?P-2?', 'P-2?'],
+        ['~m+3%d?d==s:', '+3%d?'], ['~m+3%d?d==s:', 'd==s']]) },
+  { k: 'queen', c: 'var(--pc-q)', tr: 'Vezir', en: 'Queen', v: '3/b',
+    s: GEO.concat(GEO_P, GEO_D, GEO_X, GEO_S, [[SLIDE, SLIDE]]) },
+  { k: 'knight', c: 'var(--cc-n)', tr: 'At', en: 'Knight', v: '4/c',
+    s: GEO.concat(GEO_P, GEO_D, [
+        ['=>P-4?', 'P-4?'],
+        ['d*d%765%128==68', 'd*d%765%128==68']]) },
+  { k: 'rook', c: 'var(--pc-r)', tr: 'Kale', en: 'Rook', v: '5/d',
+    s: GEO.concat(GEO_P, GEO_D, [
+        ['x=d%15?d%16?', 'x='], ['x=d%15?d%16?', 'd%16?'],
+        ['d%17?1:17', '?1'], ['1:17:16:15', ':16']], GEO_S, [[SLIDE, SLIDE]]) },
+  { k: 'bishop', c: 'var(--pc-b)', tr: 'Fil', en: 'Bishop', v: '6/e',
+    s: GEO.concat(GEO_P, GEO_D, [
+        ['x=d%15?d%16?', 'x=d%15?'], ['?d%17?1:17', 'd%17?'],
+        ['?1:17:16:15', ':17'], [':16:15', ':15']], GEO_S, [[SLIDE, SLIDE]]) },
   /* Tehdit ve gecerlilik ayri katlar. Tehdit tahtaya oldugu gibi bakar, ortada hamle
-     yok: "bu kare saldiri altinda mi", V(s) ile "su an sahta mi". Kendi ifadesi V ve
-     G'nin yalniz onun icin var olan saldiri kipi T: parametre ile etkiledigi iki yer
-     (piyonda x=T, rok secicisinde T|).
+     yok: "bu kare saldiri altinda mi", T() ile "su an sahta mi". Kendi ifadesi T ve G'nin
+     yalniz onun icin var olan saldiri kipi m: parametre ve etkiledigi uc yer (piyonun
+     yonunde m^, almasinda m|, sahin rok secicisinde ~m).
      Gecerlilik bir hamleyi sorar. Kurallar sekmesindeki tanima gore hamle dort kosulla
      gecerli: tasin hareketi, yolun acikligi, hedef kare, sah guvenligi. Ilk ikisi tas
-     bantlarinda; son ikisi L'de: !p|p&1^g hedefin bos ya da rakip tasi oldugunu, M ile
-     V(g) ve geri alma da sahin acikta kalmadigini sinar. Bu yuzden L'nin tamami burada.
-     Rokun gecici engelleri (!V(t), !V(t,i+k)) ve gecerken almanin "alma gercekten
-     yapilabilir mi" sorusu (~L(x)[N](e)) da gecerlilik. Cagri yerleri kendi kurallarinda:
-     Z'deki V(t) mat/pat, H'deki V(g) ve L(i) yardimli mat aramasi. */
+     bantlarinda; son ikisi L'de: b[x]+~t>>3 hedefin bos ya da rakip tasi oldugunu, U ile
+     T() ve geri koyma da sahin acikta kalmadigini sinar. Bu yuzden L'nin tamami burada;
+     butun gecerli hamleleri gezen O da. Rokun gecici engelleri (!(T()|T(i+s))) ve gecerken
+     almanin "alma gercekten yapilabilir mi" sorusu (L(j,e)) da gecerlilik. Cagri yerleri
+     kendi kurallarinda: Z'deki O(_=>0) mat/pat, H'deki O ve T() yardimli mat aramasi. */
   { k: 'threat', c: 'var(--cc-th)', tr: 'Tehdit / şah', en: 'Attack / check',
-    s: [['V=(s,u=b[N](10+s))=>b.some((p,i)=>p&1^s&&G(i,u,1))', 'V=(s,u=b[N](10+s))=>b.some((p,i)=>p&1^s&&G(i,u,1))'],
-        ['G=(i,f,T,P=b[i]>>1', 'T'],
-        ['x=T|b[f]', 'T'],
-        ['T|v|h^2?d<2', 'T']] },
+    s: [['T=(x=b.indexOf(2+t))=>b.some((p,j)=>p&8^t&&G(j,x,1))', 'T=(x=b.indexOf(2+t))=>b.some((p,j)=>p&8^t&&G(j,x,1))'],
+        ['G=(i,f,m,', 'm'],
+        ['m^d<d*t', 'm^'],
+        ['&&m|b[f]|f==e', 'm|'],
+        ['~m+3%d', '~m']] },
   { k: 'legal', c: 'var(--cc-lg)', tr: 'Geçerlilik', en: 'Legality',
-    s: [['L=(i,q=[],g=b[i]&1)=>b.map((p,f)=>!p|p&1^g&&G(i,f)&&(p=[b,e,n,c],M(i,f),V(g)||q.push(f),[b,e,n,c]=p))&&q',
-         'L=(i,q=[],g=b[i]&1)=>b.map((p,f)=>!p|p&1^g&&G(i,f)&&(p=[b,e,n,c],M(i,f),V(g)||q.push(f),[b,e,n,c]=p))&&q'],
-        ['&&!V(t)&&!V(t,i+k)&&S()', '&&!V(t)&&!V(t,i+k)'],
-        ['&&~L(x)[N](e)', '&&~L(x)[N](e)']] },
+    s: [['L=(i,x,q=b)=>b[x]+~t>>3&&G(i,x)&&(U(i,x),x=T(),b=q,!x)', 'L=(i,x,q=b)=>b[x]+~t>>3&&G(i,x)&&(U(i,x),x=T(),b=q,!x)'],
+        ['&&!(T()|T(i+s))&S()', '!(T()|T(i+s))'],
+        ['p==1+t&&L(j,e)', 'L(j,e)'],
+        ['O=h=>b.every((p,j)=>p&8^t||b.every((_,x)=>!L(j,x)||h(j,x)))', 'O=h=>b.every((p,j)=>p&8^t||b.every((_,x)=>!L(j,x)||h(j,x)))']] },
   /* Hamle akisi: hicbir kurala ait olmayan, hamleyi tasiyan iskelet. A'nin cercevesi
-     (M'yi cagir, sirayi cevir, Z'yi dondur), M'nin cercevesi ve basligindaki ortak
-     turetilmis degerler (p, P, d; u=3 terfinin, q rokla gecerken almanin), tahtanin
-     klonlanmasi, tasin hedefe konmasi ve cikis karesinin bosalmasi. Aradaki kural
-     parcalari (terfi, gecerken alma kurbani, sayac, rok) kendi bantlarinda. L'nin ve
-     H'nin deneme-geri alma donguleri gecerlilik ve aramanin. A'nin dondurdugu Z'nin
-     adi ve "oyun suruyor" cevabi (:0) da bu cercevenin parcasi. */
+     (M'yi cagir, Z'yi dondur), M'nin cercevesi (U'yu cagir, sirayi cevir, anahtari kur),
+     U'nun cercevesi (tahtayi klonla, tasi hedefe koy, cikis karesini bosalt) ve Z'nin
+     adiyla "oyun suruyor" cevabi (:0). Aradaki kural parcalari (terfi, gecerken alma
+     kurbani, sayac, rok, tekrar sayimi) kendi bantlarinda. L'nin ve H'nin deneme-geri alma
+     donguleri gecerlilik ve aramanin. */
   { k: 'flow', c: 'var(--cc-fl)', tr: 'Hamle akışı', en: 'Move flow',
-    s: [['A=(i,f,u)=>(M(i,f,u),t^=1,', 'A=(i,f,u)=>(M(i,f,u),t^=1,'],
-        ['-~R[s],Z()),D=', ',Z())'],
-        ['M=(i,f,u=3', 'M=(i,f,'],
-        ['p=b[i],P=p>>1==4,d=a(i-f)', 'p=b[i],P=p>>1==4,d=a(i-f)'],
-        ['q=i+f>>1)=>(c&=', ')=>('],
-        ['b=[...b],n=', 'b=[...b]'],
-        ['b[f]=P&f%56<8?u*2+t:p', 'b[f]='],
-        ['b[f]=P&f%56<8?u*2+t:p', ':p'],
-        ['b[i]=b[P&f==e?f^8:i]=0', 'b[i]=b['],
-        ['b[i]=b[P&f==e?f^8:i]=0', ']=0'],
-        [':-1),I=g=>', ')'],
-        ['Z=Q=>b.some', 'Z=Q=>'],
-        ['n>149?4:0:V(t)', ':0']] },
+    s: [['A=(i,f,p)=>Z(R=G[M(i,f,p)]', 'A=(i,f,p)=>Z('],
+        ['A=(i,f,p)=>Z(R=G[M(i,f,p)]', 'M(i,f,p)'],
+        [']=-~G[k]),R=', ')'],
+        ['M=(i,x,p)=>(', 'M=(i,x,p)=>('],
+        ['e=U(i,x,p),t^=8,', 'U(i,x,p)'],
+        ['e=U(i,x,p),t^=8,', 't^=8'],
+        ['k=b+e+t+c),V=', 'k=b+e+t+c)'],
+        ['U=(i,f,p=3', 'U=(i,f,'],
+        ['((b=b.slice())[f]=', '((b=b.slice())[f]='],
+        [')?b[i]:p|t', '?b[i]'],
+        ['b[i]=b[e-f|P-1?i:f^16]=0', 'b[i]=b['],
+        ['b[i]=b[e-f|P-1?i:f^16]=0', ']=0'],
+        ['Q),L=', ')'],
+        ['Z=_=>O(', 'Z=_=>'],
+        ['n>149?4:0,D=', ':0']] },
   /* Ozel hamleler: yalniz kurali, legalitesi degil. Rokta sahin sahta olmamasi ve
-     gectigi karenin tehdit altinda olmamasi (!V(t), !V(t,i+k)) legalite; gecerken
-     almada da yakalayan piyonun almayi gercekten yapabilmesi (~L(x)[N](e)).
-     q=i+f>>1 hem rokun hem gecerken almanin: kalenin indigi kare, atlanan kare.
+     gectigi karenin tehdit altinda olmamasi (!(T()|T(i+s))) legalite; gecerken almada da
+     yakalayan piyonun almayi gercekten yapabilmesi (L(j,e)).
+     d=P*(i-f)**2 ile Q=i+f>>1 hem rokun hem gecerken almanin: imza (8 ya da 1024) ve
+     ortadaki kare (kalenin indigi kare, atlanan kare).
      Kural: tas bantlari geometrilerini kokenine kadar boyar; kural bantlari (rok,
      gecerken alma, terfi ...) yalniz kendi ifadelerini boyar, ortak basliga inmez. Tek
-     istisna yalniz o kurala ait baslik parametreleri: q ve u=3. Rokun dayandigi
-     geometri (h, v, k, S) sah ve kayan tas bantlarinda gorunuyor. */
+     istisna yalniz o kurallara ait baslik parametreleri: U'daki p=3, d ve Q. c ile e'nin
+     baslangic degerleri adlariyla boyaniyor, aradaki imza harfleri bos. */
   { k: 'castle', c: 'var(--cc-o)', tr: 'Rok', en: 'Castling',
-    s: [['c=15,e=-1', 'c=15'],
-        ["C=i=>'20003001'[i%56]<<i/28", "C=i=>'20003001'[i%56]<<i/28"],
-        ['T|v|h^2?d<2:c&C(f+=k>0||-2)', 'T|v|h^2?'],
-        ['T|v|h^2?d<2:c&C(f+=k>0||-2)', ':c&C(f+=k>0||-2)'],
-        ['!V(t,i+k)&&S()', '&&S()'],
-        ['q=i+f>>1', 'q=i+f>>1'],
-        ['c&=~C(i)&~C(f)', 'c&=~C(i)&~C(f)'],
-        ['d==2&p>9&&(b[q]=b[r=f>i?i+3:i-4],b[r]=0)', 'd==2&p>9&&(b[q]=b[r=f>i?i+3:i-4],b[r]=0)']] },
+    s: [['b=[c=', 'c='], ['c=un=15,', '15'],
+        ["C=i=>'20003001'[i%112]<<i/56", "C=i=>'20003001'[i%112]<<i/56"],
+        ['~m+3%d?', '~m+3%d?'],
+        [':c&C(r=f+=s-!~s)', ':c&C(r=f+=s-!~s)'],
+        ['T(i+s))&S():', '&S()'],
+        ['d=P*(i-f)**2', 'd=P*(i-f)**2'],
+        ['Q=i+f>>1', 'Q=i+f>>1'],
+        ['d-8||U(r,Q)', 'd-8||U(r,Q)'],
+        ['c&=~C(i)&~C(x)', 'c&=~C(i)&~C(x)']] },
   { k: 'ep', c: 'var(--cc-e)', tr: 'Geçerken alma', en: 'En passant',
-    s: [['e=-1,n=', 'e=-1'],
-        ['h*v==1?x|f==e', '|f==e'],
-        ['q=i+f>>1', 'q=i+f>>1'],
-        ['b[P&f==e?f^8:i]', 'P&f==e?f^8:i'],
-        ['e=P&d>9&&[f-1,f+1,e=q].some(x=>b[x]==17-p', 'e=P&d>9&&[f-1,f+1,e=q].some(x=>b[x]==17-p'],
-        [')?e:-1', ')?e:-1']] },
+    s: [['e=y=t=8', 'e='], ['e=y=t=8,', '8'],
+        ['m|b[f]|f==e', '|f==e'],
+        ['d=P*(i-f)**2', 'd=P*(i-f)**2'],
+        ['Q=i+f>>1', 'Q=i+f>>1'],
+        ['e-f|P-1?i:f^16', 'e-f|P-1?i:f^16'],
+        ['d-1024?8:Q', 'd-1024?8:Q'],
+        ['e=U(i,x,p)', 'e='],
+        ['e=b.some((p,j)=>p==1+t&&L(j,e))?e:8', 'e=b.some((p,j)=>p==1+t&&L(j,e))?e:8']] },
   { k: 'promo', c: 'var(--cc-t)', tr: 'Terfi', en: 'Promotion',
-    s: [['u=3,p=b[i]', 'u=3'],
-        ['P&f%56<8?u*2+t:p', 'P&f%56<8?u*2+t']] },
-  /* Kendiliginden bitenler: yalnizca otomatik esikler ($>4, n>149), talepler (D'deki
-     $>2, n>99) degil. Tekrarda gecerken almanin legalite testi de boyali: anahtardaki
-     e ancak alma gercekten yapilabiliyorsa yaziliyor, sayim buna dayaniyor.
-     Olu pozisyonun iki yolu Z'de tek sonuca (6) cikiyor; ?6 ikisinde de boyali.
-     H'nin icindeki kullanimlar (n>149, l()) 6.9 kavramina kaliyor. */
+    s: [['U=(i,f,p=3', 'p=3'],
+        ['(X=P-1|f%112>7)?b[i]:p|t', '(X=P-1|f%112>7)'],
+        ['(X=P-1|f%112>7)?b[i]:p|t', ':p|t'],
+        ['(X?[3]:[3,5,6,4])', '(X?[3]:[3,5,6,4])']] },
+  /* Kendiliginden bitenler: yalnizca otomatik esikler (R>4, n>149), talepler (D'deki
+     R>2, n>99) degil. Tekrarda gecerken almanin legalite testi de boyali: anahtardaki e
+     ancak alma gercekten yapilabiliyorsa kaliyor, sayim buna dayaniyor.
+     Olu pozisyonun iki yolu V'nin iki yarisi; Z'de tek sonuca (6) cikiyorlar, V(0)&V(8)?6
+     ikisinde de boyali. Ayni V, I icin sorulunca H'nin kapisi; V(I) de ikisinde boyali.
+     H'nin icindeki n>149 6.9 kavramina kaliyor. */
   { k: 'mate', c: 'var(--cc-mt)', tr: 'Mat / pat', en: 'Mate / stalemate',
-    s: [["b.some((p,i)=>p%2==t&&L(i)+'')", "b.some((p,i)=>p%2==t&&L(i)+'')"],
-        [':V(t)?t+1:3', ':V(t)?t+1:3']] },
+    s: [['Z=_=>O(_=>0)?T()?2-!t:3', 'O(_=>0)?T()?2-!t:3']] },
   { k: 'rep5', c: 'var(--cc-r5)', tr: 'Beşli tekrar', en: 'Fivefold repetition',
-    s: [['R={[b+t+e+c]:$=1}', 'R={[b+t+e+c]:$=1}'],
-        ['&&~L(x)[N](e)', '&&~L(x)[N](e)'],
-        ['$=R[s=b+t+e+c]=-~R[s]', '$=R[s=b+t+e+c]=-~R[s]'],
-        ['$>4?5:n>149?4', '$>4?5']] },
+    s: [['R=G[k=b+e+t+c]=1', 'R=G[k=b+e+t+c]=1'],
+        ['p==1+t&&L(j,e)', 'p==1+t&&L(j,e)'],
+        ['k=b+e+t+c),V=', 'k=b+e+t+c'],
+        ['R=G[M(i,f,p)]=-~G[k]', 'R=G[M(i,f,p)]=-~G[k]'],
+        ['R>4?5', 'R>4?5']] },
   { k: 'm75', c: 'var(--cc-75)', tr: '75 hamle', en: '75-move rule',
-    s: [['n=o=z=0', 'n=o=z=0'],
-        ['n=P|b[f]?0:n+1', 'n=P|b[f]?0:n+1'],
-        ['$>4?5:n>149?4', 'n>149?4']] },
+    s: [['n=o=0]', 'n='], ['n=o=0]', '0'],
+        ['n=!b[x]*b[i]&6&&n+1', 'n=!b[x]*b[i]&6&&n+1'],
+        ['n>149?4', 'n>149?4']] },
+  /* Yetersiz materyal V'nin materyal yarisi: sayim ([m,o]'nun varsayilan degeri) ve ilk
+     iki terim. Hem olu pozisyonun (Z) hem 6.9'un (H, F) materyal kolu; eskiden iki ayri
+     fonksiyondu, simdi tek. Kilitli pozisyon V'nin ikinci yarisi: piyon ve sah
+     bitboard'lari, yardimcilar, doyma dongusu, cikis ve kapi. */
   { k: 'im', c: 'var(--cc-im)', tr: 'Yetersiz materyal', en: 'Insufficient material',
-    s: [['I=g=>(m=W=0,b.map((p,i)=>p&&p%2^g&&(p<4?m|=i*9/8%2+1:W+=p>9?p>11:9)),W*2+m<3)',
-         'I=g=>(m=W=0,b.map((p,i)=>p&&p%2^g&&(p<4?m|=i*9/8%2+1:W+=p>9?p>11:9)),W*2+m<3)'],
-        ['I(2)|l()?6', 'I(2)'],
-        ['I(2)|l()?6', '?6']] },
+    s: [['V=(s,j=1n,A=[0,0],[m,o]=(', 'V=(s,j=1n,A=[0,0],[m,o]=('],
+        ['b.map((p,i)=>(p%8>5?A[p>7^!s]|=i%15%2+1:p%8>2?A[p>7^!s]+=4<<p*8', 'b.map((p,i)=>(p%8>5?A[p>7^!s]|=i%15%2+1:p%8>2?A[p>7^!s]+=4<<p*8'],
+        [',j+=j)),A)', ')),A)'],
+        ['=>!(s?B:W)&!m|!(W|B)&!(4%m|o&(m>3?15423:63^m))', '!(s?B:W)&!m|!(W|B)&!(4%m|o&(m>3?15423:63^m))'],
+        ['V(0)&V(8)?6', 'V(0)&V(8)?6'],
+        ['||V(I)||', 'V(I)'],
+        ['H(99))?14+r', '?14+r']] },
   { k: 'lock', c: 'var(--cc-lk)', tr: 'Kilitli pozisyon', en: 'Blocked position',
-    s: [['l=(f=2n**64n-1n', '', 1],
-        ['I(2)|l()?6', 'l()'],
-        ['I(2)|l()?6', '?6']] },
-  /* Oyuncunun istedigi beraberlikler D'de: iddia esikleri (n>99, $>2) ve teklif bitleri.
-     D'nin basi ve o^=2-g ikisinde de boyali: iddia bir bite bagli degil, ama D(g)
-     iddia edenin bitini de yakiyor, cunku her iddia ayni zamanda bir teklif (9.1.2.3).
-     Saymanin kendisi 75 hamle ve tekrar bantlarinda. */
+    s: [['(W=B=0n,', 'W=B=0n'],
+        ['p>9?_=j:W|=j', '_=j:W|=j'],
+        ['p>1?f=j:p&&(B|=j)', 'f=j:p&&(B|=j)'],
+        [',j+=j)),A)', 'j+=j'],
+        [',u=256n,c=~j/~-u', 'u=256n', ')=>!(s?B:W)'],
+        ['||!(o|m|e-8||g(99,A=S=W,a=s=B))', '||!(o|m|e-8||g(99,A=S=W,a=s=B))'],
+        ['V(0)&V(8)?6', 'V(0)&V(8)?6'],
+        ['||V(I)||', 'V(I)']] },
+  /* Oyuncunun istedigi beraberlikler D'de. Talep esikleri (n>99, R>2) teklif bitlerinden
+     once soruluyor; talep tutarsa bitlere dokunulmuyor. Teklif o^=2-s/8 ile biti
+     ceviriyor, iki bit birden yanikken 9. Saymanin kendisi 75 hamle ve tekrar
+     bantlarinda. */
   { k: 'claim', c: 'var(--cc-cl)', tr: '3R / 50 iddiası', en: '3R / 50 claim',
-    s: [['D=g=>(o^=2-g,n>99?7:$>2?8', 'D=g=>'],
-        ['D=g=>(o^=2-g,n>99?7:$>2?8', 'o^=2-g'],
-        ['D=g=>(o^=2-g,n>99?7:$>2?8', 'n>99?7:$>2?8'],
-        ['o>2?9:Z())', ':Z())']] },
+    s: [['D=s=>n>99?7:R>2?8', 'D=s=>'],
+        ['D=s=>n>99?7:R>2?8', 'n>99?7:R>2?8'],
+        ['>2?9:Z(),F=', ':Z()']] },
   { k: 'agree', c: 'var(--cc-ag)', tr: 'Anlaşmalı beraberlik', en: 'Draw by agreement',
-    s: [['n=o=z=0', 'o=z=0'],
-        ['D=g=>(o^=2-g', 'D=g=>'],
-        ['D=g=>(o^=2-g', 'o^=2-g'],
-        ['o>2?9', 'o>2?9'],
-        ['o>2?9:Z())', ':Z())']] },
-  /* Sure ve terk tek ifade: k sureyi terkten, g tarafi ayiriyor; motor saati
-     tutmuyor, sureyi surucu sayiyor. Istisnasi rakibin mat edip edemeyecegi: olu
-     pozisyondaki I / l ayriminin aynasi olarak materyal kolu (Im) ile arama (H) iki
-     ayri bant; ikisi de ayni sonuca cikiyor, ?14+k ikisinde de boyali. Im, I'yi
-     cagiriyor ama I'nin govdesi I bandinda. */
+    s: [['n=o=0]', 'o=0'],
+        ['D=s=>n>99', 'D=s=>'],
+        ['(o^=2-s/8)>2?9', '(o^=2-s/8)>2?9'],
+        ['>2?9:Z(),F=', ':Z()']] },
+  /* Sure ve terk tek ifade: r sureyi terkten, !s tarafi ayiriyor; motor saati tutmuyor,
+     sureyi surucu sayiyor. Istisnasi rakibin mat edip edemeyecegi: kurulum ($, I, N),
+     H'nin tamami ve ?14+r arama bandinda; materyal kolu (V(I)) yetersiz materyal ve
+     kilitli pozisyon bantlarinda. */
   { k: 'time', c: 'var(--cc-tm)', tr: 'Süre / terk', en: 'Time / resignation',
-    s: [['F=(g,k)=>', 'F=(g,k)=>'],
-        [':10+2*k+g', ':10+2*k+g']] },
-  { k: 'imat', c: 'var(--cc-mm)', tr: 'Mat edemeyen materyal', en: "Material that can't mate",
-    s: [['Im=g=>(O=u=>!~b[N](u+g),I(!g),B=m,I(g)&(m+W<1|O(12)&O(8)&O(4)+m>0&!(B&~m)))',
-         'Im=g=>(O=u=>!~b[N](u+g),I(!g),B=m,I(g)&(m+W<1|O(12)&O(8)&O(4)+m>0&!(B&~m)))'],
-        ['=>Im(g)||Ht', 'Im(g)'],
-        ['H(g,15))?14+k', '?14+k']] },
+    s: [['F=(s,r)=>', 'F=(s,r)=>'],
+        [':11+2*r-!s', ':11+2*r-!s']] },
   { k: 'help', c: 'var(--cc-hs)', tr: 'Yardımlı mat araması', en: 'Helpmate search',
-    s: [['(Hn=2e4,Ht={},H(g,15))', '(Hn=2e4,Ht={},H(g,15))'],
-        ['H(g,15))?14+k', '?14+k'],
-        ['H=(g,d,v=t^g|!V(g))=>', 'H=(g,d,v=t^g|!V(g))=>'],
-        ['||Ht[s=b+t+e+c]>=d||l()||', '||Ht', ',F=(g,k)']] }
+    s: [['($=[I=s],N=2e4,H(99))', '($=[I=s],N=2e4,H(99))'],
+        ['H(99))?14+r', '?14+r'],
+        ['H=(d,v=t^I|!T(),', 'H=(d,v=t^I|!T(),', ',Z=_=>']] }
 ];
 /* En basit surucu (L3_numerical): ayni pencerede, ayni capa kuraliyla. Yalniz surucunun
-   parcalari boyaniyor; motorun govdesi engine.js'teki gibi, imza boyanmiyor. Surucu tek bir
-   for dongusu: prompt'tan K'yi okuyor, sureyi dusuyor, K'yi hamleye, terke ya da beraberlik
-   kanalina ayiriyor; sonuc gelene kadar donuyor.
+   parcalari boyaniyor; motorun govdesi engine.js'tekiyle neredeyse ayni. Uc fark var:
+   L kendi tasi sinamasini (~b[i]&8^t&&) ekliyor, O renk suzgecini birakiyor, D, F ve A
+   dongunun icine gomulu. Bunlardan boyanabilen ilki; hamle kapisinin parcasi. Surucu tek
+   bir for dongusu: prompt'tan K'yi okuyor, sureyi dusuyor, K'yi hamleye, terke ya da
+   beraberlik kanalina ayiriyor; sonuc gelene kadar donuyor.
    Sure ve sure bitimi tek bant: saat (baslangic, olcum, dusme, ekrandaki yuzu) ve saat
-   bittiginde F'den istenen hukum. Sure bitimi ile terk ayni F cagrisina cikiyor; k
-   (U[t]>0) ikisini ayiriyor, F(...) ikisinde de boyali.
-   Iddia ile teklif ayni kanaldan geciyor: sayi olmayan girdi hamleden sonra D(g)'yi cagiriyor,
-   g hamleden once saklanan taraf, z||= mati one aliyor. Teklifi iddiadan ayiran tek parca
-   o*=g==t: duz bir hamle oynandiysa bekleyen teklif duser, hamle reddedildiyse durur.
-   Ayristirici metni sayiya ceviriyor (iki rakam bir kare, besinci rakam alt terfi); kapi
-   motora soruyor (kendi tasi mi, hedef L'de mi) ve hamleyi A'ya veriyor. */
+   bittiginde gomulu F'den istenen hukum. Sure bitimi ile terk ayni ifadeye cikiyor; E
+   (u[t]>0) ikisini ayiriyor, gomulu F ikisinde de boyali.
+   Iddia ile teklif ayni kanaldan geciyor: sayi olmayan girdi gomulu D'yi calistiriyor, g
+   hamleden once saklanan taraf, z||= mati one aliyor. Teklif bitleri burada beyaz 8,
+   siyah 1 (g||1). Teklifi iddiadan ayiran parca o*=g==t: duz bir hamle oynandiysa
+   bekleyen teklif duser, hamle reddedildiyse durur.
+   Ayristirici metni sayiya ceviriyor (her kare iki rakam, yatay ve sutun: K[0]<<4|K[1];
+   besinci rakam alt terfi); kapi motora soruyor (L), hamleyi gomulu A ile isliyor. */
 var NUMC = [
   { k: 'nclock', c: 'var(--cc-tm)', tr: 'Süre ve süre bitimi', en: 'Clock and flag fall',
-    s: [['U=[9E5,9E5]', 'U=[9E5,9E5]'], ['d=new Date', 'd=new Date'],
-        ['x=new Date-d||1', 'x=new Date-d||1'], ['U[t]-=x', 'U[t]-=x'],
-        ['`${U[1]} ${U[0]} ${y}`', '${U[1]} ${U[0]}'],
-        ['z=U[t]<1|!K?F(t,U[t]>0)', 'U[t]<1'], ['z=U[t]<1|!K?F(t,U[t]>0)', '?F(t,U[t]>0)']] },
+    s: [['u={0:9E5,8:9E5}', 'u={0:9E5,8:9E5}'], ['w=new Date,', 'w=new Date'],
+        ['u[t]-=new Date-w||1', 'u[t]-=new Date-w||1'],
+        ['`${u[8]} ${u[0]} ${y}`', '${u[8]} ${u[0]}'],
+        ['z=u[t]<1|!K', 'u[t]<1'],
+        ['?(E=u[t]>0,$=[I=t],N=2e4,H(99))?14+E:11+2*E-!t', '(E=u[t]>0,$=[I=t],N=2e4,H(99))?14+E:11+2*E-!t']] },
   { k: 'nresign', c: 'var(--cc-rs)', tr: 'Terk', en: 'Resignation',
-    s: [['|!K?F(', '!K'], ['z=U[t]<1|!K?F(t,U[t]>0)', '?F(t,U[t]>0)']] },
+    s: [['|!K?(E=', '!K'],
+        ['?(E=u[t]>0,$=[I=t],N=2e4,H(99))?14+E:11+2*E-!t', '(E=u[t]>0,$=[I=t],N=2e4,H(99))?14+E:11+2*E-!t']] },
   { k: 'nclaim', c: 'var(--cc-cl)', tr: 'İddia', en: 'Claim',
-    s: [[',g=t,z=', 'g=t'], ['K!=+K?z||=D(g)', 'K!=+K?z||=D(g)']] },
+    s: [[',g=t,z=', 'g=t'], ['K!=+K?z||=n>99?7:R>2?8', 'K!=+K?z||=n>99?7:R>2?8']] },
   { k: 'noffer', c: 'var(--cc-ag)', tr: 'Teklif', en: 'Offer',
-    s: [[',g=t,z=', 'g=t'], ['K!=+K?z||=D(g)', 'K!=+K?z||=D(g)'], [':o*=g==t', ':o*=g==t']] },
+    s: [[',g=t,z=', 'g=t'], ['K!=+K?z||=', 'K!=+K?z||='],
+        [':(o^=g||1)>8?9:Z()', ':(o^=g||1)>8?9:Z()'], [':o*=g==t', ':o*=g==t']] },
   { k: 'nparse', c: 'var(--cc-ps)', tr: 'Hamle ayrıştırıcı', en: 'Move parser',
-    s: [['b[i=K[0]+K[1]-0]', 'i=K[0]+K[1]-0'], ['f=K[2]+K[3]-0', 'f=K[2]+K[3]-0'],
-        ["'126'[K[4]]", "'126'[K[4]]"]] },
+    s: [['i=K[0]<<4|K[1]', 'i=K[0]<<4|K[1]'], ['Y=K[2]<<4|K[3]', 'Y=K[2]<<4|K[3]'],
+        ["'654'[K[4]]", "'654'[K[4]]"]] },
   { k: 'ngate', c: 'var(--cc-lg)', tr: 'Hamle kapısı', en: 'Move gate',
-    s: [['b[i=K[0]+K[1]-0]%2==t', 'b['], [']%2==t&&~L(i)[N](f=', ']%2==t&&~L(i)[N]('],
-        ['-0)&&(y=K', ')&&('], ['A(i,f,', 'A(i,f,'], ['[K[4]]))', '))']] },
+    s: [['>>3&&~b[i]&8^t&&G(i,x)', '~b[i]&8^t&&'],
+        [':L(i=K[0]', 'L('], ['K[3])&&Z(y=K,R=G[M(i,Y,', ')&&Z('],
+        ['K[3])&&Z(y=K,R=G[M(i,Y,', 'R=G[M(i,Y,'], ["[K[4]])]=-~G[k])", ")]=-~G[k])"]] },
   { k: 'nloop', c: 'var(--cc-fl)', tr: 'Döngü ve çıktı', en: 'Loop and output',
-    s: [["for(y='';!z;)", "for(y='';!z;)"], ['K=prompt(`', 'K=prompt(`'],
-        ['${U[0]} ${y}`)', ' ${y}`)'], [',z=U[t]<1', 'z='], ['(y=K,', 'y=K'],
-        ['alert(z)', 'alert(z)']] }
+    s: [['for(u={0:9E5', 'for('], [",z=y='';!z;)", ",z=y='';!z;)"],
+        ['K=prompt(`', 'K=prompt(`'], ['${u[0]} ${y}`)', ' ${y}`)'],
+        [',g=t,z=u[t]<1', 'z='], ['Z(y=K,', 'y=K'], ['alert(z)', 'alert(z)']] }
 ];
 var ENGSETS = { engine: ENGC, L3_numerical: NUMC };
 var engC = null,
