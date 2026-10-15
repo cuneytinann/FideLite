@@ -14,19 +14,19 @@
 <defs><marker id="fl-h" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 8 4 0 8z" fill="#8e8175"/></marker></defs>
 <rect class="fl-bd" x="52" y="10" width="528" height="54" rx="4"/>
 <text class="fl-lb" x="68" y="33">MOVE PLAYED</text>
-<text class="fl-sb" x="68" y="51">A: M, t^=1, $ counted, Z()</text>
+<text class="fl-sb" x="68" y="51">A: M, R counted, Z()</text>
 <path class="fl-ar" d="M202 64 202 77" marker-end="url(#fl-h)"/>
 <rect class="fl-bd" x="52" y="78" width="528" height="54" rx="4"/>
 <text class="fl-lb" x="68" y="101">ANY LEGAL MOVE</text>
-<text class="fl-sb" x="68" y="119">if none: V(t), in check?</text>
+<text class="fl-sb" x="68" y="119">if none: T(), in check?</text>
 <rect class="fl-w" x="372" y="86" width="58" height="38" rx="3"/><text class="fl-wt" x="401" y="103" text-anchor="middle">W#</text><text class="fl-wn" x="401" y="117" text-anchor="middle">1 · t=0</text>
-<rect class="fl-b" x="442" y="86" width="58" height="38" rx="3"/><text class="fl-bt" x="471" y="103" text-anchor="middle">B#</text><text class="fl-bn" x="471" y="117" text-anchor="middle">2 · t=1</text>
+<rect class="fl-b" x="442" y="86" width="58" height="38" rx="3"/><text class="fl-bt" x="471" y="103" text-anchor="middle">B#</text><text class="fl-bn" x="471" y="117" text-anchor="middle">2 · t=8</text>
 <rect class="fl-d" x="512" y="86" width="58" height="38" rx="3"/><text class="fl-dt" x="541" y="103" text-anchor="middle">SM</text><text class="fl-dn" x="541" y="117" text-anchor="middle">3</text>
 <path class="fl-ar" d="M202 132 202 145" marker-end="url(#fl-h)"/>
 <text class="fl-nt" x="212" y="143">yes</text>
 <rect class="fl-bd" x="52" y="146" width="528" height="54" rx="4"/>
 <text class="fl-lb" x="68" y="169">AUTOMATIC DRAW</text>
-<text class="fl-sb" x="68" y="187">first hit: I(2)|l() › $&gt;4 › n&gt;149</text>
+<text class="fl-sb" x="68" y="187">first hit: V(0)&amp;V(8) › R&gt;4 › n&gt;149</text>
 <rect class="fl-d" x="372" y="154" width="58" height="38" rx="3"/><text class="fl-dt" x="401" y="171" text-anchor="middle">DP</text><text class="fl-dn" x="401" y="185" text-anchor="middle">6</text>
 <rect class="fl-d" x="442" y="154" width="58" height="38" rx="3"/><text class="fl-dt" x="471" y="171" text-anchor="middle">5R</text><text class="fl-dn" x="471" y="185" text-anchor="middle">5</text>
 <rect class="fl-d" x="512" y="154" width="58" height="38" rx="3"/><text class="fl-dt" x="541" y="171" text-anchor="middle">75</text><text class="fl-dn" x="541" y="185" text-anchor="middle">4</text>
@@ -37,7 +37,7 @@
 <text class="fl-nt" x="212" y="211">none</text>
 <rect class="fl-bd" x="52" y="214" width="528" height="54" rx="4"/>
 <text class="fl-lb" x="68" y="237">REQUEST GATE · o≠0</text>
-<text class="fl-sb" x="68" y="255">D(): n&gt;99 › $&gt;2 › o=3</text>
+<text class="fl-sb" x="68" y="255">D(): n&gt;99 › R&gt;2 › o=3</text>
 <rect class="fl-d" x="372" y="222" width="58" height="38" rx="3"/><text class="fl-dt" x="401" y="239" text-anchor="middle">50</text><text class="fl-dn" x="401" y="253" text-anchor="middle">7</text>
 <rect class="fl-d" x="442" y="222" width="58" height="38" rx="3"/><text class="fl-dt" x="471" y="239" text-anchor="middle">3R</text><text class="fl-dn" x="471" y="253" text-anchor="middle">8</text>
 <rect class="fl-d" x="512" y="222" width="58" height="38" rx="3"/><text class="fl-dt" x="541" y="239" text-anchor="middle">DA</text><text class="fl-dn" x="541" y="253" text-anchor="middle">9</text>
@@ -54,7 +54,7 @@
 <text class="fl-nt" x="212" y="347">while z=0: flag falls or resigns</text>
 <rect class="fl-bd" x="52" y="370" width="528" height="100" rx="4"/>
 <text class="fl-lb" x="68" y="393">FLAG · RESIGNATION</text>
-<text class="fl-sb" x="68" y="411">F(g,k) → H(g,15)</text>
+<text class="fl-sb" x="68" y="411">F(s,r) → H(99)</text>
 <text class="fl-sb" x="68" y="427">H true: mate impossible</text>
 <rect class="fl-w" x="372" y="380" width="58" height="38" rx="3"/><text class="fl-wt" x="401" y="397" text-anchor="middle">WT</text><text class="fl-wn" x="401" y="411" text-anchor="middle">10</text>
 <rect class="fl-b" x="442" y="380" width="58" height="38" rx="3"/><text class="fl-bt" x="471" y="397" text-anchor="middle">BT</text><text class="fl-bn" x="471" y="411" text-anchor="middle">11</text>
@@ -62,8 +62,8 @@
 <rect class="fl-w" x="372" y="424" width="58" height="38" rx="3"/><text class="fl-wt" x="401" y="441" text-anchor="middle">WR</text><text class="fl-wn" x="401" y="455" text-anchor="middle">12</text>
 <rect class="fl-b" x="442" y="424" width="58" height="38" rx="3"/><text class="fl-bt" x="471" y="441" text-anchor="middle">BR</text><text class="fl-bn" x="471" y="455" text-anchor="middle">13</text>
 <rect class="fl-d" x="512" y="424" width="58" height="38" rx="3"/><text class="fl-dt" x="541" y="441" text-anchor="middle">RM</text><text class="fl-dn" x="541" y="455" text-anchor="middle">15</text>
-<text class="fl-nt" x="590" y="403">k=0 time</text>
-<text class="fl-nt" x="590" y="447">k=1 resign</text>
+<text class="fl-nt" x="590" y="403">r=0 time</text>
+<text class="fl-nt" x="590" y="447">r=1 resign</text>
 <rect class="fl-w" x="52" y="488" width="14" height="14" rx="2"/>
 <text class="fl-sb" x="74" y="499">white wins</text>
 <rect class="fl-b" x="170" y="488" width="14" height="14" rx="2"/>
