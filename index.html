@@ -176,7 +176,7 @@ if (FLOLD[location.hash.slice(1)]) {
   --lg-rook:   light-dark(#93cfe0, #7ab6c9);
   --lg-bishop: light-dark(#e0a3da, #c895c4);
   --lg-start:  light-dark(#0f1626, #ece3d8);
-  --lg-king:   light-dark(#8f1d13, #5c1a10);
+  --lg-king:   light-dark(#8f1d13, #ffe68a);
   --lg-pawn:   #1a3970;
   /* Sah cercevesi ile piyon yazisi logoda hep acik karelerin uzerinde duruyor,
      sayfa zeminine hic degmiyor. Lejantta da ayni baglami vermek icin altlarina
@@ -282,7 +282,7 @@ if (FLOLD[location.hash.slice(1)]) {
       --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
       --pc-p:#5fc3ca; --cc-n:#f08ccf; --cc-o:#ff9a4a; --cc-e:#cfe35a; --cc-t:#e7e5e4; --cc-r5:#8c9eff; --cc-75:#cfa57c; --cc-im:#ff6b8b; --cc-lk:#d68cff; --cc-mt:#ff4d4d; --cc-cl:#f2d24b; --cc-ag:#5fd4f5; --cc-tm:#9fb3c8; --cc-rs:#dd88a2; --cc-mm:#ffb38a; --cc-hs:#ea7cf5; --cc-hp:#a898c0; --cc-th:#b8f06a; --cc-lg:#8fbcbc; --cc-id:#6ee0c8; --cc-fl:#c9b8a8; --cc-ps:#a99cff; --cc-gs:#d6dde6; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
       --lg-knight:#1c1714; --lg-rook:#7ab6c9;
-      --lg-bishop:#c895c4; --lg-start:#ece3d8; --lg-king:#5c1a10; --lg-pawn:#1a3970; --lg-chip:#d7ccbd; --lux-a:#f5c518;
+      --lg-bishop:#c895c4; --lg-start:#ece3d8; --lg-king:#ffe68a; --lg-pawn:#1a3970; --lg-chip:#d7ccbd; --lux-a:#f5c518;
     --lux-b:#e0a21c; --lux-hi:#fff8d6; --lux-glow:rgba(255,210,70,.60);
     }
   }
@@ -303,7 +303,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
     --pc-p:#5fc3ca; --cc-n:#f08ccf; --cc-o:#ff9a4a; --cc-e:#cfe35a; --cc-t:#e7e5e4; --cc-r5:#8c9eff; --cc-75:#cfa57c; --cc-im:#ff6b8b; --cc-lk:#d68cff; --cc-mt:#ff4d4d; --cc-cl:#f2d24b; --cc-ag:#5fd4f5; --cc-tm:#9fb3c8; --cc-rs:#dd88a2; --cc-mm:#ffb38a; --cc-hs:#ea7cf5; --cc-hp:#a898c0; --cc-th:#b8f06a; --cc-lg:#8fbcbc; --cc-id:#6ee0c8; --cc-fl:#c9b8a8; --cc-ps:#a99cff; --cc-gs:#d6dde6; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
     --lg-knight:#1c1714; --lg-rook:#7ab6c9;
-    --lg-bishop:#c895c4; --lg-start:#ece3d8; --lg-king:#5c1a10; --lg-pawn:#1a3970; --lg-chip:#d7ccbd; --lux-a:#f5c518;
+    --lg-bishop:#c895c4; --lg-start:#ece3d8; --lg-king:#ffe68a; --lg-pawn:#1a3970; --lg-chip:#d7ccbd; --lux-a:#f5c518;
     --lux-b:#e0a21c; --lux-hi:#fff8d6; --lux-glow:rgba(255,210,70,.60);
   }
 }
@@ -463,6 +463,15 @@ body::before {
 :root[data-theme="dark"] .brandbox img.logo-l { display:none }
 :root[data-theme="dark"] .brand img.logo-d,
 :root[data-theme="dark"] .brandbox img.logo-d { display:block }
+/* Temaya bagli metin: logodaki renkler temayla degisiyor (sah cercevesi acikta
+   bordo, koyuda sari), lejanttaki renk adi da onlarla birlikte degissin. */
+.th-d { display:none }
+:root[data-theme="dark"] .th-l { display:none }
+:root[data-theme="dark"] .th-d { display:inline }
+@media (prefers-color-scheme:dark) {
+  :root:not([data-theme="light"]) .th-l { display:none }
+  :root:not([data-theme="light"]) .th-d { display:inline }
+}
 @media (prefers-color-scheme:dark) {
   :root:not([data-theme="light"]) .brand img.logo-l,
   :root:not([data-theme="light"]) .brandbox img.logo-l { display:none }
@@ -732,7 +741,7 @@ a.seal:hover { background:var(--live); color:var(--on-live); transform:translate
 .lg-n { background:var(--lg-knight); box-shadow:0 0 0 1px var(--ink-3) }
 .lg-r { background:var(--lg-rook) } .lg-b { background:var(--lg-bishop) }
 .lg-q { background:linear-gradient(90deg,var(--lg-rook) 50%,var(--lg-bishop) 50%) }
-.lg-k { background:var(--lg-chip); border:2px solid var(--lg-king) }
+.lg-k { background:var(--lg-knight); border:2px solid var(--lg-king) }
 .lg-p { background:var(--lg-pawn); box-shadow:0 0 0 1px var(--lg-chip) }
 
 /* ---- flow: kat semasi ---- */
@@ -1131,7 +1140,8 @@ pre.src .cpt { color:var(--c); background:color-mix(in srgb, var(--c) 18%, trans
    boylece sayfadan tamamen ayriliyor. Sol serit .snip ile ayni altin. */
 pre.src { margin:0; padding:1rem 1rem 1rem calc(1rem - 2px); overflow-x:auto;
   font-family:var(--mono); font-size:.8125rem; line-height:1.7; white-space:pre-wrap;
-  overflow-wrap:anywhere; color:var(--code-fg); background:var(--code-bg);
+  overflow-wrap:anywhere; word-break:break-all; line-break:anywhere;
+  color:var(--code-fg); background:var(--code-bg);
   border-left:2px solid var(--acc-edge); max-height:32rem; overflow-y:auto }
 pre.src[hidden] { display:none }
 /* Acik temada ince tek aralikli yazi beyaz kuyuda cilizlasiyor, renkten
@@ -1272,7 +1282,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <b>function per byte</b> it is first by a wide margin — and that is the claim this project
       rests on. It is written in JavaScript and runs in the browser: no libraries, no install, no server. The claim's <a href="#l3packed">exhibit build</a> is a single
       <b>2.4 KB</b> HTML file: every rule, a clickable board and a live clock, running on any device with a
-      browser — it is the one you play below and the one you download.</p>
+      browser — the same file you play below and can download.</p>
 
       <div class="cta">
         <span class="cta-btns">
@@ -1292,7 +1302,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       </ul>
       <ul class="chips" lang="en">
         <li>All piece moves</li><li>Legality</li><li>Castling</li><li>En passant</li><li>Promotion</li><li>Live clock</li>
-        <li>Threefold &amp; fivefold repetition</li><li>50 / 75-move rule</li><li>Insufficient material</li>
+        <li>Threefold &amp; fivefold repetition</li><li>50- &amp; 75-move rules</li><li>Insufficient material</li>
         <li>Draw offer</li><li>Resignation</li>
         <li><a href="#flag">Flag fall 6.9 &amp; 5.1.2</a></li>
         <li><a class="lk2" href="#dead">Blocked positions 5.2.2 (93%)</a></li>
@@ -1385,25 +1395,17 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p class="hexcap" lang="tr">Her karede dört şey var: kare adı, taşın onaltılık kodu, glifi
       <span class="gloss">(taşın Unicode simgesi — ♞, ♛)</span>
       ve motorun kullandığı indeks.</p>
-      <p class="hexcap" lang="en">Every square carries four things: its name, the piece's
+      <p class="hexcap" lang="en">Every square shows four things: its name, the piece's
       hexadecimal code, its glyph <span class="gloss">(the piece's Unicode symbol — ♞, ♛)</span>,
       and the index the engine uses.</p>
       <p class="hexcap" lang="tr">İndeks onaltılık okunuyor: üst hane yatay, alt hane sütun —
-      a1 <code>00</code>, h1 <code>07</code>, a2 <code>10</code>, h8 <code>77</code> (onluk 119). Alt
-      hanesi 8–f olan gözler tahtanın dışı; sağdaki soluk sütun her yatayın arkasındaki bu sekiz gözü
-      tek sütuna sıkıştırıyor. Bu gözlerde değer yok, delik var: kayan taş deliğe çarpıp duruyor,
-      dizinin döngüleri delikleri hiç dolaşmıyor. En üstteki hücre ise delik bile değil: dizi h8'de
-      bittiği için son yatayın arkasındaki sekiz göz hiç oluşmuyor (<code>b.length</code> 120, 128
-      değil). Bu düzenin motora ne kazandırdığı
-      <a href="#board">motorun kendisi</a> sekmesinde anlatılıyor.</p>
-      <p class="hexcap" lang="en">The index reads in hexadecimal: the high digit is the rank, the
-      low digit the file — a1 <code>00</code>, h1 <code>07</code>, a2 <code>10</code>, h8
-      <code>77</code> (119 in decimal). Cells whose low digit runs 8–f lie off the board; the faint
-      column on the right squeezes those eight cells behind each rank into one. The array holds no
-      value in these cells, only holes: a sliding piece stops when it hits one, and the array's loops
-      never visit them. The top cell is not even a hole: the array ends at h8, so the eight cells
-      behind the last rank never come into being (<code>b.length</code> is 120, not 128). What that
-      layout buys the engine is explained on the
+      a1 <code>00</code>, h8 <code>77</code>. Alt hanesi 8–f olan gözler tahtanın dışında; sağdaki
+      soluk sütun her yatayın bu sekiz gözünü tek hücrede gösteriyor. Bu düzenin motora ne
+      kazandırdığı <a href="#board">motorun kendisi</a> sekmesinde.</p>
+      <p class="hexcap" lang="en">The index is written in hexadecimal: the high digit is the rank,
+      the low digit the file — a1 <code>00</code>, h8 <code>77</code>. Cells whose low digit is
+      8–f lie off the board; the faint column on the right shows each rank's eight such cells as
+      one. What this layout buys the engine is covered on the
       <a href="#board">“The engine itself”</a> tab.</p>
       <a class="seal" href="#tests" title="Geçtiği testler" data-en-title="Tests it passes"><svg viewBox="0 0 44 30" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.2" d="M22 4 7 15M22 4v11M22 4l15 11M7 15 3 26M7 15l4 11M22 15l-4 11M22 15l4 11M37 15l-4 11M37 15l4 11"/><g fill="currentColor"><circle cx="22" cy="4" r="3"/><g opacity=".85"><circle cx="7" cy="15" r="2.5"/><circle cx="22" cy="15" r="2.5"/><circle cx="37" cy="15" r="2.5"/></g><g opacity=".7"><circle cx="3" cy="26" r="2"/><circle cx="11" cy="26" r="2"/><circle cx="18" cy="26" r="2"/><circle cx="26" cy="26" r="2"/><circle cx="33" cy="26" r="2"/><circle cx="41" cy="26" r="2"/></g></g></svg><span><b lang="tr">~1,5 milyar düğüm</b><b lang="en">~1.5 billion nodes</b><i lang="tr">0 sapma</i><i lang="en">0 deviations</i></span></a>
     </div>
@@ -1424,10 +1426,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <h2 lang="en">The code itself, its worth, and the craft of Golfstack</h2>
     <div class="prose" lang="tr">
       <p>Turnuva standartlarında eksiksiz bir satranç hakemi, 1.543 baytlık tek bir JavaScript
-      dosyasına sığdı; oynanabilir tek bir HTML dosyası olarak da arayüzün özelliklerine
-      ve eski ya da modern HTML yazım kurallarına göre 2,7 ile 1,69 KB
-      <span class="gloss">(bir dosyanın diskte kapladığı yerin ölçüsü; 1 KB = 1024 bayt)</span>
-      arasında değişiyor. FideLite, en küçük boyutta en çok işlevi sunmayı hedefleyen bir
+      dosyasına sığdı. Oynanabilir tek bir HTML dosyası olarak boyutu 1,7 ile 2,7 KB arasında
+      <span class="gloss">(KB, dosyanın diskte kapladığı yer; 1 KB = 1024 bayt)</span>. Bu fark,
+      arayüzün neler sunduğundan ve HTML'in eski mi yeni kurallarla mı yazıldığından geliyor. FideLite, en küçük boyutta en çok işlevi sunmayı hedefleyen bir
       mühendislik çalışması; code golf ile yazıldı — işleve dokunmadan, gereksiz dolgu olan her
       şeyi yontarak. Bu çalışma biçimine <b>Golfstack</b> diyorum.</p>
       <p>Ana sürümlerde iki oyuncu aynı cihazda karşılıklı oynar. Motor hamle önermez, oyunu
@@ -1442,22 +1443,23 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     </div>
     <div class="prose" lang="en">
       <p>A complete, tournament-grade chess arbiter fits into a single JavaScript file of
-      1,543 bytes; as a single playable HTML file it ranges from 1.69 to 2.7 KB
-      <span class="gloss">(the measure of how much room a file takes on disk;
-      1 KB = 1024 bytes)</span>, depending on the features of its interface and on old or modern
-      HTML authoring conventions. FideLite is an engineering exercise in getting the most
-      function into the least space, written with code golf — carving away every byte of filler
-      without touching what the program does. <b>Golfstack</b> is what I call that way of
+      1,543 bytes. As a single playable HTML file it comes to 1.7–2.7 KB
+      <span class="gloss">(how much room a file takes on disk; 1 KB = 1024 bytes)</span>,
+      depending on what the interface offers and whether the HTML follows old or modern
+      conventions. FideLite is an engineering exercise in packing the most
+      function into the least space, written the code-golf way — carving away every byte of
+      filler without changing what the program does. <b>Golfstack</b> is what I call that way of
       working.</p>
-      <p>In the main builds two people play on the same device. The engine never suggests a move;
-      it runs the game, and it reaches for no external library to do so.</p>
-      <p>There are no shortcuts on the rules side. You can find how each article behaves, one by
+      <p>In the main builds, two people play each other on the same device. The engine never
+      suggests a move; it arbitrates the game, and it needs no external library to do so.</p>
+      <p>There are no shortcuts on the rules side. You can see how each article is handled, one by
       one, on the <a href="#rules">Rules and their application</a> tab. The claim procedure for the
-      50-move rule and threefold repetition, and the offer–acceptance–lapse mechanics of a draw
-      by agreement, work as the handbook describes: a claim can rest on the move about to be
-      played, an offer lapses on a move that does not accept it, and mate overrides every
-      automatic draw condition. Where resignation and flag fall meet a position in which the opponent
-      cannot mate, the ruling answers the question 5.1.2 and 6.9 ask. Most large platforms take their own shortcut at these articles.</p>
+      50-move rule and threefold repetition, and the offer–acceptance–lapse cycle of a draw by
+      agreement, work as the handbook describes: a claim can be made on the move about to be
+      played, an offer lapses once the opponent moves without accepting it, and checkmate takes
+      precedence over every automatic draw. When a player resigns or runs out of time in a
+      position where the opponent cannot mate, the result follows the test that 5.1.2 and 6.9
+      set out. Most major platforms take shortcuts on these articles.</p>
     </div>
 
     <h3 id="techfeatures" lang="tr">Teknik özellikler</h3>
@@ -1499,58 +1501,58 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       beraberliğin zor yarısında motor gerçekten ileriye bakıyor — üstelik testte değil, oyunun
       içinde, bayrak düştüğü anda. Hız bu yüzden süs değil. Hızın önem taşıdığı ikinci yer testler: perft
       <span class="gloss">(bir pozisyondan çıkan bütün hamle dizilerini sayan standart doğruluk
-      sınaması)</span> milyonlarca düğüm sayıyor. <a href="#speed"><code>engine_4x</code></a> ikisine
-      de hizmet ediyor: aynı kuralları uygulayan, 39 bayt daha uzun, mantıksal olarak birebir aynı
-      ve belirgin biçimde daha hızlı bir varyant. Ölçümler
+      sınaması)</span> milyonlarca düğüm sayıyor. İkisine de motorun
+      <a href="#speed">hızlı varyantı</a> hizmet ediyor: aynı kurallar, 39 bayt daha uzun,
+      mantıksal olarak birebir aynı. Ölçümler
       <a href="#speed">ayrı bir başlıkta</a>.</li>
       <li><b>Bot ayrı bir katman.</b> İddia bayt başına kural yoğunluğu üzerine kurulu; bot şart değil ve üstüne eklenmesi kural eşdeğerliğini bozmuyor. Botlu sürümler iddianın dışında; gerekçesi aşağıda, ölçümleri <a href="#bots">Varyantlar</a> sekmesinde.</li>
     </ul>
     <ul class="tight" lang="en">
-      <li><b>An interface close to a modern site.</b> In the default builds the selected square
-      and its legal targets are marked, a promotion picker opens, and check and a pending draw
-      offer are read off indicators; after each move the board turns to the perspective of the side
+      <li><b>An interface that feels like a modern website.</b> In the default builds the selected
+      square and its legal destinations are highlighted, a promotion picker pops up, and
+      indicators show check and a pending draw offer; after each move the board flips to the side
       to move. The glyphs, the clock symbol and the indicators all come from Unicode — no image
-      file, no font download, no request to an outside server. The plainer builds draw the board with text
-      characters, and some of them draw nothing at all.</li>
-      <li><b>Fischer time control and a readable clock.</b> In the builds that carry a clock the time
-      control is <b>10+5</b>: ten minutes, plus a five-second increment added to that player's
-      clock on every move. Both clocks run on screen in
-      MINUTES : SECONDS with their emoji, and the increment visibly lands on each move. The moment
-      a flag falls, the result follows by itself.</li>
-      <li><b>Move generation and robustness.</b> The engine does nothing odd where chess logic is
-      concerned: an illegal move never passes, a legal one is never refused, and no result code
-      fires in the wrong position. The claim rests on measurement — the engine passes
-      <a href="#tests">the standard chess-programming test suites</a> without error to reasonable
-      depths: the CPW positions, van Kervinck's tricky list, and the 6,838-position Vajolet corpus.
-      Invalid input does not derail it either: anything it does not accept is refused and the same
-      question is asked again, the game never locks up and the state is never corrupted.</li>
-      <li><b>Rule accuracy and how games end.</b> When a game ends the engine does not just say “draw”; it returns whichever of the <a href="#codes">fifteen results</a> actually occurred, by name. The codes
-      are two characters yet mnemonic — you can tell at a glance which letter stands for what — and all
-      fifteen map one-to-one onto articles in the FIDE handbook. Stalemate, threefold repetition,
-      a dead position: never left ambiguous.</li>
-      <li><b>The hard half of the draw.</b> There are articles in the federations' book that most
-      implementations skip, or settle for the simplest subset of; this engine tries to apply them as
-      written. FIDE's well-known <b>6.9</b> and <b>5.2.2</b> in particular are not passed over but
-      carried into the algorithm as far as it could go. The gain is concrete: most of the unfair
-      results are headed off. <a href="#dead">The detail is here</a>.</li>
-      <li><b>A modular structure.</b> The rule layer stands on one side, what the interface does
-      on the other. Take out the draw offer, the clock or the automatic draw limits and everything
-      else carries on working; the starting position — from a FEN, if you like — and the time
-      control can be set. Code-golf chess projects rarely draw that line: you can no longer tell where the
-      rules end and playing the game begins.</li>
+      files, no web fonts, no requests to an external server. The more minimal builds draw the
+      board in plain text, and some draw no board at all.</li>
+      <li><b>Fischer time control and a readable clock.</b> In the builds with a clock the time
+      control is <b>10+5</b>: ten minutes per player, plus a five-second increment added after
+      every move. Both clocks are shown as MINUTES : SECONDS next to their emoji, and you can see
+      the increment land after each move. The moment a flag falls, the result is declared
+      automatically.</li>
+      <li><b>Move generation and robustness.</b> The chess logic holds no surprises: an illegal
+      move is never accepted, a legal one is never rejected, and no result code is ever triggered
+      in the wrong position. This rests on measurement — the engine passes
+      <a href="#tests">the standard chess-programming test suites</a> with zero errors at
+      reasonable depths: the CPW positions, van Kervinck's tricky list, and the 6,838-position
+      Vajolet corpus. Invalid input does not throw it off either: anything it cannot accept is
+      rejected and the move is asked for again; the game never hangs and the state is never
+      corrupted.</li>
+      <li><b>Rule accuracy and how games end.</b> When a game ends, the engine does not just say “draw”; it reports which of the <a href="#codes">fifteen results</a> actually occurred, by name. The codes
+      are only two characters long yet mnemonic — you can tell at a glance what each letter stands
+      for — and all fifteen map one-to-one onto articles in the FIDE handbook. Stalemate,
+      threefold repetition, dead position: nothing is left ambiguous.</li>
+      <li><b>The hard half of the draw.</b> Some articles in the federations' rulebooks are skipped
+      by most implementations, or reduced to their simplest subset; this engine tries to apply them
+      as written. FIDE's well-known Articles <b>6.9</b> and <b>5.2.2</b> in particular are not
+      skipped but implemented as far as the algorithm could take them. The payoff is concrete: most
+      unfair results are prevented. <a href="#dead">Details here</a>.</li>
+      <li><b>A modular structure.</b> The rule layer sits on one side, the interface on the other.
+      Remove the draw offer, the clock or the automatic draw limits and everything else keeps
+      working; the starting position (from a FEN, if you like) and the time control are both
+      configurable. Code-golf chess projects rarely keep this separation: in most of them you can
+      no longer tell where the rules end and the gameplay begins.</li>
       <li><b>Readability and mnemonics.</b> The source was written to run, not to be read:
-      single-letter names, one line, inlined functions. Even so the naming is not arbitrary —
-      wherever the byte budget allowed, the names echo their English counterparts. What actually
-      happens is unpacked <a href="#flow">line by line in a separate section</a>.</li>
-      <li><b>Speed and depth.</b> Most of an arbiter's work is over in a single ply, but on the
+      single-letter names, one line, inlined functions. Even so, the naming is not arbitrary —
+      wherever the byte budget allowed, each name echoes the English word it stands for. What the
+      code actually does is walked through <a href="#flow">line by line in a separate section</a>.</li>
+      <li><b>Speed and depth.</b> Most of an arbiter's work is done within a single ply, but on the
       hard half of the draw the engine really does look ahead — and it does so during the game, at
-      the moment a flag falls, not in testing. Speed is therefore not decoration; the second place
-      it counts is testing, where perft <span class="gloss">(the standard correctness test that
-      counts every move sequence from a position)</span> counts millions of nodes.
-      <a href="#speed"><code>engine_4x</code></a> serves both: a variant that enforces the same
-      rules, 39 bytes longer, logically identical and markedly faster. The measurements are
-      <a href="#speed">under a separate heading</a>.</li>
-      <li><b>The bot is a separate layer.</b> The claim is about rule density per byte; no bot is required, and adding one does not break rule equivalence. The builds with a bot sit outside the claim; the reasons are below, the measurements on the <a href="#bots">Builds</a> tab.</li>
+      the moment a flag falls, not just in testing. So speed is not cosmetic. It also matters in
+      testing, where perft <span class="gloss">(the standard correctness test that counts every
+      move sequence from a position)</span> counts millions of nodes. The engine's
+      <a href="#speed">fast variant</a> covers both: the same rules, 39 bytes longer, logically
+      identical. The benchmarks are <a href="#speed">under a separate heading</a>.</li>
+      <li><b>The bot is a separate layer.</b> The claim is about rule density per byte: it needs no bot, and adding one does not break rule equivalence. Builds with a bot fall outside the claim; the reasons are below, and the measurements are on the <a href="#bots">Builds</a> tab.</li>
       
     </ul>
     <div class="prose" lang="tr">
@@ -1559,9 +1561,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       hâliyle zanaatkâr ve sanatkâr egomun da bir yansıması. ;)</p>
     </div>
     <div class="prose" lang="en">
-      <p>The real claim is not these items one by one, but the ratio itself: bytes per unit of
-      service. The whole rule set sits in a single file — hard as diamond, dense as a black hole.
-      As it stands it is also a reflection of my craftsman's, and artist's, ego. ;)</p>
+      <p>The real claim is not any one of these items but the ratio itself: bytes per unit of
+      functionality. The whole rule set sits in a single file — hard as diamond, dense as a black
+      hole. It is also a reflection of my ego, as a craftsman and as an artist. ;)</p>
     </div>
 
     <div class="prose" lang="tr">
@@ -1574,9 +1576,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     </div>
     <div class="prose" lang="en">
       <p>The engine was tested thousands of times during development, edge cases included, and
-      every known bug was cleared. Even so, I am always open to making it harder still, within my
-      own principles: if you see a way to strip one more byte — or, more dangerously, a bug, a
-      breakage or a wrong verdict — write to
+      every known bug was fixed. Even so, I am always open to hardening it further, within my own
+      principles: if you spot a way to shave off one more byte — or, more worryingly, a bug, a
+      crash or a wrong ruling — write to
       <a href="mailto:cuneytinan37@gmail.com">cuneytinan37@gmail.com</a>.</p>
     </div>
   </div>
@@ -1587,9 +1589,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <p class="eyebrow" lang="tr">Canlı sergi</p>
     <p class="eyebrow" lang="en">Live exhibit</p>
     <h2 lang="tr">Sürümü seç, oyna</h2>
-    <h2 lang="en">Pick a build, play it</h2>
+    <h2 lang="en">Pick a build and play</h2>
     <div class="prose" lang="tr">
-      <p><b>Tek oyun değil, bir sergi.</b> Depoda 37 oynanabilir dosya var ve çeşitlilik
+      <p><b>Tek oyun değil, bir sergi.</b> Depoda 40 oynanabilir dosya var ve çeşitlilik
       üç yönde açılıyor: kurallarda yalnızca oynanabilirliği bilen sürümden tam FIDE hakemine,
       arayüzde tıklanan tahtadan UCI notasyonuna ve hiç tahta çizmeyen körleme sürümlere, özel
       sürümlerde de botlara, daha özenli arayüzlere ve Lichess ile Chess.com kurallarını uygulayan eşdeğerlere kadar. Bu çeşitlilik Theseus'un Gemisi'nden esinlendi: neyin tam satranç
@@ -1610,16 +1612,16 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <code>node</code> ile çalıştırabilirsin.</p>
     </div>
     <div class="prose" lang="en">
-      <p><b>Not one game but an exhibition.</b> The repository holds 37 playable files, and the variety
-      opens in three directions: in the rules, from a build that knows only playability to a full
-      FIDE arbiter; in the interface, from a clickable board to UCI notation and blindfold builds
-      that draw no board at all; and in the special builds, out to bots, more polished interfaces
-      and equivalents that apply the rules of Lichess and Chess.com. The variety takes its cue
-      from the Ship of Theseus: it is there so that the line between what is full chess and what
-      is not gets argued over and thought about. That is also why I call the generator that adds
+      <p><b>Not one game but an exhibition.</b> The repository holds 40 playable files, and the
+      variety runs along three axes: in the rules, from a legality-only build to a full FIDE
+      arbiter; in the interface, from a clickable board to UCI notation and blindfold builds that
+      draw no board at all; and among the special builds, all the way to bots, more polished
+      interfaces and builds that mirror the rules of Lichess and Chess.com. The variety takes its
+      cue from the Ship of Theseus: it is there so that the line between full chess and something
+      less can be argued over and thought about. That is also why I call the generator that adds
       and removes rules on the fly Chesseus!</p>
-      <p>Each build runs in its own frame, and the clocks only start ticking once you start it.
-      Changing builds closes the running game.</p>
+      <p>Each build runs in its own frame, and the clocks only start ticking once you start the
+      game. Switching builds ends the current game.</p>
       <p>Pick a rule level first, then a build. In each level the first build, <code class="vn">default</code>,
       is that level's main file. <code class="vn">L3</code> is the full arbiter: the rule layer is identical
       in all of its builds; what changes is how you enter a move, how the board is drawn and which
@@ -1629,7 +1631,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       details are in the <a href="#special">Special builds</a> section at the end of the
       <a href="#builds">Builds</a> tab. <code class="vn">nonbrowser</code> in <code class="vn">L1</code>,
       <code class="vn">L2</code> and <code class="vn">L3</code> is a terminal build: it does not run in a
-      browser, so it cannot be played here, but you can show its code, or download it and run it with
+      browser, so it cannot be played here, but you can view its code, or download it and run it with
       <code>node</code>.</p>
     </div>
 
@@ -1643,9 +1645,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="note" lang="en">
       <p>If the board feels small in the builds that draw one, use the browser's zoom —
       <kbd>Ctrl</kbd> <kbd>+</kbd>, or <kbd>⌘</kbd> <kbd>+</kbd> on macOS; <kbd>Ctrl</kbd>
-      <kbd>0</kbd> (<kbd>⌘</kbd> <kbd>0</kbd> on macOS) restores it. In the builds that open a <code>prompt()</code> dialog, nothing
-      appears at all if your browser blocks dialogs; download the file and open it, or allow
-      dialogs.</p>
+      <kbd>0</kbd> (<kbd>⌘</kbd> <kbd>0</kbd> on macOS) resets it. In the builds that open a
+      <code>prompt()</code> dialog, nothing will appear if your browser blocks dialogs; download
+      the file and open it locally, or allow dialogs.</p>
     </div>
 
     <div class="player">
@@ -1704,7 +1706,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <label class="rd bot" data-lv="special" hidden title="Bota karşı — tek kişilik" data-en-title="Against a bot — single player"><input type="radio" name="build" value="L2_aybars_2500"> <code>L2_aybars_2500</code></label>
 <label class="rd bot" data-lv="special" hidden title="Bota karşı — tek kişilik" data-en-title="Against a bot — single player"><input type="radio" name="build" value="L1_1250elo"> <code>L1_1250elo</code></label>
 <span class="rbr" data-lv="special" hidden></span>
-<label class="rd bot" data-lv="special" hidden title="Oscar Toledo G.'nin satrancı, ES6 ile küçülttüğüm hâli — bota karşı" data-en-title="Oscar Toledo G.'s chess, shrunk further in ES6 by me — against its bot"><input type="radio" name="build" value="Toledos-ES6-optimized"> <code>Toledos-ES6-optimized</code></label>
+<label class="rd bot" data-lv="special" hidden title="Oscar Toledo G.'nin satrancı, ES6 ile küçülttüğüm hâli — bota karşı" data-en-title="Oscar Toledo G.'s chess program, golfed further in ES6 by me — play against its bot"><input type="radio" name="build" value="Toledos-ES6-optimized"> <code>Toledos-ES6-optimized</code></label>
 <label class="rd bot" data-lv="special" hidden title="Toledo'nun programına rakip olarak yazdığım bot, bu motorun üstünde" data-en-title="The bot I wrote as an opponent for Toledo's program, on this engine"><input type="radio" name="build" value="ToledosOpponentbyMe"> <code>ToledosOpponentbyMe</code></label>
         </fieldset>
       </div>
@@ -1745,24 +1747,24 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     </div>
     <div class="prose" lang="en">
       <p>Code golf is the art of writing a program in as few characters as possible without
-      giving up anything of its function, its rules or its logical correctness. There is one
+      giving up any of its functionality, its rules or its logical correctness. There is one
       constraint: the behaviour stays the same, the size shrinks.</p>
       <p>From beginning to end this project chased a single question:</p>
     </div>
     <blockquote class="epi" lang="tr">Baştan sona hiçbir kuralı atlamayan, %100 FIDE uyumlu, eksiksiz bir satranç oyunu en az kaç bayta sığabilir?</blockquote>
-    <blockquote class="epi" lang="en">What is the smallest number of bytes a complete,
-    100% FIDE-compliant game of chess can take, skipping no rule from first move to last?</blockquote>
+    <blockquote class="epi" lang="en">How few bytes can a complete, 100% FIDE-compliant
+    game of chess fit into, skipping no rule from the first move to the last?</blockquote>
     <div class="prose" lang="tr">
       <p>Cevabı aşağıda. Ama bu soruyu sorabilmek için önce “eksiksiz” kelimesinin nerede
       başladığına karar vermek gerekiyordu.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The answer is below. But to ask the question at all, I first had to decide where the
-      word “complete” begins.</p>
+      <p>The answer is below. But to ask the question at all, I first had to decide what counts
+      as “complete”.</p>
     </div>
 
     <h3 id="chesseus" lang="tr">Neyi çıkarırsak hâlâ satranç kalır (Chesseus problemi)</h3>
-    <h3 lang="en" data-id="chesseus">What can we remove and still have chess (the Chesseus problem)</h3>
+    <h3 lang="en" data-id="chesseus">What can you remove and still have chess? (the Chesseus problem)</h3>
     <div class="prose" lang="tr">
       <p>Motoru yazarken kendimi bir anda Theseus'un Gemisi paradoksunun ortasında buldum:
       bir satranç oyunundan neleri söküp atabiliriz ki geriye yine satranç kalsın?</p>
@@ -1783,14 +1785,14 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>An unavoidable question of identity surfaces here. I did not take pre-fifteenth-century
       chess as the starting point — there the bishop leaps exactly two squares diagonally, the
       queen's ancestor moves one square diagonally, and neither castling nor the pawn's double
-      step is yet established. They share a name,
-      but that game and the one we play today are fundamentally different games; taking
-      it as the baseline would have meant answering the question for a different game.</p>
+      step is yet established. The two share a name, but they are fundamentally different games;
+      taking the older one as the baseline would have meant answering the question for another
+      game.</p>
       <p>What I took as the starting point was this: today's piece movement, check, checkmate and
       stalemate, the pawn's single-square advance, and automatic promotion to a queen. That is the
-      core left over once everything removable has been removed. Take one more article away and
-      the game stops being chess.</p>
-      <p>With the core in hand there was only one direction left: adding.</p>
+      core left once everything removable has been removed. Take away one more article and the
+      game stops being chess.</p>
+      <p>With the core in hand, there was only one direction left: adding.</p>
     </div>
 
     <h3 id="corefull" lang="tr">Çekirdekten tam hakemliğe</h3>
@@ -1813,31 +1815,31 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       dönmem gerekti. Bazen yeni bir keşif, o ana kadar yazdığım çözümün tamamını çöpe
       attırdı. Her geri dönüş yapısal bir revizyon, arkasından da yeni bir bayt optimizasyonu
       demekti; kod büyüdü, sonra yeniden küçüldü.</p>
-      <p>Uzun ve öğretici bir süreç oldu, hem kodlama hem satranç mantığı tarafında. Hangi
-      kuralın neyi kırdığını, hangi keşfin neyi baştan yazdırdığını ayrı bir “Yapım süreci”
-      bölümünde adım adım ve çok daha ayrıntılı anlatacağım.</p>
+      <p>Uzun ve öğretici bir süreç oldu, hem kodlama hem satranç mantığı tarafında. Yapım
+      sürecinde karşılaştığım vurucu noktaları — hangi kuralın neyi kırdığını, hangi keşfin neyi
+      baştan yazdırdığını — <a href="#speed">Ayrıntılı teknik</a> sekmesinde anlatıyorum.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The engine did not arrive in one piece; it grew through overlapping rounds.</p>
-      <p>Choice of promotion piece came first, releasing the pawn from its sentence to the queen
-      and making knight, bishop and rook options too. Then the pawn's two-square advance, and with
-      it the en passant capture that has to come along — the two are inseparable, because the
-      second closes the hole the first opens. Then castling. At that point what was happening on
-      the board was chess as we play it today.</p>
+      <p>The engine was not built in one go; it grew in overlapping rounds.</p>
+      <p>Underpromotion came first: the pawn was no longer condemned to become a queen, and the
+      knight, bishop and rook became options too. Then the pawn's double step, and with it en
+      passant, which has to come along — the two are inseparable, because the second closes the
+      loophole the first opens. Then castling. At that point, everything on the board was chess as
+      we play it today.</p>
       <p>After that I moved off the board. The two theoretical limits that keep a game from
       running forever, the counters and the clock, entered the engine at this stage.</p>
       <p>Normally I would have stopped there. But having come this far I wanted to finish the rest
-      of the rulebook: repetition of position, insufficient material, the draw offer and the draw
-      claim, flag fall, resignation. That brought in the rulings that come not from the moves on the
-      board but from the players and the clock.</p>
-      <p>I cannot claim this path was a straight line. Again and again I had to go back after
-      noticing that a rule I had already added did not match FIDE exactly, or behaved wrongly in a
-      particular position. Sometimes a new discovery threw out the entire solution I had written
-      up to that point. Every reversal meant a structural revision and then a fresh round of byte
+      of the rulebook: repetition, insufficient material, draw offers and draw claims, flag fall,
+      resignation. That brought in the rulings that arise not from moves on the board but from
+      the players and the clock.</p>
+      <p>The path was far from a straight line. Again and again I had to go back after noticing
+      that a rule I had already added did not match FIDE exactly, or behaved wrongly in a
+      particular position. Sometimes a new discovery forced me to scrap everything I had written up
+      to that point. Every reversal meant a structural rewrite followed by another round of byte
       optimisation; the code grew, then shrank again.</p>
-      <p>It was a long and instructive process, on both the coding and the chess-logic side. Which
-      rule broke what, which discovery forced a rewrite of what — I will tell that step by step
-      and in far more detail in a separate “Build log” section.</p>
+      <p>It was a long and instructive process, on both the coding and the chess-logic side. The
+      turning points I ran into along the way — which rule broke what, which discovery forced a
+      rewrite of what — are set out on the <a href="#speed">Technical detail</a> tab.</p>
     </div>
 
     <h3 id="carving" lang="tr">Yontma nerede biter</h3>
@@ -1866,18 +1868,18 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <b>2.778</b> ile <b>1.733 bayt</b> arasında kalıyor.</p>
     </div>
     <div class="prose" lang="en">
-      <p>That is what I did in Golfstack. What the rules were was clear from the outset; the work was carving away every excess in the code that expressed them.</p>
+      <p>That is what I did in Golfstack. The rules were clear from the outset; the work was carving away everything superfluous in the code that expressed them.</p>
       <p>The name for where that carving ends is Kolmogorov complexity: the length of the shortest
-      program that can produce a given object. Code golf is exactly the walk toward that bound —
-      and the bound is provably uncomputable, so nobody can tell you in advance where to stop.
-      You walk by measuring. The added constraint here is that the carving has to be lossless:
-      drop a single article from the logical data the rules require and what is left is not a
-      smaller chess; it is something that is not chess.</p>
+      program that can produce a given object. Code golf is precisely the approach toward that
+      bound — and the bound is provably uncomputable, so no one can tell you in advance where to
+      stop. You find your way by measuring. The added constraint here is that the carving has to
+      be lossless: drop a single article from the logic the rules require, and what remains is not
+      a smaller chess but something that is no longer chess.</p>
       <p>The answer to the question is therefore a single number: <b>1,543 bytes.</b>
       <code>engine.js</code> arbitrates an official game between two human players from the first
-      move to the last; joined to a front end as a single playable file, it takes between
-      <b>1,733</b> and <b>2,778 bytes</b>, depending on the interface and on old or modern HTML
-      authoring.</p>
+      move to the last; bundled with a front end into a single playable file, it comes to between
+      <b>1,733</b> and <b>2,778 bytes</b>, depending on the interface and on whether the HTML
+      follows old or modern conventions.</p>
     </div>
 
     <h3 id="whyjs" lang="tr">Neden tarayıcı ve JavaScript</h3>
@@ -1916,38 +1918,37 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     </div>
     <div class="prose" lang="en">
       <p>One of the first questions that comes up is this: why the browser, why JavaScript?</p>
-      <p>The first half of the answer is about reach. Measured by which device, which operating
-      system and which environment it will open in, the browser comes first by a wide margin. No
-      compiler, no runtime install, no package manager; double-clicking the downloaded file is
-      enough. On top of that HTML hands you the visual layer almost for free — no separate UI
-      infrastructure is needed for the board, the clocks and the indicators, and the file even
-      opens when <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code>
-      are never written at all. If the distance the engine had to cover to reach a player were any
-      longer, the size claim would mean nothing in practice.</p>
+      <p>The first half of the answer is about reach. Measured by how many devices, operating
+      systems and environments it opens on, the browser wins by a wide margin. No compiler, no
+      runtime to install, no package manager; double-clicking the downloaded file is enough. On top
+      of that, HTML gives you the visual layer almost for free: the board, the clocks and the
+      indicators need no separate UI framework, and the file opens even if
+      <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code> are
+      omitted entirely. If the engine had any further to go to reach a player, the size claim
+      would mean nothing in practice.</p>
       <p>The second half is about the language itself. JavaScript suits Golfstack far better than
-      you would expect: it requires no variable declaration keyword, it imposes no mandatory
-      skeleton of entry point and imports, and implicit coercion means the board's numeric
-      encoding never forces you to write a cast. Arrow functions, the ternary operator and the
-      comma operator working together let an entire function collapse into one expression with no
-      braces and no <code>return</code>. Self-extracting packers are native to this language too;
-      the packed form of the engine rests directly on that.</p>
-      <p>An objection follows from this: the browser is hundreds of megabytes, and it supplies
-      both the JavaScript engine and the runtime. Isn't 1,543 bytes just a play on words, then?</p>
+      you might expect: it needs no variable-declaration keyword, imposes no boilerplate of entry
+      point and imports, and implicit type coercion means the board's numeric encoding never forces
+      an explicit cast. Arrow functions, the ternary operator and the comma operator together let
+      an entire function collapse into a single expression with no braces and no
+      <code>return</code>. JavaScript also lends itself naturally to self-extracting packers; the
+      engine's packed build relies directly on that.</p>
+      <p>The obvious objection: the browser weighs hundreds of megabytes and supplies both the
+      JavaScript engine and the runtime. Isn't 1,543 bytes just a play on words, then?</p>
       <p>There is no such thing as a zero baseline. Written in C it would need libc and an
       operating system; written in assembly, an instruction set and a machine. A measure that also
       counts the runtime has nowhere to stop; measured that way, no size claim could be made in
       any language. Code golf therefore always draws the line in the same place: <b>the code you
       write and the libraries you pull in count; the environment and the baseline do not.</b>
-      Neither the browser nor the operating system nor the processor goes on the tab.
-      Cross-language comparison is done on this measure, and record attempts are open to
-      any language.</p>
-      <p>Anyone who takes the end user's view and wants a stricter measure is also right: same
-      environment, same language, zero libraries. Both are legitimate, and under both a single
-      file stands on this side of the line — nothing downloaded, nothing bundled, nothing
-      added.</p>
-      <p>The “smallest in the world” claim rests on that measure. I have been looking for a good
-      while and have not come across anything smaller that enforces every official rule, in
-      JavaScript or anywhere else. The claim is falsifiable, and it should be: it falls the moment
+      Neither the browser, the operating system nor the processor counts toward the total.
+      Cross-language comparisons use this measure, and record attempts are open to any
+      language.</p>
+      <p>Those who take the end user's view and want a stricter measure have a point too: same
+      environment, same language, zero libraries. Both are legitimate, and a single file passes
+      both — nothing downloaded, nothing bundled, nothing added.</p>
+      <p>The “smallest in the world” claim rests on that measure. I have searched for quite a
+      while and have not found anything smaller that enforces every official rule, in JavaScript
+      or any other language. The claim is falsifiable, and it should be: it falls the moment
       someone ships something smaller. Until then it stands.</p>
     </div>
 
@@ -1987,47 +1988,47 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       de ölçüsü var: Miguel Ambrona'nın
       <a href="https://chasolver.org/" target="_blank" rel="noopener">CHA-Solver</a>'ı Lichess
       açık veritabanında haksız sonuçlanmış <b>201.060</b> oyun saydı; bu motor onların
-      <b>%98,2</b>'sini doğru karara bağlıyor. Chess.com'un
+      <b>%98'inden fazlasını</b> doğru karara bağlıyor. Chess.com'un
       <a href="#federations">FIDE–USCF karması</a> gibi bilinçli tercihler de var; buradaki tercih
       başka: tek kitap, tek ölçü.</p>
     </div>
     <div class="prose" lang="en">
       <p>The second question is harder: there are builds with a bot right here on this page, so why
       does the claim leave them out entirely?</p>
-      <p>The usual route is clear enough. A board is drawn on the screen, the pieces are set out,
-      and the player takes on a bot that plays a little better than random; the great majority of
-      attempts so far have run along that line. The code-golf world has chess bots squeezed into a
-      few hundred bytes, but to make room they give up almost every rule that forms the backbone
-      of the game — castling, en passant, the 50-move rule, threefold repetition. Bot logic inflates
-      the code considerably; a build where two people play is far cheaper in byte budget. And
-      adding a bot contributes nothing to FIDE compliance.</p>
-      <p>The real issue is measurability. What counts as a bot is vague: is the thing that fits under 100 bytes and plays random but legal moves a bot? Is one that counts material a
-      bot, or is the threshold higher? Who decides? Rules are not like that; they are exact.
-      Whether a piece of code implements an article is visible on inspection and leaves no room
-      for argument. Even where coverage falls short the measure stays exact: every verdict the
-      engine gives is correct (soundness) while some verdicts are missed (completeness) — and the
-      misses land on roughly one game in two million across the practical record. Pushing coverage
-      to 100% is hard in a few articles, but even that is a precise concept whose gain per byte can
-      be computed; the definition of a bot is not. I tried writing a bot along the way too; then I put all my energy into the
+      <p>The usual route is well known: draw a board, set up the pieces, and let the player take
+      on a bot that plays a little better than random; most attempts so far have followed that
+      path. The code-golf world has chess bots squeezed into a few hundred bytes, but to make room
+      they give up almost every rule that forms the backbone of the game — castling, en passant,
+      the 50-move rule, threefold repetition. Bot logic bloats the code considerably; a two-player
+      build is far cheaper on the byte budget. And adding a bot contributes nothing to FIDE
+      compliance.</p>
+      <p>The real issue is measurability. What counts as a bot is vague: is a sub-100-byte program that plays random legal moves a bot? Is one that counts material a
+      bot, or is the bar higher? Who decides? Rules are not like that; they are exact. Whether a
+      piece of code implements an article can be verified by inspection, with no room for
+      argument. Even where coverage falls short, the measure stays exact: every ruling the engine
+      makes is correct (soundness), while some rulings are missed (completeness) — and the misses
+      come to roughly one game in two million in real-world play. For a few articles, pushing
+      coverage to 100% is hard, but even that is a precise target whose gain per byte can be
+      calculated; a bot has no such definition. I did try writing a bot along the way; then I put all my energy into the
       side that can be measured.</p>
-      <p>The two stand apart in the code as well, and that is no accident. The engine core knows
-      nothing about the driver, so putting a search on top of it, or weaving the two together, does
+      <p>The two are kept apart in the code as well, and that is by design. The engine core knows
+      nothing about the driver, so layering a search on top of it, or intertwining the two, does
       not break rule equivalence. That is exactly how the builds with a bot came about: the same
-      rules, the clock and the interactions between players left out, a search on top.
-      I do not consider that side finished, because the criterion I have set for bringing a bot
-      inside the claim is the same one the arbiter engine had to meet: it has to be a masterpiece in its ratio of quality to bytes. That is a longer job — but since it is a hobby I
-      enjoy a great deal, I will make a concrete attempt at a record on that side too.</p>
-      <p>What remains is what the measurable side bought: on the hard half of the draw this engine
-      is <b>far ahead of</b> the large platforms. I will stake a claim here — even the strictest of
-      them stop at the <b>material test</b> rather than follow the booklet to the letter: is there
-      enough left on the board to mate with. The side that looks at the position itself, whether a
-      mating position can be constructed once the flag has fallen and the detection of
-      <a href="#dead">blocked positions</a>, is not common. And that has been measured: Miguel
+      rules, minus the clock and the player-to-player interactions, with a search on top.
+      I do not consider that side finished: before a bot can come inside the claim, it has to
+      clear the same bar the arbiter did — it has to be a masterpiece in its ratio of quality to bytes. That is a longer job, but since it is a hobby I
+      enjoy a great deal, I will make a serious attempt at a record on that side too.</p>
+      <p>Here is what the measurable side has bought: on the hard half of the draw, this engine is
+      <b>far ahead of</b> the major platforms. I will go on record here — even the strictest of
+      them stop at the <b>material test</b> (is there enough left on the board to mate with?)
+      rather than follow the rulebook to the letter. Looking at the position itself — whether a
+      mate can still be constructed once the flag has fallen, and detecting
+      <a href="#dead">blocked positions</a> — is rare. And this has been measured: Miguel
       Ambrona's <a href="https://chasolver.org/" target="_blank" rel="noopener">CHA-Solver</a>
-      counted <b>201,060</b> wrongly decided games across the Lichess open database, and this
-      engine gets <b>98.2%</b> of them right. There are deliberate choices out there too, such as
-      Chess.com's <a href="#federations">blend of FIDE and USCF</a>; the choice here is a different
-      one: one book, one measure.</p>
+      found <b>201,060</b> wrongly decided games in the Lichess open database, and this
+      engine rules <b>more than 98%</b> of them correctly. Some platforms make deliberate choices,
+      such as Chess.com's <a href="#federations">blend of FIDE and USCF</a>; the choice here is a
+      different one: one rulebook, one standard.</p>
     </div>
 
 
@@ -2051,22 +2052,21 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       dönüştürmeye çalıştım.</p>
     </div>
     <div class="prose" lang="en">
-      <p>Chess projects in the code-golf world generally compromise on the 50-move limit,
-      threefold repetition and insufficient material — often on castling and en passant too — and
-      focus on the basic core alone. I looked at the side hardly anyone visits, and I think that
-      is exactly where the project's originality came from. As far as I know, FideLite is the
-      world's smallest arbiter engine to fit the whole FIDE book into a byte space this narrow —
-      and it carries a blocked-position detector I have not come across on any large platform.</p>
-      <p>It is not a commercial product and makes no such claim. But layering all the rules of
-      chess this way and fitting them into the fewest bytes is pure engineering, pushing the limit
-      on the code side.</p>
-      <p>Getting to this point I had substantial help from models like Claude and Gemini. Work
-      that would normally take months — debugging, code optimisation, picking apart browser
-      behaviour — I compressed enormously with those tools. The decisions stayed mine; what I
-      gained was speed.</p>
+      <p>Code-golf chess projects usually cut corners on the 50-move rule, threefold repetition
+      and insufficient material — often on castling and en passant too — and focus on the bare
+      core alone. I went where hardly anyone goes, and I think that is exactly where the project's
+      originality comes from. As far as I know, no arbiter engine anywhere fits the whole FIDE
+      rulebook into fewer bytes than FideLite — and it carries a blocked-position detector I have
+      not come across on any major platform.</p>
+      <p>It is not a commercial product and does not pretend to be. But layering every rule of
+      chess this way and fitting them into as few bytes as possible is pure engineering — pushing
+      the limits on the code side.</p>
+      <p>I had substantial help getting here from AI models such as Claude and Gemini. Work that
+      would normally take months — debugging, code optimisation, untangling browser quirks — those
+      tools compressed dramatically. The decisions stayed mine; what I gained was speed.</p>
       <p>In a letter to his brother, Chekhov called brevity the sister of talent. In this project I
-      tried to turn that vast world of chess into its shortest form without losing anything of
-      its function.</p>
+      tried to reduce the vast world of chess to its shortest form without losing any of its
+      function.</p>
     </div>
 
     <h3 id="name" lang="tr">FideLite — adın ve logonun anlamı</h3>
@@ -2090,11 +2090,11 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
           gidebileceği yerler.</p>
         </div>
         <div class="prose" lang="en">
-          <p>The name has two parts: <b>FIDE</b> + <b>Lite</b>. Together they land on the sound of
-          the French <i>fidélité</i> — <b>fidelity, adherence</b>. Which is precisely the point:
-          the file shrinks, the adherence to the rulebook does not. “Lite” is the lightness,
-          “Fide” the federation; the two at once, an arbiter that discards no article for the sake
-          of being light.</p>
+          <p>The name has two parts: <b>FIDE</b> + <b>Lite</b>. Together they echo the French
+          <i>fidélité</i> — <b>fidelity, adherence</b>. That is precisely the point: the file
+          shrinks, its adherence to the rulebook does not. “Lite” stands for lightness, “Fide” for
+          the federation; together, an arbiter that drops no article for the sake of being
+          light.</p>
           <p>The logo is built around a single square. The square at the centre is the
           <b>origin</b>; the remaining twenty-four squares are where pieces moving from that
           square can go.</p>
@@ -2105,16 +2105,16 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
           <li><i class="lg-r"></i><span><b>Kale</b> — sekiz turkuaz kare, dört ışın</span></li>
           <li><i class="lg-b"></i><span><b>Fil</b> — sekiz leylak kare, iki köşegen</span></li>
           <li><i class="lg-q"></i><span><b>Vezir</b> — kale ve fil karelerinin tümü</span></li>
-          <li><i class="lg-k"></i><span><b>Şah</b> — bordo çerçeve, bir adımlık erim</span></li>
+          <li><i class="lg-k"></i><span><b>Şah</b> — <span class="th-l">bordo</span><span class="th-d">sarı</span> çerçeve, bir adımlık erim</span></li>
           <li><i class="lg-p"></i><span><b>Piyon</b> — tek karelik ilerlemesinin düştüğü kare: <b>FIDElite</b> yazısı</span></li>
         </ul>
         <ul class="lgnd" lang="en">
           <li><i class="lg-s"></i><span><b>Origin</b> — the single square at the centre</span></li>
-          <li><i class="lg-n"></i><span><b>Knight</b> — eight neutral squares, the L-jumps</span></li>
+          <li><i class="lg-n"></i><span><b>Knight</b> — eight neutral squares, the L-shaped jumps</span></li>
           <li><i class="lg-r"></i><span><b>Rook</b> — eight turquoise squares, four rays</span></li>
           <li><i class="lg-b"></i><span><b>Bishop</b> — eight lilac squares, two diagonals</span></li>
           <li><i class="lg-q"></i><span><b>Queen</b> — every rook and bishop square</span></li>
-          <li><i class="lg-k"></i><span><b>King</b> — the crimson frame, a one-step range</span></li>
+          <li><i class="lg-k"></i><span><b>King</b> — the <span class="th-l">crimson</span><span class="th-d">yellow</span> frame, a one-step range</span></li>
           <li><i class="lg-p"></i><span><b>Pawn</b> — the square its single-step advance lands on: the <b>FIDElite</b> wordmark</span></li>
         </ul>
       </div>

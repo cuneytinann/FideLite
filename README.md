@@ -2,7 +2,7 @@
 
 *[Türkçe ↓](#türkçe)*
 
-A full-FIDE chess arbiter in **1,574 bytes** of plain JavaScript — no dependencies, no install,
+A full-FIDE chess arbiter in **1,543 bytes** of plain JavaScript — no dependencies, no install,
 no server. Packed into a playable game with a clickable board, a clock and indicators, it comes
 to **2.4 KB**.
 
@@ -51,9 +51,9 @@ the book asks what that board is forced to become.**
 
 | File | Bytes | What it is |
 | --- | --- | --- |
-| `builds/engine.js` | 1,574 | The rule engine. One line, no front end. |
-| `builds/engine_4x.js` | 1,613 | The same rules, +39 bytes, 1.4 to 75 times the speed. |
-| `builds/engine_string.js` | 1,736 | The same rules on a board of FEN letters instead of numbers. |
+| `builds/engine.js` | 1,543 | The rule engine. One line, no front end. |
+| `builds/engine_4x.js` | 1,582 | The same rules, +39 bytes, 1.4 to 75 times the speed. |
+| `builds/engine_string.js` | 1,739 | The same rules on a board of FEN letters instead of numbers. |
 
 Every file under `builds/` runs on its own — download an HTML file and double-click
 it. The `.cjs` builds run in a terminal with `node`.
@@ -117,7 +117,7 @@ ships something smaller. Until then it stands.
 
 # Türkçe
 
-Tam FIDE kurallı satranç hakem motoru, **1.574 bayt** saf JavaScript — bağımlılık yok, kurulum
+Tam FIDE kurallı satranç hakem motoru, **1.543 bayt** saf JavaScript — bağımlılık yok, kurulum
 yok, sunucu yok. Tıklanabilir tahtası, saati ve göstergeleriyle paketlenip oynanabilir bir oyuna
 dönüştüğünde **2,4 KB**.
 
@@ -164,9 +164,9 @@ zorunlu olarak neye dönüşeceğini soruyor.**
 
 | Dosya | Bayt | Ne |
 | --- | --- | --- |
-| `builds/engine.js` | 1.574 | Kural motoru. Tek satır, önyüz yok. |
-| `builds/engine_4x.js` | 1.613 | Aynı kurallar, +39 bayt, 1,4 ilâ 75 kat hız. |
-| `builds/engine_string.js` | 1.736 | Aynı kurallar, tahta sayı yerine FEN harfleriyle. |
+| `builds/engine.js` | 1.543 | Kural motoru. Tek satır, önyüz yok. |
+| `builds/engine_4x.js` | 1.582 | Aynı kurallar, +39 bayt, 1,4 ilâ 75 kat hız. |
+| `builds/engine_string.js` | 1.739 | Aynı kurallar, tahta sayı yerine FEN harfleriyle. |
 
 `builds/` altındaki her dosya tek başına çalışır — HTML dosyasını indirip çift
 tıklamak yeterli. `.cjs` sürümleri terminalde `node` ile koşar.
