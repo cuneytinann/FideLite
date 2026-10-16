@@ -2560,7 +2560,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>Bir taş üç biçimde şah çekebilir:</p>
     </div>
     <ul class="tight" lang="tr">
-      <li><b>Sıçrayışla.</b> At, bir eksende iki, öbüründe bir kare atlar: (±1, ±2) ve (±2, ±1). Aradaki taşlar bir şey değiştirmez; bu şahta araya girilemez.</li>
+      <li><b>Sıçrayışla.</b> At, bir eksende iki, öbüründe bir kare atlar: (±1, ±2) ve (±2, ±1). At, taşların üstünden atladığı için aradaki taşlar onu durdurmaz; atın çektiği şaha araya taş koyarak karşılık verilemez.</li>
       <li><b>Çapraz ışınla.</b> Taş iki eksende eşit ilerler, (±1, ±1) yönünde. Bu ışından fil ve vezir şah çeker; piyonun alışı da bunun tek adımlık biçimidir.</li>
       <li><b>Düz ışınla.</b> Taş yalnız bir eksende ilerler, (±1, 0) ve (0, ±1) yönünde. Bu ışından kale ve vezir şah çeker.</li>
     </ul>
@@ -2568,7 +2568,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>A piece can give check in three ways:</p>
     </div>
     <ul class="tight" lang="en">
-      <li><b>By a leap.</b> The knight jumps two squares along one axis and one along the other: (±1, ±2) and (±2, ±1). Pieces in between change nothing; this check cannot be blocked.</li>
+      <li><b>By a leap.</b> The knight jumps two squares along one axis and one along the other: (±1, ±2) and (±2, ±1). Pieces in between do not stop it, because the knight jumps over them; a knight's check cannot be met by putting a piece in the way.</li>
       <li><b>Along a diagonal ray.</b> The piece moves equally along both axes, in the directions (±1, ±1). The bishop and the queen give check along this ray; the pawn's capture is its one-step form.</li>
       <li><b>Along a straight ray.</b> The piece moves along one axis only, in the directions (±1, 0) and (0, ±1). The rook and the queen give check along this ray.</li>
     </ul>
@@ -3179,8 +3179,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>Bu ayrım <a href="#levels">seviyelerde</a> doğrudan görünüyor: her seviye oyunu bitiren
       yeni hükümler ekliyor. En yalın seviyede sayaç yok, dolayısıyla sonluluk da garanti değil —
       iki şah tahtada kaldığı sürece oyun kapanmaz. Garanti kendiliğinden gelen sınırlarla doğuyor: 75 hamle de
-      beşli tekrar da tek başına yeter. Ölü pozisyon ve tekrar ise bunu <b>pratik</b> kılıyor,
-      çünkü sonucu çoğu zaman 150 yarım hamle beklemeden veriyorlar. İkisi ayrı bir kesinlikten besleniyor:
+      beşli tekrar da tek başına yeter. Ölü pozisyon ve tekrar ise oyunun akışını hızlandıran,
+      makul ve <b>pratik</b> kurallar: sonucu çoğu zaman 150 yarım hamleyi beklemeden veriyorlar. İkisi ayrı bir kesinlikten besleniyor:
       ölü pozisyon <b>geometrik</b> kesinlikten — matın gelmeyeceğini tahtanın kendisi söylüyor;
       tekrar ise <b>niyetin</b> kesinliğinden — aynı pozisyona üçüncü kez dönmek kimsenin
       ilerlemek istemediğini gösteriyor ve oyuncu talep edebiliyor, beşincide artık kimseye sormaya
@@ -3224,8 +3224,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       new rulings that end the game. The barest level has no counter, so finiteness is not
       guaranteed there — while two kings remain on the board the game never closes. The guarantee
       comes with the limits that arrive by themselves: the 75-move rule and fivefold repetition are
-      each enough on their own. Dead position and repetition make it <b>practical</b>, because they
-      often deliver the result without waiting 150 plies. Each draws on a different kind of certainty: the dead position on
+      each enough on their own. Dead position and repetition, for their part, are sensible,
+      <b>practical</b> rules that speed the game along: they often deliver the result without waiting
+      150 plies. Each draws on a different kind of certainty: the dead position on
       <b>geometric</b> certainty — the board itself says mate will not come; repetition on
       certainty of <b>intent</b> — returning to the same position a third time shows that no one
       means to make progress, and the player may claim; at the fifth, no one needs to be asked. In
@@ -3271,16 +3272,16 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     </div>
     <div class="prose fl" lang="tr">
       <p><b>FideLite'ta.</b> Motor kitaba uyuyor: sayaç yalnızca piyon hamlesinde ve alışta
-      sıfırlanıyor. Tekrar tablosu da hiç budanmıyor, oyun boyunca büyüyor. Pozisyonu 140 karakter
+      sıfırlanıyor. Tekrar tablosu da hiç budanmıyor, oyun boyunca büyüyor. Pozisyonu 190 karakter
       civarında bir metin anahtarıyla tutmasına rağmen en uzun oyunun sonunda bile yaklaşık
-      3,5 MB yer kaplıyor. Hissedilmeyecek bir yük; budamayı yazmak ise boşuna bayt harcamak
+      4,5 MB yer kaplıyor. Hissedilmeyecek bir yük; budamayı yazmak ise boşuna bayt harcamak
       olurdu.</p>
     </div>
     <div class="prose fl" lang="en">
       <p><b>In FideLite.</b> The engine follows the book: the counter resets only on a pawn move
       and a capture. The repetition table is never pruned either; it grows for the whole game. Even
-      though it keys each position by a string of about 140 characters, at the end of the longest
-      possible game it takes up only about 3.5 MB. A load no one will feel; writing the pruning
+      though it keys each position by a string of about 190 characters, at the end of the longest
+      possible game it takes up only about 4.5 MB. A load no one will feel; writing the pruning
       would have been bytes spent for nothing.</p>
     </div>
 
@@ -3391,10 +3392,12 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       konforu üzerine değil.</p>
       <p>Asıl fark talepte. Yönetmelik üçlü tekrarı ve 50 hamleyi kimsenin talebini beklemeden,
       kendiliğinden beraberlik sayıyor (5.4). Bu, iki oyuncunun da talep düğmesinin karşıdakinin
-      aleyhine açık olduğunu varsaymakla aynı şey; amaç sadeleştirmek. Bu da özünde bir arayüz tercihi: eşik
-      dolduğu anda talebi oyuncu adına kendisi yapan bir arayüz, motora dokunmadan aynı davranışı
-      verir. Varyantlar arasında üçlü tekrarı ve 50 hamleyi kendiliğinden işleten bir sürüm de
-      zaten var: <a href="#special">Chess.com eşdeğeri</a>.</p>
+      aleyhine açık olduğunu varsaymakla aynı şey; amaç sadeleştirmek. Bu da özünde bir sürücü tercihi: eşik
+      dolduğu anda talebi oyuncu adına kendisi yapan bir sürücü, motora dokunmadan aynı davranışı
+      verir. Sürümler arasında bunu yapanlar da var. <a href="#chesscomeq">Chess.com eşdeğeri</a>,
+      platformun kendisi gibi, üçlü tekrarda ve 50 hamlede oyunu her zaman kendiliğinden bitiriyor.
+      Her türlü esnek ayarı sunan, FideLite motoruna dayanan <a href="#lux">Chess LUX</a> sürümünde
+      ise bunu otomatik yapma seçeneği var.</p>
       <p>Kurala dokunan tek fark terkte. Yönetmelikte terk eden her durumda kaybediyor (5.2). Tahta
       başında ise 2023'ten beri, rakip hiçbir geçerli hamle dizisiyle mat edemiyorsa terk
       beraberlikle bitiyor (<a href="#flag">5.1.2</a>).</p>
@@ -3412,10 +3415,12 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       50-move rule drawn automatically, without waiting for anyone to claim (5.4). That is the same
       as assuming both players have the claim switched on against each other; the aim is
       simplification. At
-      heart this too is an interface choice: an interface that makes the claim on the player's
-      behalf the moment a threshold is reached gives the same behaviour without touching the
-      engine. Among the builds there is already one that ends the game automatically at threefold
-      repetition and at fifty moves: the <a href="#special">Chess.com equivalent</a>.</p>
+      heart this too is a driver choice: a driver that makes the claim on the player's behalf the
+      moment a threshold is reached gives the same behaviour without touching the engine. Some of
+      the builds already do this. The <a href="#chesscomeq">Chess.com equivalent</a>, like the
+      platform itself, always ends the game on its own at threefold repetition and at fifty moves.
+      <a href="#lux">Chess LUX</a>, built on the FideLite engine and flexible in every setting, offers
+      it as an option.</p>
       <p>The only difference that touches a rule is resignation. Under the regulations a player who
       resigns always loses (5.2); over the board, since 2023, a resignation is a draw if the
       opponent cannot mate by any series of legal moves (<a href="#flag">5.1.2</a>).</p>
@@ -3428,9 +3433,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       kitap da ikisini ayrı maddelere yazıyor. FideLite bu ayrımın dijitale sürtünmesiz
       taşınabildiğini savunuyor: talep <a href="#claims">hamlenin kendi kanalıyla</a> gidiyor,
       sayılar ekranda duruyor; oyuncu ne hakkını kaçırıyor ne de onu kullanmak için hamle listesini
-      geriye doğru sayıyor. Lichess de kısmen aynı yoldan gidiyor: üçlü tekrarı talebe bırakıyor,
-      terkte de süre bitiminde olduğu gibi rakibin mat edip edemeyeceğine bakıyor — ama bunu
-      yalnızca materyalden okuyor; 50 hamlede ise oyunu kendiliğinden bitiriyor.</p>
+      geriye doğru sayıyor.</p>
     </div>
     <div class="prose fl" lang="en">
       <p><b>In FideLite.</b> The principle is to carry the main federation's rules into digital play
@@ -3441,10 +3444,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       book writes them in separate articles. FideLite holds that this distinction carries into
       digital play without friction: the claim travels on <a href="#claims">the move's own
       channel</a> and the numbers stay on screen, so a player neither misses a right nor has to
-      count back through the move list to use it. Lichess partly takes the same road: it leaves
-      threefold repetition to a claim and, on resignation as on flag fall, checks whether the
-      opponent can mate — but reads that from material alone; at fifty moves, though, it ends the
-      game automatically.</p>
+      count back through the move list to use it.</p>
     </div>
 
     <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Tekrar, kitabın tahtanın dışında bilgi tutmayı gerektiren ilk maddesi. Pozisyonu tanımlayan şey yalnızca taşların yeri değil: sıra, rok hakları ve geçerken alma imkânı da o tanımın parçası. Bunlardan birini yanlış saymak, sayacı sessizce bozar.</p>
@@ -18833,39 +18833,32 @@ z = ($=[I=t], N=2e4, H(99)) ? F+'M' : 'WB'[t/8]+F</pre></div>
     <h3 id="markers" lang="tr">Taşa göre hamle işaretleri</h3>
     <h3 lang="en" data-id="markers">Move markers shaped by the piece</h3>
     <div class="prose" lang="tr">
-      <p>Bir taş seçilince platformlar gidebileceği kareleri gösteriyor, ama her taş için aynı
-      biçimde: boş karelere bir nokta, rakip taşın karesine ayrı bir işaret. Nokta taşın nereye
-      gidebildiğini söylüyor, oraya nasıl gittiğini söylemiyor. Oysa bu fark kuralın kendisi: filin
-      ve kalenin yolundaki her kare kapatılabilir, atınki kapatılamaz, çünkü at sıçrıyor. İşaret
-      taşın karakterini taşırsa fark tahtada görünür. Aşağıdaki üç tahta bunun bir örneği. Renkler
-      Chess.com'un; işaretler de platformun kendi noktası gibi yarı saydam siyah, değişen yalnızca
-      biçim.</p>
-      <p>Fil çaprazlarına mızrak uzatıyor; kale düz yönlerde daha kalın, ucu sivri değil yamuk bir ok
-      sürüyor. İkisinde de sapın geçtiği karelerin ortasında küçük bir yumru var, yani yol üstündeki
-      kareler de hedef olarak okunuyor. Yol kendi taşına çarpınca ok, tahta kenarında olduğu gibi
-      önündeki son boş karede bitiyor; rakip taşa varınca kısalıyor ve ucu yenen kareyi saran
-      çembere değip duruyor. At, sıçrayabildiği her karede bir nal izi bırakıyor; izin burnu
-      sıçramanın yönüne bakıyor. Vezire ayrı bir işaret gerekmiyor, kalenin ve filin oklarını
-      birlikte taşıyor. Döndürme gibi bu da bir kural değişikliği değil, bir bakış seçeneği; motoru
-      da kuralı da değiştirmiyor.</p>
+      <p>Bir taş seçilince platformlar gidebileceği kareleri her taş için aynı noktayla gösteriyor.
+      Nokta taşın nereye gidebildiğini söylüyor, nasıl gittiğini söylemiyor. Oysa bu fark kuralın
+      kendisi: filin ve kalenin yolu kapatılabilir, atınki kapatılamaz, çünkü at sıçrıyor. Aşağıdaki
+      üç tahta, işaret taşın karakterini taşıyınca bu farkın nasıl göründüğünü Chess.com renkleriyle
+      gösteriyor.</p>
+      <p>Fil çaprazlarına mızrak, kale düz yönlerine yamuk uçlu kalın bir ok uzatıyor; yol üstündeki
+      her karede küçük bir yumru var. Ok kendi taşına çarpınca önündeki son boş karede bitiyor, rakip
+      taşa varınca da yenen kareyi saran çembere değip duruyor. At sıçrayabildiği her karede bir nal
+      izi bırakıyor; vezir ise kalenin ve filin oklarını birlikte taşıyor. Nokta yalnızca bir yeri
+      işaret ediyor; mızrak, ok ve nal izi ise hareketin kendisini gözde canlandırıyor, hayal gücüne
+      ve sezgiye çok daha fazla hitap ediyor. Döndürme gibi bu da bir kural değişikliği değil, bir
+      bakış seçeneği.</p>
     </div>
     <div class="prose" lang="en">
-      <p>When a piece is selected, the platforms show the squares it can go to, but the same way for
-      every piece: a dot on an empty square, another mark on an opponent's piece. A dot says where a
-      piece can go, not how it gets there. Yet that difference is the rule itself: every square on a
-      bishop's or a rook's path can be blocked, a knight's cannot, because the knight jumps. If the
-      marker carries the piece's character, the difference shows on the board. The three boards
-      below are one example. The colours are Chess.com's, and the markers are a translucent black
-      like the platform's own dot; only the shape changes.</p>
-      <p>The bishop reaches along its diagonals with a spear; the rook drives a thicker arrow along
-      the lines, its head not pointed but a trapezoid. On both, every square the shaft passes through
-      has a small bump at its centre, so the squares along the way read as targets too. When the path
-      runs into one of its own pieces, the arrow ends on the last empty square, just as it does
-      at the edge of the board; when it reaches an opponent's piece it stops short, its tip touching
-      the ring around the captured square. The knight leaves a hoof print on every square it can jump
-      to, the toe pointing the way it jumps. The queen needs no marker of its own; it carries the
-      rook's arrows and the bishop's together. Like rotation, this is not a change of rules but a way
-      of looking; it changes neither the engine nor the rules.</p>
+      <p>When a piece is selected, the platforms mark the squares it can go to with the same dot for
+      every piece. A dot says where a piece can go, not how it gets there. Yet that difference is the
+      rule itself: a bishop's or a rook's path can be blocked, a knight's cannot, because the knight
+      jumps. The three boards below, in Chess.com's colours, show how the difference looks once the
+      marker carries the piece's character.</p>
+      <p>The bishop reaches along its diagonals with a spear, the rook along its lines with a thick,
+      trapezoid-tipped arrow; every square on the way carries a small bump. An arrow that meets one of
+      its own pieces ends on the last empty square; one that reaches an opponent's piece stops at the
+      ring around it. The knight leaves a hoof print on every square it can jump to, and the queen
+      carries the rook's arrows and the bishop's together. A dot only points at a place; a spear, an
+      arrow and a hoof print picture the move itself, and speak far more to imagination and
+      intuition. Like rotation, this is not a change of rules but a way of looking.</p>
     </div>
     <figure class="shot marks"><svg class="mk-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs><path id="mk-dk" d="M0 196h28v28h-28zM56 196h28v28h-28zM112 196h28v28h-28zM168 196h28v28h-28zM28 168h28v28h-28zM84 168h28v28h-28zM140 168h28v28h-28zM196 168h28v28h-28zM0 140h28v28h-28zM56 140h28v28h-28zM112 140h28v28h-28zM168 140h28v28h-28zM28 112h28v28h-28zM84 112h28v28h-28zM140 112h28v28h-28zM196 112h28v28h-28zM0 84h28v28h-28zM56 84h28v28h-28zM112 84h28v28h-28zM168 84h28v28h-28zM28 56h28v28h-28zM84 56h28v28h-28zM140 56h28v28h-28zM196 56h28v28h-28zM0 28h28v28h-28zM56 28h28v28h-28zM112 28h28v28h-28zM168 28h28v28h-28zM28 0h28v28h-28zM84 0h28v28h-28zM140 0h28v28h-28zM196 0h28v28h-28z"/><g id="mk-co" font-family="system-ui,sans-serif" font-size="7" font-weight="600"><text x="2" y="205.5" fill="#EBECD0">1</text><text x="2" y="177.5" fill="#739552">2</text><text x="2" y="149.5" fill="#EBECD0">3</text><text x="2" y="121.5" fill="#739552">4</text><text x="2" y="93.5" fill="#EBECD0">5</text><text x="2" y="65.5" fill="#739552">6</text><text x="2" y="37.5" fill="#EBECD0">7</text><text x="2" y="9.5" fill="#739552">8</text><text x="26" y="222" text-anchor="end" fill="#EBECD0">a</text><text x="54" y="222" text-anchor="end" fill="#739552">b</text><text x="82" y="222" text-anchor="end" fill="#EBECD0">c</text><text x="110" y="222" text-anchor="end" fill="#739552">d</text><text x="138" y="222" text-anchor="end" fill="#EBECD0">e</text><text x="166" y="222" text-anchor="end" fill="#739552">f</text><text x="194" y="222" text-anchor="end" fill="#EBECD0">g</text><text x="222" y="222" text-anchor="end" fill="#739552">h</text></g><path id="mk-spear" d="M0 0C-5-1.6-9.5-4-13-4C-15.4-4-17-1.8-17.6 0C-17 1.8-15.4 4-13 4C-9.5 4-5 1.6 0 0ZM-18.4-1.6h-2v3.2h2Z"/><path id="mk-trap" d="M0-3.6V3.6L-9.5 8.6V-8.6Z"/><path id="mk-shoe" fill-rule="evenodd" d="M-7 6.2V0A7 7 0 0 1 7 0V6.2H3.4V0A3.4 3.4 0 0 0 -3.4 0V6.2ZM-6 4.2a.8.8 0 1 0 1.6 0a.8.8 0 1 0-1.6 0M-6 0.6a.8.8 0 1 0 1.6 0a.8.8 0 1 0-1.6 0M-4.7 -3.3a.8.8 0 1 0 1.6 0a.8.8 0 1 0-1.6 0M4.4 4.2a.8.8 0 1 0 1.6 0a.8.8 0 1 0-1.6 0M4.4 0.6a.8.8 0 1 0 1.6 0a.8.8 0 1 0-1.6 0M3.1 -3.3a.8.8 0 1 0 1.6 0a.8.8 0 1 0-1.6 0"/></defs></svg>
     <div><svg viewBox="0 0 224 224" role="img" aria-label="d4'teki fil: çaprazlarında mızrak, f6'daki siyah atı yiyor, b2'deki kendi piyonu yolunu kesiyor" data-en-aria-label="Bishop on d4: spears along the diagonals, capturing the black knight on f6, blocked by its own pawn on b2"><rect width="224" height="224" fill="#EBECD0"/><use href="#mk-dk" fill="#739552"/><use href="#mk-co"/><g opacity="0.32"><path d="M106.32 117.68L132.28 91.72" stroke="#000" stroke-width="2"/><circle cx="126" cy="98" r="2.8"/><use href="#mk-spear" transform="translate(145.01 78.99) rotate(-45)"/><circle cx="154" cy="70" r="10.92" fill="none" stroke="#000" stroke-width="2.38"/><path d="M106.32 134.32L175.21 203.21" stroke="#000" stroke-width="2"/><circle cx="126" cy="154" r="2.8"/><circle cx="154" cy="182" r="2.8"/><use href="#mk-spear" transform="translate(187.94 215.94) rotate(45)"/><path d="M89.68 134.32L76.79 147.21" stroke="#000" stroke-width="2"/><use href="#mk-spear" transform="translate(64.06 159.94) rotate(135)"/><path d="M89.68 117.68L20.79 48.79" stroke="#000" stroke-width="2"/><circle cx="70" cy="98" r="2.8"/><circle cx="42" cy="70" r="2.8"/><use href="#mk-spear" transform="translate(8.06 36.06) rotate(-135)"/></g><text x="98" y="127" class="mk-p mk-w">♝&#xFE0E;</text><text x="154" y="71" class="mk-p mk-b">♞&#xFE0E;</text><text x="42" y="183" class="mk-p mk-w">♟&#xFE0E;</text></svg><p><span lang="tr">Fil — mızrak</span><span lang="en">Bishop — spear</span></p></div>
