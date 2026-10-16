@@ -840,6 +840,18 @@ table.fams tbody tr:nth-child(odd):not(.fam) { background:var(--zebra) }
 .shot-mid { max-width:28rem }
 .shot img { display:block; width:100%; height:auto; border-radius:.6rem }
 .shot figcaption { margin-top:.4rem; text-align:center; font:.72rem/1.4 var(--mono); color:var(--ink-3) }
+/* Ekstra: tasa gore hamle isaretleri. Uc kucuk tahta yan yana, dar ekranda alt alta.
+   Koyu kareler, koordinatlar ve uc isaret bicimi gizli .mk-defs icinde bir kez
+   tanimli; her tahta onlari <use> ile cagiriyor. Renkler Chess.com'un, temadan
+   bagimsiz. */
+.marks { display:flex; flex-wrap:wrap; justify-content:center; gap:1rem 1.25rem; max-width:100% }
+.marks > div { flex:0 1 13rem }
+.marks .mk-defs { position:absolute }
+.marks svg { display:block; width:100%; height:auto; border-radius:.35rem }
+.marks p { margin:.4rem 0 0; text-align:center; font:.72rem/1.4 var(--mono); color:var(--ink-3) }
+.marks .mk-p { font-size:24px; text-anchor:middle; dominant-baseline:central }
+.marks .mk-w { fill:#fff; stroke:#000; stroke-width:1px; paint-order:stroke fill }
+.marks .mk-b { fill:#000 }
 .mb.et { border-top:2px solid var(--ink) }
 .mb.er { border-right:2px solid var(--ink) }
 .mb.eb { border-bottom:2px solid var(--ink) }
@@ -13677,8 +13689,8 @@ _ = '-'      E = 'a'      j = p =&gt; p?.toUpperCase()</pre></div>
       <p>The simulation from that day is still around, if you want to click a square and see where
       it breaks:
       <a href="/extra/Board_Delta_Coordinate.html" target="_blank" rel="noopener">Board_Delta_Coordinate.html</a>
-      — pick a square, every square at the same distance lights up together, and the collisions
-      show at a glance.</p>
+      — pick a square, every square matching one of a piece's distances lights up, and the
+      collisions come out hatched, visible at a glance.</p>
     </div>
     <div class="prose" lang="tr">
       <p>3-4-5 üçgeni kalenin beşinci karesini, (1,7) filin beşinci karesini taklit ediyor.
@@ -13696,8 +13708,8 @@ _ = '-'      E = 'a'      j = p =&gt; p?.toUpperCase()</pre></div>
       başlıkta</a>.</p>
       <p>Çöküşün nerede olduğunu kareye tıklayarak görmek için o günkü simülasyon hâlâ duruyor:
       <a href="/extra/Board_Delta_Coordinate.html" target="_blank" rel="noopener">Board_Delta_Coordinate.html</a>
-      — bir kare seç, aynı uzaklıktaki bütün kareler birlikte yanıyor ve çakışanlar tek bakışta
-      görünüyor.</p>
+      — bir kare seç, bir taşın uzaklıklarından birini tutan bütün kareler yanıyor; çakışanlar
+      taralı çıkıyor ve tek bakışta görünüyor.</p>
     </div>
 
     <h3 id="padded-board" lang="tr">Dolgulu tahta — önce elendi, sonra alındı</h3>
@@ -18428,45 +18440,64 @@ z = ($=[I=t], N=2e4, H(99)) ? F+'M' : 'WB'[t/8]+F</pre></div>
     <h3 id="distance" lang="tr">Board_Delta_Coordinate — koordinat farkıyla tanımlanan hamle</h3>
     <h3 lang="en" data-id="distance">Board_Delta_Coordinate — moves defined by coordinate difference</h3>
     <div class="prose" lang="tr">
-      <p>Hamleyi iki kare arasındaki mesafeyle tanımlamanın iki yolunu yan yana koyan simülasyon.
-      Uzaklık modunda 8×8 tahtada bir kareye tıkla; bütün karelere olan Öklid uzaklığı hem ondalık hem kök biçiminde yazılıyor, √5 ya da
-      2√2 gibi. Kale, fil, vezir, at ve şah hazır gruplar olarak geliyor; her grup kendi uzaklık
-      değerlerini ve hareket kuralını taşıyor, istersen yenisini kuruyorsun.</p>
+      <p>Hamleyi iki kare arasındaki koordinat farkıyla tanımlamanın iki yolunu yan yana koyan
+      simülasyon: farkı tek bir uzaklığa indirmek ya da yatay ve dikey bileşenini ayrı tutmak.
+      Uzaklık modunda 8×8 tahtada bir kareye tıklayınca o kareden bütün karelere olan Öklid
+      uzaklığı hem ondalık hem kök biçiminde yazılıyor, √5 ya da 2√2 gibi. Kale, fil, vezir, at ve
+      şah hazır gruplar olarak geliyor; her grup kendi uzaklık değerlerini ve karşılaştırma için
+      taşın gerçek hareket kuralını taşıyor, istersen yenisini kuruyorsun.</p>
       <p>Uzaklığı tutan ve taşın gerçekten gidebildiği kareler dolu renkle, uzaklığı tuttuğu hâlde
       taşın gidemediği kareler taralı çıkıyor. Kalenin beşinci karesini taklit eden 3-4-5 üçgeni
       ve filin beşinci karesini taklit eden (1,7) böyle tek bakışta görünüyor. Uzaklık yaklaşımının
       neden bırakıldığı <a href="#alternatives">Denenip elenen yollar</a> bölümünde.</p>
-      <p><b>h / v</b> modu aynı tahtayı string sürümlerin geometrisiyle okuyor; tahtayı harflerle
-      tutan bütün sürümler hamleyi bu yöntemle tanımlıyor. Her
-      karede iki sayı yazıyor: <code>h</code> yatay yöndeki fark, <code>v</code> dikey yöndeki
-      fark. Bir çizgi üstündeki karelerde ayrıca <code>d = h|v</code> (adım sayısı) ve
-      <code>k = (f−i)/d</code> (o çizgide bir adımın indeks farkı) çıkıyor. Gruplar uzaklık yerine
-      h ve v üzerine bir koşul taşıyor: at <code>h*v==2</code>, şah <code>d&lt;2</code>, fil
-      <code>h==v</code>, kale <code>h*v==0</code>; koşulu kendin de yazabiliyorsun. Uzaklık
-      modunda taralı çıkan kareler burada kayboluyor: h ve v ayrı ayrı sınandığı için 3-4-5 üçgeni
-      kaleye, (1,7) file karışmıyor.</p>
+      <p><b>h / v</b> modu tahtayı yatay ve dikey eksene ayırarak okuyor. Motoru uzun süre bu
+      yöntemle kullandım; tahtayı harflerle tutan string sürümleri bugün de onu kullanıyor. Bayt
+      olarak ucuz bir yöntem; baytların çoğu testlere değil, tanımları yazmaya gidiyor: sütunu ve
+      satırı çıkarıp yatay ve dikey göreceli koordinatı bulmak için <code>Math.abs</code>,
+      <code>i%8</code> ve <code>i&gt;&gt;3</code> sıkça kullanılıyor. Her karede iki sayı yazıyor: <code>h</code> yatay yöndeki fark, <code>v</code> dikey yöndeki fark;
+      ikisi de mutlak değer. Bir çizgi üstündeki karelerde bir de <code>d = h|v</code> çıkıyor, yani
+      adım sayısı. Çizgide ya biri sıfır ya da ikisi eşit olduğu için tek bir OR yetiyor.</p>
+      <p>Tanımlar kurulunca testler birkaç bayta iniyor. Gruplar uzaklık yerine h ve v üzerine bir
+      koşul taşıyor: at <code>h*v==2</code>, şah <code>d&lt;2</code>, fil <code>h==v</code>, kale
+      <code>h*v==0</code>. Vezire ayrı bir tanım yazılmıyor; kalenin ya da filin testinden geçen her
+      kare onun da hamlesi. Koşulu kendin de yazabiliyorsun. Geometrik zorunluluk gereği bu
+      testlerin hiçbiri, tahta hangi boyutta olursa olsun, geçersiz bir kareye düşmüyor. h ve v
+      gerçek sütun ve satır farkı olduğu için kenardan sarma diye bir şey yok. İndeks farkında
+      durum farklı; bir sonraki simülasyonun konusu da bu. Uzaklık modunda taralı çıkan 3-4-5
+      üçgeni ve (1,7) bu yüzden burada yanmıyor.</p>
       <p><a href="/extra/Board_Delta_Coordinate.html" target="_blank" rel="noopener">fidelite.art/extra/Board_Delta_Coordinate.html</a></p>
     </div>
     <div class="prose" lang="en">
-      <p>A simulation that sets two ways of defining a move by the gap between two squares side by
-      side. In distance mode, click a square on the 8×8 board and the Euclidean distance to every square is written out, both as a
-      decimal and in radical form, like √5 or 2√2. Rook, bishop, queen, knight and king come as
-      ready-made groups; each group carries its own distance values and movement rule, and you can
-      build new ones.</p>
+      <p>A simulation that puts two ways of defining a move by the coordinate difference between two
+      squares side by side: collapsing the difference into a single distance, or keeping its
+      horizontal and vertical parts apart. In distance mode, clicking a square on the 8×8 board
+      writes out the Euclidean distance from it to every other square, both as a decimal and in
+      radical form, like √5 or 2√2. Rook, bishop, queen, knight and king come as ready-made groups;
+      each group carries its own distance values and, for comparison, the piece's real movement
+      rule, and you can build new ones.</p>
       <p>Squares where the distance matches and the piece really can go are filled with colour;
       squares where the distance matches but the piece cannot go are hatched. That is how the 3-4-5
       triangle impersonating the rook's fifth square, and (1,7) impersonating the bishop's fifth,
       show at a glance. Why the distance approach was dropped is in
       <a href="#alternatives">Roads tried and eliminated</a>.</p>
-      <p>The <b>h / v</b> mode reads the same board with the geometry of the string builds; every
-      build that holds the board as letters defines moves this way. Each square shows two numbers: <code>h</code>, the horizontal difference, and
-      <code>v</code>, the vertical difference. Squares on a line also show <code>d = h|v</code>
-      (the number of steps) and <code>k = (f−i)/d</code> (the index step along that line). Instead
-      of distances, groups carry a condition on h and v: the knight is <code>h*v==2</code>, the king
-      <code>d&lt;2</code>, the bishop <code>h==v</code>, the rook <code>h*v==0</code>; you can write
-      your own conditions too. The squares hatched in distance mode disappear here: because h and v
-      are tested separately, the 3-4-5 triangle no longer passes for a rook move, nor (1,7) for a
-      bishop move.</p>
+      <p>The <b>h / v</b> mode reads the board by splitting it into a horizontal and a vertical
+      axis. I used the engine this way for a long time, and the string builds, which hold the board
+      as letters, still do. It is cheap in bytes, and most of those bytes go into writing the
+      definitions rather than the tests: <code>Math.abs</code>, <code>i%8</code> and
+      <code>i&gt;&gt;3</code> turn up again and again, to get the file and the rank and from them
+      the relative horizontal and vertical coordinates. Each square shows two numbers: <code>h</code>, the
+      horizontal difference, and <code>v</code>, the vertical difference, both absolute. Squares on
+      a line also show <code>d = h|v</code>, the number of steps. On a line either one of the two is
+      zero or both are equal, so a single OR is enough.</p>
+      <p>Once the definitions are in place, the tests shrink to a few bytes. Instead of distances,
+      groups carry a condition on h and v: the knight is <code>h*v==2</code>, the king
+      <code>d&lt;2</code>, the bishop <code>h==v</code>, the rook <code>h*v==0</code>. The queen gets
+      no definition of its own; any square that passes the rook's test or the bishop's is a queen
+      move. You can write your own conditions too. By geometric necessity, none of these tests lands
+      on an invalid square, whatever the size of the board. h and v are real file and rank
+      differences, so nothing wraps around the edge. The index delta is another matter, and it is
+      the subject of the next simulation. That is also why the 3-4-5 triangle and (1,7), hatched in
+      distance mode, do not light up here.</p>
       <p><a href="/extra/Board_Delta_Coordinate.html" target="_blank" rel="noopener">fidelite.art/extra/Board_Delta_Coordinate.html</a></p>
     </div>
 
@@ -18663,13 +18694,13 @@ z = ($=[I=t], N=2e4, H(99)) ? F+'M' : 'WB'[t/8]+F</pre></div>
     <h2 lang="tr">Her platformda olması gerekenler</h2>
     <h2 lang="en">What every platform should have</h2>
     <div class="prose" lang="tr">
-      <p>Bu bölüm FideLite'tan bağımsız. İlk ikisi bugün kullanılabilen programlar, son ikisi büyük
-      platformlarda henüz görmediğim özellikler. Dördünün ortak noktası, ayrı bir araç ya da
+      <p>Bu bölüm FideLite'tan bağımsız. İlk ikisi bugün kullanılabilen programlar, son üçü büyük
+      platformlarda henüz görmediğim özellikler. Beşinin ortak noktası, ayrı bir araç ya da
       eklenti olarak değil, satranç sitelerinin kendi içinde olması gerektiği.</p>
     </div>
     <div class="prose" lang="en">
       <p>This section has nothing to do with FideLite. The first two are programs you can use
-      today; the last two are features I have not yet seen on the large platforms. What the four
+      today; the last three are features I have not yet seen on the large platforms. What the five
       share is that each belongs inside the chess sites themselves, not in a separate tool or
       browser extension.</p>
     </div>
@@ -18798,6 +18829,49 @@ z = ($=[I=t], N=2e4, H(99)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       it useful, and I think many people would choose it.</p>
     </div>
     <figure class="shot shot-mid"><img src="images/board-rotate-90.webp" width="670" height="667" loading="lazy" alt="90° döndürülmüş bir tahta: beyaz solda, siyah sağda; taşlar ve koordinatlar dik duruyor" data-en-alt="A board turned 90°: White on the left, Black on the right; pieces and coordinates stay upright"></figure>
+
+    <h3 id="markers" lang="tr">Taşa göre hamle işaretleri</h3>
+    <h3 lang="en" data-id="markers">Move markers shaped by the piece</h3>
+    <div class="prose" lang="tr">
+      <p>Bir taş seçilince platformlar gidebileceği kareleri gösteriyor, ama her taş için aynı
+      biçimde: boş karelere bir nokta, rakip taşın karesine ayrı bir işaret. Nokta taşın nereye
+      gidebildiğini söylüyor, oraya nasıl gittiğini söylemiyor. Oysa bu fark kuralın kendisi: filin
+      ve kalenin yolundaki her kare kapatılabilir, atınki kapatılamaz, çünkü at sıçrıyor. İşaret
+      taşın karakterini taşırsa fark tahtada görünür. Aşağıdaki üç tahta bunun bir örneği. Renkler
+      Chess.com'un; işaretler de platformun kendi noktası gibi yarı saydam siyah, değişen yalnızca
+      biçim.</p>
+      <p>Fil çaprazlarına mızrak uzatıyor; kale düz yönlerde daha kalın, ucu sivri değil yamuk bir ok
+      sürüyor. İkisinde de sapın geçtiği karelerin ortasında küçük bir yumru var, yani yol üstündeki
+      kareler de hedef olarak okunuyor. Yol kendi taşına çarpınca ok, tahta kenarında olduğu gibi
+      önündeki son boş karede bitiyor; rakip taşa varınca kısalıyor ve ucu yenen kareyi saran
+      çembere değip duruyor. At, sıçrayabildiği her karede bir nal izi bırakıyor; izin burnu
+      sıçramanın yönüne bakıyor. Vezire ayrı bir işaret gerekmiyor, kalenin ve filin oklarını
+      birlikte taşıyor. Döndürme gibi bu da bir kural değişikliği değil, bir bakış seçeneği; motoru
+      da kuralı da değiştirmiyor.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>When a piece is selected, the platforms show the squares it can go to, but the same way for
+      every piece: a dot on an empty square, another mark on an opponent's piece. A dot says where a
+      piece can go, not how it gets there. Yet that difference is the rule itself: every square on a
+      bishop's or a rook's path can be blocked, a knight's cannot, because the knight jumps. If the
+      marker carries the piece's character, the difference shows on the board. The three boards
+      below are one example. The colours are Chess.com's, and the markers are a translucent black
+      like the platform's own dot; only the shape changes.</p>
+      <p>The bishop reaches along its diagonals with a spear; the rook drives a thicker arrow along
+      the lines, its head not pointed but a trapezoid. On both, every square the shaft passes through
+      has a small bump at its centre, so the squares along the way read as targets too. When the path
+      runs into one of its own pieces, the arrow ends on the last empty square, just as it does
+      at the edge of the board; when it reaches an opponent's piece it stops short, its tip touching
+      the ring around the captured square. The knight leaves a hoof print on every square it can jump
+      to, the toe pointing the way it jumps. The queen needs no marker of its own; it carries the
+      rook's arrows and the bishop's together. Like rotation, this is not a change of rules but a way
+      of looking; it changes neither the engine nor the rules.</p>
+    </div>
+    <figure class="shot marks"><svg class="mk-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs><path id="mk-dk" d="M0 196h28v28h-28zM56 196h28v28h-28zM112 196h28v28h-28zM168 196h28v28h-28zM28 168h28v28h-28zM84 168h28v28h-28zM140 168h28v28h-28zM196 168h28v28h-28zM0 140h28v28h-28zM56 140h28v28h-28zM112 140h28v28h-28zM168 140h28v28h-28zM28 112h28v28h-28zM84 112h28v28h-28zM140 112h28v28h-28zM196 112h28v28h-28zM0 84h28v28h-28zM56 84h28v28h-28zM112 84h28v28h-28zM168 84h28v28h-28zM28 56h28v28h-28zM84 56h28v28h-28zM140 56h28v28h-28zM196 56h28v28h-28zM0 28h28v28h-28zM56 28h28v28h-28zM112 28h28v28h-28zM168 28h28v28h-28zM28 0h28v28h-28zM84 0h28v28h-28zM140 0h28v28h-28zM196 0h28v28h-28z"/><g id="mk-co" font-family="system-ui,sans-serif" font-size="7" font-weight="600"><text x="2" y="205.5" fill="#EBECD0">1</text><text x="2" y="177.5" fill="#739552">2</text><text x="2" y="149.5" fill="#EBECD0">3</text><text x="2" y="121.5" fill="#739552">4</text><text x="2" y="93.5" fill="#EBECD0">5</text><text x="2" y="65.5" fill="#739552">6</text><text x="2" y="37.5" fill="#EBECD0">7</text><text x="2" y="9.5" fill="#739552">8</text><text x="26" y="222" text-anchor="end" fill="#EBECD0">a</text><text x="54" y="222" text-anchor="end" fill="#739552">b</text><text x="82" y="222" text-anchor="end" fill="#EBECD0">c</text><text x="110" y="222" text-anchor="end" fill="#739552">d</text><text x="138" y="222" text-anchor="end" fill="#EBECD0">e</text><text x="166" y="222" text-anchor="end" fill="#739552">f</text><text x="194" y="222" text-anchor="end" fill="#EBECD0">g</text><text x="222" y="222" text-anchor="end" fill="#739552">h</text></g><path id="mk-spear" d="M0 0C-5-1.6-9.5-4-13-4C-15.4-4-17-1.8-17.6 0C-17 1.8-15.4 4-13 4C-9.5 4-5 1.6 0 0ZM-18.4-1.6h-2v3.2h2Z"/><path id="mk-trap" d="M0-3.6V3.6L-9.5 8.6V-8.6Z"/><path id="mk-shoe" fill-rule="evenodd" d="M-7 6.2V0A7 7 0 0 1 7 0V6.2H3.4V0A3.4 3.4 0 0 0 -3.4 0V6.2ZM-6 4.2a.8.8 0 1 0 1.6 0a.8.8 0 1 0-1.6 0M-6 0.6a.8.8 0 1 0 1.6 0a.8.8 0 1 0-1.6 0M-4.7 -3.3a.8.8 0 1 0 1.6 0a.8.8 0 1 0-1.6 0M4.4 4.2a.8.8 0 1 0 1.6 0a.8.8 0 1 0-1.6 0M4.4 0.6a.8.8 0 1 0 1.6 0a.8.8 0 1 0-1.6 0M3.1 -3.3a.8.8 0 1 0 1.6 0a.8.8 0 1 0-1.6 0"/></defs></svg>
+    <div><svg viewBox="0 0 224 224" role="img" aria-label="d4'teki fil: çaprazlarında mızrak, f6'daki siyah atı yiyor, b2'deki kendi piyonu yolunu kesiyor" data-en-aria-label="Bishop on d4: spears along the diagonals, capturing the black knight on f6, blocked by its own pawn on b2"><rect width="224" height="224" fill="#EBECD0"/><use href="#mk-dk" fill="#739552"/><use href="#mk-co"/><g opacity="0.32"><path d="M106.32 117.68L132.28 91.72" stroke="#000" stroke-width="2"/><circle cx="126" cy="98" r="2.8"/><use href="#mk-spear" transform="translate(145.01 78.99) rotate(-45)"/><circle cx="154" cy="70" r="10.92" fill="none" stroke="#000" stroke-width="2.38"/><path d="M106.32 134.32L175.21 203.21" stroke="#000" stroke-width="2"/><circle cx="126" cy="154" r="2.8"/><circle cx="154" cy="182" r="2.8"/><use href="#mk-spear" transform="translate(187.94 215.94) rotate(45)"/><path d="M89.68 134.32L76.79 147.21" stroke="#000" stroke-width="2"/><use href="#mk-spear" transform="translate(64.06 159.94) rotate(135)"/><path d="M89.68 117.68L20.79 48.79" stroke="#000" stroke-width="2"/><circle cx="70" cy="98" r="2.8"/><circle cx="42" cy="70" r="2.8"/><use href="#mk-spear" transform="translate(8.06 36.06) rotate(-135)"/></g><text x="98" y="127" class="mk-p mk-w">♝&#xFE0E;</text><text x="154" y="71" class="mk-p mk-b">♞&#xFE0E;</text><text x="42" y="183" class="mk-p mk-w">♟&#xFE0E;</text></svg><p><span lang="tr">Fil — mızrak</span><span lang="en">Bishop — spear</span></p></div>
+    <div><svg viewBox="0 0 224 224" role="img" aria-label="d4'teki kale: düz yönlerde yamuk uçlu kalın ok, d7'deki siyah fili yiyor, f4'teki kendi atı yolunu kesiyor" data-en-aria-label="Rook on d4: thick trapezoid-tipped arrows along the lines, capturing the black bishop on d7, blocked by its own knight on f4"><rect width="224" height="224" fill="#EBECD0"/><use href="#mk-dk" fill="#739552"/><use href="#mk-co"/><g opacity="0.32"><path d="M109.76 126L125.9 126" stroke="#000" stroke-width="5"/><use href="#mk-trap" transform="translate(134.4 126) rotate(0)"/><path d="M86.24 126L14.1 126" stroke="#000" stroke-width="5"/><circle cx="70" cy="126" r="4.2"/><circle cx="42" cy="126" r="4.2"/><use href="#mk-trap" transform="translate(5.6 126) rotate(180)"/><path d="M98 114.24L98 63.21" stroke="#000" stroke-width="5"/><circle cx="98" cy="98" r="4.2"/><circle cx="98" cy="70" r="4.2"/><use href="#mk-trap" transform="translate(98 54.71) rotate(-90)"/><circle cx="98" cy="42" r="10.92" fill="none" stroke="#000" stroke-width="2.38"/><path d="M98 137.76L98 209.9" stroke="#000" stroke-width="5"/><circle cx="98" cy="154" r="4.2"/><circle cx="98" cy="182" r="4.2"/><use href="#mk-trap" transform="translate(98 218.4) rotate(90)"/></g><text x="98" y="127" class="mk-p mk-w">♜&#xFE0E;</text><text x="98" y="43" class="mk-p mk-b">♝&#xFE0E;</text><text x="154" y="127" class="mk-p mk-w">♞&#xFE0E;</text></svg><p><span lang="tr">Kale — yamuk uçlu ok</span><span lang="en">Rook — trapezoid-tipped arrow</span></p></div>
+    <div><svg viewBox="0 0 224 224" role="img" aria-label="d4'teki at: sıçrayabildiği karelerde nal izi, e6'daki siyah piyonu yiyor, b3'teki kendi filinin karesine gidemiyor" data-en-aria-label="Knight on d4: a hoof print on each square it can jump to, capturing the black pawn on e6; its own bishop holds b3"><rect width="224" height="224" fill="#EBECD0"/><use href="#mk-dk" fill="#739552"/><use href="#mk-co"/><g opacity="0.48"><circle cx="126" cy="70" r="10.92" fill="none" stroke="#000" stroke-width="2.38"/><use href="#mk-shoe" transform="translate(154 98) rotate(63.43) scale(.9)"/><use href="#mk-shoe" transform="translate(154 154) rotate(116.57) scale(.9)"/><use href="#mk-shoe" transform="translate(126 182) rotate(153.43) scale(.9)"/><use href="#mk-shoe" transform="translate(70 182) rotate(-153.43) scale(.9)"/><use href="#mk-shoe" transform="translate(42 98) rotate(-63.43) scale(.9)"/><use href="#mk-shoe" transform="translate(70 70) rotate(-26.57) scale(.9)"/></g><text x="98" y="127" class="mk-p mk-w">♞&#xFE0E;</text><text x="126" y="71" class="mk-p mk-b">♟&#xFE0E;</text><text x="42" y="155" class="mk-p mk-w">♝&#xFE0E;</text></svg><p><span lang="tr">At — toynak izi</span><span lang="en">Knight — hoof print</span></p></div>
+    </figure>
 
     <h3 id="skins" lang="tr">Kullanıcıya özel tema</h3>
     <h3 lang="en" data-id="skins">A theme of your own</h3>
