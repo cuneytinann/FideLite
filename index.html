@@ -562,16 +562,13 @@ body::before {
   .hero-grid { grid-template-columns:minmax(0,1fr); gap:2.5rem }
   .hero-side { width:min(30rem,100%) }
 }
-/* Dar ekranda tahta oluktan tasar: 8 sutuna 3rem daha genislik. */
-@media (max-width:34rem) {
-  .hero-side { width:calc(100% + 3rem); margin-inline:-1.5rem }
-  .hero-side .hexboard::before { border-left-width:0 }
-  .hexcap { padding-inline:1.5rem }
-}
+/* Dar ekranda da tahta olugun icinde kalir: eskiden 3rem tasip kenardan kenara
+   uzaniyordu, hayalet sutun sag kenarda kesiliyordu. Kare boyu cqw'ye bagli
+   oldugu icin yazilar tahtayla birlikte kuculuyor. */
 
 /* ---- signature: the board as a 64-character string ---- */
 .strip { font-family:var(--mono); font-size:clamp(.62rem,1.55vw,.95rem);
-  letter-spacing:.06em; word-break:break-all; color:var(--ink-2);
+  letter-spacing:.06em; color:var(--ink-2);
   border-top:1px solid var(--rule-2); border-bottom:1px solid var(--rule-2);
   padding:.6rem 0; margin:2rem 0 0 }
 /* Olcu viewport'a degil tahtanin kendi genisligine bagli: bir kare 12.5cqw.
@@ -693,7 +690,7 @@ a.seal:hover { background:var(--live); color:var(--on-live); transform:translate
 .chips li { font-family:var(--mono); font-size:.7rem; letter-spacing:.03em;
   padding:.32rem .6rem; border:1px solid var(--acc-edge); border-radius:999px;
   background:var(--acc-wash); color:var(--ink-2) }
-/* ikinci baglanti rengi: bayrak dususu kirmizi, kilitli pozisyonlar ayni koyulukta mavi */
+/* ikinci baglanti rengi: mat imkansizligi kirmizi, kilitli pozisyonlar ayni koyulukta mavi */
 .chips a.lk2 { color:var(--link-2) }
 
 /* tas kodu: renk = tur, kalinlik = taraf */
@@ -706,6 +703,16 @@ a.seal:hover { background:var(--live); color:var(--on-live); transform:translate
 /* Dizide her yatayin arkasindaki 8 delik: tahtadaki hayalet sutunla ayni isaret. */
 .strip .gap { display:inline-block; margin:0 .35em; color:var(--ink-3); opacity:.6; letter-spacing:0 }
 .strip .gap sub { font-size:.6em }
+/* Serit yalnizca yatay sinirlarinda sarar: tek satira sigmazsa 4+4, dort yatay da
+   sigmazsa 2+2+2+2. Yarilar (.sh) ve ikililer (.sp) satir ici kutu; kutu sigmayinca
+   icindekiler alt alta iner, yatay hicbir genislikte ortadan bolunmez. Son yatayin
+   arkasindaki delik gorunmez (.gz): iki yari ayni genislikte kalsin, biri sarip
+   oteki sarmadigi bir ara genislik dogmasin. */
+.strip .sh, .strip .sp { display:inline-block }
+.strip .sp { white-space:nowrap }
+.strip .gz { visibility:hidden }
+/* Telefonda serit ikiser yatay satirlara iner; yazi da okunur boya buyur. */
+@media (max-width:34rem) { .strip { font-size:clamp(.75rem,3.6vw,1rem); line-height:1.7 } }
 
 .pclegend { display:flex; flex-wrap:wrap; gap:.3rem .95rem; margin-top:.7rem }
 .pclegend span { display:inline-flex; align-items:center; gap:.35rem; white-space:nowrap }
@@ -726,10 +733,13 @@ a.seal:hover { background:var(--live); color:var(--on-live); transform:translate
 /* ---- engine: marka kutusu ---- */
 .brandbox { display:grid; grid-template-columns:200px minmax(0,1fr); gap:1.75rem;
   align-items:start; margin:1.5rem 0 0 }
-@media (max-width:44rem) { .brandbox { grid-template-columns:minmax(0,1fr); gap:1.25rem }
-  .brandbox img { width:min(200px,60%) } }
 .brandbox img { width:100%; height:auto; display:block; border-radius:6px;
   border:1px solid var(--rule-2) }
+/* Tek sutunda logo ekranla esneyerek kuculur. Bu blok taban kuralin ardinda
+   durmali: oncesinde kalinca ayni ozgulluktaki width:100% onu eziyor, logo
+   telefonda tam genislige yayiliyordu. */
+@media (max-width:44rem) { .brandbox { grid-template-columns:minmax(0,1fr); gap:1.25rem }
+  .brandbox img { width:clamp(6.5rem,34vw,200px) } }
 .brandbox .prose { margin:0 }
 .lgnd { list-style:none; margin:1.1rem 0 0; padding:0; display:grid; gap:.3rem;
   font-family:var(--mono); font-size:.72rem; line-height:1.5; color:var(--ink-2) }
@@ -1323,18 +1333,18 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
         <li>Tüm taş hareketleri</li><li>Geçerlilik</li><li>Rok</li><li>Geçerken alma</li><li>Terfi</li><li>Canlı saat</li>
         <li>Üçlü / beşli tekrar</li><li>50 / 75 hamle</li><li>Yetersiz materyal</li>
         <li>Beraberlik teklifi</li><li>Terk</li>
-        <li><a href="#flag">Bayrak düşmesi 6.9 &amp; 5.1.2</a></li>
-        <li><a class="lk2" href="#dead">Kilitli pozisyonlar 5.2.2 (%93 kapsama)</a></li>
+        <li><a href="#flag">Mat imkânsızlığı 6.9 &amp; 5.1.2</a></li>
+        <li><a class="lk2" href="#dead">Kilitli pozisyonlar 5.2.2</a></li>
       </ul>
       <ul class="chips" lang="en">
         <li>All piece moves</li><li>Legality</li><li>Castling</li><li>En passant</li><li>Promotion</li><li>Live clock</li>
         <li>Threefold &amp; fivefold repetition</li><li>50- &amp; 75-move rules</li><li>Insufficient material</li>
         <li>Draw offer</li><li>Resignation</li>
-        <li><a href="#flag">Flag fall 6.9 &amp; 5.1.2</a></li>
-        <li><a class="lk2" href="#dead">Blocked positions 5.2.2 (93% coverage)</a></li>
+        <li><a href="#flag">Impossibility of mate 6.9 &amp; 5.1.2</a></li>
+        <li><a class="lk2" href="#dead">Blocked positions 5.2.2</a></li>
       </ul>
 
-      <p class="strip"><span class="rk"><span class="pc-r w" title="beyaz kale" data-en-title="white rook">d</span><span class="pc-n w" title="beyaz at" data-en-title="white knight">c</span><span class="pc-b w" title="beyaz fil" data-en-title="white bishop">e</span><span class="pc-q w" title="beyaz vezir" data-en-title="white queen">b</span><span class="pc-k w" title="beyaz şah" data-en-title="white king">a</span><span class="pc-b w" title="beyaz fil" data-en-title="white bishop">e</span><span class="pc-n w" title="beyaz at" data-en-title="white knight">c</span><span class="pc-r w" title="beyaz kale" data-en-title="white rook">d</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-p w" title="beyaz piyon ×8" data-en-title="white pawns ×8">99999999</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-p" title="siyah piyon ×8" data-en-title="black pawns ×8">11111111</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-r" title="siyah kale" data-en-title="black rook">5</span><span class="pc-n" title="siyah at" data-en-title="black knight">4</span><span class="pc-b" title="siyah fil" data-en-title="black bishop">6</span><span class="pc-q" title="siyah vezir" data-en-title="black queen">3</span><span class="pc-k" title="siyah şah" data-en-title="black king">2</span><span class="pc-b" title="siyah fil" data-en-title="black bishop">6</span><span class="pc-n" title="siyah at" data-en-title="black knight">4</span><span class="pc-r" title="siyah kale" data-en-title="black rook">5</span></span></p>
+      <p class="strip"><span class="sh"><span class="sp"><span class="rk"><span class="pc-r w" title="beyaz kale" data-en-title="white rook">d</span><span class="pc-n w" title="beyaz at" data-en-title="white knight">c</span><span class="pc-b w" title="beyaz fil" data-en-title="white bishop">e</span><span class="pc-q w" title="beyaz vezir" data-en-title="white queen">b</span><span class="pc-k w" title="beyaz şah" data-en-title="white king">a</span><span class="pc-b w" title="beyaz fil" data-en-title="white bishop">e</span><span class="pc-n w" title="beyaz at" data-en-title="white knight">c</span><span class="pc-r w" title="beyaz kale" data-en-title="white rook">d</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-p w" title="beyaz piyon ×8" data-en-title="white pawns ×8">99999999</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span></span><span class="sp"><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span></span></span><span class="sh"><span class="sp"><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span></span><span class="sp"><span class="rk"><span class="pc-p" title="siyah piyon ×8" data-en-title="black pawns ×8">11111111</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-r" title="siyah kale" data-en-title="black rook">5</span><span class="pc-n" title="siyah at" data-en-title="black knight">4</span><span class="pc-b" title="siyah fil" data-en-title="black bishop">6</span><span class="pc-q" title="siyah vezir" data-en-title="black queen">3</span><span class="pc-k" title="siyah şah" data-en-title="black king">2</span><span class="pc-b" title="siyah fil" data-en-title="black bishop">6</span><span class="pc-n" title="siyah at" data-en-title="black knight">4</span><span class="pc-r" title="siyah kale" data-en-title="black rook">5</span></span><span class="gap gz" aria-hidden="true">∅<sub>8</sub></span></span></span></p>
       <p class="hexcap" lang="tr">Başlangıç pozisyonunun tamamı, motorun dizisinde: 64 onaltılık basamak <span class="gloss">(0–9 ve a–f ile yazılan, 16 tabanlı sayı)</span>, a1'den h8'e sırayla; yatayların arasında 8'er boş göz. Her basamak bir kare; şeritteki her renk bir taş türünü gösteriyor; beyaz taşın kodu siyahınkinin 8 fazlası. Motorun
       <a href="#board">tahta temsili</a> bu.</p>
       <p class="hexcap" lang="en">The entire starting position as the engine's array holds it: 64 hexadecimal digits <span class="gloss">(base 16, written with 0–9 and a–f)</span>, a1 through h8 in order, with an 8-cell gap between ranks. Each digit is one square, and each colour in the strip marks one piece type; a white piece's code is the black one's plus 8. That is the engine's
@@ -1613,7 +1623,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <h2 lang="tr">Sürümü seç, oyna</h2>
     <h2 lang="en">Pick a build and play</h2>
     <div class="prose" lang="tr">
-      <p><b>Tek oyun değil, bir sergi.</b> Depoda 40 oynanabilir dosya var ve çeşitlilik
+      <p><b>Tek oyun değil, bir sergi.</b> Depoda doğrudan tarayıcıda oynanabilen 36 dosya var ve çeşitlilik
       üç yönde açılıyor: kurallarda yalnızca geçerliliği bilen sürümden tam FIDE hakemine,
       arayüzde tıklanabilir tahtadan UCI notasyonuna ve hiç tahta çizmeyen körleme sürümlere, özel
       sürümlerde de botlara, daha özenli arayüzlere ve Lichess ile Chess.com kurallarını uygulayan eşdeğerlere kadar. Bu çeşitlilik Theseus'un Gemisi'nden esinlendi: tam satrancın nerede
@@ -1634,7 +1644,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <code>node</code> ile çalıştırabilirsin.</p>
     </div>
     <div class="prose" lang="en">
-      <p><b>Not one game but an exhibition.</b> The repository holds 40 playable files, and the
+      <p><b>Not one game but an exhibition.</b> The repository holds 36 files you can play straight in the browser, and the
       variety runs along three axes: in the rules, from a legality-only build to a full FIDE
       arbiter; in the interface, from a clickable board to UCI notation and blindfold builds that
       draw no board at all; and among the special builds, all the way to bots, more polished
@@ -2010,7 +2020,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       de ölçüsü var: Miguel Ambrona'nın
       <a href="https://chasolver.org/" target="_blank" rel="noopener">CHA-Solver</a>'ı Lichess
       açık veritabanında haksız sonuçlanmış <b>201.060</b> oyun saydı; bu motor onların
-      <b>%98'inden fazlasını</b> doğru karara bağlıyor. Chess.com'un
+      <b>%99'undan fazlasını</b> doğru karara bağlıyor. Chess.com'un
       <a href="#federations">FIDE–USCF karması</a> gibi bilinçli tercihler de var; buradaki tercih
       başka: tek kitap, tek ölçü.</p>
     </div>
@@ -2048,7 +2058,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <a href="#dead">blocked positions</a> — is rare. And this has been measured: Miguel
       Ambrona's <a href="https://chasolver.org/" target="_blank" rel="noopener">CHA-Solver</a>
       found <b>201,060</b> wrongly decided games in the Lichess open database, and this
-      engine rules <b>more than 98%</b> of them correctly. Some platforms make deliberate choices,
+      engine rules <b>more than 99%</b> of them correctly. Some platforms make deliberate choices,
       such as Chess.com's <a href="#federations">blend of FIDE and USCF</a>; the choice here is a
       different one: one rulebook, one standard.</p>
     </div>
