@@ -2,12 +2,12 @@
 
 *[Türkçe ↓](#türkçe)*
 
-A full-FIDE chess arbiter in **1,543 bytes** of plain JavaScript — no dependencies, no install,
+A full-FIDE chess arbiter in **1,860 bytes** of plain JavaScript — no dependencies, no install,
 no server. Packed into a playable game with a clickable board, a clock and indicators, it comes
-to **2.4 KB**.
+to **2.7 KB**.
 
 The exhibit build, for playing or sharing:
-[`builds/L3_packed.html`](builds/L3_packed.html) — a single 2.4 KB HTML file with
+[`builds/FideLite.html`](builds/FideLite.html) — a single 2.7 KB HTML file with
 every rule, a clickable board and a live clock, running on any device with a browser.
 
 **→ [www.fidelite.art](https://www.fidelite.art)** — playable builds, the rulebook, a line-by-line
@@ -51,9 +51,9 @@ the book asks what that board is forced to become.**
 
 | File | Bytes | What it is |
 | --- | --- | --- |
-| `builds/engine.js` | 1,543 | The rule engine. One line, no front end. |
-| `builds/engine_4x.js` | 1,582 | The same rules, +39 bytes, 1.4 to 75 times the speed. |
-| `builds/engine_string.js` | 1,739 | The same rules on a board of FEN letters instead of numbers. |
+| `builds/engine.js` | 1,860 | The rule engine. One line, no front end. |
+| `builds/engine_4x.js` | 1,978 | The same rules, +118 bytes, 3.5 times the speed in move generation, 100 times in adjudication. |
+| `builds/engine_string.js` | 2,033 | The same rules on a board of FEN letters instead of numbers. |
 
 Every file under `builds/` runs on its own — download an HTML file and double-click
 it. The `.cjs` builds run in a terminal with `node`.
@@ -61,7 +61,7 @@ it. The `.cjs` builds run in a terminal with `node`.
 **Eleven front ends carry the full arbiter.** `L3` and `L3_light` are played by clicking;
 `numerical`, `prompt`, `prompt_blindfold`, `input`, `input_blindfold`, `prompt_string_a1`,
 `prompt_string` and two terminal builds take moves as text. The rules are identical in all
-eleven. The packed form, [`L3_packed`](builds/L3_packed.html), is `L3` itself; its unpacker
+eleven. The packed form, [`L3_packed`](builds/FideLite.html), is `L3` itself; its unpacker
 relies on `with` and `eval`. `L1` and `L2` vary the *rules* instead of the interface; each has its own set of
 front ends, and both sit outside the claim. `builds/special/` holds what sits off the ladder: the
 builds of six sibling projects, each with a repository of its own ([lichess-equivalent](https://github.com/cuneytinann/lichess-equivalent), [chesscom-equivalent](https://github.com/cuneytinann/chesscom-equivalent),
@@ -103,9 +103,9 @@ The rule claims are checked with perft against published reference values: the C
 Kervinck's tricky list, the 6,838-position Vajolet corpus, and a move-list comparison against
 Stockfish — about **1.5 billion nodes, zero deviations**.
 
-You do not have to take my word for it. [`test.zip`](https://www.fidelite.art/test.zip) (242 KB)
-contains the suite, copies of the four engines, the Vajolet position list and eight clickable
-`.bat` files. Five of the eight runs need only Node; two need Stockfish, which is not in the
+You do not have to take my word for it. [`test.zip`](https://www.fidelite.art/test.zip) (249 KB)
+contains the suite, copies of the four engines, the Vajolet position list, eight clickable test
+`.bat` files and the speed comparison (`bench.js` with `speed-comparison.bat`). Five of the eight runs need only Node; two need Stockfish, which is not in the
 package. On any other platform, `node test.js <command>`.
 
 ## Licence
@@ -117,12 +117,12 @@ ships something smaller. Until then it stands.
 
 # Türkçe
 
-Tam FIDE kurallı satranç hakem motoru, **1.543 bayt** saf JavaScript — bağımlılık yok, kurulum
+Tam FIDE kurallı satranç hakem motoru, **1.860 bayt** saf JavaScript — bağımlılık yok, kurulum
 yok, sunucu yok. Tıklanabilir tahtası, saati ve göstergeleriyle paketlenip oynanabilir bir oyuna
-dönüştüğünde **2,4 KB**.
+dönüştüğünde **2,7 KB**.
 
 Oynamak ya da paylaşmak için sergi sürümü:
-[`builds/L3_packed.html`](builds/L3_packed.html) — 2,4 KB'lık tek bir HTML dosyası;
+[`builds/FideLite.html`](builds/FideLite.html) — 2,7 KB'lık tek bir HTML dosyası;
 bütün kurallar, tıklanan tahta ve canlı saatle tarayıcısı olan her cihazda çalışır.
 
 **→ [www.fidelite.art/tr](https://www.fidelite.art/tr)** — oynanabilir sürümler, kural kitabı,
@@ -164,9 +164,9 @@ zorunlu olarak neye dönüşeceğini soruyor.**
 
 | Dosya | Bayt | Ne |
 | --- | --- | --- |
-| `builds/engine.js` | 1.543 | Kural motoru. Tek satır, önyüz yok. |
-| `builds/engine_4x.js` | 1.582 | Aynı kurallar, +39 bayt, 1,4 ilâ 75 kat hız. |
-| `builds/engine_string.js` | 1.739 | Aynı kurallar, tahta sayı yerine FEN harfleriyle. |
+| `builds/engine.js` | 1.860 | Kural motoru. Tek satır, önyüz yok. |
+| `builds/engine_4x.js` | 1.978 | Aynı kurallar, +118 bayt, hamle üretiminde 3,5 kat, hükümde 100 kat hız. |
+| `builds/engine_string.js` | 2.033 | Aynı kurallar, tahta sayı yerine FEN harfleriyle. |
 
 `builds/` altındaki her dosya tek başına çalışır — HTML dosyasını indirip çift
 tıklamak yeterli. `.cjs` sürümleri terminalde `node` ile koşar.
@@ -174,7 +174,7 @@ tıklamak yeterli. `.cjs` sürümleri terminalde `node` ile koşar.
 **On bir önyüz tam hakemi taşıyor.** `L3` ve `L3_light` tıklanarak oynanır; `numerical`,
 `prompt`, `prompt_blindfold`, `input`, `input_blindfold`, `prompt_string_a1`, `prompt_string` ve
 iki terminal sürümü hamleyi metin olarak alır. Kurallar on birinde de aynıdır. Paketli hâl,
-[`L3_packed`](builds/L3_packed.html), `L3`'ün kendisi; açıcısı `with` ve `eval`'e dayanıyor. `L1` ve `L2` arayüzü değil *kuralları*
+[`L3_packed`](builds/FideLite.html), `L3`'ün kendisi; açıcısı `with` ve `eval`'e dayanıyor. `L1` ve `L2` arayüzü değil *kuralları*
 değiştirir; her birinin kendi önyüzleri var, ikisi de iddianın dışındadır. `builds/special/`
 merdivenin dışında kalanları tutar: her birinin kendi deposu olan altı kardeş projenin sürümleri
 ([lichess-equivalent](https://github.com/cuneytinann/lichess-equivalent), [chesscom-equivalent](https://github.com/cuneytinann/chesscom-equivalent), [ChessMiniature](https://github.com/cuneytinann/ChessMiniature),
@@ -216,8 +216,9 @@ Kural iddiaları perft ile, yayımlanmış referans değerlere karşı sınandı
 Kervinck'in zor listesi, 6.838 pozisyonluk Vajolet külliyatı ve Stockfish'e karşı hamle listesi
 karşılaştırması — yaklaşık **1,5 milyar düğüm, sıfır sapma**.
 
-Bana güvenmeniz gerekmiyor. [`test.zip`](https://www.fidelite.art/test.zip) (242 KB) içinde süit,
-dört motorun kopyası, Vajolet pozisyon listesi ve sekiz çift tıklanabilir `.bat` var. Sekiz koşunun
+Bana güvenmeniz gerekmiyor. [`test.zip`](https://www.fidelite.art/test.zip) (249 KB) içinde süit,
+dört motorun kopyası, Vajolet pozisyon listesi, sekiz çift tıklanabilir test `.bat`'i ve hız
+karşılaştırması (`bench.js` ile `speed-comparison.bat`) var. Sekiz koşunun
 beşi yalnızca Node istiyor; ikisi Stockfish gerektiriyor, o da pakette değil. Başka platformda
 `node test.js <komut>`.
 
