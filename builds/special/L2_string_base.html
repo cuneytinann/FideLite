@@ -12,17 +12,17 @@ h=a(i%8-f%8),v=a(y-(f>>3)),
 d=h|v,s=(f-i)/d,
 x=m|b[f]>_,S=Q=>(i+=s)==f||b[i]==_&&S())=>
 P=='N'?h*v==2
-:P=='K'?m|v|h^2?d<2:c&C(r=f+=s>0||-2)&&!T()&&!T(i+s)&&S()
-:P=='P'?f>i^b[i]<U&&(
+:P=='K'?m|v|h^2?d<2:c&C(r=f+=s>0||-2)&&T()+T(i+s)<S()
+:P=='P'?f>i^b[i]<U?
 h*v==1?x|f==e
-:h|x?0:v<2+(y%6<2)&&S())
+:h|x?0:v<2+(y%6<2)&S():0
 :(h*v?h==v&P<'R':P>'B')&S(),
 T=(x=b.indexOf('kK'[t]))=>b.some((p,i)=>p>_&p<U!=t&&G(i,x,1)),
 
 M=(i,f,u,p=b[i],P=j(p)=='P',d=a(i-f),Q=i+f>>1)=>(
 (b=[...b])[f]=P&f%56<8?t?j(u):u:p,
 b[i]=b[P&f==e?f^8:i]=_,
-j(p)+d=='K2'&&M(r,Q),
+j(p)+d=='K2'?M(r,Q):
 P&d>9?Q:_),
 L=(i,x,q=b[x])=>q==_|t^q<U&&G(i,x)&&(
 q=b,M(i,x),x=T(),b=q,!x),

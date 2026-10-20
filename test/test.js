@@ -50,7 +50,7 @@ const { spawnSync } = require('child_process');
 
 // Engine selection. Four engines can run this suite:
 //
-//   1  engine_4x.js                speed build, 0x88 board (+39 B, ~2-6x faster)
+//   1  engine_4x.js                speed build, 0x88 board (+80 B, ~2-6x faster)
 //   2  engine.js                   byte-record build, 0x88 board, full FIDE
 //   3  engine_onlyMoveGenerator.js move generation only: engine.js up to M(), counters dropped
 //   4  engine_string.js            string board: b[] holds FEN letters, '-' is empty
@@ -202,7 +202,7 @@ const lastRank = i => D.rank(i) === 0 || D.rank(i) === 7;
 // top-level statements and each one is evaluated on its own, in order; a
 // statement that needs a DOM, prompt(), stdin or a timer simply throws and is
 // skipped. The first loop (a prompt or stdin driver) ends the walk, so no game
-// is started.
+// is started. A for…in loop is not a driver: it lays out the starting position.
 function readEngine(p = ENGINE_FILE) {
   const full = path.isAbsolute(p) ? p : path.join(__dirname, p);
   if (!fs.existsSync(full)) {
@@ -258,7 +258,7 @@ function loadEngine(p = ENGINE_FILE) {
   vm.createContext(sb);
   let loaded = 0;
   for (const stmt of splitTop(src)) {
-    if (/^\s*(for|while)\s*\(/.test(stmt)) break;          // a driver loop begins
+    if (/^\s*(for|while)\s*\((?!\w+ in )/.test(stmt)) break;   // a driver loop begins; for(j in …) only lays out the board
     try { vm.runInContext(stmt, sb); loaded++; }
     catch (e) {
       // An interface statement fails when it runs (there is no DOM here).
