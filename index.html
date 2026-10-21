@@ -1197,6 +1197,9 @@ pre.src .hl-u, .hlkey .hl-u { color:var(--hl-ui) }
 pre.src .hl-b, .hlkey .hl-b { color:var(--hl-bot) }
 pre.src .hl-m, .hlkey .hl-m { color:var(--hl-mix) }
 pre.src .hl-h, .hlkey .hl-h { color:var(--hl-html) }
+/* imza: bas dizisindeki c=un=... zinciri; iki temada da saf kirmizi. Lejantta
+   bilerek yok: lejant katmanlari anlatir, imza bir katman degil. */
+pre.src .hl-s { color:#ff0000 }
 /* paketli script: terminalin kendi rengi; kurallarla ayni dosyada hic bulunmaz */
 pre.src .hl-p, .hlkey .hl-p { color:var(--code-fg) }
 .hlkey { display:flex; flex-wrap:wrap; gap:.3rem 1.1rem; margin:0;
@@ -1745,8 +1748,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <div class="stage" id="stage">
         <p class="idle" id="idle"><span lang="tr">Seçili sürüm <b>L3</b>. Oyunu başlat ya da kodunu göster.</span><span lang="en">Selected build <b>L3</b>. Start the game or show its code.</span></p>
         <p class="hlkey" id="hlkey" hidden>
-          <span class="hl-r" hidden><span lang="tr">kurallar</span><span lang="en">rules</span></span>
-          <span class="hl-u" hidden><span lang="tr">arayüz</span><span lang="en">interface</span></span>
+          <span class="hl-r" hidden><span lang="tr">kurallar</span><span lang="en">rules</span></span>          <span class="hl-u" hidden><span lang="tr">arayüz</span><span lang="en">interface</span></span>
           <span class="hl-b" hidden>bot</span>
           <span class="hl-m" hidden><span lang="tr">kural + bot</span><span lang="en">rules + bot</span></span>
           <span class="hl-p" hidden><span lang="tr">paketli script</span><span lang="en">packed script</span></span>
@@ -19478,6 +19480,13 @@ var CARVE = {
   Lowest: [[']&8^t||b[', ']&8^t||b['], [']+~t>>3&&G(i,Y)&&(q=[...b],D=U(i,Y,', 'D=U(i,Y,'],
     ['T()?b=q:(G[i]=G[Y]=e=D', 'G[i]=G[Y]=e=D'], ['t^=8', 't^=8']]
 };
+/* Imza ('s'): bas dizisindeki c=un=... zinciri, saf kirmizi. Bes bicimi var:
+   c=un=15,e=y=t=8,   c=un=15,e=y=t   c=un=e=-1,y=t=8,   c=un=e=y=t=8,   c=un=e=y=t
+   =8 ile bitende 8 ve ardindaki virgul de imzaya dahil (L1 numerical'da ardindan
+   virgul degil ']' geliyor, o zaman 8'de biter); otekiler t'de biter. Harf tahtali
+   ve paketli surumlerde yok; ozel surumlerde yalniz LUX ile Chess.com ve Lichess
+   esdegerlerinde var. Yalniz ilk eslesme ve yalniz kural bolgesindeyse boyanir. */
+var SIG = /c=un=(?:15,)?e=(?:-1,)?y=t(?:=8,?)?/;
 /* Gercek bir etiket acilisi: <x, </x, <!. Kiyaslamadaki '<' degil. */
 var MARK = /<[a-zA-Z!\/]/;
 /* Bu parcadan sonra etiket hala acik mi? Kapanmamis bir '<', etiketin bir
@@ -19569,7 +19578,7 @@ function srcLayers(text, key) {
   var spec = PAINT[key], cut = CARVE[key] || [], bare = isCli(key),
       a = bare ? -8 : text.indexOf('<script>'),
       z = bare ? text.length : text.lastIndexOf('<\/script>'), out = [], m = [], lay = [],
-      inner, pos = 0, from = 0, i, j, at, end;
+      inner, pos = 0, from = 0, i, j, at, end, sig;
   if (!spec || (!bare && a < 0) || z < a) return null;
   inner = text.slice(a + 8, z);
   for (i = 0; i + 1 < spec.length; i += 2) {
@@ -19589,6 +19598,8 @@ function srcLayers(text, key) {
     if (inner[end] == ',' || inner[end] == ';') end++;
     for (j = at; j < end; j++) lay[j] = cut[i][2] || 'r';
   }
+  if (spec != PACKED && (sig = SIG.exec(inner)) && lay[sig.index] == 'r')
+    for (j = sig.index; j < sig.index + sig[0].length; j++) lay[j] = 's';
   out.push(['h', text.slice(0, a + 8)]);
   for (i = 0; i < inner.length; i = j) {
     for (j = i; j < inner.length && lay[j] == lay[i]; j++);
