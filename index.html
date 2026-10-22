@@ -8265,7 +8265,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>Bir kodun adlandırılması ayrıca anlatılmaya değer. <code>DP</code>, özel bir durumun değil,
       maddenin kendi adını taşıyor: 5.2.2 ölü pozisyonun hem yetersiz materyalden doğan hâlini hem de
       kilitli pozisyonları kapsıyor ve motor da ikisini birden bildiriyor (kilitli tarafta ölçülen
-      kapsama %93). Kodu dar olan yarıya göre adlandırmak kolay yoldu; maddeye göre adlandırmak ise
+      kapsama %99,98). Kodu dar olan yarıya göre adlandırmak kolay yoldu; maddeye göre adlandırmak ise
       kapıyı açık bıraktı: <a href="#dead">kilitli pozisyonlar</a> eklendiğinde gerçekten aynı kodla
       bildirilmeye başlandı ve liste on beşte kaldı.</p>
       <p>Bu on beş kod FIDE kurallarına göre; başka bir federasyonun kuralları başka bir liste
@@ -8283,7 +8283,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>One naming choice is worth explaining. <code>DP</code> is named after the article rather
       than the specific case: 5.2.2 covers dead positions caused by insufficient material and
       blocked ones alike, and the engine reports both (measured coverage on the blocked side is
-      93%). Naming the code after the narrower half would have been easier; naming it after the
+      99.98%). Naming the code after the narrower half would have been easier; naming it after the
       article left the door open, so when
       <a href="#dead">blocked positions</a> were added they came under the same code, and the
       list stayed at fifteen.</p>
@@ -9110,9 +9110,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <b>Chess960</b> de ekleniyor: başlangıç pozisyonu resmî numarasından (0–959) kuruluyor; bu oyunda rok,
       şahı kendi kalesinin üstüne sürerek yapılıyor.</p>
       <p>Sonuç ölçülebilir. CHA-Solver'ın süreden yanlış sonuçlandığını bulduğu 201.060 oyunun
-      201.049'unda doğru hükmü veriyor: <b>%99,99</b>, tam olarak %99,9945. FideLite'ın
-      <a href="#dead">kaçırdığı 3.567 oyunun</a> 11'i dışında hepsini yakalıyor; bu oyunların
-      hepsinin düştüğü kilitli yapılı 51.058 oyunda kapsama %93,01'den %99,98'e çıkıyor. Kalan 11 oyun
+      201.058'inde doğru hükmü veriyor: <b>%99,999</b>. FideLite'ın
+      <a href="#dead">kaçırdığı 10 oyunun</a> 2'si dışında hepsini yakalıyor; bu oyunların
+      hepsinin düştüğü kilitli yapılı 51.058 oyunda kapsama %99,98'den %99,996'ya çıkıyor. Kalan 2 oyun
       yanlış hüküm değil, kanıtlanamamış beraberlik: kanıt bulunamayınca, FideLite'ta olduğu gibi,
       tedbiren galibiyet veriliyor. Depoda ayrıca motoru tek başına sınamak için bir kıyaslama sayfası
       ve CHA-Solver verileri de bulunuyor.</p>
@@ -9170,9 +9170,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <b>Chess960</b> comes on top: the starting position is set up from its official number (0–959),
       and castling is done by moving the king onto its own rook.</p>
       <p>The result is measurable. Of the 201,060 games CHA-Solver found wrongly decided on time,
-      it gives the correct verdict in 201,049: <b>99.99%</b>, 99.9945% to be exact. It closes all but
-      11 of <a href="#dead">the 3,567 games FideLite misses</a>; among the 51,058 locked-structure
-      games, where all of those fall, coverage rises from 93.01% to 99.98%. The remaining 11 are not
+      it gives the correct verdict in 201,058: <b>99.999%</b>. It closes all but
+      2 of <a href="#dead">the 10 games FideLite misses</a>; among the 51,058 locked-structure
+      games, where all of those fall, coverage rises from 99.98% to 99.996%. The remaining 2 are not
       wrong verdicts but undetected draws: with no proof found, the win is awarded as a precaution,
       as in FideLite. The repository
       also contains a benchmark page for testing the engine on its own, and the CHA-Solver
