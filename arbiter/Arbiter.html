@@ -1,0 +1,2340 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<title>referee — FIDE 6.9 coverage</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{--bg:#ccc;--dark:#854;--light:#cb8;--hit:#c91;--ink:#221a12;--dim:#574838;--del:#e59a86;--ins:#a4cd6c;
+      --bad:#8a1010;--good:#4f7a2a;--paper:#d8d3c8;--focus:#1d4ed8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Georgia,"Times New Roman",serif;padding:30px 18px 80px}
+.wrap{max-width:1080px;margin:0 auto}
+h1{font-size:29px;font-weight:normal;margin:0 0 4px}
+h2{font-size:20px;font-weight:normal;margin:40px 0 12px;border-bottom:2px solid var(--dark);padding-bottom:5px}
+h3{font-size:16px;font-weight:normal;margin:0 0 8px}
+h4{font-size:15px;font-weight:600;margin:20px 0 6px}
+.sub{color:var(--dim);margin:0;font-size:15px;max-width:62ch}
+code,.mono,td,th,input,select,button,textarea,.fenbox,.stag{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+code{font-size:.92em}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.hide{display:none!important}
+.db{color:var(--dim);font-size:12.5px}
+.legend{font-size:13.5px;color:var(--dim);margin:4px 0 10px;max-width:80ch}
+.scroll{overflow-x:auto}
+
+/* header */
+.top{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:flex-end;justify-content:space-between;margin-bottom:22px}
+.ctl{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;font-size:14px}
+.ctl label{display:flex;gap:8px;align-items:center}
+select{padding:5px 8px;border:1px solid var(--dark);background:#fff;font-size:13px;color:var(--ink)}
+select[disabled],input[disabled],textarea[disabled]{opacity:.55}
+
+/* input */
+.input{background:var(--light);padding:18px 18px 14px}
+.two{display:grid;grid-template-columns:1.15fr 1fr;gap:22px;align-items:start}
+@media(max-width:760px){.two{grid-template-columns:1fr}}
+.col>.h3{display:block;font-size:16px;margin:0 0 8px}
+textarea{width:100%;min-height:118px;padding:9px 10px;border:1px solid var(--dark);background:#fff;font-size:13px;line-height:1.6;resize:vertical;color:var(--ink)}
+.hint{font-size:13px;color:var(--dim);margin:6px 0 0}
+.drop{border:2px dashed var(--dark);background:var(--paper);padding:20px 16px;text-align:center;cursor:pointer;transition:background .15s}
+.drop:hover,.drop.over{background:#e8d9a8}
+.drop.off{opacity:.55;cursor:default}
+.drop strong{display:block;font-size:16px;font-weight:normal;margin-bottom:6px}
+.drop small{font-size:12.5px;color:var(--dim);display:block}
+.flist{list-style:none;margin:8px 0 0;padding:0;font-size:13px}
+.flist li{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;padding:6px 0;border-bottom:1px solid #b9a77a}
+.flist .fname{font-family:ui-monospace,Menlo,monospace;font-weight:600;word-break:break-all}
+.flist .fmeta{color:var(--dim)}
+.flist .fref{margin-left:auto;color:var(--dim)}
+.flist .clr{border:0;justify-content:flex-end}
+.flist .x{border:0;background:transparent;color:var(--ink);font-size:18px;line-height:1;padding:2px 6px;cursor:pointer}
+.flist .x:hover{color:var(--bad)}
+button.link{border:0;background:none;color:var(--ink);text-decoration:underline;cursor:pointer;font-size:12.5px;padding:0}
+.assume{margin:16px 0 10px;padding:10px 14px;background:#f1ead4;border-left:5px solid var(--hit);font-size:14px}
+.assume b{font-weight:600}
+.assume p{margin:3px 0 0;max-width:86ch}
+.opts{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin:10px 0 0;font-size:14px}
+.opts label,.opts .rng{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+input[type=number]{width:84px;padding:4px 6px;border:1px solid var(--dark);background:#fff;color:var(--ink)}
+input[type=checkbox]{width:16px;height:16px;accent-color:var(--dark)}
+button{padding:8px 18px;border:1px solid var(--ink);background:var(--dark);color:#fff;cursor:pointer;font-size:14px}
+button:hover{background:#6c3f33} button[disabled]{opacity:.45;cursor:default}
+button.ghost,a.btn{background:transparent;color:var(--ink);border:1px solid var(--ink);padding:6px 12px;font-size:13px;text-decoration:none;display:inline-block;font-family:ui-monospace,Menlo,monospace}
+button.ghost:hover,a.btn:hover{background:var(--hit)}
+.gorow{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-top:16px}
+button.primary{font-size:16px;padding:11px 26px;font-family:Georgia,"Times New Roman",serif;letter-spacing:.01em}
+button.primary.stop{background:var(--bad)}
+.stat{font-size:14px;color:var(--ink);max-width:70ch}
+.bar{height:6px;background:var(--paper);margin:12px 0 0;display:none}
+.bar i{display:block;height:100%;width:0;background:var(--hit);transition:width .2s}
+
+/* outcome summary */
+.obar{display:flex;height:22px;margin:6px 0 14px;background:var(--paper)}
+.seg{display:block;min-width:3px}
+.o-draw{background:var(--ins)} .o-mate{background:var(--dark)} .o-bad{background:#8d8d8d}
+.o-open{background:repeating-linear-gradient(135deg,var(--light) 0 6px,#b9a77a 6px 8px)}
+.okey{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:760px){.okey{grid-template-columns:1fr}}
+.ok1{display:flex;gap:10px;align-items:flex-start}
+.ok1 .sw{flex:0 0 16px;height:16px;margin-top:9px;border:1px solid rgba(0,0,0,.25)}
+.ok1 .big{font-size:26px;font-weight:normal;font-family:Georgia,serif}
+.ok1 .olab{font-size:15px}
+.ok1 p{margin:2px 0 0;font-size:13px;color:var(--dim)}
+#certbox h3{margin:22px 0 4px}
+
+/* tables */
+table{border-collapse:collapse;width:100%;font-size:13px;margin-top:6px}
+th,td{text-align:right;padding:6px 10px;border-bottom:1px solid var(--light)}
+th{color:var(--dim);font-weight:normal;border-bottom:2px solid var(--dark)}
+th:first-child,td:first-child,.lf{text-align:left}
+td.lf{font-family:Georgia,serif;font-size:14px}
+tr.tot td{border-top:2px solid var(--dark);font-weight:bold}
+tr.act td{background:var(--light)}
+td .db{font-size:11.5px}
+.badn{color:var(--bad);font-weight:bold}
+
+/* reference matrix */
+.mx{table-layout:fixed;min-width:560px}
+.mx th small{display:block;font-size:11.5px;color:var(--dim)}
+.mx th small{font-family:Georgia,serif}
+.mx th{vertical-align:bottom;text-align:center}
+.mx th.lf{text-align:left;vertical-align:middle;font-family:Georgia,serif;font-size:14px;color:var(--ink)}
+.mx td{text-align:center;padding:14px 8px;border:2px solid var(--bg)}
+.mx td b{display:block;font-size:24px;font-weight:normal;font-family:Georgia,serif}
+.mx td span{font-size:12px}
+.c-ok{background:var(--ins)} .c-okd{background:#cfe0b4} .c-miss{background:var(--hit)}
+.c-false{background:var(--bad);color:#fff} .c-contra{background:var(--del)}
+.mx td.zero{background:transparent;color:var(--dim);outline:1px dashed #a99}
+.note{border-left:4px solid var(--dark);padding:6px 0 6px 14px;margin:12px 0;font-size:14px;max-width:86ch}
+.note.good{border-color:var(--good)} .note.bad{border-color:var(--bad)} .note.warn{border-color:var(--hit)}
+
+/* browse */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:12px}
+.card{background:var(--light);color:var(--ink);display:block;padding:8px;border:0;border-top:5px solid var(--light);text-align:left;cursor:zoom-in;font:inherit}
+.card:hover{background:#d8c08e}
+.card.o-draw{border-top-color:var(--good)} .card.o-mate{border-top-color:var(--dark)} .card.o-open{border-top-color:var(--hit)} .card.o-bad{border-top-color:#8d8d8d}
+.card.r-false{outline:3px solid var(--bad)} .card.r-contra{outline:3px solid var(--del)}
+.meta{display:block;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;line-height:1.5;margin-top:6px;word-break:break-all}
+.meta .code{font-size:13px}
+.meta .rc{color:var(--bad)}
+.pg{display:flex;gap:10px;justify-content:center;align-items:center;margin-top:18px;font-size:13px;flex-wrap:wrap}
+
+/* boards */
+.bd{display:grid;grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(8,1fr);width:100%;aspect-ratio:1}
+.bd i{position:relative;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:15px;line-height:1;font-family:"Segoe UI Symbol","Apple Symbols","DejaVu Sans",serif}
+.bd i.d{background:var(--dark)} .bd i.l{background:var(--light)} .bd i.w{color:#fff;text-shadow:0 0 1px #000,0 0 1px #000,0 0 1px #000}
+.bd i.fk{box-shadow:inset 0 0 0 3px var(--hit)}
+.bd.big i{font-size:32px}
+.bd.big i.fk{box-shadow:inset 0 0 0 4px var(--hit)}
+.bd s{position:absolute;text-decoration:none;font:10px/1 ui-monospace,Menlo,monospace;color:var(--ink);opacity:.75;text-shadow:none}
+.bd i.d s{color:#f3e7cf}
+.bd s.rk{top:2px;left:3px} .bd s.fl{bottom:2px;right:3px}
+
+/* detail */
+#solo{margin-top:26px}
+.detail{display:grid;grid-template-columns:320px 1fr;gap:26px;align-items:start}
+@media(max-width:820px){.detail{grid-template-columns:1fr}.dboard{max-width:360px}}
+.dboard .cap{font-size:13px;color:var(--dim);margin:6px 0 0}
+.vhead{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.verdict{font-size:38px;font-family:ui-monospace,Menlo,monospace;letter-spacing:-.02em;line-height:1;margin-right:6px}
+.tag{display:inline-block;padding:3px 10px;font-size:12.5px;font-family:ui-monospace,Menlo,monospace}
+.tag.o-mate{color:#fff}
+.tag.r-ok,.tag.r-okd{background:var(--ins)} .tag.r-miss{background:var(--hit)} .tag.r-false{background:var(--bad);color:#fff} .tag.r-contra{background:var(--del)}
+.vtext{font-size:16px;margin:10px 0 0;max-width:62ch}
+.steps{list-style:none;counter-reset:st;padding:0;margin:8px 0 0}
+.steps li{counter-increment:st;position:relative;padding:6px 10px 6px 40px;border-left:4px solid #b3a99a;margin:0 0 6px;background:rgba(255,255,255,.18)}
+.steps li::before{content:counter(st);position:absolute;left:10px;top:7px;font:13px/1 ui-monospace,Menlo,monospace;color:var(--dim)}
+.steps .sh{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+.steps .sh b{font-weight:600}
+.steps p{margin:2px 0 0;font-size:14px}
+.stag{font-size:11.5px;padding:1px 7px;background:var(--paper);margin-left:auto}
+.st-dec{border-left-color:var(--good)!important;background:rgba(164,205,108,.35)!important}
+.st-dec .stag{background:var(--ins)}
+.st-open{border-left-color:var(--hit)!important;background:rgba(204,153,17,.18)!important}
+.st-open .stag{background:var(--hit)}
+.st-skip,.st-na,.st-also{opacity:.72}
+dl.kv{display:grid;grid-template-columns:minmax(150px,max-content) 1fr;gap:3px 16px;margin:0;font-size:14px}
+dl.kv dt{color:var(--dim)}
+dl.kv dd{margin:0}
+dd.r-false{color:var(--bad);font-weight:600}
+.fenbox{font-size:12.5px;background:var(--light);padding:8px 10px;word-break:break-all;margin:10px 0}
+.acts{display:flex;flex-wrap:wrap;gap:8px}
+
+/* dialog */
+.lb{position:fixed;inset:0;background:rgba(20,18,14,.72);z-index:60;display:flex;align-items:flex-start;justify-content:center;padding:3vh 14px;overflow-y:auto}
+.lbin{background:var(--bg);border:1px solid var(--dark);padding:0 20px 22px;max-width:1040px;width:100%}
+.lbbar{display:flex;gap:10px;align-items:center;position:sticky;top:0;background:var(--bg);padding:12px 0;border-bottom:1px solid var(--dark);margin-bottom:16px;z-index:1}
+.lbbar #lbpos{font-size:13px;color:var(--dim)}
+.lbbar #lbx{margin-left:auto}
+
+/* codes, diff */
+details.fold{margin:30px 0 0}
+details.fold>summary{list-style:none;cursor:pointer;display:flex;align-items:baseline;gap:9px}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary>h2{margin:0;flex:1}
+details.fold>summary::before{content:"\25B8";color:var(--dim);font-size:13px}
+details.fold[open]>summary::before{content:"\25BE"}
+details.fold .foldbody{margin-top:10px}
+.codes td{text-align:left;vertical-align:top;font-family:Georgia,serif;font-size:13.5px;width:33%;border:2px solid var(--bg);background:var(--paper)}
+.codes td.here,.sw2.here{background:var(--light);outline:2px solid var(--dark);outline-offset:-2px}
+.sw2{display:inline-block;width:14px;height:14px;vertical-align:-2px}
+.fn{margin:20px 0 0}
+.fn h3{font-size:15px}
+.fnote{font-size:13px;color:var(--dim);margin:0 0 5px}
+.dif{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;line-height:1.75;background:var(--light);padding:10px 12px;white-space:pre-wrap;word-break:break-all;margin:0}
+.dif del{background:var(--del);text-decoration:none;padding:1px 0}
+.dif ins{background:var(--ins);text-decoration:none;padding:1px 0}
+.key{font-size:12.5px;color:var(--dim);margin:2px 0 14px}
+.key del{background:var(--del);text-decoration:none;padding:1px 3px}
+.key ins{background:var(--ins);text-decoration:none;padding:1px 3px}
+.src{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;line-height:1.7;background:var(--light);padding:10px 12px;white-space:pre-wrap;word-break:break-all;margin:8px 0 0}
+footer{margin-top:50px;font-size:12.5px;color:var(--dim);border-top:1px solid var(--dark);padding-top:12px;max-width:100ch}
+.pdet{display:flex;flex-wrap:wrap;gap:16px 26px;align-items:flex-start}
+.pdet>.bd{flex:0 0 auto;width:min(360px,100%)}
+.pdet>div:last-child{flex:1 1 320px;min-width:0}
+#pgntab td{white-space:nowrap}
+#pgntab td:nth-child(2),#pgntab td:nth-child(3),#pgntab td:last-child,#pgntab th:nth-child(2),#pgntab th:nth-child(3),#pgntab th:last-child{text-align:left}
+#pgntab td:last-child{white-space:normal;font-family:Georgia,serif;font-size:13.5px}
+.mvs{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:13px;line-height:2;max-width:100ch}
+.mvs .n{color:var(--dim);margin-right:2px}
+.mvs .e{background:var(--hit);padding:1px 4px}
+.mvs .a{color:var(--dim);text-decoration:line-through}
+.mvs .x{color:var(--bad);font-weight:bold;text-decoration:underline}
+#pgnsec{margin-top:44px}
+#pgntab tr[data-pk]{cursor:pointer}
+#pgntab tr.act td{background:var(--light)}
+#pgntab tr.pc-lateDP td:last-child,#pgntab tr.pc-lateRule td:last-child,#pgntab tr.pc-wrongtm td:last-child,#pgntab tr.pc-wrongres td:last-child{color:var(--bad);font-weight:bold}
+#pgntab tr.pc-ok td:last-child{color:var(--good)}
+#pgntab tr.pc-illegal td:last-child,#pgntab tr.pc-unread td:last-child{color:var(--dim)}
+#pgnsum table{width:auto;margin:6px 0 4px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<div class="wrap">
+<header class="top">
+  <div>
+    <h1 data-i="h1">referee — FIDE 6.9 coverage</h1>
+    <p class="sub" data-i="sub"></p>
+  </div>
+  <div class="ctl">
+    <label><span data-i="lblEngine">build</span>
+      <select id="eng">
+        <option value="x4" data-i="optX4">fast — engine_4x.js</option>
+        <option value="nm" data-i="optNm">slow — engine.js</option>
+        <option value="stnm" data-i="optStnm">L3 — string board</option>
+        <option value="luxx4" data-i="optLux">LUX — index.html</option>
+      </select></label>
+    <label><span data-i="lblLang">language</span>
+      <select id="lang">
+        <option value="en">English</option>
+        <option value="tr">Türkçe</option>
+      </select></label>
+    <span class="db" id="engnote"></span>
+  </div>
+</header>
+
+<section class="input">
+  <div class="two">
+    <div class="col">
+      <label class="h3" for="fen" data-i="hPos">Positions</label>
+      <textarea id="fen" rows="5" spellcheck="false" autocomplete="off" aria-describedby="poshint" placeholder="5b2/p7/Pp3k2/1Pp1pBp1/2P1P1P1/5K2/8/8 w - -"></textarea>
+      <p class="hint" id="poshint"><span data-ihtml data-i="posHint"></span> <button class="link" id="example" data-i="useEx"></button></p>
+    </div>
+    <div class="col">
+      <h3 data-i="hFiles">Files</h3>
+      <div class="drop" id="drop" tabindex="0" role="button">
+        <strong data-i="dropBig"></strong>
+        <small data-ihtml data-i="dropSmall"></small>
+      </div>
+      <input type="file" id="file" accept=".csv,.txt,text/csv,text/plain" multiple class="hide">
+      <ul class="flist" id="flist"></ul>
+    </div>
+  </div>
+
+  <div class="assume" role="note">
+    <b data-i="assumeH"></b>
+    <p data-ihtml data-i="assume"></p>
+    <p class="hide" id="assumeBoth" data-i="assumeBoth"></p>
+  </div>
+
+  <div class="opts">
+    <label><span data-i="lblPly">ply ceiling</span> <input type="number" id="ply" value="9" min="1" max="600"></label>
+    <label><span data-i="lblBud">node budget</span> <input type="number" id="bud" value="2000" min="100" step="500"></label>
+    <span class="db" id="limnote"></span>
+  </div>
+  <div class="opts">
+    <span class="rng"><label for="rowA" data-i="lblRange">positions</label> <input type="number" id="rowA" value="1" min="1" step="100">
+      <label for="rowB" data-i="lblRangeTo">to</label> <input type="number" id="rowB" value="0" min="0" step="100">
+      <span class="db" data-i="lblRangeNote"></span></span>
+  </div>
+  <div class="opts hide" id="labrow">
+    <span data-i="lblLab">labels</span> <span id="labs" class="opts" style="margin:0"></span>
+    <label><input type="checkbox" id="bothdir"> <span data-i="lblBoth">judge both flags</span></label>
+  </div>
+  <div class="opts">
+    <label><input type="checkbox" id="cmpchk"> <span data-i="lblCmp"></span></label>
+  </div>
+  <div class="gorow">
+    <button id="go" class="primary"></button>
+    <span class="db" id="split"></span>
+    <span class="stat" id="stat" aria-live="polite"></span>
+  </div>
+  <div class="bar" id="bar"><i id="barf"></i></div>
+</section>
+
+<section id="solo" class="hide"></section>
+
+<section id="cmp" class="hide">
+  <h2 data-i="secCmp"></h2>
+  <p class="note" id="cmpnote"></p>
+  <div class="scroll"><table id="cmptab"></table></div>
+</section>
+
+<section id="out" class="hide">
+  <h2 data-i="secResults"></h2>
+  <div id="outcome"></div>
+  <div id="certbox"><h3 data-i="secCert"></h3><div class="scroll"><table id="cert"></table></div></div>
+
+  <h2 data-i="secRef"></h2>
+  <div id="refbox"></div>
+
+  <h2 data-i="secPer"></h2>
+  <div class="scroll"><table id="perfile"></table></div>
+
+  <h2 data-i="secCost"></h2>
+  <div class="scroll"><table id="cost"></table></div>
+
+  <h2 data-i="secBrowse"></h2>
+  <p class="legend" data-i="browseNote"></p>
+  <div class="opts" id="filters"></div>
+  <div class="grid" id="grid"></div>
+  <div class="pg" id="pg"></div>
+
+  <h2 data-i="secExp"></h2>
+  <div class="opts">
+    <button class="ghost" id="expUn" data-i="expUn"></button>
+    <button class="ghost" id="expMate" data-i="expMate"></button>
+    <button class="ghost" id="expMiss" data-i="expMiss"></button>
+    <button class="ghost" id="expBad" data-i="expBad"></button>
+    <button class="ghost" id="expInv" data-i="expInv"></button>
+    <button class="ghost" id="expAll" data-i="expAll"></button>
+  </div>
+  <p class="legend" data-ihtml data-i="expNote"></p>
+</section>
+
+<section class="input" id="pgnsec">
+  <h2 data-i="secPgn"></h2>
+  <p class="legend" data-ihtml data-i="pgnSub"></p>
+  <div class="two">
+    <div class="col">
+      <label class="h3" for="pgntext" data-i="pgnHPaste"></label>
+      <textarea id="pgntext" rows="5" spellcheck="false" autocomplete="off" placeholder='[Result "0-1"]&#10;1. f3 e5 2. g4 Qh4# 0-1'></textarea>
+    </div>
+    <div class="col">
+      <h3 data-i="hFiles"></h3>
+      <div class="drop" id="pdrop" tabindex="0" role="button">
+        <strong data-i="pgnDropBig"></strong>
+        <small data-ihtml data-i="pgnDropSmall"></small>
+      </div>
+      <input type="file" id="pfile" accept=".pgn,application/x-chess-pgn,text/plain" multiple class="hide">
+      <ul class="flist" id="pgnflist"></ul>
+    </div>
+  </div>
+  <div class="gorow">
+    <button id="pgngo" class="primary"></button>
+    <span class="stat" id="pstat" aria-live="polite"></span>
+  </div>
+  <div class="bar" id="pbar"><i id="pbarf"></i></div>
+  <div id="pgnout" class="hide">
+    <div class="scroll" id="pgnsum"></div>
+    <div class="opts"><label><span data-i="pgnFilt"></span> <select id="pgnfilt"></select></label>
+      <button class="ghost" id="pgnexp" data-i="pgnExp"></button></div>
+    <div class="scroll"><table id="pgntab"></table></div>
+    <div class="pg" id="pgnpg"></div>
+    <div id="pgndet"></div>
+  </div>
+</section>
+
+<details class="fold" id="fold-codes">
+  <summary><h2 data-i="secCodes"></h2></summary>
+  <div class="foldbody">
+    <p class="legend" data-ihtml data-i="codesNote"></p>
+    <div class="scroll"><table id="codes" class="codes"></table></div>
+    <p class="legend" id="codeskey"></p>
+  </div>
+</details>
+
+<details class="fold" id="fold-diff">
+  <summary><h2 data-i="secDiff"></h2></summary>
+  <div class="foldbody">
+    <p class="legend" data-i="diffSub"></p>
+    <div class="scroll"><table id="fntab"></table></div>
+    <p class="key" data-ihtml data-i="diffKey"></p>
+    <div id="fndiff"></div>
+    <div id="srcbox"></div>
+  </div>
+</details>
+
+<footer data-ihtml data-i="foot"></footer>
+</div>
+
+<div id="lb" class="lb hide">
+  <div class="lbin" role="dialog" aria-modal="true" aria-labelledby="lbpos">
+    <div class="lbbar">
+      <button class="ghost" id="lbprev" data-i="lbPrev"></button>
+      <span id="lbpos"></span>
+      <button class="ghost" id="lbnext" data-i="lbNext"></button>
+      <button class="ghost" id="lbx" data-i="lbClose"></button>
+    </div>
+    <div id="lbbody"></div>
+  </div>
+</div>
+
+<script type="text/plain" id="src_nm">
+b=[c=un=15,e=y=t=8,n=o=0];for(j in s=`dcebaecd${10n**40n-10n**32n}1111111154632645`)b[j*2-j%8]='0x'+s[j]-0;C=i=>'20003001'[i%112]<<i/56,G=(i,f,m,P=b[i]&7,d=f-i,x=d%15?d%16?d%17?1:17:16:15,s=d<0?-x:x,S=_=>(i+=s)==f||b[i]<1&&S())=>P-4?P-2?P-1?P+P*4%x&S():m^d<d*t?x-16?1&~x%d&&m|b[f]|f==e:d/s<2+(i%96<24)>b[f]&S():0:~m+3%d?d==s:c&C(r=f+=s-!~s)&&T()+T(i+s)<S():d*d%765%128==68,T=(x=b.indexOf(2+t))=>b.some((p,j)=>p&8^t&&G(j,x,1)),U=(i,f,p=3,P=b[i]-t,d=P*(i-f)**2,Q=i+f>>1)=>((b=b.slice())[f]=(X=P-1|f%112>7)?b[i]:p|t,b[i]=b[e-f|P-1?i:f^16]=0,d-8?d-1024?8:Q:U(r,Q)),L=(i,x,q=b)=>b[x]+~t>>3&&G(i,x)&&(U(i,x),x=T(),b=q,!x),M=(i,x,p)=>(n=!b[x]*b[i]&6&&n+1,c&=~C(i)&~C(x),e=U(i,x,p),t^=8,e=b.some((p,j)=>p==1+t&&L(j,e))?e:8,k=b+e+t+c),V=(z,j=1n,A=[0,0],D,d,R,G,E,Y,X,[m,o]=(W=B=D=d=0n,b.map((p,i,k)=>(k=p>7^!z,p%8>5?(X|=A[k]&(i=i%15%2+1),A[k]|=i,p>7?D|=j:d|=j):p%8>2?A[k]+=4<<p*8:p&8?p>9?R=j:W|=j:p>1?G=j:p?B|=j:0,j+=j)),A),L,u=256n,F=~-j,c=F^F/255n,H=s=>s+s&c|(s&c)/2n,N=s=>H(s|=s*u|s/u)|s&F,T=s=>H(s*u|s/u),g=n=>n?g(n-1,j=W&~q|L,o=B&~Q|L,S&=j&(o|S)/u,m&=o&(j|m)*u,A|=A*u&~o,a|=a/u&~j,_|=N(_)&~(S|H(m/u)|N(L&G)),f|=N(f)&~(m|H(S*u)|N(L&R)),E|=T(E)&(X=~(S|m)),Y|=T(Y)&X,q|=f|(q&~o)/u,Q|=_|(Q&~j)*u):A*u/F|a%u|H(A)*u&a|(L&R?_:L&&f)^L|T(E)&a|T(Y)&A|(m=T(z?Y:E)|H(z?a/u:A*u))&(z?_:f)&~(o=F&~((z?A:a)|N(z?f:_)|m),X=o&~(z?E:Y),H(X)|X*u|X/u|(o*u|o/u)&H(o)))=>!(z?B:W)>m|!(W|B)>(4%m|o&(m>3?15423:63^m))|!(e-8|X|(o|m)>3|[0n,R,G].every(x=>g(600,L=x,A=S=W,a=m=B,_=Q=R,f=q=G,E=D,Y=d))),O=h=>b.every((p,j)=>p&8^t||b.every((_,x)=>!L(j,x)||h(j,x))),H=(d,v=t^I|!T(),s=[b,e,n,t,c,k])=>$[k]<=n||V(I)||O((j,x)=>v=n>149||d&&(X?[3]:[3,5,6,4]).every(p=>N--&&(M(j,x,p),H(d-1)|([b,e,n,t,c,k]=s))),$[k]=n)&&v,Z=_=>O(_=>0)?T()?2-!t:3:V(0)&V(8)?6:R>4?5:n>149?4:0,D=s=>n>99?7:R>2?8:(o^=2-s/8)>2?9:Z(),F=(s,r)=>($=[I=s],N=2e3,H(9))?14+r:11+2*r-!s,A=(i,f,p)=>Z(R=G[M(i,f,p)]=-~G[k]),R=G[k=b+e+t+c]=1
+</script>
+<script type="text/plain" id="src_x4">
+b=[c=un=15,e=y=t=8,n=o=0];for(j in s=`dcebaecd${10n**40n-10n**32n}1111111154632645`)b[j*2-j%8]='0x'+s[j]-0;C=i=>'20003001'[i%112]<<i/56,G=(i,f,m,P=b[i]&7,d=f-i,x=d%15?d%16?d%17?1:17:16:15,s=d<0?-x:x,S=_=>(i+=s)==f||b[i]<1&&S())=>P-4?P-2?P-1?P+P*4%x&d/s<8&&S():m^d<d*t?x-16?1&~x%d&&m|b[f]|f==e:d/s<2+(i%96<24)>b[f]&&S():0:~m+3%d?d==s:c&C(r=f+=s-!~s)&&T()+T(i+s)<S():d*d%765%128==68,T=(x=b.indexOf(2+t))=>b.some((p,j)=>(p^t)>8>(22>>p%8&(x-j)**2>1089)&&G(j,x,1)),U=(i,f,p=3,P=b[i]-t,d=P*(i-f)**2,Q=i+f>>1)=>((b=b.slice())[f]=(X=P-1|f%112>7)?b[i]:p|t,b[i]=b[e-f|P-1?i:f^16]=0,d-8?d-1024?8:Q:U(r,Q)),L=(i,x,q=b)=>b[x]+~t>>3&&G(i,x)&&(U(i,x),x=T(),b=q,!x),M=(i,x,p)=>(n=!b[x]*b[i]&6&&n+1,c&=~C(i)&~C(x),e=U(i,x,p),t^=8,e=e-8&&b.some((p,j)=>p==1+t&&L(j,e))?e:8,k=b+e+t+c),V=(z,j=1n,A=[0,0],D,d,R,G,E,Y,X,[m,o]=(W=B=D=d=0n,b.map((p,i,k)=>(k=p>7^!z,p%8>5?(X|=A[k]&(i=i%15%2+1),A[k]|=i,p>7?D|=j:d|=j):p%8>2?A[k]+=4<<p*8:p&8?p>9?R=j:W|=j:p>1?G=j:p?B|=j:0,j+=j)),A),L,u=256n,F=~-j,c=F^F/255n,H=s=>s+s&c|(s&c)/2n,N=s=>H(s|=s*u|s/u)|s&F,T=s=>H(s*u|s/u),g=n=>n^(n=A+a+_+f+E+Y-S-m+q+Q)?g(n,j=W&~q|L,o=B&~Q|L,S&=j&(o|S)/u,m&=o&(j|m)*u,A|=A*u&F&~o,a|=a/u&~j,_|=N(_)&~(S|H(m/u)|N(L&G)),f|=N(f)&~(m|H(S*u)|N(L&R)),E|=T(E)&(X=~(S|m)),Y|=T(Y)&X,q|=f|(q&~o)/u,Q|=_|(Q&~j)*u&F):A*u/F|a%u|H(A)*u&a|(L&R?_:L&&f)^L|T(E)&a|T(Y)&A||(m=T(z?Y:E)|H(z?a/u:A*u))&(z?_:f)&~(o=F&~((z?A:a)|N(z?f:_)|m),X=o&~(z?E:Y),H(X)|X*u|X/u|(o*u|o/u)&H(o)))=>!(z?B:W)>m|!(W|B)>(4%m|o&(m>3?15423:63^m))||!(e-8|X|(o|m)>3||[0n,R,G].every(x=>g(0n,L=x,A=S=W,a=m=B,_=Q=R,f=q=G,E=D,Y=d))),O=h=>b.every((p,j)=>p+~t>>3||b.every((_,x)=>22>>p%8&1&&x-j+34&136|j-x+34&136||!L(j,x)||h(j,x))),H=(d,v=t^I|!T(),s=[b,e,n,t,c,k])=>$[k]<=n||V(I)||O((j,x)=>v=n>149||d&&(X?[3]:[3,5,6,4]).every(p=>N--&&(M(j,x,p),H(d-1)|([b,e,n,t,c,k]=s))),$[k]=n)&&v,Z=_=>O(_=>0)?T()?2-!t:3:(n+e<10|_)&&V(0)&V(8)?6:R>4?5:n>149?4:0,D=s=>n>99?7:R>2?8:(o^=2-s/8)>2?9:Z(),F=(s,r)=>($=[I=s],N=2e3,H(9))?14+r:11+2*r-!s,A=(i,f,p)=>(R=G[M(i,f,p)]=-~G[k],Z()),R=G[k=b+e+t+c]=1
+</script>
+<script type="text/plain" id="src_st">
+b=[...`rnbqkbnrpppppppp${(_='-').repeat(32)}PPPPPPPPRNBQKBNR`],t=1,c=15,e=_,n=o=0,E='a',a=Math.abs,j=p=>p?.toUpperCase(),G=(i,f,m,P=j(b[i]),y=i>>3,h=a(i%8-f%8),v=a(y-(f>>3)),d=h|v,s=(f-i)/d,x=m|b[f]>_,S=Q=>(i+=s)==f||b[i]==_&&S())=>P=='N'?h*v==2:P=='K'?m|v|h^2?d<2:c&C(f+=s>0||-2)&&T()+T(i+s)<S():P=='P'?f>i^b[i]<E?h*v==1?x|f==e:h|x?0:v<2+(y%6<2)&S():0:(h*v?h==v&P<'R':P>'B')&S(),U='indexOf',T=(x=b[U]('kK'[t]))=>b.some((p,i)=>p>_&p<E!=t&&G(i,x,1)),L=(i,q=[])=>b.map((p,f)=>p==_|t^p<E&&G(i,f)&&(p=b,X(i,f),T()||q.push(f),b=p))&&q,C=i=>'20003001'[i%56]<<i/28,X=(i,f,u,p=b[i],P=j(p)=='P',d=a(i-f),Q=i+f>>1)=>((b=[...b])[f]=P&f%56<8?t?j(u):u:p,b[i]=b[P&f==e?f^8:i]=_,P&d>9?Q:j(p)+d=='K2'?X(f>i?i+3:i-4,Q):_),M=(i,f,u)=>(c&=~C(i)&~C(f),n=j(b[i])=='P'|b[f]>_?0:n+1,e=X(i,f,u),t^=1,b.some((p,x)=>p=='pP'[t]&&~L(x)[U](e))||(e=_),t^=1),V=(z,y=1n,A=[0,0],h=b.map(_=>0n),X,[m,o]=(b.map((p,i,x,k=p<E^!z)=>(h[x=-~'-pPkKbB'[U](p)]|=y,y+=y,x>5?(X|=A[k]&(i=i*9/8%2+1),A[k]|=i):x||(A[k]+=4<<'NRQ'[U](j(p))*8))),A),[,,W,B,R,G,D,d,_,a,l,Y]=h,L,u=256n,F=~-y,c=F^F/255n,H=s=>s+s&c|(s&c)/2n,N=s=>H(s|=s*u|s/u)|s&F,T=s=>H(s*u|s/u),g=n=>n?g(n-1,y=W&~q|L,o=B&~Q|L,S&=y&(o|S)/u,m&=o&(y|m)*u,A|=A*u&~o,a|=a/u&~y,_|=N(_)&~(S|H(m/u)|N(L&G)),f|=N(f)&~(m|H(S*u)|N(L&R)),l|=T(l)&(X=~(S|m)),Y|=T(Y)&X,q|=f|(q&~o)/u,Q|=_|(Q&~y)*u):A*u/F|a%u|H(A)*u&a|(L&R?_:L&&f)^L|T(l)&a|T(Y)&A|(m=T(z?l:Y)|H(z?A*u:a/u))&(z?f:_)&~(o=F&~((z?a:A)|N(z?_:f)|m),X=o&~(z?Y:l),H(X)|X*u|X/u|(o*u|o/u)&H(o)))=>!(z?W:B)>m|!(W|B)>(4%m|o&(m>3?15423:63^m))|!(e-8|X|(o|m)>3|[0n,R,G].every(x=>g(600,L=x,A=S=W,a=m=B,_=Q=R,f=q=G,l=D,Y=d))),O=h=>b.every((p,i)=>p==_|p<E^t||L(i).every(f=>h(i,f,p))),Z=Q=>O(_=>0)?T()?t?'B#':'W#':'SM':V(0)&V(1)?'DP':R>4?'5R':n>149?'75':0,A=(i,f,p)=>Z(M(i,f,p),t^=1,R=G[k=b+t+e+c]=-~G[k]),D=s=>n>99?'50':R>2?'3R':(o^=2-s)>2?'DA':Z(),H=(d,v=t^I|!T(),s=[b,e,n,t,c])=>V(I)||$[k=b+t+e+c]<=n||O((i,f,p)=>v=n>149||d&&[...j(p)!='P'|f%56>7?'q':'qrbn'].every(u=>N--&&(M(i,f,u),t^=1,H(d-1)|([b,e,n,t,c]=s))),$[k]=n)&v,F=(s,r)=>($=[I=s],N=2e3,H(9))?r+'M':'WB'[s]+r,R=G[k=b+t+e+c]=1
+</script>
+<script type="text/plain" id="src_lux">
+b=[c=un=15,e=y=t=8,n=o=0];for(j in s=`dcebaecd${10n**40n-10n**32n}1111111154632645`)b[j*2-j%8]='0x'+s[j]-0;C=i=>y[i%112]<<i/56,G=(i,f,m,P=b[i]&7,d=f-i,x=d%15?d%16?d%17?1:17:16:15,s=d<0?-x:x,S=_=>(i+=s)==f||b[i]<1&&S())=>P-4?P-2?P-1?P+P*4%x&d/s<8&&S():m^d<d*t?x-16?1&~x%d&&m|b[f]|f==e:d/s<2+(i%96<24)>b[f]&&S():0:m|b[f]-b[i]-3?d==s:c&C(f)&&b.every((p,q,_,A=(q-i)*(q-(K=i&112|4+2*s))<1)=>(!p|q==i|q==f||!A&(q-f)*(q-K+s)>0)&&!(A&&T(q))):d*d%765%128==68,T=(x=b.indexOf(2+t))=>b.some((p,j)=>(p^t)>8>(22>>p%8&(x-j)**2>1089)&&G(j,x,1)),U=(i,f,p=3,P=b[i]-t,d=P*(i-f)**2,Q=i+f>>1,x=P+b[f]-t==7)=>((b=b.slice())[f]=(X=P-1|f%112>7)?b[i]:p|t,b[i]=b[e-f|P-1?i:f^16]=0,x&&(b[f]=0,b[(Q=i&112|4+(x=f>i||-1))+x]=2+t,b[Q]=5+t),d-1024?8:Q),L=(i,x,q=b)=>(b[x]+~t>>3||b[x]+b[i]*8-t*9==21)&&G(i,x)&&(U(i,x),x=T(),b=q,!x),M=(i,x,p)=>(n=(b[x]^t)<9?b[i]&6&&n+1:0,c&=~C(i)&~C(x),e=U(i,x,p),t^=8,e=e-8&&b.some((p,j)=>p==1+t&&L(j,e))?e:8,k=b+e+t+c),V=(z,j=1n,A=[0,0],D,d,R,G,E,Y,X,u=256n,F=u**8n-1n,c=F^F/255n,H=s=>s+s&c|(s&c)/2n,N=s=>H(s|=s*u|s/u)|s&F,T=s=>H(s*u|s/u),h,w,[m,o]=(W=B=D=d=h=w=0n,b.map((p,i,k)=>(k=p>7^!z,p%8>5?(X|=A[k]&(i=i%15%2+1),A[k]|=i,p>7?D|=j:d|=j):p%8>2?(A[k]+=4<<p*8,i=N(j)^j^(p&4?p&1?T(j):N(N(j))^T(T(j)):0n),h|=j*(k=p>7?1n:-~F),w|=i*k):p&8?p>9?R=j:W|=j:p>1?G=j:p?B|=j:0,j+=j)),A),L,g=n=>n^(n=A+a+_+f+E+Y-S-s+J+K)?g(n,m=h%j&~(f|Y)|h/j&~(_|E),l=W&~J|L|m,o=B&~K|L|m,S&=l&(o|S)/u,s&=o&(l|s)*u,A|=A*u&F&~o,a|=a/u&~l,_|=N(_)&~(S|H(s/u)|N(L&G)),f|=N(f)&~(s|H(S*u)|N(L&R)),E|=T(E)&(X=~(S|s)),Y|=T(Y)&X,J|=f|(J&~o)/u,K|=_|(K&~l)*u&F):A*u/j|a%u|H(A)*u&(a|h/j)|H(a)/u&h|(L&R?_:L&&f)^L|T(E)&a|T(Y)&A|w&~(S|s*j|h&~(f|Y|(_|E)*j))||(m=T(z?Y:E)|H(z?a/u:A*u))&(z?_:f)&~(o=F&~((z?A:a)|h|h/j|N(z?f:_)|m),X=o&~(z?E:Y),H(X)|X*u|X/u|(o*u|o/u)&H(o)))=>!(z?B:W)>m|!(W|B)>(4%m|o&(m>3?15423:63^m))||!(e-8|X||w&~(W|B*j|h)||[0n,R,G].every(x=>N(x)&~x&~(W|B|H(W*u|B/u))||g(0n,L=x,A=S=W,a=s=B,_=K=R,f=J=G,E=D,Y=d))),O=h=>b.every((p,j)=>p+~t>>3||b.every((_,x)=>22>>p%8&(x-j)**2>1089||!L(j,x)||h(j,x))),H=(d,v=t^I|!T(),s=[b,e,n,t,c,k])=>$[k]<=n||n+e<10&&V(I)||O((j,x)=>v=n>149-50*Ac||d&&(X?[3]:[3,5,6,4]).every(p=>N--&&(M(j,x,p),H(d-1)|([b,e,n,t,c,k]=s))),$[k]=n)&&v,Z=_=>O(_=>0)?T()?2-!t:3:[8,0].every((s,i,_,m=n)=>(n=-1e9,$=[I=s],N=2e3,s=H(9),n=m,s))?6:R>4-2*Ac?5+3*Ac:n>149-50*Ac?4+3*Ac:0,F=(s,r)=>($=[I=s],N=6e5,V(I)||H(450))?14+r:11+2*r-!s,D=g=>(o^=g,Z()||(n>99?7:R>2?8:o>2?9:0)),A=(i,f,p)=>(R=G[M(i,f,p)]=-~G[k],Z())
+</script>
+
+<script>
+/* ---- FEN reader and the judge; both are engine-agnostic ---- */
+PIECE={b:2,r:4,q:6,p:8,k:10,n:12};
+function setFen(str){
+  var A=String(str).trim().split(/\s+/); if(A.length<2)return 0;
+  var Bd=new Array(64).fill(0),rk=7,fl=0,ch,vv;
+  for(var ix=0;ix<A[0].length;ix++){ ch=A[0][ix];
+    if(ch=='/'){rk--;fl=0} else if(ch>='1'&&ch<='8'){fl+=+ch}
+    else{ vv=PIECE[ch.toLowerCase()]; if(vv===undefined||rk<0||fl>7)return 0;
+          Bd[rk*8+fl++]=vv+(ch==ch.toUpperCase()?1:0)} }
+  if(Bd.indexOf(10)<0||Bd.indexOf(11)<0)return 0;
+  b=Bd; t=A[1]=='w'?1:0; c=0;
+  /* castling: KQkq (standard, or X-FEN: the outermost rook on that side of the king) or
+     Shredder-FEN file letters (HAha). Every right is read against the board: its rook must
+     stand on the back rank beside a king that is still there, otherwise the right is dropped.
+     The files found build the engine's castling skeleton X (king 3, queen-side rook 2,
+     king-side rook 1); both colours share it, so rights that disagree on files are refused.
+     An engine without X (FideLite L3) only knows the orthodox files: other rights are ignored
+     and CASTLE_DROP records it. */
+  var ca=A[2]||'-', sk=[0,0,0,0,0,0,0,0], has960=/[Xy]\[/.test(String(C)), drop=0, j, ch, up, w, base, kf, rf, x, d;
+  for(j=0;j<ca.length;j++){ ch=ca[j]; if(ch=='-')continue;
+    up=ch.toUpperCase(); w=ch==up; base=w?0:56; kf=Bd.indexOf(w?11:10)-base; rf=-1;
+    if(kf<0||kf>7)continue;
+    if(up=='K'){ for(x=7;x>kf;x--) if(Bd[base+x]==(w?5:4)){rf=x;break} }
+    else if(up=='Q'){ for(x=0;x<kf;x++) if(Bd[base+x]==(w?5:4)){rf=x;break} }
+    else if(up>='A'&&up<='H'){ x=up.charCodeAt(0)-65; if(x!=kf&&Bd[base+x]==(w?5:4))rf=x }
+    else return 0;
+    if(rf<0)continue;
+    if(!has960&&(kf!=4||rf%7)){ drop=1; continue }
+    d=rf>kf?1:2;
+    if(sk[kf]&&sk[kf]!=3||sk[rf]&&sk[rf]!=d)return 0;
+    sk[kf]=3; sk[rf]=d; c|=d<<(w?0:2) }
+  if(sk.filter(function(v){return v==3}).length>1||sk.filter(function(v){return v==1}).length>1||
+     sk.filter(function(v){return v==2}).length>1)return 0;
+  if(has960){ if(String(C).indexOf('y[')>=0)y=c?sk.join(''):'20003001'; else X=c?sk.join(''):'20003001' }
+  window.CASTLE_DROP=drop;
+  var ep=A[3]||'-';
+  e=(ep=='-'||ep.length<2)?-1:(ep.charCodeAt(0)-97)+(+ep[1]-1)*8;
+  n=+A[4]||0; $=1; o=0; z=0;
+  window.FEN_N_GIVEN = A.length>4 && A[4]!=='-';
+  /* the 0x88 L3 engine.js: square 16*rank+file, P1 K2 Q3 N4 R5 B6 (+8 White), t 8/0, e 8 when there is no
+     e.p. square. As in its own M, the square is kept only when the capture is legal; the repetition table
+     (the function G) starts afresh with this position. */
+  if(window.X88){ var B8=[], q, TY=[0,6,5,3,1,2,4];
+    for(q=0;q<64;q++) B8[(q>>3)*16+(q&7)]=Bd[q]&&TY[Bd[q]>>1]+8*(Bd[q]&1);
+    b=B8; t*=8; e=e<0?8:(e>>3)*16+(e&7);
+    for(q in G) delete G[q];
+    e=b.some(function(p,j){return p==1+t&&L(j,e)})?e:8;
+    R=G[k=b+e+t+c]=1 }
+  /* the L3 engine_string.js: 64 letters from a8 (index 0) to h1, '-' empty, upper case White; t 1/0;
+     castling bits 1 k, 2 q, 4 K, 8 Q; e the square or '-'. As in its own M, the square is kept only when
+     a capture is legal; the repetition table (the function G) starts afresh with this position. */
+  if(window.STR){ var S=[], q, v;
+    for(q=0;q<64;q++){ v=Bd[q^56]; S[q]=v?(v&1?' BRQPKN':' brqpkn').charAt(v>>1):'-' }
+    b=S; c=(c&3)<<2|c>>2&3; e=e<0?'-':e^56;
+    for(q in G) delete G[q];
+    if(e!='-'&&!b.some(function(p,x){return p==(t?'P':'p')&&L(x).indexOf(e)>=0}))e='-';
+    R=G[k=b+t+e+c]=1 }
+  return 1
+}
+/* ================= is the FEN a reachable position? ================= */
+var fenProblem=(function(){
+/* Is this FEN a position that some game could have reached? Only necessary conditions are tested:
+   a line that fails one is certainly not a legal position; passing all of them does not prove that
+   it is (that takes retrograde analysis). Returns null, or {k:reason, a:[details]}.
+   Squares are numbered a1=0 … h8=63; upper case is White. */
+function fenProblem(str){
+  var A=String(str).trim().split(/\s+/), sq=new Array(64), rows, r, f, i, x, ch, w;
+  if(A.length<2)return {k:'syntax',a:['fields']};
+  rows=A[0].split('/');
+  if(rows.length!=8)return {k:'syntax',a:['nranks',rows.length]};
+  for(r=0;r<8;r++){ w=0;
+    for(i=0;i<rows[r].length&&w<=8;i++){ ch=rows[r][i];
+      if(ch>='1'&&ch<='8'){ for(x=0;x<+ch&&w+x<8;x++)sq[(7-r)*8+w+x]=''; w+=+ch }
+      else if('pnbrqkPNBRQK'.indexOf(ch)>=0){ if(w<8)sq[(7-r)*8+w]=ch; w++ }
+      else return {k:'syntax',a:['char',ch]} }
+    if(w!=8||i<rows[r].length)return {k:'syntax',a:['rankw',8-r]} }
+  if(A[1]!='w'&&A[1]!='b')return {k:'syntax',a:['side',A[1]]};
+  var white=A[1]=='w', ep=A[3]||'-';
+  if(ep!='-'&&!/^[a-h][36]$/.test(ep))return {k:'syntax',a:['epf',ep]};
+  for(i=4;i<A.length&&i<6;i++) if(A[i]!='-'&&!/^\d+$/.test(A[i]))return {k:'syntax',a:['num',A[i]]};
+  /* the halfmove clock cannot exceed the plies played since the start: 2×(fullmove − 1), plus one when Black is to move */
+  if(A.length>5&&A[5]!='-'&&A[5]<1)return {k:'syntax',a:['full',A[5]]};
+  if(A.length>5&&A[4]!='-'&&A[5]!='-'){ var hm=+A[4], pl=2*(A[5]-1)+!white; if(hm>pl)return {k:'clock',a:[hm,pl]} }
+
+  var cnt={}; for(i=0;i<64;i++) if(sq[i])cnt[sq[i]]=(cnt[sq[i]]||0)+1;
+  if((cnt.K||0)!=1||(cnt.k||0)!=1)return {k:'kings',a:[cnt.K||0,cnt.k||0]};
+  for(i=0;i<64;i++) if((sq[i]=='P'||sq[i]=='p')&&(i<8||i>55))return {k:'pawnrank',a:[sqName(i)]};
+
+  /* material: at most 8 pawns and 16 pieces a side, and every piece beyond the starting set
+     (one queen, two rooks, two knights, one bishop on each colour; bishops never change colour)
+     must be a promotion paid for by a missing pawn */
+  var sides=['w','b'];
+  for(var s=0;s<2;s++){ var up=s==0, c=function(L){return cnt[up?L.toUpperCase():L]||0},
+      P=c('p'), tot=P+c('n')+c('b')+c('r')+c('q')+1, bl=0, bd=0;
+    if(P>8)return {k:'pawns',a:[sides[s],P]};
+    if(tot>16)return {k:'pieces',a:[sides[s],tot]};
+    for(i=0;i<64;i++) if(sq[i]==(up?'B':'b')){ if(((i&7)+(i>>3))&1)bl++; else bd++ }
+    var extra=Math.max(0,c('q')-1)+Math.max(0,c('r')-2)+Math.max(0,c('n')-2)+Math.max(0,bl-1)+Math.max(0,bd-1);
+    if(extra>8-P)return {k:'promo',a:[sides[s],extra,8-P]} }
+
+  /* en passant: the square must sit behind a pawn that has just advanced two squares */
+  var e=-1;
+  if(ep!='-'){ e=(ep.charCodeAt(0)-97)+(+ep[1]-1)*8;
+    if(white? (ep[1]!='6'||sq[e]||sq[e+8]||sq[e-8]!='p') : (ep[1]!='3'||sq[e]||sq[e-8]||sq[e+8]!='P'))return {k:'ep'} }
+
+  /* the side not to move may not be in check */
+  var kw=sq.indexOf('K'), kb=sq.indexOf('k'), kt=white?kw:kb, ko=white?kb:kw;
+  if(attackers(sq,ko,white).length)return {k:'oppcheck'};
+
+  /* checks on the side to move */
+  var ch=attackers(sq,kt,!white);
+  if(e>=0){
+    /* the last move was a two-square advance: it can give at most one check, and that check must
+       not have existed before the pawn moved */
+    if(ch.length>1)return {k:'epcheck'};
+    if(ch.length==1){ var to=white?e-8:e+8, from=white?e+8:e-8;
+      if(ch[0].at!=to){ var bef=sq.slice(); bef[from]=bef[to]; bef[to]='';
+        if(attackers(bef,kt,!white).length)return {k:'epcheck'} } } }
+  else if(ch.length>2)return {k:'check3'};
+  if(ch.length==2){ var a=ch[0], b=ch[1];
+    if(!a.ray&&!b.ray)return {k:'checkleap'};
+    if(a.fam==b.fam){
+      if(a.fam=='D')return {k:'checkdiag'};
+      if(a.fam=='S'&&!promoted(a,b)&&!promoted(b,a))return {k:'checkstraight'} } }
+  return null;
+
+  /* two straight checks: X stands on the promotion rank and a pawn could have come to it by a
+     diagonal capture from a square on Y's ray, opening that ray */
+  function promoted(X,Y){
+    var pr=white?0:7, or=white?1:6;            // the checking side is the side not to move
+    if((X.at>>3)!=pr)return false;
+    for(var df=-1;df<=1;df+=2){ var of=(X.at&7)+df; if(of<0||of>7)continue;
+      var o=or*8+of; if(sq[o])continue;
+      if(between(o,kt,Y.at))return true }
+    return false }
+}
+function sqName(i){ return 'abcdefgh'[i&7]+((i>>3)+1) }
+function between(o,k,y){
+  if((k&7)==(y&7)) return (o&7)==(k&7)&&(o>>3)>Math.min(k>>3,y>>3)&&(o>>3)<Math.max(k>>3,y>>3);
+  if((k>>3)==(y>>3)) return (o>>3)==(k>>3)&&(o&7)>Math.min(k&7,y&7)&&(o&7)<Math.max(k&7,y&7);
+  return false }
+/* the pieces of one colour attacking a square: each with its family (N leap, D diagonal, S straight,
+   K king) and whether it attacks along a ray; a pawn's capture is the one-step diagonal */
+function attackers(sq,to,byWhite){
+  var out=[], tf=to&7, tr=to>>3, f, r, p, i, d;
+  function mine(p){ return p&&(p==p.toUpperCase())==byWhite }
+  function at(f,r){ return f>=0&&f<8&&r>=0&&r<8?r*8+f:-1 }
+  var N=[[1,2],[2,1],[-1,2],[-2,1],[1,-2],[2,-1],[-1,-2],[-2,-1]];
+  for(i=0;i<8;i++){ d=at(tf+N[i][0],tr+N[i][1]); if(d>=0&&mine(sq[d])&&sq[d].toLowerCase()=='n')out.push({at:d,fam:'N',ray:false}) }
+  for(i=-1;i<=1;i+=2){ d=at(tf+i,byWhite?tr-1:tr+1); if(d>=0&&mine(sq[d])&&sq[d].toLowerCase()=='p')out.push({at:d,fam:'D',ray:false}) }
+  for(f=-1;f<=1;f++)for(r=-1;r<=1;r++){ if(!f&&!r)continue; d=at(tf+f,tr+r); if(d>=0&&mine(sq[d])&&sq[d].toLowerCase()=='k')out.push({at:d,fam:'K',ray:false}) }
+  var R=[[1,0,'S'],[-1,0,'S'],[0,1,'S'],[0,-1,'S'],[1,1,'D'],[1,-1,'D'],[-1,1,'D'],[-1,-1,'D']];
+  for(i=0;i<8;i++){ f=tf; r=tr;
+    for(;;){ f+=R[i][0]; r+=R[i][1]; d=at(f,r); if(d<0)break; p=sq[d]; if(!p)continue;
+      if(mine(p)){ var t=p.toLowerCase(); if(t=='q'||(R[i][2]=='S'?t=='r':t=='b'))out.push({at:d,fam:R[i][2],ray:true}) }
+      break } }
+  return out }
+return fenProblem })();
+/* The verdict on the real F path: TM, or WT/BT when the search cannot prove that mate is impossible.
+   src names what produced it, in the order H itself tests a node: H if the search spent a node;
+   otherwise H returned at its root, through Im (material), then l (DP: dead for both sides), then the
+   one-sided gate l(2-g) of LUX's H (lH), and, when none of these holds, because the root itself ends
+   every line: no legal move, or a halfmove clock past the 75-move rule (Z). The one-sided gate is
+   evaluated only in that last case, so the extra call costs nothing on every other position. */
+function judge(fen,ply,bud,forced){
+  /* an invalid line gets no verdict; BAD_WHY says which condition it breaks */
+  window.BAD_WHY=fenProblem(fen);
+  if(window.BAD_WHY)return null;
+  if(!setFen(fen)){ window.BAD_WHY={k:'castle'}; return null }
+  if(window.X88)return judge88(fen,ply,bud,forced);
+  if(window.STR)return judgeS(fen,ply,bud,forced);
+  var side=(forced===0||forced===1)?forced:t, nn=n, given=window.FEN_N_GIVEN, ep=e, mv=0, i;
+  for(i=0;i<64;i++) if(b[i]&&(b[i]&1)==t) mv+=L(i).length;
+  setFen(fen); var hOnly=!!Im(side);
+  /* static lock detector; l() judges this FEN as it stands — only a live ep blocks */
+  setFen(fen); var dp=!!l();
+  setFen(fen); Hn=bud; Ht={};
+  var t0=performance.now(), ok=!!H(side,ply), used=bud-Hn, ms=performance.now()-t0;
+  var src=used>0?'H':hOnly?'Im':dp?'l':(window.L_ONE&&(setFen(fen),l(2-side)))?'lH':'Z';
+  var code=(ok||dp)?(src=='l'?'DP':'TM'):'WB'[side]+'T', why='', mate=0;
+  if(!ok){ setFen(fen); Hn=bud; Hs={}; HM=0; Hd(side,ply); mate=HM;
+           why=mate?'mate':(Hn<0?'budget':'horizon') }
+  if(dp) why='static';
+  return{side:side,n:nn,nGiven:given,ep:ep,moves:mv,hOnly:hOnly,ok:ok,dp:dp,src:src,code:code,used:used,ms:ms,why:why,mate:mate,
+         drop:window.CASTLE_DROP,castle:c?'KQkq'.replace(/./g,function(L,i){return c>>i&1?L:''})+(String(C).indexOf('X[')>=0?' · '+X:''):'-'}
+}
+/* The same verdict for the 0x88 L3 builds. Their H takes no side: the flagged side is the global I and the
+   budget N (F sets both). Both L3 builds take a ply ceiling, H(d): the ply field reaches it
+   (F itself uses H(9) with N=2e3; LUX H(450) with N=6e5). Material and the lock share V; they are told
+   apart here by running V once with the lock switched off (V reads the lock only while e<9, no e.p.
+   square) and reading the lock through V of a side whose opponent still has pawns, where V's material
+   half is false. */
+function judge88(fen,ply,bud,forced){
+  var side=(forced===0||forced===1)?forced:t?1:0, g=8*side, nn=n, given=window.FEN_N_GIVEN,
+      ep=e==8?-1:(e>>4)*8+(e&7), mv=0, wp=0, bp=0, kp=e<9;
+  O(function(){return ++mv});
+  b.forEach(function(p){ if(p%8==1){ if(p&8)wp=1; else bp=1 } else if(p%8>2&&p%8<6&&!window.BOX)kp=false });
+  var e0=e; e=99; var hOnly=!!V(g); e=e0;
+  var dp=kp&&!!V(0)&&!!V(8);
+  setFen(fen); $=[I=g]; N=bud;
+  var t0=performance.now(), ok=!!(V(g)||(window.X88D?H(ply):H())), used=bud-N, ms=performance.now()-t0;
+  var src=used>0?'H':hOnly?'Im':dp?'l':'Z';
+  var code=(ok||dp)?(src=='l'?'DP':'TM'):'WB'[side]+'T', why='', mate=0;
+  if(!ok){ setFen(fen); I=g; Hs=[g]; N=bud; HM=0; if(window.X88D)Hd(ply); else Hd(); mate=HM; why=mate?'mate':(N<0?'budget':'horizon') }
+  if(dp) why='static';
+  return{side:side,n:nn,nGiven:given,ep:ep,moves:mv,hOnly:hOnly,ok:ok,dp:dp,src:src,code:code,used:used,ms:ms,why:why,mate:mate,
+         drop:window.CASTLE_DROP,castle:c?'KQkq'.replace(/./g,function(L,i){return c>>i&1?L:''}):'-'}
+}
+/* The same verdict for L3's engine_string.js, which now speaks the 0x88 build's interface: H takes no side,
+   the flagged side is the global I (1 White, 0 Black), the budget N and the table $ (F sets all three), and
+   H takes a ply ceiling, H(d). Material and the lock share V, told apart as in judge88: V once with the lock
+   switched off (V reads the lock only while there is no e.p. square, e-8 must be NaN), and DP through V of
+   both sides, as V(0)&V(1) in the game's own Z; the lock takes bishops, so only knights, rooks and queens keep it out. */
+function judgeS(fen,ply,bud,forced){
+  var side=(forced===0||forced===1)?forced:t, nn=n, given=window.FEN_N_GIVEN,
+      ep=e=='-'?-1:e^56, mv=0, wp=0, bp=0, kp=e=='-';
+  O(function(){return ++mv});
+  b.forEach(function(p){ if(/[nrq]/i.test(p))kp=false });
+  var e0=e; e=99; var hOnly=!!V(side); e=e0;
+  var dp=kp&&!!V(0)&&!!V(1);
+  setFen(fen); $=[I=side]; N=bud;
+  var t0=performance.now(), ok=!!H(ply), used=bud-N, ms=performance.now()-t0;
+  var src=used>0?'H':hOnly?'Im':dp?'l':'Z';
+  var code=(ok||dp)?(src=='l'?'DP':'TM'):'WB'[side]+'T', why='', mate=0;
+  if(!ok){ setFen(fen); I=side; Hs=[side]; N=bud; HM=0; Hd(ply); mate=HM; why=mate?'mate':(N<0?'budget':'horizon') }
+  if(dp) why='static';
+  return{side:side,n:nn,nGiven:given,ep:ep,moves:mv,hOnly:hOnly,ok:ok,dp:dp,src:src,code:code,used:used,ms:ms,why:why,mate:mate,
+         drop:window.CASTLE_DROP,castle:'KQkq'.replace(/./g,function(x,i){return c>>[2,3,0,1][i]&1?x:''})||'-'}
+}
+/* For the detail view only, never for the verdict: the game's own status test Z (is the game already
+   over before any flag?) and, in LUX, the one-sided lock l(2-g) that H consults at its root. */
+function inspect(fen,side){
+  if(!setFen(fen))return null;
+  var status=Z(), lone=null;
+  if(window.X88||window.STR){ var g=window.X88?8*side:side; setFen(fen); var e0=e; e=99; var mo=!!V(g); e=e0; lone=mo?'m':!!V(g) }
+  else if(window.L_ONE){ setFen(fen); lone=!!l(2-side) }
+  setFen(fen);
+  return{status:status,lone:lone}
+}
+</script>
+
+<!-- the engine, embedded above as src_nm (engine.js, 1,860 B, the shortest source) and src_x4 (engine_4x.js, 1,978 B, the speed build): FideLite on the 0x88 board with the bishop lock and takeable pawns, verbatim; src_st (engine_string.js, 2033 B): the same rules on the letter board, verbatim -->
+
+<script>
+(function(){
+"use strict";
+var GLYPH=' ♝♜♛♟♚♞', VAL={b:1,r:2,q:3,p:4,k:5,n:6};
+var $=function(id){return document.getElementById(id)};
+var CODES=['W#','B#','SM','75','5R','DP','50','3R','DA','WT','BT','WR','BR','TM','RM'];  /* LUX's Z answers 1..15 */
+/* LUX answers with the index (1..15) into CODES, the L3 builds with the two letters themselves; 0 while the game goes on */
+function cstr(v){ return typeof v=='string'?v:v?CODES[v-1]:'' }
+function cnum(v){ return typeof v=='string'?CODES.indexOf(v)+1:v|0 }
+
+/* ================= i18n ================= */
+var DICT={
+en:{
+ title:"referee — FIDE 6.9 coverage",
+ h1:"referee — FIDE 6.9 coverage",
+ lblEngine:"build",
+ lblLang:"language",
+ optX4:"fast — engine_4x.js",
+ optNm:"slow — engine.js",
+ optLux:"LUX — index.html",
+ cmpDiffLux:"<b>{0}</b> positions came back with different verdicts. LUX is a different engine (boxed knights, rooks and queens, Chess960 castling), so differences from engine_4x.js are expected. Choose “differs between builds” under Browse to read them.",
+ optL3x4:"L3 — fast",
+ optL3nm:"L3 — normal",
+ optStnm:"L3 — string board",
+ stTag:"letter board, a8 = 0",
+ famSt:"L3 (letter board)",
+ engnote:"{0} B loaded · {1}",
+ nmTag:"shorter file",
+ x4Tag:"faster search",
+ secDiff:"What separates the two builds",
+ diffSub:"Both files are embedded verbatim. The table and the diff below are computed from those two sources at load time, so what you read is exactly what runs.",
+ thFn:"function",
+ thNm:"engine.js",
+ thX4:"engine_4x.js",
+ thD:"Δ",
+ thWhat:"what changes",
+ totalRow:"whole file",
+ same:"{0} of {1} definitions are byte-identical in both builds.",
+ diffKey:"<del>red</del> — only in <code>engine.js</code> (compact) &nbsp;·&nbsp; <ins>green</ins> — only in <code>engine_4x.js</code> (speed). Everything unmarked is shared.",
+ wJ:"The lock detector, called from <code>Z</code> for FIDE 5.2.2 (beside the material test <code>I</code>) and from <code>H</code> for 6.9. It grows the pawn cones <code>C</code>/<code>Z</code>, the king floods <code>K</code>/<code>L</code>, the capture-reach sets <code>r</code>/<code>q</code> and the bishop floods <code>R</code>/<code>c</code>, and drains the permanently blocked pawns <code>P</code>/<code>Q</code>, to a fixpoint; then it asks whether a pawn can promote, capture or give check, whether a king assumed frozen really is frozen, whether a boxed-in knight, rook or queen has escaped (one the enemy king or bishop can reach has not: it can never capture, so it is dropped from <code>F</code>/<code>g</code> and its square counts as empty from then on), and whether the bishop layer holds. The compact build runs the relaxation a fixed 768 passes. The speed build keeps the sum <code>C+Z+K+L+r+q-P-Q+R+c-F-g</code> and stops the moment it stops moving. Those twelve sets only ever move one way — eight grow; <code>P</code>, <code>Q</code> and the boxed sets <code>F</code>/<code>g</code> shrink, which is why they enter with a minus sign — so the sum changes on every pass that changes anything and stands still only at the fixpoint; the loop can never stop early. The ten flood and pawn masks can change at most 640 bits and <code>F</code>/<code>g</code> only the squares of the knights, rooks and queens, so the compact build’s 768 passes always converge as well. On real games the speed build stops after a median of 11 passes (at most 29 over the first 20,000 games of the chasolver data). For the sum to settle, the speed build masks the two upward-growing sets <code>C</code> and <code>q</code> back to 64 bits with <code>&amp;f</code>; otherwise bits pushed past the eighth rank would keep it moving forever. The compact build needs no mask: it stops after 768 passes regardless, and those bits change no verdict — nothing reads <code>q</code> above the eighth rank, and a cone that reaches it has already failed the promotion test. Before the fixpoint the speed build runs two cheap checks that fail fast: a boxed-in knight, rook or queen with a step square its own pawns and boxed pieces do not hold, and, at the frozen-king levels, a king with a neighbouring square that is neither held by its own men nor covered by an enemy pawn. The diagonal step <code>T</code> opens with <code>s&amp;&amp;</code>, so an empty set — a side with no bishop — comes straight back; <code>S</code> shifts (<code>s&lt;&lt;1n</code>) where the compact build adds (<code>s+s</code>); and in the bishop layer <code>&amp;</code>/<code>|</code> become <code>&amp;&amp;</code>/<code>||</code>, so the rest is skipped once the outcome is decided.",
+ wG:"Geometry. For a bishop, rook or queen the step must suit the piece (<code>P+P*4%x&amp;1</code>) before the ray is walked. The speed build short-circuits with <code>&amp;&amp;</code>, so the walk <code>S()</code> runs only when the direction is right; the compact build evaluates both sides of <code>&amp;</code> on every call.",
+ wV:"The verdict, bishop locks included. Same sets, same certificate, two short-circuits. The saturation loop stops the moment the checksum <code>A+a+_+f+E+Y-S-s+J+K</code> stops moving instead of always running 600 passes: every set moves one way only, so the sum moves on every pass that changes anything, and <code>&amp;F</code> keeps White’s advance and Black’s takeable squares <code>K</code> inside the board so that it can settle. A frozen-king level is skipped at once when the assumed king has a neighbouring square that no pawn holds or attacks; the level would fail its own check anyway.",
+ wL:"<code>map</code> becomes <code>forEach</code>: the 64-element result array that <code>map</code> has to allocate — and immediately throw away — is never built. One allocation per legal-move generation. Because <code>forEach</code> returns <code>undefined</code>, the speed build ends with <code>||q</code>; the compact build, whose <code>map</code> returns an array, ends with <code>&amp;&amp;q</code>. Neither build copies the board here: both leave that to <code>M</code>. The compact build carries <code>c</code> through the save/restore pair, because its <code>M</code> changes it.",
+ wM:"Castling rights. The compact build has <code>M</code> itself clear the rights the from- and to-squares touch (<code>c&amp;=~C(i)&amp;~C(f)</code>), so every caller gets it for free: <code>A</code> drops its own copy of the line and the search needs no extra code. That is 11 bytes cheaper, but the line then also runs on every pseudo-legal move <code>L</code> tries out — roughly twice as often as it has to. Measured over 833 positions it costs about 3%. Both builds make the board copy in <code>M</code>’s own parameter list (<code>p=(b=[...b])[i]</code>), so no caller — <code>L</code>, the search or <code>A</code> — has to copy for itself. The two builds’ <code>M</code> differ only in the castling line.",
+ wA:"The mirror image of the <code>M</code> change: the compact build drops <code>c&amp;=~C(i)&amp;~C(f)</code> from <code>A</code> because <code>M</code> has already done it, while the speed build keeps the line here so that <code>M</code> stays a pure board operation.",
+ wZ:"The same <code>p&amp;&amp;</code> guard on the position-result scan, before the legal-move generation is called at all.",
+ wX:"The FIDE 6.9 helpmate search. The compact build computes the terminal test, whether the flagged side is in check, as a parameter default on every node; the speed build asks it only at a leaf where no move answered: <code>v??t^I|!T()</code>.",
+ wT:"The threat test, run after every trial move. The speed build skips empty squares and its own pieces with one test, <code>(p^t)&gt;8</code>; the compact build’s <code>p&amp;8^t</code> lets empty squares through when White is to move.",
+ wO:"Move iteration. The speed build skips empty squares and the opponent’s pieces with one test, <code>p+~t&gt;&gt;3</code>; the compact build’s <code>p&amp;8^t</code> lets empty squares through when Black is to move, and each of them then tries every target. It never asks <code>L</code> about a pawn, king or knight move to a square too far away (<code>22&gt;&gt;p%8&amp;1&amp;&amp;(x-j)**2&gt;1089</code>).",
+ st3Skip:"Not needed: the material test above already settled it.",
+ noCastle960:"The engine knows only the orthodox castling files; this right was ignored",
+ sDrop:"{0} rows with Chess960 castling rights judged without them",
+ sub:"Judges a flag fall the way the game does. The verdict comes from FideLite’s own engine, bishop locks included, and every test that led to it is shown.",
+ hPos:"Positions",
+ posHint:"One FEN per line. A line may start with a chasolver label (<code>WB</code>, <code>W-</code>, <code>-B</code>, <code>--</code>) to give the expected answer; lines starting with <code>#</code> are skipped. Ctrl+Enter judges.",
+ hFiles:"Files",
+ dropBig:"Drop CSV or TXT files here, or click to choose",
+ dropSmall:"CSV: the <code>fen</code> column is read, and a <code>label</code> column if there is one. TXT: chasolver’s format, <code>WB &lt;fen&gt;</code> per line. Each file becomes a set named after it.",
+ fRows:"{0} positions",
+ fBad:"{0} unreadable lines skipped",
+ fLabels:"reference: the labels in the file",
+ fRef:"reference",
+ fRefNone:"none",
+ fRefDraw:"every row is a draw",
+ fRemove:"Remove {0}",
+ fClear:"Remove all files",
+ fReading:"Reading {0}…",
+ fFail:"Could not read {0}: {1}",
+ assumeH:"Whose flag fell",
+ assume:"The side to move in the FEN (its second field, <code>w</code> or <code>b</code>). In a game only the clock of the side to move runs, so that is the only flag that can fall. The verdict answers one question: can the other side still mate by some series of legal moves (FIDE 6.9)? If it can, or if no proof is found, the other side wins on time; if it cannot, the game is drawn.",
+ assumeBoth:"With “judge both flags” on, each labelled position is judged twice, once for each side’s flag, whoever is to move.",
+ lblPly:"ply ceiling",
+ lblBud:"node budget",
+ limNote:"in the game, {0} searches {1} plies and {2} nodes",
+ limNoteX:"in the game, the engine searches {0} nodes with no ply ceiling",
+ lblRange:"positions",
+ lblRangeTo:"to",
+ lblRangeNote:"in input order, pasted lines first; 0 = to the end",
+ lblLab:"labels",
+ lblBoth:"judge both flags",
+ lblCmp:"also run the other build and compare",
+ go1:"Judge 1 position",
+ goN:"Judge {0} positions",
+ go0:"Nothing to judge yet",
+ goSplit:"{0} pasted + {1} from files",
+ useEx:"Use the README example",
+ exNote:"White’s flag fell; Black cannot mate",
+ goStop:"Stop",
+ sProg:"{0} / {1} · {2} per second · about {3} s left",
+ sDone:"Judged {0} positions with {1} in {2} s ({3} per second).",
+ sDone1:"Judged with {0} in {1} ms.",
+ sStopped:"Stopped after {0} of {1} positions; the report covers those.",
+ sStale:"The build is now {0}. Press the button to judge again with it.",
+ sBadN:"Invalid FEN: {0} lines ({1}). They get no verdict and stay out of every comparison with the reference.",
+ oDraw:"draw proven",
+ oMate:"mate found",
+ oOpen:"no proof",
+ oBad:"invalid FEN",
+ oDrawD:"<code>TM</code> or <code>DP</code>. The other side cannot mate, and a certificate shows it.",
+ oMateD:"<code>WT</code> or <code>BT</code>. The search found a series of legal moves that ends in mate, so the win on time is proven.",
+ oOpenD:"<code>WT</code> or <code>BT</code> by default. The search hit the ply ceiling or the node budget before proving anything, so the arbiter fell to the safe side, the win. Never a false draw, but a draw may have been missed.",
+ secResults:"What the arbiter said",
+ secCert:"How the draws were proven",
+ thCert:"certificate",
+ thCount:"positions",
+ thShare:"share of draws",
+ cIm:"material <code>Im</code>: the other side has no mating material",
+ cl:"lock <code>l()</code>, both sides: dead position, <code>DP</code>",
+ clH:"lock <code>l(2−g)</code>, the other side only, at the root of <code>H</code>",
+ cH:"search <code>H</code>: every line followed until mate became impossible",
+ cZ:"over at the root of <code>H</code>: no legal move, or the 75-move rule",
+ secRef:"Against the reference",
+ refIntro:"{0} of {1} judged positions carry a reference: a chasolver label, or a file marked “every row is a draw”.",
+ refNoRef:"None of the judged positions carries a reference, so none of them can be scored right or wrong. Give lines a chasolver label, or mark a file “every row is a draw”.",
+ mxRefDraw:"reference: draw",
+ mxRefDrawS:"the other side cannot mate",
+ mxRefWin:"reference: win",
+ mxRefWinS:"the other side can mate",
+ kOk:"agrees",
+ kOkDef:"agrees, by default",
+ kMiss:"missed draw",
+ kBad:"FALSE TM",
+ kContra:"contradiction",
+ refBad:"<b>{0} FALSE TM.</b> The engine declared a draw (<code>TM</code> or <code>DP</code>) where the reference says the other side can still mate. That breaks soundness: read these first.",
+ refClean:"<b>No FALSE TM.</b> Every draw the engine declared is backed by the reference.",
+ refContra:"<b>{0} contradictions.</b> The search found a mate where the reference says mate is impossible. Either the reference or the move generation is wrong; each one is worth reading.",
+ refMiss:"<b>{0} missed draws.</b> The reference says draw, but no proof was found within the limits, so the verdict fell to the win. That costs completeness, not soundness.",
+ secPer:"Set by set",
+ thSet:"set",
+ thRows:"positions",
+ thRef:"reference",
+ thHor:"ply ceiling",
+ thBud:"budget",
+ thTot:"total",
+ refKindLab:"labels",
+ refKindDraw:"all draws",
+ refKindMix:"partly",
+ secCost:"Cost",
+ thMeasure:"measure",
+ thAvg:"mean",
+ thMed:"median",
+ thP99:"99%",
+ thMax:"max",
+ mNodes:"nodes spent",
+ mMs:"time (ms)",
+ secBrowse:"Browse the positions",
+ fShow:"show",
+ fSet:"set",
+ fSrc:"certificate",
+ fAll:"all",
+ fDiff:"differs between builds",
+ browseNote:"Open a position to see everything about its verdict. In the detail view, ← and → step through this list.",
+ noneHere:"No position matches these filters.",
+ prev:"Previous",
+ next:"Next",
+ pgOf:"page {0} of {1} · {2} positions",
+ secPgn:"Games (PGN)",
+ pgnSub:"A test of its own, separate from the positions above. Every game is replayed move by move with the selected build. After each move the build checks the endings that need no claim: checkmate, stalemate, dead position, the 75-move rule and fivefold repetition. The first one it meets is where the rules end the game, and any moves played after it are reported. If none comes first, the final position is judged as a flag fall: the side whose flag fell is the loser named in the Result tag, or the side to move when the result is a draw or <code>*</code>. Time-outs and resignations are not told apart, because both ask the same question: can the opponent still mate? The ply ceiling and node budget above apply to that last verdict.",
+ pgnHPaste:"PGN text",
+ pgnDropBig:"Drop PGN files here, or click to choose",
+ pgnDropSmall:"Any number of games per file. Comments, variations and NAGs are skipped; the <code>FEN</code> and <code>Variant</code> tags are read. Chess960 games are not supported.",
+ pgnGo:"Test {0} games",
+ pgnGo0:"Add a PGN to test",
+ pgnN:"{0} games",
+ pgnProg:"{0} / {1} games · {2} per second",
+ pgnDone:"{0} games replayed with {1} in {2} s.",
+ pgnStopped:"Stopped after {0} of {1} games.",
+ pgnFilt:"show",
+ pgnFiltAll:"all games",
+ pgnExp:"pgn-results.csv",
+ pgnThCat:"finding",
+ pgnThN:"games",
+ pgnThGame:"game",
+ pgnThPlayers:"players",
+ pgnThRes:"result",
+ pgnThTerm:"termination",
+ pgnThPlies:"plies",
+ pgnThEnd:"the rules end it at",
+ pgnThExtra:"plies after",
+ pgnThRight:"correct result",
+ pc_ok:"ended where the rules end it",
+ pc_lateDP:"played on after a dead position",
+ pc_lateRule:"played on after the 75-move rule or fivefold repetition",
+ pc_wrongtm:"decided on time or by resignation, should be a draw",
+ pc_wrongres:"the result does not match the final position",
+ pc_drawn:"drawn by agreement or claim (not judged)",
+ pc_open:"unfinished (*)",
+ pc_illegal:"illegal or ambiguous move",
+ pc_unread:"unreadable or unsupported",
+ perr_illegal:"Ply {0} ({1}) is not legal in this position.",
+ perr_ambiguous:"Ply {0} ({1}) fits more than one legal move.",
+ perr_aftermate:"Ply {0} ({1}) comes after the game was already over.",
+ perr_badstart:"The starting FEN is not valid: {0}",
+ perr_variant:"The variant “{0}” is not supported by this build.",
+ perr_parse:"No moves could be read.",
+ pd_late:"The rules end this game after {0}: {1}. {2} more plies were played after it.",
+ pd_lateStart:"The rules already end this game at the starting position: {0}. {1} plies were played after it.",
+ pd_here:"The game ended where the rules end it, after {0}: {1}.",
+ pd_hereStart:"The starting position is already over: {0}.",
+ pd_startShort:"start",
+ pd_endFirst:"The rules had already ended the game after {0}: {1}.",
+ pd_final:"No ending came first, so the final position is judged as if {0}'s flag had fallen: {1}.",
+ pd_claims:"50-move rule: {0}; threefold repetition: {1}",
+ pk_players:"players",
+ pk_res:"PGN result",
+ pk_right:"correct result",
+ pk_claims:"claims available",
+ pk_moves:"Moves",
+ secExp:"Export",
+ expUn:"could-not-judge.csv",
+ expMate:"found-mate.csv",
+ expMiss:"missed-draw.csv",
+ expBad:"false-tm.csv",
+ expAll:"all-results.csv",
+ expInv:"invalid-fen.csv",
+ expNote:"The columns are unchanged, so these files stay comparable with earlier exports. <code>source</code> is one of <code>H</code>, <code>Im</code>, <code>l</code>, <code>lH</code>, <code>Z</code>, as in the certificate table. <code>invalid-fen.csv</code> lists the lines set aside as invalid FEN, with the broken condition in <code>reason</code>.",
+ secCmp:"Build against build",
+ cmpSame:"Both builds returned the same verdict on all {0} positions. The only difference is time: <b>{1}</b> took {2} s, <b>{3}</b> {4} s, a factor of <b>{5}</b>.",
+ cmpDiff:"<b>{0}</b> positions came back with different verdicts. That is not supposed to happen: the two builds are meant to behave identically. Choose “differs between builds” under Browse to read them.",
+ cmpDiffSt:"<b>{0}</b> positions came back with different verdicts. The letter board is compared with <code>engine.js</code>: the rules are the same, but moves are tried in another order, so where the ply ceiling or the node budget decides, the two may part. A proven draw against a proven mate should never happen. Choose “differs between builds” under Browse to read them.",
+ thBuild:"build",
+ thBytes:"bytes",
+ thTime:"time (s)",
+ thRate:"per second",
+ thNodes:"nodes",
+ vTM:"Draw. {0}’s flag fell, but {1} cannot mate by any series of legal moves (FIDE 6.9).",
+ vDP:"Draw. The position is dead (FIDE 5.2.2): neither side can mate by any series of legal moves, so in a game it would have ended before any flag fell.",
+ vMate:"{0} wins on time. The search found a series of legal moves in which {0} mates, so the win is proven.",
+ vOpen:"{0} wins on time, by default. Within the limits below nothing proved that {0} cannot mate, and FIDE 6.9 gives the win unless mate is impossible.",
+ hSteps:"How the verdict was reached",
+ stepsNote:"The tests run in this order. The first one that settles the question gives the verdict; the ones after it are shown for completeness.",
+ s1n:"Material",
+ s2n:"Dead position",
+ s3n:"Lock against the other side",
+ s4n:"Helpmate search",
+ st1Yes:"{0} has no mating material left. Draw.",
+ st1No:"{0} still has mating material.",
+ st2Yes:"Locked for both sides: neither can ever mate. Dead position, <code>DP</code>.",
+ st2Also:"Also locked for both sides, but material had already settled it.",
+ st2No:"Not locked for both sides.",
+ st2Ep:"No certificate: an en passant square ({0}) is set, and the lock detector certifies nothing while it is.",
+ st3Yes:"{0} can never mate: the structure is locked against {0}. Draw, certified at the root of the search without spending a node.",
+ st3Also:"Also locked against {0}, but an earlier test had already settled it.",
+ st3No:"Not locked against {0}.",
+ st3Na:"Not in this build.",
+ st4Ok:"Followed every line until mate became impossible, {0} nodes in all: {1} cannot mate. Draw.",
+ st4Mate:"Found a line in which {0} mates. Win on time, proven.",
+ st4Hor:"A line reached the ply ceiling ({0}) without a proof. Nothing proven, so the verdict falls to the win for {1}.",
+ st4Bud:"The node budget ({0}) ran out without a proof. Nothing proven, so the verdict falls to the win for {1}.",
+ st4Skip:"Not needed: the search returned at its root without spending a node.",
+ st4SM:"Returned at its root: the side to move has no legal move and is not in check, so no mate can follow. Draw.",
+ st4Mated:"Returned at its root: the side to move is already checkmated.",
+ st4N75:"Returned at its root: the halfmove clock is {0}, so the 75-move rule ends every line before any mate. Draw.",
+ st4Root:"Returned at its root without spending a node.",
+ tDec:"settles it",
+ tNo:"no",
+ tAlso:"also yes",
+ tSkip:"not needed",
+ tNa:"not in this build",
+ tOpen:"no proof",
+ hPosition:"Position",
+ kFlag:"flag fell for",
+ flagToMove:"{0}, the side to move",
+ flagForced:"{0}, by “judge both flags”; {1} is to move",
+ kMoves:"legal moves",
+ kStatus:"status before the flag (<code>Z</code>)",
+ stat0:"the game is on",
+ statOver:"{0}: {1}. In a game it is already over, so no flag could fall.",
+ kCastle:"castling",
+ kEp:"en passant",
+ epNote:"{0}; while it is set, the lock detector certifies nothing",
+ kClock:"halfmove clock",
+ noN:"0, assumed: the FEN does not give it",
+ z50:"{0}; the 50-move rule can be claimed",
+ z75:"{0}; the 75-move rule has ended the game",
+ kFull:"move number",
+ hRun:"Run",
+ kBuild:"build",
+ kLimits:"limits",
+ limits:"{0} plies, {1} nodes",
+ limitsX:"no ply ceiling, {0} nodes",
+ kUsed:"nodes spent",
+ usedOf:"{0} of {1}",
+ kMs:"time",
+ kStop:"search stopped by",
+ rHorizon:"the ply ceiling",
+ rBudget:"the node budget",
+ rMate:"a mate",
+ hRefD:"Reference",
+ kLabel:"label",
+ lab_WB:"both sides can mate",
+ "lab_W-":"only White can mate",
+ "lab_-B":"only Black can mate",
+ "lab_--":"neither side can mate",
+ refFile:"the file is marked “every row is a draw”",
+ kExpect:"expected",
+ expDraw:"a draw, <code>TM</code> or <code>DP</code>",
+ expWin:"<code>{0}</code>, {1} can mate",
+ kResult:"result",
+ rOk:"agrees",
+ rOkDef:"agrees, by default: no proof was found, and the win is the default",
+ rMiss:"missed draw: the reference says draw, but no proof was found within the limits",
+ rFalse:"FALSE TM: the reference says {0} can mate, yet the engine declared a draw",
+ rContra:"contradiction: the search found a mate that the reference says is impossible",
+ hSource:"Source",
+ kSet:"set",
+ kId:"row",
+ lbCopy:"Copy FEN",
+ lbCopied:"Copied",
+ openEditor:"Open in the lichess board editor",
+ openGame:"Open the game on lichess",
+ lbClose:"Close",
+ lbPrev:"Previous",
+ lbNext:"Next",
+ lbPos:"{0} of {1}",
+ badFen:"This line is not a valid FEN: {0}",
+ badNec:"These checks are necessary conditions: a line that fails one is certainly not a legal position; passing all of them does not prove that it is.",
+ bad_syntax:"the FEN is malformed ({0}).",
+ sx_fields:"the piece placement and the side to move are required",
+ sx_nranks:"{0} ranks instead of 8",
+ sx_rankw:"rank {0} does not have exactly 8 squares",
+ sx_char:"unknown piece letter “{0}”",
+ sx_side:"side to move “{0}”; it must be w or b",
+ sx_epf:"en passant field “{0}”",
+ sx_num:"number field “{0}”",
+ sx_full:"fullmove number “{0}”; it starts at 1",
+ bad_clock:"the halfmove clock ({0}) is larger than the number of plies played so far ({1}).",
+ bad_kings:"each side must have exactly one king (White {0}, Black {1}).",
+ bad_pawnrank:"a pawn stands on the first or last rank ({0}).",
+ bad_pawns:"{0} has {1} pawns; at most 8 are possible.",
+ bad_pieces:"{0} has {1} pieces; at most 16 are possible.",
+ bad_promo:"{0} has {1} more pieces than the starting set of one queen, two rooks, two knights and one bishop on each colour; only promotions explain them, but only {2} of its pawns are missing.",
+ bad_oppcheck:"the side not to move is in check; two kings standing side by side count as this too.",
+ bad_check3:"the king is in check from more than two pieces.",
+ bad_checkleap:"neither of the two checking pieces attacks along a ray (knight or pawn); such a double check cannot be opened.",
+ bad_checkdiag:"both checking pieces belong to the diagonal family; no move can produce such a double check.",
+ bad_checkstraight:"both checking pieces belong to the straight family, and the geometry of a capturing promotion does not hold.",
+ bad_ep:"the en passant square is inconsistent: there is no pawn in front of it that has just advanced two squares, or the squares behind it are not empty.",
+ bad_epcheck:"the en passant square says the last move was a two-square pawn advance, but that move cannot explain the check.",
+ bad_castle:"the castling field could not be read or contradicts itself.",
+ bk_syntax:"malformed",
+ bk_clock:"move counters",
+ bk_kings:"kings",
+ bk_pawnrank:"pawn on an edge rank",
+ bk_material:"material count",
+ bk_oppcheck:"side not to move in check",
+ bk_check:"impossible check",
+ bk_ep:"en passant",
+ bk_castle:"castling",
+ white:"White",
+ black:"Black",
+ secCodes:"Result codes",
+ codesNote:"The fifteen ways a game can end, as the engine names them. A flag-fall verdict is <code>TM</code>, <code>WT</code> or <code>BT</code>, or <code>DP</code> when the position is already dead. The others appear in the detail view as the status before the flag.",
+ "c_W#":"White mates",
+ "c_B#":"Black mates",
+ c_SM:"stalemate",
+ c_WT:"White wins on time",
+ c_BT:"Black wins on time",
+ c_TM:"flag fall, mate impossible: draw",
+ c_WR:"White wins by resignation",
+ c_BR:"Black wins by resignation",
+ c_RM:"resignation, mate impossible: draw",
+ c_75:"75-move rule",
+ c_5R:"fivefold repetition",
+ c_DP:"dead position",
+ c_50:"50-move claim",
+ c_3R:"threefold repetition claim",
+ c_DA:"draw by agreement",
+ cWin:"decisive",
+ cDraw:"drawn",
+ cHere:"flag-fall verdicts on this page",
+ foot:"The engine is embedded twice, byte for byte: <code>engine.js</code>, the shortest source, and <code>engine_4x.js</code>, a few bytes more for speed; both return the same verdict on every input. The verdict is what <code>F</code> returns: the same <code>H</code> search, run with the ply ceiling and node budget set above (<code>F</code> itself uses 9 plies and 2,000 nodes). A third engine, LUX, is the one inside <code>index.html</code>: the same core with boxed knights, rooks and queens and Chess960 castling (the king moves onto its own rook); its <code>F</code> uses 450 plies and 600,000 nodes, and those are its defaults here. <code>engine_string.js</code> is the same L3 on a letter board (a8 = index 0), bishop lock included, with the same 9 plies and 2,000 nodes; it tries moves in another order, so where the ceiling or the budget decides, its verdict may part from <code>engine.js</code>. Two extra calls serve the report and never touch the verdict: a marked copy of <code>H</code> that tells a real mate from a search that ran out, and the game’s status test <code>Z</code>."
+},
+tr:{
+ title:"hakem — FIDE 6.9 örtüşmesi",
+ h1:"hakem — FIDE 6.9 örtüşmesi",
+ lblEngine:"sürüm",
+ lblLang:"dil",
+ optX4:"hızlı — engine_4x.js",
+ optNm:"yavaş — engine.js",
+ optLux:"LUX — index.html",
+ cmpDiffLux:"<b>{0}</b> pozisyonda hükümler farklı çıktı. LUX ayrı bir motor (gömülü at, kale ve vezir, Chess960 roku), bu yüzden engine_4x.js’ten farklar beklenen bir şey. Okumak için göz at bölümünde “sürümler arasında farklı”yı seç.",
+ optL3x4:"L3 — hızlı",
+ optL3nm:"L3 — normal",
+ optStnm:"L3 — harf tahtası",
+ stTag:"harf tahtası, a8 = 0",
+ famSt:"L3 (harf tahtası)",
+ engnote:"{0} B yüklü · {1}",
+ nmTag:"daha kısa dosya",
+ x4Tag:"daha hızlı arama",
+ secDiff:"İki sürümü ayıran şey",
+ diffSub:"İki dosya da birebir gömülü. Aşağıdaki tablo ve fark, sayfa açılırken o iki kaynaktan hesaplanıyor; yani okuduğunuz şey birebir çalışan şey.",
+ thFn:"fonksiyon",
+ thNm:"engine.js",
+ thX4:"engine_4x.js",
+ thD:"Δ",
+ thWhat:"ne değişiyor",
+ totalRow:"dosyanın tamamı",
+ same:"{0} tanımın {1} tanesi iki sürümde bayt bayt aynı.",
+ diffKey:"<del>kırmızı</del> — yalnız <code>engine.js</code>’de (kısa) &nbsp;·&nbsp; <ins>yeşil</ins> — yalnız <code>engine_4x.js</code>’de (hız). İşaretsiz olan her şey ortak.",
+ wJ:"Kilit dedektörü: FIDE 5.2.2 için <code>Z</code>’den (materyal testi <code>I</code>’nin yanında), 6.9 için <code>H</code>’den çağrılıyor. Piyon konileri <code>C</code>/<code>Z</code>’yi, şah selleri <code>K</code>/<code>L</code>’yi, alınabilirlik kümeleri <code>r</code>/<code>q</code>’yu ve fil selleri <code>R</code>/<code>c</code>’yi büyütüp kalıcı olarak tıkalı piyonlar <code>P</code>/<code>Q</code>’yu daraltarak bir sabit noktaya götürüyor; sonra bir piyonun terfi edip edemeyeceğini, taş alıp alamayacağını ya da şah çekip çekemeyeceğini, donmuş varsayılan şahın gerçekten donmuş olup olmadığını, kutulu bir at, kale ya da vezirin kaçıp kaçmadığını (rakip şahın ya da filin ulaştığı kutulu taş kaçmış sayılmaz: hiçbir şey alamaz, <code>F</code>/<code>g</code>’den düşer ve karesi o andan sonra boş sayılır) ve fil katmanının tutup tutmadığını soruyor. Kısa sürüm gevşetmeyi sabit 768 tur koşuyor. Hız sürümü <code>C+Z+K+L+r+q-P-Q+R+c-F-g</code> toplamını tutuyor ve toplam kıpırdamayı bıraktığı anda duruyor. Bu on iki küme yalnızca tek yönde hareket ediyor — sekizi büyüyor; <code>P</code>, <code>Q</code> ve kutulu kümeler <code>F</code>/<code>g</code> küçülüyor, eksi işaretle girmelerinin nedeni bu — dolayısıyla toplam, bir şeyi değiştiren her turda değişiyor ve yalnızca sabit noktada duruyor; döngü asla erken bitemez. On sel ve piyon maskesi toplamda en fazla 640 bit, <code>F</code>/<code>g</code> ise yalnız at, kale ve vezir karelerini değiştirebildiği için kısa sürümün 768 turu da her zaman yakınsıyor. Gerçek oyunlarda hız sürümü medyan 11 turda duruyor (chasolver verisinin ilk 20.000 oyununda en fazla 29). Toplamın durulabilmesi için hız sürümü yukarı doğru büyüyen iki küme <code>C</code> ve <code>q</code>’yu <code>&amp;f</code> ile 64 bite geri kırpıyor; kırpmasa sekizinci sıranın ötesine itilen bitler toplamı sonsuza dek kıpırdatırdı. Kısa sürümün kırpmaya ihtiyacı yok: 768 turdan sonra zaten duruyor ve o bitler hiçbir hükmü değiştirmiyor — <code>q</code>’yu sekizinci sıranın üstünde okuyan bir şey yok, oraya ulaşan bir koni de terfi testine çoktan takılmış oluyor. Hız sürümü sabit noktadan önce hızlı eleyen iki ucuz kontrol yapıyor: kendi piyonlarının ve kutulu taşlarının tutmadığı bir adım karesi olan kutulu at, kale ya da vezir ve, donmuş şah seviyelerinde, komşu karelerinden biri ne kendi taşlarınca tutulan ne de rakip piyonca görülen şah. Köşegen adımı <code>T</code> <code>s&amp;&amp;</code> ile açılıyor, böylece boş bir küme — fili olmayan taraf — hemen geri dönüyor; <code>S</code>, kısa sürümün toplamayla (<code>s+s</code>) yaptığını kaydırmayla (<code>s&lt;&lt;1n</code>) yapıyor; fil katmanında da <code>&amp;</code>/<code>|</code>, <code>&amp;&amp;</code>/<code>||</code> oluyor, yani sonuç belli olunca geri kalanı atlanıyor.",
+ wG:"Geometri. Fil, kale ya da vezirde ışın yürünmeden önce adımın taşa uyması gerekir (<code>P+P*4%x&amp;1</code>). Hız sürümü <code>&amp;&amp;</code> ile kısa devre yapar, yürüyüş <code>S()</code> yalnız yön doğruysa çalışır; derli toplu sürüm <code>&amp;</code>’in iki yanını da her çağrıda hesaplar.",
+ wV:"Fil kilitleri dahil hüküm. Aynı kümeler, aynı sertifika, iki kısa devre. Doyma döngüsü her seferinde 600 tur dönmek yerine sağlama toplamı <code>A+a+_+f+E+Y-S-s+J+K</code> kıpırdamadığı anda durur: her küme tek yönde değişir, bu yüzden bir şey değişen her turda toplam da değişir; <code>&amp;F</code> beyazın ilerleme kümesini ve siyahın alınabilir kareler kümesi <code>K</code>’yi tahtada tutar ki toplam oturabilsin. Varsayılan şahın yanında hiçbir piyonun tutmadığı ya da saldırmadığı bir kare varsa donmuş şah seviyesi hiç koşulmaz; o seviye kendi kontrolünde zaten düşerdi.",
+ wL:"<code>map</code> yerine <code>forEach</code>: <code>map</code>’in ayırmak ve hemen atmak zorunda olduğu 64 elemanlık sonuç dizisi hiç kurulmuyor. Her legal hamle üretiminde bir tahsis eksiliyor. <code>forEach</code> <code>undefined</code> döndürdüğü için hız sürümü <code>||q</code> ile bitiyor; <code>map</code>’i dizi döndüren kısa sürüm ise <code>&amp;&amp;q</code> ile. Tahta kopyasını iki sürüm de burada almıyor, ikisi de bunu <code>M</code>’e bırakıyor. Derli toplu sürüm <code>c</code>’yi de kaydedip geri yazıyor, çünkü onun <code>M</code>’i bunu değiştiriyor.",
+ wM:"Rok hakları. Derli toplu sürümde <code>M</code>’in kendisi, kalkış ve varış karelerinin düşürdüğü hakları siliyor (<code>c&amp;=~C(i)&amp;~C(f)</code>); böylece her çağıran bedavaya alıyor: <code>A</code> kendi kopyasını bırakıyor, aramaya da ek kod gerekmiyor. 11 bayt ucuza geliyor, ama satır bu kez <code>L</code>’nin denediği her sözde-legal hamlede de çalışıyor, gerekenin kabaca iki katı sıklıkta. 833 pozisyonluk ölçümde bedeli yaklaşık %3. İki sürüm de tahta kopyasını <code>M</code>’in kendi parametre listesinde alıyor (<code>p=(b=[...b])[i]</code>); böylece hiçbir çağıran — <code>L</code>, arama ya da <code>A</code> — kendi kopyasını almak zorunda kalmıyor. İki sürümün <code>M</code>’i yalnızca rok satırında ayrılıyor.",
+ wA:"<code>M</code>’deki değişikliğin aynası: derli toplu sürüm <code>c&amp;=~C(i)&amp;~C(f)</code> satırını <code>A</code>’dan atıyor, çünkü <code>M</code> zaten yapmış oluyor; hız sürümü satırı burada tutuyor, böylece <code>M</code> saf bir tahta işlemi olarak kalıyor.",
+ wZ:"Aynı <code>p&amp;&amp;</code> koruması, bu kez pozisyon sonucu taramasında — hamle üretimi çağrılmadan önce.",
+ wX:"FIDE 6.9 yardımcı-mat araması. Derli toplu sürüm terminal testini, yani bayrağı düşen tarafın şahta olup olmadığını, parametre varsayılanı olarak her düğümde hesaplar; hız sürümü onu yalnızca hiçbir hamlenin cevap vermediği yaprakta sorar: <code>v??t^I|!T()</code>.",
+ wT:"Tehdit testi, her deneme hamlesinden sonra çalışır. Hız sürümü boş kareleri ve kendi taşlarını tek testle atlar: <code>(p^t)&gt;8</code>; derli toplu sürümün <code>p&amp;8^t</code>’si sıra beyazdayken boş kareleri de geçirir.",
+ wO:"Hamle dolaşımı. Hız sürümü boş kareleri ve rakibin taşlarını tek testle atlar: <code>p+~t&gt;&gt;3</code>; derli toplu sürümün <code>p&amp;8^t</code>’si sıra siyahtayken boş kareleri de geçirir ve her biri bütün hedefleri dener. Piyon, şah ya da atın çok uzaktaki bir kareye hamlesi için <code>L</code>’ye hiç sorulmaz (<code>22&gt;&gt;p%8&amp;1&amp;&amp;(x-j)**2&gt;1089</code>).",
+ st3Skip:"Gerek yok: yukarıdaki materyal testi zaten çözdü.",
+ noCastle960:"Motor yalnızca klasik rok sütunlarını tanır; bu hak yok sayıldı",
+ sDrop:"Chess960 rok hakkı taşıyan {0} satır bu haklar olmadan yargılandı",
+ sub:"Bayrak düşüşünü oyunun yargıladığı gibi yargılar. Hüküm, fil kilitleri dahil FideLite’ın kendi motorundan gelir ve hükme götüren her test gösterilir.",
+ hPos:"Pozisyonlar",
+ posHint:"Her satıra bir FEN. Satır, beklenen cevabı vermek için bir chasolver etiketiyle (<code>WB</code>, <code>W-</code>, <code>-B</code>, <code>--</code>) başlayabilir; <code>#</code> ile başlayan satırlar atlanır. Ctrl+Enter hüküm verir.",
+ hFiles:"Dosyalar",
+ dropBig:"CSV ya da TXT dosyalarını buraya bırak ya da seçmek için tıkla",
+ dropSmall:"CSV: <code>fen</code> sütunu, varsa <code>label</code> sütunu da okunur. TXT: chasolver formatı, satır başına <code>WB &lt;fen&gt;</code>. Her dosya, adını taşıyan bir küme olur.",
+ fRows:"{0} pozisyon",
+ fBad:"{0} okunamayan satır atlandı",
+ fLabels:"referans: dosyadaki etiketler",
+ fRef:"referans",
+ fRefNone:"yok",
+ fRefDraw:"her satır berabere",
+ fRemove:"{0} dosyasını kaldır",
+ fClear:"Tüm dosyaları kaldır",
+ fReading:"{0} okunuyor…",
+ fFail:"{0} okunamadı: {1}",
+ assumeH:"Kimin bayrağı düştü",
+ assume:"FEN’de sırası gelen taraf (ikinci alan, <code>w</code> ya da <code>b</code>). Oyunda yalnızca sırası gelenin saati işler; düşebilecek tek bayrak onunkidir. Hüküm tek bir soruyu cevaplar: öbür taraf herhangi bir legal hamle dizisiyle hâlâ mat edebilir mi (FIDE 6.9)? Edebiliyorsa ya da kanıt bulunamazsa öbür taraf süreden kazanır; edemiyorsa oyun berabere biter.",
+ assumeBoth:"“İki bayrağı da dene” açıkken etiketli her pozisyon, sıra kimde olursa olsun, iki kez yargılanır: her iki tarafın bayrağı için birer kez.",
+ lblPly:"ply tavanı",
+ lblBud:"düğüm bütçesi",
+ limNote:"oyunda {0} {1} ply ve {2} düğümle arar",
+ limNoteX:"oyunda motor ply tavanı olmadan {0} düğümle arar",
+ lblRange:"pozisyonlar",
+ lblRangeTo:"–",
+ lblRangeNote:"giriş sırasıyla, yapıştırılanlar önce; 0 = sona kadar",
+ lblLab:"etiketler",
+ lblBoth:"iki bayrağı da dene",
+ lblCmp:"öbür sürümü de koştur ve karşılaştır",
+ go1:"1 pozisyona hüküm ver",
+ goN:"{0} pozisyona hüküm ver",
+ go0:"Henüz yargılanacak pozisyon yok",
+ goSplit:"{0} yapıştırılan + {1} dosyalardan",
+ useEx:"README’deki örneği kullan",
+ exNote:"Beyaz’ın bayrağı düştü; Siyah mat edemez",
+ goStop:"Durdur",
+ sProg:"{0} / {1} · saniyede {2} · kalan ~{3} sn",
+ sDone:"{0} pozisyon {1} ile {2} sn’de yargılandı (saniyede {3}).",
+ sDone1:"{0} ile {1} ms’de yargılandı.",
+ sStopped:"{1} pozisyonun {0} tanesinden sonra durduruldu; rapor onları kapsıyor.",
+ sStale:"Sürüm artık {0}. Onunla yeniden yargılamak için düğmeye bas.",
+ sBadN:"Geçersiz FEN: {0} satır ({1}). Bu satırlar hüküm almaz ve referansla hiçbir karşılaştırmaya girmez.",
+ oDraw:"beraberlik kanıtlandı",
+ oMate:"mat bulundu",
+ oOpen:"kanıt yok",
+ oBad:"geçersiz FEN",
+ oDrawD:"<code>TM</code> ya da <code>DP</code>. Öbür taraf mat edemez ve bunu bir sertifika gösteriyor.",
+ oMateD:"<code>WT</code> ya da <code>BT</code>. Arama matla biten bir legal hamle dizisi buldu; süreden galibiyet kanıtlı.",
+ oOpenD:"Varsayılan <code>WT</code> ya da <code>BT</code>. Arama bir şey kanıtlayamadan ply tavanına ya da düğüm bütçesine çarptı; hakem güvenli tarafa, galibiyete düştü. Asla yanlış beraberlik değil, ama bir beraberlik kaçmış olabilir.",
+ secResults:"Hakem ne dedi",
+ secCert:"Beraberlikler nasıl kanıtlandı",
+ thCert:"sertifika",
+ thCount:"pozisyon",
+ thShare:"beraberliklerdeki payı",
+ cIm:"materyal <code>Im</code>: öbür tarafta mat edecek materyal yok",
+ cl:"kilit <code>l()</code>, iki taraf: ölü pozisyon, <code>DP</code>",
+ clH:"kilit <code>l(2−g)</code>, yalnız öbür taraf, <code>H</code>’nin kökünde",
+ cH:"arama <code>H</code>: her hat, mat imkânsızlaşana dek izlendi",
+ cZ:"<code>H</code>’nin kökünde bitmiş: legal hamle yok ya da 75 hamle kuralı",
+ secRef:"Referansa karşı",
+ refIntro:"Yargılanan {1} pozisyonun {0} tanesinde referans var: bir chasolver etiketi ya da “her satır berabere” diye işaretlenmiş bir dosya.",
+ refNoRef:"Yargılanan pozisyonların hiçbirinde referans yok; hiçbiri doğru ya da yanlış diye puanlanamaz. Satırlara chasolver etiketi ver ya da bir dosyayı “her satır berabere” diye işaretle.",
+ mxRefDraw:"referans: berabere",
+ mxRefDrawS:"öbür taraf mat edemez",
+ mxRefWin:"referans: galibiyet",
+ mxRefWinS:"öbür taraf mat edebilir",
+ kOk:"uyuşuyor",
+ kOkDef:"uyuşuyor, varsayılanla",
+ kMiss:"kaçan beraberlik",
+ kBad:"YANLIŞ TM",
+ kContra:"çelişki",
+ refBad:"<b>{0} YANLIŞ TM.</b> Motor, referansın öbür tarafın hâlâ mat edebileceğini söylediği yerde beraberlik (<code>TM</code> ya da <code>DP</code>) ilan etti. Bu sağlamlığı bozar: önce bunları oku.",
+ refClean:"<b>YANLIŞ TM yok.</b> Motorun ilan ettiği her beraberliği referans doğruluyor.",
+ refContra:"<b>{0} çelişki.</b> Arama, referansın mat imkânsız dediği yerde mat buldu. Ya referans ya hamle üretimi yanlış; her biri okunmaya değer.",
+ refMiss:"<b>{0} kaçan beraberlik.</b> Referans berabere diyor ama sınırlar içinde kanıt bulunamadı; hüküm galibiyete düştü. Bu tamlıktan götürür, sağlamlıktan değil.",
+ secPer:"Küme küme",
+ thSet:"küme",
+ thRows:"pozisyon",
+ thRef:"referans",
+ thHor:"ply tavanı",
+ thBud:"bütçe",
+ thTot:"toplam",
+ refKindLab:"etiket",
+ refKindDraw:"hepsi berabere",
+ refKindMix:"kısmen",
+ secCost:"Maliyet",
+ thMeasure:"ölçü",
+ thAvg:"ortalama",
+ thMed:"medyan",
+ thP99:"%99",
+ thMax:"maks",
+ mNodes:"harcanan düğüm",
+ mMs:"süre (ms)",
+ secBrowse:"Pozisyonlara göz at",
+ fShow:"göster",
+ fSet:"küme",
+ fSrc:"sertifika",
+ fAll:"hepsi",
+ fDiff:"sürümler arasında farklı",
+ browseNote:"Hükmüyle ilgili her şeyi görmek için bir pozisyonu aç. Ayrıntı görünümünde ← ve → bu listede gezinir.",
+ noneHere:"Bu süzgeçlere uyan pozisyon yok.",
+ prev:"Önceki",
+ next:"Sonraki",
+ pgOf:"sayfa {0} / {1} · {2} pozisyon",
+ secPgn:"Oyunlar (PGN)",
+ pgnSub:"Yukarıdaki pozisyonlardan ayrı, kendi başına bir test. Her oyun seçili sürümle hamle hamle yeniden oynanır. Her hamleden sonra sürüm, talep gerektirmeyen bitişlere bakar: mat, pat, ölü pozisyon, 75 hamle kuralı ve beşli tekrar. İlk karşılaştığı, kuralların oyunu bitirdiği yerdir; ondan sonra oynanan hamleler raporlanır. Hiçbiri önce gelmezse son pozisyon bayrak düşüşü olarak değerlendirilir: bayrağı düşen, Result etiketindeki kaybedendir; sonuç berabere ya da <code>*</code> ise sırası gelen taraftır. Süre bitimiyle terk ayrılmaz, çünkü ikisi de aynı soruyu sorar: rakip hâlâ mat edebilir mi? Yukarıdaki ply tavanı ve düğüm bütçesi bu son hüküm için geçerlidir.",
+ pgnHPaste:"PGN metni",
+ pgnDropBig:"PGN dosyalarını buraya bırak ya da seçmek için tıkla",
+ pgnDropSmall:"Bir dosyada istediğin kadar oyun olabilir. Yorumlar, varyantlar ve NAG'ler atlanır; <code>FEN</code> ve <code>Variant</code> etiketleri okunur. Chess960 oyunları desteklenmiyor.",
+ pgnGo:"{0} oyunu test et",
+ pgnGo0:"Test için PGN ekle",
+ pgnN:"{0} oyun",
+ pgnProg:"{0} / {1} oyun · saniyede {2}",
+ pgnDone:"{0} oyun {1} ile {2} sn içinde yeniden oynandı.",
+ pgnStopped:"{1} oyunun {0} tanesinden sonra durduruldu.",
+ pgnFilt:"göster",
+ pgnFiltAll:"bütün oyunlar",
+ pgnExp:"pgn-results.csv",
+ pgnThCat:"bulgu",
+ pgnThN:"oyun",
+ pgnThGame:"oyun",
+ pgnThPlayers:"oyuncular",
+ pgnThRes:"sonuç",
+ pgnThTerm:"bitiş nedeni",
+ pgnThPlies:"yarım hamle",
+ pgnThEnd:"kuralların bitirdiği yer",
+ pgnThExtra:"sonrasında",
+ pgnThRight:"doğru sonuç",
+ pc_ok:"kuralların bitirdiği yerde bitmiş",
+ pc_lateDP:"ölü pozisyondan sonra oynanmış",
+ pc_lateRule:"75 hamle kuralından ya da beşli tekrardan sonra oynanmış",
+ pc_wrongtm:"süreden ya da terkle karar verilmiş, berabere olmalıydı",
+ pc_wrongres:"sonuç son pozisyonla uyuşmuyor",
+ pc_drawn:"anlaşma ya da taleple berabere (değerlendirilmedi)",
+ pc_open:"bitmemiş (*)",
+ pc_illegal:"yasadışı ya da belirsiz hamle",
+ pc_unread:"okunamayan ya da desteklenmeyen",
+ perr_illegal:"{0}. yarım hamle ({1}) bu pozisyonda yasal değil.",
+ perr_ambiguous:"{0}. yarım hamle ({1}) birden fazla yasal hamleye uyuyor.",
+ perr_aftermate:"{0}. yarım hamle ({1}) oyun zaten bittikten sonra geliyor.",
+ perr_badstart:"Başlangıç FEN'i geçerli değil: {0}",
+ perr_variant:"“{0}” varyantı bu sürümde desteklenmiyor.",
+ perr_parse:"Hiç hamle okunamadı.",
+ pd_late:"Kurallar bu oyunu {0} hamlesinden sonra bitiriyor: {1}. Ondan sonra {2} yarım hamle daha oynanmış.",
+ pd_lateStart:"Kurallar bu oyunu daha başlangıç pozisyonunda bitiriyor: {0}. Ondan sonra {1} yarım hamle oynanmış.",
+ pd_here:"Oyun kuralların bitirdiği yerde, {0} hamlesinden sonra bitmiş: {1}.",
+ pd_hereStart:"Oyun başlangıç pozisyonunda zaten bitmiş: {0}.",
+ pd_startShort:"başlangıç",
+ pd_endFirst:"Kurallar oyunu zaten {0} hamlesinden sonra bitirmişti: {1}.",
+ pd_final:"Daha önce bir bitiş gelmedi; son pozisyon, {0} tarafının bayrağı düşmüş gibi değerlendirildi: {1}.",
+ pd_claims:"50 hamle kuralı: {0}; üçlü tekrar: {1}",
+ pk_players:"oyuncular",
+ pk_res:"PGN sonucu",
+ pk_right:"doğru sonuç",
+ pk_claims:"talep edilebilir",
+ pk_moves:"Hamleler",
+ secExp:"Dışa aktar",
+ expUn:"could-not-judge.csv",
+ expMate:"found-mate.csv",
+ expMiss:"missed-draw.csv",
+ expBad:"false-tm.csv",
+ expAll:"all-results.csv",
+ expInv:"invalid-fen.csv",
+ expNote:"Sütunlar değişmedi; bu dosyalar önceki dışa aktarımlarla karşılaştırılabilir kalıyor. <code>source</code>, sertifika tablosundaki gibi <code>H</code>, <code>Im</code>, <code>l</code>, <code>lH</code> ya da <code>Z</code>’dir. <code>invalid-fen.csv</code>, geçersiz FEN olarak ayrılan satırları bozulan şartla birlikte <code>reason</code> sütununda listeler.",
+ secCmp:"Sürüm sürüme",
+ cmpSame:"İki sürüm de {0} pozisyonun tamamında aynı hükmü verdi. Tek fark süre: <b>{1}</b> {2} sn, <b>{3}</b> {4} sn sürdü; oran <b>{5}</b>.",
+ cmpDiff:"<b>{0}</b> pozisyonda hükümler farklı çıktı. Bunun olmaması gerekiyor: iki sürümün birebir aynı davranması bekleniyor. Okumak için göz at bölümünde “sürümler arasında farklı”yı seç.",
+ cmpDiffSt:"<b>{0}</b> pozisyonda hükümler farklı çıktı. Harf tahtası <code>engine.js</code> ile karşılaştırılıyor: kurallar aynı, ama hamleler başka sırayla deneniyor; hükmü ply tavanı ya da düğüm bütçesi verdiğinde ikisi ayrılabilir. Kanıtlanmış bir beraberliğin kanıtlanmış bir matla çelişmesi ise hiç olmamalı. Okumak için göz at bölümünde “sürümler arasında farklı”yı seç.",
+ thBuild:"sürüm",
+ thBytes:"bayt",
+ thTime:"süre (sn)",
+ thRate:"saniyede",
+ thNodes:"düğüm",
+ vTM:"Berabere. {0} tarafının bayrağı düştü ama {1} hiçbir legal hamle dizisiyle mat edemez (FIDE 6.9).",
+ vDP:"Berabere. Pozisyon ölü (FIDE 5.2.2): iki taraf da hiçbir legal hamle dizisiyle mat edemez; oyunda bayrak düşmeden önce bitmiş olurdu.",
+ vMate:"{0} süreden kazanır. Arama, {0} tarafının mat ettiği bir legal hamle dizisi buldu; galibiyet kanıtlı.",
+ vOpen:"{0} süreden kazanır, varsayılanla. Aşağıdaki sınırlar içinde {0} tarafının mat edemeyeceğini hiçbir şey kanıtlamadı; FIDE 6.9 da mat imkânsız olmadıkça galibiyeti verir.",
+ hSteps:"Hüküm nasıl çıktı",
+ stepsNote:"Testler bu sırayla çalışır. Soruyu ilk çözen hükmü verir; sonrakiler eksiksiz olsun diye gösteriliyor.",
+ s1n:"Materyal",
+ s2n:"Ölü pozisyon",
+ s3n:"Öbür tarafa karşı kilit",
+ s4n:"Yardımcı-mat araması",
+ st1Yes:"{0} tarafında mat edecek materyal kalmamış. Berabere.",
+ st1No:"{0} tarafında hâlâ mat edecek materyal var.",
+ st2Yes:"İki taraf için de kilitli: hiçbiri asla mat edemez. Ölü pozisyon, <code>DP</code>.",
+ st2Also:"İki taraf için de kilitli, ama materyal zaten çözmüştü.",
+ st2No:"İki taraf için kilitli değil.",
+ st2Ep:"Sertifika yok: bir geçerken alma karesi ({0}) tanımlı ve kilit dedektörü o tanımlıyken hiçbir şeyi sertifikalamaz.",
+ st3Yes:"{0} asla mat edemez: yapı {0} tarafına karşı kilitli. Berabere; aramanın kökünde, tek düğüm harcanmadan sertifikalandı.",
+ st3Also:"{0} tarafına karşı da kilitli, ama daha önceki bir test zaten çözmüştü.",
+ st3No:"{0} tarafına karşı kilitli değil.",
+ st3Na:"Bu sürümde yok.",
+ st4Ok:"Her hat mat imkânsızlaşana dek izlendi, toplam {0} düğüm: {1} mat edemez. Berabere.",
+ st4Mate:"{0} tarafının mat ettiği bir hat bulundu. Süreden galibiyet, kanıtlı.",
+ st4Hor:"Bir hat kanıt olmadan ply tavanına ({0}) ulaştı. Hiçbir şey kanıtlanmadı; hüküm {1} lehine galibiyete düşer.",
+ st4Bud:"Düğüm bütçesi ({0}) kanıt olmadan tükendi. Hiçbir şey kanıtlanmadı; hüküm {1} lehine galibiyete düşer.",
+ st4Skip:"Gerek kalmadı: arama kökünde, tek düğüm harcamadan döndü.",
+ st4SM:"Kökünde döndü: sırası gelenin legal hamlesi yok ve şah altında değil; ardından mat gelemez. Berabere.",
+ st4Mated:"Kökünde döndü: sırası gelen zaten mat olmuş.",
+ st4N75:"Kökünde döndü: hamle sayacı {0}; 75 hamle kuralı her hattı mattan önce bitirir. Berabere.",
+ st4Root:"Kökünde, tek düğüm harcamadan döndü.",
+ tDec:"çözdü",
+ tNo:"hayır",
+ tAlso:"bu da evet",
+ tSkip:"gerek kalmadı",
+ tNa:"bu sürümde yok",
+ tOpen:"kanıt yok",
+ hPosition:"Pozisyon",
+ kFlag:"bayrağı düşen",
+ flagToMove:"{0}, sırası gelen",
+ flagForced:"{0}, “iki bayrağı da dene” ile; sıra {1} tarafında",
+ kMoves:"legal hamle",
+ kStatus:"bayraktan önceki durum (<code>Z</code>)",
+ stat0:"oyun sürüyor",
+ statOver:"{0}: {1}. Oyunda zaten bitmiş olurdu; bayrak düşemezdi.",
+ kCastle:"rok",
+ kEp:"geçerken alma",
+ epNote:"{0}; tanımlıyken kilit dedektörü hiçbir şeyi sertifikalamaz",
+ kClock:"hamle sayacı",
+ noN:"0, varsayıldı: FEN’de yok",
+ z50:"{0}; 50 hamle kuralı talep edilebilir",
+ z75:"{0}; 75 hamle kuralı oyunu bitirmiş",
+ kFull:"hamle numarası",
+ hRun:"Koşu",
+ kBuild:"sürüm",
+ kLimits:"sınırlar",
+ limits:"{0} ply, {1} düğüm",
+ limitsX:"ply tavanı yok, {0} düğüm",
+ kUsed:"harcanan düğüm",
+ usedOf:"{1} düğümün {0} tanesi",
+ kMs:"süre",
+ kStop:"aramayı durduran",
+ rHorizon:"ply tavanı",
+ rBudget:"düğüm bütçesi",
+ rMate:"bir mat",
+ hRefD:"Referans",
+ kLabel:"etiket",
+ lab_WB:"iki taraf da mat edebilir",
+ "lab_W-":"yalnız Beyaz mat edebilir",
+ "lab_-B":"yalnız Siyah mat edebilir",
+ "lab_--":"iki taraf da mat edemez",
+ refFile:"dosya “her satır berabere” diye işaretli",
+ kExpect:"beklenen",
+ expDraw:"beraberlik, <code>TM</code> ya da <code>DP</code>",
+ expWin:"<code>{0}</code>, {1} mat edebilir",
+ kResult:"sonuç",
+ rOk:"uyuşuyor",
+ rOkDef:"uyuşuyor, varsayılanla: kanıt bulunamadı, galibiyet de varsayılan hüküm",
+ rMiss:"kaçan beraberlik: referans berabere diyor ama sınırlar içinde kanıt bulunamadı",
+ rFalse:"YANLIŞ TM: referansa göre {0} mat edebilir, motor ise beraberlik ilan etti",
+ rContra:"çelişki: arama, referansın imkânsız dediği bir mat buldu",
+ hSource:"Kaynak",
+ kSet:"küme",
+ kId:"satır",
+ lbCopy:"FEN’i kopyala",
+ lbCopied:"Kopyalandı",
+ openEditor:"lichess tahta düzenleyicisinde aç",
+ openGame:"Oyunu lichess’te aç",
+ lbClose:"Kapat",
+ lbPrev:"Önceki",
+ lbNext:"Sonraki",
+ lbPos:"{0} / {1}",
+ badFen:"Bu satır geçerli bir FEN değil: {0}",
+ badNec:"Bu denetimler zorunlu şartlardır: birini bozan satır kesinlikle geçerli bir pozisyon değildir; hepsinden geçmek ise geçerliliği kanıtlamaz.",
+ bad_syntax:"FEN'in yazımı bozuk ({0}).",
+ sx_fields:"taş dizilimi ve sıra alanı gerekli",
+ sx_nranks:"8 yerine {0} yatay var",
+ sx_rankw:"{0}. yatayda tam 8 kare yok",
+ sx_char:"tanınmayan taş harfi “{0}”",
+ sx_side:"sıra alanı “{0}”; w ya da b olmalı",
+ sx_epf:"geçerken alma alanı “{0}”",
+ sx_num:"sayı alanı “{0}”",
+ sx_full:"tam hamle numarası “{0}”; 1’den başlar",
+ bad_clock:"yarım hamle sayacı ({0}) şimdiye kadar oynanmış yarım hamle sayısından ({1}) büyük.",
+ bad_kings:"her tarafta tam bir şah olmalı (Beyaz {0}, Siyah {1}).",
+ bad_pawnrank:"ilk ya da son yatayda piyon var ({0}).",
+ bad_pawns:"{0} tarafında {1} piyon var; en fazla 8 olabilir.",
+ bad_pieces:"{0} tarafında {1} taş var; en fazla 16 olabilir.",
+ bad_promo:"{0} tarafında başlangıç takımından (bir vezir, iki kale, iki at, her renkte bir fil) {1} fazla taş var; bunları ancak terfi açıklar, ama yalnızca {2} piyonu eksik.",
+ bad_oppcheck:"sırası olmayan taraf şah altında; yan yana duran iki şah da bu sayılır.",
+ bad_check3:"şah ikiden fazla taştan tehdit ediliyor.",
+ bad_checkleap:"şah çeken iki taşın hiçbiri ışın boyunca tehdit etmiyor (at ya da piyon); böyle bir çifte şah açılamaz.",
+ bad_checkdiag:"şah çeken iki taşın ikisi de çapraz aileden; böyle bir çifte şah hiçbir hamleyle oluşamaz.",
+ bad_checkstraight:"şah çeken iki taşın ikisi de düz aileden ve alarak terfi geometrisi tutmuyor.",
+ bad_ep:"geçerken alma karesi tutarsız: önünde iki kare ilerlemiş bir piyon yok ya da arkasındaki kareler boş değil.",
+ bad_epcheck:"geçerken alma karesi son hamlenin iki kare piyon ilerleyişi olduğunu söylüyor, ama şah bu hamleyle açıklanamıyor.",
+ bad_castle:"rok alanı okunamadı ya da kendi içinde çelişiyor.",
+ bk_syntax:"yazım",
+ bk_clock:"sayaçlar",
+ bk_kings:"şah sayısı",
+ bk_pawnrank:"kenar yatayda piyon",
+ bk_material:"materyal sayımı",
+ bk_oppcheck:"sırası olmayan taraf şah altında",
+ bk_check:"imkânsız şah",
+ bk_ep:"geçerken alma",
+ bk_castle:"rok",
+ white:"Beyaz",
+ black:"Siyah",
+ secCodes:"Sonuç kodları",
+ codesNote:"Motorun adlandırdığı haliyle bir oyunun bitebileceği on beş yol. Bayrak hükmü <code>TM</code>, <code>WT</code> ya da <code>BT</code>’dir; pozisyon zaten ölüyse <code>DP</code>. Ötekiler ayrıntı görünümünde bayraktan önceki durum olarak çıkar.",
+ "c_W#":"Beyaz mat etti",
+ "c_B#":"Siyah mat etti",
+ c_SM:"pat",
+ c_WT:"Beyaz süreden kazandı",
+ c_BT:"Siyah süreden kazandı",
+ c_TM:"süre düştü, mat imkânsız: berabere",
+ c_WR:"Beyaz, rakibin terkiyle kazandı",
+ c_BR:"Siyah, rakibin terkiyle kazandı",
+ c_RM:"terk, mat imkânsız: berabere",
+ c_75:"75 hamle kuralı",
+ c_5R:"beşli tekrar",
+ c_DP:"ölü pozisyon",
+ c_50:"50 hamle talebi",
+ c_3R:"üçlü tekrar talebi",
+ c_DA:"anlaşmalı beraberlik",
+ cWin:"sonuçlu",
+ cDraw:"berabere",
+ cHere:"bu sayfanın bayrak hükümleri",
+ foot:"Motor bayt bayt iki kez gömülü: en kısa kaynak <code>engine.js</code> ve hız için birkaç bayt fazlası <code>engine_4x.js</code>; ikisi her girdide aynı hükmü verir. Hüküm, <code>F</code>’in döndürdüğü şey: aynı <code>H</code> araması, yukarıda ayarlanan ply tavanı ve düğüm bütçesiyle (<code>F</code>’in kendisi 9 ply ve 2.000 düğüm kullanır). Üçüncü motor LUX, <code>index.html</code>’in içindeki motor: aynı çekirdek, üstüne gömülü at, kale ve vezir ile Chess960 roku (şah kendi kalesinin üstüne gider); <code>F</code>’i 450 ply ve 600.000 düğüm kullanır, burada da varsayılanları bunlar. <code>engine_string.js</code>, aynı L3’ün harf tahtasındaki hâli (a8 = 0. kare), fil kilidi dahil, aynı 9 ply ve 2.000 düğümle; hamleleri başka sırayla denediği için hükmü tavan ya da bütçe verdiğinde <code>engine.js</code>’ten ayrılabilir. İki ek çağrı yalnızca rapora hizmet eder, hükme asla dokunmaz: gerçek bir matı tükenen bir aramadan ayıran işaretli bir <code>H</code> kopyası ve oyunun durum testi <code>Z</code>."
+}};
+var lang='en';
+function T(k){var v=DICT[lang][k];return v===undefined?DICT.en[k]:v}
+function F(k){var A=arguments;return T(k).replace(/\{(\d+)\}/g,function(_,i){return A[+i+1]})}
+function num(x){return Number(x).toLocaleString(lang=='tr'?'tr-TR':'en-US')}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function rate(n,secs){var r=n/Math.max(secs,.001);return num(r<10?r.toFixed(1):Math.round(r))}
+function pct(x,y){return y?(100*x/y).toFixed(2)+'%':'—'}
+function sideName(g){return g?T('white'):T('black')}
+/* the reason an invalid line was set aside, in words; p is what fenProblem returned */
+function badText(p){
+  if(!p)return T('bad_castle');
+  var a=p.a||[];
+  if(p.k=='syntax')return F('bad_syntax',F('sx_'+a[0],a[1],a[2]));
+  if(p.k=='pawns'||p.k=='pieces'||p.k=='promo')return F('bad_'+p.k,sideName(a[0]=='w'?1:0),num(a[1]),num(a[2]));
+  if(p.k=='kings'||p.k=='pawnrank'||p.k=='clock')return F('bad_'+p.k,num(a[0]),num(a[1]));
+  return T('bad_'+p.k) }
+/* the short group a reason is counted under in the summary and on the cards */
+function bkOf(k){ return {syntax:'bk_syntax',kings:'bk_kings',pawnrank:'bk_pawnrank',pawns:'bk_material',pieces:'bk_material',
+  promo:'bk_material',clock:'bk_clock',oppcheck:'bk_oppcheck',check3:'bk_check',checkleap:'bk_check',checkdiag:'bk_check',
+  checkstraight:'bk_check',ep:'bk_ep',epcheck:'bk_ep',castle:'bk_castle'}[k]||'bk_syntax' }
+
+/* ================= engine sources ================= */
+var SRC={nm:$('src_nm').textContent.trim(), x4:$('src_x4').textContent.trim(), stnm:$('src_st').textContent.trim(), luxx4:$('src_lux').textContent.trim()};
+var NAME={nm:'engine.js', x4:'engine_4x.js', stnm:'engine_string.js', luxx4:'LUX (index.html)'};
+/* two engines, two builds each, and L3 once more on a letter board; a key's family is its prefix
+   ('' = L3 on the 0x88 board, 'st' = L3 on letters, 'lux' = LUX). The letter board has no second build: it is compared with engine.js. */
+function fam(k){return k.slice(0,k.length-2)}
+function pair(k){var f=fam(k);return{nm:f+'nm',x4:f+'x4'}}
+function other(k){if(k==='stnm')return 'nm';if(k==='luxx4')return 'x4';var p=pair(k);return k===p.x4?p.nm:p.x4}
+function tagOf(k){return T(k==='stnm'?'stTag':/nm$/.test(k)?'nmTag':'x4Tag')}
+var DEFS={'':[9,2000],st:[9,2000],lux:[450,600000]};   /* each engine's own F limits: ply, nodes */
+function chunks(s){var r=[],d=0,st=0,i,c;
+  for(i=0;i<s.length;i++){c=s.charAt(i);
+    if(c=='('||c=='['||c=='{')d++; else if(c==')'||c==']'||c=='}')d--;
+    else if((c==','||c==';')&&d===0){r.push(s.slice(st,i).trim());st=i+1}}
+  r.push(s.slice(st).trim());return r}
+function nameOf(ch){return ch.slice(0,ch.indexOf('='))}
+function mirror(x){
+  /* engine_string.js: memo $[k=b+t+e+c], recursion H(d-1) as on the 0x88 board, closes with &v */
+  if(x.indexOf('$[k=b+t+e+c]')>=0){ var w=x.replace(/^H=/,'Hd=').split('$[').join('Hs[').replace('H(d-1)|','Hd(d-1)|');
+    if(w.indexOf('Hd(d-1)|')<0||w.slice(-2)!='&v') throw Error('mirror: the letter-board H has an unexpected shape');
+    return w.slice(0,-2)+'&&(v||(HM=1,0))' }
+  /* the 0x88 L3 builds: memo $[k]; both recurse as H(d-1) (an older build without a ceiling used H()); engine.js closes with &&v, engine_4x.js with &&(v??…) */
+  if(x.indexOf('$[k]')>=0){ var z=x.replace(/^H=/,'Hd=').split('$[k]').join('Hs[k]').replace('H()|','Hd()|').replace('H(d-1)|','Hd(d-1)|'), q;
+    if(z.indexOf('Hd(')<0) throw Error('mirror: the 0x88 H has an unexpected shape');
+    if(/&&?v$/.test(z)) return z.replace(/&&?v$/,'')+'&&(v||(HM=1,0))';      /* engine.js: &v or &&v */
+    q=z.lastIndexOf('&(');                                                    /* engine_4x.js: &(v??…) or &&(v??…) */
+    if(q<0||z.slice(-1)!=')') throw Error('mirror: terminal test of the 0x88 H not found');
+    return z.slice(0,z[q-1]=='&'?q-1:q)+'&&('+z.slice(q+1)+'||(HM=1,0))' }
+  var y=x.replace(/^H=/,'Hd=').split('Ht[').join('Hs[').replace(',H(g,d-1)',',Hd(g,d-1)'),k;
+  /* H closes with its terminal test: engine_4x.js with &&(v||t^g|!V(g)), engine.js with &v,
+     its check test folded into the default of v. HM marks the leaf where that test fails. */
+  if(y.slice(-3)=='&v)') return y.slice(0,-3)+'&&(v||(HM=1,0)))';
+  k=y.lastIndexOf('&&(v||');
+  if(k<0) throw Error('mirror: terminal test of H not found');
+  return y.slice(0,k+2)+'('+y.slice(k+2,y.length-1)+'||(HM=1,0)))'
+}
+var CH={nm:chunks(SRC.nm), x4:chunks(SRC.x4), stnm:chunks(SRC.stnm), luxx4:chunks(SRC.luxx4)};
+/* HD: the marked copy of H; ONE: whether this build's H asks the one-sided l(2-g) at a node */
+var HD={}, ONE={}, X88K={}, X88D={}, STRK={}, k0;
+/* X88K: the build runs on the 0x88 board; X88D: its H takes a ply ceiling, H(d). NOPLY: 0x88 with no ceiling */
+function NOPLY(k){ return X88K[k]&&!X88D[k] }
+for(k0 in CH){ (function(k){ var i,c=CH[k]; STRK[k]=SRC[k].indexOf("_='-'")>=0; X88K[k]=!STRK[k]&&SRC[k].indexOf('$[k]')>=0; X88D[k]=X88K[k]&&/(^|,)H=\(d,/.test(SRC[k]);
+  for(i=0;i<c.length;i++) if(c[i].indexOf('H=')===0){ HD[k]=mirror(c[i]); ONE[k]=c[i].indexOf('l(2-g)')>=0||X88K[k] } })(k0) }
+
+var cur=null;
+function loadEngine(k){
+  if(cur===k)return;
+  window.X88=X88K[k]; window.X88D=X88D[k]; window.STR=STRK[k];
+  (new Function(SRC[k]+';'+HD[k]+';HM=0;Hs={};Ht={};Hn=0;Ac=0;y=\'20003001\''))();
+  window.BOX=fam(k)=='lux';
+  window.L_ONE=ONE[k];
+  cur=k;
+  $('engnote').textContent=F('engnote',num(SRC[k].length),tagOf(k))
+}
+
+/* ================= difference view ================= */
+function tok(s){return s.match(/[A-Za-z_$][\w$]*|\d+n?|[\s\S]/g)||[]}
+function ldiff(a,b){
+  var n=a.length,m=b.length,dp=[],i,j;
+  for(i=0;i<=n;i++)dp[i]=new Int32Array(m+1);
+  for(i=n-1;i>=0;i--)for(j=m-1;j>=0;j--)dp[i][j]=a[i]===b[j]?dp[i+1][j+1]+1:(dp[i+1][j]>=dp[i][j+1]?dp[i+1][j]:dp[i][j+1]);
+  var out=[];i=0;j=0;
+  while(i<n&&j<m){ if(a[i]===b[j]){out.push([0,a[i]]);i++;j++}
+    else if(dp[i+1][j]>=dp[i][j+1]){out.push([-1,a[i]]);i++} else {out.push([1,b[j]]);j++} }
+  while(i<n)out.push([-1,a[i++]]);
+  while(j<m)out.push([1,b[j++]]);
+  var g=[],p;
+  for(i=0;i<out.length;i++){ p=g[g.length-1];
+    if(p&&p[0]===out[i][0])p[1]+=out[i][1]; else g.push([out[i][0],out[i][1]]) }
+  return g}
+var WHAT={G:'wG',T:'wT',V:'wV',O:'wO'};
+var diffDone='';
+function renderDiff(){
+  if(diffDone===lang)return; diffDone=lang;
+  var A=CH.nm,B=CH.x4,i,h='',same=0,d=[];
+  for(i=0;i<A.length;i++){ if(A[i]===B[i])same++; else d.push([nameOf(A[i]),A[i],B[i]]) }
+  h='<tr><th>'+T('thFn')+'</th><th>'+T('thNm')+'</th><th>'+T('thX4')+'</th><th>'+T('thD')+'</th><th class="lf">'+T('thWhat')+'</th></tr>';
+  d.forEach(function(o){
+    h+='<tr><td><code>'+o[0]+'</code></td><td>'+num(o[1].length)+'</td><td>'+num(o[2].length)+
+       '</td><td>'+(o[2].length-o[1].length>0?'+':'')+(o[2].length-o[1].length)+'</td><td class="lf">'+
+       shortWhat(o[0])+'</td></tr>' });
+  h+='<tr class="tot"><td>'+T('totalRow')+'</td><td>'+num(SRC.nm.length)+'</td><td>'+num(SRC.x4.length)+
+     '</td><td>+'+(SRC.x4.length-SRC.nm.length)+'</td><td class="lf">'+F('same',same,A.length)+'</td></tr>';
+  $('fntab').innerHTML=h;
+  var g='';
+  d.forEach(function(o){
+    var mg=ldiff(tok(o[1]),tok(o[2])),s='';
+    mg.forEach(function(x){ var e=esc(x[1]);
+      s+= x[0]===0?e:(x[0]<0?'<del>'+e+'</del>':'<ins>'+e+'</ins>') });
+    g+='<div class="fn"><h3><code>'+o[0]+'</code> <span class="db">'+o[1].length+' B → '+o[2].length+' B ('+
+       (o[2].length-o[1].length>0?'+':'')+(o[2].length-o[1].length)+')</span></h3>'+
+       '<p class="fnote">'+(WHAT[o[0]]?T(WHAT[o[0]]):'')+'</p><p class="dif">'+s+'</p></div>' });
+  $('fndiff').innerHTML=g;
+  $('srcbox').innerHTML='<h3>engine.js · '+num(SRC.nm.length)+' B</h3><p class="src">'+esc(SRC.nm)+
+    '</p><h3 style="margin-top:14px">engine_4x.js · '+num(SRC.x4.length)+' B</h3><p class="src">'+esc(SRC.x4)+'</p>'+
+    '<h3 style="margin-top:14px">engine_string.js · '+num(SRC.stnm.length)+' B</h3><p class="src">'+esc(SRC.stnm)+'</p>'+
+    '<h3 style="margin-top:14px">LUX (index.html) · '+num(SRC.luxx4.length)+' B</h3><p class="src">'+esc(SRC.luxx4)+'</p>'
+}
+function shortWhat(f){
+  var m={G:{en:'slider direction test short-circuited before the ray is walked',tr:'kaydırıcının yön testi ışın yürünmeden önce kısa devre'},
+         T:{en:'empty squares and own pieces skipped in one test',tr:'boş kareler ve kendi taşları tek testle atlanıyor'},
+         V:{en:'lock loop stops at its fixed point (checksum) instead of 600 passes; a frozen-king level is skipped when that king can step out',tr:'kilit döngüsü 600 tur yerine sabit noktada (sağlama toplamı) duruyor; şah çıkabiliyorsa donmuş şah seviyesi atlanıyor'},
+         H:{en:'the lock test runs only after a pawn move or a capture, and not while an en passant capture is available (<code>n+e&lt;10</code>): a reversible move cannot change the lock, and with an en passant square the lock test always fails',tr:'kilit testi yalnız piyon sürme ya da alıştan sonra ve geçerken alma mümkün değilken çalışıyor (<code>n+e&lt;10</code>): geri alınabilir bir hamle kilidi değiştiremez, geçerken alma karesi varken de kilit testi hep olumsuz çıkar'},
+         Z:{en:'dead-position test only when <code>n+e&lt;10</code> (after a pawn move or a capture, with no en passant capture available), or when asked with <code>Z(1)</code> for a game’s first position',tr:'ölü pozisyon testi yalnız <code>n+e&lt;10</code> iken (piyon sürme ya da alıştan sonra, geçerken alma mümkün değilken) ya da oyunun ilk pozisyonu için <code>Z(1)</code> ile istenince'},
+         F:{en:'tests the lock once at the root before the search',tr:'aramadan önce kökte kilidi bir kez test ediyor'},
+         A:{en:'calls <code>Z()</code> without an argument, so the trigger applies',tr:'<code>Z()</code>’yi argümansız çağırıyor, tetik geçerli oluyor'},
+         O:{en:'empty squares and enemy pieces skipped in one test; distant targets of pawns, knights and king never reach <code>L</code>',tr:'boş kareler ve rakip taşlar tek testle atlanıyor; piyon, at ve şahın uzak hedefleri <code>L</code>’ye gitmiyor'}};
+  return m[f]?(m[f][lang]||m[f].en):''
+}
+
+/* ================= board ================= */
+function sqName(i){return 'abcdefgh'.charAt(i%8)+(1+(i>>3))}
+/* flag: the side whose flag fell (1 white, 0 black) gets its king's square marked; big: coordinates */
+function drawBoard(fen,flag,big){
+  var board=String(fen).split(/\s+/)[0], sq=new Array(64).fill(0), rk=7, fl=0, k, ch, ty, out='';
+  for(k=0;k<board.length;k++){ ch=board[k];
+    if(ch=='/'){rk--;fl=0} else if(ch>='1'&&ch<='8'){fl+=+ch}
+    else{ ty=VAL[ch.toLowerCase()]; if(ty&&rk>=0&&fl<8)sq[rk*8+fl]=ty*2+(ch==ch.toUpperCase()?1:0); fl++ } }
+  for(rk=7;rk>=0;rk--)for(fl=0;fl<8;fl++){ var u=rk*8+fl,p=sq[u],cls=((fl+rk)%2)==0?'d':'l';
+    if(p&1)cls+=' w';
+    if(p>>1==5&&(p&1)===flag)cls+=' fk';
+    out+='<i class="'+cls+'">'+(p?GLYPH[p>>1]:'')+
+      (big&&fl==0?'<s class="rk">'+(rk+1)+'</s>':'')+(big&&rk==0?'<s class="fl">'+'abcdefgh'.charAt(fl)+'</s>':'')+'</i>' }
+  return '<div class="bd'+(big?' big':'')+'" role="img" aria-label="'+esc(board)+'">'+out+'</div>'}
+var editor=function(f){return 'https://lichess.org/editor/'+f.replace(/ /g,'_')};
+function ply(){return +$('ply').value|0} function bud(){return +$('bud').value|0}
+function say(s){$('stat').innerHTML=s}
+
+/* ================= input: pasted lines and files ================= */
+var LABS=['WB','W-','-B','--'], labSel={WB:1,'W-':1,'-B':1,'--':1};
+var files=[], fileSeq=0;
+function sideOf(fen){ return (String(fen).split(/\s+/)[1]||'w')=='w'?1:0 }
+/* the reference's answer for the side g whose flag fell: can g's opponent mate?
+   g=1 (White's flag) → can Black mate → the label's second letter; g=0 → its first letter */
+function refDraw(lab,g){ return lab.charAt(g?1:0)=='-' }
+function parsePaste(){
+  var lines=$('fen').value.split(/\r?\n/), out=[], i, L, m;
+  for(i=0;i<lines.length;i++){ L=lines[i].trim();
+    if(!L||L.charAt(0)=='#')continue;
+    m=L.match(/^(WB|W-|-B|--)[ \t]+(\S.*)$/);
+    out.push({set:'pasted',id:'pasted:'+(i+1),fen:m?m[2].trim():L,lab:m?m[1]:undefined}) }
+  return out}
+function parseTXT(text,f){
+  var lines=text.split(/\r?\n/), out=[], bad=0, i, L, m;
+  for(i=0;i<lines.length;i++){ L=lines[i].trim();
+    if(!L||L.charAt(0)=='#')continue;
+    m=L.match(/^(WB|W-|-B|--)[ \t]+(\S.*)$/);
+    if(!m){bad++;continue}
+    out.push({set:f.set,id:f.set+':'+(out.length+1),fen:m[2].trim(),lab:m[1],file:f}) }
+  return{rows:out,bad:bad,head:''}}
+function looksTXT(text){
+  var lines=text.split(/\r?\n/), i, L;
+  for(i=0;i<lines.length&&i<400;i++){ L=lines[i].trim();
+    if(!L||L.charAt(0)=='#')continue;
+    return /^(WB|W-|-B|--)[ \t]/.test(L) }
+  return false}
+function parseCSV(text,f){
+  var lines=text.split(/\r?\n/), head=lines[0].split(',').map(function(s){return s.trim()}),
+      fi=head.indexOf('fen'), gi=head.indexOf('gameId'), li=head.indexOf('label');
+  if(fi<0)fi=head.length-1;
+  var out=[],bad=0;
+  for(var i=1;i<lines.length;i++){ if(!lines[i].trim())continue;
+    var col=lines[i].split(','); if(col.length<head.length||!col[fi]){bad++;continue}
+    var o={set:f.set,id:gi>=0?col[gi]:f.set+':'+i,fen:col[fi].trim(),file:f};
+    if(li>=0&&LABS.indexOf((col[li]||'').trim())>=0)o.lab=col[li].trim();
+    out.push(o) }
+  return{rows:out,bad:bad,head:head.join(',')}}
+function addFiles(list){
+  var pending=list.length;
+  if(!pending)return;
+  say(F('fReading',esc(Array.prototype.map.call(list,function(f){return f.name}).join(', '))));
+  Array.prototype.forEach.call(list,function(file){
+    file.text().then(function(txt){
+      var base=file.name.replace(/\.(csv|txt)$/i,''), set=base, n=2;
+      while(files.some(function(x){return x.set===set}))set=base+' ('+(n++)+')';
+      var f={key:++fileSeq,name:file.name,set:set,rows:[],bad:0,labs:0,ref:'none'};
+      var P=(/\.txt$/i.test(file.name)||looksTXT(txt))?parseTXT(txt,f):parseCSV(txt,f);
+      f.rows=P.rows; f.bad=P.bad;
+      f.rows.forEach(function(r){if(r.lab)f.labs++});
+      /* chasolver's wrongly-decided timeouts (and missed-draw exports of them) are draws by construction */
+      if(!f.labs&&(/(^|,)lastMove(,|$)/.test(P.head)||/chasolver-data|missed-draws?/i.test(file.name)))f.ref='draw';
+      files.push(f);
+      if(!--pending){ say(''); inputChanged() }
+    }).catch(function(err){ say(F('fFail',esc(file.name),esc(err.message))); if(!--pending)inputChanged() })
+  })}
+function renderFiles(){
+  var h='';
+  files.forEach(function(f){
+    h+='<li><span class="fname">'+esc(f.name)+'</span><span class="fmeta">'+F('fRows',num(f.rows.length))+
+       (f.bad?' · '+F('fBad',num(f.bad)):'')+'</span><span class="fref">'+
+       (f.labs?T('fLabels'):'<label>'+T('fRef')+' <select data-fk="'+f.key+'"><option value="none"'+(f.ref=='none'?' selected':'')+'>'+
+         T('fRefNone')+'</option><option value="draw"'+(f.ref=='draw'?' selected':'')+'>'+T('fRefDraw')+'</option></select></label>')+
+       '</span><button class="x" data-rm="'+f.key+'" aria-label="'+esc(F('fRemove',f.name))+'" title="'+esc(F('fRemove',f.name))+'">×</button></li>' });
+  if(files.length>1)h+='<li class="clr"><button class="link" id="clrall">'+T('fClear')+'</button></li>';
+  $('flist').innerHTML=h;
+  if($('clrall'))$('clrall').onclick=function(){ if(busy)return; files=[]; inputChanged() };
+}
+$('flist').addEventListener('click',function(ev){
+  var k=ev.target.getAttribute&&ev.target.getAttribute('data-rm'); if(!k||busy)return;
+  files=files.filter(function(f){return f.key!=k}); inputChanged() });
+$('flist').addEventListener('change',function(ev){
+  var k=ev.target.getAttribute&&ev.target.getAttribute('data-fk'); if(!k)return;
+  files.forEach(function(f){ if(f.key==k)f.ref=ev.target.value }); inputChanged() });
+
+function allRows(){ var r=parsePaste(); files.forEach(function(f){ r=r.concat(f.rows) }); return r }
+function expand(src){
+  var two=$('bothdir').checked, out=[];
+  src.forEach(function(r){
+    if(r.lab){
+      if(!labSel[r.lab])return;
+      if(two){ [1,0].forEach(function(g){ out.push({set:r.set,id:r.id+(g?'/w':'/b'),fen:r.fen,lab:r.lab,g:g,draw:refDraw(r.lab,g),rs:'lab'}) }) }
+      else out.push({set:r.set,id:r.id,fen:r.fen,lab:r.lab,draw:refDraw(r.lab,sideOf(r.fen)),rs:'lab'});
+      return }
+    if(r.file&&r.file.ref=='draw') out.push({set:r.set,id:r.id,fen:r.fen,draw:true,rs:'file'});
+    else out.push({set:r.set,id:r.id,fen:r.fen}) });
+  return out}
+function workset(){
+  var rows=allRows(), a=+$('rowA').value|0, b=+$('rowB').value|0, n=rows.length;
+  if(a<1)a=1; if(b<1||b>n)b=n;
+  return b<a?[]:expand(rows.slice(a-1,b)) }
+function labBar(rows){
+  var have={}, any=0;
+  rows.forEach(function(r){ if(r.lab){have[r.lab]=(have[r.lab]||0)+1;any++} });
+  $('labrow').classList.toggle('hide',!any);
+  $('assumeBoth').classList.toggle('hide',!any);
+  if(!any)return;
+  var h='';
+  LABS.forEach(function(L){ if(!have[L])return;
+    h+='<label title="'+esc(T('lab_'+L))+'"><input type="checkbox" class="labf" value="'+L+'"'+(labSel[L]?' checked':'')+
+       '> <code>'+L+'</code> '+num(have[L])+'</label>' });
+  $('labs').innerHTML=h }
+$('labs').addEventListener('change',function(ev){
+  if(ev.target.classList.contains('labf')){ labSel[ev.target.value]=ev.target.checked?1:0; refreshCount() } });
+function refreshCount(){
+  if(busy)return;
+  var W=workset(), n=W.length, g=$('go'), p=0, k;
+  for(k=0;k<n;k++)if(W[k].set==='pasted')p++;
+  g.textContent=n===1?T('go1'):n?F('goN',num(n)):T('go0');
+  g.disabled=!n;
+  /* say where the count comes from whenever pasted lines and files are judged together */
+  $('split').textContent=p&&p<n?F('goSplit',num(p),num(n-p)):'' }
+var EXAMPLE='# ijyj0mHa: White’s flag fell; Black cannot mate\n5b2/p7/Pp3k2/1Pp1pBp1/2P1P1P1/5K2/8/8 w - -';
+$('example').onclick=function(){ if(busy)return; $('fen').value=EXAMPLE.replace('White’s flag fell; Black cannot mate',T('exNote')); $('fen').focus(); labBar(allRows()); refreshCount() };
+function inputChanged(){ renderFiles(); labBar(allRows()); refreshCount() }
+var pasteT=0;
+$('fen').addEventListener('input',function(){ clearTimeout(pasteT); pasteT=setTimeout(function(){ labBar(allRows()); refreshCount() },150) });
+$('fen').addEventListener('keydown',function(ev){ if(ev.key=='Enter'&&(ev.ctrlKey||ev.metaKey)){ev.preventDefault(); if(!$('go').disabled)go()} });
+['rowA','rowB','bothdir'].forEach(function(id){ $(id).addEventListener('input',refreshCount); $(id).addEventListener('change',refreshCount) });
+var dropEl=$('drop'), fileEl=$('file');
+dropEl.onclick=function(){ if(!busy)fileEl.click() };
+dropEl.onkeydown=function(ev){ if(ev.key=='Enter'||ev.key==' '){ev.preventDefault(); if(!busy)fileEl.click()} };
+fileEl.onchange=function(){ if(fileEl.files.length)addFiles(fileEl.files); fileEl.value='' };
+dropEl.ondragover=function(ev){ev.preventDefault();dropEl.classList.add('over')};
+dropEl.ondragleave=function(){dropEl.classList.remove('over')};
+dropEl.ondrop=function(ev){ev.preventDefault();dropEl.classList.remove('over');
+  if(!busy&&ev.dataTransfer.files.length)addFiles(ev.dataTransfer.files)};
+
+/* ================= running ================= */
+var results=null, snap={}, busy=false, cancel=false, page=0;
+function lock(on){ busy=on; cancel=false;
+  ['eng','ply','bud','rowA','rowB','bothdir','cmpchk','fen','example'].forEach(function(id){ $(id).disabled=on||id=='ply'&&NOPLY($('eng').value) });
+  Array.prototype.forEach.call(document.querySelectorAll('.labf,#flist select,#flist button'),function(x){x.disabled=on});
+  dropEl.classList.toggle('off',on);
+  var g=$('go'); g.classList.toggle('stop',on);
+  if(on){ g.textContent=T('goStop'); g.disabled=false } else refreshCount() }
+function runBatch(key,work,P,B,phase,done){
+  loadEngine(key);
+  $('bar').style.display='block';
+  var res=new Array(work.length), i=0, T0=performance.now(), pre=phase?esc(NAME[key])+': ':'';
+  /* time-sliced: at least one position, then yield after ~50 ms, so Stop and the progress bar stay live */
+  function chunk(){
+    var until=performance.now()+50;
+    do { res[i]=judge(work[i].fen,P,B,work[i].g); work[i].bad=res[i]?null:window.BAD_WHY; i++ } while(i<work.length&&!cancel&&performance.now()<until);
+    var secs=(performance.now()-T0)/1000, rate=i/Math.max(secs,.001);
+    $('barf').style.width=(100*i/work.length)+'%';
+    say(pre+F('sProg',num(i),num(work.length),num(rate<10?rate.toFixed(1):Math.round(rate)),num(Math.round((work.length-i)/Math.max(rate,.01)))));
+    if(i<work.length&&!cancel)setTimeout(chunk,0);
+    else { $('bar').style.display='none'; done(i<work.length?res.slice(0,i):res,(performance.now()-T0)/1000,i<work.length) }
+  }
+  setTimeout(chunk,20)}
+function go(){
+  if(PGN.busy)return;
+  if(busy){ cancel=true; return }
+  var work=workset(); if(!work.length)return;
+  var P=ply(), B=bud(), key=$('eng').value, cmpOn=$('cmpchk').checked;
+  results=null; snap={}; showResults();
+  lock(true);
+  runBatch(key,work,P,B,cmpOn,function(res,secs,stopped){
+    snap={}; snap[key]={res:res,secs:secs,work:work,P:P,B:B};
+    if(!cmpOn||stopped){ finish(key,work,res,secs,P,B,stopped); return }
+    var o=other(key);
+    runBatch(o,work,P,B,true,function(r2,s2,st2){
+      if(!st2)snap[o]={res:r2,secs:s2,work:work,P:P,B:B};
+      loadEngine(key);
+      finish(key,work,res,secs,P,B,false) }) })}
+$('go').onclick=go;
+function finish(key,work,res,secs,P,B,stopped){
+  results={rows:work.slice(0,res.length),total:work.length,res:res,key:key,secs:secs,P:P,B:B,stopped:stopped};
+  page=0; filt={show:'',set:'',src:''}; renderBrowse.touched=false;
+  lock(false);
+  showResults()}
+function showResults(){
+  if(!results){ $('solo').classList.add('hide'); $('out').classList.add('hide'); $('cmp').classList.add('hide'); return }
+  var R=results, single=R.total===1&&R.res.length===1, s;
+  if(single){
+    $('out').classList.add('hide'); $('solo').classList.remove('hide');
+    $('solo').innerHTML=detailHTML(0);
+    s=R.res[0]?F('sDone1',esc(NAME[R.key]),R.res[0].ms.toFixed(2)):'';
+  } else {
+    $('solo').classList.add('hide'); $('solo').innerHTML='';
+    $('out').classList.remove('hide');
+    renderBatch();
+    s=(R.stopped?F('sStopped',num(R.res.length),num(R.total))+' ':'')+
+      F('sDone',num(R.res.length),esc(NAME[R.key]),R.secs.toFixed(1),rate(R.res.length,R.secs));
+  }
+  say(s+dropNote(R.res));
+  showCmp()}
+function dropNote(res){ var k,m=0; for(k=0;k<res.length;k++)if(res[k]&&res[k].drop)m++;
+  return m?' '+F('sDrop',num(m)):'' }
+
+/* ================= classification ================= */
+/* what the arbiter itself established, with no reference involved */
+function outcome(r){ return !r?'bad':(r.ok||r.dp)?'draw':(r.mate?'mate':'open') }
+/* against the reference, when there is one: draw means the flagged side's opponent cannot mate */
+function refCat(w,r){
+  if(!r||w.draw===undefined)return '';
+  var o=outcome(r);
+  if(w.draw)return o=='draw'?'ok':o=='open'?'miss':'contra';
+  return o=='draw'?'false':o=='mate'?'ok':'okd' }
+
+/* ================= batch report ================= */
+var filt={show:'',set:'',src:''};
+function renderBatch(){
+  var R=results.res, W=results.rows, n=R.length, k, o, c;
+  var oc={draw:0,mate:0,open:0,bad:0}, src={Im:0,l:0,lH:0,H:0,Z:0}, rc={ok:0,okd:0,miss:0,contra:0,false:0}, mx={}, refN=0, why={horizon:0,budget:0};
+  for(k=0;k<n;k++){ o=outcome(R[k]); oc[o]++;
+    if(o=='draw')src[R[k].src]=(src[R[k].src]||0)+1;
+    if(o=='open')why[R[k].why]=(why[R[k].why]||0)+1;
+    c=refCat(W[k],R[k]); if(c){ refN++; rc[c]++; mx[(W[k].draw?'d':'w')+o]=(mx[(W[k].draw?'d':'w')+o]||0)+1 } }
+  var judged=n-oc.bad;
+  /* outcome bar */
+  var seg=function(cls,v,lab){ return v?'<span class="seg '+cls+'" style="flex:'+v+'" title="'+esc(lab+': '+num(v))+'"></span>':'' };
+  var h='<div class="obar">'+seg('o-draw',oc.draw,T('oDraw'))+seg('o-mate',oc.mate,T('oMate'))+seg('o-open',oc.open,T('oOpen'))+seg('o-bad',oc.bad,T('oBad'))+'</div>';
+  h+='<div class="okey">'+
+     okey('o-draw',T('oDraw'),oc.draw,judged,T('oDrawD'))+
+     okey('o-mate',T('oMate'),oc.mate,judged,T('oMateD'))+
+     okey('o-open',T('oOpen'),oc.open,judged,T('oOpenD')+(oc.open?' <span class="db">('+T('thHor')+' '+num(why.horizon||0)+' · '+T('thBud')+' '+num(why.budget||0)+')</span>':''))+
+     '</div>';
+  if(oc.bad){ var bk={}, bko=[];
+    for(k=0;k<n;k++) if(!R[k]&&W[k].bad){ var g=bkOf(W[k].bad.k); if(!bk[g]){bk[g]=0;bko.push(g)} bk[g]++ }
+    h+='<p class="note warn">'+F('sBadN',num(oc.bad),bko.map(function(g){return T(g)+' '+num(bk[g])}).join(', '))+'</p>' }
+  $('outcome').innerHTML=h;
+  /* certificates */
+  if(oc.draw){
+    var t='<tr><th>'+T('thCert')+'</th><th>'+T('thCount')+'</th><th>'+T('thShare')+'</th></tr>';
+    [['Im','cIm'],['l','cl'],['lH','clH'],['H','cH'],['Z','cZ']].forEach(function(x){
+      if(x[0]=='lH'&&!ONE[results.key])return;
+      t+='<tr><td class="lf">'+T(x[1])+' <span class="db">· <code>'+x[0]+'</code></span></td><td>'+num(src[x[0]]||0)+'</td><td>'+pct(src[x[0]]||0,oc.draw)+'</td></tr>' });
+    $('cert').innerHTML=t; $('certbox').classList.remove('hide')
+  } else $('certbox').classList.add('hide');
+  /* reference */
+  var rb='';
+  if(refN){
+    rb='<p class="legend">'+F('refIntro',num(refN),num(judged))+'</p><div class="scroll"><table class="mx"><tr><th></th>'+
+       '<th>'+T('oDraw')+'<small><code>TM</code> / <code>DP</code></small></th>'+
+       '<th>'+T('oMate')+'<small><code>WT</code> / <code>BT</code></small></th>'+
+       '<th>'+T('oOpen')+'<small><code>WT</code> / <code>BT</code></small></th></tr>'+
+       '<tr><th class="lf">'+T('mxRefDraw')+'<small>'+T('mxRefDrawS')+'</small></th>'+cell('ok',mx.ddraw,T('kOk'))+cell('contra',mx.dmate,T('kContra'))+cell('miss',mx.dopen,T('kMiss'))+'</tr>'+
+       '<tr><th class="lf">'+T('mxRefWin')+'<small>'+T('mxRefWinS')+'</small></th>'+cell('false',mx.wdraw,T('kBad'))+cell('ok',mx.wmate,T('kOk'))+cell('okd',mx.wopen,T('kOkDef'))+'</tr></table></div>';
+    rb+='<p class="note '+(rc.false?'bad':'good')+'">'+(rc.false?F('refBad',num(rc.false)):T('refClean'))+'</p>';
+    if(rc.contra)rb+='<p class="note bad">'+F('refContra',num(rc.contra))+'</p>';
+    if(rc.miss)rb+='<p class="note">'+F('refMiss',num(rc.miss))+'</p>';
+  } else rb='<p class="legend">'+T('refNoRef')+'</p>';
+  $('refbox').innerHTML=rb;
+  renderPer(); renderCost(); renderBrowse()}
+function okey(cls,lab,v,n,desc){
+  return '<div class="ok1"><span class="sw '+cls+'"></span><div><b class="big">'+num(v)+'</b> <span class="olab">'+lab+'</span> <span class="db">'+pct(v,n)+'</span><p>'+desc+'</p></div></div>'}
+function cell(cls,v,lab){ v=v||0; return '<td class="c-'+cls+(v?'':' zero')+'"><b>'+num(v)+'</b><span>'+lab+'</span></td>' }
+function renderPer(){
+  var R=results.res, W=results.rows, per={}, order=[], k, s, o, c, v;
+  for(k=0;k<R.length;k++){ s=W[k].set;
+    if(!per[s]){per[s]={n:0,draw:0,mate:0,open:0,hor:0,bud:0,bad:0,miss:0,false:0,contra:0,lab:0,file:0};order.push(s)}
+    v=per[s]; v.n++; o=outcome(R[k]); v[o]++;
+    if(o=='open'){ if(R[k].why=='budget')v.bud++; else v.hor++ }
+    c=refCat(W[k],R[k]); if(c&&v[c]!==undefined)v[c]++;
+    if(W[k].rs=='lab')v.lab++; else if(W[k].rs=='file')v.file++ }
+  var cols=['n','draw','mate','open','hor','bud','miss','false','contra'],
+      h='<tr><th>'+T('thSet')+'</th><th>'+T('thRef')+'</th><th>'+T('thRows')+'</th><th>'+T('oDraw')+'</th><th>'+T('oMate')+'</th><th>'+T('oOpen')+
+        '</th><th>'+T('thHor')+'</th><th>'+T('thBud')+'</th><th>'+T('kMiss')+'</th><th>'+T('kBad')+'</th><th>'+T('kContra')+'</th></tr>',
+      TT={}; cols.forEach(function(x){TT[x]=0});
+  order.forEach(function(s){ v=per[s];
+    cols.forEach(function(x){TT[x]+=v[x]});
+    var ref=v.lab+v.file===0?'—':(v.lab+v.file<v.n?T('refKindMix'):(v.lab?T('refKindLab'):T('refKindDraw')));
+    h+='<tr><td>'+esc(s)+'</td><td>'+ref+'</td>'+cols.map(function(x){ return '<td'+(x=='false'&&v[x]?' class="badn"':'')+'>'+num(v[x])+(x=='draw'?' <span class="db">'+pct(v.draw,v.n-v.bad)+'</span>':'')+'</td>' }).join('')+'</tr>' });
+  if(order.length>1)
+    h+='<tr class="tot"><td>'+T('thTot')+'</td><td></td>'+cols.map(function(x){ return '<td>'+num(TT[x])+(x=='draw'?' <span class="db">'+pct(TT.draw,TT.n)+'</span>':'')+'</td>' }).join('')+'</tr>';
+  $('perfile').innerHTML=h}
+function renderCost(){
+  var R=results.res, used=[], ms=[], k;
+  for(k=0;k<R.length;k++)if(R[k]){used.push(R[k].used);ms.push(R[k].ms)}
+  if(!used.length){$('cost').innerHTML='';return}
+  used.sort(function(a,b){return a-b}); ms.sort(function(a,b){return a-b});
+  var st=function(a,f){return{avg:(a.reduce(function(x,y){return x+y},0)/a.length).toFixed(f),
+    med:a[a.length>>1].toFixed(f),p99:a[Math.floor(a.length*.99)].toFixed(f),max:a[a.length-1].toFixed(f)}};
+  var u=st(used,0),m=st(ms,2);
+  $('cost').innerHTML='<tr><th>'+T('thMeasure')+'</th><th>'+T('thAvg')+'</th><th>'+T('thMed')+'</th><th>'+T('thP99')+'</th><th>'+T('thMax')+'</th></tr>'+
+    '<tr><td>'+T('mNodes')+'</td><td>'+num(u.avg)+'</td><td>'+num(u.med)+'</td><td>'+num(u.p99)+'</td><td>'+num(u.max)+'</td></tr>'+
+    '<tr><td>'+T('mMs')+'</td><td>'+m.avg+'</td><td>'+m.med+'</td><td>'+m.p99+'</td><td>'+m.max+'</td></tr>'}
+
+/* ================= browsing ================= */
+var DIFF=null;   /* per-row flag: verdicts differ between the two builds */
+function catOf(k){ var r=results.res[k], w=results.rows[k], c=refCat(w,r);
+  return {o:outcome(r), c:c, d:DIFF&&DIFF[k]} }
+function matches(k){
+  var r=results.res[k], w=results.rows[k], x=catOf(k), f=filt.show;
+  if(filt.set&&w.set!==filt.set)return false;
+  if(filt.src&&(!r||r.src!==filt.src||x.o!=='draw'))return false;
+  if(!f)return true;
+  if(f=='diff')return !!x.d;
+  if(f.charAt(0)=='o')return x.o===f.slice(2);
+  return x.c===f.slice(2)||(f=='r:ok'&&x.c=='okd') }
+function listNow(){ var out=[], n=results.res.length, k; for(k=0;k<n;k++)if(matches(k))out.push(k); return out }
+function renderBrowse(){
+  var R=results.res, n=R.length, k, x, cnt={}, sets={}, srcs={};
+  for(k=0;k<n;k++){ x=catOf(k);
+    cnt['o:'+x.o]=(cnt['o:'+x.o]||0)+1; if(x.c)cnt['r:'+x.c]=(cnt['r:'+x.c]||0)+1; if(x.d)cnt.diff=(cnt.diff||0)+1;
+    sets[results.rows[k].set]=1; if(x.o=='draw')srcs[R[k].src]=(srcs[R[k].src]||0)+1 }
+  cnt['r:ok']=(cnt['r:ok']||0)+(cnt['r:okd']||0);
+  /* default view: what most needs reading */
+  if(filt.show===''&&!renderBrowse.touched){
+    filt.show=['r:false','r:contra','diff','r:miss','o:open'].filter(function(f){return cnt[f]})[0]||'' }
+  var opts=[['',T('fAll'),n],['o:draw',T('oDraw')],['o:mate',T('oMate')],['o:open',T('oOpen')],['o:bad',T('oBad')],
+            ['r:ok',T('kOk')],['r:miss',T('kMiss')],['r:false',T('kBad')],['r:contra',T('kContra')],['diff',T('fDiff')]];
+  var h='<label>'+T('fShow')+' <select id="fshow">';
+  opts.forEach(function(o){ var c=o[0]?cnt[o[0]]||0:n; if(!c&&o[0]&&filt.show!==o[0])return;
+    h+='<option value="'+o[0]+'"'+(filt.show===o[0]?' selected':'')+'>'+o[1]+' ('+num(c)+')</option>' });
+  h+='</select></label>';
+  var sl=Object.keys(sets);
+  if(sl.length>1){ h+='<label>'+T('fSet')+' <select id="fset"><option value="">'+T('fAll')+'</option>';
+    sl.forEach(function(s){ h+='<option'+(filt.set===s?' selected':'')+'>'+esc(s)+'</option>' }); h+='</select></label>' }
+  if(Object.keys(srcs).length>1){ h+='<label>'+T('fSrc')+' <select id="fsrc"><option value="">'+T('fAll')+'</option>';
+    ['Im','l','lH','H','Z'].forEach(function(s){ if(srcs[s])h+='<option value="'+s+'"'+(filt.src===s?' selected':'')+'>'+s+' ('+num(srcs[s])+')</option>' });
+    h+='</select></label>' }
+  $('filters').innerHTML=h;
+  ['fshow','fset','fsrc'].forEach(function(id){ var el=$(id); if(!el)return;
+    el.onchange=function(){ renderBrowse.touched=true; filt[{fshow:'show',fset:'set',fsrc:'src'}[id]]=el.value; page=0; renderGrid() } });
+  renderGrid()}
+function renderGrid(){
+  var list=listNow(), per=48, pages=Math.max(1,Math.ceil(list.length/per));
+  if(page>=pages)page=pages-1;
+  var h='';
+  list.slice(page*per,(page+1)*per).forEach(function(k){
+    var w=results.rows[k], r=results.res[k], o=outcome(r), c=refCat(w,r);
+    h+='<button class="card o-'+o+(c?' r-'+c:'')+'" data-k="'+k+'">'+drawBoard(w.fen,r?r.side:-1,false)+
+       '<span class="meta"><b class="code">'+(r?r.code:'?')+'</b> '+T(o=='draw'?'oDraw':o=='mate'?'oMate':o=='open'?'oOpen':'oBad')+
+       (c&&c!='ok'&&c!='okd'?'<br><b class="rc">'+T({miss:'kMiss',false:'kBad',contra:'kContra'}[c])+'</b>':'')+
+       (o=='bad'&&w.bad?'<br><b class="rc">'+T(bkOf(w.bad.k))+'</b>':'')+
+       '<br>'+esc(w.set)+' · '+esc(w.id)+
+       (r?'<br>⚑ '+sideName(r.side)+' · <code>'+r.src+'</code> · '+num(r.used)+' n':'')+'</span></button>' });
+  $('grid').innerHTML=h||'<p class="legend">'+T('noneHere')+'</p>';
+  $('pg').innerHTML= pages>1
+    ? '<button class="ghost" id="pv"'+(page?'':' disabled')+'>'+T('prev')+'</button><span>'+F('pgOf',page+1,pages,num(list.length))+
+      '</span><button class="ghost" id="nx"'+(page<pages-1?'':' disabled')+'>'+T('next')+'</button>' : (list.length?'<span>'+F('pgOf',1,1,num(list.length))+'</span>':'');
+  if(pages>1){ $('pv').onclick=function(){if(page>0){page--;renderGrid()}};
+               $('nx').onclick=function(){if(page<pages-1){page++;renderGrid()}} }}
+$('grid').addEventListener('click',function(ev){
+  var c=ev.target.closest&&ev.target.closest('.card[data-k]'); if(c)lbOpen(+c.getAttribute('data-k')) });
+
+/* ================= detail ================= */
+function stepRow(state,name,call,text){
+  var tag={dec:'tDec',no:'tNo',also:'tAlso',skip:'tSkip',na:'tNa',open:'tOpen'}[state];
+  return '<li class="st-'+state+'"><div class="sh"><b>'+name+'</b> <code>'+call+'</code> <span class="stag">'+T(tag)+'</span></div><p>'+text+'</p></li>'}
+function detailHTML(k){
+  var w=results.rows[k], r=results.res[k], key=results.key, P=results.P, B=results.B;
+  if(!r) return '<div class="detail"><p class="note bad">'+F('badFen',badText(w.bad))+' '+T('badNec')+'</p><p class="fenbox">'+esc(w.fen)+'</p>'+srcBlock(w,null)+'</div>';
+  loadEngine(key);
+  var ins=inspect(w.fen,r.side)||{status:0,lone:null}; ins.status=cnum(ins.status);
+  var A=String(w.fen).trim().split(/\s+/), tm=A[1]=='w'?1:0, o=outcome(r), fl=sideName(r.side), op=sideName(1-r.side), c=refCat(w,r);
+  /* verdict */
+  var vt=r.code=='DP'?T('vDP'):r.code=='TM'?F('vTM',fl,op):o=='mate'?F('vMate',op):F('vOpen',op);
+  var h='<div class="detail"><div class="dboard">'+drawBoard(w.fen,r.side,true)+
+        '<p class="cap">⚑ '+T('kFlag')+': '+fl+'</p></div><div class="dinfo">'+
+        '<div class="vhead"><span class="verdict">'+r.code+'</span><span class="tag o-'+o+'">'+T(o=='draw'?'oDraw':o=='mate'?'oMate':'oOpen')+'</span>'+
+        (c?'<span class="tag r-'+c+'">'+T({ok:'kOk',okd:'kOkDef',miss:'kMiss',false:'kBad',contra:'kContra'}[c])+'</span>':'')+'</div>'+
+        '<p class="vtext">'+vt+'</p>';
+  /* the chain of tests, in the order H applies them */
+  var done=false, s='', ep=r.ep>=0?sqName(r.ep):'', x8=X88K[key], c1=x8?'V('+8*r.side+')':STRK[key]?'V('+r.side+')':'Im('+r.side+')', c2=x8||STRK[key]?'V':'l()';
+  if(r.hOnly){ s+=stepRow('dec',T('s1n'),c1,F('st1Yes',op)); done=true }
+  else s+=stepRow('no',T('s1n'),c1,F('st1No',op));
+  if(r.dp){ s+=done?stepRow('also',T('s2n'),c2,T('st2Also')):stepRow('dec',T('s2n'),c2,T('st2Yes')); done=true }
+  else s+=stepRow('no',T('s2n'),c2,ep?F('st2Ep',ep):T('st2No'));
+  var call=x8?'V('+8*r.side+')':'l('+(2-r.side)+')';
+  if(!ONE[key]) s+=stepRow('na',T('s3n'),'l(2−g)',T('st3Na'));
+  else if(ins.lone==='m') s+=stepRow('skip',T('s3n'),call,T('st3Skip'));
+  else if(ins.lone){ s+=done?stepRow('also',T('s3n'),call,F('st3Also',op)):stepRow('dec',T('s3n'),call,F('st3Yes',op)); done=true }
+  else s+=stepRow('no',T('s3n'),call,ep?F('st2Ep',ep):F('st3No',op));
+  var hc=x8?(X88D[key]?'H('+P+')':'H()'):STRK[key]?'H('+P+')':'H('+r.side+', '+P+')';
+  if(r.src=='H'){
+    if(r.ok) s+=stepRow('dec',T('s4n'),hc,F('st4Ok',num(r.used),op));
+    else if(r.mate) s+=stepRow('dec',T('s4n'),hc,F('st4Mate',op));
+    else if(r.why=='budget') s+=stepRow('open',T('s4n'),hc,F('st4Bud',num(B),op));
+    else s+=stepRow('open',T('s4n'),hc,F('st4Hor',P,op));
+  } else if(r.src=='Z'){
+    var zt=ins.status==3?T('st4SM'):(ins.status==1||ins.status==2)?T('st4Mated'):r.n>149?F('st4N75',r.n):T('st4Root');
+    s+=stepRow('dec',T('s4n'),hc,zt);
+  } else s+=stepRow('skip',T('s4n'),hc,T('st4Skip'));
+  h+='<h4>'+T('hSteps')+'</h4><p class="legend">'+T('stepsNote')+'</p><ol class="steps">'+s+'</ol>';
+  /* reference */
+  if(w.draw!==undefined){
+    var res={ok:T('rOk'),okd:T('rOkDef'),miss:T('rMiss'),false:F('rFalse',op),contra:T('rContra')}[c];
+    h+='<h4>'+T('hRefD')+'</h4><dl class="kv">'+
+       (w.lab?'<dt>'+T('kLabel')+'</dt><dd><code>'+w.lab+'</code>, '+T('lab_'+w.lab)+'</dd>':'<dt>'+T('kLabel')+'</dt><dd>'+T('refFile')+'</dd>')+
+       '<dt>'+T('kExpect')+'</dt><dd>'+(w.draw?T('expDraw'):F('expWin','WB'[r.side]+'T',op))+'</dd>'+
+       '<dt>'+T('kResult')+'</dt><dd class="r-'+c+'">'+res+'</dd></dl>';
+  }
+  /* position */
+  var st=ins.status|0, n=r.n;
+  h+='<h4>'+T('hPosition')+'</h4><dl class="kv">'+
+     '<dt>'+T('kFlag')+'</dt><dd>'+(w.g!==undefined&&w.g!==tm?F('flagForced',fl,sideName(tm)):F('flagToMove',fl))+'</dd>'+
+     '<dt>'+T('kMoves')+'</dt><dd>'+r.moves+'</dd>'+
+     '<dt>'+T('kStatus')+'</dt><dd>'+(st?F('statOver','<code>'+CODES[st-1]+'</code>',T('c_'+CODES[st-1])):'<code>0</code>, '+T('stat0'))+'</dd>'+
+     '<dt>'+T('kCastle')+'</dt><dd>'+esc(r.castle)+(r.drop?' <span class="badn">'+T('noCastle960')+'</span>':'')+'</dd>'+
+     '<dt>'+T('kEp')+'</dt><dd>'+(ep?F('epNote','<code>'+ep+'</code>'):'—')+'</dd>'+
+     '<dt>'+T('kClock')+'</dt><dd>'+(r.nGiven?(n>149?F('z75',n):n>99?F('z50',n):n):T('noN'))+'</dd>'+
+     '<dt>'+T('kFull')+'</dt><dd>'+(A[5]&&/^\d+$/.test(A[5])?A[5]:'—')+'</dd></dl>';
+  /* run */
+  h+='<h4>'+T('hRun')+'</h4><dl class="kv">'+
+     '<dt>'+T('kBuild')+'</dt><dd>'+esc(NAME[key])+' <span class="db">'+num(SRC[key].length)+' B</span></dd>'+
+     '<dt>'+T('kLimits')+'</dt><dd>'+(NOPLY(key)?F('limitsX',num(B)):F('limits',P,num(B)))+'</dd>'+
+     '<dt>'+T('kUsed')+'</dt><dd>'+F('usedOf',num(r.used),num(B))+'</dd>'+
+     '<dt>'+T('kMs')+'</dt><dd>'+r.ms.toFixed(2)+' ms</dd>'+
+     (r.why&&r.why!='static'?'<dt>'+T('kStop')+'</dt><dd>'+T({horizon:'rHorizon',budget:'rBudget',mate:'rMate'}[r.why])+'</dd>':'')+'</dl>';
+  h+=srcBlock(w,r)+'</div></div>';
+  return h}
+function srcBlock(w,r){
+  var game=/^[A-Za-z0-9]{8}$/.test(w.id)?'https://lichess.org/'+w.id:'';
+  return '<h4>'+T('hSource')+'</h4><dl class="kv"><dt>'+T('kSet')+'</dt><dd>'+esc(w.set)+'</dd><dt>'+T('kId')+'</dt><dd>'+esc(w.id)+'</dd></dl>'+
+    '<p class="fenbox">'+esc(w.fen)+'</p><div class="acts"><button class="ghost cp" data-fen="'+esc(w.fen)+'">'+T('lbCopy')+'</button>'+
+    '<a class="btn" target="_blank" rel="noopener" href="'+esc(editor(w.fen))+'">'+T('openEditor')+'</a>'+
+    (game?'<a class="btn" target="_blank" rel="noopener" href="'+game+'">'+T('openGame')+'</a>':'')+'</div>'}
+document.addEventListener('click',function(ev){
+  var b=ev.target.closest&&ev.target.closest('button.cp'); if(!b)return;
+  var t=b.getAttribute('data-fen');
+  if(navigator.clipboard)navigator.clipboard.writeText(t).catch(function(){});
+  else { var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');document.body.removeChild(a) }
+  b.textContent=T('lbCopied'); setTimeout(function(){ b.textContent=T('lbCopy') },1200) });
+
+/* ================= detail dialog ================= */
+var lbList=[], lbAt=-1, lbFrom=null;
+function lbOpen(k){
+  lbList=listNow(); lbAt=lbList.indexOf(k); if(lbAt<0){lbList=[k];lbAt=0}
+  lbFrom=document.activeElement; lbShow(); $('lb').classList.remove('hide'); $('lbx').focus() }
+function lbShow(){
+  $('lbbody').innerHTML=detailHTML(lbList[lbAt]);
+  $('lbpos').textContent=F('lbPos',num(lbAt+1),num(lbList.length));
+  $('lbprev').disabled=lbAt<=0; $('lbnext').disabled=lbAt>=lbList.length-1 }
+function lbClose(){ $('lb').classList.add('hide'); if(lbFrom&&lbFrom.focus)lbFrom.focus() }
+$('lbprev').onclick=function(){ if(lbAt>0){lbAt--;lbShow()} };
+$('lbnext').onclick=function(){ if(lbAt<lbList.length-1){lbAt++;lbShow()} };
+$('lbx').onclick=lbClose;
+$('lb').addEventListener('click',function(ev){ if(ev.target===$('lb'))lbClose() });
+document.addEventListener('keydown',function(ev){
+  if($('lb').classList.contains('hide'))return;
+  if(ev.key=='Escape')lbClose();
+  else if(ev.key=='ArrowLeft')$('lbprev').onclick();
+  else if(ev.key=='ArrowRight')$('lbnext').onclick();
+  else if(ev.key=='Tab'){ /* keep focus inside the dialog */
+    var f=$('lb').querySelectorAll('button:not([disabled]),a[href]'); if(!f.length)return;
+    if(ev.shiftKey&&document.activeElement===f[0]){ev.preventDefault();f[f.length-1].focus()}
+    else if(!ev.shiftKey&&document.activeElement===f[f.length-1]){ev.preventDefault();f[0].focus()} } });
+
+/* ================= build against build ================= */
+function showCmp(){
+  DIFF=null;
+  var key=results&&results.key; if(!key){ $('cmp').classList.add('hide'); return }
+  var o=other(key), a=snap[key], b=snap[o], i, mis=0;
+  if(!a||!b||a.res.length!==b.res.length||a.P!==b.P||a.B!==b.B||results.res!==a.res){ $('cmp').classList.add('hide'); return }
+  DIFF=new Uint8Array(a.res.length);
+  for(i=0;i<a.res.length;i++){ var x=a.res[i],y=b.res[i];
+    if(!x&&!y)continue;
+    if(!x||!y||x.code!==y.code||x.mate!==y.mate){mis++;DIFF[i]=1} }
+  var fast=a.secs<b.secs?key:o, slow=fast==key?o:key,
+      ratio=(snap[slow].secs/Math.max(snap[fast].secs,1e-9)).toFixed(2);
+  $('cmpnote').innerHTML= mis
+    ? F(key==='stnm'||o==='stnm'?'cmpDiffSt':key==='luxx4'||o==='luxx4'?'cmpDiffLux':'cmpDiff',num(mis))
+    : F('cmpSame',num(a.res.length),esc(NAME[fast]),snap[fast].secs.toFixed(2),esc(NAME[slow]),snap[slow].secs.toFixed(2),ratio);
+  $('cmpnote').className='note '+(mis?'bad':'good');
+  var h='<tr><th>'+T('thBuild')+'</th><th>'+T('thBytes')+'</th><th>'+T('thTime')+'</th><th>'+T('thRate')+'</th><th>'+
+        T('thNodes')+'</th><th>'+T('oDraw')+'</th><th>'+T('oMate')+'</th><th>'+T('oOpen')+'</th></tr>';
+  [key,o].forEach(function(k){ var S=snap[k], c={draw:0,mate:0,open:0,bad:0}, nd=0;
+    S.res.forEach(function(r){ c[outcome(r)]++; if(r)nd+=r.used });
+    h+='<tr'+(k===key?' class="act"':'')+'><td>'+esc(NAME[k])+'</td><td>'+num(SRC[k].length)+
+       '</td><td>'+S.secs.toFixed(2)+'</td><td>'+rate(S.res.length,S.secs)+
+       '</td><td>'+num(nd)+'</td><td>'+num(c.draw)+'</td><td>'+num(c.mate)+'</td><td>'+num(c.open)+'</td></tr>' });
+  $('cmptab').innerHTML=h;
+  $('cmp').classList.remove('hide');
+  if(mis&&results.total>1){ if(!renderBrowse.touched)filt.show=''; renderBrowse() }}
+
+/* ================= export ================= */
+function download(name,txt){ var url=URL.createObjectURL(new Blob([txt],{type:'text/csv'})),A=document.createElement('a');
+  A.href=url;A.download=name;A.click();setTimeout(function(){URL.revokeObjectURL(url)},1000) }
+function each(fn){ var R=results.res,W=results.rows; for(var k=0;k<R.length;k++)if(R[k])fn(W[k],R[k]) }
+$('expUn').onclick=function(){ if(!results)return;
+  var o=['build,set,gameId,side,verdict,source,reason,n,nodes,fen'];
+  each(function(w,r){ if(outcome(r)=='open')o.push([NAME[results.key],w.set,w.id,r.side?'w':'b',r.code,r.src,r.why,r.n,r.used,w.fen].join(',')) });
+  download('could-not-judge.csv',o.join('\n')) };
+$('expMate').onclick=function(){ if(!results)return;
+  var o=['build,set,gameId,side,verdict,n,nodes,fen'];
+  each(function(w,r){ if(outcome(r)=='mate')o.push([NAME[results.key],w.set,w.id,r.side?'w':'b',r.code,r.n,r.used,w.fen].join(',')) });
+  download('found-mate.csv',o.join('\n')) };
+$('expBad').onclick=function(){ if(!results)return;
+  var o=['build,set,gameId,label,side,verdict,source,n,nodes,fen'];
+  each(function(w,r){ if(refCat(w,r)=='false')o.push([NAME[results.key],w.set,w.id,w.lab||'',r.side?'w':'b',r.code,r.src,r.n,r.used,w.fen].join(',')) });
+  download('false-tm.csv',o.join('\n')) };
+$('expMiss').onclick=function(){ if(!results)return;
+  var o=['build,set,gameId,label,side,verdict,source,reason,n,nodes,fen'];
+  each(function(w,r){ if(refCat(w,r)=='miss')o.push([NAME[results.key],w.set,w.id,w.lab||'',r.side?'w':'b',r.code,r.src,r.why,r.n,r.used,w.fen].join(',')) });
+  download('missed-draw.csv',o.join('\n')) };
+$('expInv').onclick=function(){ if(!results)return;
+  var o=['set,gameId,label,reason,fen'], R=results.res, W=results.rows;
+  for(var k=0;k<R.length;k++) if(!R[k]){ var w=W[k], p=w.bad;
+    o.push([w.set,w.id,w.lab||'',p?p.k+(p.a?':'+p.a.join(':'):''):'castle',w.fen].join(',')) }
+  download('invalid-fen.csv',o.join('\n')) };
+$('expAll').onclick=function(){ if(!results)return;
+  var o=['build,set,gameId,side,verdict,source,label,expect,agree,bucket,reason,n,nodes,ms,fen'];
+  each(function(w,r){
+    var kova=(r.ok||r.dp)?(r.src=='l'?'dead-position':'equivalent'):(r.mate?'mate':'unjudged');
+    var exp=w.draw===undefined?'':(w.draw?'TM':'WB'[r.side]+'T'),
+        agr=w.draw===undefined?'':((r.ok||r.dp)===w.draw?'yes':(w.draw?'missed':'FALSE-TM'));
+    o.push([NAME[results.key],w.set,w.id,r.side?'w':'b',r.code,r.src,w.lab||'',exp,agr,kova,r.why,r.n,r.used,r.ms.toFixed(2),w.fen].join(',')) });
+  download('all-results.csv',o.join('\n')) };
+
+/* ================= codes table ================= */
+function renderCodes(){
+  var rows=[['W#','B#','SM'],['WT','BT','TM'],['WR','BR','RM'],['75','5R','DP'],['50','3R','DA']], here={TM:1,DP:1,WT:1,BT:1}, h='';
+  rows.forEach(function(r){ h+='<tr>'+r.map(function(c){ var i=CODES.indexOf(c)+1;
+    return '<td class="'+(here[c]?'here':'')+'"><code>'+esc(c)+'</code> <span class="db">'+i+'</span><br>'+T('c_'+c)+'</td>' }).join('')+'</tr>' });
+  $('codes').innerHTML='<tr><th>'+T('white')+'</th><th>'+T('black')+'</th><th>'+T('cDraw')+'</th></tr>'+h;
+  $('codeskey').innerHTML='<span class="here sw2"></span> '+T('cHere') }
+
+/* ================= games (PGN): a test of its own =================
+   Every game is replayed move by move with the selected build. After each move the build's own A()
+   returns Z(): checkmate, stalemate, dead position, the 75-move rule or fivefold repetition, the
+   endings that need no claim. The first one met is where the rules end the game. If none comes
+   first, the final position is judged as a flag fall: the loser named by Result is the side whose
+   flag fell (on a draw or *, the side to move). Time-outs and resignations are not told apart; both
+   ask whether the opponent can still mate. Nothing here reads or writes the positions above. */
+var PGN={files:[],seq:0,res:null,busy:false,cancel:false,page:0,filt:'',sel:-1,key:'',P:0,B:0,secs:0,stopped:false};
+var PGN_START='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+var PGN_CATS=['ok','lateDP','lateRule','wrongtm','wrongres','drawn','open','illegal','unread'];
+
+/* split a PGN text into games: a tag line after movetext starts the next game */
+function pgnSplit(text,set){
+  var lines=String(text).replace(/\r/g,'').split('\n'), games=[], g=null, moves=false, m, i, L;
+  for(i=0;i<lines.length;i++){ L=lines[i];
+    if(/^%/.test(L))continue;
+    m=L.match(/^\s*\[(\w+)\s+"((?:[^"\\]|\\.)*)"\s*\]\s*$/);
+    if(m){ if(!g||moves){ g={set:set,tags:{},text:''}; games.push(g); moves=false }
+      g.tags[m[1]]=m[2].replace(/\\(.)/g,'$1'); continue }
+    if(!L.trim())continue;
+    if(!g){ g={set:set,tags:{},text:''}; games.push(g) }
+    moves=true; g.text+=L+'\n' }
+  games.forEach(function(g,k){
+    var s=g.tags.Site||'', id=g.tags.GameId||(s.match(/lichess\.org\/(\w{8})/)||[])[1]||(s&&s!='?'?s:'');
+    g.id=id||String(k+1);
+    /* a link to the game only when it really is a Lichess game */
+    g.lid=(s.match(/lichess\.org\/(\w{8})/)||[])[1]||(/^[A-Za-z0-9]{8}$/.test(g.tags.GameId||'')?g.tags.GameId:'') });
+  return games }
+/* movetext → SAN tokens and the result token; comments, variations, NAGs, move numbers and !? go */
+function pgnTokens(s){
+  s=s.replace(/\{[^}]*\}/g,' ').replace(/;[^\n]*/g,' ');
+  var d=0, o='', i, ch, out=[], res='';
+  for(i=0;i<s.length;i++){ ch=s[i]; if(ch=='(')d++; else if(ch==')'){ if(d)d-- } else if(!d)o+=ch }
+  o.replace(/\$\d+/g,' ').split(/\s+/).forEach(function(x){
+    if(!x)return;
+    if(/^(1-0|0-1|1\/2-1\/2|½-½|\*)$/.test(x)){ res=x; return }
+    x=x.replace(/^\d+\.+/,'').replace(/e\.p\.$/,'').replace(/[!?+#]+$/,'');
+    if(x)out.push(x) });
+  return {moves:out,res:res} }
+function pgnResult(r){ r=String(r||'').trim(); return r=='½-½'?'1/2-1/2':/^(1-0|0-1|1\/2-1\/2)$/.test(r)?r:'*' }
+
+/* the engine's legal moves; castling is a two-square king move in L3 and the king onto its own rook in LUX */
+function pgnLegal(){ var out=[], i, j, M0;
+  if(window.X88){ O(function(j,x){ out.push([(j>>4)*8+(j&7),(x>>4)*8+(x&7)]); return 1 }); return out }
+  if(window.STR){ for(i=0;i<64;i++){ if(b[i]=='-'||(b[i]<'a')^t)continue; M0=L(i); for(j=0;j<M0.length;j++)out.push([i^56,M0[j]^56]) }
+    return out }
+  for(i=0;i<64;i++){ if(!b[i]||(b[i]&1)!==t)continue; M0=L(i); for(j=0;j<M0.length;j++)out.push([i,M0[j]]) }
+  return out }
+/* the board as 64 squares in the 8x8 coding (piece type<<1 | White); the 0x88 L3 engine.js is translated */
+function pgnB(){ var o=[], q, p, T8=[0,4,5,3,6,2,1];
+  if(window.STR){ for(q=0;q<64;q++){ p=b[q^56]; o[q]=p=='-'?0:PIECE[p.toLowerCase()]+(p<'a'?1:0) } return o }
+  if(!window.X88)return b;
+  for(q=0;q<64;q++){ p=b[(q>>3)*16+(q&7)]; o[q]=p?T8[p&7]*2+(p>>3):0 } return o }
+function pgnCastle(i,f,B0){ var p=B0[i];
+  return (p>>1)==5&&((i>>3)==(f>>3)&&Math.abs((i&7)-(f&7))==2||!!B0[f]&&(B0[f]&1)===(p&1)&&(B0[f]>>1)==2) }
+var PGN_TYPE={K:5,Q:3,R:2,B:1,N:6,P:4}, PGN_PROMO={Q:3,R:2,B:1,N:6};
+/* one SAN token → the engine moves it can mean: [from, to, promotion piece] */
+function pgnMatch(tok){
+  var LL=pgnLegal(), B0=pgnB(), cand=[], m, k;
+  if(/^([O0]-[O0])(-[O0])?$/.test(tok)){ var long=tok.length>3;
+    for(k=0;k<LL.length;k++) if(pgnCastle(LL[k][0],LL[k][1],B0)&&((LL[k][1]&7)<(LL[k][0]&7))===long)cand.push([LL[k][0],LL[k][1],3]);
+    return cand }
+  m=tok.match(/^([KQRBNP])?([a-h])?([1-8])?x?([a-h][1-8])(?:=?([QRBNqrbn]))?$/);
+  if(!m)return cand;
+  var ty=PGN_TYPE[m[1]||'P'], to=m[4].charCodeAt(0)-97+8*(+m[4][1]-1),
+      ff=m[2]?m[2].charCodeAt(0)-97:-1, fr=m[3]?+m[3]-1:-1, pr=m[5]?PGN_PROMO[m[5].toUpperCase()]:0;
+  for(k=0;k<LL.length;k++){ var i=LL[k][0], f=LL[k][1];
+    if((B0[i]>>1)!==ty||f!==to||pgnCastle(i,f,B0)||ff>=0&&(i&7)!==ff||fr>=0&&(i>>3)!==fr)continue;
+    if(ty==4&&(f>>3==7||f>>3==0))cand.push([i,f,pr||3]); else if(!pr)cand.push([i,f,3]) }
+  return cand }
+/* the engine state as a FEN; castling as KQkq, or as Shredder files when the skeleton is not the standard one */
+function pgnFen(full){
+  var s='', r, f, k, p, cs='', B0=pgnB(), X0=window.STR?'':window.X88?(String(C).indexOf('y[')>=0?window.y:''):window.X, std=!X0||X0==='20003001',
+      E=window.X88?(e==8?-1:(e>>4)*8+(e&7)):window.STR?(e=='-'?-1:e^56):e, c=window.STR?(window.c>>2&3)|(window.c&3)<<2:window.c;
+  for(r=7;r>=0;r--){ k=0;
+    for(f=0;f<8;f++){ p=B0[r*8+f]; if(!p){k++;continue} if(k){s+=k;k=0}
+      var l=' brqpkn'.charAt(p>>1); s+=p&1?l.toUpperCase():l }
+    if(k)s+=k; if(r)s+='/' }
+  if(std){ if(c&1)cs+='K'; if(c&2)cs+='Q'; if(c&4)cs+='k'; if(c&8)cs+='q' }
+  else { var kr='ABCDEFGH'.charAt(X0.indexOf('1')), qr='ABCDEFGH'.charAt(X0.indexOf('2'));
+    if(c&1)cs+=kr; if(c&2)cs+=qr; if(c&4)cs+=kr.toLowerCase(); if(c&8)cs+=qr.toLowerCase() }
+  return s+' '+(t?'w':'b')+' '+(cs||'-')+' '+(E>=0?'abcdefgh'.charAt(E&7)+((E>>3)+1):'-')+' '+n+' '+full }
+
+/* replay one game */
+function pgnGame(G,P,B){
+  var o={set:G.set,id:G.id,lid:G.lid,tags:G.tags,plies:0,moves:[],end:null,err:null,fin:null,c50:0,c3:0};
+  var tk=pgnTokens(G.text), v=String(G.tags.Variant||'').toLowerCase(), k, code;
+  o.moves=tk.moves; o.res=pgnResult(G.tags.Result||tk.res);
+  if(v&&!/^(standard|chess ?960|fischerandom|from position)$/.test(v)||/960|fischer/.test(v)&&!/[Xy]\[/.test(String(C))){
+    o.err={k:'variant',a:[G.tags.Variant]}; return pgnClass(o) }
+  var start=G.tags.FEN||PGN_START, bad=fenProblem(start);
+  if(bad){ o.err={k:'badstart',p:bad}; return pgnClass(o) }
+  if(!setFen(start)){ o.err={k:'badstart',p:{k:'castle'}}; return pgnClass(o) }
+  if(!tk.moves.length&&!G.tags.FEN){ o.err={k:'parse'}; return pgnClass(o) }
+  if(!window.X88&&!window.STR){ R={}; R[b+t+e+c]=1; window.$=1 }   /* the 0x88 and letter-board setFen already reset their tables */
+  var full=+(start.split(/\s+/)[5])||1;
+  o.start=start; o.s0=t; o.full0=full;
+  code=Z(1); if(code)o.end={ply:0,code:cstr(code),fen:start};
+  for(k=0;k<tk.moves.length;k++){
+    var cand=pgnMatch(tk.moves[k]);
+    if(cand.length!==1){
+      o.err={k:o.end&&/#|SM/.test(o.end.code)?'aftermate':cand.length?'ambiguous':'illegal',a:[k+1,tk.moves[k]]}; break }
+    var black=!t;
+    if(window.X88){ /* L right before the move: a castling check stores the rook's square, and M takes it from there */
+      var i8=(cand[0][0]>>3)*16+(cand[0][0]&7), f8=(cand[0][1]>>3)*16+(cand[0][1]&7);
+      L(i8,f8); code=A(i8,f8,[0,6,5,3,0,0,4][cand[0][2]]) }
+    else if(window.STR) code=A(cand[0][0]^56,cand[0][1]^56,' brq  n'.charAt(cand[0][2]));
+    else code=A(cand[0][0],cand[0][1],cand[0][2]);
+    if(black)full++;
+    o.plies=k+1;
+    if(code&&!o.end)o.end={ply:k+1,code:cstr(code),fen:pgnFen(full)};
+    if(!o.c50&&n>99)o.c50=k+1;
+    if(!o.c3&&(window.X88||window.STR?window.R:window.$)>2)o.c3=k+1 }
+  o.fen=pgnFen(full);
+  if(!o.err&&!o.end){
+    var g=o.res=='1-0'?0:o.res=='0-1'?1:t?1:0, r=judge(o.fen,P,B,g);
+    o.fin=r?{code:r.code,side:g,src:r.src}:{code:'',side:g,bad:window.BAD_WHY} }
+  return pgnClass(o) }
+function pgnRight(o){
+  if(o.end)return o.end.code=='W#'?'1-0':o.end.code=='B#'?'0-1':'1/2-1/2';
+  if(o.fin&&o.fin.code)return o.fin.code=='WT'?'1-0':o.fin.code=='BT'?'0-1':'1/2-1/2';
+  return '' }
+function pgnClass(o){
+  o.right=pgnRight(o);
+  /* a game drawn by agreement or claim, or left unfinished, did not end on a flag: the flag verdict is
+     kept for the detail view as a what-if, but it is not the game's correct result */
+  if(!o.end&&!o.err&&(o.res=='1/2-1/2'||o.res=='*'))o.right='';
+  if(o.err)o.cat=/illegal|ambiguous|aftermate/.test(o.err.k)?'illegal':'unread';
+  else if(o.end&&o.end.ply<o.plies)o.cat=o.end.code=='DP'?'lateDP':'lateRule';
+  else if(!o.end&&o.fin&&!o.fin.code)o.cat='unread';
+  else if(o.res=='*')o.cat='open';
+  else if(!o.end&&o.res=='1/2-1/2')o.cat='drawn';
+  else if(o.res==o.right)o.cat='ok';
+  else o.cat=!o.end&&o.right=='1/2-1/2'?'wrongtm':'wrongres';
+  return o }
+
+/* ---- input ---- */
+function pgnPasted(){ var s=$('pgntext').value; return s.trim()?pgnSplit(s,'pasted'):[] }
+function pgnAll(){ var g=pgnPasted(); PGN.files.forEach(function(f){ g=g.concat(f.games) }); return g }
+function pgnRefresh(){
+  var g=$('pgngo');
+  if(PGN.busy){ g.textContent=T('goStop'); g.disabled=false; return }
+  var n=pgnAll().length; g.textContent=n?F('pgnGo',num(n)):T('pgnGo0'); g.disabled=!n }
+function pgnFiles(list){
+  Array.prototype.forEach.call(list,function(file){
+    file.text().then(function(txt){
+      var f={key:++PGN.seq,name:file.name,games:pgnSplit(txt,file.name.replace(/\.pgn$/i,''))};
+      PGN.files.push(f); pgnFileList(); pgnRefresh() }) }) }
+function pgnFileList(){
+  $('pgnflist').innerHTML=PGN.files.map(function(f){
+    return '<li><span class="fname">'+esc(f.name)+'</span><span class="fmeta">'+F('pgnN',num(f.games.length))+'</span>'+
+      '<button class="x" data-prm="'+f.key+'" aria-label="'+esc(F('fRemove',f.name))+'">×</button></li>' }).join('') }
+
+/* ---- run ---- */
+function pgnRun(){
+  if(PGN.busy){ PGN.cancel=true; return }
+  if(busy)return;
+  var games=pgnAll(); if(!games.length)return;
+  var key=$('eng').value, P=ply(), B=bud();
+  loadEngine(key);
+  PGN.busy=true; PGN.cancel=false; PGN.res=null; pgnLock(true); pgnRender();
+  var res=[], i=0, T0=performance.now();
+  $('pbar').style.display='block';
+  (function chunk(){
+    var until=performance.now()+50;
+    do { res.push(pgnGame(games[i],P,B)); i++ } while(i<games.length&&!PGN.cancel&&performance.now()<until);
+    var secs=(performance.now()-T0)/1000;
+    $('pbarf').style.width=(100*i/games.length)+'%';
+    $('pstat').textContent=F('pgnProg',num(i),num(games.length),num(Math.round(i/Math.max(secs,.001))));
+    if(i<games.length&&!PGN.cancel)setTimeout(chunk,0);
+    else { $('pbar').style.display='none';
+      PGN.res=res; PGN.key=key; PGN.P=P; PGN.B=B; PGN.secs=secs; PGN.stopped=i<games.length;
+      PGN.busy=false; PGN.page=0; PGN.filt=''; PGN.sel=-1; pgnLock(false); pgnRender() } })() }
+function pgnLock(on){
+  ['pgntext','eng','go'].forEach(function(id){ $(id).disabled=on });
+  Array.prototype.forEach.call(document.querySelectorAll('#pgnflist button'),function(x){x.disabled=on});
+  $('pdrop').classList.toggle('off',on); $('pgngo').classList.toggle('stop',on);
+  if(!on)refreshCount(); pgnRefresh() }
+
+/* ---- report ---- */
+function pgnMoveNo(o,p){ var h=p-1+(o.s0?0:1); return (o.full0+(h>>1))+(h%2?'…':'.') }
+/* a ply as the scoresheet writes it: 41.Bxe5 or 41…Kf6; ply 0 is the starting position */
+function pgnRef(o,p){ return p?pgnMoveNo(o,p)+o.moves[p-1]:T('pd_startShort') }
+function pgnEndText(o){ return o.end?pgnRef(o,o.end.ply)+' '+o.end.code:o.fin&&o.fin.code?o.fin.code:'' }
+function pgnRender(){
+  var R0=PGN.res, box=$('pgnout');
+  if(!R0){ box.classList.add('hide'); if(!PGN.busy)$('pstat').textContent=''; return }
+  box.classList.remove('hide');
+  $('pstat').textContent=PGN.stopped?F('pgnStopped',num(R0.length),num(pgnAll().length)):F('pgnDone',num(R0.length),NAME[PGN.key],PGN.secs.toFixed(1));
+  var cnt={}; PGN_CATS.forEach(function(k){cnt[k]=0}); R0.forEach(function(o){cnt[o.cat]++});
+  $('pgnsum').innerHTML='<table><tr><th>'+T('pgnThCat')+'</th><th>'+T('pgnThN')+'</th></tr>'+
+    PGN_CATS.filter(function(k){return cnt[k]}).map(function(k){
+      return '<tr class="pc-'+k+'"><td>'+T('pc_'+k)+'</td><td>'+num(cnt[k])+'</td></tr>' }).join('')+'</table>';
+  $('pgnfilt').innerHTML='<option value="">'+T('pgnFiltAll')+' ('+num(R0.length)+')</option>'+
+    PGN_CATS.filter(function(k){return cnt[k]}).map(function(k){
+      return '<option value="'+k+'"'+(PGN.filt==k?' selected':'')+'>'+T('pc_'+k)+' ('+num(cnt[k])+')</option>' }).join('');
+  var list=[], k; for(k=0;k<R0.length;k++) if(!PGN.filt||R0[k].cat==PGN.filt)list.push(k);
+  var per=50, pages=Math.max(1,Math.ceil(list.length/per)); if(PGN.page>=pages)PGN.page=pages-1;
+  var h='<tr><th>#</th><th>'+T('pgnThGame')+'</th><th>'+T('pgnThPlayers')+'</th><th>'+T('pgnThRes')+'</th><th>'+T('pgnThTerm')+
+        '</th><th>'+T('pgnThPlies')+'</th><th>'+T('pgnThEnd')+'</th><th>'+T('pgnThExtra')+'</th><th>'+T('pgnThRight')+'</th><th>'+T('pgnThCat')+'</th></tr>';
+  list.slice(PGN.page*per,(PGN.page+1)*per).forEach(function(k){ var o=R0[k], g=o.tags;
+    h+='<tr class="pc-'+o.cat+(k==PGN.sel?' act':'')+'" data-pk="'+k+'" tabindex="0"><td>'+(k+1)+'</td><td>'+esc(o.set)+' · '+esc(o.id)+'</td><td>'+
+       esc((g.White||'?')+' – '+(g.Black||'?'))+'</td><td>'+esc(o.res)+'</td><td>'+esc(g.Termination||'')+'</td><td>'+num(o.plies)+
+       '</td><td>'+esc(pgnEndText(o))+'</td><td>'+(o.end&&o.end.ply<o.plies?num(o.plies-o.end.ply):'')+'</td><td>'+esc(o.right)+
+       '</td><td>'+T('pc_'+o.cat)+'</td></tr>' });
+  $('pgntab').innerHTML=h;
+  $('pgnpg').innerHTML=pages>1?'<button class="ghost" data-ppg="-1"'+(PGN.page?'':' disabled')+'>'+T('prev')+'</button><span>'+
+    F('pgOf',PGN.page+1,pages,num(list.length))+'</span><button class="ghost" data-ppg="1"'+(PGN.page<pages-1?'':' disabled')+'>'+T('next')+'</button>':'';
+  pgnDetail() }
+function pgnErrText(err){
+  if(err.k=='badstart')return F('perr_badstart',badText(err.p));
+  if(err.k=='variant')return F('perr_variant',esc(err.a[0]));
+  if(err.k=='parse')return T('perr_parse');
+  return F('perr_'+err.k,num(err.a[0]),esc(err.a[1])) }
+function pgnDetail(){
+  var box=$('pgndet'), o=PGN.res&&PGN.res[PGN.sel];
+  if(!o){ box.innerHTML=''; return }
+  var g=o.tags, fen=o.end?o.end.fen:o.fen, flag=o.fin?o.fin.side:-1, h='<h3>'+esc(o.set)+' · '+esc(o.id)+'</h3><p class="note">';
+  if(o.err)h+=pgnErrText(o.err)+(o.end?' '+F('pd_endFirst',pgnRef(o,o.end.ply),T('c_'+o.end.code)):'');
+  else if(o.end&&o.end.ply<o.plies)h+=o.end.ply?F('pd_late',pgnRef(o,o.end.ply),T('c_'+o.end.code),num(o.plies-o.end.ply))
+                                              :F('pd_lateStart',T('c_'+o.end.code),num(o.plies));
+  else if(o.end)h+=o.end.ply?F('pd_here',pgnRef(o,o.end.ply),T('c_'+o.end.code)):F('pd_hereStart',T('c_'+o.end.code));
+  else if(o.fin)h+=F('pd_final',sideName(o.fin.side),o.fin.code?T('c_'+o.fin.code):badText(o.fin.bad));
+  h+='</p><div class="pdet">'+(fen?drawBoard(fen,flag,true):'')+'<div><dl class="kv">'+
+    '<dt>'+T('pk_players')+'</dt><dd>'+esc((g.White||'?')+' – '+(g.Black||'?'))+'</dd>'+
+    '<dt>'+T('pk_res')+'</dt><dd>'+esc(o.res)+(g.Termination?' ('+esc(g.Termination)+')':'')+'</dd>'+
+    '<dt>'+T('pk_right')+'</dt><dd>'+esc(o.right||'—')+'</dd>'+
+    '<dt>'+T('pk_claims')+'</dt><dd>'+F('pd_claims',o.c50?pgnRef(o,o.c50):'—',o.c3?pgnRef(o,o.c3):'—')+'</dd></dl>';
+  if(fen){ var lid=o.lid?'https://lichess.org/'+o.lid:'';
+    h+='<p class="fenbox">'+esc(fen)+'</p><div class="acts"><button class="ghost cp" data-fen="'+esc(fen)+'">'+T('lbCopy')+'</button>'+
+       '<a class="btn" target="_blank" rel="noopener" href="'+esc(editor(fen))+'">'+T('openEditor')+'</a>'+
+       (lid?'<a class="btn" target="_blank" rel="noopener" href="'+lid+(o.end?'#'+o.end.ply:'')+'">'+T('openGame')+'</a>':'')+'</div>' }
+  h+='</div></div><h4>'+T('pk_moves')+'</h4><p class="mvs">';
+  o.moves.forEach(function(m,k){ var p=k+1, cls=o.end&&p==o.end.ply?'e':o.end&&p>o.end.ply?'a':o.err&&o.err.a&&p==o.err.a[0]?'x':'';
+    var h2=p-1+(o.s0?0:1); if(h2%2==0||k==0)h+='<span class="n">'+pgnMoveNo(o,p)+'</span>';
+    h+='<span'+(cls?' class="'+cls+'"':'')+'>'+esc(m)+'</span> ' });
+  box.innerHTML=h+'</p>' }
+$('pgntab').addEventListener('click',function(ev){ var r=ev.target.closest('tr[data-pk]'); if(!r)return;
+  PGN.sel=+r.getAttribute('data-pk'); pgnRender(); $('pgndet').scrollIntoView({behavior:'smooth',block:'nearest'}) });
+$('pgntab').addEventListener('keydown',function(ev){ if(ev.key=='Enter'||ev.key==' '){ var r=ev.target.closest('tr[data-pk]'); if(r){ev.preventDefault();r.click()} } });
+$('pgnpg').addEventListener('click',function(ev){ var x=ev.target.closest('[data-ppg]'); if(!x||x.disabled)return; PGN.page+=+x.getAttribute('data-ppg'); pgnRender() });
+$('pgnfilt').onchange=function(){ PGN.filt=this.value; PGN.page=0; pgnRender() };
+$('pgngo').onclick=pgnRun;
+$('pgntext').addEventListener('input',function(){ clearTimeout(this._t); this._t=setTimeout(pgnRefresh,200) });
+$('pgnflist').addEventListener('click',function(ev){ var x=ev.target.closest('[data-prm]'); if(!x||PGN.busy)return;
+  PGN.files=PGN.files.filter(function(f){return f.key!=x.getAttribute('data-prm')}); pgnFileList(); pgnRefresh() });
+(function(){ var d=$('pdrop'), f=$('pfile');
+  d.onclick=function(){ if(!PGN.busy)f.click() };
+  d.onkeydown=function(ev){ if(ev.key=='Enter'||ev.key==' '){ev.preventDefault(); if(!PGN.busy)f.click()} };
+  f.onchange=function(){ if(f.files.length)pgnFiles(f.files); f.value='' };
+  d.ondragover=function(ev){ ev.preventDefault(); if(!PGN.busy)d.classList.add('over') };
+  d.ondragleave=function(){ d.classList.remove('over') };
+  d.ondrop=function(ev){ ev.preventDefault(); d.classList.remove('over'); if(!PGN.busy&&ev.dataTransfer.files.length)pgnFiles(ev.dataTransfer.files) } })();
+$('pgnexp').onclick=function(){ if(!PGN.res)return;
+  var o=['build,set,gameId,white,black,result,termination,plies,finding,end_ply,end_move,end_code,extra_plies,correct,final_verdict,flag_side,claim50_ply,claim3R_ply,error,fen_at_end'];
+  PGN.res.forEach(function(r){ var g=r.tags;
+    o.push([NAME[PGN.key],r.set,r.id,g.White||'',g.Black||'',r.res,g.Termination||'',r.plies,r.cat,
+      r.end?r.end.ply:'',r.end&&r.end.ply?pgnRef(r,r.end.ply):'',r.end?r.end.code:'',r.end&&r.end.ply<r.plies?r.plies-r.end.ply:'',
+      r.right,r.fin?r.fin.code:'',r.fin?(r.fin.side?'w':'b'):'',r.c50||'',r.c3||'',
+      r.err?r.err.k+(r.err.a?':'+r.err.a.join(':'):''):'',r.end?r.end.fen:r.fen||''].map(function(x){
+        x=String(x); return /[",]/.test(x)?'"'+x.replace(/"/g,'""')+'"':x }).join(',')) });
+  download('pgn-results.csv',o.join('\n')) };
+
+/* ================= wiring ================= */
+function limNote(){ var k=$('eng').value, f=fam(k), d=DEFS[f]; $('ply').disabled=busy||NOPLY(k);
+  $('limnote').textContent=NOPLY(k)?F('limNoteX',num(d[1])):F('limNote',f=='lux'?'LUX':'FideLite',d[0],num(d[1])) }
+function applyI18n(){
+  document.documentElement.lang=lang;
+  document.title=T('title');
+  var els=document.querySelectorAll('[data-i]'),i,el,k;
+  for(i=0;i<els.length;i++){ el=els[i]; k=el.getAttribute('data-i');
+    if(el.hasAttribute('data-ihtml'))el.innerHTML=T(k); else el.textContent=T(k) }
+  if(cur)$('engnote').textContent=F('engnote',num(SRC[cur].length),tagOf(cur));
+  limNote(); renderCodes(); inputChanged();
+  if($('fold-diff').open)renderDiff();
+  if(results){ var s=$('stat').innerHTML; showResults(); if(busy)say(s) }
+  if(!$('lb').classList.contains('hide'))lbShow();
+  pgnRefresh(); if(PGN.res)pgnRender() }
+$('fold-diff').addEventListener('toggle',function(){ if(this.open)renderDiff() });
+$('eng').onchange=function(){
+  var el=$('eng'); if(busy||PGN.busy){el.value=cur;return}
+  var was=DEFS[fam(cur)], now=DEFS[fam(el.value)];
+  /* switching engine: fields still at the old engine's own limits follow the new one's */
+  if(was!==now){ if(ply()===was[0])$('ply').value=now[0]; if(bud()===was[1])$('bud').value=now[1] }
+  limNote();
+  loadEngine(el.value);
+  if(results&&snap[el.value]&&snap[el.value].res.length===results.res.length){
+    var S=snap[el.value]; results={rows:results.rows,total:results.total,res:S.res,key:el.value,secs:S.secs,P:S.P,B:S.B,stopped:results.stopped};
+    page=0; showResults(); return }
+  if(results&&results.total===1){ go(); return }
+  if(results){ results=null; snap={}; showResults(); say(F('sStale',esc(NAME[el.value]))) } };
+$('lang').onchange=function(){ lang=$('lang').value; diffDone=''; applyI18n() };
+$('eng').value='x4'; $('lang').value=(navigator.language||'').slice(0,2)=='tr'?'tr':'en'; lang=$('lang').value;
+loadEngine('x4');
+applyI18n();
+})();
+</script>
