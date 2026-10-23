@@ -9260,19 +9260,19 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="tw" lang="tr"><table>
 <thead><tr><th>Seviye</th><th>Botsuz</th><th>Botlu</th><th>Botun maliyeti</th></tr></thead>
 <tbody>
-<tr><td><code class="vn">L1</code></td><td>1.416<span class="sub">builds/L1/L1.html</span></td><td>2.280<span class="sub">builds/special/L1_1250elo.html</span></td><td>864</td></tr>
+<tr><td><code class="vn">L1</code></td><td>1.416<span class="sub">builds/L1/L1.html</span></td><td>2.051<span class="sub">builds/special/L1_1250elo.html</span></td><td>635</td></tr>
 <tr><td><code class="vn">L2</code></td><td>2.312<span class="sub">builds/L2/L2.html</span></td><td>7.935<span class="sub">builds/special/L2_aybars_2500.html</span></td><td>5.623</td></tr>
 </tbody>
 </table></div>
     <div class="tw" lang="en"><table>
 <thead><tr><th>Level</th><th>No bot</th><th>With bot</th><th>Cost of the bot</th></tr></thead>
 <tbody>
-<tr><td><code class="vn">L1</code></td><td>1,416<span class="sub">builds/L1/L1.html</span></td><td>2,280<span class="sub">builds/special/L1_1250elo.html</span></td><td>864</td></tr>
+<tr><td><code class="vn">L1</code></td><td>1,416<span class="sub">builds/L1/L1.html</span></td><td>2,051<span class="sub">builds/special/L1_1250elo.html</span></td><td>635</td></tr>
 <tr><td><code class="vn">L2</code></td><td>2,312<span class="sub">builds/L2/L2.html</span></td><td>7,935<span class="sub">builds/special/L2_aybars_2500.html</span></td><td>5,623</td></tr>
 </tbody>
 </table></div>
     <div class="prose" lang="tr">
-      <p>Botlu sürümler hâlâ önceki tahta temsilinde, 64 karelik düz bir dizide çalışıyor; <code class="vn">L1</code> ve <code class="vn">L2</code> ise yeni tahta temsiline geçti. Bu yüzden son sütun yalnızca botun maliyetini değil, iki tahta arasındaki farkı da içeriyor. Üstelik bu iki fark aynı şeyin iki ölçümü değil: iki seviyede farklı botlar var. Adlarındaki 1250 ile 2500'ün de işaret ettiği gibi <code class="vn">L1</code>'deki bot hafif; <code class="vn">L2</code>'deki Aybars'ın araması ve değerlendirmesi ise çok daha ileri gidiyor. Her seviyede kurallar botlu ve botsuz dosyada aynı olduğu için fark büyük ölçüde botun kendisinden geliyor; iki fark arasındaki yaklaşık yedi katlık açık da kurallardan değil, botların gücünden kaynaklanıyor. <code class="vn">L2</code>'nin botlu sürümü oyunu üçlü tekrarda ve 50 hamlede de <a href="#indicators">bitiriyor</a>; bu da farkın içinde, ama küçük bir parçası.</p>
+      <p><code class="vn">L1_1250elo</code>, <code class="vn">L1</code> ile aynı yeni tahta temsilinde, 0x88 tahtada ve <code>engine_4x</code>'in çekirdeği üstünde çalışıyor; ilk satırdaki farkın neredeyse tamamı bot, kalan 35 bayt kadarı kural çekirdeğinin <code>engine_4x</code>'ten aldığı hız ayarları. <code class="vn">L2_aybars_2500</code> ise hâlâ önceki tahta temsilinde, 64 karelik düz bir dizide çalışıyor; <code class="vn">L2</code> yeni tahta temsiline geçtiği için ikinci satırın son sütunu yalnızca botun maliyetini değil, iki tahta arasındaki farkı da içeriyor. Üstelik bu iki fark aynı şeyin iki ölçümü değil: iki seviyede farklı botlar var. Adlarındaki 1250 ile 2500'ün de işaret ettiği gibi <code class="vn">L1</code>'deki bot hafif; <code class="vn">L2</code>'deki Aybars'ın araması ve değerlendirmesi ise çok daha ileri gidiyor. Her seviyede kurallar botlu ve botsuz dosyada aynı olduğu için fark büyük ölçüde botun kendisinden geliyor; iki fark arasındaki yaklaşık dokuz katlık açık da kurallardan değil, botların gücünden kaynaklanıyor. <code class="vn">L2</code>'nin botlu sürümü oyunu üçlü tekrarda ve 50 hamlede de <a href="#indicators">bitiriyor</a>; bu da farkın içinde, ama küçük bir parçası.</p>
       <p>Seviyelerin iki botu iddianın dışında ve bu bir çekince değil, tasarımın bir sonucu. Bot
       öncelikli olsaydı <a href="#board">tahta temsili</a> baştan başka türlü yazılırdı: kare merkezli
       düz bir dizi “bu karede ne var?” sorusunu ucuzlatıyor ama küme işlemlerini pahalılaştırıyor; bir arama ağacı ise tam tersini ister. Burada seçim kural yoğunluğundan yana yapıldı;
@@ -9283,7 +9283,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       aynı.</p>
     </div>
     <div class="prose" lang="en">
-      <p>The bot builds still run on the previous board representation, a flat 64-square array, while <code class="vn">L1</code> and <code class="vn">L2</code> have moved to the new board; the last column therefore carries the difference between the two boards as well, not the bot alone. Nor are these two measurements of the same thing: the two levels carry different bots. As the 1250 and 2500 in their names suggest, the one in <code class="vn">L1</code> is a light bot, while Aybars in <code class="vn">L2</code> is a far stronger one whose search and evaluation go much further. Within each level the rules are the same with or without the bot, so the difference comes largely from the bot itself; the roughly sevenfold gap between the two reflects the bots' strength, not the rules. The <code class="vn">L2</code> bot build also <a href="#indicators">ends the game</a> on threefold repetition and 50 moves; that is inside the difference too, but only a small part of it.</p>
+      <p><code class="vn">L1_1250elo</code> runs on the same new board as <code class="vn">L1</code>, the 0x88 board, on the core of <code>engine_4x</code>; almost all of the first row's difference is the bot, and the remaining 35 bytes or so are the speed tweaks the rule core takes from <code>engine_4x</code>. <code class="vn">L2_aybars_2500</code> still runs on the previous board representation, a flat 64-square array, while <code class="vn">L2</code> has moved to the new board; the second row's last column therefore carries the difference between the two boards as well, not the bot alone. Nor are these two measurements of the same thing: the two levels carry different bots. As the 1250 and 2500 in their names suggest, the one in <code class="vn">L1</code> is a light bot, while Aybars in <code class="vn">L2</code> is a far stronger one whose search and evaluation go much further. Within each level the rules are the same with or without the bot, so the difference comes largely from the bot itself; the roughly ninefold gap between the two reflects the bots' strength, not the rules. The <code class="vn">L2</code> bot build also <a href="#indicators">ends the game</a> on threefold repetition and 50 moves; that is inside the difference too, but only a small part of it.</p>
       <p>The two level bots sit outside the claim, and that is a consequence of the design rather than a caveat. Had the bot been the priority, the <a href="#board">board representation</a> itself
       would have been written differently from the start: a flat, square-centric array makes “what
       is on this square?” cheap and set operations expensive, and a search tree wants exactly the
@@ -9325,14 +9325,14 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <thead><tr><th>Sürüm</th><th>Ne</th><th>Giriş</th><th>Bayt</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">Toledos-ES6-optimized</code><br><span class="fn2">builds/special/Toledos-ES6-optimized.html</span></td><td>Oscar Toledo G.'nin programı, camiada en çok konuşulan küçük satranç programlarından biri: 2 KB'nin biraz üzerinde L1 seviyesinde kurallar ve sabit, sığ bir derinliğe kadar arayan, yaklaşık 1200 Elo'luk bir bot. Eşdeğerliğini koruyarak ES6 yöntemleriyle biraz daha küçülttüm, arayüzünü de hafifçe yeniden yorumladım.</td><td>Tıklama, bota karşı<span class="sub">terfi tahtanın altındaki listeden, hamleden önce seçilir</span></td><td>2.032</td></tr>
-<tr><td><code class="vn">ToledosOpponentbyMe</code><br><span class="fn2">builds/special/ToledosOpponentbyMe.html</span></td><td>Toledo'nun programına rakip olarak bu motorla yazdığım bot: <code class="vn">L1</code> seviyesinde kurallar artı 50 hamle kuralı, yinelemeli derinleştirmeli alfa-beta araması ve hamle başına 25 milisaniye civarında bir zaman bütçesi. Bot beyazla oynuyor.</td><td>Tıklama, bota karşı</td><td>2.076</td></tr>
+<tr><td><code class="vn">ToledosOpponentbyMe</code><br><span class="fn2">builds/special/ToledosOpponentbyMe.html</span></td><td>Toledo'nun programına rakip olarak bu motorla yazdığım bot: <code class="vn">L1</code> seviyesinde kurallar artı 50 hamle kuralı, yinelemeli derinleştirmeli alfa-beta araması ve hamle başına 50 milisaniye civarında bir zaman bütçesi. Bot beyazla oynuyor.</td><td>Tıklama, bota karşı</td><td>1.904</td></tr>
 </tbody>
 </table></div>
     <div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>What it is</th><th>Input</th><th>Bytes</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">Toledos-ES6-optimized</code><br><span class="fn2">builds/special/Toledos-ES6-optimized.html</span></td><td>Oscar Toledo G.'s chess program, one of the best-known tiny chess programs: L1-level rules in a little over 2 KB, and a bot of roughly 1200 Elo that searches to a fixed, shallow depth. I shrank it a little further with ES6 techniques while keeping it equivalent, and gave its interface a light rework.</td><td>Clicking, against a bot<span class="sub">promotion chosen beforehand from the list below the board</span></td><td>2,032</td></tr>
-<tr><td><code class="vn">ToledosOpponentbyMe</code><br><span class="fn2">builds/special/ToledosOpponentbyMe.html</span></td><td>The bot I wrote on this engine as an opponent for Toledo's program: <code class="vn">L1</code>-level rules plus the 50-move rule, an iterative-deepening alpha-beta search and a time budget of about 25 milliseconds per move. The bot plays White.</td><td>Clicking, against a bot</td><td>2,076</td></tr>
+<tr><td><code class="vn">ToledosOpponentbyMe</code><br><span class="fn2">builds/special/ToledosOpponentbyMe.html</span></td><td>The bot I wrote on this engine as an opponent for Toledo's program: <code class="vn">L1</code>-level rules plus the 50-move rule, an iterative-deepening alpha-beta search and a time budget of about 50 milliseconds per move. The bot plays White.</td><td>Clicking, against a bot</td><td>1,904</td></tr>
 </tbody>
 </table></div>
     <div class="prose" lang="tr">
@@ -9344,7 +9344,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="tw" lang="tr"><table>
 <thead><tr><th>Fark</th><th><code class="vn">L1_1250elo</code></th><th><code class="vn">ToledosOpponentbyMe</code></th></tr></thead>
 <tbody>
-<tr><td>Zaman bütçesi</td><td>~500 ms</td><td>~25 ms</td></tr>
+<tr><td>Zaman bütçesi</td><td>~250 ms</td><td>~50 ms</td></tr>
 <tr><td>Botun rengi</td><td>Siyah</td><td>Beyaz</td></tr>
 <tr><td>50 hamle kuralı</td><td>Yok</td><td>Var<span class="sub">sürücüde, aramada değil</span></td></tr>
 <tr><td>Şah uyarısı ve sonuç</td><td>Durum satırında <code>C!</code><span class="sub">oyun sonunda <code>W#</code> <code>B#</code> <code>SM</code></span></td><td>Durum satırı yok<span class="sub">oyun sonunda tahta donar</span></td></tr>
@@ -9355,7 +9355,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="tw" lang="en"><table>
 <thead><tr><th>Difference</th><th><code class="vn">L1_1250elo</code></th><th><code class="vn">ToledosOpponentbyMe</code></th></tr></thead>
 <tbody>
-<tr><td>Time budget</td><td>~500 ms</td><td>~25 ms</td></tr>
+<tr><td>Time budget</td><td>~250 ms</td><td>~50 ms</td></tr>
 <tr><td>Bot plays</td><td>Black</td><td>White</td></tr>
 <tr><td>50-move rule</td><td>No</td><td>Yes<span class="sub">in the driver, not in the search</span></td></tr>
 <tr><td>Check warning and result</td><td><code>C!</code> in the status line<span class="sub">at the end <code>W#</code> <code>B#</code> <code>SM</code></span></td><td>No status line<span class="sub">at the end the board freezes</span></td></tr>
@@ -16544,12 +16544,12 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       girmişti ve dosya 1.567 bayttan 1.541 bayta inmişti — <b>26 bayt</b>. O zaman kazancın tamamı
       <code>C</code> tablosundan geliyordu (virgülüyle 28 bayt); hamledeki işaret 3 bayt kısalıyor, rok
       testi 5 bayt uzuyordu ve çift adım henüz deftere sorulmuyordu.</p>
-      <p><code class="vn">L1</code> seviyesindeki iki bot, <code class="vn">L1_1250elo</code> ve
-      <code class="vn">ToledosOpponentbyMe</code>, tekrar saymadıkları hâlde maskeyi kullanıyor ve
-      bu bilinçli bir tercih. Arama her düğümde hakları saklayıp geri koyuyor: bir sayı bedavaya
-      kopyalanıyor, bir defter ise her seferinde klonlanmak zorunda kalırdı. Orada birkaç bayt yerine
-      hız, dolayısıyla güç seçildi. İkisi de hâlâ önceki neslin motoruna, yani 0–63 tahtasına
-      dayanıyor.</p>
+      <p><code class="vn">L1</code> seviyesindeki iki bot da, <code class="vn">L1_1250elo</code> ve
+      <code class="vn">ToledosOpponentbyMe</code>, defteri kullanıyor. Arama her düğümde hamlenin
+      dokunduğu iki karenin eski işaretini saklıyor, kareleri işaretliyor ve dönüşte eski işaretleri
+      geri koyuyor; defteri klonlamak gerekmiyor. Ölçümde maskeye göre hız farkı çıkmadı, arama
+      değerleri de birebir aynı. İkisi de 0x88 tahtada, <code>engine_4x</code>'in çekirdeği üstünde
+      çalışıyor.</p>
     </div>
     <div class="prose" lang="en">
       <p>The difference is small. In the new generation the four places add up like this: the
@@ -16565,11 +16565,11 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       from the <code>C</code> table (28 bytes with its comma); the mark on a move was 3 bytes shorter,
       the castling test grew by 5, and the double step was not yet asked of the ledger.</p>
       <p>The two bots at the <code class="vn">L1</code> level, <code class="vn">L1_1250elo</code> and
-      <code class="vn">ToledosOpponentbyMe</code>, use the mask even though they count no repetitions, and
-      that is deliberate. The search saves and restores the rights at every node: a number copies for
-      free, while a ledger would have to be cloned every time. There, speed — and so strength — was
-      chosen over a few bytes. Both still stand on the previous generation's engine, the 0–63
-      board.</p>
+      <code class="vn">ToledosOpponentbyMe</code>, use the ledger too. At every node the search saves
+      the old marks of the two squares the move touches, marks them, and puts the old marks back on the
+      way out, so the ledger never has to be cloned. Measured against the mask it costs no speed, and
+      the search returns exactly the same values. Both run on the 0x88 board, on the core of
+      <code>engine_4x</code>.</p>
     </div>
   </div>
 </section>
@@ -19935,7 +19935,7 @@ var DIR = 'builds/';
    icin de gerekli: koku DIR'den turetiyoruz, boylece build.mjs'te ikinci bir
    kural tutmaya gerek kalmiyor. */
 var ROOT = DIR.slice(0, -'builds/'.length);
-var ART = {"L3": {"p": "L3.html", "ps": 3095}, "L3_light": {"p": "L3_light.html", "ps": 2566}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2050}, "L3_input": {"p": "L3_input.html", "ps": 2490}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2360}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2592}, "L3_prompt_string": {"p": "L3_prompt_string.html", "ps": 2519}, "L1": {"p": "builds/L1/L1.html", "ps": 1416}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 946}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 767}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1063}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 994}, "L1_prompt_string": {"p": "builds/L1/L1_prompt_string.html", "ps": 1039}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1191}, "L2": {"p": "builds/L2/L2.html", "ps": 2312}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1824}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1641}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1962}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1875}, "L2_prompt_string": {"p": "builds/L2/L2_prompt_string.html", "ps": 1974}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 2090}, "L2_aybars_2500": {"p": "builds/special/L2_aybars_2500.html", "ps": 7935}, "L1_1250elo": {"p": "builds/special/L1_1250elo.html", "ps": 2280}, "L3_packed": {"p": "builds/FideLite.html", "ps": 2745}, "Chesscom-equivalent": {"p": "builds/special/Chesscom-equivalent.html", "ps": 2667}, "Chesscom-equivalent_minimum": {"p": "builds/special/Chesscom-eqv_min.html", "ps": 1050}, "Lichess-equivalent": {"p": "builds/special/Lichess-equivalent.html", "ps": 2828}, "Lichess-equivalent_minimum": {"p": "builds/special/Lichess-eqv_min.html", "ps": 1088}, "L2_base": {"p": "builds/special/L2_base.html", "ps": 1817}, "L2_string_base": {"p": "builds/special/L2_string_base.html", "ps": 1895}, "DOM_911": {"p": "builds/special/DOM_911.html", "ps": 911}, "DOM_minimum": {"p": "builds/special/DOM_minimum.html", "ps": 722}, "Lowest": {"p": "builds/special/Lowest.html", "ps": 654}, "LUX": {"p": "builds/special/LUX.html", "ps": 9526}, "Toledos-ES6-optimized": {"p": "builds/special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "builds/special/ToledosOpponentbyMe.html", "ps": 2076}, "engine": {"p": "engine.js", "ps": 1860}, "engine_4x": {"p": "engine_4x.js", "ps": 1978}, "engine_string": {"p": "engine_string.js", "ps": 2033}, "engine_onlyMoveGenerator": {"p": "builds/special/engine_onlyMoveGenerator.js", "ps": 653}};
+var ART = {"L3": {"p": "L3.html", "ps": 3095}, "L3_light": {"p": "L3_light.html", "ps": 2566}, "L3_numerical": {"p": "L3_numerical.html", "ps": 2050}, "L3_input": {"p": "L3_input.html", "ps": 2490}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2360}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2592}, "L3_prompt_string": {"p": "L3_prompt_string.html", "ps": 2519}, "L1": {"p": "builds/L1/L1.html", "ps": 1416}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 946}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 767}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1063}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 994}, "L1_prompt_string": {"p": "builds/L1/L1_prompt_string.html", "ps": 1039}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1191}, "L2": {"p": "builds/L2/L2.html", "ps": 2312}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1824}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1641}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1962}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1875}, "L2_prompt_string": {"p": "builds/L2/L2_prompt_string.html", "ps": 1974}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 2090}, "L2_aybars_2500": {"p": "builds/special/L2_aybars_2500.html", "ps": 7935}, "L1_1250elo": {"p": "builds/special/L1_1250elo.html", "ps": 2051}, "L3_packed": {"p": "builds/FideLite.html", "ps": 2745}, "Chesscom-equivalent": {"p": "builds/special/Chesscom-equivalent.html", "ps": 2667}, "Chesscom-equivalent_minimum": {"p": "builds/special/Chesscom-eqv_min.html", "ps": 1050}, "Lichess-equivalent": {"p": "builds/special/Lichess-equivalent.html", "ps": 2828}, "Lichess-equivalent_minimum": {"p": "builds/special/Lichess-eqv_min.html", "ps": 1088}, "L2_base": {"p": "builds/special/L2_base.html", "ps": 1817}, "L2_string_base": {"p": "builds/special/L2_string_base.html", "ps": 1895}, "DOM_911": {"p": "builds/special/DOM_911.html", "ps": 911}, "DOM_minimum": {"p": "builds/special/DOM_minimum.html", "ps": 722}, "Lowest": {"p": "builds/special/Lowest.html", "ps": 654}, "LUX": {"p": "builds/special/LUX.html", "ps": 9526}, "Toledos-ES6-optimized": {"p": "builds/special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "builds/special/ToledosOpponentbyMe.html", "ps": 1904}, "engine": {"p": "engine.js", "ps": 1860}, "engine_4x": {"p": "engine_4x.js", "ps": 1978}, "engine_string": {"p": "engine_string.js", "ps": 2033}, "engine_onlyMoveGenerator": {"p": "builds/special/engine_onlyMoveGenerator.js", "ps": 653}};
 
 function url(n) { return n.indexOf('/') > -1 ? ROOT + n : DIR + n; }
 /* Terminal surumu (.cjs): tarayicida calismaz. Oyna kapali; kodu ve indirme acik. */
@@ -20272,7 +20272,10 @@ function start() {
    L1 light'ta U; harf tahtali surumlerde L1'de M, L2 ve L3'te R=G[k=. Bas dizisi
    durumun tamamini tasir (sira, rok, gecerken alma, sayaclar, sonuc, imza),
    hepsi kural rengi. Botlu surumlerde arayuz ilk cizimle (d();) biter, gerisi
-   bot.
+   bot. L1'in iki botu 0x88 cekirdekte: ToledosOpponentbyMe'de arayuz yine ilk
+   cizimle (d(),) biter; L1_1250elo'da arayuz K ile biter, dosyanin sonundaki
+   F() de arayuz. Orada g hem botun hamle ureticisi hem E'deki oyun sonu
+   hukmunun sorgusu (g().some), o yuzden 'm'.
    CARVE: surucunun icine gomulmus kod, [bas, son, katman] ucluleri; katman
    yazilmazsa kural. Cizgi kurali bunlari arayuz sayardi ama kural kodudurlar.
    Cekirdek 21 surumde kesim tek tip: hamleyi uygulayip hukmu veren govde. L1'de
@@ -20359,13 +20362,13 @@ var PAINT = {
   L3_nonbrowser: P3_G, L3_prompt_string: P3_G,
   L2_aybars_2500: ['r', ',t=1', 'm', ',b=Int8Array', 'r', ',a=Math.abs', 'm', ',L=(', 'r',
     ',C=i=>', 'm', ',M=(', 'r', ',l=(', 'u', ';d();U=0', 'b'],
-  L1_1250elo: ['r', ',M=(', 'u', ';d();P=[', 'b'],
+  L1_1250elo: ['r', ',L=(i,x', 'u', ',K=u=>', 'b', ",W='", 'm', ',g=(Q,', 'b', ',o=(u=', 'u'],
   'Chesscom-equivalent': P3_U, 'Lichess-equivalent': P3_U,
   L2_base: ['r', 'R=G[k=', 'u'],
   L2_string_base: ['r', 'R=G[k=', 'u'],
   LUX: ['r', 'D=g=>(o^=g', 'u'],
   'Toledos-ES6-optimized': ['m', ';while(B++<G)', 'u'],
-  ToledosOpponentbyMe: ['r', ',M=(', 'u', ';d();P=[', 'b'],
+  ToledosOpponentbyMe: ['r', ',L=(i,x', 'u', ',d(),P=[', 'b'],
   L3_packed: PACKED,
   'Chesscom-equivalent_minimum': PACKED, 'Lichess-equivalent_minimum': PACKED,
   DOM_911: PACKED, DOM_minimum: PACKED, Lowest: ['r', ',U=(i,f,p,', 'u']
@@ -20391,7 +20394,7 @@ var CARVE = {
   L3_prompt_string: [['($=[],N=2e3', "'WB'[I]+F"], ['M(i,Y,', 'o*=I==t']],
   L2_aybars_2500: APPLY.concat([['A1=0', 'A1=0', 'm'], ['PT[++Y3]', '=H2', 'b'],
     ['S1=(', 'b[q>>4]=q&15}', 'm']]),
-  L1_1250elo: APPLY.concat([['z||t==D', 'setTimeout(o,9)', 'b']]),
+  L1_1250elo: [['G[i]=G[Y]=1', ":'SM'"], ['g().some', 'g()', 'm'], ['z||t||', 'setTimeout(o,9)', 'b']],
   'Chesscom-equivalent': [['V(t^8)<2', "'WB'[t/8]+'T'"], ['R=u[M(i,Y,P)]', "'50':0"],
     ["'WB'[t/8]+'R'", "&&'DA'"]],
   'Lichess-equivalent': [['R=u[M(i,Y,P)]', 'o&&J()'], ['o^=t||1', 'J()']],
@@ -20403,7 +20406,7 @@ var CARVE = {
     ['L=r&&', '-h-q', 'b'], ['if(s)L+=', '!(E^y^9)', 'b'], ['if(!(h|s-1', 'u=J'], ['W(),G--', 'W()', 'u'],
     ['if(L>N||', 'N=L}', 'b'], ['N+M*M&&', 'd?N:0', 'b'], ['while(B++<G)', ':7'],
     ['y&&setTimeout', ',250)', 'b']],
-  ToledosOpponentbyMe: [['n<99', 'n<99'], ['c&=~C(i)', 't^=1']],
+  ToledosOpponentbyMe: [['n<100', 'n<100'], ['G[i]=G[Y]=1', 't^=8'], ['t&&setTimeout', 'setTimeout(o,9)', 'b']],
   Lowest: [[']&8^t||b[', ']&8^t||b['], [']+~t>>3&&G(i,Y)&&(q=[...b],D=U(i,Y,', 'D=U(i,Y,'],
     ['T()?b=q:(G[i]=G[Y]=e=D', 'G[i]=G[Y]=e=D'], ['t^=8', 't^=8']]
 };
