@@ -5620,8 +5620,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       ve hattı oyunun yerine yürüyor.</p>
       <p>İki sınırı var: toplam <b>2.000 hamle denemesi</b> ve tek bir hat için <b>9 yarım
       hamle</b>. Hangisi önce biterse cevap “mat mümkün”; sınır beraberlik uydurmuyor. Sıradan bir
-      pozisyonda hüküm milisaniyenin çok altında geliyor, en ağır pozisyonlarda bile saniyenin onda
-      biri civarında: oyun başına en fazla bir kez ödenen, hissedilmeyen bir sürtünme.</p>
+      pozisyonda hüküm milisaniyenin çok altında geliyor; gerçek oyunlardan gelen en ağır pozisyonda
+      56 milisaniye, bütçeyi tüketen bir aramada bile bir saniyenin altında: oyun başına en fazla
+      bir kez ödenen bir sürtünme.</p>
       <p>Dar hatlarda bütçe fazlasıyla yetiyor: beşli tekrar örneği <b>dört</b>, sayacı 148'deki
       iki atlı örnek <b>72</b> denemede, onlarca milisaniyede kapanıyor. Sayaç geriye çekildikçe hüküm <b>147 ile 146</b> arasında tersine dönüyor — mat yüzünden değil, bütçe yüzünden: 147'de ağaç 688
       denemede tükeniyor, 146'da 2.000'e sığmıyor.</p>
@@ -5641,9 +5642,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       game's place.</p>
       <p>It has two limits: <b>2,000 move tries</b> in all and <b>9 plies</b> for any single line.
       Whichever runs out first, the answer is “mate is possible”; a limit never invents a draw. In
-      an ordinary position the ruling comes in well under a millisecond, and even the heaviest
-      positions take about a tenth of a second: friction paid at most once a game, and never
-      felt.</p>
+      an ordinary position the ruling comes in well under a millisecond; the heaviest position from
+      real games takes 56 milliseconds, and even a search that spends the whole budget stays under a
+      second: friction paid at most once a game.</p>
       <p>On narrow lines the budget is more than enough: the fivefold example closes in
       <b>four</b> tries, the two-knight example with the counter at 148 in <b>72</b>, within tens
       of milliseconds. As the counter is wound back, the ruling flips between <b>147 and 146</b> —
@@ -11876,11 +11877,10 @@ slider  :           P+P*4%x &amp; S()</pre>
       ölü demiyor, çünkü yanlış ilan edilmiş bir beraberlik geri alınamaz. CHA-Solver kaydında
       hükmü kilitli taramadan gelen <b>47.047</b> şah-piyon pozisyonu var. Bunların her birinden
       erişilebilen bütün pozisyonlar, motorun kendi fonksiyonlarını hiç kullanmayan bağımsız bir
-      aramayla tarandı: almalar ve geçerken alma dahil, toplam 45,6 milyon pozisyon. Hiçbirinde
-      terfi ya da mat mümkün değil: kilitli taramanın ölü dediği her pozisyon gerçekten ölü. Bir
-      kısmında bir şah rakip bir piyonu alabiliyor, ama bu alma duvarı açmıyor; doğrulama araması
-      her temas imkânını hayat belirtisi saymıyor, yalnızca terfiye ya da mata açılan yolu
-      arıyor.</p>
+      aramayla tarandı: almalar ve geçerken alma dahil, toplam 45,5 milyon pozisyon. Hiçbirinde
+      terfi ya da mat mümkün değil; bir alma bile mümkün değil: hiçbir şah rakip bir piyonu,
+      hiçbir piyon da başka bir piyonu alamıyor. Kilitli taramanın ölü dediği her pozisyon
+      gerçekten ölü.</p>
       <p><b>Maliyeti.</b> <code>V</code> tek başına 405 bayt — motorun yaklaşık %27'si;
       kural kitabının en pahalı maddesi bu. Kilitli yarı yalnızca piyonları ve şahları kapsıyor;
       oysa tahtada fil de bulunan, tamamen ölü kilitli pozisyonlar da var. Bunların neden dahil
@@ -11891,11 +11891,10 @@ slider  :           P+P*4%x &amp; S()</pre>
       a position dead unless it is sure, because a wrongly declared draw cannot be taken back. From each of
       the <b>47,047</b> king-and-pawn positions in the CHA-Solver record whose verdict comes from
       the blocked scan, every reachable position was scanned by an independent search that uses
-      none of the engine's own functions — captures and en passant included, 45.6 million
-      positions in all. Not one of them allows a promotion or a mate: every position the scan calls
-      dead is dead. In some of them a king can capture an enemy pawn, but the capture does not
-      break the wall; the search does not treat every chance of contact as a sign of life, only a
-      path that leads to a promotion or a mate.</p>
+      none of the engine's own functions — captures and en passant included, 45.5 million
+      positions in all. Not one of them allows a promotion or a mate, nor even a capture: no king
+      can take an enemy pawn, and no pawn can take another. Every position the scan calls dead is
+      dead.</p>
       <p><b>What it costs.</b> <code>V</code> alone is 405 bytes — about 27% of the
       engine; it is the most expensive article of the rulebook. The blocked half covers pawns and
       kings only; there are also completely dead, blocked positions with bishops on the board. Why they are
@@ -12298,7 +12297,8 @@ slider  :           P+P*4%x &amp; S()</pre>
       milisaniye tutuyor, en ağırı 56 milisaniye sürüyor. Kayıttaki pozisyonların çoğu tek düğümde
       kapanıyor. Aynı kayıtta <code>engine_4x</code> yaklaşık 6 kat hızlı — medyanı saatin 0,1
       milisaniyelik adımının altında, en kötü durumda 6,9 milisaniye. Kapsam da bu sınırlarla
-      uyumlu: 201.060 pozisyonun <b>197.464</b>'ünde beraberlik bu sınırlar içinde ispatlanıyor.
+      uyumlu: 201.060 pozisyonun <b>197.464</b>'ünde beraberlik bu sınırlar içinde ispatlanıyor;
+      kilitli pozisyonların dışında kalan <b>150.002</b> oyunun hepsi doğru hükme bağlanıyor.
       Kanıtsız kalan 3.596 pozisyonun hepsinde arama derinlik sınırına dayanıyor, bütçe hiçbirinde
       tükenmiyor; 3.558'inde tahtada fil var, yani <a href="#lscan">kilitli taramanın</a> kapsamı
       dışında. Bu, kaydın bütününde kabaca 2,3 milyon oyunda bire denk geliyor. Yani bayrak düşmesinde ve terkte karşılaşılan durumların <b>%99,9'undan
@@ -12337,7 +12337,8 @@ slider  :           P+P*4%x &amp; S()</pre>
       0.7 milliseconds, and the heaviest takes 56. Most positions of the record close in a single
       node. On the same record <code>engine_4x</code> is about 6 times faster — its median below the
       clock's 0.1-millisecond step, 6.9 milliseconds at worst. The coverage agrees with these
-      limits: the draw is proved within them in <b>197,464</b> of the 201,060 positions. In all of
+      limits: the draw is proved within them in <b>197,464</b> of the 201,060 positions, and all
+      <b>150,002</b> games outside the blocked positions receive the right verdict. In all of
       the 3,596 left unproved the search runs into the depth limit, and the budget runs out in none;
       3,558 of them have a bishop on the board, which puts them outside <a href="#lscan">the blocked
       scan</a>. That comes to roughly one game in 2.3 million across the whole record. So in <b>more than 99.9%</b> of the positions that arise at a flag fall or a
@@ -16820,13 +16821,14 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       kendiliğinden geçiyor, taşınacak ya da ayrıca ölçülecek bir şey kalmıyor. Adlandırma da imza
       da düz kaynaktaki gibi.</p>
       <p><b>İşaretlemeyi script'e almak kendi başına kazandırıyor.</b> Aynı işaretlemeyi
-      <code>L3.html</code>'deki gibi script'in dışında statik bırakan paket 2.810 bayt: 416 bayt
-      statik işaretleme, 17 bayt etiket, 2.377 bayt paketlenmiş script. Yayımlanan paket ise 2.745
-      bayt, yani 65 bayt kısa. Bunun 28 baytı DOCTYPE ile meta'nın düşmesinden geliyor — 35 bayt
-      gidiyor, yerine UTF-8 imi (3) ile <code>&lt;/p&gt;</code> (4) geliyor. Kalan 37 bayt
+      <code>L3.html</code>'deki gibi script'in dışında statik bırakan paket, RegPack'in en ucuz
+      ayarıyla 2.507 bayt: 416 bayt statik işaretleme, 17 bayt etiket, 2.074 bayt paketlenmiş
+      script. Yayımlanan paket ise 2.437 bayt, yani 70 bayt kısa. Bunun 28 baytı DOCTYPE ile
+      meta'nın düşmesinden geliyor — 35 bayt gidiyor, yerine UTF-8 imi (3) ile
+      <code>&lt;/p&gt;</code> (4) geliyor. Kalan 42 bayt
       paketleyicinin işi: işaretleme artık onun gördüğü metnin parçası ve içindeki tekrarlar —
       <code>&lt;p id=</code>, <code>onclick=E(</code>, <code>background:</code> — script'tekilerle
-      birlikte sıkıştırılıyor. Statik işaretlemeyi DOCTYPE'sız ve meta'sız bırakan aynı dosya 2.775
+      birlikte sıkıştırılıyor. Statik işaretlemeyi DOCTYPE'sız ve meta'sız bırakan aynı dosya 2.472
       bayt tutardı.</p>
       <p><b>Önceki nesilde durum tersti.</b> Paketlenen kaynak hem düz kaynaktan uzundu hem de ondan
       ayrıydı: düz kaynak bayt için, paket kaynağı <b>tekrar</b> için ayarlanmıştı (2.713 bayt yerine
@@ -16844,14 +16846,15 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       left to carry over or to measure separately. The naming and the signature are those of the plain
       source as well.</p>
       <p><b>Moving the markup into the script pays on its own.</b> A pack that leaves the same markup
-      outside the script, static as in <code>L3.html</code>, comes to 2,810 bytes: 416 bytes of static
-      markup, 17 bytes of tags and 2,377 bytes of packed script. The shipped pack stands at 2,745, 65
-      bytes shorter. Of those, 28 bytes come from dropping the DOCTYPE and the meta — 35 bytes go, and
-      the UTF-8 byte order mark (3) and the <code>&lt;/p&gt;</code> (4) come in. The remaining 37 bytes
+      outside the script, static as in <code>L3.html</code>, comes to 2,507 bytes at RegPack's
+      cheapest setting: 416 bytes of static markup, 17 bytes of tags and 2,074 bytes of packed
+      script. The shipped pack stands at 2,437, 70 bytes shorter. Of those, 28 bytes come from
+      dropping the DOCTYPE and the meta — 35 bytes go, and the UTF-8 byte order mark (3) and the
+      <code>&lt;/p&gt;</code> (4) come in. The remaining 42 bytes
       are the packer's doing: the markup is now part of the text it sees, and its repetitions —
       <code>&lt;p id=</code>, <code>onclick=E(</code>, <code>background:</code> — are compressed together
       with the script's. The same file with its static markup stripped of DOCTYPE and meta would come
-      to 2,775 bytes.</p>
+      to 2,472 bytes.</p>
       <p><b>In the previous generation it was the other way round.</b> The packed source was both
       longer than the plain one and separate from it: the plain source was tuned for bytes, the packed
       one for <b>repetition</b> — 3,266 bytes instead of 2,713. The difference fell under four headings:
@@ -17626,8 +17629,8 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       esnetme DOCTYPE: <code>&lt;!DOCTYPE html&gt;</code>'in 15 baytı paketin dışında,
       <code>&lt;script&gt;</code>'ten önce durmak zorunda — <code>document.write</code> ile yazdırılan
       bir DOCTYPE belge modunu değiştirmiyor — ve dosyaya doğrudan ekleniyor: standart modda açılan bir
-      paket 2.760 bayt tutardı. Standart modda gereksizleşecek <code>&lt;/p&gt;</code>'yi çıkarmak ise
-      5 bayt daha kazandırıyor (2.755); yine de yayımlanan paketten uzun.</p>
+      paket 2.452 bayt tutardı. Standart modda gereksizleşecek <code>&lt;/p&gt;</code>'yi çıkarmak ise
+      kazandırmıyor: RegPack'in en ucuz ayarında bile paket 4 bayt uzuyor (2.456).</p>
     </div>
     <div class="prose" lang="en">
       <p>In the previous generation's pack all five of the first five rows were in
@@ -17645,8 +17648,9 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       concession left is the DOCTYPE: the 15 bytes of <code>&lt;!DOCTYPE html&gt;</code> have to stand
       outside the pack, before the <code>&lt;script&gt;</code> — a DOCTYPE printed by
       <code>document.write</code> does not change the mode — and they land directly on the file: a pack
-      that opens in standards mode would come to 2,760 bytes. Dropping the <code>&lt;/p&gt;</code> that
-      would then be unnecessary saves another 5 bytes (2,755), still longer than the shipped pack.</p>
+      that opens in standards mode would come to 2,452 bytes. Dropping the <code>&lt;/p&gt;</code> that
+      would then be unnecessary does not help: even at RegPack's cheapest setting the pack grows by
+      4 bytes (2,456).</p>
     </div>
 
     <h3 id="docwrite-with-eval" lang="tr"><code>document.write</code>, <code>with</code> ve <code>eval</code></h3>
@@ -18057,8 +18061,11 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       oluyor: beraberlik olması gereken yerde galibiyet. Bütçesini tüketen bir aramadan sonra ise
       <code>N</code> −1'de kalıyor; <code>N--</code> bundan sonra hep negatif bir sayı döndürüyor,
       negatif sayı doğru sayıldığı için bütçe hiç bitmiyor ve aramayı yalnızca derinlik sınırlıyor.
-      Ölçüldü: sayacı 146'daki iki atlı pozisyonda <code>F</code> 2.001 denemede pes ediyor; hemen
-      ardından doğrudan çağrılan <code>H(9)</code> 3.654 düğüm gezip beraberliği ispatlıyor.</li>
+      Ölçüldü: sayacı 146'daki iki atlı pozisyonda <code>F</code> 2.001 denemede pes ediyor. Hemen
+      ardından doğrudan çağrılan <code>H(9)</code> tabloyu da devralırsa, kök pozisyon tabloda kayıtlı
+      olduğu için ilk kapıda, tek düğümde ve hiçbir şey aramadan “beraberlik” diyor. Yalnızca tablo
+      boşaltılırsa, −1'de kalan bütçe yüzünden sınırsız çalışıyor ve 3.654 düğüm gezip beraberliği
+      ispatlıyor.</li>
       <li><b><code>V</code> altı global sızdırıyor.</b> Adlarının çoğu parametre listesinde doğuyor ve
       dışarı sızmıyor; ama <code>W</code>, <code>B</code>, <code>_</code>, <code>f</code>,
       <code>S</code> ve <code>a</code> global olarak yazılıyor ve <code>V</code> her hamlede
@@ -18165,8 +18172,11 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       where a draw was due. After a search that has spent its budget, <code>N</code> is left at −1;
       from then on <code>N--</code> keeps returning negative numbers, which count as true, so the
       budget never runs out and only the depth limits the search. Measured: in the two-knight position
-      with the counter at 146, <code>F</code> gives up after 2,001 tries; <code>H(9)</code> called
-      straight after it visits 3,654 nodes and proves the draw.</li>
+      with the counter at 146, <code>F</code> gives up after 2,001 tries. If <code>H(9)</code> is
+      called straight after and inherits the table as well, the root position is already recorded
+      there, so it answers “draw” at the first gate, in a single node, without searching anything.
+      If only the table is emptied, the budget left at −1 makes it unlimited, and it visits 3,654
+      nodes and proves the draw.</li>
       <li><b><code>V</code> leaks six globals.</b> It gives birth to most of its names in its parameter
       list, and those never get out; but <code>W</code>, <code>B</code>, <code>_</code>, <code>f</code>,
       <code>S</code> and <code>a</code> are written as globals, and <code>V</code> is called from inside
