@@ -2,12 +2,12 @@
 
 *[Türkçe ↓](#türkçe)*
 
-A full-FIDE chess arbiter in **1,860 bytes** of plain JavaScript — no dependencies, no install,
+A full-FIDE chess arbiter in **1,527 bytes** of plain JavaScript — no dependencies, no install,
 no server. Packed into a playable game with a clickable board, a clock and indicators, it comes
-to **2.7 KB**.
+to **2.4 KB**.
 
 The exhibit build, for playing or sharing:
-[`builds/FideLite.html`](builds/FideLite.html) — a single 2.7 KB HTML file with
+[`builds/FideLite.html`](builds/FideLite.html) — a single 2.4 KB HTML file with
 every rule, a clickable board and a live clock, running on any device with a browser.
 
 **→ [www.fidelite.art](https://www.fidelite.art)** — playable builds, the rulebook, a line-by-line
@@ -51,9 +51,9 @@ the book asks what that board is forced to become.**
 
 | File | Bytes | What it is |
 | --- | --- | --- |
-| `builds/engine.js` | 1,860 | The rule engine. One line, no front end. |
-| `builds/engine_4x.js` | 1,978 | The same rules, +118 bytes, 3.5 times the speed in move generation, 100 times in adjudication. |
-| `builds/engine_string.js` | 2,033 | The same rules on a board of FEN letters instead of numbers. |
+| `builds/engine.js` | 1,527 | The rule engine. One line, no front end. |
+| `builds/engine_4x.js` | 1,644 | The same rules, +117 bytes, 3.5 times the speed in move generation, 100 times in adjudication. |
+| `builds/engine_string.js` | 1,721 | The same rules on a board of FEN letters instead of numbers. |
 
 Every file under `builds/` runs on its own — download an HTML file and double-click
 it. The `.cjs` builds run in a terminal with `node`.
@@ -117,12 +117,12 @@ ships something smaller. Until then it stands.
 
 # Türkçe
 
-Tam FIDE kurallı satranç hakem motoru, **1.860 bayt** saf JavaScript — bağımlılık yok, kurulum
+Tam FIDE kurallı satranç hakem motoru, **1.527 bayt** saf JavaScript — bağımlılık yok, kurulum
 yok, sunucu yok. Tıklanabilir tahtası, saati ve göstergeleriyle paketlenip oynanabilir bir oyuna
-dönüştüğünde **2,7 KB**.
+dönüştüğünde **2,4 KB**.
 
 Oynamak ya da paylaşmak için sergi sürümü:
-[`builds/FideLite.html`](builds/FideLite.html) — 2,7 KB'lık tek bir HTML dosyası;
+[`builds/FideLite.html`](builds/FideLite.html) — 2,4 KB'lık tek bir HTML dosyası;
 bütün kurallar, tıklanan tahta ve canlı saatle tarayıcısı olan her cihazda çalışır.
 
 **→ [www.fidelite.art/tr](https://www.fidelite.art/tr)** — oynanabilir sürümler, kural kitabı,
@@ -164,9 +164,9 @@ zorunlu olarak neye dönüşeceğini soruyor.**
 
 | Dosya | Bayt | Ne |
 | --- | --- | --- |
-| `builds/engine.js` | 1.860 | Kural motoru. Tek satır, önyüz yok. |
-| `builds/engine_4x.js` | 1.978 | Aynı kurallar, +118 bayt, hamle üretiminde 3,5 kat, hükümde 100 kat hız. |
-| `builds/engine_string.js` | 2.033 | Aynı kurallar, tahta sayı yerine FEN harfleriyle. |
+| `builds/engine.js` | 1.527 | Kural motoru. Tek satır, önyüz yok. |
+| `builds/engine_4x.js` | 1.644 | Aynı kurallar, +117 bayt, hamle üretiminde 3,5 kat, hükümde 100 kat hız. |
+| `builds/engine_string.js` | 1.721 | Aynı kurallar, tahta sayı yerine FEN harfleriyle. |
 
 `builds/` altındaki her dosya tek başına çalışır — HTML dosyasını indirip çift
 tıklamak yeterli. `.cjs` sürümleri terminalde `node` ile koşar.

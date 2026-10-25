@@ -37,13 +37,13 @@
 <text class="fl-nt" x="212" y="211">none</text>
 <rect class="fl-bd" x="52" y="214" width="528" height="54" rx="4"/>
 <text class="fl-lb" x="68" y="237">REQUEST GATE · o≠0</text>
-<text class="fl-sb" x="68" y="255">D(): n&gt;99 › R&gt;2 › o=3</text>
-<rect class="fl-d" x="372" y="222" width="58" height="38" rx="3"/><text class="fl-dt" x="401" y="239" text-anchor="middle">50</text><text class="fl-dn" x="401" y="253" text-anchor="middle">7</text>
+<text class="fl-sb" x="68" y="255">D(): o=3 › R&gt;2 › n&gt;99</text>
+<rect class="fl-d" x="372" y="222" width="58" height="38" rx="3"/><text class="fl-dt" x="401" y="239" text-anchor="middle">DA</text><text class="fl-dn" x="401" y="253" text-anchor="middle">9</text>
 <rect class="fl-d" x="442" y="222" width="58" height="38" rx="3"/><text class="fl-dt" x="471" y="239" text-anchor="middle">3R</text><text class="fl-dn" x="471" y="253" text-anchor="middle">8</text>
-<rect class="fl-d" x="512" y="222" width="58" height="38" rx="3"/><text class="fl-dt" x="541" y="239" text-anchor="middle">DA</text><text class="fl-dn" x="541" y="253" text-anchor="middle">9</text>
+<rect class="fl-d" x="512" y="222" width="58" height="38" rx="3"/><text class="fl-dt" x="541" y="239" text-anchor="middle">50</text><text class="fl-dn" x="541" y="253" text-anchor="middle">7</text>
 <text class="fl-sp" x="436" y="246" text-anchor="middle">›</text>
 <text class="fl-sp" x="506" y="246" text-anchor="middle">›</text>
-<text class="fl-nt" x="590" y="245">50 beats 3R</text>
+<text class="fl-nt" x="590" y="245">DA beats 3R</text>
 <path class="fl-ar" d="M202 268 202 281" marker-end="url(#fl-h)"/>
 <text class="fl-nt" x="212" y="279">none, or o=0</text>
 <rect class="fl-bd" x="52" y="282" width="528" height="54" rx="4"/>
@@ -54,7 +54,7 @@
 <text class="fl-nt" x="212" y="347">while z=0: flag falls or resigns</text>
 <rect class="fl-bd" x="52" y="370" width="528" height="100" rx="4"/>
 <text class="fl-lb" x="68" y="393">FLAG · RESIGNATION</text>
-<text class="fl-sb" x="68" y="411">F(s,r) → H(99)</text>
+<text class="fl-sb" x="68" y="411">F(s,r) → H(9)</text>
 <text class="fl-sb" x="68" y="427">H true: mate impossible</text>
 <rect class="fl-w" x="372" y="380" width="58" height="38" rx="3"/><text class="fl-wt" x="401" y="397" text-anchor="middle">WT</text><text class="fl-wn" x="401" y="411" text-anchor="middle">10</text>
 <rect class="fl-b" x="442" y="380" width="58" height="38" rx="3"/><text class="fl-bt" x="471" y="397" text-anchor="middle">BT</text><text class="fl-bn" x="471" y="411" text-anchor="middle">11</text>
