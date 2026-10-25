@@ -2003,7 +2003,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       mı? Bunu kim söyleyecek? Kurallar öyle değil, kesin ve net. Bir kodun kuralı uygulayıp
       uygulamadığı bakıldığında görünüyor, tartışmaya yer bırakmıyor. Ölçü eksik kapsamada bile
       net: motorun ilan ettiği her beraberlik gerçek (<i>soundness</i>), kaçırdığı gerçek beraberlikler olabilir
-      (<i>completeness</i>) — ve kaçırdıkları, pratik tabloda kabaca 800 milyonda bir oyuna
+      (<i>completeness</i>) — ve kaçırdıkları, pratik tabloda kabaca 2,3 milyonda bir oyuna
       düşüyor; kaçırılan bir beraberlik sonucu yalnızca bayrak düştüğünde ya da terkte değiştirebiliyor. Birkaç maddede kapsamayı %100'e çıkarmak zor, ama bu bile bayt başına getirisi
       hesaplanabilen kesin bir kavram; botun tanımı değil. Süreç boyunca ben de bot
       yazmayı denedim; sonra bütün enerjimi ölçülebilir olan tarafa verdim.</p>
@@ -2022,7 +2022,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       de ölçüsü var: Miguel Ambrona'nın
       <a href="https://chasolver.org/" target="_blank" rel="noopener">CHA-Solver</a>'ı Lichess
       açık veritabanında haksız sonuçlanmış <b>201.060</b> oyun saydı; bu motor onların
-      <b>%99'undan fazlasını</b> doğru karara bağlıyor. Chess.com'un
+      <b>%98'inden fazlasını</b> doğru karara bağlıyor. Chess.com'un
       <a href="#federations">FIDE–USCF karması</a> gibi bilinçli tercihler de var; buradaki tercih
       başka: tek kitap, tek ölçü.</p>
     </div>
@@ -2041,7 +2041,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       piece of code implements an article can be verified by inspection, with no room for
       argument. Even where coverage falls short, the measure stays exact: every draw the engine
       declares is a real one (soundness), while some real draws are missed (completeness) — and the misses
-      come to roughly one game in 800 million in real-world play; a missed draw can change the result only at a flag fall or a resignation. For a few articles, pushing
+      come to roughly one game in 2.3 million in real-world play; a missed draw can change the result only at a flag fall or a resignation. For a few articles, pushing
       coverage to 100% is hard, but even that is a precise target whose gain per byte can be
       calculated; a bot has no such definition. I did try writing a bot along the way; then I put all my energy into the
       side that can be measured.</p>
@@ -2060,7 +2060,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <a href="#dead">blocked positions</a> — is rare. And this has been measured: Miguel
       Ambrona's <a href="https://chasolver.org/" target="_blank" rel="noopener">CHA-Solver</a>
       found <b>201,060</b> wrongly decided games in the Lichess open database, and this
-      engine rules <b>more than 99%</b> of them correctly. Some platforms make deliberate choices,
+      engine rules <b>more than 98%</b> of them correctly. Some platforms make deliberate choices,
       such as Chess.com's <a href="#federations">blend of FIDE and USCF</a>; the choice here is a
       different one: one rulebook, one standard.</p>
     </div>
@@ -3858,17 +3858,20 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     </div>
     <div class="prose fl" lang="tr">
       <p><b>FideLite'ta.</b> Kaçırma oranı ölçülüyor. CHA-Solver'ın Lichess açık veritabanında
-      süreden haksız sonuçlanmış bulduğu kilitli yapılı <b>51.058</b> oyunun <b>51.048'inde</b>
-      motor doğru hükmü veriyor (%99,98); Chess LUX'ta bu sayı <b>51.056</b> (%99,996). Motorun
-      kaçırdığı 10 oyun, yaklaşık sekiz milyar oyunluk kaydın bütününde kabaca 800 milyonda bire
-      denk geliyor.</p>
+      süreden haksız sonuçlanmış bulduğu kilitli yapılı <b>51.058</b> oyunun <b>47.462'sinde</b>
+      motor doğru hükmü veriyor (%92,96); Chess LUX'ta bu sayı <b>51.056</b> (%99,996). Motorun
+      kaçırdığı 3.596 oyunun 3.558'inde tahtada fil var; motorun kilit taraması yalnızca şahları ve
+      piyonları kapsadığı için bu oyunlar aramaya kalıyor. Bu kaçırmalar, yaklaşık 8,25 milyar
+      oyunluk kaydın bütününde kabaca 2,3 milyonda bir oyuna denk geliyor.</p>
     </div>
     <div class="prose fl" lang="en">
       <p><b>In FideLite.</b> The miss rate is measured. Of the <b>51,058</b> games with a locked
       structure that CHA-Solver found wrongly decided on time in the Lichess open database, the
-      engine gives the right ruling in <b>51,048</b> (99.98%); in Chess LUX the figure is
-      <b>51,056</b> (99.996%). The 10 games the engine misses come to roughly one in 800 million
-      across the whole record of about eight billion games.</p>
+      engine gives the right ruling in <b>47,462</b> (92.96%); in Chess LUX the figure is
+      <b>51,056</b> (99.996%). Of the 3,596 games the engine misses, 3,558 have a bishop on the
+      board; the engine's lock scan covers only kings and pawns, so these are left to the search.
+      The misses come to roughly one game in 2.3 million across the whole record of about 8.25
+      billion games.</p>
     </div>
 
     <h3 id="dead" lang="tr">İkinci kol: yapıdan — kilitli pozisyonlar</h3>
@@ -4608,12 +4611,12 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 </table></div>
 
     <div class="prose fl" lang="tr">
-      <p><b>FideLite'ta.</b> Motor bu algoritmanın <b>şah, piyon ve filden</b> oluşan kısmını
+      <p><b>FideLite'ta.</b> Motor bu algoritmanın yalnızca <b>şah ve piyondan</b> oluşan kısmını
       uyguluyor ve <a href="#saturation">doymadan</a> hüküm vermiyor; pratikte karşılaşılan
-      kilitlerin neredeyse hepsi bu kısımda. Tahtada at, kale ya
-      da vezir varsa, gömülü bile olsa, tarama çalışmıyor; o kilitleri
-      <a href="#hfn">6.9'un araması</a> alan darsa kapatıyor, genişse kaçırıyor. Gömülü taşları da
-      tanıyan genişletme kardeş proje <a href="#lux">Chess LUX</a>'ta. Dar bir örnek:</p>
+      kilitlerin çoğu bu kısımda. Tahtada şah ve piyondan başka bir taş varsa — bir fil, ya da
+      gömülü bile olsa bir at, kale veya vezir — tarama çalışmıyor; o kilitleri
+      <a href="#hfn">6.9'un araması</a> alan darsa kapatıyor, genişse kaçırıyor. Filleri ve gömülü
+      taşları da tanıyan genişletme kardeş proje <a href="#lux">Chess LUX</a>'ta. Dar bir örnek:</p>
       <figure class="fig fig-wide" lang="tr">
         <div class="mb et el eb er" role="img" aria-label="Beyaz şah b1, at d1; beyaz piyonlar b2, c3, d2, e3, f2, e6, g6. Siyah şah h8, fil f8; siyah piyonlar b3, c4, d3, e4, f3, e7, g7. Atın gidebileceği b2, c3, e3 ve f2 işaretli; dördü de kilitli beyaz piyonlarla dolu.">
 <i></i>
@@ -4687,12 +4690,12 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <b>yedi denemede</b> tüketiyor: hüküm doğru, yalnızca başka bir kapıdan geliyor.</p>
     </div>
     <div class="prose fl" lang="en">
-      <p><b>In FideLite.</b> The engine implements the part of this algorithm made of <b>kings,
-      pawns and bishops</b> and does not rule before it <a href="#saturation">saturates</a>; almost
-      every lock met in practice falls within it. With a knight, rook
-      or queen on the board, even a buried one, the scan does not run; such locks are closed by
+      <p><b>In FideLite.</b> The engine implements only the part of this algorithm made of
+      <b>kings and pawns</b> and does not rule before it <a href="#saturation">saturates</a>; most
+      locks met in practice fall within it. With any other piece on the board — a bishop, or a
+      knight, rook or queen, even a buried one — the scan does not run; such locks are closed by
       <a href="#hfn">the 6.9 search</a> when the space is narrow and missed when it is wide. The
-      extension that also recognises buried pieces lives in the sibling project
+      extension that also recognises bishops and buried pieces lives in the sibling project
       <a href="#lux">Chess LUX</a>. A narrow example:</p>
       <figure class="fig fig-wide" lang="en">
         <div class="mb et el eb er" role="img" aria-label="White king b1, knight d1; white pawns b2, c3, d2, e3, f2, e6, g6. Black king h8, bishop f8; black pawns b3, c4, d3, e4, f3, e7, g7. The knight's squares b2, c3, e3 and f2 are marked; all four hold locked white pawns.">
@@ -5617,8 +5620,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       ve hattı oyunun yerine yürüyor.</p>
       <p>İki sınırı var: toplam <b>2.000 hamle denemesi</b> ve tek bir hat için <b>9 yarım
       hamle</b>. Hangisi önce biterse cevap “mat mümkün”; sınır beraberlik uydurmuyor. Sıradan bir
-      pozisyonda hüküm onlarca milisaniyede geliyor: oyun başına en fazla bir kez ödenen,
-      hissedilmeyen bir sürtünme.</p>
+      pozisyonda hüküm milisaniyenin çok altında geliyor, en ağır pozisyonlarda bile saniyenin onda
+      biri civarında: oyun başına en fazla bir kez ödenen, hissedilmeyen bir sürtünme.</p>
       <p>Dar hatlarda bütçe fazlasıyla yetiyor: beşli tekrar örneği <b>dört</b>, sayacı 148'deki
       iki atlı örnek <b>72</b> denemede, onlarca milisaniyede kapanıyor. Sayaç geriye çekildikçe hüküm <b>147 ile 146</b> arasında tersine dönüyor — mat yüzünden değil, bütçe yüzünden: 147'de ağaç 688
       denemede tükeniyor, 146'da 2.000'e sığmıyor.</p>
@@ -5638,8 +5641,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       game's place.</p>
       <p>It has two limits: <b>2,000 move tries</b> in all and <b>9 plies</b> for any single line.
       Whichever runs out first, the answer is “mate is possible”; a limit never invents a draw. In
-      an ordinary position the ruling comes in tens of milliseconds: friction paid at most once a
-      game, and never felt.</p>
+      an ordinary position the ruling comes in well under a millisecond, and even the heaviest
+      positions take about a tenth of a second: friction paid at most once a game, and never
+      felt.</p>
       <p>On narrow lines the budget is more than enough: the fivefold example closes in
       <b>four</b> tries, the two-knight example with the counter at 148 in <b>72</b>, within tens
       of milliseconds. As the counter is wound back, the ruling flips between <b>147 and 146</b> —
@@ -6183,11 +6187,11 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       bir makaleyle</a> yayımlanmış açık kaynak bir çözücü. Lichess açık veritabanında, 31 Temmuz
       2026'ya kadarki oyunlarda haksız sonuçlanmış <b>201.060</b> oyun saydı: <b>150.002'si</b> bu
       sınıftan, <b>51.058'i</b> kilitli pozisyonlardan.</p>
-      <p>Motor bu oyunların <b>201.050'sini</b> doğru karara bağlıyor.
-      Kaçırdığı <b>10</b> oyun ölçülmüş bir sayı, ispatlanmış bir sınır değil; aramanın bütçesiyle
-      değişiyor. CHA-Solver yarım hamle sayacını ve tekrarı hesaba katmadığı için, sayacın mattan
+      <p>Motor bu oyunların <b>197.464'ünü</b> doğru karara bağlıyor.
+      Kaçırdığı <b>3.596</b> oyun ölçülmüş bir sayı, ispatlanmış bir sınır değil; hepsinde arama
+      sınırına takılıyor ve 3.558'inde tahtada fil var, yani kilit taramasının kapsamı dışında. CHA-Solver yarım hamle sayacını ve tekrarı hesaba katmadığı için, sayacın mattan
       önce dolduğu pozisyonları kazanılabilir sayıyor; bu motor beraberlik diyor. Aynı veritabanı
-      — yaklaşık 8 milyar oyun — bu motorla taransa, CHA-Solver'ın saymadığı yanlış sonuçlanmış
+      — yaklaşık 8,25 milyar oyun — bu motorla taransa, CHA-Solver'ın saymadığı yanlış sonuçlanmış
       başka oyunların da çıkması muhtemel.</p>
     </div>
     <div class="prose fl" lang="en">
@@ -6197,11 +6201,12 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       Across the Lichess open database, over the games up to 31 July 2026, it counted
       <b>201,060</b> wrongly decided games: <b>150,002</b> from this class and <b>51,058</b> from
       blocked positions.</p>
-      <p>The engine rules <b>201,050</b> of them correctly. The
-      <b>10</b> it misses are a measured number, not a proved bound; it changes with the search
-      budget. CHA-Solver leaves out the ply counter and repetition, so it counts positions where
+      <p>The engine rules <b>197,464</b> of them correctly. The
+      <b>3,596</b> it misses are a measured number, not a proved bound: in every one of them the
+      search runs into its limit, and 3,558 have a bishop on the board, which puts them outside the
+      lock scan. CHA-Solver leaves out the ply counter and repetition, so it counts positions where
       the counter fills before a mate as winnable; this engine calls them drawn. A scan of the same
-      database — about eight billion games — with this engine would likely turn up further wrongly
+      database — about 8.25 billion games — with this engine would likely turn up further wrongly
       decided games that CHA-Solver does not count.</p>
     </div>
 
@@ -8110,7 +8115,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>Bir kodun adlandırılması ayrıca anlatılmaya değer. <code>DP</code>, özel bir durumun değil,
       maddenin kendi adını taşıyor: 5.2.2 ölü pozisyonun hem yetersiz materyalden doğan hâlini hem de
       kilitli pozisyonları kapsıyor ve motor da ikisini birden bildiriyor (kilitli tarafta ölçülen
-      kapsama %99,98). Kodu dar olan yarıya göre adlandırmak kolay yoldu; maddeye göre adlandırmak ise
+      kapsama %93). Kodu dar olan yarıya göre adlandırmak kolay yoldu; maddeye göre adlandırmak ise
       kapıyı açık bıraktı: <a href="#dead">kilitli pozisyonlar</a> eklendiğinde gerçekten aynı kodla
       bildirilmeye başlandı ve liste on beşte kaldı.</p>
       <p>Bu on beş kod FIDE kurallarına göre; başka bir federasyonun kuralları başka bir liste
@@ -8128,7 +8133,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>One naming choice is worth explaining. <code>DP</code> is named after the article rather
       than the specific case: 5.2.2 covers dead positions caused by insufficient material and
       blocked ones alike, and the engine reports both (measured coverage on the blocked side is
-      99.98%). Naming the code after the narrower half would have been easier; naming it after the
+      93%). Naming the code after the narrower half would have been easier; naming it after the
       article left the door open, so when
       <a href="#dead">blocked positions</a> were added they came under the same code, and the
       list stayed at fifteen.</p>
@@ -8166,20 +8171,25 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <div class="prose" lang="tr">
       <p>Her şey tıklanarak yapılır: önce taşa, sonra varış karesine basarsın. Piyon terfi karesine ulaştığında bir seçim paneli açılır; taşı seçene kadar hamle tamamlanmaz ve saat bu
       sırada işlemeye devam eder.</p>
-      <p>Beraberlik radyo düğmesi hamleden bağımsız çalışır. Tahtada bir talep eşiği zaten dolmuşsa
-      düğmeyi seçmek beraberliği hemen tetikler; rakip beraberlik teklif etmişse seçmek teklifi
-      kabul etmek anlamına gelir. İkisi de yoksa düğme seçili kalır ve hamleni oynadığında
-      değerlendirilir: hamle eşiği dolduruyorsa talep, doldurmuyorsa rakibe teklif sayılır.</p>
+      <p>Beraberlik radyo düğmesi hamleden bağımsız çalışır. Rakip beraberlik teklif etmişse
+      düğmeyi seçmek teklifi kabul eder ve oyun anlaşmayla biter; tahtada bir talep eşiği dolmuş
+      olsa da sonuç anlaşmadır, çünkü her talep aynı zamanda bir tekliftir. Bekleyen teklif yoksa ve
+      tahtada bir talep eşiği zaten dolmuşsa düğmeyi seçmek beraberliği hemen tetikler. İkisi de
+      yoksa düğme seçili kalır ve hamleni oynadığında değerlendirilir: hamle eşiği dolduruyorsa
+      talep, doldurmuyorsa rakibe teklif sayılır. Hamleni oynamak rakibin bekleyen teklifini de
+      reddeder.</p>
     </div>
     <div class="prose" lang="en">
       <p>Everything is done by clicking: first the piece, then the destination square. When a pawn
       reaches the last rank, a picker opens, and the move is not complete until a piece is chosen;
       the clock keeps running in the meantime.</p>
-      <p>The draw radio button works independently of the move. If a claim threshold is already met
-      on the board, selecting it ends the game in a draw at once; if your opponent has offered a
-      draw, selecting it accepts. Otherwise it stays selected and is evaluated when you make your
-      move: as a claim if the move reaches the threshold, as an offer to your opponent if it does
-      not.</p>
+      <p>The draw radio button works independently of the move. If your opponent has offered a
+      draw, selecting it accepts and the game is drawn by agreement — even when a claim threshold is
+      also met, because every claim is an offer as well. With no offer pending, if a claim threshold
+      is already met on the board, selecting it ends the game in a draw at once. Otherwise it stays
+      selected and is evaluated when you make your move: as a claim if the move reaches the
+      threshold, as an offer to your opponent if it does not. Making your move also declines your
+      opponent's pending offer.</p>
     </div>
 
     <h4 lang="tr">UCI — <code class="vn">prompt</code>, <code class="vn">input</code> ve <code class="vn">nonbrowser</code> aileleri</h4>
@@ -8200,8 +8210,10 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>Beraberlik, hamlenin sonuna eklenen <code>=</code> ile istenir. <code>b2b3=</code> şu anlama gelir:
       bu hamleyi oynadığımda eşik dolacaksa talep ediyorum, dolmayacaksa rakibe teklif
       ediyorum. Motor kararını hamle oynandıktan <em>sonraki</em> duruma bakarak verir; hamle, sayacı
-      sıfırlıyorsa ya da daha önce görülmemiş bir pozisyon getiriyorsa beraberlik gerçekleşmez.
-      Tek başına <code>=</code> ise mevcut pozisyonda beraberlik talep eder ya da bekleyen teklifi kabul eder.</p>
+      sıfırlıyorsa ya da daha önce görülmemiş bir pozisyon getiriyorsa talep gerçekleşmez ve istek
+      teklif olarak kalır. Hamleli bir istek rakibin bekleyen teklifini kabul etmez: hamle oynandığı
+      anda o teklif düşer. Tek başına <code>=</code> ise bekleyen bir teklif varsa onu kabul eder;
+      yoksa mevcut pozisyonda beraberlik talep eder, talep tutmazsa teklif olur.</p>
       <p>Terk etmek için <code>r</code> yazılır. <code class="vn">prompt</code>'ta pencereyi iptal etmek de terk sayılır; boş satırda Enter'a basmak ise sayılmaz: bu geçersiz bir hamledir ve saat işlemeye devam eder. <code class="vn">nonbrowser</code>'da girdiyi kapatmak (Unix'te Ctrl+D) terk sayılır; boş Enter orada da geçersiz bir hamledir.</p>
       <div class="note">
         <p><code>e7e8=N</code> girişinde <code>=</code> beşinci karakter, yani terfi
@@ -8231,8 +8243,11 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <p>To ask for a draw, append <code>=</code> to the move. <code>b2b3=</code> means: if this
       move reaches a claim threshold, I claim the draw; if not, I offer one to my opponent. The
       engine decides by looking at the position <em>after</em> the move; if the move resets the
-      counter or produces a position not seen before, no claim can succeed.
-      <code>=</code> on its own claims a draw in the current position or accepts a pending offer.</p>
+      counter or produces a position not seen before, no claim can succeed and the request stands
+      as an offer. A request with a move does not accept a pending offer: the offer lapses the
+      moment the move is played. <code>=</code> on its own accepts a pending offer if there is one;
+      otherwise it claims a draw in the current position, or offers one if the claim does not
+      hold.</p>
       <p>To resign, type <code>r</code>. In <code class="vn">prompt</code>, cancelling the dialog also
       resigns; pressing Enter on an empty line does not — it counts as an illegal move, and the clock keeps running. In <code class="vn">nonbrowser</code>, closing the input (Ctrl+D on Unix) resigns; an empty Enter is an illegal move there too.</p>
       <div class="note">
@@ -8359,20 +8374,22 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       Rok yine şahın kareleriyle yazılır: beyaz için <code>0406</code> ve <code>0402</code>, siyah için
       <code>7476</code> ve <code>7472</code>.</p>
       <p>Beraberliğin ayrı bir düğmesi yok; istek girdinin kendisiyle iletiliyor.
-      <b>Sayısal olmayan her girdi bir beraberlik isteğidir.</b> İstek o anda geçerli bir
-      talebe karşılık geliyorsa (50 hamle kuralı ya da üçlü tekrar) oyun orada biter; gelmiyorsa
-      istek rakibe teklif olarak gider. Ortaya dört durum çıkıyor:</p>
+      <b>Sayısal olmayan her girdi bir beraberlik isteğidir.</b> Rakibin bekleyen bir teklifi
+      varsa hamlesiz bir istek onu kabul eder. Yoksa istek o anda geçerli bir talebe karşılık
+      geliyorsa (üçlü tekrar ya da 50 hamle kuralı) oyun orada biter; gelmiyorsa istek rakibe teklif
+      olarak gider. Ortaya dört durum çıkıyor:</p>
     </div>
     <ul class="tight" lang="tr">
-      <li><b>Hamleyle birlikte istek.</b> <code>6777asd</code> ya da <code>6777?</code> — eklenen karakterlerin ne olduğu fark etmez; hamle normal biçimde oynanır ve isteği de beraberinde taşır.</li>
+      <li><b>Hamleyle birlikte istek.</b> <code>6777asd</code> ya da <code>6777?</code> — eklenen karakterlerin ne olduğu fark etmez; hamle normal biçimde oynanır ve isteği de beraberinde taşır. Hamle rakibin bekleyen teklifini düşürür; istek, hamleden sonraki pozisyon için bir talep, talep tutmazsa yeni bir teklif olur. Hamle mat ederse istek hiç işlenmez: mat oyunu o anda bitirir.</li>
       <li><b>Hamlesiz istek.</b> <code>asd</code>, hatta tek karakterlik <code>g</code> —
-      o anki pozisyon için doğrudan bir talep; talep geçerli değilse teklif.</li>
-      <li><b>Bekleyen teklifin kabulü.</b> Rakip de sayısal olmayan bir şey yazar. Kabul için hamle
-      yapmak gerekmiyor ve karakterlerin ne olduğu da fark etmiyor: <code>dssdf</code> gibi hamlesiz
-      bir girdi teklifi hemen kabul ediyor; <code>1434x</code> gibi hamleli bir girdi ise önce hamleyi
-      oynuyor, sonra teklifi kabul ediyor. İki teklif biti birden yandığı anda oyun karşılıklı anlaşmayla
-      biter. O hamle mat ederse kabul hiç işlenmez: mat oyunu o anda bitirir ve anlaşmalı
-      beraberliğin önüne geçer.</li>
+      bekleyen teklif yoksa o anki pozisyon için doğrudan bir talep; talep geçerli değilse
+      teklif.</li>
+      <li><b>Bekleyen teklifin kabulü.</b> Rakip de sayısal olmayan bir şey yazar, ama hamle
+      yapmadan; karakterlerin ne olduğu fark etmiyor: <code>dssdf</code> teklifi hemen kabul ediyor.
+      İki teklif biti birden yandığı anda oyun karşılıklı anlaşmayla biter; o sırada bir talep eşiği
+      dolmuş olsa da sonuç anlaşmadır, çünkü her talep aynı zamanda bir tekliftir.
+      <code>1434x</code> gibi hamleli bir girdi ise teklifi kabul etmez: hamle oynandığı anda teklif
+      düşer.</li>
       <li><b>Sayısal ama geçersiz girdi.</b> <code>6500</code> — ne talep ne teklif; hamle
       reddedilir ve aynı soru yeniden sorulur.</li>
     </ul>
@@ -8398,21 +8415,22 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       in this build. Castling again uses the king's squares: White
       <code>0406</code> and <code>0402</code>, Black <code>7476</code> and <code>7472</code>.</p>
       <p>There is no separate draw button; draw requests travel in the input itself.
-      <b>Any non-numeric input is a draw request.</b> If it matches a valid claim (the 50-move
-      rule or threefold repetition), the game ends there; if not, it goes to the opponent as an
+      <b>Any non-numeric input is a draw request.</b> If the opponent has an offer pending, a
+      request without a move accepts it. Otherwise, if the request matches a valid claim (threefold
+      repetition or the 50-move rule), the game ends there; if not, it goes to the opponent as an
       offer. That gives four cases:</p>
     </div>
     <ul class="tight" lang="en">
-      <li><b>A request with a move.</b> <code>6777asd</code> or <code>6777?</code> — the extra characters can be anything; the move is played normally and carries the request with it.</li>
+      <li><b>A request with a move.</b> <code>6777asd</code> or <code>6777?</code> — the extra characters can be anything; the move is played normally and carries the request with it. The move drops the opponent's pending offer; the request becomes a claim on the position after the move, or a new offer if the claim does not hold. If the move delivers mate, the request is never processed: checkmate ends the game on the spot.</li>
       <li><b>A request with no move.</b> <code>asd</code>, or even the single character
-      <code>g</code> — a claim on the current position, or an offer if the claim does not
-      hold.</li>
-      <li><b>Accepting a pending offer.</b> The opponent also types something non-numeric, with
-      or without a move, and again the characters can be anything: <code>dssdf</code> accepts the
-      offer at once, while <code>1434x</code> plays the move first and then accepts. As soon as
-      both offer bits are set, the game ends by agreement. If that move delivers mate, the
-      acceptance is never processed: checkmate ends the game on the spot and takes precedence over
-      the draw by agreement.</li>
+      <code>g</code> — with no offer pending, a claim on the current position, or an offer if the
+      claim does not hold.</li>
+      <li><b>Accepting a pending offer.</b> The opponent also types something non-numeric, but
+      without a move, and again the characters can be anything: <code>dssdf</code> accepts the offer
+      at once. As soon as both offer bits are set, the game ends by agreement — even when a claim
+      threshold is met at the same time, because every claim is an offer as well. Input with a move,
+      such as <code>1434x</code>, does not accept: the offer lapses the moment the move is
+      played.</li>
       <li><b>Numeric but illegal input.</b> <code>6500</code> — neither claim nor offer; the
       move is rejected and the prompt appears again.</li>
     </ul>
@@ -8443,7 +8461,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <thead><tr><th>Sürüm</th><th>Terfi</th><th>Terk</th><th>Beraberlik</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">default</code> · <code class="vn">light</code></td><td>Seçim paneli açılır; taş seçilene kadar hamle tamamlanmaz</td><td>⚐ düğmesi</td><td>Beraberlik radyo düğmesi</td></tr>
-<tr><td>UCI ailesi</td><td>Hamlenin 5. karakteri: <code>r b n</code>, diğer her şey vezir</td><td><code>r</code>; <code class="vn">prompt</code>'ta ayrıca İptal, <code class="vn">nonbrowser</code>'da girdiyi kapatmak</td><td>Hamlenin sonuna <code>=</code>; tek başına <code>=</code> talep ya da kabul</td></tr>
+<tr><td>UCI ailesi</td><td>Hamlenin 5. karakteri: <code>r b n</code>, diğer her şey vezir</td><td><code>r</code>; <code class="vn">prompt</code>'ta ayrıca İptal, <code class="vn">nonbrowser</code>'da girdiyi kapatmak</td><td>Hamlenin sonuna <code>=</code>; tek başına <code>=</code> kabul ya da talep</td></tr>
 <tr><td><code class="vn">numerical</code></td><td>Hamlenin 5. karakteri: <code>0</code> fil, <code>1</code> kale, <code>2</code> at, diğer her şey vezir</td><td>İptal, Esc, boş Enter, sekmeden çıkmak</td><td>Sayısal olmayan karakter içeren her girdi</td></tr>
 </tbody>
 </table></div>
@@ -8451,7 +8469,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <thead><tr><th>Build</th><th>Promotion</th><th>Resignation</th><th>Draw</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">default</code> · <code class="vn">light</code></td><td>A picker opens; the move is not completed until a piece is chosen</td><td>⚐ button</td><td>Draw radio button</td></tr>
-<tr><td>The UCI family</td><td>5th character of the move: <code>r b n</code>, anything else a queen</td><td><code>r</code>; also Cancel in <code class="vn">prompt</code>, closing the input in <code class="vn">nonbrowser</code></td><td><code>=</code> appended to the move; <code>=</code> alone claims or accepts</td></tr>
+<tr><td>The UCI family</td><td>5th character of the move: <code>r b n</code>, anything else a queen</td><td><code>r</code>; also Cancel in <code class="vn">prompt</code>, closing the input in <code class="vn">nonbrowser</code></td><td><code>=</code> appended to the move; <code>=</code> alone accepts or claims</td></tr>
 <tr><td><code class="vn">numerical</code></td><td>5th character of the move: <code>0</code> bishop, <code>1</code> rook, <code>2</code> knight, anything else a queen</td><td>Cancel, Esc, empty Enter, leaving the tab</td><td>Any input containing a non-numeric character</td></tr>
 </tbody>
 </table></div>
@@ -8956,8 +8974,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       şahı kendi kalesinin üstüne sürerek yapılıyor.</p>
       <p>Sonuç ölçülebilir. CHA-Solver'ın süreden yanlış sonuçlandığını bulduğu 201.060 oyunun
       201.058'inde doğru hükmü veriyor: <b>%99,999</b>. FideLite'ın
-      <a href="#dead">kaçırdığı 10 oyunun</a> 2'si dışında hepsini yakalıyor; bu oyunların
-      hepsinin düştüğü kilitli yapılı 51.058 oyunda kapsama %99,98'den %99,996'ya çıkıyor. Kalan 2 oyun
+      <a href="#dead">kaçırdığı 3.596 oyunun</a> 2'si dışında hepsini yakalıyor; bu oyunların
+      hepsinin düştüğü kilitli yapılı 51.058 oyunda kapsama %92,96'dan %99,996'ya çıkıyor. Kalan 2 oyun
       yanlış hüküm değil, kanıtlanamamış beraberlik: kanıt bulunamayınca, FideLite'ta olduğu gibi,
       tedbiren galibiyet veriliyor. Depoda ayrıca motoru tek başına sınamak için bir kıyaslama sayfası
       ve CHA-Solver verileri de bulunuyor.</p>
@@ -9016,8 +9034,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       and castling is done by moving the king onto its own rook.</p>
       <p>The result is measurable. Of the 201,060 games CHA-Solver found wrongly decided on time,
       it gives the correct verdict in 201,058: <b>99.999%</b>. It closes all but
-      2 of <a href="#dead">the 10 games FideLite misses</a>; among the 51,058 locked-structure
-      games, where all of those fall, coverage rises from 99.98% to 99.996%. The remaining 2 are not
+      2 of <a href="#dead">the 3,596 games FideLite misses</a>; among the 51,058 locked-structure
+      games, where all of those fall, coverage rises from 92.96% to 99.996%. The remaining 2 are not
       wrong verdicts but undetected draws: with no proof found, the win is awarded as a precaution,
       as in FideLite. The repository
       also contains a benchmark page for testing the engine on its own, and the CHA-Solver
@@ -9401,8 +9419,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       e4 <code>34</code>, 1.e4 de <code>1434</code> oluyor. İsteğe bağlı beşinci rakam alt terfiyi
       seçiyor (0 fil, 1 kale, 2 at). Aynı pencere iki saati ve son hamleyi gösteriyor; oyun bitince
       sonuç kodu <code>alert</code> ile bildiriliyor. Boş girdi terk anlamına geliyor; sayı olmayan
-      bir girdi beraberlik teklif ediyor ya da talep ediyor; hamlenin ardına yazılan rakam dışı bir
-      karakter de önce hamleyi oynatıp sonra aynı işi görüyor. Bu görünümde yalnızca sürücünün kodu
+      bir girdi bekleyen teklifi kabul ediyor, teklif yoksa beraberlik talep ya da teklif ediyor;
+      hamlenin ardına yazılan rakam dışı bir karakter ise önce hamleyi oynatıyor — bu, bekleyen
+      teklifi düşürüyor — sonra talep ya da teklif ediyor. Bu görünümde yalnızca sürücünün kodu
       vurgulanıyor; bir de sürücünün motora eklediği kendi taşı sınaması.</p>
       <p>Motorun gövdesi iki dosyada neredeyse aynı; üç fark var. Sürücüde <code>L</code>, çıkış
       karesindeki taşın sırası gelen tarafa ait olduğunu kendisi sınıyor
@@ -9430,8 +9449,9 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <code>34</code>, and 1.e4 is <code>1434</code>. An optional fifth digit selects an
       underpromotion (0 bishop, 1 rook, 2 knight). The same dialog shows both clocks and the last
       move, and an <code>alert</code> reports the result code when the game ends. An empty input
-      resigns; any non-numeric input offers or claims a draw; and a non-digit typed after a move
-      plays the move first and then does the same. In this view only the driver's code is
+      resigns; any non-numeric input accepts a pending offer, or else claims or offers a draw; and a
+      non-digit typed after a move plays the move first — which drops a pending offer — and then
+      claims or offers. In this view only the driver's code is
       highlighted, together with the own-piece check the driver adds to the engine.</p>
       <p>The engine body is almost identical in the two files, with three differences. In the
       driver, <code>L</code> itself checks that the piece on the origin square belongs to the side
@@ -12281,7 +12301,7 @@ slider  :           P+P*4%x &amp; S()</pre>
       uyumlu: 201.060 pozisyonun <b>197.464</b>'ünde beraberlik bu sınırlar içinde ispatlanıyor.
       Kanıtsız kalan 3.596 pozisyonun hepsinde arama derinlik sınırına dayanıyor, bütçe hiçbirinde
       tükenmiyor; 3.558'inde tahtada fil var, yani <a href="#lscan">kilitli taramanın</a> kapsamı
-      dışında. Bu, kaydın bütününde kabaca iki milyon oyunda bire denk geliyor. Yani bayrak düşmesinde ve terkte karşılaşılan durumların <b>%99,9'undan
+      dışında. Bu, kaydın bütününde kabaca 2,3 milyon oyunda bire denk geliyor. Yani bayrak düşmesinde ve terkte karşılaşılan durumların <b>%99,9'undan
       fazlasında</b> bu sınırlar yetiyor ve hüküm milisaniyeler içinde geliyor.</p>
       <p>Tavana dayanan örnekler ise seyrek. <a href="#forced">Kurallar sekmesindeki</a> iki atlı
       pozisyonda beraberlik, sayaç 148'deyken 72 denemede, onlarca milisaniyede ispatlanıyor;
@@ -12320,7 +12340,7 @@ slider  :           P+P*4%x &amp; S()</pre>
       limits: the draw is proved within them in <b>197,464</b> of the 201,060 positions. In all of
       the 3,596 left unproved the search runs into the depth limit, and the budget runs out in none;
       3,558 of them have a bishop on the board, which puts them outside <a href="#lscan">the blocked
-      scan</a>. That comes to roughly one game in two million across the whole record. So in <b>more than 99.9%</b> of the positions that arise at a flag fall or a
+      scan</a>. That comes to roughly one game in 2.3 million across the whole record. So in <b>more than 99.9%</b> of the positions that arise at a flag fall or a
       resignation these limits are enough, and the verdict arrives within milliseconds.</p>
       <p>The positions that do reach the ceiling are rare. In the two-knight position from
       <a href="#forced">the Rules tab</a>, the draw is proved in 72 tries, within tens of
