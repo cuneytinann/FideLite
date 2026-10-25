@@ -38,11 +38,12 @@ shelved, not lost. [The full argument is on the site.](https://www.fidelite.art/
 ## Why it matters
 
 Across the Lichess open database, Miguel Ambrona's CHA-Solver counted **201,060** games that were
-decided wrongly. This engine gets **197,493** of them right. The 3,567
-it misses are all blocked positions, and nearly every one of them has a bishop on the board.
+decided wrongly. This engine gets **197,464** of them right. Of the 3,596
+it misses, 3,558 have a bishop on the board; the other 38 are king-and-pawn endings that the
+blocked scan does not recognise and the 9-ply search cannot close.
 [Chess LUX](https://github.com/cuneytinann/Chess-LUX), a sibling project on `engine_4x` with a looser byte budget, extends
-the lock detector to bishops and closes all but 11 of them: the right verdict in 201,049 of the
-201,060 games (99.99%).
+the lock detector to bishops and closes all but 2 of them: the right verdict in 201,058 of the
+201,060 games (99.999%).
 
 The difference fits in one sentence: **the platforms look at the board at the moment the flag fell;
 the book asks what that board is forced to become.**
@@ -52,7 +53,7 @@ the book asks what that board is forced to become.**
 | File | Bytes | What it is |
 | --- | --- | --- |
 | `builds/engine.js` | 1,527 | The rule engine. One line, no front end. |
-| `builds/engine_4x.js` | 1,644 | The same rules, +117 bytes, 3.5 times the speed in move generation, 100 times in adjudication. |
+| `builds/engine_4x.js` | 1,644 | The same rules, +117 bytes, 3.5 times the speed in move generation, about 6 times in adjudication. |
 | `builds/engine_string.js` | 1,721 | The same rules on a board of FEN letters instead of numbers. |
 
 Every file under `builds/` runs on its own — download an HTML file and double-click
@@ -151,11 +152,12 @@ dönüştürdüğü için motorun tek ispatlı özelliğini riske atıyor. Askı
 ## Neden önemli
 
 Miguel Ambrona'nın CHA-Solver'ı Lichess açık veritabanını baştan sona tarayıp **201.060** haksız
-sonuçlanmış oyun saydı. Bu motor onların **197.493'ünü** doğru karara
-bağlıyor. Kaçırdığı 3.567 oyunun tamamı kilitli pozisyon ve neredeyse hepsinde tahtada bir fil
-var. `engine_4x` üzerine, daha gevşek bir bayt bütçesiyle kurulu kardeş proje
-[Chess LUX](https://github.com/cuneytinann/Chess-LUX) kilitli pozisyon dedektörünü fillere genişletip bunların 11'i dışında
-hepsini kapatıyor: 201.060 oyunun 201.049'unda doğru hüküm (%99,99).
+sonuçlanmış oyun saydı. Bu motor onların **197.464'ünü** doğru karara
+bağlıyor. Kaçırdığı 3.596 oyunun 3.558'inde tahtada fil var; kalan 38'i, kilitli taramanın
+tanımadığı ve 9 yarım hamlelik aramanın kapatamadığı şah-piyon oyunsonları. `engine_4x` üzerine, daha gevşek bir bayt bütçesiyle kurulu kardeş
+proje
+[Chess LUX](https://github.com/cuneytinann/Chess-LUX) kilitli pozisyon dedektörünü fillere genişletip bunların 2'si dışında
+hepsini kapatıyor: 201.060 oyunun 201.058'inde doğru hüküm (%99,999).
 
 Fark tek cümleye sığıyor: **platformlar bayrak düştüğü andaki tahtaya bakıyor, kitap ise o tahtanın
 zorunlu olarak neye dönüşeceğini soruyor.**
@@ -165,7 +167,7 @@ zorunlu olarak neye dönüşeceğini soruyor.**
 | Dosya | Bayt | Ne |
 | --- | --- | --- |
 | `builds/engine.js` | 1.527 | Kural motoru. Tek satır, önyüz yok. |
-| `builds/engine_4x.js` | 1.644 | Aynı kurallar, +117 bayt, hamle üretiminde 3,5 kat, hükümde 100 kat hız. |
+| `builds/engine_4x.js` | 1.644 | Aynı kurallar, +117 bayt, hamle üretiminde 3,5 kat, hükümde yaklaşık 6 kat hız. |
 | `builds/engine_string.js` | 1.721 | Aynı kurallar, tahta sayı yerine FEN harfleriyle. |
 
 `builds/` altındaki her dosya tek başına çalışır — HTML dosyasını indirip çift

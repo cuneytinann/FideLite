@@ -11854,7 +11854,7 @@ slider  :           P+P*4%x &amp; S()</pre>
     <div class="note" lang="tr">
       <p><b>Güvenliği ölçüldü.</b> Kilitli yarı tek yönlü çalışıyor: emin olmadığı bir pozisyona
       ölü demiyor, çünkü yanlış ilan edilmiş bir beraberlik geri alınamaz. CHA-Solver kaydında
-      hükmü kilitli taramadan gelen <b>47.074</b> şah-piyon pozisyonu var. Bunların her birinden
+      hükmü kilitli taramadan gelen <b>47.047</b> şah-piyon pozisyonu var. Bunların her birinden
       erişilebilen bütün pozisyonlar, motorun kendi fonksiyonlarını hiç kullanmayan bağımsız bir
       aramayla tarandı: almalar ve geçerken alma dahil, toplam 45,6 milyon pozisyon. Hiçbirinde
       terfi ya da mat mümkün değil: kilitli taramanın ölü dediği her pozisyon gerçekten ölü. Bir
@@ -11869,7 +11869,7 @@ slider  :           P+P*4%x &amp; S()</pre>
     <div class="note" lang="en">
       <p><b>Soundness, measured.</b> The blocked half works in one direction only: it does not call
       a position dead unless it is sure, because a wrongly declared draw cannot be taken back. From each of
-      the <b>47,074</b> king-and-pawn positions in the CHA-Solver record whose verdict comes from
+      the <b>47,047</b> king-and-pawn positions in the CHA-Solver record whose verdict comes from
       the blocked scan, every reachable position was scanned by an independent search that uses
       none of the engine's own functions — captures and en passant included, 45.6 million
       positions in all. Not one of them allows a promotion or a mate: every position the scan calls
@@ -12274,13 +12274,14 @@ slider  :           P+P*4%x &amp; S()</pre>
       rakibin bir yarım hamle sonra tekrara ya da sayaç sınırına ulaşacağı pozisyonlar da bir avuç
       denemede kapanıyor. Ölçüm <a href="#4x-verdict">Ayrıntılı teknik sekmesinde</a>:
       CHA-Solver kaydının 201.060 pozisyonunun tamamında, oyunun kendi sınırlarıyla,
-      <code>engine.js</code> hükmü medyanda 2 milisaniyede veriyor; %99'u 16 milisaniyenin altında
-      kalıyor, en ağırı 687 milisaniye sürüyor. Kayıttaki pozisyonların çoğu tek düğümde
-      kapanıyor. Aynı kayıtta <code>engine_4x</code> 103 kat hızlı — medyanda milisaniyenin yüzde
-      birinden az, en kötü durumda 21 milisaniye. Kapsam da bu sınırlarla uyumlu: zorunlu dal
-      sınıfında haksız sonuçlanmış <b>150.002</b> oyunun hepsi bu sınırlar içinde doğru hükme
-      bağlanıyor; motorun kaçırdığı 3.567 oyunun tamamı <a href="#dead">kilitli ve geniş
-      şeritte</a> kalıyor ve bu, kaydın bütününde kabaca iki milyon oyunda bire denk geliyor. Yani bayrak düşmesinde ve terkte karşılaşılan durumların <b>%99,9'undan
+      <code>engine.js</code> hükmü medyanda 0,1 milisaniyede veriyor; %99'u en fazla 0,7
+      milisaniye tutuyor, en ağırı 56 milisaniye sürüyor. Kayıttaki pozisyonların çoğu tek düğümde
+      kapanıyor. Aynı kayıtta <code>engine_4x</code> yaklaşık 6 kat hızlı — medyanı saatin 0,1
+      milisaniyelik adımının altında, en kötü durumda 6,9 milisaniye. Kapsam da bu sınırlarla
+      uyumlu: 201.060 pozisyonun <b>197.464</b>'ünde beraberlik bu sınırlar içinde ispatlanıyor.
+      Kanıtsız kalan 3.596 pozisyonun hepsinde arama derinlik sınırına dayanıyor, bütçe hiçbirinde
+      tükenmiyor; 3.558'inde tahtada fil var, yani <a href="#lscan">kilitli taramanın</a> kapsamı
+      dışında. Bu, kaydın bütününde kabaca iki milyon oyunda bire denk geliyor. Yani bayrak düşmesinde ve terkte karşılaşılan durumların <b>%99,9'undan
       fazlasında</b> bu sınırlar yetiyor ve hüküm milisaniyeler içinde geliyor.</p>
       <p>Tavana dayanan örnekler ise seyrek. <a href="#forced">Kurallar sekmesindeki</a> iki atlı
       pozisyonda beraberlik, sayaç 148'deyken 72 denemede, onlarca milisaniyede ispatlanıyor;
@@ -12312,14 +12313,14 @@ slider  :           P+P*4%x &amp; S()</pre>
       and positions where the opponent is one ply away from a repetition or the counter limit close
       within a handful. The measurement is on <a href="#4x-verdict">the Technical detail tab</a>:
       over all 201,060 positions of the CHA-Solver record, with the game's own limits,
-      <code>engine.js</code> reaches its verdict in a median of 2 milliseconds; 99% take under 16
-      milliseconds, and the heaviest takes 687. Most positions of the record close in a single
-      node. On the same record <code>engine_4x</code> is 103 times faster — under a hundredth of a
-      millisecond at the median, 21 milliseconds at worst. The coverage agrees with these limits:
-      all <b>150,002</b> wrongly decided games in the forced-line class receive the right verdict
-      within them, and every one of the 3,567 games the engine misses lies in
-      <a href="#dead">the blocked-and-roomy strip</a> — roughly one game in two million across the
-      whole record. So in <b>more than 99.9%</b> of the positions that arise at a flag fall or a
+      <code>engine.js</code> reaches its verdict in a median of 0.1 milliseconds; 99% take at most
+      0.7 milliseconds, and the heaviest takes 56. Most positions of the record close in a single
+      node. On the same record <code>engine_4x</code> is about 6 times faster — its median below the
+      clock's 0.1-millisecond step, 6.9 milliseconds at worst. The coverage agrees with these
+      limits: the draw is proved within them in <b>197,464</b> of the 201,060 positions. In all of
+      the 3,596 left unproved the search runs into the depth limit, and the budget runs out in none;
+      3,558 of them have a bishop on the board, which puts them outside <a href="#lscan">the blocked
+      scan</a>. That comes to roughly one game in two million across the whole record. So in <b>more than 99.9%</b> of the positions that arise at a flag fall or a
       resignation these limits are enough, and the verdict arrives within milliseconds.</p>
       <p>The positions that do reach the ceiling are rare. In the two-knight position from
       <a href="#forced">the Rules tab</a>, the draw is proved in 72 tries, within tens of
@@ -13176,8 +13177,8 @@ slider  :           P+P*4%x &amp; S()</pre>
     <nav class="toc" data-toc></nav>
     <p class="eyebrow" lang="tr">Hız</p>
     <p class="eyebrow" lang="en">Speed</p>
-    <h2 lang="tr"><code>engine_4x.js</code> — aynı kurallar, +117 bayt, hamle üretiminde 3,5 kat, hükümde yaklaşık 100 kat hız</h2>
-    <h2 lang="en"><code>engine_4x.js</code> — same rules, +117 bytes, 3.5 times the speed in move generation, about 100 times in adjudication</h2>
+    <h2 lang="tr"><code>engine_4x.js</code> — aynı kurallar, +117 bayt, hamle üretiminde 3,5 kat, hükümde yaklaşık 6 kat hız</h2>
+    <h2 lang="en"><code>engine_4x.js</code> — same rules, +117 bytes, 3.5 times the speed in move generation, about 6 times in adjudication</h2>
     <div class="prose" lang="tr">
       <p>Aşağıdaki kaynak <code>engine_4x.js</code>'in kendisi; <code>engine.js</code>'te olmayan
       her parça boyalı. Bu bölümde anlatılan değişikliklerin her biri kodda bir bakışta
@@ -13205,7 +13206,7 @@ slider  :           P+P*4%x &amp; S()</pre>
       aynı sonuç kodları. Başlangıç pozisyonundan perft d1–d4 ikisinde de
       <code>20 / 400 / 8.902 / 197.281</code> veriyor; CHA-Solver kaydının 201.060 pozisyonunda da
       ikisi pozisyon pozisyon aynı hükmü veriyor. Fark yalnızca aynı cevaba kaç işlemle
-      varıldığında — ve bu nesilde o fark hamle üretiminde 3,5 kat, hükümde yaklaşık 100 kat.</p>
+      varıldığında — ve bu nesilde o fark hamle üretiminde 3,5 kat, hükümde yaklaşık 6 kat.</p>
     </div>
     <div class="prose" lang="en">
       <p>The two engines are logically identical: the same moves at every depth, the same node
@@ -13213,7 +13214,7 @@ slider  :           P+P*4%x &amp; S()</pre>
       <code>20 / 400 / 8,902 / 197,281</code> in both, and on the 201,060 positions of the
       CHA-Solver record both return the same verdict, position by position. The difference is only
       in how many operations it takes to reach the same answer — and in this generation that
-      difference is 3.5 times in move generation and about 100 times in adjudication.</p>
+      difference is 3.5 times in move generation and about 6 times in adjudication.</p>
     </div>
 
     <h3 id="4x-bytes" lang="tr">117 bayt nereye gidiyor</h3>
@@ -13413,31 +13414,33 @@ slider  :           P+P*4%x &amp; S()</pre>
 <div class="tw" lang="tr"><table>
 <thead><tr><th></th><th class="numr"><code>engine.js</code></th><th class="numr"><code>engine_string.js</code></th><th class="numr"><code>engine_4x.js</code></th></tr></thead>
 <tbody>
-<tr><td>Kaydın tamamı</td><td class="numr">1.081,5 sn</td><td class="numr">838,5 sn</td><td class="numr"><b>10,5 sn</b></td></tr>
-<tr><td>Saniyede pozisyon</td><td class="numr">186</td><td class="numr">240</td><td class="numr"><b>19.217</b></td></tr>
-<tr><td>Pozisyon başına, ortalama</td><td class="numr">3,46 ms</td><td class="numr">2,48 ms</td><td class="numr">0,02 ms</td></tr>
-<tr><td>Medyan</td><td class="numr">2,00 ms</td><td class="numr">1,40 ms</td><td class="numr">&lt; 0,01 ms</td></tr>
-<tr><td>%99</td><td class="numr">16,10 ms</td><td class="numr">13,30 ms</td><td class="numr">0,20 ms</td></tr>
-<tr><td>En kötü</td><td class="numr">687,0 ms</td><td class="numr">2.089,4 ms</td><td class="numr">20,7 ms</td></tr>
+<tr><td>Kaydın tamamı</td><td class="numr">53,5 sn</td><td class="numr">31,7 sn</td><td class="numr"><b>8,7 sn</b></td></tr>
+<tr><td>Saniyede pozisyon</td><td class="numr">3.762</td><td class="numr">6.335</td><td class="numr"><b>23.074</b></td></tr>
+<tr><td>Pozisyon başına, ortalama</td><td class="numr">0,13 ms</td><td class="numr">0,08 ms</td><td class="numr">0,02 ms</td></tr>
+<tr><td>Medyan</td><td class="numr">0,10 ms</td><td class="numr">0,10 ms</td><td class="numr">&lt; 0,10 ms</td></tr>
+<tr><td>%99</td><td class="numr">0,70 ms</td><td class="numr">0,40 ms</td><td class="numr">0,10 ms</td></tr>
+<tr><td>En kötü</td><td class="numr">56,1 ms</td><td class="numr">108,4 ms</td><td class="numr">6,9 ms</td></tr>
 </tbody>
 </table></div>
 <div class="tw" lang="en"><table>
 <thead><tr><th></th><th class="numr"><code>engine.js</code></th><th class="numr"><code>engine_string.js</code></th><th class="numr"><code>engine_4x.js</code></th></tr></thead>
 <tbody>
-<tr><td>Whole record</td><td class="numr">1,081.5 s</td><td class="numr">838.5 s</td><td class="numr"><b>10.5 s</b></td></tr>
-<tr><td>Positions per second</td><td class="numr">186</td><td class="numr">240</td><td class="numr"><b>19,217</b></td></tr>
-<tr><td>Per position, mean</td><td class="numr">3.46 ms</td><td class="numr">2.48 ms</td><td class="numr">0.02 ms</td></tr>
-<tr><td>Median</td><td class="numr">2.00 ms</td><td class="numr">1.40 ms</td><td class="numr">&lt; 0.01 ms</td></tr>
-<tr><td>99th percentile</td><td class="numr">16.10 ms</td><td class="numr">13.30 ms</td><td class="numr">0.20 ms</td></tr>
-<tr><td>Worst</td><td class="numr">687.0 ms</td><td class="numr">2,089.4 ms</td><td class="numr">20.7 ms</td></tr>
+<tr><td>Whole record</td><td class="numr">53.5 s</td><td class="numr">31.7 s</td><td class="numr"><b>8.7 s</b></td></tr>
+<tr><td>Positions per second</td><td class="numr">3,762</td><td class="numr">6,335</td><td class="numr"><b>23,074</b></td></tr>
+<tr><td>Per position, mean</td><td class="numr">0.13 ms</td><td class="numr">0.08 ms</td><td class="numr">0.02 ms</td></tr>
+<tr><td>Median</td><td class="numr">0.10 ms</td><td class="numr">0.10 ms</td><td class="numr">&lt; 0.10 ms</td></tr>
+<tr><td>99th percentile</td><td class="numr">0.70 ms</td><td class="numr">0.40 ms</td><td class="numr">0.10 ms</td></tr>
+<tr><td>Worst</td><td class="numr">56.1 ms</td><td class="numr">108.4 ms</td><td class="numr">6.9 ms</td></tr>
 </tbody>
 </table></div>
     <div class="prose" lang="tr">
-      <p>Üçü de aynı hükmü veriyor: <b>201.050</b> beraberlik kanıtlanıyor, 10 pozisyon yarım
-      hamle tavanında kanıtsız kalıyor, hiçbir YANLIŞ TM yok. İki 0x88 motorunda kanıtlar da aynı
-      dağılıyor: 8.139'u malzemeden, 50.954'ü kilitten, 141.477'si aramadan, 480'i kökte bitmiş
-      oyundan. <code>engine_4x</code> <code>engine.js</code>'ten <b>103 kat</b>, harf tahtasından
-      <b>80 kat</b> hızlı.</p>
+      <p>Üçü de aynı hükmü veriyor: <b>197.464</b> beraberlik kanıtlanıyor, 3.596 pozisyon yarım
+      hamle tavanında kanıtsız kalıyor, bütçe hiçbirinde tükenmiyor, hiçbir YANLIŞ TM yok. İki 0x88
+      motorunda kanıtlar da aynı dağılıyor: 8.139'u malzemeden, 47.047'si kilitten, 141.814'ü
+      aramadan, 464'ü kökte bitmiş oyundan. <code>engine_4x</code> <code>engine.js</code>'ten
+      <b>yaklaşık 6 kat</b>, harf tahtasından <b>3,6 kat</b> hızlı. Süreler tarayıcının 0,1
+      milisaniyelik saat adımıyla ölçülüyor; medyan ve %99 bu yüzden kaba, karşılaştırma toplam
+      süreden yapılıyor.</p>
       <p>Hükümde perft'in hiç görmediği bir maliyet var: <code>V()</code> çağrıları.
       <code>Z</code> her hamleden sonra <code>V</code>'yi iki kez, <code>H</code> her düğümde
       <code>V(I)</code>'yı bir kez soruyor ve iki motorun ayrıldığı yerlerden biri de orası.
@@ -13448,17 +13451,21 @@ slider  :           P+P*4%x &amp; S()</pre>
       zaten verdiyse tarama hiç başlamıyor, başladığında da sabit noktada, çoğu zaman birkaç turda
       duruyor. <code>V()</code> çağrısı ve arama düğümü sayısı iki motorda aynı. Kayıttaki
       pozisyonların çoğu tek düğümde kapanıyor — aramanın medyanı bir düğüm —, yani bir hükmün
-      maliyetinin büyük kısmı o düğümün hamle üretimi ve <code>V()</code>'si.</p>
-      <p>Oyunda karşılığı: bayrak düştüğünde hüküm medyanda milisaniyenin yüzde birinden az, en
-      kötü durumda 21 ms sürüyor; <code>engine.js</code>'te 2 ve 687 ms. Bütçenin kendisi motor
+      maliyetinin büyük kısmı o düğümün hamle üretimi ve <code>V()</code>'si. Fark bu yüzden
+      perft'teki 3,5 kattan büyük: hamle üretimindeki kazancın üstüne <code>V()</code>'nin bu iki
+      erken çıkışı ekleniyor.</p>
+      <p>Oyunda karşılığı: bayrak düştüğünde hüküm medyanda saatin 0,1 milisaniyelik adımının
+      altında, en kötü durumda 6,9 ms sürüyor; <code>engine.js</code>'te 0,1 ve 56,1 ms. Bütçenin kendisi motor
       sekmesinde, <a href="#hbudget">ayrı bir başlıkta</a>.</p>
     </div>
     <div class="prose" lang="en">
-      <p>All three return the same verdict: <b>201,050</b> draws proved, 10 positions left unproved
-      at the ply ceiling, no false TM. In the two 0x88 engines the certificates split the same way
-      too: 8,139 by material, 50,954 by the lock, 141,477 by the search, 480 by a game already over
-      at the root. <code>engine_4x</code> is <b>103 times</b> faster than <code>engine.js</code> and
-      <b>80 times</b> faster than the letter board.</p>
+      <p>All three return the same verdict: <b>197,464</b> draws proved, 3,596 positions left
+      unproved at the ply ceiling, the budget exhausted in none, no false TM. In the two 0x88 engines
+      the certificates split the same way too: 8,139 by material, 47,047 by the lock, 141,814 by the
+      search, 464 by a game already over at the root. <code>engine_4x</code> is <b>about 6
+      times</b> faster than <code>engine.js</code> and <b>3.6 times</b> faster than the letter
+      board. Times are taken with the browser's 0.1-millisecond clock step, so the median and the
+      99th percentile are coarse; the comparison rests on the totals.</p>
       <p>A verdict has a cost perft never sees: the <code>V()</code> calls. <code>Z</code> asks
       <code>V</code> twice after every move, <code>H</code> asks <code>V(I)</code> once at every
       node, and this is one of the places where the two engines part. In <code>engine.js</code>,
@@ -13470,9 +13477,10 @@ slider  :           P+P*4%x &amp; S()</pre>
       usually within a few rounds. The number of <code>V()</code> calls and search nodes is the
       same in both engines. Most positions of the record close in a single node — the median search
       spends one — so most of the cost of a verdict is that node's move generation and its
-      <code>V()</code>.</p>
-      <p>In a game this means the verdict at flag fall takes less than a hundredth of a millisecond
-      at the median and 21 ms at worst, against 2 and 687 ms in <code>engine.js</code>. The budget
+      <code>V()</code>. That is why the gap is wider than perft's 3.5 times: these two early exits
+      in <code>V()</code> come on top of the gain in move generation.</p>
+      <p>In a game this means the verdict at flag fall takes less than the clock's 0.1-millisecond
+      step at the median and 6.9 ms at worst, against 0.1 and 56.1 ms in <code>engine.js</code>. The budget
       itself is on the engine tab, under <a href="#hbudget">its own heading</a>.</p>
     </div>
 
@@ -15559,10 +15567,10 @@ signed  b=[...`24135142${(10n**40n+1n)*66666666n}24135142`].map((u,i)=&gt;i&gt;3
       önceki nesilde <code>l</code> — yalnızca piyonları ve şahları kapsıyor. Tahtada fil de bulunan
       tamamen ölü, kilitli pozisyonlar var ve bunlar bu kapsamın dışında kalıyor. Bu boşluk
       ölçüldü: CHA-Solver'ın 201.060 oyunluk listesinde — hepsi yapı gereği beraberlik —
-      motorun kanıtlayamadığı 3.567 pozisyonun 3.557'sinde fil var. Hepsinde arama derinlik
+      motorun kanıtlayamadığı 3.596 pozisyonun 3.558'inde fil var. Hepsinde arama derinlik
       sınırına dayanıyor; bütçe hiçbirinde tükenmiyor. O boşluğu kapatacak bir genişletme önceki
       nesilde tasarlandı ve ölçüldü: 782 bayt daha tutuyordu, yani bayt başına getiri yirmi dört
-      kat düşüyordu. Hızı da düşürüyor. Asıl engel ise güvence: fil soruya üçüncü bir bilinmeyen
+      kat düşüyordu. Hızı da düşürüyordu. Asıl engel ise güvence: fil soruya üçüncü bir bilinmeyen
       eklediği için motorun tek ispatlı özelliğini — ölü dediği her pozisyonun gerçekten ölü
       olmasını — riske atıyor. Genişletme askıda, kaybolmuş değil.</p>
     </div>
@@ -15570,11 +15578,11 @@ signed  b=[...`24135142${(10n**40n+1n)*66666666n}24135142`].map((u,i)=&gt;i&gt;3
       <p>The blocked-position scan — today <a href="#lscan"><code>V</code>'s blocked half</a>, in the
       previous generation <code>l</code> — covers only pawns and kings. There are fully dead, blocked
       positions with bishops on the board, and they fall outside that scope. The gap has been measured:
-      in CHA-Solver's list of 201,060 games — every one a draw by construction — 3,557 of the 3,567
+      in CHA-Solver's list of 201,060 games — every one a draw by construction — 3,558 of the 3,596
       the engine cannot prove have a bishop on the board. In all of them the search runs into the
       depth limit; the budget runs out in none. An extension to close the gap was designed and
       measured in the previous generation: it took 782 bytes more, so the return per byte fell by a
-      factor of twenty-four. It also costs speed. The real obstacle
+      factor of twenty-four. It also cost speed. The real obstacle
       is the guarantee: a bishop adds a third unknown to the question and so puts the engine's
       only proved property — every position it calls dead really is dead — at risk. The extension
       is shelved, not lost.</p>
