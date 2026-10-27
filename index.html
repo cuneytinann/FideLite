@@ -210,15 +210,23 @@ if (FLOLD[location.hash.slice(1)]) {
   --code-glow: light-dark(transparent, rgba(255,255,255,.42));
   /* oynaticinin surum listesi eski camgobeginde kalir: orada renk kategori tasiyor */
   --code-teal: light-dark(#12595f,  #7fc9cf);
-  /* Kodu goster katmanlari. Kurallar terminalin kendi yesili (--code-fg) olarak
-     kalir; arayuz, HTML ve bot ondan ve birbirinden ayri uc ton. Dordu de
-     beyaz ve siyah kuyuda AA'nin rahatca ustunde (acikta 6.4+, koyuda 9.3+). */
-  --hl-ui:   light-dark(#1f5fa8,  #86b6ef);
-  --hl-html: light-dark(#a3246b,  #f08ccf);
+  /* Kodu goster katmanlari, ureticinin (Variant Generator) dizilisiyle: kurallar
+     ve paketli script mavi, arayuz mor, HTML pembe. Mor maviyle pembenin
+     arasinda duruyor; uc komsu ayrissin diye mavi gok mavisine, pembe
+     kirmiziya kaydirildi (OKLab dE: koyuda en yakin cift 11.2, eskiden 7.5).
+     Hepsi beyaz ve siyah kuyuda AA'nin rahatca ustunde (acikta 6.4+, koyuda 9.4+). */
+  --hl-rule: light-dark(#1f58ad,  #7db4ff);
+  --hl-ui:   light-dark(#7535a8,  #cc9af5);
+  --hl-html: light-dark(#ab2058,  #f9a6c4);
+  /* sonuc kodlari ('SM', 'DA', 'WB'[t/8]+g ...) ve harf tahtali motorlarda
+     taslar: turkuaz, ureticideki gibi. Acikta 6.8, koyuda 11.7. */
+  --hl-end:  light-dark(#04665f,  #48d6c8);
+  /* bot: kehribar. Mavi, mor, pembe ve turkuazin hepsi soguk; bot sicak
+     tarafta tek basina kalir. */
   --hl-bot:  light-dark(#8c4e0c,  #dfa250);
-  /* kural ile botun ic ice oldugu kod (Toledo): kural yesili ile bot
-     kehribarinin tam ortasi. Acikta 8.7, koyuda 9.1. */
-  --hl-mix:  light-dark(#4c4e19,  #9cb467);
+  /* kural ile botun ic ice oldugu kod (Toledo): kural mavisiyle bot
+     kehribarinin karisimi, yesil (boyada mavi + sari). Acikta 6.4, koyuda 12.2. */
+  --hl-mix:  light-dark(#3c6a0e,  #acd264);
 
   --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
@@ -258,7 +266,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --card-w-bg:#fffdf6; --card-w-fg:#0f1626; --card-w-fg2:#2c384c; --card-w-fg3:#465268;
     --card-b-bg:#232a3a; --card-b-fg:#f2e6d8; --card-b-fg2:#c9bdb2; --card-b-fg3:#9a8d82;
     --code-bg:#ffffff; --code-fg:#0d4f26; --code-ink:#16307a; --code-teal:#12595f; --code-tbl:#12595f; --code-glow:transparent;
-    --hl-ui:#1f5fa8; --hl-html:#a3246b; --hl-bot:#8c4e0c; --hl-mix:#4c4e19;
+    --hl-rule:#1f58ad; --hl-ui:#7535a8; --hl-html:#ab2058; --hl-end:#04665f; --hl-bot:#8c4e0c; --hl-mix:#3c6a0e;
     --pc-r:#8f1d13; --pc-n:#146a33; --pc-b:#6b3fa0; --pc-q:#7e5a05; --pc-k:#1f5fa8;
     --pc-p:#0f6b70; --cc-n:#a3246b; --cc-o:#b3470b; --cc-e:#5b6e00; --cc-t:#44403c; --cc-r5:#3547b5; --cc-75:#7a5230; --cc-im:#a3123a; --cc-lk:#8a2fb3; --cc-mt:#b3001b; --cc-cl:#7a6400; --cc-ag:#0b6c94; --cc-tm:#3d5a7a; --cc-rs:#77223c; --cc-mm:#a14a1c; --cc-hs:#9d1fa8; --cc-hp:#5b4f73; --cc-th:#4d7a00; --cc-lg:#2f5f5f; --cc-id:#00755f; --cc-fl:#5c4b3c; --cc-ps:#4b38c7; --cc-gs:#3f4a59; --pk:#3a2214; --pk-glow:rgba(204,170,120,.55); --pk-acc:#3a2214;
     --lg-knight:#fffdf6; --lg-rook:#93cfe0;
@@ -278,7 +286,7 @@ if (FLOLD[location.hash.slice(1)]) {
       --dot-ring:rgba(255,255,255,.22); --card-w-bg:#d7ccbd; --card-w-fg:#241c17;
       --card-w-fg2:#4a3f36; --card-w-fg3:#6b5f54; --card-b-bg:#0b0908; --card-b-fg:#ece3d8;
       --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-ink:#fff; --code-teal:#7fc9cf; --code-tbl:#fff; --code-glow:rgba(255,255,255,.42);
-      --hl-ui:#86b6ef; --hl-html:#f08ccf; --hl-bot:#dfa250; --hl-mix:#9cb467;
+      --hl-rule:#7db4ff; --hl-ui:#cc9af5; --hl-html:#f9a6c4; --hl-end:#48d6c8; --hl-bot:#dfa250; --hl-mix:#acd264;
       --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
       --pc-p:#5fc3ca; --cc-n:#f08ccf; --cc-o:#ff9a4a; --cc-e:#cfe35a; --cc-t:#e7e5e4; --cc-r5:#8c9eff; --cc-75:#cfa57c; --cc-im:#ff6b8b; --cc-lk:#d68cff; --cc-mt:#ff4d4d; --cc-cl:#f2d24b; --cc-ag:#5fd4f5; --cc-tm:#9fb3c8; --cc-rs:#dd88a2; --cc-mm:#ffb38a; --cc-hs:#ea7cf5; --cc-hp:#a898c0; --cc-th:#b8f06a; --cc-lg:#8fbcbc; --cc-id:#6ee0c8; --cc-fl:#c9b8a8; --cc-ps:#a99cff; --cc-gs:#d6dde6; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
       --lg-knight:#1c1714; --lg-rook:#7ab6c9;
@@ -299,7 +307,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --dot-ring:rgba(255,255,255,.22); --card-w-bg:#d7ccbd; --card-w-fg:#241c17;
     --card-w-fg2:#4a3f36; --card-w-fg3:#6b5f54; --card-b-bg:#0b0908; --card-b-fg:#ece3d8;
     --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-ink:#fff; --code-teal:#7fc9cf; --code-tbl:#fff; --code-glow:rgba(255,255,255,.42);
-      --hl-ui:#86b6ef; --hl-html:#f08ccf; --hl-bot:#dfa250; --hl-mix:#9cb467;
+      --hl-rule:#7db4ff; --hl-ui:#cc9af5; --hl-html:#f9a6c4; --hl-end:#48d6c8; --hl-bot:#dfa250; --hl-mix:#acd264;
     --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
     --pc-p:#5fc3ca; --cc-n:#f08ccf; --cc-o:#ff9a4a; --cc-e:#cfe35a; --cc-t:#e7e5e4; --cc-r5:#8c9eff; --cc-75:#cfa57c; --cc-im:#ff6b8b; --cc-lk:#d68cff; --cc-mt:#ff4d4d; --cc-cl:#f2d24b; --cc-ag:#5fd4f5; --cc-tm:#9fb3c8; --cc-rs:#dd88a2; --cc-mm:#ffb38a; --cc-hs:#ea7cf5; --cc-hp:#a898c0; --cc-th:#b8f06a; --cc-lg:#8fbcbc; --cc-id:#6ee0c8; --cc-fl:#c9b8a8; --cc-ps:#a99cff; --cc-gs:#d6dde6; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
     --lg-knight:#1c1714; --lg-rook:#7ab6c9;
@@ -1192,16 +1200,21 @@ pre.src, .hlkey { text-shadow:.35px 0 currentColor }
 /* Kodu goster: katman renkleri. Siniflari srcLayers() veriyor; lejant ayni
    siniflari kullaniyor, kutucugun rengini currentColor tasiyor. Lejant kod
    kuyusunun basligi gibi durur: ayni zemin, ayni altin serit. */
-pre.src .hl-r, .hlkey .hl-r { color:var(--code-fg) }
+pre.src .hl-r, .hlkey .hl-r { color:var(--hl-rule) }
 pre.src .hl-u, .hlkey .hl-u { color:var(--hl-ui) }
+/* sonuc kodlari ('c') ve harf tahtasinin taslari ('q'): ayni turkuaz, lejantta
+   iki ayri ad. Katman degil, katmanin icindeki dizge; ama okuyucu turkuazi
+   gorunce ne oldugunu sormasin diye lejantta. */
+pre.src .hl-c, .hlkey .hl-c,
+pre.src .hl-q, .hlkey .hl-q { color:var(--hl-end) }
 pre.src .hl-b, .hlkey .hl-b { color:var(--hl-bot) }
 pre.src .hl-m, .hlkey .hl-m { color:var(--hl-mix) }
 pre.src .hl-h, .hlkey .hl-h { color:var(--hl-html) }
 /* imza: bas dizisindeki c=un=... zinciri; iki temada da saf kirmizi. Lejantta
    bilerek yok: lejant katmanlari anlatir, imza bir katman degil. */
 pre.src .hl-s { color:#ff0000 }
-/* paketli script: terminalin kendi rengi; kurallarla ayni dosyada hic bulunmaz */
-pre.src .hl-p, .hlkey .hl-p { color:var(--code-fg) }
+/* paketli script: kurallarin mavisi; kurallarla ayni dosyada hic bulunmaz */
+pre.src .hl-p, .hlkey .hl-p { color:var(--hl-rule) }
 .hlkey { display:flex; flex-wrap:wrap; gap:.3rem 1.1rem; margin:0;
   padding:.6rem 1rem .6rem calc(1rem - 2px); font-family:var(--mono); font-size:.72rem;
   line-height:1.4; background:var(--code-bg); border-left:2px solid var(--acc-edge);
@@ -1748,7 +1761,10 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <div class="stage" id="stage">
         <p class="idle" id="idle"><span lang="tr">Seçili sürüm <b>L3</b>. Oyunu başlat ya da kodunu göster.</span><span lang="en">Selected build <b>L3</b>. Start the game or show its code.</span></p>
         <p class="hlkey" id="hlkey" hidden>
-          <span class="hl-r" hidden><span lang="tr">kurallar</span><span lang="en">rules</span></span>          <span class="hl-u" hidden><span lang="tr">arayüz</span><span lang="en">interface</span></span>
+          <span class="hl-r" hidden><span lang="tr">kurallar</span><span lang="en">rules</span></span>
+          <span class="hl-c" hidden><span lang="tr">sonuç kodları</span><span lang="en">result codes</span></span>
+          <span class="hl-q" hidden><span lang="tr">taşlar</span><span lang="en">pieces</span></span>
+          <span class="hl-u" hidden><span lang="tr">arayüz</span><span lang="en">interface</span></span>
           <span class="hl-b" hidden>bot</span>
           <span class="hl-m" hidden><span lang="tr">kural + bot</span><span lang="en">rules + bot</span></span>
           <span class="hl-p" hidden><span lang="tr">paketli script</span><span lang="en">packed script</span></span>
@@ -20069,7 +20085,9 @@ function start() {
    araligi yerine butun metin boyanir. Surucu mantiklari input surumleriyle
    ayni, o yuzden kesimleri de onlarinki; L3'te tekrar tablosu G'de durdugu
    icin kural sinirinin isareti R=G[k=.
-   Listede olmayan surum ya da bulunamayan bir isaret: tek renk. */
+   Listede olmayan surum ya da bulunamayan bir isaret: tek renk.
+   Katmanin ustune bir de dizge sinifi biner (litLayer): sonuc kodlari ('c')
+   ve harf tahtali surumlerde taslar ('q'), ikisi de turkuaz. */
 var PACKED = ['p'],
     P1 = ['r', ',L=(i,x', 'u'], P1_LIGHT = ['r', ',U=(i,f,P=b[i]-t', 'u'],
     P2 = ['r', ',R=G[b+e+t+c]=1', 'u'], P2_LIGHT = ['r', ',g=n=>', 'u'],
@@ -20185,27 +20203,56 @@ function defEnd(s, i) {
   }
   return -1;
 }
+/* Sonuc kodlari ve taslar: turkuaz, ureticideki gibi.
+   ENDS: on bes sonuc kodu (artı platform esdegerlerinin IM'i), onlarin bitisik
+   tablosu (LUX'un 'W#B#SM755RDP...'si) ya da bir kodu kuran parca: 'WB'[t/8]
+   on eki, g+'M' soneki, s('T') ile s('R')'nin harfi, aybars'in '#'i. Bu bir
+   dizgenin kod OLDUGUNU soyler; katmani degil. Kural bolgesinde de, motorun
+   hukum fonksiyonunu cagiran arayuzde de turkuaz.
+   Tek istisna gosterim: arayuzun ekrana yazdigi sablonun delikleri metin
+   uretir, kod degil. ${'WB'[t/8]}: ${u[t^8]|0}s saatin etiketidir, sonuc
+   kodunun on eki degil; o yuzden sablon deliginin icinde (disp) arayuz rengi.
+   STRB: harf tahtali surumler. Orada kural tarafindaki tas harfleri de
+   turkuaz: tahtanin kendisi (`rnbqkbnr...`), bos kare '-', tas tablolari
+   ('-pPkKbB', 'qrbn') ve tas harfleriyle kiyaslanan tek harfler ('a', 'C', 'M':
+   P<'C' gibi). 'K2' (sahin iki kare gitmesi) ve 'indexOf' tas degil.
+   Arayuzun tas tablolari ('-BKNPQR', 'q♕r♖b♗n♘') gosterimdir, arayuz rengi.
+   Sayi tahtali surumlerde taslar sayi (dcebaecd...), sonuc kodu sayi olan
+   surumlerde (numerical) kod da sayi: dizge olmadiklari icin kural rengi. */
+var ENDS = /^(?:W#|B#|SM|DP|5R|75|3R|50|DA|WT|BT|WR|BR|TM|RM|IM)+$|^(?:WB|M|T|R|#)$/,
+    STRB = { L1_prompt_string: 1, L2_prompt_string: 1, L3_prompt_string: 1, L2_string_base: 1 },
+    letters = false;
+/* Bir dizgenin (ya da sablon parcasinin) rengi. v tirnaklar soyulmus icerik. */
+function litLayer(lit, k, disp) {
+  var v = lit.replace(/^['"`]|['"`]$/g, '');
+  if ('rumb'.indexOf(k) < 0 || !v || disp && k == 'u') return k;
+  if (ENDS.test(v)) return 'c';
+  if (letters && k == 'r' && /^(?:[A-Za-z]|[-pnbrqkPNBRQK]+)$/.test(v)) return 'q';
+  return k;
+}
 /* Delikli sablon: duz parcalar dizge, delikler kod. Etiket aciksa ikisi de
-   HTML; etiket disindaki delik bolgenin rengini alir ve icine yeniden inilir. */
-function hlTpl(lit, k, tag, out) {
+   HTML; etiket disindaki delik bolgenin rengini alir ve icine yeniden inilir.
+   Delik bir sablonun icinde oldugu icin disp ile iner. */
+function hlTpl(lit, k, tag, out, disp) {
   var i = 0, d, j, pre;
   while ((d = lit.indexOf('${', i)) > -1) {
     pre = lit.slice(i, d);
     if (MARK.test(pre)) tag = true;
-    if (pre) { out.push([tag ? 'h' : k, pre]); tag = tagOpen(pre, tag); }
+    if (pre) { out.push([tag ? 'h' : litLayer(pre, k, disp), pre]); tag = tagOpen(pre, tag); }
     j = holeEnd(lit, d + 2);
     if (tag) out.push(['h', lit.slice(d, j)]);
-    else { out.push([k, '${']); hlCode(lit.slice(d + 2, j - 1), k, out); out.push([k, '}']); }
+    else { out.push([k, '${']); hlCode(lit.slice(d + 2, j - 1), k, out, true); out.push([k, '}']); }
     i = j;
   }
   pre = lit.slice(i);
   if (MARK.test(pre)) tag = true;
-  if (pre) out.push([tag ? 'h' : k, pre]);
+  if (pre) out.push([tag ? 'h' : litLayer(pre, k, disp), pre]);
 }
 /* Bir bolgeyi (k: 'r' kurallar, 'u' arayuz, 'b' bot) boyar; icindeki etiketli
-   dizgeleri HTML'e ayirir. Iki dizge arasindaki yapistirici, bolunmus bir
-   etiketin ortasindaysa o da HTML. */
-function hlCode(s, k, out) {
+   dizgeleri HTML'e, sonuc kodlarini ve taslari turkuaza ayirir. Iki dizge
+   arasindaki yapistirici, bolunmus bir etiketin ortasindaysa o da HTML.
+   disp: bu kod bir sablon deliginin icinde (gosterim). */
+function hlCode(s, k, out, disp) {
   var i = 0, last = 0, c, e, lit, inTag = false;
   while (i < s.length) {
     c = s[i];
@@ -20213,11 +20260,11 @@ function hlCode(s, k, out) {
     if (i > last) out.push([inTag ? 'h' : k, s.slice(last, i)]);
     e = litEnd(s, i); lit = s.slice(i, e);
     if (c == '`' && lit.indexOf('${') > -1) {
-      hlTpl(lit, k, inTag || MARK.test(lit.slice(0, lit.indexOf('${'))), out);
+      hlTpl(lit, k, inTag || MARK.test(lit.slice(0, lit.indexOf('${'))), out, disp);
       inTag = false;
     } else if (inTag || MARK.test(lit)) {
       out.push(['h', lit]); inTag = tagOpen(lit, inTag);
-    } else out.push([k, lit]);
+    } else out.push([litLayer(lit, k, disp), lit]);
     i = last = e;
   }
   if (last < s.length) out.push([inTag ? 'h' : k, s.slice(last)]);
@@ -20232,6 +20279,7 @@ function srcLayers(text, key) {
       z = bare ? text.length : text.lastIndexOf('<\/script>'), out = [], m = [], lay = [],
       inner, pos = 0, from = 0, i, j, at, end, sig;
   if (!spec || (!bare && a < 0) || z < a) return null;
+  letters = !!STRB[key];
   inner = text.slice(a + 8, z);
   for (i = 0; i + 1 < spec.length; i += 2) {
     /* pos-1'den ara: isaretin bas virgulu onceki tanimin bitis virgulu olabilir */
