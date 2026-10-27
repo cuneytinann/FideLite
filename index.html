@@ -20931,8 +20931,8 @@ var ENGC = [
         ['n>149?4', 'n>149?4']] },
   /* Yetersiz materyal V'nin materyal yarisi: sayim ([m,o]'nun varsayilan degeri) ve ilk
      iki terim. Iki terim piyonlarin varligina da bakiyor (!(s?B:W), !(W|B)), o yuzden
-     piyonlarin W ile B'ye yazildigi yer ve ikisinin sifirlanmasi (W=B=0n) de boyali; bit
-     sayaci j=1n kilitli yarinin. Hem
+     piyonlarin W ile B'ye yazildigi yer, oraya goturen secici testler (p&8?p>9?, p>1?, p?)
+     ve ikisinin sifirlanmasi (W=B=0n) de boyali; bit sayaci j=1n kilitli yarinin. Hem
      olu pozisyonun (Z) hem 6.9'un (H, F) materyal kolu; eskiden iki ayri fonksiyondu,
      simdi tek.
      Kilitli pozisyon V'nin ikinci yarisi: piyon ve sah bitboard'lari, yardimcilar, alti
@@ -20945,6 +20945,7 @@ var ENGC = [
     s: [['V=(s,j=1n,A=[0,0],[m,o]=(', 'V=(s,'], ['V=(s,j=1n,A=[0,0],[m,o]=(', 'A=[0,0],[m,o]=('],
         ['b.map((p,i)=>(p%8>5?A[p>7^!s]|=i%15%2+1:p%8>2?A[p>7^!s]+=4<<p*8', 'b.map((p,i)=>(p%8>5?A[p>7^!s]|=i%15%2+1:p%8>2?A[p>7^!s]+=4<<p*8'],
         ['[m,o]=(W=B=0n,', 'W=B=0n'],
+        [':p&8?p>9?_=j', 'p&8?p>9?'], [':p>1?f=j:p?B|=j', 'p>1?'], [':p>1?f=j:p?B|=j', 'p?'],
         ['p>9?_=j:W|=j', 'W|=j'], [':p?B|=j:0', 'B|=j'],
         [',j+=j)),A)', ')),A)'],
         ['=>!(s?B:W)>m|!(W|B)>(4%m|o&(m>3?15423:63^m))', '!(s?B:W)>m|!(W|B)>(4%m|o&(m>3?15423:63^m))'],
@@ -21061,17 +21062,27 @@ function engMerged(src, con) {
   return sp;
 }
 
-/* Bayt sayisi yalniz kural bantlarinda: bandin boyadigi bayt, kaynaktan o an sayiliyor
-   (ortusen araliklar bir kez), yani cipe basinca boyanan kadar. Katmanlarda (0x88, tas
-   tanima, pozisyon, oyun durumu, hamle akisi) yok, cunku her yere dagiliyorlar; taslarda
-   da yok, cunku basligi paylasiyorlar (vezirin yalniz kendisinin boyadigi bayt sifir). */
+/* Bayt sayisi yalniz kural bantlarinda ve yalniz bandin kendine ait kismi: boyadigi
+   baytlardan baska bir kural ya da tas bandinin da boyadiklari dusuluyor (V(I), ?14+r,
+   V(0)&V(8)?6 gibi ortak parcalar hicbirine yazilmiyor). Katmanlar (0x88, pozisyon, oyun
+   durumu, tas tanima, hamle akisi) ayni kodun baska bir okumasi: kilidin kapisindaki e-8'i
+   0x88 de boyuyor ama e-8 yine kilidin. Sayi kaynaktan o an hesaplaniyor. Katmanlarda ve
+   taslarda sayi yok: katmanlar her yere dagiliyor, taslar basligi paylasiyor (vezirin
+   kendine ait bayti sifir). */
 var ENGB = { threat: 1, legal: 1, castle: 1, ep: 1, promo: 1, mate: 1, rep5: 1, m75: 1,
              im: 1, lock: 1, claim: 1, agree: 1, time: 1, help: 1,
-             nclock: 1, nresign: 1, nclaim: 1, noffer: 1 };
+             nclock: 1, nresign: 1, nclaim: 1, noffer: 1 },
+    ENGL = { board: 1, pos: 1, game: 1, ident: 1, flow: 1 };
 function engBytes(con) {
   var t = engCache[engKey];
   if (t == null || !ENGB[con.k]) return 0;
-  return engMerged(t, con).reduce(function (n, r) { return n + r[1] - r[0]; }, 0);
+  var other = new Uint8Array(t.length), n = 0;
+  (ENGSETS[engKey] || []).forEach(function (x) {
+    if (x === con || ENGL[x.k]) return;
+    engMerged(t, x).forEach(function (r) { for (var i = r[0]; i < r[1]; i++) other[i] = 1; });
+  });
+  engMerged(t, con).forEach(function (r) { for (var i = r[0]; i < r[1]; i++) n += !other[i]; });
+  return n;
 }
 
 /* Kaynagi yazar: kavram secili ve engine.js acikken boyali, yoksa duz metin. */
