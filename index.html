@@ -20730,14 +20730,16 @@ var GEO = [['G=(i,f,m,', 'G=('], ['G=(i,f,m,', 'i,f']],
     GEO_P = [['G=(i,f,m,P=b[i]&7', 'P=b[i]&7']],
     GEO_D = [['P=b[i]&7,d=f-i,', 'd=f-i']],
     GEO_X = [[XD, XD]],
-    GEO_S = [[',s=d<0?-x:x,', 's=d<0?-x:x'], ['S=_=>(i+=s)==f||b[i]<1&&S()', 'S=_=>(i+=s)==f||b[i]<1&&S()']];
+    GEO_S = [[',s=d<0?-x:x,', 's=d<0?-x:x'], ['S=_=>(i+=s)==f||b[i]<1&&S()', 'S=_=>(i+=s)==f||b[i]<1&&S()']],
+    SEL_SL = ['=>P-4?P-2?P-1?', 'P-1?'];
 var ENGC = [
   /* 0x88 ve delikler: tahta duzeninin is gordugu her yer. Kurulumda duz indeksi 0x88'e
      ceviren j*2-j%8; iki kare farkindan hatti bulan kalan testleri (d=f-i, x=...);
      deligin duvar oldugu yerler (S'nin b[i]<1'i, L'nin b[x]+~t>>3 suzgeci); 8'in
      "yok" anlamina geldigi yerler (gecerken alma adayi ve suzgeci, V'nin kapisi);
-     yatay kaliplari (i%112, i/56, i%96<24, f%112>7, f^16, i%15%2); atin dort farki
-     (d*d%765%128==68) ve map'in delikleri atlamasindan dogan 64 bitlik sira (j+=j). */
+     yatay kaliplari (i%112, i/56, i%96<24, f%112>7, f^16, i%15%2); dikey adimin 16
+     olmasina dayananlar (piyonun duz hat testi x-16, cift adimin imzasi 1024 = 32*32); atin
+     dort farki (d*d%765%128==68) ve map'in delikleri atlamasindan dogan 64 bitlik sira (j+=j). */
   { k: 'board', c: 'var(--cc-hp)', tr: '0x88 / delikler', en: '0x88 / holes',
     s: [['b[j*2-j%8]', 'j*2-j%8'],
         ["[i%112]<<i/56", 'i%112'], ["[i%112]<<i/56", 'i/56'],
@@ -20747,7 +20749,8 @@ var ENGC = [
         ['d*d%765%128==68', 'd*d%765%128==68'],
         ['(X=P-1|f%112>7)', 'f%112>7'],
         ['P-1?i:f^16]', 'f^16'],
-        ['d-1024?8:Q', '8'],
+        ['d-1024?8:Q', '8'], ['d-1024?', '1024'],
+        ['?x-16?', 'x-16'],
         ['L=(i,x,q=b)=>b[x]+~t>>3', 'b[x]+~t>>3'],
         ['L(j,e))?e:8', '?e:8'],
         ['|=i%15%2+1', 'i%15%2'],
@@ -20781,7 +20784,7 @@ var ENGC = [
         ['b.indexOf(2+t)', '2+t'],
         ['p&8^t&&G(j,x,1)', 'p&8^t'],
         ['U=(i,f,p=3,P=b[i]-t,d=P*(i-f)**2', 'P=b[i]-t'],
-        ['U=(i,f,p=3,P=b[i]-t,d=P*(i-f)**2', 'P*(i-f)**2'],
+        ['U=(i,f,p=3,P=b[i]-t,d=P*(i-f)**2', 'P*'],
         ['(X=P-1|f%112>7)', 'P-1'],
         [')?b[i]:p|t,', 'p|t'],
         ['e-f|P-1?i', 'P-1'],
@@ -20800,6 +20803,8 @@ var ENGC = [
      isaretli adim s yalniz kullananlarda (piyon, sah, kayan taslar; at kullanmiyor), S
      yuruyus isteyenlerde (piyon ve kayan taslar). Kayan taslar ayni ifadeyi paylasiyor;
      onlari x'in kollari ayiriyor: fil 15 ve 17'yi, kale 1 ve 16'yi, vezir hepsini boyuyor.
+     Dal secicisi her tasta kendi koluna dogrudan ayrilan test: at P-4?, sah P-2?, piyon ile
+     kayan taslar P-1? (piyon hayir, kayanlar evet kolu).
      Piyon saldiri kipini (m) da boyuyor, cunku yonu ve alma kosulu ona bagli; sahta m
      tehdidin, secicinin tamami rokun bandinda. */
   { k: 'pawn', c: 'var(--pc-p)', tr: 'Piyon', en: 'Pawn', v: '1/9',
@@ -20813,7 +20818,7 @@ var ENGC = [
         ['=>P-4?P-2?', 'P-2?'],
         ['~m+3%d?d==s:', '+3%d?'], ['~m+3%d?d==s:', 'd==s']]) },
   { k: 'queen', c: 'var(--pc-q)', tr: 'Vezir', en: 'Queen', v: '3/b',
-    s: GEO.concat(GEO_P, GEO_D, GEO_X, GEO_S, [[SLIDE, SLIDE]]) },
+    s: GEO.concat(GEO_P, GEO_D, GEO_X, GEO_S, [SEL_SL, [SLIDE, SLIDE]]) },
   { k: 'knight', c: 'var(--cc-n)', tr: 'At', en: 'Knight', v: '4/c',
     s: GEO.concat(GEO_P, GEO_D, [
         ['=>P-4?', 'P-4?'],
@@ -20821,11 +20826,11 @@ var ENGC = [
   { k: 'rook', c: 'var(--pc-r)', tr: 'Kale', en: 'Rook', v: '5/d',
     s: GEO.concat(GEO_P, GEO_D, [
         ['x=d%15?d%16?', 'x='], ['x=d%15?d%16?', 'd%16?'],
-        ['d%17?1:17', '?1'], ['1:17:16:15', ':16']], GEO_S, [[SLIDE, SLIDE]]) },
+        ['d%17?1:17', '?1'], ['1:17:16:15', ':16']], GEO_S, [SEL_SL, [SLIDE, SLIDE]]) },
   { k: 'bishop', c: 'var(--pc-b)', tr: 'Fil', en: 'Bishop', v: '6/e',
     s: GEO.concat(GEO_P, GEO_D, [
         ['x=d%15?d%16?', 'x=d%15?'], ['?d%17?1:17', 'd%17?'],
-        ['?1:17:16:15', ':17'], [':16:15', ':15']], GEO_S, [[SLIDE, SLIDE]]) },
+        ['?1:17:16:15', ':17'], [':16:15', ':15']], GEO_S, [SEL_SL, [SLIDE, SLIDE]]) },
   /* Tehdit ve gecerlilik ayri katlar. Tehdit tahtaya oldugu gibi bakar, ortada hamle
      yok: "bu kare saldiri altinda mi", T() ile "su an sahta mi". Kendi ifadesi T ve G'nin
      yalniz onun icin var olan saldiri kipi m: parametre ve etkiledigi uc yer (piyonun
@@ -20872,7 +20877,10 @@ var ENGC = [
         ['n>149?4:0,D=', ':0']] },
   /* Ozel hamleler: yalniz kurali, legalitesi degil. Rokta sahin sahta olmamasi ve
      gectigi karenin tehdit altinda olmamasi (T()+T(i+s)) legalite; gecerken almada da
-     yakalayan piyonun almayi gercekten yapabilmesi (L(j,e)).
+     yakalayan piyonun almayi gercekten yapabilmesi (L(j,e)). e'yi bu teste gore suzen
+     ifadenin tamami (e=b.some(...)?e:8) tekrar bandinda: hamle uretimi suzgece ihtiyac
+     duymuyor (yapilamayan alma zaten uretilmiyor); suzgec pozisyon anahtari dogru olsun
+     diye var, kilidin e-8 kapisi da ondan yararlaniyor.
      d=P*(i-f)**2 ile Q=i+f>>1 hem rokun hem gecerken almanin: imza (8 ya da 1024) ve
      ortadaki kare (kalenin indigi kare, atlanan kare).
      Kural: tas bantlari geometrilerini kokenine kadar boyar; kural bantlari (rok,
@@ -20896,16 +20904,16 @@ var ENGC = [
         ['Q=i+f>>1', 'Q=i+f>>1'],
         ['e-f|P-1?i:f^16', 'e-f|P-1?i:f^16'],
         ['d-1024?8:Q', 'd-1024?8:Q'],
-        ['e=U(i,x,p)', 'e='],
-        ['e=b.some((p,j)=>p==1+t&&L(j,e))?e:8', 'e=b.some((p,j)=>p==1+t&&L(j,e))?e:8']] },
+        ['e=U(i,x,p)', 'e=']] },
   { k: 'promo', c: 'var(--cc-t)', tr: 'Terfi', en: 'Promotion',
     s: [['U=(i,f,p=3', 'p=3'],
         ['(X=P-1|f%112>7)?b[i]:p|t', '(X=P-1|f%112>7)'],
         ['(X=P-1|f%112>7)?b[i]:p|t', ':p|t'],
         ['(X?[3]:[3,5,6,4])', '(X?[3]:[3,5,6,4])']] },
   /* Kendiliginden bitenler: yalnizca otomatik esikler (R>4, n>149), talepler (D'deki
-     R>2, n>99) degil. Tekrarda gecerken almanin legalite testi de boyali: anahtardaki e
-     ancak alma gercekten yapilabiliyorsa kaliyor, sayim buna dayaniyor.
+     R>2, n>99) degil. Tekrarda gecerken almanin legalite suzgeci de boyali, ifadenin
+     tamami (e=b.some(...)?e:8): anahtardaki e ancak alma gercekten yapilabiliyorsa
+     kaliyor, sayim buna dayaniyor (FIDE 9.2.3).
      Olu pozisyonun iki yolu V'nin iki yarisi; Z'de tek sonuca (6) cikiyorlar, V(0)&V(8)?6
      ikisinde de boyali. Ayni V, I icin sorulunca H'nin kapisi; V(I) de ikisinde boyali.
      H'nin icindeki n>149 6.9 kavramina kaliyor. */
@@ -20913,7 +20921,7 @@ var ENGC = [
     s: [['Z=_=>O(_=>0)?T()?2-!t:3', 'O(_=>0)?T()?2-!t:3']] },
   { k: 'rep5', c: 'var(--cc-r5)', tr: 'Beşli tekrar', en: 'Fivefold repetition',
     s: [['R=G[k=b+e+t+c]=1', 'R=G[k=b+e+t+c]=1'],
-        ['p==1+t&&L(j,e)', 'p==1+t&&L(j,e)'],
+        ['e=b.some((p,j)=>p==1+t&&L(j,e))?e:8', 'e=b.some((p,j)=>p==1+t&&L(j,e))?e:8'],
         ['k=b+e+t+c),V=', 'k=b+e+t+c'],
         ['R=G[M(i,f,p)]=-~G[k]', 'R=G[M(i,f,p)]=-~G[k]'],
         ['R>4?5', 'R>4?5']] },
@@ -20923,7 +20931,8 @@ var ENGC = [
         ['n>149?4', 'n>149?4']] },
   /* Yetersiz materyal V'nin materyal yarisi: sayim ([m,o]'nun varsayilan degeri) ve ilk
      iki terim. Iki terim piyonlarin varligina da bakiyor (!(s?B:W), !(W|B)), o yuzden
-     piyonlarin W ile B'ye yazildigi yer de boyali; bit sayaci j=1n kilitli yarinin. Hem
+     piyonlarin W ile B'ye yazildigi yer ve ikisinin sifirlanmasi (W=B=0n) de boyali; bit
+     sayaci j=1n kilitli yarinin. Hem
      olu pozisyonun (Z) hem 6.9'un (H, F) materyal kolu; eskiden iki ayri fonksiyondu,
      simdi tek.
      Kilitli pozisyon V'nin ikinci yarisi: piyon ve sah bitboard'lari, yardimcilar, alti
@@ -20935,6 +20944,7 @@ var ENGC = [
   { k: 'im', c: 'var(--cc-im)', tr: 'Yetersiz materyal', en: 'Insufficient material',
     s: [['V=(s,j=1n,A=[0,0],[m,o]=(', 'V=(s,'], ['V=(s,j=1n,A=[0,0],[m,o]=(', 'A=[0,0],[m,o]=('],
         ['b.map((p,i)=>(p%8>5?A[p>7^!s]|=i%15%2+1:p%8>2?A[p>7^!s]+=4<<p*8', 'b.map((p,i)=>(p%8>5?A[p>7^!s]|=i%15%2+1:p%8>2?A[p>7^!s]+=4<<p*8'],
+        ['[m,o]=(W=B=0n,', 'W=B=0n'],
         ['p>9?_=j:W|=j', 'W|=j'], [':p?B|=j:0', 'B|=j'],
         [',j+=j)),A)', ')),A)'],
         ['=>!(s?B:W)>m|!(W|B)>(4%m|o&(m>3?15423:63^m))', '!(s?B:W)>m|!(W|B)>(4%m|o&(m>3?15423:63^m))'],
@@ -21001,7 +21011,8 @@ var NUMC = [
     s: [['|!K?(E=', '!K'],
         ['?(E=u[t]>0,$=[I=t],N=2e3,H(9))?14+E:11+2*E-!t', '(E=u[t]>0,$=[I=t],N=2e3,H(9))?14+E:11+2*E-!t']] },
   { k: 'nclaim', c: 'var(--cc-cl)', tr: 'Talep', en: 'Claim',
-    s: [[',g=t,z=', 'g=t'], ['K!=+K?z||=', 'K!=+K?z||='], ['>8?9:R>2?8:n>99?7', 'R>2?8:n>99?7']] },
+    s: [[',g=t,z=', 'g=t'], ['K!=+K?z||=', 'K!=+K?z||='], ['>8?9:R>2?8:n>99?7', 'R>2?8:n>99?7'],
+        ['n>99?7:Z():0', ':Z()']] },
   { k: 'noffer', c: 'var(--cc-ag)', tr: 'Teklif', en: 'Offer',
     s: [[',g=t,z=', 'g=t'], ['K!=+K?z||=', 'K!=+K?z||='],
         ['(o^=g||1)>8?9', '(o^=g||1)>8?9'], ['n>99?7:Z():0', ':Z()'], [',o=0),K!=', 'o=0']] },
@@ -21040,6 +21051,28 @@ function engSpans(src, con) {
   return out.sort(function (p, q) { return p[0] - q[0]; });
 }
 function engEsc(t) { return t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+/* Ortusen araliklari birlestirir: boyama da bayt sayimi da bunu kullaniyor. */
+function engMerged(src, con) {
+  var sp = [];
+  engSpans(src, con).forEach(function (r) {
+    var l = sp[sp.length - 1];
+    if (l && r[0] <= l[1]) l[1] = Math.max(l[1], r[1]); else sp.push([r[0], r[1]]);
+  });
+  return sp;
+}
+
+/* Bayt sayisi yalniz kural bantlarinda: bandin boyadigi bayt, kaynaktan o an sayiliyor
+   (ortusen araliklar bir kez), yani cipe basinca boyanan kadar. Katmanlarda (0x88, tas
+   tanima, pozisyon, oyun durumu, hamle akisi) yok, cunku her yere dagiliyorlar; taslarda
+   da yok, cunku basligi paylasiyorlar (vezirin yalniz kendisinin boyadigi bayt sifir). */
+var ENGB = { threat: 1, legal: 1, castle: 1, ep: 1, promo: 1, mate: 1, rep5: 1, m75: 1,
+             im: 1, lock: 1, claim: 1, agree: 1, time: 1, help: 1,
+             nclock: 1, nresign: 1, nclaim: 1, noffer: 1 };
+function engBytes(con) {
+  var t = engCache[engKey];
+  if (t == null || !ENGB[con.k]) return 0;
+  return engMerged(t, con).reduce(function (n, r) { return n + r[1] - r[0]; }, 0);
+}
 
 /* Kaynagi yazar: kavram secili ve engine.js acikken boyali, yoksa duz metin. */
 function engPaint() {
@@ -21048,12 +21081,8 @@ function engPaint() {
   var set = ENGSETS[engKey];
   var con = set && engC && set.filter(function (x) { return x.k === engC; })[0];
   if (!con) { engSrc.textContent = t; return; }
-  var html = '', at = 0, sp = [];
-  engSpans(t, con).forEach(function (r) {
-    var l = sp[sp.length - 1];
-    if (l && r[0] <= l[1]) l[1] = Math.max(l[1], r[1]); else sp.push([r[0], r[1]]);
-  });
-  sp.forEach(function (r) {
+  var html = '', at = 0;
+  engMerged(t, con).forEach(function (r) {
     html += engEsc(t.slice(at, r[0])) + '<span class="cpt" style="--c:' + con.c + '">' +
             engEsc(t.slice(r[0], r[1])) + '</span>';
     at = r[1];
@@ -21066,9 +21095,11 @@ function engPaint() {
 function engChips() {
   var tr = document.documentElement.getAttribute('data-lang') !== 'en', off = false;
   engFoot.innerHTML = (ENGSETS[engKey] || []).map(function (x) {
+    var n = engBytes(x);
     return '<button type="button" class="cc" data-k="' + x.k + '" style="--c:' + x.c + '"' +
       ' aria-pressed="' + (x.k === engC && !off ? 'true' : 'false') + '"' + (off ? ' disabled' : '') + '>' +
-      (tr ? x.tr : x.en) + (x.v ? ' <span class="cv">(' + x.v + ')</span>' : '') + '</button>';
+      (tr ? x.tr : x.en) + (x.v ? ' <span class="cv">(' + x.v + ')</span>' : '') +
+      (n ? ' <span class="cv">' + fmt(n) + ' B</span>' : '') + '</button>';
   }).join('');
 }
 engFoot.addEventListener('click', function (ev) {
@@ -21100,7 +21131,7 @@ function engShow() {
   var want = engKey;
   load(a.p).then(function (t) {
     engCache[want] = t;
-    if (engKey === want) engPaint();
+    if (engKey === want) { engChips(); engPaint(); }
   }).catch(function () {
     if (engKey === want) engSrc.textContent = unreadable(a.p);
   });
