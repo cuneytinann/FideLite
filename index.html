@@ -221,12 +221,15 @@ if (FLOLD[location.hash.slice(1)]) {
   /* sonuc kodlari ('SM', 'DA', 'WB'[t/8]+g ...) ve harf tahtali motorlarda
      taslar: turkuaz, ureticideki gibi. Acikta 6.8, koyuda 11.7. */
   --hl-end:  light-dark(#04665f,  #48d6c8);
-  /* bot: kehribar. Mavi, mor, pembe ve turkuazin hepsi soguk; bot sicak
-     tarafta tek basina kalir. */
-  --hl-bot:  light-dark(#8c4e0c,  #dfa250);
+  /* bot: turuncu. Mavi, mor, pembe ve turkuazin hepsi soguk; bot sicak
+     tarafta tek basina kalir. Acikta 6.5, koyuda 9.6. */
+  --hl-bot:  light-dark(#994705,  #f39a4f);
   /* kural ile botun ic ice oldugu kod (Toledo): kural mavisiyle bot
-     kehribarinin karisimi, yesil (boyada mavi + sari). Acikta 6.4, koyuda 12.2. */
-  --hl-mix:  light-dark(#3c6a0e,  #acd264);
+     turuncusunun tam ortasi, OKLab'de iki rengin orta noktasi. Mavi ile
+     turuncu cemberde neredeyse karsi karsiya; ortalari, boyada oldugu gibi,
+     notre yakin bir gri: koyuda hafif sicak, acikta hafif morumsu.
+     Acikta 6.5, koyuda 9.8. */
+  --hl-mix:  light-dark(#67596c,  #bfacb1);
 
   --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
@@ -266,7 +269,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --card-w-bg:#fffdf6; --card-w-fg:#0f1626; --card-w-fg2:#2c384c; --card-w-fg3:#465268;
     --card-b-bg:#232a3a; --card-b-fg:#f2e6d8; --card-b-fg2:#c9bdb2; --card-b-fg3:#9a8d82;
     --code-bg:#ffffff; --code-fg:#0d4f26; --code-ink:#16307a; --code-teal:#12595f; --code-tbl:#12595f; --code-glow:transparent;
-    --hl-rule:#1f58ad; --hl-ui:#7535a8; --hl-html:#ab2058; --hl-end:#04665f; --hl-bot:#8c4e0c; --hl-mix:#3c6a0e;
+    --hl-rule:#1f58ad; --hl-ui:#7535a8; --hl-html:#ab2058; --hl-end:#04665f; --hl-bot:#994705; --hl-mix:#67596c;
     --pc-r:#8f1d13; --pc-n:#146a33; --pc-b:#6b3fa0; --pc-q:#7e5a05; --pc-k:#1f5fa8;
     --pc-p:#0f6b70; --cc-n:#a3246b; --cc-o:#b3470b; --cc-e:#5b6e00; --cc-t:#44403c; --cc-r5:#3547b5; --cc-75:#7a5230; --cc-im:#a3123a; --cc-lk:#8a2fb3; --cc-mt:#b3001b; --cc-cl:#7a6400; --cc-ag:#0b6c94; --cc-tm:#3d5a7a; --cc-rs:#77223c; --cc-mm:#a14a1c; --cc-hs:#9d1fa8; --cc-hp:#5b4f73; --cc-th:#4d7a00; --cc-lg:#2f5f5f; --cc-id:#00755f; --cc-fl:#5c4b3c; --cc-ps:#4b38c7; --cc-gs:#3f4a59; --pk:#3a2214; --pk-glow:rgba(204,170,120,.55); --pk-acc:#3a2214;
     --lg-knight:#fffdf6; --lg-rook:#93cfe0;
@@ -286,7 +289,7 @@ if (FLOLD[location.hash.slice(1)]) {
       --dot-ring:rgba(255,255,255,.22); --card-w-bg:#d7ccbd; --card-w-fg:#241c17;
       --card-w-fg2:#4a3f36; --card-w-fg3:#6b5f54; --card-b-bg:#0b0908; --card-b-fg:#ece3d8;
       --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-ink:#fff; --code-teal:#7fc9cf; --code-tbl:#fff; --code-glow:rgba(255,255,255,.42);
-      --hl-rule:#7db4ff; --hl-ui:#cc9af5; --hl-html:#f9a6c4; --hl-end:#48d6c8; --hl-bot:#dfa250; --hl-mix:#acd264;
+      --hl-rule:#7db4ff; --hl-ui:#cc9af5; --hl-html:#f9a6c4; --hl-end:#48d6c8; --hl-bot:#f39a4f; --hl-mix:#bfacb1;
       --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
       --pc-p:#5fc3ca; --cc-n:#f08ccf; --cc-o:#ff9a4a; --cc-e:#cfe35a; --cc-t:#e7e5e4; --cc-r5:#8c9eff; --cc-75:#cfa57c; --cc-im:#ff6b8b; --cc-lk:#d68cff; --cc-mt:#ff4d4d; --cc-cl:#f2d24b; --cc-ag:#5fd4f5; --cc-tm:#9fb3c8; --cc-rs:#dd88a2; --cc-mm:#ffb38a; --cc-hs:#ea7cf5; --cc-hp:#a898c0; --cc-th:#b8f06a; --cc-lg:#8fbcbc; --cc-id:#6ee0c8; --cc-fl:#c9b8a8; --cc-ps:#a99cff; --cc-gs:#d6dde6; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
       --lg-knight:#1c1714; --lg-rook:#7ab6c9;
@@ -307,7 +310,7 @@ if (FLOLD[location.hash.slice(1)]) {
     --dot-ring:rgba(255,255,255,.22); --card-w-bg:#d7ccbd; --card-w-fg:#241c17;
     --card-w-fg2:#4a3f36; --card-w-fg3:#6b5f54; --card-b-bg:#0b0908; --card-b-fg:#ece3d8;
     --card-b-fg2:#b3a698; --card-b-fg3:#857a6f; --code-bg:#000; --code-fg:#58c67e; --code-ink:#fff; --code-teal:#7fc9cf; --code-tbl:#fff; --code-glow:rgba(255,255,255,.42);
-      --hl-rule:#7db4ff; --hl-ui:#cc9af5; --hl-html:#f9a6c4; --hl-end:#48d6c8; --hl-bot:#dfa250; --hl-mix:#acd264;
+      --hl-rule:#7db4ff; --hl-ui:#cc9af5; --hl-html:#f9a6c4; --hl-end:#48d6c8; --hl-bot:#f39a4f; --hl-mix:#bfacb1;
     --pc-r:#ec8a75; --pc-n:#58c67e; --pc-b:#bb9bea; --pc-q:#e8b641; --pc-k:#86b6ef;
     --pc-p:#5fc3ca; --cc-n:#f08ccf; --cc-o:#ff9a4a; --cc-e:#cfe35a; --cc-t:#e7e5e4; --cc-r5:#8c9eff; --cc-75:#cfa57c; --cc-im:#ff6b8b; --cc-lk:#d68cff; --cc-mt:#ff4d4d; --cc-cl:#f2d24b; --cc-ag:#5fd4f5; --cc-tm:#9fb3c8; --cc-rs:#dd88a2; --cc-mm:#ffb38a; --cc-hs:#ea7cf5; --cc-hp:#a898c0; --cc-th:#b8f06a; --cc-lg:#8fbcbc; --cc-id:#6ee0c8; --cc-fl:#c9b8a8; --cc-ps:#a99cff; --cc-gs:#d6dde6; --pk:#2a170c; --pk-glow:#d6b48a; --pk-acc:#a8784f;
     --lg-knight:#1c1714; --lg-rook:#7ab6c9;
@@ -568,7 +571,11 @@ body::before {
 .hero-grid > * { min-width:0 }
 @media (max-width:62rem) {
   .hero-grid { grid-template-columns:minmax(0,1fr); gap:2.5rem }
-  .hero-side { width:min(30rem,100%) }
+  /* Tek sutunda tahta ortada. Ortalanan 8 gercek sutun (cerceve), hayalet sutun
+     degil: tahta genisligin 16/17'si, hayalet sagda kalan 1/17. Ortalamak sagdan
+     tasiracaksa (dar ekran) tasmayacak kadar, telefonda hic kaydirmaz. */
+  .hero-side { width:min(30rem,100%);
+    margin-left:max(0px, min(calc((100% - min(30rem,100%) * 16 / 17) / 2), calc(100% - min(30rem,100%)))) }
 }
 /* Dar ekranda da tahta olugun icinde kalir: eskiden 3rem tasip kenardan kenara
    uzaniyordu, hayalet sutun sag kenarda kesiliyordu. Kare boyu cqw'ye bagli
@@ -714,11 +721,12 @@ a.seal:hover { background:var(--live); color:var(--on-live); transform:translate
 /* Serit yalnizca yatay sinirlarinda sarar: tek satira sigmazsa 4+4, dort yatay da
    sigmazsa 2+2+2+2. Yarilar (.sh) ve ikililer (.sp) satir ici kutu; kutu sigmayinca
    icindekiler alt alta iner, yatay hicbir genislikte ortadan bolunmez. Son yatayin
-   arkasindaki delik gorunmez (.gz): iki yari ayni genislikte kalsin, biri sarip
-   oteki sarmadigi bir ara genislik dogmasin. */
+   arkasindaki delik de yer tutar: iki yari ayni genislikte kalsin, biri sarip
+   oteki sarmadigi bir ara genislik dogmasin. Otekilerden soluk (.gz): dizi h8'de
+   (0x77) bitiyor, 0x78-0x7f hic olusmuyor; yalniz desen tamamlansin diye orada. */
 .strip .sh, .strip .sp { display:inline-block }
 .strip .sp { white-space:nowrap }
-.strip .gz { visibility:hidden }
+.strip .gz { opacity:.25 }
 /* Telefonda serit ikiser yatay satirlara iner; yazi da okunur boya buyur. */
 @media (max-width:34rem) { .strip { font-size:clamp(.75rem,3.6vw,1rem); line-height:1.7 } }
 
@@ -861,7 +869,11 @@ table.fams tbody tr:nth-child(odd):not(.fam) { background:var(--zebra) }
 /* Ekstra: tasa gore hamle isaretleri. Uc kucuk tahta yan yana, dar ekranda alt alta.
    Koyu kareler, koordinatlar ve uc isaret bicimi gizli .mk-defs icinde bir kez
    tanimli; her tahta onlari <use> ile cagiriyor. Renkler Chess.com'un, temadan
-   bagimsiz. */
+   bagimsiz. Filin mizragi siyahin .32'si: ince oldugu icin her karede secilir.
+   Kalenin oku ve atin nal izi kalin; saydam siyah acik karede soluk griye donup
+   kayboluyordu, ok da kare kare alacali gorunuyordu. Ikisi her karede ayni,
+   saydam olmayan renkte: siyahin .32'sinin koyu kareye karismis hali, #4e6538.
+   Koyu karede eskisiyle birebir ayni, acik karede ona esit belirginlikte. */
 .marks { display:flex; flex-wrap:wrap; justify-content:center; gap:1rem 1.25rem; max-width:100% }
 .marks > div { flex:0 1 13rem }
 .marks .mk-defs { position:absolute }
@@ -1360,7 +1372,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
         <li><a class="lk2" href="#dead">Blocked positions 5.2.2</a></li>
       </ul>
 
-      <p class="strip"><span class="sh"><span class="sp"><span class="rk"><span class="pc-r w" title="beyaz kale" data-en-title="white rook">d</span><span class="pc-n w" title="beyaz at" data-en-title="white knight">c</span><span class="pc-b w" title="beyaz fil" data-en-title="white bishop">e</span><span class="pc-q w" title="beyaz vezir" data-en-title="white queen">b</span><span class="pc-k w" title="beyaz şah" data-en-title="white king">a</span><span class="pc-b w" title="beyaz fil" data-en-title="white bishop">e</span><span class="pc-n w" title="beyaz at" data-en-title="white knight">c</span><span class="pc-r w" title="beyaz kale" data-en-title="white rook">d</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-p w" title="beyaz piyon ×8" data-en-title="white pawns ×8">99999999</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span></span><span class="sp"><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span></span></span><span class="sh"><span class="sp"><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span></span><span class="sp"><span class="rk"><span class="pc-p" title="siyah piyon ×8" data-en-title="black pawns ×8">11111111</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-r" title="siyah kale" data-en-title="black rook">5</span><span class="pc-n" title="siyah at" data-en-title="black knight">4</span><span class="pc-b" title="siyah fil" data-en-title="black bishop">6</span><span class="pc-q" title="siyah vezir" data-en-title="black queen">3</span><span class="pc-k" title="siyah şah" data-en-title="black king">2</span><span class="pc-b" title="siyah fil" data-en-title="black bishop">6</span><span class="pc-n" title="siyah at" data-en-title="black knight">4</span><span class="pc-r" title="siyah kale" data-en-title="black rook">5</span></span><span class="gap gz" aria-hidden="true">∅<sub>8</sub></span></span></span></p>
+      <p class="strip"><span class="sh"><span class="sp"><span class="rk"><span class="pc-r w" title="beyaz kale" data-en-title="white rook">d</span><span class="pc-n w" title="beyaz at" data-en-title="white knight">c</span><span class="pc-b w" title="beyaz fil" data-en-title="white bishop">e</span><span class="pc-q w" title="beyaz vezir" data-en-title="white queen">b</span><span class="pc-k w" title="beyaz şah" data-en-title="white king">a</span><span class="pc-b w" title="beyaz fil" data-en-title="white bishop">e</span><span class="pc-n w" title="beyaz at" data-en-title="white knight">c</span><span class="pc-r w" title="beyaz kale" data-en-title="white rook">d</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-p w" title="beyaz piyon ×8" data-en-title="white pawns ×8">99999999</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span></span><span class="sp"><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span></span></span><span class="sh"><span class="sp"><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-0" title="boş kare ×8" data-en-title="empty squares ×8">00000000</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span></span><span class="sp"><span class="rk"><span class="pc-p" title="siyah piyon ×8" data-en-title="black pawns ×8">11111111</span></span><span class="gap" title="8 tahta dışı göz (delik)" data-en-title="8 off-board cells (holes)">∅<sub>8</sub></span><span class="rk"><span class="pc-r" title="siyah kale" data-en-title="black rook">5</span><span class="pc-n" title="siyah at" data-en-title="black knight">4</span><span class="pc-b" title="siyah fil" data-en-title="black bishop">6</span><span class="pc-q" title="siyah vezir" data-en-title="black queen">3</span><span class="pc-k" title="siyah şah" data-en-title="black king">2</span><span class="pc-b" title="siyah fil" data-en-title="black bishop">6</span><span class="pc-n" title="siyah at" data-en-title="black knight">4</span><span class="pc-r" title="siyah kale" data-en-title="black rook">5</span></span><span class="gap gz" title="8 tahta dışı göz; dizinin bittiği yerin ötesinde, motor hiç oluşturmuyor" data-en-title="8 off-board cells past the end of the array; the engine never creates them">∅<sub>8</sub></span></span></span></p>
       <p class="hexcap" lang="tr">Başlangıç pozisyonunun tamamı, motorun dizisinde: 64 onaltılık basamak <span class="gloss">(0–9 ve a–f ile yazılan, 16 tabanlı sayı)</span>, a1'den h8'e sırayla; yatayların arasında 8'er boş göz. Her basamak bir kare; şeritteki her renk bir taş türünü gösteriyor; beyaz taşın kodu siyahınkinin 8 fazlası. Motorun
       <a href="#board">tahta temsili</a> bu.</p>
       <p class="hexcap" lang="en">The entire starting position as the engine's array holds it: 64 hexadecimal digits <span class="gloss">(base 16, written with 0–9 and a–f)</span>, a1 through h8 in order, with an 8-cell gap between ranks. Each digit is one square, and each colour in the strip marks one piece type; a white piece's code is the black one's plus 8. That is the engine's
@@ -1735,7 +1747,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <label class="rd" data-lv="L3" title="UCI, metin alanı, tahta çizilmiyor" data-en-title="UCI, text field, no board"><input type="radio" name="build" value="L3_input_blindfold"> <code>input_blindfold</code></label>
 <label class="rd cli" data-lv="L3" title="Terminal sürümü — node ile çalışır, tarayıcıda oynanmaz; kodunu göster ya da indir" data-en-title="Terminal build — runs with node, not in the browser; show its code or download it"><input type="radio" name="build" value="L3_nonbrowser"> <code>nonbrowser</code></label>
 <label class="rd" data-lv="L3" title="Sayısal arayüz, prompt penceresi" data-en-title="Numeric interface, prompt dialog"><input type="radio" name="build" value="L3_numerical"> <code>numerical</code></label>
-<label class="rd pk" data-lv="L3" title="L3, RegPack ile paketli — tıklanabilir tahta, canlı saat" data-en-title="L3 packed with RegPack — clickable board, live clock"><input type="radio" name="build" value="L3_packed"> <code>L3_packed</code></label>
+<label class="rd pk" data-lv="L3" title="L3, RegPack ile paketli — tıklanabilir tahta, canlı saat" data-en-title="L3 packed with RegPack — clickable board, live clock"><input type="radio" name="build" value="L3_packed"> <code>FideLite.html</code></label>
 <label class="rd" data-lv="special" hidden title="Tam hakem, zengin arayüz — sürükle bırak, sağ tıkla işaretleme; başlarken süre, saat modu, FEN ve Chess960 seçimi" data-en-title="Full arbiter with a rich interface — drag and drop, right-click marking; time control, clock mode, FEN and Chess960 picked at the start"><input type="radio" name="build" value="LUX"> <code class="lux">LUX</code> <small>L3++</small></label>
 <span class="rbr" data-lv="special" hidden></span>
 <label class="rd" data-lv="special" hidden title="Tıklanabilir tahta, kurallar Lichess'in uyguladığı gibi" data-en-title="Clickable board, with the rules as Lichess applies them"><input type="radio" name="build" value="Lichess-equivalent"> <code>Lichess-equivalent</code></label>
@@ -19335,8 +19347,8 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
     </div>
     <figure class="shot marks"><svg class="mk-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs><path id="mk-dk" d="M0 196h28v28h-28zM56 196h28v28h-28zM112 196h28v28h-28zM168 196h28v28h-28zM28 168h28v28h-28zM84 168h28v28h-28zM140 168h28v28h-28zM196 168h28v28h-28zM0 140h28v28h-28zM56 140h28v28h-28zM112 140h28v28h-28zM168 140h28v28h-28zM28 112h28v28h-28zM84 112h28v28h-28zM140 112h28v28h-28zM196 112h28v28h-28zM0 84h28v28h-28zM56 84h28v28h-28zM112 84h28v28h-28zM168 84h28v28h-28zM28 56h28v28h-28zM84 56h28v28h-28zM140 56h28v28h-28zM196 56h28v28h-28zM0 28h28v28h-28zM56 28h28v28h-28zM112 28h28v28h-28zM168 28h28v28h-28zM28 0h28v28h-28zM84 0h28v28h-28zM140 0h28v28h-28zM196 0h28v28h-28z"/><g id="mk-co" font-family="system-ui,sans-serif" font-size="7" font-weight="600"><text x="2" y="205.5" fill="#EBECD0">1</text><text x="2" y="177.5" fill="#739552">2</text><text x="2" y="149.5" fill="#EBECD0">3</text><text x="2" y="121.5" fill="#739552">4</text><text x="2" y="93.5" fill="#EBECD0">5</text><text x="2" y="65.5" fill="#739552">6</text><text x="2" y="37.5" fill="#EBECD0">7</text><text x="2" y="9.5" fill="#739552">8</text><text x="26" y="222" text-anchor="end" fill="#EBECD0">a</text><text x="54" y="222" text-anchor="end" fill="#739552">b</text><text x="82" y="222" text-anchor="end" fill="#EBECD0">c</text><text x="110" y="222" text-anchor="end" fill="#739552">d</text><text x="138" y="222" text-anchor="end" fill="#EBECD0">e</text><text x="166" y="222" text-anchor="end" fill="#739552">f</text><text x="194" y="222" text-anchor="end" fill="#EBECD0">g</text><text x="222" y="222" text-anchor="end" fill="#739552">h</text></g><path id="mk-spear" d="M0 0C-5-1.6-9.5-4-13-4C-15.4-4-17-1.8-17.6 0C-17 1.8-15.4 4-13 4C-9.5 4-5 1.6 0 0ZM-18.4-1.6h-2v3.2h2Z"/><path id="mk-trap" d="M0-3.6V3.6L-9.5 8.6V-8.6Z"/><path id="mk-shoe" fill-rule="evenodd" d="M-7 6.2V0A7 7 0 0 1 7 0V6.2H3.4V0A3.4 3.4 0 0 0 -3.4 0V6.2ZM-6 4.2a.8.8 0 1 0 1.6 0a.8.8 0 1 0-1.6 0M-6 0.6a.8.8 0 1 0 1.6 0a.8.8 0 1 0-1.6 0M-4.7 -3.3a.8.8 0 1 0 1.6 0a.8.8 0 1 0-1.6 0M4.4 4.2a.8.8 0 1 0 1.6 0a.8.8 0 1 0-1.6 0M4.4 0.6a.8.8 0 1 0 1.6 0a.8.8 0 1 0-1.6 0M3.1 -3.3a.8.8 0 1 0 1.6 0a.8.8 0 1 0-1.6 0"/></defs></svg>
     <div><svg viewBox="0 0 224 224" role="img" aria-label="d4'teki fil: çaprazlarında mızrak, f6'daki siyah atı yiyor, b2'deki kendi piyonu yolunu kesiyor" data-en-aria-label="Bishop on d4: spears along the diagonals, capturing the black knight on f6, blocked by its own pawn on b2"><rect width="224" height="224" fill="#EBECD0"/><use href="#mk-dk" fill="#739552"/><use href="#mk-co"/><g opacity="0.32"><path d="M106.32 117.68L132.28 91.72" stroke="#000" stroke-width="2"/><circle cx="126" cy="98" r="2.8"/><use href="#mk-spear" transform="translate(145.01 78.99) rotate(-45)"/><circle cx="154" cy="70" r="10.92" fill="none" stroke="#000" stroke-width="2.38"/><path d="M106.32 134.32L175.21 203.21" stroke="#000" stroke-width="2"/><circle cx="126" cy="154" r="2.8"/><circle cx="154" cy="182" r="2.8"/><use href="#mk-spear" transform="translate(187.94 215.94) rotate(45)"/><path d="M89.68 134.32L76.79 147.21" stroke="#000" stroke-width="2"/><use href="#mk-spear" transform="translate(64.06 159.94) rotate(135)"/><path d="M89.68 117.68L20.79 48.79" stroke="#000" stroke-width="2"/><circle cx="70" cy="98" r="2.8"/><circle cx="42" cy="70" r="2.8"/><use href="#mk-spear" transform="translate(8.06 36.06) rotate(-135)"/></g><text x="98" y="127" class="mk-p mk-w">♝&#xFE0E;</text><text x="154" y="71" class="mk-p mk-b">♞&#xFE0E;</text><text x="42" y="183" class="mk-p mk-w">♟&#xFE0E;</text></svg><p><span lang="tr">Fil — mızrak</span><span lang="en">Bishop — spear</span></p></div>
-    <div><svg viewBox="0 0 224 224" role="img" aria-label="d4'teki kale: düz yönlerde yamuk uçlu kalın ok, d7'deki siyah fili yiyor, f4'teki kendi atı yolunu kesiyor" data-en-aria-label="Rook on d4: thick trapezoid-tipped arrows along the lines, capturing the black bishop on d7, blocked by its own knight on f4"><rect width="224" height="224" fill="#EBECD0"/><use href="#mk-dk" fill="#739552"/><use href="#mk-co"/><g opacity="0.32"><path d="M109.76 126L125.9 126" stroke="#000" stroke-width="5"/><use href="#mk-trap" transform="translate(134.4 126) rotate(0)"/><path d="M86.24 126L14.1 126" stroke="#000" stroke-width="5"/><circle cx="70" cy="126" r="4.2"/><circle cx="42" cy="126" r="4.2"/><use href="#mk-trap" transform="translate(5.6 126) rotate(180)"/><path d="M98 114.24L98 63.21" stroke="#000" stroke-width="5"/><circle cx="98" cy="98" r="4.2"/><circle cx="98" cy="70" r="4.2"/><use href="#mk-trap" transform="translate(98 54.71) rotate(-90)"/><circle cx="98" cy="42" r="10.92" fill="none" stroke="#000" stroke-width="2.38"/><path d="M98 137.76L98 209.9" stroke="#000" stroke-width="5"/><circle cx="98" cy="154" r="4.2"/><circle cx="98" cy="182" r="4.2"/><use href="#mk-trap" transform="translate(98 218.4) rotate(90)"/></g><text x="98" y="127" class="mk-p mk-w">♜&#xFE0E;</text><text x="98" y="43" class="mk-p mk-b">♝&#xFE0E;</text><text x="154" y="127" class="mk-p mk-w">♞&#xFE0E;</text></svg><p><span lang="tr">Kale — yamuk uçlu ok</span><span lang="en">Rook — trapezoid-tipped arrow</span></p></div>
-    <div><svg viewBox="0 0 224 224" role="img" aria-label="d4'teki at: sıçrayabildiği karelerde nal izi, e6'daki siyah piyonu yiyor, b3'teki kendi filinin karesine gidemiyor" data-en-aria-label="Knight on d4: a hoof print on each square it can jump to, capturing the black pawn on e6; its own bishop holds b3"><rect width="224" height="224" fill="#EBECD0"/><use href="#mk-dk" fill="#739552"/><use href="#mk-co"/><g opacity="0.48"><circle cx="126" cy="70" r="10.92" fill="none" stroke="#000" stroke-width="2.38"/><use href="#mk-shoe" transform="translate(154 98) rotate(63.43) scale(.9)"/><use href="#mk-shoe" transform="translate(154 154) rotate(116.57) scale(.9)"/><use href="#mk-shoe" transform="translate(126 182) rotate(153.43) scale(.9)"/><use href="#mk-shoe" transform="translate(70 182) rotate(-153.43) scale(.9)"/><use href="#mk-shoe" transform="translate(42 98) rotate(-63.43) scale(.9)"/><use href="#mk-shoe" transform="translate(70 70) rotate(-26.57) scale(.9)"/></g><text x="98" y="127" class="mk-p mk-w">♞&#xFE0E;</text><text x="126" y="71" class="mk-p mk-b">♟&#xFE0E;</text><text x="42" y="155" class="mk-p mk-w">♝&#xFE0E;</text></svg><p><span lang="tr">At — toynak izi</span><span lang="en">Knight — hoof print</span></p></div>
+    <div><svg viewBox="0 0 224 224" role="img" aria-label="d4'teki kale: düz yönlerde yamuk uçlu kalın ok, d7'deki siyah fili yiyor, f4'teki kendi atı yolunu kesiyor" data-en-aria-label="Rook on d4: thick trapezoid-tipped arrows along the lines, capturing the black bishop on d7, blocked by its own knight on f4"><rect width="224" height="224" fill="#EBECD0"/><use href="#mk-dk" fill="#739552"/><use href="#mk-co"/><g fill="#4e6538"><path d="M109.76 126L125.9 126" stroke="#4e6538" stroke-width="5"/><use href="#mk-trap" transform="translate(134.4 126) rotate(0)"/><path d="M86.24 126L14.1 126" stroke="#4e6538" stroke-width="5"/><circle cx="70" cy="126" r="4.2"/><circle cx="42" cy="126" r="4.2"/><use href="#mk-trap" transform="translate(5.6 126) rotate(180)"/><path d="M98 114.24L98 63.21" stroke="#4e6538" stroke-width="5"/><circle cx="98" cy="98" r="4.2"/><circle cx="98" cy="70" r="4.2"/><use href="#mk-trap" transform="translate(98 54.71) rotate(-90)"/><circle cx="98" cy="42" r="10.92" fill="none" stroke="#4e6538" stroke-width="2.38"/><path d="M98 137.76L98 209.9" stroke="#4e6538" stroke-width="5"/><circle cx="98" cy="154" r="4.2"/><circle cx="98" cy="182" r="4.2"/><use href="#mk-trap" transform="translate(98 218.4) rotate(90)"/></g><text x="98" y="127" class="mk-p mk-w">♜&#xFE0E;</text><text x="98" y="43" class="mk-p mk-b">♝&#xFE0E;</text><text x="154" y="127" class="mk-p mk-w">♞&#xFE0E;</text></svg><p><span lang="tr">Kale — yamuk uçlu ok</span><span lang="en">Rook — trapezoid-tipped arrow</span></p></div>
+    <div><svg viewBox="0 0 224 224" role="img" aria-label="d4'teki at: sıçrayabildiği karelerde nal izi, e6'daki siyah piyonu yiyor, b3'teki kendi filinin karesine gidemiyor" data-en-aria-label="Knight on d4: a hoof print on each square it can jump to, capturing the black pawn on e6; its own bishop holds b3"><rect width="224" height="224" fill="#EBECD0"/><use href="#mk-dk" fill="#739552"/><use href="#mk-co"/><g fill="#4e6538"><circle cx="126" cy="70" r="10.92" fill="none" stroke="#4e6538" stroke-width="2.38"/><use href="#mk-shoe" transform="translate(154 98) rotate(63.43) scale(.9)"/><use href="#mk-shoe" transform="translate(154 154) rotate(116.57) scale(.9)"/><use href="#mk-shoe" transform="translate(126 182) rotate(153.43) scale(.9)"/><use href="#mk-shoe" transform="translate(70 182) rotate(-153.43) scale(.9)"/><use href="#mk-shoe" transform="translate(42 98) rotate(-63.43) scale(.9)"/><use href="#mk-shoe" transform="translate(70 70) rotate(-26.57) scale(.9)"/></g><text x="98" y="127" class="mk-p mk-w">♞&#xFE0E;</text><text x="126" y="71" class="mk-p mk-b">♟&#xFE0E;</text><text x="42" y="155" class="mk-p mk-w">♝&#xFE0E;</text></svg><p><span lang="tr">At — toynak izi</span><span lang="en">Knight — hoof print</span></p></div>
     </figure>
 
     <h3 id="skins" lang="tr">Kullanıcıya özel tema</h3>
@@ -19714,8 +19726,12 @@ function current() {
   var r = document.querySelector('input[name=build]:checked');
   return r ? r.value : 'L3';
 }
+/* Oynaticida gorunen ad. Anahtar (radyo degeri, ART, PAINT, CARVE) ayni kalir;
+   L3_packed kullaniciya dosyasinin adiyla, FideLite.html olarak gorunur. */
+var SHOWN = { L3_packed: 'FideLite.html' };
+function shown(key) { return SHOWN[key] || key; }
 function live(key, name, bytes, note) {
-  statusEl.innerHTML = '<span class="live"><span class="dot"></span>' + key +
+  statusEl.innerHTML = '<span class="live"><span class="dot"></span>' + shown(key) +
     ' \u00b7 ' + name + ' \u00b7 ' + fmt(bytes) + FL('bytes') + (note || '') + '</span>';
 }
 
@@ -19734,8 +19750,8 @@ function paint() {
   document.getElementById('copysrc').disabled = mode !== 'src';
   if (mode === 'idle') {
     idle.innerHTML = isCli(current())
-      ? FL('idleCli').replace('%s', current()).replace('%f', ART[current()].p.split('/').pop())
-      : FL('idle').replace('%s', current()) + (NEWTAB[current()] ? FL(NEWTAB[current()] > 1 ? 'tabNoteEndless' : 'tabNote') : '');
+      ? FL('idleCli').replace('%s', shown(current())).replace('%f', ART[current()].p.split('/').pop())
+      : FL('idle').replace('%s', shown(current())) + (NEWTAB[current()] ? FL(NEWTAB[current()] > 1 ? 'tabNoteEndless' : 'tabNote') : '');
   }
 }
 
@@ -19816,11 +19832,14 @@ var EQUIV = function () { return wide() ? '' : EQUIV_TALL; };
    cerceve uzar, 5.8vh buyur, tahta buyur, cerceve yine uzar. Sergide boylar
    sabit; kucultmeyi zaten olcekleme yapiyor. 12 inclik kirilim da cerceve
    genisligine gore bir sekilden otekine atliyordu; yerlesim bir kez, sahnenin
-   genisligine gore secilir. */
-var LUX_SIZE = '*{font-size:22px}#T,td{font-size:44px}button,label{font-size:29px}';
-var LUX_WIDE = '[hidden]{display:block;visibility:hidden}#T{grid-row:3/7}#h{grid-area:3/2}' +
+   genisligine gore secilir. Iki kural LUX'un kendi 12 inclik blogunun aynisi:
+   yer tutan gizli oge yalniz terfi seridi (#p). Genel [hidden] olsaydi ayar
+   penceresinde terazi isaretliyken gizlenen siyahin suresi (Db) gorunmez bir
+   blok olur, "min +" alt satira inerdi. Tahtanin kimligi #Tb. */
+var LUX_SIZE = '*{font-size:22px}#Tb,td{font-size:44px}button,label{font-size:29px}';
+var LUX_WIDE = '#p[hidden]{display:block;visibility:hidden}#Tb{grid-row:3/7}#h{grid-area:3/2}' +
                '#q{grid-area:4/2}#v{grid-area:5/2}#g{grid-area:6/2;align-self:end}';
-var LUX_TALL = '[hidden]{display:none}#T{grid-row:auto}#h,#q,#v,#g{grid-area:auto;align-self:auto}';
+var LUX_TALL = '#p[hidden]{display:none}#Tb{grid-row:auto}#h,#q,#v,#g{grid-area:auto;align-self:auto}';
 var SHOW = {
   L1_input: CENTER, L2_input: CENTER, L3_input: CENTER, L3_input_blindfold: CENTER,
   L1_input_blindfold: CENTER, L2_input_blindfold: CENTER,
@@ -19922,7 +19941,7 @@ function openTab(key, a) {
   link.href = url(a.p); link.target = '_blank'; link.rel = 'noopener';
   document.body.appendChild(link); link.click(); link.remove();
   /* Engellenirse diye ayni adres durum satirinda tiklanabilir kalir. */
-  statusEl.innerHTML = FL('newTab').replace('%s', key) + '<a href="' + url(a.p) +
+  statusEl.innerHTML = FL('newTab').replace('%s', shown(key)) + '<a href="' + url(a.p) +
     '" target="_blank" rel="noopener">' + a.p.split('/').pop() + '</a>';
 }
 function start() {
@@ -19938,7 +19957,7 @@ function start() {
   fitBox = document.createElement('div');
   fitBox.className = 'fit';
   frame = document.createElement('iframe');
-  frame.title = FL('frame').replace('%s', key);
+  frame.title = FL('frame').replace('%s', shown(key));
   frame.setAttribute('allow', 'clipboard-write');
   /* Kaydirma cubugu hic dogmasin: olcum gelmeden once de kapali. */
   frame.setAttribute('scrolling', 'no');
@@ -20071,11 +20090,31 @@ function start() {
    kural; aralarindaki secim, isaret ve kutu sifirlamalari arayuz.
    LUX'un hamle isleyicisinde hamle M(i,to,u) kural; ardindan gelen saat hesabi
    (Fischer / Bronstein / gecikme) arayuzde kalir. Saat hesabindan sonra gelen
-   tekrar sayaci (R=r[k]=-~r[k]) da kural; son kesim orada baslar, teklif ve talep
-   govdesiyle birlikte Z(o=0)'a kadar surer. Bt'deki terk ve talep hukmu
-   (u?F(t,1):D(2-t/8)) ile j'deki sure bitimi hukmu (F(t,0)) da kural.
+   tekrar sayaci (R=r[k]=-~r[k]) ile teklif ve talep govdesi
+   (x.checked?(...):Z(o=0)) da kural.
+   Rs, motorun sayi kodunu iki harfli koda ceviren arayuz tanimi (LUX'un arayuz
+   satiri onunla baslar). Sardigi her yerde Rs( ve kapanis parantezi arayuz, ici
+   kural: z=Rs(Z()) icinde yalniz Z(), A'da yalniz x.checked?...:Z(o=0). Eskiden
+   iki yerde Rs( kesimin icindeydi, birinde kapanisi disinda kaliyordu.
+   j'deki sure bitimi (F(t,0)) ile Bt'deki terk ve talep (u?F(t,1):D(2-t/8))
+   motor fonksiyonlarina yapilan cagrilar, arayuz: L3'un j'sindeki s('T') ve
+   E'sindeki s('R') gibi. Hukmun govdesi F'de ve D'de, kural bolgesinde.
    Ciftin sonundan hemen sonra gelen virgul ya da noktali virgul de ayni
    katmana gecer: bitis virgulu ifadenindir.
+   Sinir kurallari, butun surumlerde ayni (sinamasi: her eslesen parantez
+   ciftinin iki ucu ayni katmanda):
+   1. Parantez acanindir. Arayuzun actigi grup kural tasiyorsa ((u[t]+=5, ...),
+      F( cizim cagrisi, &&( ile acilan hamle grubu) parantezler arayuz, ici kural;
+      kuralin actigi grup arayuz tasiyorsa (Lowest'in b[ ... ]'i, Z(y=K, ...)) tersi.
+   2. Sonucun tutucusu arayuz: z=, z||= ve z||( kesimin kenarinda da ortasinda
+      da arayuz, atanan hukum kural.
+   3. Saat arayuz: u[t]+=5, G[I]+=5 kesimin ortasinda da.
+   4. Hamle ya da kurulum govdesinin icindeki motor cagrilari (M, Z, D, J) ve
+      argumanlari (girdiden okunan terfi tasi dahil: {r:5,b:6,n:4}[K[4]],
+      '654'[K[4]], k&3) kural. Isleyicinin dallanmasi (P+1?, /=$/.test(K)?,
+      K!=+K?) ve tek basina yaptigi cagrilar (s('T'), s('R'), F(t,0)) arayuz.
+   Kesimin icine arayuz deligi 'u' katmanli bir kesimle acilir; kesimler sirayla
+   uygulandigi icin delik kesimden sonra yazilir.
    RegPack'li surumlerde (PACKED) script tek bir sikistirilmis dizge; kural,
    arayuz ve etiket parcalari icinde ic ice, ayristirmanin anlami yok. Aralik
    secilir: <script> etiketleri ve disi HTML, ici tek renk paketli script. Bu
@@ -20119,44 +20158,52 @@ function packedOnly(key) { return !!PAINT && PAINT[key] === PACKED; }
 var APPLY = [['c&=~C(i)', ":'SM'"]],
     C1 = [['G[i]=G[Y]=1', ":'SM':0"]], C2 = [['n=!b[Y]', "'75':0"]];
 var CARVE = {
-  L1: [['u[i]=u[Y]=1', ":'SM':0"]], L1_light: [['t^=8', 't^=8'], ['G(i,D)', 'e=E']],
+  L1: [['u[i]=u[Y]=1', ":'SM':0"]],
+  L1_light: [['t^=8', 't^=8'], ['G(i,D)', 'e=E))'], ['F(u[i]', 'F(', 'u'], [')):i=D', ')', 'u']],
   L1_input: C1, L1_input_blindfold: C1, L1_numerical: [['G[i]=G[Y]=1', '3:0']],
-  L1_nonbrowser: C1, L1_prompt_string: [['G[i]=G[Y]=1', ":'SM'"]],
+  L1_nonbrowser: C1, L1_prompt_string: [['G[i]=G[Y]=1', ":'SM'"], ['z=b.some', 'z=', 'u']],
   L2: C2, L2_light: [['t^=8', ':!(4%o)))'], ['n=!b[u]', 'e=U(i,u)']],
   L2_input: C2, L2_input_blindfold: C2, L2_numerical: [['n=!b[Y]', 'n>149?4:0']],
-  L2_nonbrowser: C2, L2_prompt_string: [['c&=~C(i)', ":'SM'"]],
-  L3: [['R=u[M(i,Y)]', 'o&&J()'], ['o^=t||1', "'DA':J()"]],
-  L3_light: [['$=[I=t]', 'H(9)'], ['R=u[M(i,Y)]', 'm|o>8)']],
-  L3_input: [['R=u[M(', "'50':0:0"]],
-  L3_input_blindfold: [['R=u[M(', "'75':0"], ['o=0),P?', 'o=0'], ["(o^=g||1)>8?'DA'", "'50':0:0"]],
-  L3_numerical: [['(E=u[t]>0', '-!t'], ['R=G[M(', 'Z():0']],
-  L3_nonbrowser: [['R=G[M(', "'50':0:0"]],
-  L3_prompt_string: [['($=[],N=2e3', "'WB'[I]+F"], ['M(i,Y,', "'50':z):0"]],
+  L2_nonbrowser: C2, L2_prompt_string: [['c&=~C(i)', ":'SM'"], ['z=b.some', 'z=', 'u']],
+  L3: [['R=u[M(i,Y)]', 'o&&J()'], ['(o^=t||1', "'DA':J()"], [')||o&&J()', ')', 'u']],
+  L3_light: [['$=[I=t]', 'H(9)'], ['R=u[M(i,Y)]', 'm|o>8))'], ['):P+1)', '):P+1)', 'u']],
+  L3_input: [['R=u[M(', "'50':0:0"], ['z=O(', 'z=', 'u'], ['),/=$/', 'z||=', 'u'], [':0,F()', ':0,', 'u']],
+  L3_input_blindfold: [['R=u[M(', "'75':0"], ['o=0),P?', 'o=0'], ["(o^=g||1)>8?'DA'", "'50':0:0"],
+    ['z=O(', 'z=', 'u'], [':0,F()', ':0,', 'u']],
+  L3_numerical: [['(E=u[t]>0', '-!t'], ['Z(y=K', 'Z('], ['R=G[M(', 'Z():0'], ['K!=+K', 'z||=', 'u'],
+    [':0;alert', ':0;', 'u']],
+  L3_nonbrowser: [['R=G[M(', "'50':0:0"], ['z=O(', 'z=', 'u'], ['),/=$/', 'z||=', 'u'], [':0)', ':0', 'u']],
+  L3_prompt_string: [['($=[],N=2e3', "'WB'[I]+F"], ['M(i,Y,', "'50':z):0"], ['G[I]+=5', 'z=', 'u'],
+    ['),/=$/', 'z||(', 'u'], ['z=o>2', 'z=', 'u'], ['):0;alert', '):0;', 'u']],
   L2_aybars_2500: APPLY.concat([['A1=0', 'A1=0', 'm'], ['PT[++Y3]', '=H2', 'b'],
     ['S1=(', 'b[q>>4]=q&15}', 'm']]),
   L1_1250elo: [['G[i]=G[Y]=1', ":'SM'"], ['g().some', 'g()', 'm'], ['z||t||', 'setTimeout(o,9)', 'b']],
   'Chesscom-equivalent': [['V(t^8)<2', "'WB'[t/8]+'T'"], ['R=u[M(i,Y,P)]', "'50':0"],
     ["'WB'[t/8]+'R'", "&&'DA'"]],
-  'Lichess-equivalent': [['R=u[M(i,Y,P)]', 'o&&J()'], ['o^=t||1', 'J()']],
+  'Lichess-equivalent': [['R=u[M(i,Y,P)]', 'o&&J()'], ['o^=t||1', 'J()'], [')||o&&J()', ')', 'u']],
   L2_base: [['R=G[M(', ":'SM'"]], L2_string_base: APPLY,
   LUX: [['[2,10].some', 'n=s[4]|0,w)'], ['o=0', 'o=0'], ['r={[k=b+e+t+c]:R=1}', 'R=1}'],
-    ['z=Rs(Z())', 'Z())'], ['M(i,to,u)', 'M(i,to,u)'], ['R=r[k]=-~r[k]', 'Z(o=0)'],
-    ['u?F(t,1):D(2-t/8)', 'D(2-t/8)'], ['F(t,0)', 'F(t,0)']],
+    ['Z())', 'Z()'], ['M(i,to,u)', 'M(i,to,u)'], ['R=r[k]=-~r[k]', 'R=r[k]=-~r[k]'],
+    ['x.checked?(', 'Z(o=0)']],
   'Toledos-ES6-optimized': [['F=0', 'F=0'], ['5,3,4,6,2', '10,12,11,13'], ['0,99,0,306', '1,0,-1', 'b'],
     ['L=r&&', '-h-q', 'b'], ['if(s)L+=', '!(E^y^9)', 'b'], ['if(!(h|s-1', 'u=J'], ['W(),G--', 'W()', 'u'],
     ['if(L>N||', 'N=L}', 'b'], ['N+M*M&&', 'd?N:0', 'b'], ['while(B++<G)', ':7'],
     ['y&&setTimeout', ',250)', 'b']],
   ToledosOpponentbyMe: [['n<100', 'n<100'], ['G[i]=G[Y]=1', 't^=8'], ['t&&setTimeout', 'setTimeout(o,9)', 'b']],
-  Lowest: [[']&8^t||b[', ']&8^t||b['], [']+~t>>3&&G(i,Y)&&(q=[...b],D=U(i,Y,', 'D=U(i,Y,'],
-    ['T()?b=q:(G[i]=G[Y]=e=D', 'G[i]=G[Y]=e=D'], ['t^=8', 't^=8']]
+  Lowest: [['b[i=a', 'b['], [']&8^t||b[', ']&8^t||b['], [']+~t>>3&&G(i,Y)', 'G[i]=G[Y]=e=D'],
+    ['t^=8', 't^=8))']]
 };
 /* Imza ('s'): bas dizisindeki c=un=... zinciri, saf kirmizi. Bes bicimi var:
    c=un=15,e=y=t=8,   c=un=15,e=y=t   c=un=e=-1,y=t=8,   c=un=e=y=t=8,   c=un=e=y=t
    =8 ile bitende 8 ve ardindaki virgul de imzaya dahil (L1 numerical'da ardindan
    virgul degil ']' geliyor, o zaman 8'de biter); otekiler t'de biter. Harf tahtali
-   ve paketli surumlerde yok; ozel surumlerde yalniz LUX ile Chess.com ve Lichess
-   esdegerlerinde var. Yalniz ilk eslesme ve yalniz kural bolgesindeyse boyanir. */
-var SIG = /c=un=(?:15,)?e=(?:-1,)?y=t(?:=8,?)?/;
+   surumlerde yok. Paketli surumlerden yalniz FideLite.html'de bozulmadan duruyor:
+   RegPack zinciri hic bolmemis, paketli dizgenin icinde aynen geciyor; oradan da
+   boyanir. Toledo'nun kendi programinin imzasi baska: X'in parametrelerinde
+   t,o,L,E,d,O (toLEdO); o surum icin SIGS'te. Yalniz ilk eslesme ve yalniz kural,
+   kural + bot ya da paketli bolgedeyse boyanir. Lejantta yok (asagida). */
+var SIG = /c=un=(?:15,)?e=(?:-1,)?y=t(?:=8,?)?/,
+    SIGS = { 'Toledos-ES6-optimized': /t,o,L,E,d,O/ };
 /* Gercek bir etiket acilisi: <x, </x, <!. Kiyaslamadaki '<' degil. */
 var MARK = /<[a-zA-Z!\/]/;
 /* Bu parcadan sonra etiket hala acik mi? Kapanmamis bir '<', etiketin bir
@@ -20298,7 +20345,7 @@ function srcLayers(text, key) {
     if (inner[end] == ',' || inner[end] == ';') end++;
     for (j = at; j < end; j++) lay[j] = cut[i][2] || 'r';
   }
-  if (spec != PACKED && (sig = SIG.exec(inner)) && lay[sig.index] == 'r')
+  if ((sig = (SIGS[key] || SIG).exec(inner)) && 'rmp'.indexOf(lay[sig.index]) > -1)
     for (j = sig.index; j < sig.index + sig[0].length; j++) lay[j] = 's';
   out.push(['h', text.slice(0, a + 8)]);
   for (i = 0; i < inner.length; i = j) {
