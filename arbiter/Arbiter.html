@@ -1,218 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
 <meta charset="utf-8">
-<title>referee — FIDE 6.9 coverage</title>
+<title>Arbiter — FIDE 6.9 coverage</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
-:root{--bg:#ccc;--dark:#854;--light:#cb8;--hit:#c91;--ink:#221a12;--dim:#574838;--del:#e59a86;--ins:#a4cd6c;
-      --bad:#8a1010;--good:#4f7a2a;--paper:#d8d3c8;--focus:#1d4ed8}
+/* FideLite.Art'in kimligi: kagit, murekkep, altin vurgu, tahta renkleri. Basliklar tek aralikli,
+   govde sistem yazisi. Anlamli renkler: kanitlanmis beraberlik yesil, mat tahtanin koyu karesi,
+   kanitsiz kalan tarali altin, yanlis TM kirmizi. Acik ve koyu tema isletim sisteminden. */
+:root{
+  color-scheme:light dark;
+  --paper:#faf4e4; --panel:#f2ead6; --well:#fffdf6; --ink:#0f1626; --dim:#465268;
+  --rule:rgba(41,58,95,.24); --rule2:rgba(41,58,95,.12);
+  --lt:#ccbb88; --dk:#885544; --on-dk:#f6ede2; --on-lt:#2a1d12;
+  --acc:#c99111; --acc-tx:#7e5a05; --acc-wash:rgba(201,145,17,.15);
+  --good:#146a33; --good-fill:#3f8f57; --good-wash:rgba(20,106,51,.13);
+  --bad:#b3261e; --bad-wash:rgba(179,38,30,.11); --gray:#9b958a;
+  --del:rgba(179,38,30,.17); --ins:rgba(20,106,51,.17);
+  --focus:#1a4a8a; --btn:#0f1626; --on-btn:#faf4e4;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --pieces:"Segoe UI Symbol","Apple Symbols","DejaVu Sans",serif;
+}
+@media (prefers-color-scheme:dark){:root{
+  --paper:#14100e; --panel:#1c1714; --well:#0c0907; --ink:#ece3d8; --dim:#b3a698;
+  --rule:rgba(214,178,140,.22); --rule2:rgba(214,178,140,.11);
+  --lt:#a8916b; --dk:#6b4433; --on-dk:#f6ede2; --on-lt:#221a12;
+  --acc:#e3ad35; --acc-tx:#e8b641; --acc-wash:rgba(227,173,53,.13);
+  --good:#58c67e; --good-fill:#3f9a5e; --good-wash:rgba(88,198,126,.13);
+  --bad:#f28a80; --bad-wash:rgba(242,138,128,.13); --gray:#6f675e;
+  --del:rgba(242,138,128,.22); --ins:rgba(88,198,126,.2);
+  --focus:#7fa9e6; --btn:#ece3d8; --on-btn:#14100e;
+}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Georgia,"Times New Roman",serif;padding:30px 18px 80px}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 15.5px/1.6 var(--sans);font-variant-numeric:tabular-nums;padding:28px 18px 80px}
 .wrap{max-width:1080px;margin:0 auto}
-h1{font-size:29px;font-weight:normal;margin:0 0 4px}
-h2{font-size:20px;font-weight:normal;margin:40px 0 12px;border-bottom:2px solid var(--dark);padding-bottom:5px}
-h3{font-size:16px;font-weight:normal;margin:0 0 8px}
-h4{font-size:15px;font-weight:600;margin:20px 0 6px}
-.sub{color:var(--dim);margin:0;font-size:15px;max-width:62ch}
-code,.mono,td,th,input,select,button,textarea,.fenbox,.stag{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
-code{font-size:.92em}
-:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+h1,h2,h3,h4{font-family:var(--mono);font-weight:500;letter-spacing:-.01em}
+h1{font-size:clamp(30px,5vw,44px);line-height:1.05;margin:0 0 10px;font-weight:600}
+h2{font-size:19px;margin:46px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--rule)}
+h3{font-size:15px;margin:0 0 8px}
+h4{font-size:14px;margin:22px 0 8px;color:var(--dim)}
+.sub{color:var(--dim);margin:0;font-size:15.5px;max-width:58ch}
+code,.mono,td,th,input,select,button,textarea,.fenbox,.stag{font-family:var(--mono)}
+code{font-size:.9em}
+a{color:inherit;text-decoration-color:var(--acc);text-underline-offset:3px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 .hide{display:none!important}
 .db{color:var(--dim);font-size:12.5px}
-.legend{font-size:13.5px;color:var(--dim);margin:4px 0 10px;max-width:80ch}
+.legend{font-size:13.5px;color:var(--dim);margin:4px 0 12px;max-width:80ch}
 .scroll{overflow-x:auto}
 
 /* header */
-.top{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:flex-end;justify-content:space-between;margin-bottom:22px}
-.ctl{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;font-size:14px}
-.ctl label{display:flex;gap:8px;align-items:center}
-select{padding:5px 8px;border:1px solid var(--dark);background:#fff;font-size:13px;color:var(--ink)}
+.top{display:flex;flex-wrap:wrap;gap:18px 32px;align-items:flex-end;justify-content:space-between;margin-bottom:26px}
+.home{display:inline-block;font:500 13px var(--mono);color:var(--acc-tx);text-decoration:none;margin-bottom:14px}
+.home:hover{text-decoration:underline}
+.ctl{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;font-size:13.5px}
+.ctl label{display:flex;gap:8px;align-items:center;color:var(--dim)}
+select{padding:6px 9px;border:1px solid var(--rule);border-radius:6px;background:var(--well);font-size:13px;color:var(--ink)}
 select[disabled],input[disabled],textarea[disabled]{opacity:.55}
 
 /* input */
-.input{background:var(--light);padding:18px 18px 14px}
-.two{display:grid;grid-template-columns:1.15fr 1fr;gap:22px;align-items:start}
+.input{background:var(--panel);border:1px solid var(--rule2);border-radius:10px;padding:20px 20px 18px}
+.two{display:grid;grid-template-columns:1.15fr 1fr;gap:24px;align-items:start}
 @media(max-width:760px){.two{grid-template-columns:1fr}}
-.col>.h3{display:block;font-size:16px;margin:0 0 8px}
-textarea{width:100%;min-height:118px;padding:9px 10px;border:1px solid var(--dark);background:#fff;font-size:13px;line-height:1.6;resize:vertical;color:var(--ink)}
-.hint{font-size:13px;color:var(--dim);margin:6px 0 0}
-.drop{border:2px dashed var(--dark);background:var(--paper);padding:20px 16px;text-align:center;cursor:pointer;transition:background .15s}
-.drop:hover,.drop.over{background:#e8d9a8}
+.col>.h3{display:block;font:500 15px var(--mono);margin:0 0 8px}
+textarea{width:100%;min-height:122px;padding:10px 12px;border:1px solid var(--rule);border-radius:8px;background:var(--well);font-size:13px;line-height:1.65;resize:vertical;color:var(--ink)}
+.hint{font-size:13px;color:var(--dim);margin:8px 0 0}
+.hint a{color:var(--ink)}
+.drop{border:1.5px dashed var(--lt);border-radius:8px;background:var(--well);padding:20px 16px;text-align:center;cursor:pointer;transition:background .15s,border-color .15s}
+.drop:hover,.drop.over{background:var(--acc-wash);border-color:var(--acc)}
 .drop.off{opacity:.55;cursor:default}
-.drop strong{display:block;font-size:16px;font-weight:normal;margin-bottom:6px}
+.drop strong{display:block;font:500 15px var(--mono);margin-bottom:6px}
 .drop small{font-size:12.5px;color:var(--dim);display:block}
-.flist{list-style:none;margin:8px 0 0;padding:0;font-size:13px}
-.flist li{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;padding:6px 0;border-bottom:1px solid #b9a77a}
-.flist .fname{font-family:ui-monospace,Menlo,monospace;font-weight:600;word-break:break-all}
+.flist{list-style:none;margin:10px 0 0;padding:0;font-size:13px}
+.flist li{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;padding:7px 0;border-bottom:1px solid var(--rule2)}
+.flist .fname{font-family:var(--mono);font-weight:600;word-break:break-all}
 .flist .fmeta{color:var(--dim)}
 .flist .fref{margin-left:auto;color:var(--dim)}
 .flist .clr{border:0;justify-content:flex-end}
 .flist .x{border:0;background:transparent;color:var(--ink);font-size:18px;line-height:1;padding:2px 6px;cursor:pointer}
-.flist .x:hover{color:var(--bad)}
-button.link{border:0;background:none;color:var(--ink);text-decoration:underline;cursor:pointer;font-size:12.5px;padding:0}
-.assume{margin:16px 0 10px;padding:10px 14px;background:#f1ead4;border-left:5px solid var(--hit);font-size:14px}
-.assume b{font-weight:600}
-.assume p{margin:3px 0 0;max-width:86ch}
-.opts{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin:10px 0 0;font-size:14px}
+.flist .x:hover{color:var(--bad);background:transparent}
+button.link{border:0;background:none;color:var(--ink);text-decoration:underline;text-decoration-color:var(--acc);text-underline-offset:3px;cursor:pointer;font:inherit;font-size:12.5px;padding:0}
+button.link:hover{background:none}
+.assume{margin:18px 0 12px;padding:11px 15px;background:var(--well);border:1px solid var(--rule2);border-left:4px solid var(--acc);border-radius:0 8px 8px 0;font-size:14px}
+.assume b{font:500 14px var(--mono)}
+.assume p{margin:4px 0 0;max-width:86ch}
+.opts{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin:12px 0 0;font-size:13.5px}
 .opts label,.opts .rng{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
-input[type=number]{width:84px;padding:4px 6px;border:1px solid var(--dark);background:#fff;color:var(--ink)}
-input[type=checkbox]{width:16px;height:16px;accent-color:var(--dark)}
-button{padding:8px 18px;border:1px solid var(--ink);background:var(--dark);color:#fff;cursor:pointer;font-size:14px}
-button:hover{background:#6c3f33} button[disabled]{opacity:.45;cursor:default}
-button.ghost,a.btn{background:transparent;color:var(--ink);border:1px solid var(--ink);padding:6px 12px;font-size:13px;text-decoration:none;display:inline-block;font-family:ui-monospace,Menlo,monospace}
-button.ghost:hover,a.btn:hover{background:var(--hit)}
-.gorow{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-top:16px}
-button.primary{font-size:16px;padding:11px 26px;font-family:Georgia,"Times New Roman",serif;letter-spacing:.01em}
-button.primary.stop{background:var(--bad)}
+input[type=number]{width:88px;padding:5px 7px;border:1px solid var(--rule);border-radius:6px;background:var(--well);color:var(--ink)}
+input[type=checkbox]{width:16px;height:16px;accent-color:var(--acc)}
+button{padding:8px 16px;border:1px solid var(--btn);border-radius:6px;background:var(--btn);color:var(--on-btn);cursor:pointer;font-size:13.5px}
+button:hover{background:var(--dk);border-color:var(--dk);color:var(--on-dk)} button[disabled]{opacity:.45;cursor:default}
+button[disabled]:hover{background:var(--btn);border-color:var(--btn);color:var(--on-btn)}
+button.ghost,a.btn{background:transparent;color:var(--ink);border:1px solid var(--rule);border-radius:6px;padding:6px 12px;font:13px var(--mono);text-decoration:none;display:inline-block}
+button.ghost:hover,a.btn:hover{background:var(--acc-wash);border-color:var(--acc);color:var(--ink)}
+.gorow{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-top:18px}
+button.primary{font:600 15px var(--mono);padding:11px 24px;border-radius:8px}
+button.primary.stop{background:var(--bad);border-color:var(--bad);color:#fff}
 .stat{font-size:14px;color:var(--ink);max-width:70ch}
-.bar{height:6px;background:var(--paper);margin:12px 0 0;display:none}
-.bar i{display:block;height:100%;width:0;background:var(--hit);transition:width .2s}
+.bar{height:4px;border-radius:2px;background:var(--rule2);margin:14px 0 0;display:none;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--acc);transition:width .2s}
 
-/* outcome summary */
-.obar{display:flex;height:22px;margin:6px 0 14px;background:var(--paper)}
+/* outcome summary: the bar is the page's one bold element */
+.obar{display:flex;height:26px;margin:8px 0 16px;background:var(--rule2);border-radius:6px;overflow:hidden}
 .seg{display:block;min-width:3px}
-.o-draw{background:var(--ins)} .o-mate{background:var(--dark)} .o-bad{background:#8d8d8d}
-.o-open{background:repeating-linear-gradient(135deg,var(--light) 0 6px,#b9a77a 6px 8px)}
-.okey{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.o-draw{background:var(--good-fill)} .o-mate{background:var(--dk)} .o-bad{background:var(--gray)}
+.o-open{background:repeating-linear-gradient(135deg,var(--acc) 0 5px,var(--acc-wash) 5px 9px)}
+.okey{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 @media(max-width:760px){.okey{grid-template-columns:1fr}}
-.ok1{display:flex;gap:10px;align-items:flex-start}
-.ok1 .sw{flex:0 0 16px;height:16px;margin-top:9px;border:1px solid rgba(0,0,0,.25)}
-.ok1 .big{font-size:26px;font-weight:normal;font-family:Georgia,serif}
-.ok1 .olab{font-size:15px}
-.ok1 p{margin:2px 0 0;font-size:13px;color:var(--dim)}
-#certbox h3{margin:22px 0 4px}
+.ok1{display:flex;gap:11px;align-items:flex-start}
+.ok1 .sw{flex:0 0 14px;height:14px;margin-top:10px;border-radius:3px}
+.ok1 .big{font:600 28px/1.15 var(--mono)}
+.ok1 .olab{font-size:14.5px}
+.ok1 p{margin:3px 0 0;font-size:13px;color:var(--dim)}
+#certbox h3{margin:26px 0 6px}
 
 /* tables */
 table{border-collapse:collapse;width:100%;font-size:13px;margin-top:6px}
-th,td{text-align:right;padding:6px 10px;border-bottom:1px solid var(--light)}
-th{color:var(--dim);font-weight:normal;border-bottom:2px solid var(--dark)}
+th,td{text-align:right;padding:7px 10px;border-bottom:1px solid var(--rule2)}
+th{color:var(--dim);font-weight:500;border-bottom:1px solid var(--rule)}
 th:first-child,td:first-child,.lf{text-align:left}
-td.lf{font-family:Georgia,serif;font-size:14px}
-tr.tot td{border-top:2px solid var(--dark);font-weight:bold}
-tr.act td{background:var(--light)}
+td.lf{font-family:var(--sans);font-size:14px}
+tr.tot td{border-top:1px solid var(--rule);font-weight:600}
+tr.tot td:first-child{white-space:nowrap}
+tr.act td{background:var(--acc-wash)}
 td .db{font-size:11.5px}
-.badn{color:var(--bad);font-weight:bold}
+#cert td:not(:first-child),#cert th:not(:first-child){width:1%;white-space:nowrap}
+.badn{color:var(--bad);font-weight:600}
 
 /* reference matrix */
-.mx{table-layout:fixed;min-width:560px}
-.mx th small{display:block;font-size:11.5px;color:var(--dim)}
-.mx th small{font-family:Georgia,serif}
-.mx th{vertical-align:bottom;text-align:center}
-.mx th.lf{text-align:left;vertical-align:middle;font-family:Georgia,serif;font-size:14px;color:var(--ink)}
-.mx td{text-align:center;padding:14px 8px;border:2px solid var(--bg)}
-.mx td b{display:block;font-size:24px;font-weight:normal;font-family:Georgia,serif}
-.mx td span{font-size:12px}
-.c-ok{background:var(--ins)} .c-okd{background:#cfe0b4} .c-miss{background:var(--hit)}
-.c-false{background:var(--bad);color:#fff} .c-contra{background:var(--del)}
-.mx td.zero{background:transparent;color:var(--dim);outline:1px dashed #a99}
-.note{border-left:4px solid var(--dark);padding:6px 0 6px 14px;margin:12px 0;font-size:14px;max-width:86ch}
-.note.good{border-color:var(--good)} .note.bad{border-color:var(--bad)} .note.warn{border-color:var(--hit)}
+.mx{table-layout:fixed;min-width:560px;border-collapse:separate;border-spacing:4px}
+.mx th small{display:block;font:12px var(--sans);color:var(--dim)}
+.mx th{vertical-align:bottom;text-align:center;border:0}
+.mx th.lf{text-align:left;vertical-align:middle;font:14px var(--sans);color:var(--ink)}
+.mx td{text-align:center;padding:14px 8px;border:0;border-radius:8px}
+.mx td b{display:block;font:600 24px var(--mono)}
+.mx td span{font:12px var(--sans)}
+.c-ok{background:var(--good-wash);color:var(--good)} .c-okd{background:var(--good-wash)} .c-miss{background:var(--acc-wash);color:var(--acc-tx)}
+.c-false{background:var(--bad);color:#fff} .c-contra{background:var(--bad-wash);color:var(--bad)}
+.mx td.zero{background:transparent;color:var(--dim);outline:1px dashed var(--rule);outline-offset:-1px}
+.note{border-left:3px solid var(--dk);padding:6px 0 6px 14px;margin:14px 0;font-size:14px;max-width:86ch}
+.note.good{border-color:var(--good)} .note.bad{border-color:var(--bad)} .note.warn{border-color:var(--acc)}
 
 /* browse */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:12px}
-.card{background:var(--light);color:var(--ink);display:block;padding:8px;border:0;border-top:5px solid var(--light);text-align:left;cursor:zoom-in;font:inherit}
-.card:hover{background:#d8c08e}
-.card.o-draw{border-top-color:var(--good)} .card.o-mate{border-top-color:var(--dark)} .card.o-open{border-top-color:var(--hit)} .card.o-bad{border-top-color:#8d8d8d}
-.card.r-false{outline:3px solid var(--bad)} .card.r-contra{outline:3px solid var(--del)}
-.meta{display:block;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;line-height:1.5;margin-top:6px;word-break:break-all}
-.meta .code{font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:14px}
+.card{background:var(--well);color:var(--ink);display:block;padding:8px;border:1px solid var(--rule2);border-top:4px solid var(--rule);border-radius:8px;text-align:left;cursor:zoom-in;font:inherit}
+.card:hover{background:var(--acc-wash);border-color:var(--acc);color:var(--ink)}
+.card.o-draw{border-top-color:var(--good-fill)} .card.o-mate{border-top-color:var(--dk)} .card.o-open{border-top-color:var(--acc)} .card.o-bad{border-top-color:var(--gray)}
+.card.r-false{outline:2px solid var(--bad);outline-offset:1px} .card.r-contra{outline:2px dashed var(--bad);outline-offset:1px}
+.meta{display:block;font-family:var(--mono);font-size:10.5px;line-height:1.5;margin-top:7px;word-break:break-all;color:var(--dim)}
+.meta .code{font-size:13px;color:var(--ink);font-weight:600}
 .meta .rc{color:var(--bad)}
-.pg{display:flex;gap:10px;justify-content:center;align-items:center;margin-top:18px;font-size:13px;flex-wrap:wrap}
+.pg{display:flex;gap:10px;justify-content:center;align-items:center;margin-top:20px;font-size:13px;flex-wrap:wrap}
 
-/* boards */
-.bd{display:grid;grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(8,1fr);width:100%;aspect-ratio:1}
-.bd i{position:relative;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:15px;line-height:1;font-family:"Segoe UI Symbol","Apple Symbols","DejaVu Sans",serif}
-.bd i.d{background:var(--dark)} .bd i.l{background:var(--light)} .bd i.w{color:#fff;text-shadow:0 0 1px #000,0 0 1px #000,0 0 1px #000}
-.bd i.fk{box-shadow:inset 0 0 0 3px var(--hit)}
+/* boards: the site's own square colours */
+.bd{display:grid;grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(8,1fr);width:100%;aspect-ratio:1;border-radius:3px;overflow:hidden}
+.bd i{position:relative;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:15px;line-height:1;font-family:var(--pieces);color:#171310}
+.bd i.d{background:var(--dk)} .bd i.l{background:var(--lt)} .bd i.w{color:#fff;text-shadow:0 0 1px #000,0 0 1px #000,0 0 1px #000}
+.bd i.fk{box-shadow:inset 0 0 0 3px var(--acc)}
 .bd.big i{font-size:32px}
-.bd.big i.fk{box-shadow:inset 0 0 0 4px var(--hit)}
-.bd s{position:absolute;text-decoration:none;font:10px/1 ui-monospace,Menlo,monospace;color:var(--ink);opacity:.75;text-shadow:none}
-.bd i.d s{color:#f3e7cf}
+.bd.big i.fk{box-shadow:inset 0 0 0 4px var(--acc)}
+.bd s{position:absolute;text-decoration:none;font:10px/1 var(--mono);color:var(--on-lt);opacity:.75;text-shadow:none}
+.bd i.d s{color:var(--on-dk)}
 .bd s.rk{top:2px;left:3px} .bd s.fl{bottom:2px;right:3px}
 
-/* detail */
-#solo{margin-top:26px}
-.detail{display:grid;grid-template-columns:320px 1fr;gap:26px;align-items:start}
+/* detail: the verdict code is the stamp */
+#solo{margin-top:28px}
+.detail{display:grid;grid-template-columns:320px 1fr;gap:28px;align-items:start}
 @media(max-width:820px){.detail{grid-template-columns:1fr}.dboard{max-width:360px}}
-.dboard .cap{font-size:13px;color:var(--dim);margin:6px 0 0}
+.dboard .cap{font-size:13px;color:var(--dim);margin:8px 0 0}
 .vhead{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.verdict{font-size:38px;font-family:ui-monospace,Menlo,monospace;letter-spacing:-.02em;line-height:1;margin-right:6px}
-.tag{display:inline-block;padding:3px 10px;font-size:12.5px;font-family:ui-monospace,Menlo,monospace}
-.tag.o-mate{color:#fff}
-.tag.r-ok,.tag.r-okd{background:var(--ins)} .tag.r-miss{background:var(--hit)} .tag.r-false{background:var(--bad);color:#fff} .tag.r-contra{background:var(--del)}
-.vtext{font-size:16px;margin:10px 0 0;max-width:62ch}
+.verdict{font:700 44px/1 var(--mono);letter-spacing:-.02em;margin-right:8px;padding:4px 0 4px 14px;border-left:6px solid var(--rule)}
+.vhead:has(.o-draw) .verdict{border-left-color:var(--good-fill)}
+.vhead:has(.o-mate) .verdict{border-left-color:var(--dk)}
+.vhead:has(.o-open) .verdict{border-left-color:var(--acc)}
+.tag{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12.5px;font-family:var(--mono)}
+.tag.o-draw,.tag.o-mate{color:#fff} .tag.o-open{background:var(--acc);color:var(--on-lt)}
+.tag.r-ok,.tag.r-okd{background:var(--good-wash);color:var(--good)} .tag.r-miss{background:var(--acc-wash);color:var(--acc-tx)} .tag.r-false{background:var(--bad);color:#fff} .tag.r-contra{background:var(--bad-wash);color:var(--bad)}
+.vtext{font-size:16px;margin:12px 0 0;max-width:62ch}
 .steps{list-style:none;counter-reset:st;padding:0;margin:8px 0 0}
-.steps li{counter-increment:st;position:relative;padding:6px 10px 6px 40px;border-left:4px solid #b3a99a;margin:0 0 6px;background:rgba(255,255,255,.18)}
-.steps li::before{content:counter(st);position:absolute;left:10px;top:7px;font:13px/1 ui-monospace,Menlo,monospace;color:var(--dim)}
+.steps li{counter-increment:st;position:relative;padding:8px 12px 8px 42px;border-left:3px solid var(--rule);border-radius:0 8px 8px 0;margin:0 0 6px;background:var(--well)}
+.steps li::before{content:counter(st);position:absolute;left:14px;top:9px;font:600 13px/1 var(--mono);color:var(--dim)}
 .steps .sh{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
 .steps .sh b{font-weight:600}
-.steps p{margin:2px 0 0;font-size:14px}
-.stag{font-size:11.5px;padding:1px 7px;background:var(--paper);margin-left:auto}
-.st-dec{border-left-color:var(--good)!important;background:rgba(164,205,108,.35)!important}
-.st-dec .stag{background:var(--ins)}
-.st-open{border-left-color:var(--hit)!important;background:rgba(204,153,17,.18)!important}
-.st-open .stag{background:var(--hit)}
-.st-skip,.st-na,.st-also{opacity:.72}
-dl.kv{display:grid;grid-template-columns:minmax(150px,max-content) 1fr;gap:3px 16px;margin:0;font-size:14px}
+.steps p{margin:3px 0 0;font-size:14px}
+.stag{font-size:11.5px;padding:1px 8px;border-radius:999px;background:var(--rule2);margin-left:auto}
+.st-dec{border-left-color:var(--good-fill)!important;background:var(--good-wash)!important}
+.st-dec .stag{background:var(--good-fill);color:#fff}
+.st-open{border-left-color:var(--acc)!important;background:var(--acc-wash)!important}
+.st-open .stag{background:var(--acc);color:var(--on-lt)}
+.st-skip,.st-na,.st-also{opacity:.7}
+dl.kv{display:grid;grid-template-columns:minmax(150px,max-content) 1fr;gap:4px 16px;margin:0;font-size:14px}
 dl.kv dt{color:var(--dim)}
 dl.kv dd{margin:0}
 dd.r-false{color:var(--bad);font-weight:600}
-.fenbox{font-size:12.5px;background:var(--light);padding:8px 10px;word-break:break-all;margin:10px 0}
+.fenbox{font-size:12.5px;background:var(--well);border:1px solid var(--rule2);border-radius:6px;padding:9px 11px;word-break:break-all;margin:12px 0}
 .acts{display:flex;flex-wrap:wrap;gap:8px}
 
 /* dialog */
-.lb{position:fixed;inset:0;background:rgba(20,18,14,.72);z-index:60;display:flex;align-items:flex-start;justify-content:center;padding:3vh 14px;overflow-y:auto}
-.lbin{background:var(--bg);border:1px solid var(--dark);padding:0 20px 22px;max-width:1040px;width:100%}
-.lbbar{display:flex;gap:10px;align-items:center;position:sticky;top:0;background:var(--bg);padding:12px 0;border-bottom:1px solid var(--dark);margin-bottom:16px;z-index:1}
-.lbbar #lbpos{font-size:13px;color:var(--dim)}
+.lb{position:fixed;inset:0;background:rgba(15,12,9,.72);z-index:60;display:flex;align-items:flex-start;justify-content:center;padding:3vh 14px;overflow-y:auto}
+.lbin{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:0 22px 24px;max-width:1040px;width:100%}
+.lbbar{display:flex;gap:10px;align-items:center;position:sticky;top:0;background:var(--paper);padding:14px 0;border-bottom:1px solid var(--rule);margin-bottom:18px;z-index:1}
+.lbbar #lbpos{font:13px var(--mono);color:var(--dim)}
 .lbbar #lbx{margin-left:auto}
 
 /* codes, diff */
-details.fold{margin:30px 0 0}
-details.fold>summary{list-style:none;cursor:pointer;display:flex;align-items:baseline;gap:9px}
+details.fold{margin:34px 0 0}
+details.fold>summary{list-style:none;cursor:pointer;display:flex;align-items:baseline;gap:10px}
 details.fold>summary::-webkit-details-marker{display:none}
 details.fold>summary>h2{margin:0;flex:1}
-details.fold>summary::before{content:"\25B8";color:var(--dim);font-size:13px}
+details.fold>summary::before{content:"\25B8";color:var(--acc-tx);font-size:13px}
 details.fold[open]>summary::before{content:"\25BE"}
-details.fold .foldbody{margin-top:10px}
-.codes td{text-align:left;vertical-align:top;font-family:Georgia,serif;font-size:13.5px;width:33%;border:2px solid var(--bg);background:var(--paper)}
-.codes td.here,.sw2.here{background:var(--light);outline:2px solid var(--dark);outline-offset:-2px}
-.sw2{display:inline-block;width:14px;height:14px;vertical-align:-2px}
-.fn{margin:20px 0 0}
+details.fold .foldbody{margin-top:12px}
+.codes{border-collapse:separate;border-spacing:4px}
+.codes th{text-align:left;padding-left:10px}
+.codes td{text-align:left;vertical-align:top;font:13.5px var(--sans);width:33%;border:0;border-radius:6px;background:var(--panel)}
+.codes td.here,.sw2.here{background:var(--acc-wash);outline:1.5px solid var(--acc);outline-offset:-1.5px}
+.sw2{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px}
+.fn{margin:22px 0 0}
 .fn h3{font-size:15px}
-.fnote{font-size:13px;color:var(--dim);margin:0 0 5px}
-.dif{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;line-height:1.75;background:var(--light);padding:10px 12px;white-space:pre-wrap;word-break:break-all;margin:0}
+.fnote{font-size:13.5px;color:var(--dim);margin:0 0 6px;max-width:90ch}
+.dif{font-family:var(--mono);font-size:11.5px;line-height:1.75;background:var(--well);border:1px solid var(--rule2);border-radius:6px;padding:10px 12px;white-space:pre-wrap;word-break:break-all;margin:0}
 .dif del{background:var(--del);text-decoration:none;padding:1px 0}
 .dif ins{background:var(--ins);text-decoration:none;padding:1px 0}
-.key{font-size:12.5px;color:var(--dim);margin:2px 0 14px}
+.key{font-size:12.5px;color:var(--dim);margin:4px 0 14px}
 .key del{background:var(--del);text-decoration:none;padding:1px 3px}
 .key ins{background:var(--ins);text-decoration:none;padding:1px 3px}
-.src{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;line-height:1.7;background:var(--light);padding:10px 12px;white-space:pre-wrap;word-break:break-all;margin:8px 0 0}
-footer{margin-top:50px;font-size:12.5px;color:var(--dim);border-top:1px solid var(--dark);padding-top:12px;max-width:100ch}
+.src{font-family:var(--mono);font-size:11px;line-height:1.7;background:var(--well);border:1px solid var(--rule2);border-radius:6px;padding:10px 12px;white-space:pre-wrap;word-break:break-all;margin:8px 0 0}
+footer{margin-top:54px;font-size:13px;color:var(--dim);border-top:1px solid var(--rule);padding-top:14px;max-width:100ch}
 .pdet{display:flex;flex-wrap:wrap;gap:16px 26px;align-items:flex-start}
 .pdet>.bd{flex:0 0 auto;width:min(360px,100%)}
 .pdet>div:last-child{flex:1 1 320px;min-width:0}
 #pgntab td{white-space:nowrap}
 #pgntab td:nth-child(2),#pgntab td:nth-child(3),#pgntab td:last-child,#pgntab th:nth-child(2),#pgntab th:nth-child(3),#pgntab th:last-child{text-align:left}
-#pgntab td:last-child{white-space:normal;font-family:Georgia,serif;font-size:13.5px}
-.mvs{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:13px;line-height:2;max-width:100ch}
+#pgntab td:last-child{white-space:normal;font:13.5px var(--sans)}
+.mvs{font-family:var(--mono);font-size:13px;line-height:2;max-width:100ch}
 .mvs .n{color:var(--dim);margin-right:2px}
-.mvs .e{background:var(--hit);padding:1px 4px}
+.mvs .e{background:var(--acc-wash);outline:1px solid var(--acc);border-radius:3px;padding:1px 4px}
 .mvs .a{color:var(--dim);text-decoration:line-through}
-.mvs .x{color:var(--bad);font-weight:bold;text-decoration:underline}
-#pgnsec{margin-top:44px}
+.mvs .x{color:var(--bad);font-weight:700;text-decoration:underline}
+#pgnsec{margin-top:48px}
+#pgnsec>h2{margin-top:0}
 #pgntab tr[data-pk]{cursor:pointer}
-#pgntab tr.act td{background:var(--light)}
-#pgntab tr.pc-lateDP td:last-child,#pgntab tr.pc-lateRule td:last-child,#pgntab tr.pc-wrongtm td:last-child,#pgntab tr.pc-wrongres td:last-child{color:var(--bad);font-weight:bold}
+#pgntab tr.act td{background:var(--acc-wash)}
+#pgntab tr.pc-lateDP td:last-child,#pgntab tr.pc-lateRule td:last-child,#pgntab tr.pc-wrongtm td:last-child,#pgntab tr.pc-wrongres td:last-child{color:var(--bad);font-weight:600}
 #pgntab tr.pc-ok td:last-child{color:var(--good)}
 #pgntab tr.pc-illegal td:last-child,#pgntab tr.pc-unread td:last-child{color:var(--dim)}
 #pgnsum table{width:auto;margin:6px 0 4px}
+@media (max-width:520px){.mx{min-width:0;border-spacing:3px}.mx td{padding:10px 3px}.mx td b{font-size:19px}.mx td span{font-size:11px}.mx th.lf{font-size:13px}.mx th.lf small{font-size:11px}}
+@media (max-width:430px){body{padding:20px 14px 64px}.input{padding:16px 14px}h2{margin-top:38px}.verdict{font-size:36px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 <div class="wrap">
 <header class="top">
   <div>
-    <h1 data-i="h1">referee — FIDE 6.9 coverage</h1>
+    <a class="home" href="https://fidelite.art/">fidelite.art</a>
+    <h1 data-i="h1">Arbiter</h1>
     <p class="sub" data-i="sub"></p>
   </div>
   <div class="ctl">
@@ -245,6 +289,7 @@ footer{margin-top:50px;font-size:12.5px;color:var(--dim);border-top:1px solid va
         <strong data-i="dropBig"></strong>
         <small data-ihtml data-i="dropSmall"></small>
       </div>
+      <p class="hint" data-ihtml data-i="dataHint"></p>
       <input type="file" id="file" accept=".csv,.txt,text/csv,text/plain" multiple class="hide">
       <ul class="flist" id="flist"></ul>
     </div>
@@ -562,11 +607,13 @@ function attackers(sq,to,byWhite){
   return out }
 return fenProblem })();
 /* The verdict on the real F path: TM, or WT/BT when the search cannot prove that mate is impossible.
-   src names what produced it, in the order H itself tests a node: H if the search spent a node;
-   otherwise H returned at its root, through Im (material), then l (DP: dead for both sides), then the
-   one-sided gate l(2-g) of LUX's H (lH), and, when none of these holds, because the root itself ends
-   every line: no legal move, or a halfmove clock past the 75-move rule (Z). The one-sided gate is
-   evaluated only in that last case, so the extra call costs nothing on every other position. */
+   src names what produced it, in the order the tests are shown: H if the search spent a node;
+   otherwise nothing past the root was needed, and the certificate is the first of
+     Vm  V with the lock switched off: its material half (the other side has no mating material),
+     Vd  V for both colours, as the game's Z asks it: the lock holds for both sides (DP),
+     Vl  V for the flagged side, as H asks it at its root: the lock holds against the other side only,
+     H0  H returned at its root: no legal move, or a halfmove clock past the 75-move rule.
+   Every build on this page answers through V and an H that takes no side (judge88, judgeS). */
 function judge(fen,ply,bud,forced){
   /* an invalid line gets no verdict; BAD_WHY says which condition it breaks */
   window.BAD_WHY=fenProblem(fen);
@@ -574,21 +621,7 @@ function judge(fen,ply,bud,forced){
   if(!setFen(fen)){ window.BAD_WHY={k:'castle'}; return null }
   if(window.X88)return judge88(fen,ply,bud,forced);
   if(window.STR)return judgeS(fen,ply,bud,forced);
-  var side=(forced===0||forced===1)?forced:t, nn=n, given=window.FEN_N_GIVEN, ep=e, mv=0, i;
-  for(i=0;i<64;i++) if(b[i]&&(b[i]&1)==t) mv+=L(i).length;
-  setFen(fen); var hOnly=!!Im(side);
-  /* static lock detector; l() judges this FEN as it stands — only a live ep blocks */
-  setFen(fen); var dp=!!l();
-  setFen(fen); Hn=bud; Ht={};
-  var t0=performance.now(), ok=!!H(side,ply), used=bud-Hn, ms=performance.now()-t0;
-  var src=used>0?'H':hOnly?'Im':dp?'l':(window.L_ONE&&(setFen(fen),l(2-side)))?'lH':'Z';
-  var code=(ok||dp)?(src=='l'?'DP':'TM'):'WB'[side]+'T', why='', mate=0;
-  if(!ok){ setFen(fen); Hn=bud; Hs={}; HM=0; Hd(side,ply); mate=HM;
-           why=mate?'mate':(Hn<0?'budget':'horizon') }
-  if(dp) why='static';
-  return{side:side,n:nn,nGiven:given,ep:ep,moves:mv,hOnly:hOnly,ok:ok,dp:dp,src:src,code:code,used:used,ms:ms,why:why,mate:mate,
-         drop:window.CASTLE_DROP,castle:c?'KQkq'.replace(/./g,function(L,i){return c>>i&1?L:''})+(String(C).indexOf('X[')>=0?' · '+X:''):'-'}
-}
+  throw Error('judge: this build speaks neither the 0x88 nor the letter-board interface') }
 /* The same verdict for the 0x88 L3 builds. Their H takes no side: the flagged side is the global I and the
    budget N (F sets both). Both L3 builds take a ply ceiling, H(d): the ply field reaches it
    (F itself uses H(9) with N=2e3; LUX H(300) with N=4e5). Material and the lock share V; they are told
@@ -601,11 +634,11 @@ function judge88(fen,ply,bud,forced){
   O(function(){return ++mv});
   b.forEach(function(p){ if(p%8==1){ if(p&8)wp=1; else bp=1 } else if(p%8>2&&!window.BOX)kp=false });
   var e0=e; e=99; var hOnly=!!V(g); e=e0;
-  var dp=kp&&!!V(0)&&!!V(8);
+  var dp=kp&&!!V(0)&&!!V(8), lone=!!V(g);
   setFen(fen); $=[I=g]; N=bud;
   var t0=performance.now(), ok=!!(V(g)||(window.X88D?H(ply):H())), used=bud-N, ms=performance.now()-t0;
-  var src=used>0?'H':hOnly?'Im':dp?'l':'Z';
-  var code=(ok||dp)?(src=='l'?'DP':'TM'):'WB'[side]+'T', why='', mate=0;
+  var src=used>0?'H':hOnly?'Vm':dp?'Vd':lone?'Vl':'H0';
+  var code=(ok||dp)?(src=='Vd'?'DP':'TM'):'WB'[side]+'T', why='', mate=0;
   if(!ok){ setFen(fen); I=g; Hs=[g]; N=bud; HM=0; if(window.X88D)Hd(ply); else Hd(); mate=HM; why=mate?'mate':(N<0?'budget':'horizon') }
   if(dp) why='static';
   return{side:side,n:nn,nGiven:given,ep:ep,moves:mv,hOnly:hOnly,ok:ok,dp:dp,src:src,code:code,used:used,ms:ms,why:why,mate:mate,
@@ -622,23 +655,23 @@ function judgeS(fen,ply,bud,forced){
   O(function(){return ++mv});
   b.forEach(function(p){ if(/[nrqb]/i.test(p))kp=false });
   var e0=e; e=99; var hOnly=!!V(side); e=e0;
-  var dp=kp&&!!V(0)&&!!V(1);
+  var dp=kp&&!!V(0)&&!!V(1), lone=!!V(side);
   setFen(fen); $=[I=side]; N=bud;
   var t0=performance.now(), ok=!!H(ply), used=bud-N, ms=performance.now()-t0;
-  var src=used>0?'H':hOnly?'Im':dp?'l':'Z';
-  var code=(ok||dp)?(src=='l'?'DP':'TM'):'WB'[side]+'T', why='', mate=0;
+  var src=used>0?'H':hOnly?'Vm':dp?'Vd':lone?'Vl':'H0';
+  var code=(ok||dp)?(src=='Vd'?'DP':'TM'):'WB'[side]+'T', why='', mate=0;
   if(!ok){ setFen(fen); I=side; Hs=[side]; N=bud; HM=0; Hd(ply); mate=HM; why=mate?'mate':(N<0?'budget':'horizon') }
   if(dp) why='static';
   return{side:side,n:nn,nGiven:given,ep:ep,moves:mv,hOnly:hOnly,ok:ok,dp:dp,src:src,code:code,used:used,ms:ms,why:why,mate:mate,
          drop:window.CASTLE_DROP,castle:'KQkq'.replace(/./g,function(x,i){return c>>[2,3,0,1][i]&1?x:''})||'-'}
 }
 /* For the detail view only, never for the verdict: the game's own status test Z (is the game already
-   over before any flag?) and, in LUX, the one-sided lock l(2-g) that H consults at its root. */
+   over before any flag?) and the one-sided lock: V of the flagged side, as H asks it at its root
+   ('m' when V's material half already answers). */
 function inspect(fen,side){
   if(!setFen(fen))return null;
   var status=Z(), lone=null;
   if(window.X88||window.STR){ var g=window.X88?8*side:side; setFen(fen); var e0=e; e=99; var mo=!!V(g); e=e0; lone=mo?'m':!!V(g) }
-  else if(window.L_ONE){ setFen(fen); lone=!!l(2-side) }
   setFen(fen);
   return{status:status,lone:lone}
 }
@@ -659,8 +692,8 @@ function cnum(v){ return typeof v=='string'?CODES.indexOf(v)+1:v|0 }
 /* ================= i18n ================= */
 var DICT={
 en:{
- title:"referee — FIDE 6.9 coverage",
- h1:"referee — FIDE 6.9 coverage",
+ title:"Arbiter — FIDE 6.9 coverage",
+ h1:"Arbiter",
  lblEngine:"build",
  lblLang:"language",
  optX4:"fast — engine_4x.js",
@@ -685,16 +718,13 @@ en:{
  totalRow:"whole file",
  same:"{0} of {1} definitions are byte-identical in both builds.",
  diffKey:"<del>red</del> — only in <code>engine.js</code> (compact) &nbsp;·&nbsp; <ins>green</ins> — only in <code>engine_4x.js</code> (speed). Everything unmarked is shared.",
- wJ:"The lock detector, called from <code>Z</code> for FIDE 5.2.2 (beside the material test <code>I</code>) and from <code>H</code> for 6.9. It grows the pawn cones <code>C</code>/<code>Z</code>, the king floods <code>K</code>/<code>L</code>, the capture-reach sets <code>r</code>/<code>q</code> and the bishop floods <code>R</code>/<code>c</code>, and drains the permanently blocked pawns <code>P</code>/<code>Q</code>, to a fixpoint; then it asks whether a pawn can promote, capture or give check, whether a king assumed frozen really is frozen, whether a boxed-in knight, rook or queen has escaped (one the enemy king or bishop can reach has not: it can never capture, so it is dropped from <code>F</code>/<code>g</code> and its square counts as empty from then on), and whether the bishop layer holds. The compact build runs the relaxation a fixed 768 passes. The speed build keeps the sum <code>C+Z+K+L+r+q-P-Q+R+c-F-g</code> and stops the moment it stops moving. Those twelve sets only ever move one way — eight grow; <code>P</code>, <code>Q</code> and the boxed sets <code>F</code>/<code>g</code> shrink, which is why they enter with a minus sign — so the sum changes on every pass that changes anything and stands still only at the fixpoint; the loop can never stop early. The ten flood and pawn masks can change at most 640 bits and <code>F</code>/<code>g</code> only the squares of the knights, rooks and queens, so the compact build’s 768 passes always converge as well. On real games the speed build stops after a median of 11 passes (at most 29 over the first 20,000 games of the chasolver data). For the sum to settle, the speed build masks the two upward-growing sets <code>C</code> and <code>q</code> back to 64 bits with <code>&amp;f</code>; otherwise bits pushed past the eighth rank would keep it moving forever. The compact build needs no mask: it stops after 768 passes regardless, and those bits change no verdict — nothing reads <code>q</code> above the eighth rank, and a cone that reaches it has already failed the promotion test. Before the fixpoint the speed build runs two cheap checks that fail fast: a boxed-in knight, rook or queen with a step square its own pawns and boxed pieces do not hold, and, at the frozen-king levels, a king with a neighbouring square that is neither held by its own men nor covered by an enemy pawn. The diagonal step <code>T</code> opens with <code>s&amp;&amp;</code>, so an empty set — a side with no bishop — comes straight back; <code>S</code> shifts (<code>s&lt;&lt;1n</code>) where the compact build adds (<code>s+s</code>); and in the bishop layer <code>&amp;</code>/<code>|</code> become <code>&amp;&amp;</code>/<code>||</code>, so the rest is skipped once the outcome is decided.",
- wG:"Geometry. For a bishop, rook or queen the step must suit the piece (<code>P+P*4%x&amp;1</code>) before the ray is walked. The speed build short-circuits with <code>&amp;&amp;</code>, so the walk <code>S()</code> runs only when the direction is right; the compact build evaluates both sides of <code>&amp;</code> on every call.",
+ wG:"Geometry. For a bishop, rook or queen the step must suit the piece (<code>P+P*4%x&amp;1</code>) before the ray is walked. The speed build also asks for fewer than eight steps to the target (<code>d/s&lt;8</code>) and short-circuits with <code>&amp;&amp;</code>, so the walk <code>S()</code> runs only on a ray that can reach the target; the compact build evaluates both sides of <code>&amp;</code> and walks every candidate ray until it meets a piece or a hole. The pawn’s straight advance gets the same <code>&amp;&amp;</code>.",
  wV:"The verdict, pawn locks included. Same sets, same exit test, two short-circuits. The saturation loop stops the moment the checksum <code>A+a+_+f-S-s</code> stops moving instead of always running 99 passes: every set moves one way only, so the sum moves on every pass that changes anything, and <code>&amp;F</code> keeps White’s advance <code>A</code> and both king floods inside the board so that it can settle. And <code>||</code> skips the lock altogether once the material test has answered.",
- wL:"<code>map</code> becomes <code>forEach</code>: the 64-element result array that <code>map</code> has to allocate — and immediately throw away — is never built. One allocation per legal-move generation. Because <code>forEach</code> returns <code>undefined</code>, the speed build ends with <code>||q</code>; the compact build, whose <code>map</code> returns an array, ends with <code>&amp;&amp;q</code>. Neither build copies the board here: both leave that to <code>M</code>. The compact build carries <code>c</code> through the save/restore pair, because its <code>M</code> changes it.",
- wM:"Castling rights. The compact build has <code>M</code> itself clear the rights the from- and to-squares touch (<code>c&amp;=~C(i)&amp;~C(f)</code>), so every caller gets it for free: <code>A</code> drops its own copy of the line and the search needs no extra code. That is 11 bytes cheaper, but the line then also runs on every pseudo-legal move <code>L</code> tries out — roughly twice as often as it has to. Measured over 833 positions it costs about 3%. Both builds make the board copy in <code>M</code>’s own parameter list (<code>p=(b=[...b])[i]</code>), so no caller — <code>L</code>, the search or <code>A</code> — has to copy for itself. The two builds’ <code>M</code> differ only in the castling line.",
- wA:"The mirror image of the <code>M</code> change: the compact build drops <code>c&amp;=~C(i)&amp;~C(f)</code> from <code>A</code> because <code>M</code> has already done it, while the speed build keeps the line here so that <code>M</code> stays a pure board operation.",
- wZ:"The same <code>p&amp;&amp;</code> guard on the position-result scan, before the legal-move generation is called at all.",
- wX:"The FIDE 6.9 helpmate search. The compact build computes the terminal test, whether the flagged side is in check, as a parameter default on every node; the speed build asks it only at a leaf where no move answered: <code>v??t^I|!T()</code>.",
- wT:"The threat test, run after every trial move. The speed build skips empty squares and its own pieces with one test, <code>(p^t)&gt;8</code>; the compact build’s <code>p&amp;8^t</code> lets empty squares through when White is to move.",
- wO:"Move iteration. The speed build skips empty squares and the opponent’s pieces with one test, <code>p+~t&gt;&gt;3</code>; the compact build’s <code>p&amp;8^t</code> lets empty squares through when Black is to move, and each of them then tries every target. It never asks <code>L</code> about a pawn, king or knight move to a square too far away (<code>22&gt;&gt;p%8&amp;1&amp;&amp;(x-j)**2&gt;1089</code>).",
+ wM:"The en passant square after the move. Both builds keep it only when some pawn can legally capture there. The speed build first checks that there is a square at all (<code>e-8&amp;&amp;</code>): after any move that is not a double step <code>U</code> returns 8, and the compact build still runs the scan over every pawn, which finds nothing.",
+ wA:"The move handler. The compact build passes the move as <code>Z</code>’s argument, <code>Z(R=…)</code>: one pair of parentheses fewer, and its <code>Z</code> ignores the argument. In the speed build that argument would force the dead-position test on every move, so <code>A</code> makes the move first and calls <code>Z()</code> with none, leaving the <code>n+e&lt;10</code> trigger in charge.",
+ wZ:"The dead-position test after a move. The speed build runs <code>V(0)&amp;V(8)</code> only when <code>n+e&lt;10</code> — the move was a capture or a pawn move (<code>n</code> is 0), or came one ply after one with no en passant square left (<code>n</code> is 1, <code>e</code> is 8) — or when asked with <code>Z(1)</code>, for a game’s first position. A lock can arise only through an irreversible move, so a quiet move cannot create one; the compact build runs the test after every move.",
+ wT:"The threat test, run after every trial move. The speed build skips empty squares and its own pieces with one test, <code>(p^t)&gt;8</code>, where the compact build’s <code>p&amp;8^t</code> lets empty squares through when White is to move. It also never asks <code>G</code> about a pawn, knight or king farther from the king than it could ever reach (<code>22&gt;&gt;p%8&amp;(x-j)**2&gt;1089</code>).",
+ wO:"Move iteration. The speed build skips empty squares and the opponent’s pieces with one test, <code>p+~t&gt;&gt;3</code>; the compact build’s <code>p&amp;8^t</code> lets empty squares through when Black is to move, and each of them then tries every target. The speed build never asks <code>L</code> about a pawn, knight or king move to a square outside the 5×5 square around it: the 0x88 test on the shifted difference, <code>22&gt;&gt;p%8&amp;1&amp;&amp;x-j+34&amp;136|j-x+34&amp;136</code>, turns it away first.",
  st3Skip:"Not needed: the material test above already settled it.",
  noCastle960:"The engine knows only the orthodox castling files; this right was ignored",
  sDrop:"{0} rows with Chess960 castling rights judged without them",
@@ -712,6 +742,7 @@ en:{
  fRefDraw:"every row is a draw",
  fRemove:"Remove {0}",
  fClear:"Remove all files",
+ dataHint:"The measurement set is in the repository: <a href='https://github.com/cuneytinann/FideLite/raw/main/arbiter/chasolver-data-until-08-2026.csv' target='_blank' rel='noopener'>chasolver-data-until-08-2026.csv</a> (22 MB), the games CHA-Solver found wrongly decided in the Lichess open database. Drop it here and every row is marked a draw on its own. The same <code>arbiter/</code> folder holds CHA-Solver’s labelled sets, <code>chasolver-lichess.txt</code> and <code>chasolver-positions.txt</code>.",
  fReading:"Reading {0}…",
  fFail:"Could not read {0}: {1}",
  assumeH:"Whose flag fell",
@@ -752,11 +783,11 @@ en:{
  thCert:"certificate",
  thCount:"positions",
  thShare:"share of draws",
- cIm:"material <code>Im</code>: the other side has no mating material",
- cl:"lock <code>l()</code>, both sides: dead position, <code>DP</code>",
- clH:"lock <code>l(2−g)</code>, the other side only, at the root of <code>H</code>",
+ cVm:"material: <code>V</code> with the lock switched off — the other side has no mating material",
+ cVd:"lock for both sides: <code>V</code> of both colours, as <code>Z</code> asks it — dead position, <code>DP</code>",
+ cVl:"lock against the other side only: <code>V</code> of the flagged side, at the root of <code>H</code>",
  cH:"search <code>H</code>: every line followed until mate became impossible",
- cZ:"over at the root of <code>H</code>: no legal move, or the 75-move rule",
+ cH0:"over at the root of <code>H</code>: no legal move, or the 75-move rule",
  secRef:"Against the reference",
  refIntro:"{0} of {1} judged positions carry a reference: a chasolver label, or a file marked “every row is a draw”.",
  refNoRef:"None of the judged positions carries a reference, so none of them can be scored right or wrong. Give lines a chasolver label, or mark a file “every row is a draw”.",
@@ -861,7 +892,7 @@ en:{
  expBad:"false-tm.csv",
  expAll:"all-results.csv",
  expInv:"invalid-fen.csv",
- expNote:"The columns are unchanged, so these files stay comparable with earlier exports. <code>source</code> is one of <code>H</code>, <code>Im</code>, <code>l</code>, <code>lH</code>, <code>Z</code>, as in the certificate table. <code>invalid-fen.csv</code> lists the lines set aside as invalid FEN, with the broken condition in <code>reason</code>.",
+ expNote:"The columns are unchanged, so these files stay comparable with earlier exports. <code>source</code> is one of <code>Vm</code>, <code>Vd</code>, <code>Vl</code>, <code>H</code>, <code>H0</code>, as in the certificate table. Earlier exports wrote <code>Im</code>, <code>l</code>, <code>lH</code> and <code>Z</code> for what is now <code>Vm</code>, <code>Vd</code>, <code>Vl</code> and <code>H0</code>; <code>H</code> kept its name. Where a build had no separate lock call, one-sided locks were filed under <code>Z</code>. <code>invalid-fen.csv</code> lists the lines set aside as invalid FEN, with the broken condition in <code>reason</code>.",
  secCmp:"Build against build",
  cmpSame:"Both builds returned the same verdict on all {0} positions. The only difference is time: <b>{1}</b> took {2} s, <b>{3}</b> {4} s, a factor of <b>{5}</b>.",
  cmpDiff:"<b>{0}</b> positions came back with different verdicts. That is not supposed to happen: the two builds are meant to behave identically. Choose “differs between builds” under Browse to read them.",
@@ -1020,8 +1051,8 @@ en:{
  foot:"The engine is embedded twice, byte for byte: <code>engine.js</code>, the shortest source, and <code>engine_4x.js</code>, a few bytes more for speed; both return the same verdict on every input. The verdict is what <code>F</code> returns: the same <code>H</code> search, run with the ply ceiling and node budget set above (<code>F</code> itself uses 9 plies and 2,000 nodes). A third engine, LUX, is the one inside <code>index.html</code>: the same core with boxed knights, rooks and queens and Chess960 castling (the king moves onto its own rook); its <code>F</code> uses 300 plies and 400,000 nodes, and those are its defaults here. <code>engine_string.js</code> is the same L3 on a letter board (a8 = index 0), pawn lock included, with the same 9 plies and 2,000 nodes; it tries moves in another order, so where the ceiling or the budget decides, its verdict may part from <code>engine.js</code>. Two extra calls serve the report and never touch the verdict: a marked copy of <code>H</code> that tells a real mate from a search that ran out, and the game’s status test <code>Z</code>."
 },
 tr:{
- title:"hakem — FIDE 6.9 örtüşmesi",
- h1:"hakem — FIDE 6.9 örtüşmesi",
+ title:"Arbiter — FIDE 6.9 örtüşmesi",
+ h1:"Arbiter",
  lblEngine:"sürüm",
  lblLang:"dil",
  optX4:"hızlı — engine_4x.js",
@@ -1046,16 +1077,13 @@ tr:{
  totalRow:"dosyanın tamamı",
  same:"{0} tanımın {1} tanesi iki sürümde bayt bayt aynı.",
  diffKey:"<del>kırmızı</del> — yalnız <code>engine.js</code>’de (kısa) &nbsp;·&nbsp; <ins>yeşil</ins> — yalnız <code>engine_4x.js</code>’de (hız). İşaretsiz olan her şey ortak.",
- wJ:"Kilit dedektörü: FIDE 5.2.2 için <code>Z</code>’den (materyal testi <code>I</code>’nin yanında), 6.9 için <code>H</code>’den çağrılıyor. Piyon konileri <code>C</code>/<code>Z</code>’yi, şah selleri <code>K</code>/<code>L</code>’yi, alınabilirlik kümeleri <code>r</code>/<code>q</code>’yu ve fil selleri <code>R</code>/<code>c</code>’yi büyütüp kalıcı olarak tıkalı piyonlar <code>P</code>/<code>Q</code>’yu daraltarak bir sabit noktaya götürüyor; sonra bir piyonun terfi edip edemeyeceğini, taş alıp alamayacağını ya da şah çekip çekemeyeceğini, donmuş varsayılan şahın gerçekten donmuş olup olmadığını, kutulu bir at, kale ya da vezirin kaçıp kaçmadığını (rakip şahın ya da filin ulaştığı kutulu taş kaçmış sayılmaz: hiçbir şey alamaz, <code>F</code>/<code>g</code>’den düşer ve karesi o andan sonra boş sayılır) ve fil katmanının tutup tutmadığını soruyor. Kısa sürüm gevşetmeyi sabit 768 tur koşuyor. Hız sürümü <code>C+Z+K+L+r+q-P-Q+R+c-F-g</code> toplamını tutuyor ve toplam kıpırdamayı bıraktığı anda duruyor. Bu on iki küme yalnızca tek yönde hareket ediyor — sekizi büyüyor; <code>P</code>, <code>Q</code> ve kutulu kümeler <code>F</code>/<code>g</code> küçülüyor, eksi işaretle girmelerinin nedeni bu — dolayısıyla toplam, bir şeyi değiştiren her turda değişiyor ve yalnızca sabit noktada duruyor; döngü asla erken bitemez. On sel ve piyon maskesi toplamda en fazla 640 bit, <code>F</code>/<code>g</code> ise yalnız at, kale ve vezir karelerini değiştirebildiği için kısa sürümün 768 turu da her zaman yakınsıyor. Gerçek oyunlarda hız sürümü medyan 11 turda duruyor (chasolver verisinin ilk 20.000 oyununda en fazla 29). Toplamın durulabilmesi için hız sürümü yukarı doğru büyüyen iki küme <code>C</code> ve <code>q</code>’yu <code>&amp;f</code> ile 64 bite geri kırpıyor; kırpmasa sekizinci sıranın ötesine itilen bitler toplamı sonsuza dek kıpırdatırdı. Kısa sürümün kırpmaya ihtiyacı yok: 768 turdan sonra zaten duruyor ve o bitler hiçbir hükmü değiştirmiyor — <code>q</code>’yu sekizinci sıranın üstünde okuyan bir şey yok, oraya ulaşan bir koni de terfi testine çoktan takılmış oluyor. Hız sürümü sabit noktadan önce hızlı eleyen iki ucuz kontrol yapıyor: kendi piyonlarının ve kutulu taşlarının tutmadığı bir adım karesi olan kutulu at, kale ya da vezir ve, donmuş şah seviyelerinde, komşu karelerinden biri ne kendi taşlarınca tutulan ne de rakip piyonca görülen şah. Köşegen adımı <code>T</code> <code>s&amp;&amp;</code> ile açılıyor, böylece boş bir küme — fili olmayan taraf — hemen geri dönüyor; <code>S</code>, kısa sürümün toplamayla (<code>s+s</code>) yaptığını kaydırmayla (<code>s&lt;&lt;1n</code>) yapıyor; fil katmanında da <code>&amp;</code>/<code>|</code>, <code>&amp;&amp;</code>/<code>||</code> oluyor, yani sonuç belli olunca geri kalanı atlanıyor.",
- wG:"Geometri. Fil, kale ya da vezirde ışın yürünmeden önce adımın taşa uyması gerekir (<code>P+P*4%x&amp;1</code>). Hız sürümü <code>&amp;&amp;</code> ile kısa devre yapar, yürüyüş <code>S()</code> yalnız yön doğruysa çalışır; derli toplu sürüm <code>&amp;</code>’in iki yanını da her çağrıda hesaplar.",
+ wG:"Geometri. Fil, kale ya da vezirde ışın yürünmeden önce adımın taşa uyması gerekir (<code>P+P*4%x&amp;1</code>). Hız sürümü ayrıca hedefe sekizden az adım ister (<code>d/s&lt;8</code>) ve <code>&amp;&amp;</code> ile kısa devre yapar; yürüyüş <code>S()</code> yalnız hedefe varabilen ışında çalışır. Derli toplu sürüm <code>&amp;</code>’in iki yanını da hesaplar ve her aday ışını bir taşa ya da deliğe çarpana dek yürür. Piyonun düz ilerleyişi de aynı <code>&amp;&amp;</code>’i alır.",
  wV:"Piyon kilitleri dahil hüküm. Aynı kümeler, aynı çıkış testi, iki kısa devre. Doyma döngüsü her seferinde 99 tur dönmek yerine sağlama toplamı <code>A+a+_+f-S-s</code> kıpırdamadığı anda durur: her küme tek yönde değişir, bu yüzden bir şey değişen her turda toplam da değişir; <code>&amp;F</code> beyazın ilerleme kümesi <code>A</code>’yı ve iki şah selini tahtada tutar ki toplam oturabilsin. Malzeme testi cevabı verdiyse <code>||</code> kilidi hiç koşturmaz.",
- wL:"<code>map</code> yerine <code>forEach</code>: <code>map</code>’in ayırmak ve hemen atmak zorunda olduğu 64 elemanlık sonuç dizisi hiç kurulmuyor. Her legal hamle üretiminde bir tahsis eksiliyor. <code>forEach</code> <code>undefined</code> döndürdüğü için hız sürümü <code>||q</code> ile bitiyor; <code>map</code>’i dizi döndüren kısa sürüm ise <code>&amp;&amp;q</code> ile. Tahta kopyasını iki sürüm de burada almıyor, ikisi de bunu <code>M</code>’e bırakıyor. Derli toplu sürüm <code>c</code>’yi de kaydedip geri yazıyor, çünkü onun <code>M</code>’i bunu değiştiriyor.",
- wM:"Rok hakları. Derli toplu sürümde <code>M</code>’in kendisi, kalkış ve varış karelerinin düşürdüğü hakları siliyor (<code>c&amp;=~C(i)&amp;~C(f)</code>); böylece her çağıran bedavaya alıyor: <code>A</code> kendi kopyasını bırakıyor, aramaya da ek kod gerekmiyor. 11 bayt ucuza geliyor, ama satır bu kez <code>L</code>’nin denediği her sözde-legal hamlede de çalışıyor, gerekenin kabaca iki katı sıklıkta. 833 pozisyonluk ölçümde bedeli yaklaşık %3. İki sürüm de tahta kopyasını <code>M</code>’in kendi parametre listesinde alıyor (<code>p=(b=[...b])[i]</code>); böylece hiçbir çağıran — <code>L</code>, arama ya da <code>A</code> — kendi kopyasını almak zorunda kalmıyor. İki sürümün <code>M</code>’i yalnızca rok satırında ayrılıyor.",
- wA:"<code>M</code>’deki değişikliğin aynası: derli toplu sürüm <code>c&amp;=~C(i)&amp;~C(f)</code> satırını <code>A</code>’dan atıyor, çünkü <code>M</code> zaten yapmış oluyor; hız sürümü satırı burada tutuyor, böylece <code>M</code> saf bir tahta işlemi olarak kalıyor.",
- wZ:"Aynı <code>p&amp;&amp;</code> koruması, bu kez pozisyon sonucu taramasında — hamle üretimi çağrılmadan önce.",
- wX:"FIDE 6.9 yardımcı-mat araması. Derli toplu sürüm terminal testini, yani bayrağı düşen tarafın şahta olup olmadığını, parametre varsayılanı olarak her düğümde hesaplar; hız sürümü onu yalnızca hiçbir hamlenin cevap vermediği yaprakta sorar: <code>v??t^I|!T()</code>.",
- wT:"Tehdit testi, her deneme hamlesinden sonra çalışır. Hız sürümü boş kareleri ve kendi taşlarını tek testle atlar: <code>(p^t)&gt;8</code>; derli toplu sürümün <code>p&amp;8^t</code>’si sıra beyazdayken boş kareleri de geçirir.",
- wO:"Hamle dolaşımı. Hız sürümü boş kareleri ve rakibin taşlarını tek testle atlar: <code>p+~t&gt;&gt;3</code>; derli toplu sürümün <code>p&amp;8^t</code>’si sıra siyahtayken boş kareleri de geçirir ve her biri bütün hedefleri dener. Piyon, şah ya da atın çok uzaktaki bir kareye hamlesi için <code>L</code>’ye hiç sorulmaz (<code>22&gt;&gt;p%8&amp;1&amp;&amp;(x-j)**2&gt;1089</code>).",
+ wM:"Hamleden sonraki geçerken alma karesi. İki sürüm de kareyi ancak bir piyon oraya legal olarak alabiliyorsa tutar. Hız sürümü önce ortada bir kare olup olmadığına bakar (<code>e-8&amp;&amp;</code>): iki kare ilerleyiş olmayan her hamleden sonra <code>U</code> 8 döndürür, derli toplu sürüm ise yine de bütün piyonları tarar ve hiçbir şey bulamaz.",
+ wA:"Hamle işleyicisi. Derli toplu sürüm hamleyi <code>Z</code>’nin argümanı olarak verir, <code>Z(R=…)</code>: bir çift parantez eksik, onun <code>Z</code>’si de argümanı okumaz. Hız sürümünde bu argüman ölü pozisyon testini her hamlede zorlardı; bu yüzden <code>A</code> önce hamleyi yapar, sonra <code>Z()</code>’yi argümansız çağırır ve karar <code>n+e&lt;10</code> tetiğine kalır.",
+ wZ:"Hamleden sonraki ölü pozisyon testi. Hız sürümü <code>V(0)&amp;V(8)</code>’i yalnız <code>n+e&lt;10</code> iken çalıştırır — hamle bir alış ya da piyon hamlesiyse (<code>n</code> 0) ya da öyle bir hamleden bir yarım hamle sonra, geçerken alma karesi kalmamışken geldiyse (<code>n</code> 1, <code>e</code> 8) — ya da oyunun ilk pozisyonu için <code>Z(1)</code> ile istenince. Kilit ancak geri alınamaz bir hamleyle doğabilir, sessiz bir hamle onu yaratamaz; derli toplu sürüm testi her hamleden sonra çalıştırır.",
+ wT:"Tehdit testi, her deneme hamlesinden sonra çalışır. Hız sürümü boş kareleri ve kendi taşlarını tek testle atlar: <code>(p^t)&gt;8</code>; derli toplu sürümün <code>p&amp;8^t</code>’si sıra beyazdayken boş kareleri de geçirir. Hız sürümü ayrıca şaha hiçbir zaman erişemeyecek kadar uzaktaki piyonu, atı ya da şahı <code>G</code>’ye hiç sormaz (<code>22&gt;&gt;p%8&amp;(x-j)**2&gt;1089</code>).",
+ wO:"Hamle dolaşımı. Hız sürümü boş kareleri ve rakibin taşlarını tek testle atlar: <code>p+~t&gt;&gt;3</code>; derli toplu sürümün <code>p&amp;8^t</code>’si sıra siyahtayken boş kareleri de geçirir ve her biri bütün hedefleri dener. Hız sürümü piyon, at ya da şahın çevresindeki 5×5’lik karenin dışına giden bir hamlesini <code>L</code>’ye hiç sormaz: kaydırılmış farka uygulanan 0x88 testi, <code>22&gt;&gt;p%8&amp;1&amp;&amp;x-j+34&amp;136|j-x+34&amp;136</code>, onu önceden geri çevirir.",
  st3Skip:"Gerek yok: yukarıdaki materyal testi zaten çözdü.",
  noCastle960:"Motor yalnızca klasik rok sütunlarını tanır; bu hak yok sayıldı",
  sDrop:"Chess960 rok hakkı taşıyan {0} satır bu haklar olmadan yargılandı",
@@ -1073,6 +1101,7 @@ tr:{
  fRefDraw:"her satır berabere",
  fRemove:"{0} dosyasını kaldır",
  fClear:"Tüm dosyaları kaldır",
+ dataHint:"Ölçüm kümesi repoda: <a href='https://github.com/cuneytinann/FideLite/raw/main/arbiter/chasolver-data-until-08-2026.csv' target='_blank' rel='noopener'>chasolver-data-until-08-2026.csv</a> (22 MB), CHA-Solver’ın Lichess açık veritabanında haksız sonuçlandığını bulduğu oyunlar. Buraya bırakınca her satır kendiliğinden berabere işaretlenir. Aynı <code>arbiter/</code> klasöründe CHA-Solver’ın etiketli kümeleri de var: <code>chasolver-lichess.txt</code> ve <code>chasolver-positions.txt</code>.",
  fReading:"{0} okunuyor…",
  fFail:"{0} okunamadı: {1}",
  assumeH:"Kimin bayrağı düştü",
@@ -1113,11 +1142,11 @@ tr:{
  thCert:"sertifika",
  thCount:"pozisyon",
  thShare:"beraberliklerdeki payı",
- cIm:"materyal <code>Im</code>: öbür tarafta mat edecek materyal yok",
- cl:"kilit <code>l()</code>, iki taraf: ölü pozisyon, <code>DP</code>",
- clH:"kilit <code>l(2−g)</code>, yalnız öbür taraf, <code>H</code>’nin kökünde",
+ cVm:"materyal: kilidi kapalı <code>V</code> — öbür tarafta mat edecek materyal yok",
+ cVd:"iki tarafa karşı kilit: iki rengin <code>V</code>’si, <code>Z</code>’nin sorduğu gibi — ölü pozisyon, <code>DP</code>",
+ cVl:"yalnız öbür tarafa karşı kilit: bayrağı düşen tarafın <code>V</code>’si, <code>H</code>’nin kökünde",
  cH:"arama <code>H</code>: her hat, mat imkânsızlaşana dek izlendi",
- cZ:"<code>H</code>’nin kökünde bitmiş: legal hamle yok ya da 75 hamle kuralı",
+ cH0:"<code>H</code>’nin kökünde bitmiş: legal hamle yok ya da 75 hamle kuralı",
  secRef:"Referansa karşı",
  refIntro:"Yargılanan {1} pozisyonun {0} tanesinde referans var: bir chasolver etiketi ya da “her satır berabere” diye işaretlenmiş bir dosya.",
  refNoRef:"Yargılanan pozisyonların hiçbirinde referans yok; hiçbiri doğru ya da yanlış diye puanlanamaz. Satırlara chasolver etiketi ver ya da bir dosyayı “her satır berabere” diye işaretle.",
@@ -1222,7 +1251,7 @@ tr:{
  expBad:"false-tm.csv",
  expAll:"all-results.csv",
  expInv:"invalid-fen.csv",
- expNote:"Sütunlar değişmedi; bu dosyalar önceki dışa aktarımlarla karşılaştırılabilir kalıyor. <code>source</code>, sertifika tablosundaki gibi <code>H</code>, <code>Im</code>, <code>l</code>, <code>lH</code> ya da <code>Z</code>’dir. <code>invalid-fen.csv</code>, geçersiz FEN olarak ayrılan satırları bozulan şartla birlikte <code>reason</code> sütununda listeler.",
+ expNote:"Sütunlar değişmedi; bu dosyalar önceki dışa aktarımlarla karşılaştırılabilir kalıyor. <code>source</code>, sertifika tablosundaki gibi <code>Vm</code>, <code>Vd</code>, <code>Vl</code>, <code>H</code> ya da <code>H0</code>’dır. Önceki dışa aktarımlar bugünkü <code>Vm</code>, <code>Vd</code>, <code>Vl</code> ve <code>H0</code> için <code>Im</code>, <code>l</code>, <code>lH</code> ve <code>Z</code> yazıyordu; <code>H</code> adını korudu. Ayrı bir kilit çağrısı olmayan sürümlerde tek taraflı kilitler <code>Z</code> altına düşüyordu. <code>invalid-fen.csv</code>, geçersiz FEN olarak ayrılan satırları bozulan şartla birlikte <code>reason</code> sütununda listeler.",
  secCmp:"Sürüm sürüme",
  cmpSame:"İki sürüm de {0} pozisyonun tamamında aynı hükmü verdi. Tek fark süre: <b>{1}</b> {2} sn, <b>{3}</b> {4} sn sürdü; oran <b>{5}</b>.",
  cmpDiff:"<b>{0}</b> pozisyonda hükümler farklı çıktı. Bunun olmaması gerekiyor: iki sürümün birebir aynı davranması bekleniyor. Okumak için göz at bölümünde “sürümler arasında farklı”yı seç.",
@@ -1438,12 +1467,12 @@ function mirror(x){
   return y.slice(0,k+2)+'('+y.slice(k+2,y.length-1)+'||(HM=1,0)))'
 }
 var CH={nm:chunks(SRC.nm), x4:chunks(SRC.x4), stnm:chunks(SRC.stnm), luxx4:chunks(SRC.luxx4)};
-/* HD: the marked copy of H; ONE: whether this build's H asks the one-sided l(2-g) at a node */
+/* HD: the marked copy of H; ONE: whether this build's H asks V of the flagged side at its root (every build here does) */
 var HD={}, ONE={}, X88K={}, X88D={}, STRK={}, k0;
 /* X88K: the build runs on the 0x88 board; X88D: its H takes a ply ceiling, H(d). NOPLY: 0x88 with no ceiling */
 function NOPLY(k){ return X88K[k]&&!X88D[k] }
 for(k0 in CH){ (function(k){ var i,c=CH[k]; STRK[k]=SRC[k].indexOf("_='-'")>=0; X88K[k]=!STRK[k]&&SRC[k].indexOf('$[k]')>=0; X88D[k]=X88K[k]&&/(^|,)H=\(d,/.test(SRC[k]);
-  for(i=0;i<c.length;i++) if(c[i].indexOf('H=')===0){ HD[k]=mirror(c[i]); ONE[k]=c[i].indexOf('l(2-g)')>=0||X88K[k] } })(k0) }
+  for(i=0;i<c.length;i++) if(c[i].indexOf('H=')===0){ HD[k]=mirror(c[i]); ONE[k]=X88K[k]||STRK[k] } })(k0) }
 
 var cur=null;
 function loadEngine(k){
@@ -1451,7 +1480,6 @@ function loadEngine(k){
   window.X88=X88K[k]; window.X88D=X88D[k]; window.STR=STRK[k];
   (new Function(SRC[k]+';'+HD[k]+';HM=0;Hs={};Ht={};Hn=0;Ac=0;y=\'20003001\''))();
   window.BOX=fam(k)=='lux';
-  window.L_ONE=ONE[k];
   cur=k;
   $('engnote').textContent=F('engnote',num(SRC[k].length),tagOf(k))
 }
@@ -1471,7 +1499,7 @@ function ldiff(a,b){
   for(i=0;i<out.length;i++){ p=g[g.length-1];
     if(p&&p[0]===out[i][0])p[1]+=out[i][1]; else g.push([out[i][0],out[i][1]]) }
   return g}
-var WHAT={G:'wG',T:'wT',V:'wV',O:'wO'};
+var WHAT={G:'wG',T:'wT',M:'wM',V:'wV',O:'wO',Z:'wZ',A:'wA'};
 var diffDone='';
 function renderDiff(){
   if(diffDone===lang)return; diffDone=lang;
@@ -1500,12 +1528,11 @@ function renderDiff(){
     '<h3 style="margin-top:14px">LUX (index.html) · '+num(SRC.luxx4.length)+' B</h3><p class="src">'+esc(SRC.luxx4)+'</p>'
 }
 function shortWhat(f){
-  var m={G:{en:'slider direction test short-circuited before the ray is walked',tr:'kaydırıcının yön testi ışın yürünmeden önce kısa devre'},
-         T:{en:'empty squares and own pieces skipped in one test',tr:'boş kareler ve kendi taşları tek testle atlanıyor'},
+  var m={G:{en:'a ray is walked only if it can reach the target in fewer than eight steps; the direction test short-circuits',tr:'ışın yalnız hedefe sekizden az adımda varabiliyorsa yürünüyor; yön testi kısa devre'},
+         T:{en:'empty squares and own pieces skipped in one test; a pawn, knight or king too far away never reaches <code>G</code>',tr:'boş kareler ve kendi taşları tek testle atlanıyor; fazla uzaktaki piyon, at ya da şah <code>G</code>’ye gitmiyor'},
+         M:{en:'the en passant scan runs only after a double step (<code>e-8&amp;&amp;</code>)',tr:'geçerken alma taraması yalnız iki kare ilerleyişten sonra çalışıyor (<code>e-8&amp;&amp;</code>)'},
          V:{en:'lock loop stops at its fixed point (checksum) instead of 99 passes; the lock is skipped once the material test has answered',tr:'kilit döngüsü 99 tur yerine sabit noktada (sağlama toplamı) duruyor; malzeme testi cevap verdiyse kilit hiç koşmuyor'},
-         H:{en:'the lock test runs only after a pawn move or a capture, and not while an en passant capture is available (<code>n+e&lt;10</code>): a reversible move cannot change the lock, and with an en passant square the lock test always fails',tr:'kilit testi yalnız piyon sürme ya da alıştan sonra ve geçerken alma mümkün değilken çalışıyor (<code>n+e&lt;10</code>): geri alınabilir bir hamle kilidi değiştiremez, geçerken alma karesi varken de kilit testi hep olumsuz çıkar'},
          Z:{en:'dead-position test only when <code>n+e&lt;10</code> (after a pawn move or a capture, with no en passant capture available), or when asked with <code>Z(1)</code> for a game’s first position',tr:'ölü pozisyon testi yalnız <code>n+e&lt;10</code> iken (piyon sürme ya da alıştan sonra, geçerken alma mümkün değilken) ya da oyunun ilk pozisyonu için <code>Z(1)</code> ile istenince'},
-         F:{en:'tests the lock once at the root before the search',tr:'aramadan önce kökte kilidi bir kez test ediyor'},
          A:{en:'calls <code>Z()</code> without an argument, so the trigger applies',tr:'<code>Z()</code>’yi argümansız çağırıyor, tetik geçerli oluyor'},
          O:{en:'empty squares and enemy pieces skipped in one test; distant targets of pawns, knights and king never reach <code>L</code>',tr:'boş kareler ve rakip taşlar tek testle atlanıyor; piyon, at ve şahın uzak hedefleri <code>L</code>’ye gitmiyor'}};
   return m[f]?(m[f][lang]||m[f].en):''
@@ -1735,7 +1762,7 @@ function refCat(w,r){
 var filt={show:'',set:'',src:''};
 function renderBatch(){
   var R=results.res, W=results.rows, n=R.length, k, o, c;
-  var oc={draw:0,mate:0,open:0,bad:0}, src={Im:0,l:0,lH:0,H:0,Z:0}, rc={ok:0,okd:0,miss:0,contra:0,false:0}, mx={}, refN=0, why={horizon:0,budget:0};
+  var oc={draw:0,mate:0,open:0,bad:0}, src={Vm:0,Vd:0,Vl:0,H:0,H0:0}, rc={ok:0,okd:0,miss:0,contra:0,false:0}, mx={}, refN=0, why={horizon:0,budget:0};
   for(k=0;k<n;k++){ o=outcome(R[k]); oc[o]++;
     if(o=='draw')src[R[k].src]=(src[R[k].src]||0)+1;
     if(o=='open')why[R[k].why]=(why[R[k].why]||0)+1;
@@ -1756,8 +1783,8 @@ function renderBatch(){
   /* certificates */
   if(oc.draw){
     var t='<tr><th>'+T('thCert')+'</th><th>'+T('thCount')+'</th><th>'+T('thShare')+'</th></tr>';
-    [['Im','cIm'],['l','cl'],['lH','clH'],['H','cH'],['Z','cZ']].forEach(function(x){
-      if(x[0]=='lH'&&!ONE[results.key])return;
+    [['Vm','cVm'],['Vd','cVd'],['Vl','cVl'],['H','cH'],['H0','cH0']].forEach(function(x){
+      if(x[0]=='Vl'&&!ONE[results.key])return;
       t+='<tr><td class="lf">'+T(x[1])+' <span class="db">· <code>'+x[0]+'</code></span></td><td>'+num(src[x[0]]||0)+'</td><td>'+pct(src[x[0]]||0,oc.draw)+'</td></tr>' });
     $('cert').innerHTML=t; $('certbox').classList.remove('hide')
   } else $('certbox').classList.add('hide');
@@ -1842,7 +1869,7 @@ function renderBrowse(){
   if(sl.length>1){ h+='<label>'+T('fSet')+' <select id="fset"><option value="">'+T('fAll')+'</option>';
     sl.forEach(function(s){ h+='<option'+(filt.set===s?' selected':'')+'>'+esc(s)+'</option>' }); h+='</select></label>' }
   if(Object.keys(srcs).length>1){ h+='<label>'+T('fSrc')+' <select id="fsrc"><option value="">'+T('fAll')+'</option>';
-    ['Im','l','lH','H','Z'].forEach(function(s){ if(srcs[s])h+='<option value="'+s+'"'+(filt.src===s?' selected':'')+'>'+s+' ('+num(srcs[s])+')</option>' });
+    ['Vm','Vd','Vl','H','H0'].forEach(function(s){ if(srcs[s])h+='<option value="'+s+'"'+(filt.src===s?' selected':'')+'>'+s+' ('+num(srcs[s])+')</option>' });
     h+='</select></label>' }
   $('filters').innerHTML=h;
   ['fshow','fset','fsrc'].forEach(function(id){ var el=$(id); if(!el)return;
@@ -1887,23 +1914,23 @@ function detailHTML(k){
         (c?'<span class="tag r-'+c+'">'+T({ok:'kOk',okd:'kOkDef',miss:'kMiss',false:'kBad',contra:'kContra'}[c])+'</span>':'')+'</div>'+
         '<p class="vtext">'+vt+'</p>';
   /* the chain of tests, in the order H applies them */
-  var done=false, s='', ep=r.ep>=0?sqName(r.ep):'', x8=X88K[key], c1=x8?'V('+8*r.side+')':STRK[key]?'V('+r.side+')':'Im('+r.side+')', c2=x8||STRK[key]?'V':'l()';
+  var done=false, s='', ep=r.ep>=0?sqName(r.ep):'', x8=X88K[key], c1=x8?'V('+8*r.side+')':'V('+r.side+')', c2=x8?'V(0)&V(8)':'V(0)&V(1)';
   if(r.hOnly){ s+=stepRow('dec',T('s1n'),c1,F('st1Yes',op)); done=true }
   else s+=stepRow('no',T('s1n'),c1,F('st1No',op));
   if(r.dp){ s+=done?stepRow('also',T('s2n'),c2,T('st2Also')):stepRow('dec',T('s2n'),c2,T('st2Yes')); done=true }
   else s+=stepRow('no',T('s2n'),c2,ep?F('st2Ep',ep):T('st2No'));
-  var call=x8?'V('+8*r.side+')':'l('+(2-r.side)+')';
-  if(!ONE[key]) s+=stepRow('na',T('s3n'),'l(2−g)',T('st3Na'));
+  var call=c1;
+  if(!ONE[key]) s+=stepRow('na',T('s3n'),call,T('st3Na'));
   else if(ins.lone==='m') s+=stepRow('skip',T('s3n'),call,T('st3Skip'));
   else if(ins.lone){ s+=done?stepRow('also',T('s3n'),call,F('st3Also',op)):stepRow('dec',T('s3n'),call,F('st3Yes',op)); done=true }
   else s+=stepRow('no',T('s3n'),call,ep?F('st2Ep',ep):F('st3No',op));
-  var hc=x8?(X88D[key]?'H('+P+')':'H()'):STRK[key]?'H('+P+')':'H('+r.side+', '+P+')';
+  var hc=x8&&!X88D[key]?'H()':'H('+P+')';
   if(r.src=='H'){
     if(r.ok) s+=stepRow('dec',T('s4n'),hc,F('st4Ok',num(r.used),op));
     else if(r.mate) s+=stepRow('dec',T('s4n'),hc,F('st4Mate',op));
     else if(r.why=='budget') s+=stepRow('open',T('s4n'),hc,F('st4Bud',num(B),op));
     else s+=stepRow('open',T('s4n'),hc,F('st4Hor',P,op));
-  } else if(r.src=='Z'){
+  } else if(r.src=='H0'){
     var zt=ins.status==3?T('st4SM'):(ins.status==1||ins.status==2)?T('st4Mated'):r.n>149?F('st4N75',r.n):T('st4Root');
     s+=stepRow('dec',T('s4n'),hc,zt);
   } else s+=stepRow('skip',T('s4n'),hc,T('st4Skip'));
@@ -2027,7 +2054,7 @@ $('expInv').onclick=function(){ if(!results)return;
 $('expAll').onclick=function(){ if(!results)return;
   var o=['build,set,gameId,side,verdict,source,label,expect,agree,bucket,reason,n,nodes,ms,fen'];
   each(function(w,r){
-    var kova=(r.ok||r.dp)?(r.src=='l'?'dead-position':'equivalent'):(r.mate?'mate':'unjudged');
+    var kova=(r.ok||r.dp)?(r.src=='Vd'?'dead-position':'equivalent'):(r.mate?'mate':'unjudged');
     var exp=w.draw===undefined?'':(w.draw?'TM':'WB'[r.side]+'T'),
         agr=w.draw===undefined?'':((r.ok||r.dp)===w.draw?'yes':(w.draw?'missed':'FALSE-TM'));
     o.push([NAME[results.key],w.set,w.id,r.side?'w':'b',r.code,r.src,w.lab||'',exp,agr,kova,r.why,r.n,r.used,r.ms.toFixed(2),w.fen].join(',')) });

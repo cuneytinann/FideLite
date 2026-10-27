@@ -3890,7 +3890,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       motor doğru hükmü veriyor (%92,96); Chess LUX'ta bu sayı <b>51.056</b> (%99,996). Motorun
       kaçırdığı 3.596 oyunun 3.558'inde tahtada fil var; motorun kilit taraması yalnızca şahları ve
       piyonları kapsadığı için bu oyunlar aramaya kalıyor. Bu kaçırmalar, yaklaşık 8,25 milyar
-      oyunluk kaydın bütününde kabaca 2,3 milyonda bir oyuna denk geliyor.</p>
+      oyunluk kaydın bütününde kabaca 2,3 milyonda bir oyuna denk geliyor. Ölçüm
+      <a href="#arbiter">Arbiter</a> ile yapıldı.</p>
     </div>
     <div class="prose fl" lang="en">
       <p><b>In FideLite.</b> The miss rate is measured. Of the <b>51,058</b> games with a locked
@@ -3899,7 +3900,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       <b>51,056</b> (99.996%). Of the 3,596 games the engine misses, 3,558 have a bishop on the
       board; the engine's lock scan covers only kings and pawns, so these are left to the search.
       The misses come to roughly one game in 2.3 million across the whole record of about 8.25
-      billion games.</p>
+      billion games. The measurement was made with <a href="#arbiter">the Arbiter</a>.</p>
     </div>
 
     <h3 id="dead" lang="tr">İkinci kol: yapıdan — kilitli pozisyonlar</h3>
@@ -6221,7 +6222,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       sınırına takılıyor ve 3.558'inde tahtada fil var, yani kilit taramasının kapsamı dışında. CHA-Solver yarım hamle sayacını ve tekrarı hesaba katmadığı için, sayacın mattan
       önce dolduğu pozisyonları kazanılabilir sayıyor; bu motor beraberlik diyor. Aynı veritabanı
       — yaklaşık 8,25 milyar oyun — bu motorla taransa, CHA-Solver'ın saymadığı yanlış sonuçlanmış
-      başka oyunların da çıkması muhtemel.</p>
+      başka oyunların da çıkması muhtemel. Ölçümü aynı veriyle kendin de yineleyebilirsin:
+      <a href="#arbiter">Arbiter</a>.</p>
     </div>
     <div class="prose fl" lang="en">
       <p><b>In FideLite.</b> The yardstick is Miguel Ambrona’s
@@ -6236,7 +6238,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       lock scan. CHA-Solver leaves out the ply counter and repetition, so it counts positions where
       the counter fills before a mate as winnable; this engine calls them drawn. A scan of the same
       database — about 8.25 billion games — with this engine would likely turn up further wrongly
-      decided games that CHA-Solver does not count.</p>
+      decided games that CHA-Solver does not count. You can repeat the measurement with the same data:
+      <a href="#arbiter">the Arbiter</a>.</p>
     </div>
 
     <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Bu maddeyi uygulamamanın gerekçesi hep aynı olmuştur: hesaplanamaması. Gerekçe sanıldığı kadar sağlam değil. İleriye bakmak gerekiyor, ama zorunlu dallar tanım gereği dar ve soru oyun başına en fazla bir kez, oyun kesilirken soruluyor.</p>
@@ -13183,6 +13186,195 @@ slider  :           P+P*4%x &amp; S()</pre>
       detects off-board squares with the classic <code>i&amp;0x88</code> mask, reads its directions
       from tables and stores its pieces as objects. Everything for which the engine relies on holes,
       remainder tests and single-digit codes is spelled out there in full.</p>
+    </div>
+  </div>
+</section>
+
+<section id="arbiter">
+  <div class="wrap">
+    <p class="eyebrow" lang="tr">Doğrulama</p>
+    <p class="eyebrow" lang="en">Verification</p>
+    <h2 lang="tr">Hükümlerin testi: Arbiter</h2>
+    <h2 lang="en">Testing the verdicts: the Arbiter</h2>
+    <div class="prose" lang="tr">
+      <p>Perft hamle üretimini sınıyor; bir oyunun nasıl bittiği hakkında tek söz söylemiyor. Bir
+      hakem motorunun en zor hükmü ise orada: bayrak düştüğünde ya da oyuncu terk ettiğinde rakip
+      herhangi bir geçerli hamle dizisiyle mat edebilir mi (<a href="#flag">6.9 ve 5.1.2</a>)?
+      <b>Arbiter</b> bu soruyu toplu hâlde soruyor: her pozisyonu motorun kendi <code>F</code>
+      fonksiyonuyla karara bağlıyor, kararı hangi testin verdiğini gösteriyor ve sonucu bir
+      referansla karşılaştırıyor.</p>
+      <p>Sürümler gibi tek bir HTML dosyası: kurulum yok, sunucu yok, hiçbir şey bir yere
+      gönderilmiyor; pozisyonlar tarayıcının içinde karara bağlanıyor. Arayüzü Türkçe ve
+      İngilizce. Yeni sekmede açılıyor:
+      <a href="/arbiter" target="_blank" rel="noopener">fidelite.art/arbiter</a>.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>Perft tests move generation; it says nothing about how a game ends. Yet that is where an
+      arbiter engine's hardest verdict lies: when a flag falls or a player resigns, can the opponent
+      mate by any series of legal moves (<a href="#flag">6.9 and 5.1.2</a>)? <b>The Arbiter</b> asks
+      that question in bulk: it judges each position with the engine's own <code>F</code>, shows
+      which test settled it, and compares the result with a reference.</p>
+      <p>Like the builds, it is a single HTML file: nothing to install, no server, nothing sent
+      anywhere; the positions are judged inside the browser. The interface is in English and
+      Turkish. It opens in a new tab:
+      <a href="/arbiter" target="_blank" rel="noopener">fidelite.art/arbiter</a>.</p>
+    </div>
+
+    <h3 id="verdictsteps" lang="tr">Hüküm nasıl veriliyor</h3>
+    <h3 lang="en" data-id="verdictsteps">How a verdict is reached</h3>
+    <div class="prose" lang="tr">
+      <p>Bayrağı düşen taraf, FEN'de sırası gelen taraf: oyunda yalnızca onun saati işliyor.
+      İstenirse her pozisyon iki tarafın bayrağı için ayrı ayrı da karara bağlanıyor. Dört test bu
+      sırayla çalışıyor; soruyu ilk kapatan hükmü veriyor, ondan sonrakiler yalnızca bilgi için
+      gösteriliyor.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The side whose flag fell is the side to move in the FEN: in a game only its clock runs.
+      On request each position is also judged twice, once for each side's flag. Four tests run in
+      this order; the first one that settles the question gives the verdict, and the ones after it
+      are shown for information only.</p>
+    </div>
+<div class="tw" lang="tr"><table>
+<thead><tr><th>Test</th><th>Gösterdiği</th><th>Hüküm</th></tr></thead>
+<tbody>
+<tr><td>1. Malzeme <code>V</code></td><td>Rakibin mat edecek malzemesi kalmamış: <code>V</code>'nin malzeme yarısı, kilit kapalıyken.</td><td><code>TM</code></td></tr>
+<tr><td>2. Ölü pozisyon <code>V(0)&amp;V(8)</code></td><td>Yapı iki taraf için de kilitli; hiçbiri mat edemez. Oyunda <code>Z</code>'nin sorduğu soru.</td><td><code>DP</code></td></tr>
+<tr><td>3. Rakibe karşı kilit <code>V(I)</code></td><td>Yapı yalnızca rakibe karşı kilitli. <code>H</code> bunu kökünde soruyor; tek düğüm harcanmadan.</td><td><code>TM</code></td></tr>
+<tr><td>4. Yardımlı mat araması <code>H</code></td><td>Her yol mat imkânsızlaşana kadar izleniyor ya da bir mat bulunuyor. Kökte hamle kalmamışsa ya da 75 hamle dolmuşsa arama hiç başlamadan dönüyor.</td><td><code>TM</code>, <code>WT</code> ya da <code>BT</code></td></tr>
+</tbody></table></div>
+<div class="tw" lang="en"><table>
+<thead><tr><th>Test</th><th>What it shows</th><th>Verdict</th></tr></thead>
+<tbody>
+<tr><td>1. Material <code>V</code></td><td>The other side has no mating material left: <code>V</code>'s material half, with the lock switched off.</td><td><code>TM</code></td></tr>
+<tr><td>2. Dead position <code>V(0)&amp;V(8)</code></td><td>The structure is locked for both sides; neither can mate. In a game, the question <code>Z</code> asks.</td><td><code>DP</code></td></tr>
+<tr><td>3. Lock against the other side <code>V(I)</code></td><td>The structure is locked against the other side only. <code>H</code> asks this at its root, without spending a node.</td><td><code>TM</code></td></tr>
+<tr><td>4. Helpmate search <code>H</code></td><td>Every line is followed until mate becomes impossible, or a mate is found. With no legal move at the root, or the 75-move rule already reached, it returns before it starts.</td><td><code>TM</code>, <code>WT</code> or <code>BT</code></td></tr>
+</tbody></table></div>
+    <div class="prose" lang="tr">
+      <p>Sınırlar oyundakiyle aynı: <code>F</code> 9 yarım hamle derinliğe ve 2.000 düğüme kadar
+      arıyor; sayfada ikisi de değiştirilebiliyor. Arama sınıra kanıtsız takılırsa hüküm kazanca
+      düşüyor, <code>WT</code> ya da <code>BT</code>: bir beraberlik kaçabilir, ama yanlış bir
+      beraberlik asla ilan edilmez. Bu, 5.2.2'de anlatılan <a href="#deadscope">güvenli
+      yön</a>.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The limits are the game's: <code>F</code> searches 9 plies deep and up to 2,000 nodes,
+      and the page lets you change both. If the search hits a limit without a proof, the verdict
+      falls to the win, <code>WT</code> or <code>BT</code>: a draw may be missed, but a false draw
+      is never declared. That is the <a href="#deadscope">safe direction</a> set out under
+      5.2.2.</p>
+    </div>
+
+    <h3 id="verdictref" lang="tr">Referansla karşılaştırma</h3>
+    <h3 lang="en" data-id="verdictref">Against the reference</h3>
+    <div class="prose" lang="tr">
+      <p>Referans ya satırın başındaki CHA-Solver etiketi (<code>WB</code>, <code>W-</code>,
+      <code>-B</code>, <code>--</code>: hangi tarafın yardımlı mat kurabildiği) ya da her satırı
+      berabere olan bir dosya. Referansı olan her hüküm dört sınıftan birine düşüyor:</p>
+      <ul>
+        <li><b>Uyuşuyor.</b> Kanıtla ya da varsayılan kazançla.</li>
+        <li><b>Kaçan beraberlik.</b> Referans berabere diyor, ama sınırlar içinde kanıt
+        bulunamamış. Tamlıktan yiyor, sağlamlıktan değil.</li>
+        <li><b>Yanlış TM.</b> Motor beraberlik ilan etmiş, referans ise rakibin hâlâ mat
+        edebileceğini söylüyor. Sağlamlığı bozan tek hata bu; sıfır olmalı.</li>
+        <li><b>Çelişki.</b> Arama, referansın imkânsız dediği bir mat bulmuş. Ya referans ya hamle
+        üretimi yanlış; her biri tek tek okunmaya değer.</li>
+      </ul>
+      <p>Bu ölçümün sonuçları kuralların yanında duruyor: 6.9 için <a href="#hardhalf">pahalı
+      yarı</a>, kilitli pozisyonlar için 5.2.2'nin <a href="#deadscope">kapsamı ve
+      doğruluğu</a>.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The reference is either a CHA-Solver label at the start of the line (<code>WB</code>,
+      <code>W-</code>, <code>-B</code>, <code>--</code>: which side can build a helpmate) or a
+      file in which every row is a draw. Every verdict that has a reference falls into one of four
+      classes:</p>
+      <ul>
+        <li><b>Agrees.</b> By proof, or by the default win.</li>
+        <li><b>Missed draw.</b> The reference says draw, but no proof was found within the limits.
+        It costs completeness, not soundness.</li>
+        <li><b>False TM.</b> The engine declared a draw where the reference says the other side can
+        still mate. The one error that breaks soundness; it must be zero.</li>
+        <li><b>Contradiction.</b> The search found a mate the reference calls impossible. Either the
+        reference or the move generation is wrong; each one is worth reading.</li>
+      </ul>
+      <p>The results of this measurement stand beside the rules: <a href="#hardhalf">the costly
+      half</a> for 6.9, and 5.2.2's <a href="#deadscope">scope and correctness</a> for blocked
+      positions.</p>
+    </div>
+
+    <h3 id="verdictmore" lang="tr">Sayfada başka neler var</h3>
+    <h3 lang="en" data-id="verdictmore">What else is on the page</h3>
+    <div class="prose" lang="tr">
+      <ul>
+        <li><b>Sürüm karşılaştırması.</b> <code>engine.js</code> ile <code>engine_4x.js</code>
+        sayfanın içinde bayt bayt duruyor ve her girdide aynı hükmü veriyor. “Öteki sürümü de
+        çalıştır” seçeneği farkları ve hız oranını raporluyor; sayfa ikisini tanım tanım ayıran
+        farkı da açılırken iki kaynaktan hesaplayıp gösteriyor. Harf tahtalı
+        <code>engine_string.js</code> ile LUX'un motoru (300 yarım hamle, 400.000 düğüm) da
+        seçilebiliyor.</li>
+        <li><b>Ayrıntı görünümü.</b> Her pozisyon için dört testin sonucu, harcanan düğüm, süre,
+        referans ve pozisyonu Lichess'in tahta düzenleyicisinde açan bir bağlantı.</li>
+        <li><b>FEN denetimi.</b> Gerekli koşullar: her tarafta tek şah, ilk ve son yatayda piyon
+        yok, fazla taşlar terfiyle açıklanabiliyor, sırası olmayan taraf şahta değil, şah çekmesi
+        mümkün, geçerken alma karesi ve yarım hamle sayacı tutarlı. Birini geçemeyen satır hüküm
+        almıyor ve karşılaştırmanın dışında kalıyor.</li>
+        <li><b>PGN testi.</b> Oyunları hamle hamle yeniden oynatıyor; kuralların oyunu bitirdiği
+        yerden sonra oynanan hamleleri ve süreden ya da terkten kaybedilmiş ama berabere olması
+        gereken oyunları buluyor.</li>
+        <li><b>Dışa aktarma.</b> Sonuçlar sınıf sınıf CSV olarak iniyor.</li>
+      </ul>
+    </div>
+    <div class="prose" lang="en">
+      <ul>
+        <li><b>Build against build.</b> <code>engine.js</code> and <code>engine_4x.js</code> are
+        embedded byte for byte and return the same verdict on every input. “Also run the other
+        build” reports any difference and the speed factor, and the page shows what separates the
+        two builds, definition by definition, computed from the two sources as it loads. The
+        letter-board <code>engine_string.js</code> and LUX's engine (300 plies, 400,000 nodes) can
+        be selected too.</li>
+        <li><b>Detail view.</b> For each position, the result of all four tests, the nodes spent,
+        the time, the reference, and a link that opens the position in Lichess's board editor.</li>
+        <li><b>FEN checks.</b> Necessary conditions: one king per side, no pawn on the first or last
+        rank, extra pieces explained by promotions, the side not to move not in check, a check that
+        can arise, a consistent en passant square and halfmove clock. A line that fails one gets no
+        verdict and stays out of the comparison.</li>
+        <li><b>PGN test.</b> Replays games move by move and finds the moves played after the rules
+        had ended the game, and the games lost on time or by resignation that should have been
+        drawn.</li>
+        <li><b>Export.</b> The results download as CSV, class by class.</li>
+      </ul>
+    </div>
+
+    <h3 id="verdictrun" lang="tr">Kendin dene</h3>
+    <h3 lang="en" data-id="verdictrun">Try it yourself</h3>
+    <div class="prose" lang="tr">
+      <p><a href="/arbiter" target="_blank" rel="noopener">fidelite.art/arbiter</a> adresini aç.
+      FEN'leri satır satır yapıştır (istersen başına CHA-Solver etiketiyle) ya da CSV ve TXT
+      dosyalarını sayfaya bırak; <code>Ctrl+Enter</code> karara bağlar.</p>
+      <p>Veri sitede barındırılmıyor; ölçüm kümesi repoda:
+      <a href="https://github.com/cuneytinann/FideLite/raw/main/arbiter/chasolver-data-until-08-2026.csv" target="_blank" rel="noopener">chasolver-data-until-08-2026.csv · 22 MB</a>.
+      CHA-Solver'ın Lichess açık veritabanında haksız sonuçlandığını bulduğu oyunlar, her oyun
+      için son pozisyonun FEN'iyle bir satır. Sayfa bu dosyayı tanıyor ve her satırını
+      kendiliğinden berabere işaretliyor.</p>
+      <p>Aynı <code>arbiter/</code> klasöründe CHA-Solver'ın kendi etiketli test kümeleri de var:
+      Lichess oyunlarından örneklenmiş <b>65.536</b> pozisyonluk <code>chasolver-lichess.txt</code>
+      ve 2021'den beri chasolver.org'a gönderilen sorgulardan derlenmiş <b>3.414</b> pozisyonluk
+      <code>chasolver-positions.txt</code>. Sayfa ikisinin biçimini de doğrudan okuyor.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>Open <a href="/arbiter" target="_blank" rel="noopener">fidelite.art/arbiter</a>. Paste
+      FENs one per line (with a CHA-Solver label in front if you like) or drop CSV and TXT files
+      onto the page; <code>Ctrl+Enter</code> judges.</p>
+      <p>The data is not hosted on the site; the measurement set is in the repository:
+      <a href="https://github.com/cuneytinann/FideLite/raw/main/arbiter/chasolver-data-until-08-2026.csv" target="_blank" rel="noopener">chasolver-data-until-08-2026.csv · 22 MB</a>.
+      These are the games CHA-Solver found wrongly decided in the Lichess open database, one row
+      per game with the FEN of its final position. The page recognises the file and marks every
+      row a draw on its own.</p>
+      <p>The same <code>arbiter/</code> folder holds CHA-Solver's own labelled test sets:
+      <code>chasolver-lichess.txt</code>, <b>65,536</b> positions sampled from Lichess games, and
+      <code>chasolver-positions.txt</code>, <b>3,414</b> positions from queries submitted to
+      chasolver.org since 2021. The page reads both formats directly.</p>
     </div>
   </div>
 </section>

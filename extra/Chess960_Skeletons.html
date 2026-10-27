@@ -98,12 +98,27 @@
   .foot b{color:var(--muted)}
   .foot + .foot{margin-top:10px}
 
+  /* where 960 comes from: the derivation under the lede */
+  .derive{max-width:78ch;margin:20px 0 0;color:var(--muted);font-size:14.5px}
+  .derive h2{font-family:"JetBrains Mono",monospace;font-weight:500;font-size:10.5px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--brass);margin:24px 0 8px}
+  .derive h2:first-child{margin-top:0}
+  .derive p{margin:0 0 10px}
+  .derive b{color:var(--ivory);font-weight:600}
+  .derive .m{font-family:"JetBrains Mono",monospace;font-size:.86em;color:var(--ivory)}
+  .steps{border-collapse:collapse;font-family:"JetBrains Mono",monospace;font-size:12.5px;width:100%;max-width:66ch;margin:2px 0 14px}
+  .steps td{padding:6px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  .steps td:first-child{color:var(--ivory);padding-left:0;white-space:nowrap}
+  .steps td:last-child{text-align:right;color:var(--brass);white-space:nowrap;padding-right:0}
+  .steps tr.total td{border-bottom:0;border-top:1px solid var(--line2);color:var(--ivory);font-weight:700;white-space:normal}
+
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
   @media (max-width:980px){ .grid{grid-template-columns:repeat(3,minmax(0,1fr))} }
   @media (max-width:720px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
   @media (max-width:430px){
     .grid{grid-template-columns:1fr}
     .strip{max-width:210px}
+    .steps td:first-child{white-space:normal}
   }
 </style>
 </head>
@@ -112,6 +127,39 @@
   <p class="eyebrow">Chess960 · Castling Skeletons</p>
   <h1>56 skeletons. <em>960 positions.</em></h1>
   <p class="lede">Castling in Fischer-random chess depends only on where the king and its two rooks sit, and the king always stands between the rooks — so across all 960 setups there are exactly C(8,3)=56 king–rook skeletons. Each card holds one skeleton and every Scharnagl ID built on it. Ordered by file, from R K R on a–b–c through f–g–h. All generated live.</p>
+
+  <section class="derive" aria-labelledby="d960">
+    <h2 id="d960">Where 960 comes from</h2>
+    <p>White's eight back-rank pieces — king, queen, two rooks, two bishops, two knights — are shuffled along the first rank under two rules: the <b>bishops stand on squares of opposite colour</b>, and the <b>king stands between the two rooks</b>, so that castling stays possible on both sides. The pawns stay where they are and Black copies White file for file, so every count below is a count of White's first rank, and so of positions.</p>
+
+    <h2>Alike pieces have no identity</h2>
+    <p>The two knights are not “knight 1” and “knight 2”. Knights on b1 and g1 make one position, not two: swapping them changes nothing on the board. The same holds for the rooks and for the bishops. So a pair is placed by choosing a <i>set</i> of squares, never an ordered pair, and that is exactly what C(n,k) counts. With neither rule, eight labelled pieces could be lined up in 8! = 40,320 orders, but every board would then be counted 2!·2!·2! = 8 times (swap the knights, swap the bishops, swap the rooks): <span class="m">40,320 / 8 = 5,040</span> different first ranks.</p>
+
+    <h2>One piece at a time</h2>
+    <table class="steps">
+      <tr><td>Light-squared bishop</td><td>one of b, d, f, h</td><td>4</td></tr>
+      <tr><td>Dark-squared bishop</td><td>one of a, c, e, g</td><td>4</td></tr>
+      <tr><td>Queen</td><td>any of the 6 empty squares</td><td>6</td></tr>
+      <tr><td>Knights</td><td>2 of the 5 empty squares, as a pair</td><td>C(5,2) = 10</td></tr>
+      <tr><td>Rook · king · rook</td><td>the last 3 squares, king in the middle</td><td>1</td></tr>
+      <tr class="total"><td colspan="3">4 × 4 × 6 × 10 × 1 = 960</td></tr>
+    </table>
+    <p>The bishops are alike too, yet they are not divided by 2: the colour rule already tells them apart — one is the light bishop, the other the dark one — so 4 × 4 counts every pair of squares exactly once. Placing the first bishop anywhere (8) and the second on the other colour (4) would count each pair twice, once from each end: 8 × 4 / 2 = 16, the same. The knights carry no such label: 5 × 4 = 20 ordered placements count each pair twice, 20 / 2 = 10 = C(5,2). The last three squares leave no choice at all: the king must take the middle one, and the rooks are alike, so swapping them is not a new position.</p>
+    <p>The order of the steps does not change the total; this order is the one the Scharnagl numbering follows. An ID is the five choices read as one number in mixed bases, <span class="m">ID = light bishop + 4 × dark bishop + 16 × queen + 96 × knight pair</span>, each choice counted from 0 along the free squares from a to h, and the ten knight pairs in a fixed order. That runs from 0 to 4 × 4 × 6 × 10 − 1 = 959. The orthodox start is <span class="m">518 = 2 + 4 × 1 + 16 × 2 + 96 × 5</span>: light bishop on the third light square (f), dark bishop on the second dark square (c), queen on the third free square (d), knights on pair 5 — the second and fourth of the five squares left (b and g) — and R K R on a, e, h: RNBQKBNR.</p>
+
+    <h2>Skeleton first: C(8,3)</h2>
+    <p>The same count, starting from the king and the rooks — the view this page is built on. Choose the three files they will hold: <span class="m">C(8,3) = 56</span>. Each set of three files gives exactly one skeleton, again because the king must stand in the middle and the rooks are alike. Five files are left for B, B, Q, N, N.</p>
+    <p>The rank has four light squares and four dark ones. The skeleton takes three, so the five free squares split by colour either <b>3–2</b> or <b>4–1</b> — never 5–0, since that would need the skeleton to take four squares of one colour. A 4–1 split happens only when all three skeleton squares share a colour: C(4,3) = 4 ways on the light squares and 4 on the dark, <b>8</b> skeletons. The other 56 − 8 = <b>48</b> split 3–2.</p>
+    <table class="steps">
+      <tr><td>3–2 split</td><td>bishops 3 × 2, queen on one of the 3 left, knights on the last 2</td><td>6 × 3 × 1 = 18</td></tr>
+      <tr><td>4–1 split</td><td>bishops 4 × 1, queen on one of the 3 left, knights on the last 2</td><td>4 × 3 × 1 = 12</td></tr>
+      <tr class="total"><td colspan="3">48 × 18 + 8 × 12 = 864 + 96 = 960</td></tr>
+    </table>
+
+    <h2>Check from 5,040</h2>
+    <p>Each rule cuts the 5,040 unrestricted ranks by a fixed fraction. The bishops can take C(8,2) = 28 pairs of squares, and 4 × 4 = 16 of those pairs are of opposite colour: <span class="m">5,040 × 16 / 28 = 2,880</span>. Wherever the king and the rooks end up, their three squares can be filled in three ways — king on the left, in the middle or on the right — and only the middle one is allowed: <span class="m">2,880 / 3 = 960</span>.</p>
+    <p>No setup is its own mirror image: the king would have to stand on the middle file, and eight files have none. Mirroring keeps both rules — the bishops swap colours but stay opposite, and the king stays between the rooks — so the 960 fall into 480 mirror pairs. The orthodox start #518 pairs with #534, RNBKQBNR.</p>
+  </section>
 
   <div class="bar">
     <span>R K R skeleton <b>·</b> Scharnagl IDs</span>
