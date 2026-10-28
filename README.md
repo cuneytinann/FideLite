@@ -30,10 +30,12 @@ the board the engine decides whether the position is blocked; measured coverage 
 direction matters as much as the number: every position it calls dead really is dead, and anything
 it does not recognise it plays on.
 
-An extension covering the rest was designed and measured. It takes **782 bytes more**, so the
-return per byte falls by a factor of twenty-four; it also costs speed, and — because a bishop
-turns the question into a third unknown — it puts the engine's only proved property at risk. It is
-shelved, not lost. [The full argument is on the site.](https://www.fidelite.art/#dead)
+An extension covering the rest was designed and measured in the previous generation. It took
+**782 bytes more**, so the return per byte fell by a factor of twenty-four; it also cost speed, and
+— because a bishop turns the question into a third unknown — it puts the engine's only proved
+property at risk. Rewritten for the 0x88 board, it stood in the engine for a while (**+333 bytes**)
+and was then taken out. It is shelved, not lost: it lives on in
+[LUX's engine](builds/special/engine_lux.js). [The full argument is on the site.](https://www.fidelite.art/#dead)
 
 ## Why it matters
 
@@ -55,6 +57,7 @@ the book asks what that board is forced to become.**
 | `builds/engine.js` | 1,527 | The rule engine. One line, no front end. |
 | `builds/engine_4x.js` | 1,644 | The same rules, +117 bytes, 3.5 times the speed in move generation, about 6 times in adjudication. |
 | `builds/engine_string.js` | 1,721 | The same rules on a board of FEN letters instead of numbers. |
+| `builds/special/engine_lux.js` | 2,383 | LUX's engine set apart: `engine_4x` with Chess960 castling and the wider lock detector. [Where the 739 bytes go.](https://www.fidelite.art/#luxengine) |
 
 Every file under `builds/` runs on its own — download an HTML file and double-click
 it. The `.cjs` builds run in a terminal with `node`.
@@ -77,7 +80,7 @@ Everything below is on the site, in English and Turkish.
 | Topic | Link |
 | --- | --- |
 | How the rules read, article by article | [/#rules](https://www.fidelite.art/#rules) |
-| Dead position — 5.2.2 and its two branches | [/#dead](https://www.fidelite.art/#dead) |
+| Dead position — 5.2.2 and its three branches | [/#deadpos](https://www.fidelite.art/#deadpos) |
 | Flag fall, resignation and the possibility of mate — 5.1.2 and 6.9 | [/#flag](https://www.fidelite.art/#flag) |
 | A proposed hybrid ruleset — FIDE and USCF combined | [/#hybrid](https://www.fidelite.art/#hybrid) |
 | The builds — three axes (interface, rules, bot) and the `L3` family | [/#builds](https://www.fidelite.art/#builds) |
@@ -104,10 +107,15 @@ The rule claims are checked with perft against published reference values: the C
 Kervinck's tricky list, the 6,838-position Vajolet corpus, and a move-list comparison against
 Stockfish — about **1.5 billion nodes, zero deviations**.
 
-You do not have to take my word for it. [`test.zip`](https://www.fidelite.art/test.zip) (249 KB)
-contains the suite, copies of the four engines, the Vajolet position list, eight clickable test
+You do not have to take my word for it. [`test.zip`](https://www.fidelite.art/test.zip) (251 KB)
+contains the suite, copies of the five engines, the Vajolet position list, eight clickable test
 `.bat` files and the speed comparison (`bench.js` with `speed-comparison.bat`). Five of the eight runs need only Node; two need Stockfish, which is not in the
-package. On any other platform, `node test.js <command>`.
+package; the tricky run uses it if it is there and falls back on reference values if not. On any other platform, `node test.js <command>`.
+
+The fifth engine is LUX's (`--engine=5`). None of these runs reaches a lock detector: perft and
+the CPW positions test move generation only, and there LUX's engine is `engine_4x` with Chess960
+castling — on a standard board the same moves, written king onto rook — so it gives the same
+numbers. Its wider detector is measured against CHA-Solver's games (above), not here.
 
 ## Licence
 
@@ -144,10 +152,11 @@ yine de imkânsız olduğu pozisyonlar. Tahtada yalnız şah ve piyon kaldığı
 kilitli olup olmadığına karar veriyor; ölçülen kapsama **%93**. Yön de sayı kadar önemli: motorun
 ölü dediği her pozisyon gerçekten ölüdür, tanımadığını oynatmaya devam eder.
 
-Kalanı kapatan bir genişletme tasarlandı ve ölçüldü. **782 bayt daha** tutuyor, yani bayt başına
-getiri yirmi dört kat düşüyor; hızı da aşağı çekiyor ve fil soruyu üçüncü bir bilinmeyene
-dönüştürdüğü için motorun tek ispatlı özelliğini riske atıyor. Askıda, kaybolmuş değil.
-[Ayrıntılı gerekçe sitede.](https://www.fidelite.art/tr#dead)
+Kalanı kapatan bir genişletme önceki nesilde tasarlandı ve ölçüldü. **782 bayt daha** tutuyordu,
+yani bayt başına getiri yirmi dört kat düşüyordu; hızı da aşağı çekiyordu ve fil soruyu üçüncü bir
+bilinmeyene dönüştürdüğü için motorun tek ispatlı özelliğini riske atıyor. 0x88 tahtası için yeniden
+yazılıp bir süre motorda durdu (**+333 bayt**), sonra çıkarıldı. Askıda, kaybolmuş değil:
+[LUX'un motorunda](builds/special/engine_lux.js) yaşıyor. [Ayrıntılı gerekçe sitede.](https://www.fidelite.art/tr#dead)
 
 ## Neden önemli
 
@@ -169,6 +178,7 @@ zorunlu olarak neye dönüşeceğini soruyor.**
 | `builds/engine.js` | 1.527 | Kural motoru. Tek satır, önyüz yok. |
 | `builds/engine_4x.js` | 1.644 | Aynı kurallar, +117 bayt, hamle üretiminde 3,5 kat, hükümde yaklaşık 6 kat hız. |
 | `builds/engine_string.js` | 1.721 | Aynı kurallar, tahta sayı yerine FEN harfleriyle. |
+| `builds/special/engine_lux.js` | 2.383 | LUX'un ayrılmış motoru: Chess960 roku ve geniş kilit dedektörüyle `engine_4x`. [739 bayt nereye gidiyor.](https://www.fidelite.art/tr#luxengine) |
 
 `builds/` altındaki her dosya tek başına çalışır — HTML dosyasını indirip çift
 tıklamak yeterli. `.cjs` sürümleri terminalde `node` ile koşar.
@@ -191,7 +201,7 @@ Aşağıdakilerin hepsi sitede, Türkçe ve İngilizce.
 | Konu | Bağlantı |
 | --- | --- |
 | Kuralların okunuşu, madde madde | [/tr#rules](https://www.fidelite.art/tr#rules) |
-| Ölü pozisyon — 5.2.2 ve iki kolu | [/tr#dead](https://www.fidelite.art/tr#dead) |
+| Ölü pozisyon — 5.2.2 ve üç kolu | [/tr#deadpos](https://www.fidelite.art/tr#deadpos) |
 | Süre bitimi, terk ve mat imkânı — 5.1.2 ve 6.9 | [/tr#flag](https://www.fidelite.art/tr#flag) |
 | Önerilen karma sistem — FIDE ve USCF'nin birleşimi | [/tr#hybrid](https://www.fidelite.art/tr#hybrid) |
 | Varyantlar — üç eksen (arayüz, kural, bot) ve `L3` ailesi | [/tr#builds](https://www.fidelite.art/tr#builds) |
@@ -218,11 +228,17 @@ Kural iddiaları perft ile, yayımlanmış referans değerlere karşı sınandı
 Kervinck'in zor listesi, 6.838 pozisyonluk Vajolet külliyatı ve Stockfish'e karşı hamle listesi
 karşılaştırması — yaklaşık **1,5 milyar düğüm, sıfır sapma**.
 
-Bana güvenmeniz gerekmiyor. [`test.zip`](https://www.fidelite.art/test.zip) (249 KB) içinde süit,
-dört motorun kopyası, Vajolet pozisyon listesi, sekiz çift tıklanabilir test `.bat`'i ve hız
+Bana güvenmeniz gerekmiyor. [`test.zip`](https://www.fidelite.art/test.zip) (251 KB) içinde süit,
+beş motorun kopyası, Vajolet pozisyon listesi, sekiz çift tıklanabilir test `.bat`'i ve hız
 karşılaştırması (`bench.js` ile `speed-comparison.bat`) var. Sekiz koşunun
-beşi yalnızca Node istiyor; ikisi Stockfish gerektiriyor, o da pakette değil. Başka platformda
+beşi yalnızca Node istiyor; ikisi Stockfish gerektiriyor, o da pakette değil; zor pozisyonlar koşusu ise varsa onu kullanıyor, yoksa referans değerlerle yetiniyor. Başka platformda
 `node test.js <komut>`.
+
+Beşinci motor LUX'unki (`--engine=5`). Bu koşuların hiçbiri bir kilit dedektörüne uğramıyor: perft
+ve CPW pozisyonları yalnızca hamle üretimini sınıyor; orada LUX'un motoru Chess960 roklu bir
+`engine_4x` — standart tahtada aynı hamleler, yalnız şah kalenin üstüne gidiyor — ve aynı sayıları
+veriyor. Geniş dedektörü burada değil, CHA-Solver'ın oyunlarına karşı
+ölçülüyor (yukarıda).
 
 ## Lisans
 

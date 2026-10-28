@@ -6,19 +6,23 @@
   "trailingSlash": false,
 
   "rewrites": [
-    { "source": "/tr", "destination": "/tr/index.html" }
+    { "source": "/tr", "destination": "/tr/index.html" },
+    { "source": "/arbiter", "destination": "/arbiter/index.html" }
   ],
 
   "redirects": [
     { "source": "/index.html", "destination": "/", "permanent": true },
     { "source": "/tr/", "destination": "/tr", "permanent": true },
+    { "source": "/arbiter/", "destination": "/arbiter", "permanent": true },
+    { "source": "/arbiter/Arbiter.html", "destination": "/arbiter", "permanent": true },
     { "source": "/en", "destination": "/", "permanent": true },
     { "source": "/en/(.*)", "destination": "/", "permanent": true },
     { "source": "/special/LUX_inProgress.html", "destination": "/builds/special/LUX.html", "permanent": true },
     { "source": "/builds/LUX/LUX.html", "destination": "/builds/special/LUX.html", "permanent": true },
-    { "source": "/special/L3_packed.html", "destination": "/builds/L3_packed.html", "permanent": true },
+    { "source": "/special/L3_packed.html", "destination": "/builds/FideLite.html", "permanent": true },
     { "source": "/special/L3_numerical_packed.html", "destination": "/builds/L3_numerical.html", "permanent": true },
-    { "source": "/builds/special/L3_packed.html", "destination": "/builds/L3_packed.html", "permanent": true },
+    { "source": "/builds/special/L3_packed.html", "destination": "/builds/FideLite.html", "permanent": true },
+    { "source": "/builds/L3_packed.html", "destination": "/builds/FideLite.html", "permanent": true },
     { "source": "/builds/special/L3_numerical_packed.html", "destination": "/builds/L3_numerical.html", "permanent": true },
     { "source": "/builds/special/DOM_998.html", "destination": "/builds/special/DOM_911.html", "permanent": true },
     { "source": "/builds/special/DOM_996.html", "destination": "/builds/special/DOM_911.html", "permanent": true },
@@ -31,8 +35,10 @@
     { "source": "/builds/special/L2_string_flip_noBlockedDetector.html", "destination": "/builds/special/L2_string_base.html", "permanent": true },
     { "source": "/builds/special/L2_string_noBlockedDetector.html", "destination": "/builds/special/L2_string_base.html", "permanent": true },
     { "source": "/builds/special/L2_noBlockedDetector.html", "destination": "/builds/special/L2_base.html", "permanent": true },
-    { "source": "/builds/special/Lichess-equivalent_numerical.html", "destination": "/builds/special/Lichess-equivalent_minimum.html", "permanent": true },
-    { "source": "/builds/special/Chesscom-equivalent_numerical.html", "destination": "/builds/special/Chesscom-equivalent_minimum.html", "permanent": true },
+    { "source": "/builds/special/Lichess-equivalent_numerical.html", "destination": "/builds/special/Lichess-eqv_min.html", "permanent": true },
+    { "source": "/builds/special/Chesscom-equivalent_numerical.html", "destination": "/builds/special/Chesscom-eqv_min.html", "permanent": true },
+    { "source": "/builds/special/Lichess-equivalent_minimum.html", "destination": "/builds/special/Lichess-eqv_min.html", "permanent": true },
+    { "source": "/builds/special/Chesscom-equivalent_minimum.html", "destination": "/builds/special/Chesscom-eqv_min.html", "permanent": true },
     { "source": "/extra/Unchecked.html", "destination": "/extra/UncheckedVariant.html", "permanent": true },
     { "source": "/extra/Absolute_Distance.html", "destination": "/extra/Board_Delta_Coordinate.html", "permanent": true },
     { "source": "/special/:path*", "destination": "/builds/special/:path*", "permanent": true }

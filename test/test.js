@@ -14,8 +14,8 @@
 //
 // Two board dialects are spoken:
 //
-//   0x88    engine.js, engine_4x.js, engine_onlyMoveGenerator.js and every
-//           L2/L3 build made from them.
+//   0x88    engine.js, engine_4x.js, engine_onlyMoveGenerator.js,
+//           engine_lux.js and every L2/L3 build made from them.
 //             square   16*rank + file, a1 = 0, h8 = 119; i & 8 is off the board
 //             board    b[] sparse: the 64 squares hold a code, the rest are holes
 //             piece    P1 K2 Q3 N4 R5 B6, +8 for White, 0 empty
@@ -32,6 +32,10 @@
 //           written by the engine's full move M(), which perft does not use, so
 //           the harness writes them; U() returns the e.p. square of every
 //           double step, legal capture or not, which perft does not mind.
+//           engine_lux.js castles as Chess960 does: the king moves onto its
+//           own rook (e1h1) and U() sets both pieces down. Move lists name
+//           that move as standard UCI does (e1g1), so they line up with
+//           Stockfish's.
 //
 //   string  engine_string.js and the string-board builds.
 //             square   a8 = 0, h1 = 63
@@ -48,18 +52,21 @@ const path = require('path');
 const vm = require('vm');
 const { spawnSync } = require('child_process');
 
-// Engine selection. Four engines can run this suite:
+// Engine selection. Five engines can run this suite:
 //
-//   1  engine_4x.js                speed build, 0x88 board (+118 B, ~3.5x faster move generation)
+//   1  engine_4x.js                speed build, 0x88 board (+117 B, ~3.5x faster move generation)
 //   2  engine.js                   byte-record build, 0x88 board, full FIDE
 //   3  engine_onlyMoveGenerator.js move generation only: engine.js up to M(), counters dropped
 //   4  engine_string.js            string board: b[] holds FEN letters, '-' is empty
+//   5  engine_lux.js               LUX's engine: engine_4x with Chess960 castling and a wider
+//                                  lock detector. Perft never asks the detector, so it must
+//                                  give engine_4x's numbers exactly.
 //
 // How the engine is chosen, first match wins:
 //   ENGINE=path            an explicit file, no prompt
-//   --engine=N  /  -e N    one of the four by number, no prompt
-//   interactive picker     arrows + Enter, or type 1-4; bare Enter takes 1
-//   not a TTY (.bat, pipe) the first of the four present in this folder
+//   --engine=N  /  -e N    one of the five by number, no prompt
+//   interactive picker     arrows + Enter, or type 1-5; bare Enter takes 1
+//   not a TTY (.bat, pipe) the first of the five present in this folder
 //
 // The picker draws on stderr and `node test.js pick` prints the chosen path on
 // stdout, so a script can ask once and pin the answer for every run that follows:
@@ -70,6 +77,7 @@ const ENGINES = [
   { file: 'engine.js',                   what: 'byte-record build, 0x88 board' },
   { file: 'engine_onlyMoveGenerator.js', what: 'move generation only, 0x88 board' },
   { file: 'engine_string.js',            what: 'string board (FEN letters)' },
+  { file: 'engine_lux.js',               what: 'LUX engine, 0x88 board, Chess960 castling' },
 ];
 const ENGINE_CANDIDATES = ENGINES.map(e => './' + e.file);
 const here = f => path.join(__dirname, f);
@@ -79,9 +87,9 @@ function pickEngine(interactive) {
   const argv = process.argv.slice(2);
   let n = null;
   for (let i = 0; i < argv.length; i++) {
-    let m = /^--engine=([1-4])$/.exec(argv[i]);
+    let m = /^--engine=([1-5])$/.exec(argv[i]);
     if (m) n = +m[1];
-    else if (argv[i] === '-e' && /^[1-4]$/.test(argv[i + 1] || '')) n = +argv[++i];
+    else if (argv[i] === '-e' && /^[1-5]$/.test(argv[i + 1] || '')) n = +argv[++i];
   }
   if (n) return './' + ENGINES[n - 1].file;
 
@@ -94,7 +102,7 @@ function pickEngine(interactive) {
   const H = ENGINES.length + 3;
   const draw = first => {
     if (!first) process.stderr.write(`\x1b[${H}A`);
-    process.stderr.write('\n  Which engine?   (arrows + Enter, or type 1-4; Enter alone takes 1)\n');
+    process.stderr.write('\n  Which engine?   (arrows + Enter, or type 1-5; Enter alone takes 1)\n');
     ENGINES.forEach((e, i) => {
       const p = present.find(x => x.i === i);
       const cur = p && present[sel].i === i;
@@ -117,7 +125,7 @@ function pickEngine(interactive) {
       if (key === '\r' || key === '\n') break;
       if (key === '\x1b[A' || key === 'k') { sel = (sel + present.length - 1) % present.length; draw(false); continue; }
       if (key === '\x1b[B' || key === 'j') { sel = (sel + 1) % present.length; draw(false); continue; }
-      const d = /^[1-4]$/.test(key) ? +key : 0;          // a wrong key is simply ignored
+      const d = /^[1-5]$/.test(key) ? +key : 0;         // a wrong key is simply ignored
       if (d) { const p = present.findIndex(x => x.i === d - 1); if (p >= 0) { sel = p; draw(false); } }
     }
   } finally { process.stdin.setRawMode(false); }
@@ -151,10 +159,14 @@ const X88 = {
   castleIn: cr => cr,                    // 1 K, 2 Q, 4 k, 8 q, as in FEN order
   castleOut: c => c,
   targets: (env, i) => X88.squares.filter(u => env.L(i, u)),
+  // The move's UCI name. A king moving onto its own rook is LUX's castling
+  // (Chess960 style); standard UCI names it by the king's square: e1g1, e1c1.
+  uci: (env, i, u) => sqName(i) + sqName((env.b[i] & 7) === 2 && X88.own(env.b[u], env.t)
+    ? (i & 112) + (u > i ? 6 : 2) : u),
   play(env, i, u, q) {
     env.L(i, u);                         // stores the castling rook's square for U
     const p = env.b[i];
-    env.n = (p & 7) === 1 || env.b[u] ? 0 : env.n + 1;
+    env.n = (p & 7) === 1 || env.b[u] && !X88.own(env.b[u], env.t) ? 0 : env.n + 1;
     env.c &= ~env.C(i) & ~env.C(u);
     const y = { q: 3, r: 5, b: 6, n: 4 }[q];
     // The engine files take the promotion piece as U's third argument. The DOM
@@ -184,6 +196,7 @@ const STR = {
   castleIn: cr => cr >> 2 | (cr & 3) << 2,   // a8 = 0 turns the bits round: K=4 Q=8 k=1 q=2
   castleOut: c => c >> 2 | (c & 3) << 2,
   targets: (env, i) => env.L(i),
+  uci: (env, i, u) => sqName(i) + sqName(u),
   play(env, i, u, q) {
     env.c &= ~env.C(i) & ~env.C(u);
     env.M(i, u, q);                        // writes e and n itself; promotion argument is lower case
@@ -412,8 +425,9 @@ function makePerft(env) {
   return perft;
 }
 
+// The legal moves by UCI name, sorted: [name, from, to, promo].
 function legalMoves(env) {
-  return moveList(env).map(([i, u, q]) => sqName(i) + sqName(u) + q).sort();
+  return moveList(env).map(([i, u, q]) => [D.uci(env, i, u) + q, i, u, q]).sort((a, b) => a[0] < b[0] ? -1 : 1);
 }
 
 // ============== Stockfish ==============
@@ -499,6 +513,7 @@ const LEVELS = {
   './engine.js': 'full FIDE, byte-record build, 0x88 board',
   './engine_onlyMoveGenerator.js': 'move generation only, 0x88 board',
   './engine_string.js': 'full FIDE, string board (FEN letters)',
+  './engine_lux.js': "full FIDE, LUX's engine: engine_4x + Chess960 castling + wider lock detector",
 };
 
 function banner() {
@@ -538,6 +553,14 @@ function cmdDetect() {
   // Castling bit semantics, checked rather than assumed.
   const bits = ['a1', 'e1', 'h1', 'a8', 'e8', 'h8'].map(s => `${s}=${env.C(nameSq(s))}`).join(' ');
   console.log(`  castling bits: ${bits}`);
+  if (D === X88) {
+    // How the castling move itself is written: the king two squares, or onto its own rook.
+    const st = snap(env);
+    setFEN(env, '4k3/8/8/8/8/8/8/4K2R w K - 0 1');
+    const onRook = !!env.L(nameSq('e1'), nameSq('h1'));
+    restore(env, st);
+    console.log(`  castling move: ${onRook ? 'e1h1, the king onto its own rook (Chess960 style), named e1g1 in move lists' : 'e1g1, the king two squares'}`);
+  }
   console.log(`  board: ${env.b.length} slots, ${D.squares.length} squares, a1=${JSON.stringify(env.b[nameSq('a1')])} h8=${JSON.stringify(env.b[nameSq('h8')])}`);
   console.log(`\n  Stockfish: ${hasStockfish() ? 'found (' + SF + ')' : 'NOT found'}\n`);
 }
@@ -648,12 +671,12 @@ function cmdDivide(fen, depth) {
   setFEN(env, fen);
   let total = 0;
   const out = [];
-  for (const [i, u, q] of moveList(env)) {
+  for (const [name, i, u, q] of legalMoves(env)) {
     const st = snap(env);
     D.play(env, i, u, q || 'q');
     const sub = d > 1 ? perft(d - 1) : 1;
     restore(env, st);
-    out.push(`${sqName(i)}${sqName(u)}${q}: ${sub}`);
+    out.push(`${name}: ${sub}`);
     total += sub;
   }
   out.sort();
@@ -757,13 +780,14 @@ function cmdRandom(start, games = 20, maxPlies = 60) {
     let rng = (g + 1) | 0, fault = null;
     for (let ply = 0; ply < +maxPlies; ply++) {
       const curFEN = envToFEN(env);
-      const fl = legalMoves(env);
+      const moves = legalMoves(env);
+      const fl = moves.map(m => m[0]);
       const sf = sfLegalMoves(curFEN);
       if (fl.length !== sf.length || fl.some((m, i) => m !== sf[i])) { fault = { ply, fen: curFEN, fl, sf }; break; }
       if (fl.length === 0 || env.n > 100) break;
       rng = (rng * 1664525 + 1013904223) | 0;
-      const choice = fl[Math.abs(rng) % fl.length];
-      D.play(env, nameSq(choice.slice(0, 2)), nameSq(choice.slice(2, 4)), choice[4] || 'q');
+      const [, i, u, q] = moves[Math.abs(rng) % moves.length];
+      D.play(env, i, u, q || 'q');
     }
     if (fault) { mismatches.push({ g: g + 1, ...fault }); process.stdout.write('X'); }
     else { ok++; process.stdout.write('.'); }
@@ -801,7 +825,7 @@ const [cmd, ...args] = argv;
 const USAGE = `
 FideLite test suite
 
-  node test.js detect                        report dialect / API / castling bits / Stockfish
+  node test.js detect                        report dialect / API / castling / Stockfish
   node test.js sanity                        quick check (d3)
   node test.js cpw [maxD] [minD]             CPW positions over a depth range
   node test.js pos <name> <depth>            single position (start/kiwipete/pos3..pos6/pos4m)
@@ -816,7 +840,7 @@ FideLite test suite
 
 Engine: a picker appears when a command is given. Skip it with
   ENGINE=./engine_string.js node test.js sanity
-  node test.js sanity --engine=3            (1 4x, 2 engine, 3 movegen, 4 string)
+  node test.js sanity --engine=3            (1 4x, 2 engine, 3 movegen, 4 string, 5 lux)
 
 A script that runs several commands should ask once and pin the answer:
   for /f "usebackq delims=" %%e in (\`node test.js pick\`) do set "ENGINE=%%e"

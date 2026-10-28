@@ -252,6 +252,14 @@ for (const f of ['test.zip', 'robots.txt']) {
   if (existsSync(f)) cpSync(f, join(OUT, f));
 }
 
+/* Arbiter: /arbiter adresinden acilir (vercel.json'daki rewrite). Yalnizca
+   sayfa yayinlanir; arbiter/ altindaki veri dosyalari sitede barindirilmiyor,
+   site onlari GitHub'dan bagliyor. */
+if (existsSync('arbiter/Arbiter.html')) {
+  mkdirSync(join(OUT, 'arbiter'), { recursive: true });
+  cpSync('arbiter/Arbiter.html', join(OUT, 'arbiter', 'index.html'));
+}
+
 /* Sitemap */
 writeFileSync(join(OUT, 'sitemap.xml'),
 `<?xml version="1.0" encoding="UTF-8"?>

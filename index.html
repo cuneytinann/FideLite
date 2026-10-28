@@ -343,7 +343,7 @@ body {
      sutunun solunda kalir, sag bosluk soldakinden genis gorunurdu. */
   section :is(.prose, .epi, .diagram, .snip, .codes, .cost, .fl, .note,
     ul.tight, ol.tight) { max-width:none }
-  #play .player { margin-inline:calc(-30% + 1.5rem) }
+  #play .ship { margin-inline:calc(-30% + .25rem) }
   /* Bolum ayraci genis ekranda yalnizca kagit sutunun icinde. Tam genislikteki
      alt kenar yan kolonlardaki tahtanin ustunden geciyor, desen ekrana sabit
      oldugu icin de oraya ait olmayan ince bir cizgi gibi duruyordu. Ayni cizgi
@@ -968,6 +968,38 @@ th.numr { text-align:right }
 
 /* ---- player ---- */
 .player { border:1px solid var(--ink); margin:1.5rem 0; background:var(--paper) }
+/* ---- gemi: Chesseus ----
+   Oynatici Theseus'un gemisinin govdesine oturur. Govde, pruva, kic, mahmuz ve
+   su tek bir SVG; JS panelin gercek boyutundan cizer, panel buyudukce (oyun,
+   kod gorunumu) yeniden cizer. Kaplama tahtalarinin bir kismi acik renkte:
+   yenisiyle degistirilmis tahtalar. JS yoksa SVG bos kalir, panel eskisi gibi. */
+.ship { position:relative; margin:1.5rem 0 }
+.ship > .player { position:relative; z-index:1; margin:0 }
+.hull { position:absolute; left:0; top:0; width:0; height:0; overflow:visible;
+  pointer-events:none; z-index:0;
+  --seam: color-mix(in oklab, var(--dk) 32%, #000);
+  --wood: var(--dk);
+  --wood-2: color-mix(in oklab, var(--dk) 84%, #000);
+  --new: color-mix(in oklab, var(--lt) 78%, var(--dk));
+  --bronze: color-mix(in oklab, var(--acc) 70%, var(--dk));
+  --foam: color-mix(in oklab, var(--ink-3) 70%, transparent) }
+.hull .caulk { fill:none; stroke:var(--seam) }
+.hull .wood { fill:none; stroke:var(--wood) }
+.hull .wood.b { stroke:var(--wood-2) }
+.hull .new { fill:none; stroke:var(--new) }
+.hull .post { fill:none; stroke:var(--wood); stroke-linecap:round }
+.hull .postc { fill:none; stroke:var(--seam); stroke-linecap:round }
+.hull .gold { fill:none; stroke:var(--acc) }
+.hull .rail { fill:var(--wood-2); stroke:var(--seam) }
+.hull .ram { fill:var(--bronze); stroke:var(--seam) }
+.hull .eye { fill:var(--card-w-bg); stroke:var(--seam) }
+.hull .iris { fill:var(--seam) }
+.hull .sea0 { stop-color:var(--paper); stop-opacity:.82 }
+.hull .sea1 { stop-color:var(--paper); stop-opacity:0 }
+.hull .foam { fill:none; stroke:var(--foam) }
+.hull .waves { animation:hull-sea 7s linear infinite }
+@keyframes hull-sea { to { transform:translateX(var(--wl, 40px)) } }
+@media (prefers-reduced-motion:reduce) { .hull .waves { animation:none } }
 .pbar { display:flex; flex-wrap:wrap; gap:.5rem 1.25rem; align-items:center;
   padding:.85rem 1rem; border-bottom:1px solid var(--rule); background:var(--panel) }
 fieldset.builds { border:0; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:.4rem .9rem;
@@ -1710,6 +1742,8 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       the file and open it locally, or allow dialogs.</p>
     </div>
 
+    <div class="ship" id="ship">
+    <svg class="hull" id="hull" aria-hidden="true" focusable="false"></svg>
     <div class="player">
       <div class="pbar">
         <fieldset class="builds levels">
@@ -1791,6 +1825,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
           <button class="dl1" id="dlfile" type="button"><span lang="tr">İndir</span><span lang="en">Download</span></button>
         </span>
       </div>
+    </div>
     </div>
   </div>
 </section>
@@ -13134,7 +13169,7 @@ slider  :           P+P*4%x &amp; S()</pre>
       <p>Repo herkese açık:
       <a href="https://github.com/cuneytinann/FideLite" target="_blank" rel="noopener">github.com/cuneytinann/FideLite</a>.
       Test klasörünün tamamını tek dosya hâlinde indirmek için:
-      <a href="test.zip" download="test.zip">test.zip · 249 KB</a>. İçinde süit, dört motorun
+      <a href="test.zip" download="test.zip">test.zip · 251 KB</a>. İçinde süit, beş motorun
       kopyası, Vajolet pozisyon listesi, çift tıklanarak çalışan sekiz test <code>.bat</code> dosyası ve
       hız karşılaştırması (<code>bench.js</code> ile <code>speed-comparison.bat</code>) var; başka bir şey indirmen gerekmiyor. Windows'ta bir <code>.bat</code> dosyasına çift
       tıklamak yetiyor; başka platformlarda <code>node test.js &lt;komut&gt;</code> komutunu
@@ -13163,8 +13198,8 @@ slider  :           P+P*4%x &amp; S()</pre>
       <p>The repository is public:
       <a href="https://github.com/cuneytinann/FideLite" target="_blank" rel="noopener">github.com/cuneytinann/FideLite</a>. To
       download the whole test folder as one file, use
-      <a href="test.zip" download="test.zip">test.zip · 249 KB</a> — it contains the suite, copies
-      of all four engines, the Vajolet position list, eight double-clickable test <code>.bat</code>
+      <a href="test.zip" download="test.zip">test.zip · 251 KB</a> — it contains the suite, copies
+      of all five engines, the Vajolet position list, eight double-clickable test <code>.bat</code>
       files and the speed comparison (<code>bench.js</code> with <code>speed-comparison.bat</code>), and
       nothing else is needed. On Windows, double-clicking a <code>.bat</code> file is
       enough; on other platforms, run <code>node test.js &lt;command&gt;</code>.</p>
@@ -13390,7 +13425,9 @@ slider  :           P+P*4%x &amp; S()</pre>
       ana sürümün dışında kalan motorlar: <a href="#speed"><code>engine_4x</code></a>: aynı kurallar,
       biraz daha fazla baytla çok daha hızlı. <a href="#letters">Önceki nesil</a>: tahtayı harf
       dizgisi olarak tutan sürüm. <a href="#movegen">Yalnız hamle üretici</a>: testlerin sınadığı
-      çekirdeğin tek başına ne kadar küçük olabileceğini gösteren 653 baytlık dosya. <a href="#alternatives">Denenip elenen yollar</a>: ölçülüp
+      çekirdeğin tek başına ne kadar küçük olabileceğini gösteren 653 baytlık dosya. <a href="#luxengine">LUX'un motoru</a>:
+      kilit dedektörü, roku ve aramaları genişletilmiş <code>engine_4x</code>; motordan çıkarılan ve
+      hiç yazılmayan katmanların bayt hesabıyla. <a href="#alternatives">Denenip elenen yollar</a>: ölçülüp
       bırakılan tahta temsilleri ve kısayollar. Sonra motorun dışı:
       <a href="#parsing">Sürücünün ayrıştırıcıları</a>: tıklama, UCI ve sayısal girdi; bir de
       sürücünün motora nerede bağlandığı. <a href="#castlebook"><code class="vn">L1</code>'in rok defteri</a> ve
@@ -13405,7 +13442,9 @@ slider  :           P+P*4%x &amp; S()</pre>
       the engines outside the main version: <a href="#speed"><code>engine_4x</code></a>: the same
       rules, a few more bytes, far more speed. <a href="#letters">The previous generation</a>: the
       build that holds the board as a string of letters. <a href="#movegen">The move generator
-      alone</a>: the 653-byte file that shows how small the core the tests exercise can be. <a href="#alternatives">Roads tried and
+      alone</a>: the 653-byte file that shows how small the core the tests exercise can be.
+      <a href="#luxengine">LUX's engine</a>: <code>engine_4x</code> with a wider lock detector, castling and
+      searches, and the byte count of the layers taken out of the engine or never written for it. <a href="#alternatives">Roads tried and
       eliminated</a>: board representations and shortcuts that were measured and dropped. Then what
       lies outside the engine: <a href="#parsing">The driver's parsers</a>: clicking, UCI and numeric
       input, and where a driver meets the engine. <a href="#castlebook"><code class="vn">L1</code>'s castling ledger</a> and
@@ -13474,7 +13513,7 @@ slider  :           P+P*4%x &amp; S()</pre>
 <tr><td><code>G</code></td><td>Kale ya da vezir ışınını ancak hedef o ışının üstünde olabiliyorsa yürüyor: <code>d/s&lt;8</code>, başka bir yataydaki hedefi yatay yürüyüş başlamadan eliyor. Piyonun düz adımı da yalnız hedef boşsa yürüyor (<code>&amp;S()</code> yerine <code>&amp;&amp;S()</code>).</td><td class="num">+8</td></tr>
 <tr><td><code>T</code></td><td><code>(p^t)&gt;8</code> yalnız rakip taşları bırakıyor — boş kareler ve kendi taşları tek karşılaştırmada çıkıyor — ve şahtan indeks olarak 33 kareden uzaktaki piyon, at ya da şah <code>G</code>'ye hiç sorulmuyor: <code>(22&gt;&gt;p%8&amp;(x-j)**2&gt;1089)</code>.</td><td class="num">+26</td></tr>
 <tr><td><code>M</code></td><td><code>e-8&amp;&amp;</code> — geçerken alma yasallık taraması yalnız iki kare ilerlemeden sonra çalışıyor.</td><td class="num">+5</td></tr>
-<tr><td><code>V</code></td><td>Kilit döngüsü 99 tur yerine sabit noktada duruyor: her turda kümelerin toplamı, <code>A+a+_+f-S-s</code>, karşılaştırılıyor; toplam değişmeyince döngü bitiyor. Sabit noktaya varılabilsin diye iki küme 64 bitte kesiliyor (<code>&amp;F</code>); yoksa tahtanın dışına taşan bitler her turda büyür ve toplam hiç durmazdı. Bir <code>|</code>, <code>||</code> oluyor: malzeme yarısı cevabı zaten verdiyse kilit taraması hiç başlamıyor.</td><td class="num">+27</td></tr>
+<tr><td><code>V</code></td><td>Kilit döngüsü 99 tur yerine sabit noktada duruyor: her turda kümelerin toplamı, <code>A+a+_+f-S-s</code>, karşılaştırılıyor; toplam değişmeyince döngü bitiyor. Sabit noktaya varılabilsin diye yukarı doğru büyüyen üç küme — beyazın ilerleyişi ile iki şahın erişimi — 64 bitte kesiliyor (<code>&amp;F</code>, iki yerde); yoksa tahtanın dışına taşan bitler her turda büyür ve toplam hiç durmazdı. Bir <code>|</code>, <code>||</code> oluyor: malzeme yarısı cevabı zaten verdiyse kilit taraması hiç başlamıyor.</td><td class="num">+27</td></tr>
 <tr><td><code>O</code></td><td><code>p+~t&gt;&gt;3</code> boş kareleri ve rakip taşları tek testte atlıyor; piyon, at ve şahta <code>L</code>'ye yalnız çevresindeki 5×5 kutu ulaşıyor: <code>x-j+34&amp;136|j-x+34&amp;136</code>.</td><td class="num">+36</td></tr>
 <tr><td><code>Z</code></td><td><code>(n+e&lt;10|_)&amp;&amp;</code> — ölü pozisyon testi yalnız bir piyon hamlesi ya da almanın yapıldığı yarım hamlede ve ondan sonrakinde, açık bir geçerken alma karesi yokken çalışıyor; bir de <code>Z(1)</code> ile istendiğinde.</td><td class="num">+12</td></tr>
 <tr><td><code>A</code></td><td><code>Z()</code>'yi argümansız çağırıyor, tetik bu yüzden geçerli.</td><td class="num">+3</td></tr>
@@ -13487,7 +13526,7 @@ slider  :           P+P*4%x &amp; S()</pre>
 <tr><td><code>G</code></td><td>A rook or queen walks its ray only when the target can lie on it: <code>d/s&lt;8</code> rules out a target on another rank before the walk along the rank begins. The pawn's straight step walks only when the target is empty, too (<code>&amp;&amp;S()</code> instead of <code>&amp;S()</code>).</td><td class="num">+8</td></tr>
 <tr><td><code>T</code></td><td><code>(p^t)&gt;8</code> keeps only enemy pieces — empty squares and own pieces leave in a single comparison — and a pawn, knight or king more than 33 index squares from the king is never asked through <code>G</code>: <code>(22&gt;&gt;p%8&amp;(x-j)**2&gt;1089)</code>.</td><td class="num">+26</td></tr>
 <tr><td><code>M</code></td><td><code>e-8&amp;&amp;</code> — the en passant legality scan runs only after a two-square advance.</td><td class="num">+5</td></tr>
-<tr><td><code>V</code></td><td>The lock loop stops at its fixed point instead of running 99 rounds: the sum of the sets, <code>A+a+_+f-S-s</code>, is compared on every round, and the loop ends when it stops changing. For the fixed point to be reached, two sets are cut to 64 bits (<code>&amp;F</code>); otherwise the bits that spill off the board would grow every round and the sum would never settle. One <code>|</code> becomes <code>||</code>: the lock scan does not start when the material half has already answered.</td><td class="num">+27</td></tr>
+<tr><td><code>V</code></td><td>The lock loop stops at its fixed point instead of running 99 rounds: the sum of the sets, <code>A+a+_+f-S-s</code>, is compared on every round, and the loop ends when it stops changing. For the fixed point to be reached, the three sets that grow upwards — White's advance and the two kings' reach — are cut to 64 bits (<code>&amp;F</code>, written in two places); otherwise the bits that spill off the board would grow every round and the sum would never settle. One <code>|</code> becomes <code>||</code>: the lock scan does not start when the material half has already answered.</td><td class="num">+27</td></tr>
 <tr><td><code>O</code></td><td><code>p+~t&gt;&gt;3</code> skips empty squares and enemy pieces in one test; for a pawn, knight or king only the 5×5 box around it reaches <code>L</code>: <code>x-j+34&amp;136|j-x+34&amp;136</code>.</td><td class="num">+36</td></tr>
 <tr><td><code>Z</code></td><td><code>(n+e&lt;10|_)&amp;&amp;</code> — the dead-position test runs only in the ply of a pawn move or a capture and the one after it, with no en passant square open, or when asked with <code>Z(1)</code>.</td><td class="num">+12</td></tr>
 <tr><td><code>A</code></td><td>Calls <code>Z()</code> without an argument, so that trigger applies.</td><td class="num">+3</td></tr>
@@ -13802,7 +13841,7 @@ slider  :           P+P*4%x &amp; S()</pre>
     <h3 lang="en" data-id="4x-method">The measurement and its traps</h3>
     <div class="prose" lang="tr">
       <p>Perft sayıları <a href="#tests">test paketindeki</a> <code>bench.js</code>'ten
-      (<code>node bench.js engine.js engine_4x.js --site</code>), hüküm sayıları hakem sayfasından.
+      (<code>node bench.js --site --rounds=5</code>), hüküm sayıları hakem sayfasından.
       Hız ölçümünü şişiren iki hata zaten biliniyordu: medyan yerine <b>en iyi koşuyu almak</b> ve
       hamle üretimini sabit pozisyonlarda döngüye sokup gerçek bir sayımın durum yönetimini dışarıda
       bırakan <b>yapay tezgâh</b>. Bu tur üç ders daha ekledi.</p>
@@ -13831,7 +13870,7 @@ slider  :           P+P*4%x &amp; S()</pre>
     </div>
     <div class="prose" lang="en">
       <p>The perft numbers come from <code>bench.js</code> in <a href="#tests">the test bundle</a>
-      (<code>node bench.js engine.js engine_4x.js --site</code>), the verdict numbers from the referee
+      (<code>node bench.js --site --rounds=5</code>), the verdict numbers from the referee
       page. Two mistakes that inflate a speed measurement were already known: <b>taking the best
       run</b> instead of the median, and an <b>artificial bench</b> that loops move generation over
       fixed positions and leaves out the state management of a real count. This round added three
@@ -13873,9 +13912,10 @@ slider  :           P+P*4%x &amp; S()</pre>
       hak edecek kadar vermedi.</p>
       <p>Hangi değişikliğin hangi dosyaya gireceği tek bir kurala bakıyor: <code>engine.js</code> en
       kısa hâl, <code>engine_4x</code> en hızlısı; 117 baytın hiçbiri <code>engine.js</code>'te yok.
-      <code>engine_4x.js</code> sürücülerin hiçbirine gömülü değil: oyunda motorun mikrosaniyeleri
+      <code>engine_4x.js</code> <code class="vn">L1</code>–<code class="vn">L3</code> sürücülerinin hiçbirine gömülü değil: oyunda motorun mikrosaniyeleri
       oyuncunun düşünme süresinin yanında görünmüyor. Yeri sıcak yolun açık kaldığı yerler — bir
-      veritabanını doğrulamak ve motoru her düğümde çağıran bir arama. Kaynağı
+      veritabanını doğrulamak ve motoru her düğümde çağıran bir arama; <code>builds/special/</code>'daki
+      botlu sürümler ile <code class="vn">LUX</code> da onun çekirdeğini taşıyor. Kaynağı
       <code>builds/</code> altında, bir kopyası da <a href="#tests">test paketinde</a>.</p>
     </div>
     <div class="prose" lang="en">
@@ -13889,9 +13929,10 @@ slider  :           P+P*4%x &amp; S()</pre>
       bytes.</p>
       <p>Which change goes into which file follows one rule: <code>engine.js</code> is the shortest
       form, <code>engine_4x</code> the fastest; none of the 117 bytes is in <code>engine.js</code>.
-      <code>engine_4x.js</code> is embedded in no driver: in a game the engine's microseconds are
+      <code>engine_4x.js</code> is embedded in none of the <code class="vn">L1</code>–<code class="vn">L3</code> drivers: in a game the engine's microseconds are
       invisible next to a player's thinking time. Its place is wherever the hot path stays open —
-      validating a database, and a search that calls the engine at every node. Its source sits
+      validating a database, and a search that calls the engine at every node; the bot builds and
+      <code class="vn">LUX</code> in <code>builds/special/</code> carry its core too. Its source sits
       under <code>builds/</code>, with a copy in <a href="#tests">the test bundle</a>.</p>
     </div>
   </div>
@@ -14133,28 +14174,166 @@ _ = '-'      E = 'a'      j = p =&gt; p?.toUpperCase()</pre></div>
       board of letters, which makes the numeric board a choice rather than a requirement.</p>
     </div>
     <div class="prose" lang="tr">
-      <p>Kazanılan şey okunabilirlik. <code>P=='K'</code> ile <code>P&gt;4</code> aynı soruyu
+      <p>Kazanılan şey okunabilirlik. <code>P=='K'</code> ile <code>P==2</code> aynı soruyu
       soruyor ama birincisi satranç gibi okunuyor. Golfstack'te amaç okunabilirlik değil; yine de
       bu, kodlamanın neden önce bu hâliyle yazıldığını açıklıyor: <b>önce doğru olanı anlaşılır
       biçimde yaz, sonra ölçüp yont.</b></p>
       <p>Bir ayrıntı daha: harf sürümlerinde <code>j</code>, taşı büyük harfe çeviren yardımcı.
       Sayısal motorda <code>toUpperCase</code> gerektiren hiçbir şey yok; aynı harf de başka bir işe
-      geçti: tahtayı kuran <code>map</code>'in ve <code>T</code>'nin taramasının indeksi oldu.
+      geçti: tahtayı kuran <code>for…in</code> döngüsünün anahtarı ve <code>T</code>'nin taramasının indeksi oldu.
       Kodlama değişince yalnızca baytlar değil, harfler de serbest kalıyor — ve serbest kalan bir
       harf uzun süre boş durmuyor; güncel durum <a href="#pack-free-letters">boşta harfler</a>
       tablosunda.</p>
     </div>
     <div class="prose" lang="en">
-      <p>What it buys is readability. <code>P=='K'</code> and <code>P&gt;4</code> ask the same
+      <p>What it buys is readability. <code>P=='K'</code> and <code>P==2</code> ask the same
       question, but the first reads like chess. Readability is not the aim in Golfstack — and yet
       this is exactly why the encoding was written first: <b>get it right legibly, then measure and
       carve.</b></p>
       <p>One more detail: in the letter builds <code>j</code> is the helper that upper-cases a piece.
       The numeric engine has nothing that needs a <code>toUpperCase</code>, and the same letter has moved
-      on to another job: the index of the <code>map</code> that builds the board and of
+      on to another job: the key of the <code>for…in</code> loop that builds the board and the index of
       <code>T</code>'s scan. When the encoding changed, what came free was not only bytes but letters —
       and a freed letter does not stay idle for long; the current state is in the
       <a href="#pack-free-letters">free letters</a> table.</p>
+    </div>
+
+    <h3 id="letters-ui" lang="tr">Arayüzde ne kazanılıyor — üç <code class="vn">prompt</code> sürümü</h3>
+    <h3 lang="en" data-id="letters-ui">What the interface gains — three <code class="vn">prompt</code> builds</h3>
+    <div class="prose" lang="tr">
+      <p>Yukarıdaki fark kural katmanının bedeli; arayüzde hesap tersine dönüyor. Üç sürüm aynı
+      pencereyi çiziyor ve aynı UCI girdisini okuyor: <code class="vn">prompt</code> sayı tahtasında
+      (0x88, a1=0), <code class="vn">prompt_string_a1</code> harf tahtasında a1'den,
+      <code class="vn">prompt_string</code> harf tahtasında a8'den sayıyor. Arayüze ait dört yuva yan
+      yana, bayt olarak:</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The gap above is what the rule layer costs; in the interface the account runs the other way.
+      The three builds draw the same dialog and read the same UCI input: <code class="vn">prompt</code>
+      on the numeric board (0x88, a1=0), <code class="vn">prompt_string_a1</code> on the letter board
+      counted from a1, <code class="vn">prompt_string</code> on the letter board counted from a8. The four
+      slots that belong to the interface, side by side, in bytes:</p>
+    </div>
+<div class="tw" lang="tr"><table>
+<thead><tr><th>Yuva</th><th class="num"><code class="vn">prompt</code></th><th class="num"><code class="vn">prompt_string_a1</code></th><th class="num"><code class="vn">prompt_string</code></th></tr></thead>
+<tbody>
+<tr><td>Glif ve döndürme</td><td class="num">68</td><td class="num">51</td><td class="num">50</td></tr>
+<tr><td>Satır sonu</td><td class="num">10</td><td class="num">9</td><td class="num">9</td></tr>
+<tr><td>UCI ayrıştırıcısı</td><td class="num">43</td><td class="num">33</td><td class="num">32</td></tr>
+<tr><td>Terfi taşı</td><td class="num">19</td><td class="num">24</td><td class="num">24</td></tr>
+<tr><td><b>Arayüz toplamı</b></td><td class="num"><b>140</b></td><td class="num"><b>117</b> <span class="sub">−23</span></td><td class="num"><b>115</b> <span class="sub">−25</span></td></tr>
+<tr><td>Dosya</td><td class="num">2.089</td><td class="num">2.202 <span class="sub">+113</span></td><td class="num">2.205 <span class="sub">+116</span></td></tr>
+</tbody>
+</table></div>
+<div class="tw" lang="en"><table>
+<thead><tr><th>Slot</th><th class="num"><code class="vn">prompt</code></th><th class="num"><code class="vn">prompt_string_a1</code></th><th class="num"><code class="vn">prompt_string</code></th></tr></thead>
+<tbody>
+<tr><td>Glyph and flip</td><td class="num">68</td><td class="num">51</td><td class="num">50</td></tr>
+<tr><td>Row end</td><td class="num">10</td><td class="num">9</td><td class="num">9</td></tr>
+<tr><td>UCI parser</td><td class="num">43</td><td class="num">33</td><td class="num">32</td></tr>
+<tr><td>Promotion piece</td><td class="num">19</td><td class="num">24</td><td class="num">24</td></tr>
+<tr><td><b>Interface total</b></td><td class="num"><b>140</b></td><td class="num"><b>117</b> <span class="sub">−23</span></td><td class="num"><b>115</b> <span class="sub">−25</span></td></tr>
+<tr><td>File</td><td class="num">2,089</td><td class="num">2,202 <span class="sub">+113</span></td><td class="num">2,205 <span class="sub">+116</span></td></tr>
+</tbody>
+</table></div>
+    <pre class="snip" lang="tr"><i>glif ve döndürme</i>      <i>— hepsi String.fromCharCode(…+65248) içinde</i>
+prompt            '-pkqnrb..PKQNRB'.charCodeAt(b[w^7&lt;&lt;t/2])
+prompt_string_a1  b[w^t*49+7].charCodeAt()
+prompt_string     b[w^!t*63].charCodeAt()
+<i>satır sonu</i>
+prompt            w^7?w-119?
+prompt_string_a1  w^7?w-63?
+prompt_string     w-7?w-63?
+<i>UCI ayrıştırıcısı</i>
+prompt            J=V=&gt;(V=K.charCodeAt(V)+8*K[++V]-105)*2-V%8
+prompt_string_a1  J=V=&gt;K.charCodeAt(V)+8*K[++V]-105
+prompt_string     J=V=&gt;K.charCodeAt(V)-8*K[++V]-33
+<i>terfi taşı</i>
+prompt            {r:5,b:6,n:4}[K[4]]
+prompt_string_a1  ~'rbn'[U](K[4])?K[4]:'q'
+prompt_string     ~'rbn'[U](K[4])?K[4]:'q'</pre>
+    <pre class="snip" lang="en"><i>glyph and flip</i>      <i>— all inside String.fromCharCode(…+65248)</i>
+prompt            '-pkqnrb..PKQNRB'.charCodeAt(b[w^7&lt;&lt;t/2])
+prompt_string_a1  b[w^t*49+7].charCodeAt()
+prompt_string     b[w^!t*63].charCodeAt()
+<i>row end</i>
+prompt            w^7?w-119?
+prompt_string_a1  w^7?w-63?
+prompt_string     w-7?w-63?
+<i>UCI parser</i>
+prompt            J=V=&gt;(V=K.charCodeAt(V)+8*K[++V]-105)*2-V%8
+prompt_string_a1  J=V=&gt;K.charCodeAt(V)+8*K[++V]-105
+prompt_string     J=V=&gt;K.charCodeAt(V)-8*K[++V]-33
+<i>promotion piece</i>
+prompt            {r:5,b:6,n:4}[K[4]]
+prompt_string_a1  ~'rbn'[U](K[4])?K[4]:'q'
+prompt_string     ~'rbn'[U](K[4])?K[4]:'q'</pre>
+    <div class="prose" lang="tr">
+      <p>Harf tahtası arayüzde 23 ile 25 bayt kazandırıyor ve kaynağı tek: tahtanın kendisi zaten
+      ekrana yazılacak harf. Sayı tahtası her kareyi bir tablodan, <code>'-pkqnrb..PKQNRB'</code>'den,
+      harfe çevirmek zorunda; harf tahtası karakterin kodunu doğrudan okuyor. Ayrıştırıcıda da aynısı:
+      sayı tahtası düz indeksi 0x88'e çeviren <code>*2-V%8</code>'i taşıyor, harf tahtasında düz indeks
+      zaten tahtanın indeksi. Ters yönde işleyen tek yuva terfi. Sayı tahtasında tanınmayan bir harf
+      nesne aramasında <code>undefined</code>'a, oradan da <code>U</code>'nun varsayılan veziri
+      <code>p=3</code>'e düşüyor (<a href="#parsing">ayrıştırıcılar</a>); harf tahtasında yazılan harf
+      olduğu gibi tahtaya gideceği için önce süzülmesi gerekiyor, yoksa <code>e7e8k</code> tahtaya bir
+      şah koyardı. Süzgeç beş bayt tutuyor. Dosyanın toplamında harf tahtası yine 113 bayt geride:
+      kurulumda ve arayüzde kazandığını kural katmanının her testinde geri ödüyor.</p>
+      <p><b>Düz ve ters tahta.</b> <code class="vn">prompt_string</code> ile
+      <code class="vn">prompt_string_a1</code> aynı motorun iki düzeni ve kural katmanındaki fark sıfır
+      bayt: piyonun yön sınaması <code>f&lt;i</code> yerine <code>f&gt;i</code>, kilitli taramada iki ad
+      yer değiştiriyor (<a href="#a8zero"><code>a8=0</code> indeksleme</a>). Arayüzde ise ters tahta iki
+      bayt önde. a8'den sayan tahtada dizi beyazın gözünden çizilmiş hâliyle duruyor: beyazın sırasında
+      olduğu gibi yazılıyor, siyahın sırasında tek bir XOR, <code>w^!t*63</code>, tahtayı 180 derece
+      çeviriyor. a1'den sayan tahta beyaz için de yatayları çevirmek zorunda ve iki tarafı
+      <code>w^t*49+7</code> ile ayırıyor — beyazda <code>w^56</code>, siyahta <code>w^7</code> —: bir bayt
+      fazla. Ayrıştırıcının sabiti de a8'de kısa: kare = harf kodu − 8 × yatay − 33; a1'de
+      + 8 × yatay − 105. Bayta yansımayan bir kazanç daha var: a8'den sayan tahta FEN'in kendi sırasında,
+      yani bir pozisyonu yüklerken yatayları çevirmek gerekmiyor (<a href="#fenstring">FEN bölümü</a>).</p>
+      <p>Dosyaların toplamında ise ters tahta üç bayt geride: 2.205'e karşı 2.202. Farkı tahtanın
+      kurulumu yapıyor. <code class="vn">prompt_string_a1</code> boş kare harfini ve geçerken alma
+      karesini tek argümanda kuruyor, <code>padEnd(48,e=_='-')</code>; <code class="vn">prompt_string</code>'in
+      şablon dizgisi, <code>${(_='-').repeat(32)}</code>, ondan bir bayt kısa ama geçerken alma karesini
+      kurmuyor, <code>e=_</code> başlıkta ayrıca yazılıyor ve başlık altı bayt uzuyor: net beş bayt.
+      Arayüzün iki baytı bunun ikisini geri alıyor. Kalan üç bayt bilinçli bir tercihin bedeli: şablon
+      otuz iki boş kareyi sayısıyla gösteriyor, başlık da FEN alanlarının sırasını — tahta, sıra, rok,
+      geçerken alma, sayaç — bozmadan izliyor (<a href="#y-signature">imza</a>).</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>The letter board saves 23 to 25 bytes in the interface, and for one reason: the board itself is
+      already the letter to be written on screen. The numeric board has to turn every square into a
+      letter through a table, <code>'-pkqnrb..PKQNRB'</code>; the letter board reads the character's code
+      directly. The parser is the same story: the numeric board carries the <code>*2-V%8</code> that turns
+      a flat index into 0x88, while on the letter board the flat index already is the board's index. The
+      one slot that runs the other way is promotion. On the numeric board an unknown letter falls through
+      the object lookup to <code>undefined</code> and from there to <code>U</code>'s default queen,
+      <code>p=3</code> (<a href="#parsing">the parsers</a>); on the letter board the typed letter goes onto
+      the board as it is, so it has to be filtered first, or <code>e7e8k</code> would put a king on the
+      board. The filter costs five bytes. In the file as a whole the letter board is still 113 bytes
+      behind: what it saves in the set-up and the interface, it pays back in every test of the rule
+      layer.</p>
+      <p><b>Flat and flipped board.</b> <code class="vn">prompt_string</code> and
+      <code class="vn">prompt_string_a1</code> are two layouts of the same engine, and in the rule layer
+      the difference is zero bytes: the pawn's direction test becomes <code>f&gt;i</code> instead of
+      <code>f&lt;i</code>, and two names swap in the blocked scan
+      (<a href="#a8zero"><code>a8=0</code> indexing</a>). In the interface the flipped board is two bytes
+      ahead. Counted from a8, the array already stands as White sees it: on White's turn it is written as
+      it is, and on Black's a single XOR, <code>w^!t*63</code>, turns the board through 180 degrees. Counted
+      from a1, the board has to flip the ranks for White as well, and tells the two sides apart with
+      <code>w^t*49+7</code> — <code>w^56</code> for White, <code>w^7</code> for Black —: one byte more. The
+      parser's constant is shorter from a8 too: square = letter code − 8 × rank − 33, against
+      + 8 × rank − 105 from a1. And there is a gain that never shows in bytes: counted from a8, the board
+      is in FEN's own order, so loading a position needs no flipping of ranks
+      (<a href="#fenstring">the FEN section</a>).</p>
+      <p>In the file totals, though, the flipped board is three bytes behind: 2,205 against 2,202. The
+      set-up makes the difference. <code class="vn">prompt_string_a1</code> sets up the empty-square
+      letter and the en passant square in a single argument, <code>padEnd(48,e=_='-')</code>;
+      <code class="vn">prompt_string</code>'s template, <code>${(_='-').repeat(32)}</code>, is a byte
+      shorter but does not set the en passant square, so <code>e=_</code> is written separately in the
+      header and the header grows by six bytes: five net. The interface's two bytes win two of them
+      back. The other three are the price of a deliberate choice: the template shows the thirty-two
+      empty squares by their count, and the header follows the order of the FEN fields — board, side to
+      move, castling, en passant, counter — without a break (<a href="#y-signature">the signature</a>).</p>
     </div>
 
     <div class="prose" lang="tr">
@@ -14190,8 +14369,8 @@ _ = '-'      E = 'a'      j = p =&gt; p?.toUpperCase()</pre></div>
       pozisyonları, tricky süiti, Vajolet külliyatı — sınadığı şey yalnızca bu çekirdek. Perft bir
       pozisyondan çıkan bütün hamle dizilerini sayar; sonuç kodlarına, sayaçlara ya da beraberlik
       kurallarına hiç dokunmaz. Test süiti de bu yüzden yalnızca <code>L</code>, <code>G</code>,
-      <code>C</code> ve ham hamleyi yapan <code>U</code>'yu çağırıyor — <code>M</code>'yi hiç
-      kullanmıyor, rok maskesini ve geçerken alma karesini kendisi yazıyor — ve bu dosyayı üçüncü
+      <code>C</code> ve ham hamleyi yapan <code>U</code>'yu çağırıyor — 0x88 motorlarında <code>M</code>'yi hiç
+      kullanmıyor (harf tahtasında ham hamle <code>M</code>'den geçiyor), rok maskesini ve geçerken alma karesini kendisi yazıyor — ve bu dosyayı üçüncü
       motor olarak çalıştırabiliyor (<code>node test.js --engine=3</code>); sanity, tricky ve CPW
       sayıları ana motorla birebir aynı. Yani testlerin sınadığı çekirdek 653 bayta sığıyor.
       <code>engine.js</code>'in kalan 874 baytı bu çekirdeği bir hakeme dönüştüren kısım: motorun
@@ -14216,8 +14395,8 @@ _ = '-'      E = 'a'      j = p =&gt; p?.toUpperCase()</pre></div>
       CPW positions, the tricky suite, the Vajolet corpus — actually check is this core alone. Perft
       counts every move sequence from a position; it never touches result codes, counters or draw
       rules. That is why the test suite only ever calls <code>L</code>, <code>G</code>,
-      <code>C</code> and <code>U</code>, which makes the raw move — it never uses <code>M</code>, and
-      writes the castling mask and the en passant square itself — and why it can run this file as its
+      <code>C</code> and <code>U</code>, which makes the raw move — on the 0x88 engines it never uses <code>M</code> (on the
+      letter board the raw move goes through <code>M</code>), and writes the castling mask and the en passant square itself — and why it can run this file as its
       third engine (<code>node test.js --engine=3</code>): the sanity, tricky and CPW counts match the
       main engine exactly. So the core the tests exercise fits in 653 bytes. The remaining 874 bytes of
       <code>engine.js</code> are what turns it into an arbiter: 57% of the engine goes into judging,
@@ -14240,6 +14419,214 @@ _ = '-'      E = 'a'      j = p =&gt; p?.toUpperCase()</pre></div>
         </span>
       </div>
       <pre class="src"></pre>
+    </div>
+  </div>
+</section>
+
+<section id="luxengine">
+  <div class="wrap">
+    <p class="eyebrow" lang="tr">Kapsamlı motor</p>
+    <p class="eyebrow" lang="en">The full engine</p>
+    <h2 lang="tr">LUX'un motoru — <code>engine_4x</code>'in kapsamlı hâli, 2.383 bayt</h2>
+    <h2 lang="en">LUX's engine — the full form of <code>engine_4x</code>, 2,383 bytes</h2>
+    <div class="prose" lang="tr">
+      <p><a href="https://github.com/cuneytinann/Chess-LUX" target="_blank" rel="noopener">Chess LUX</a>
+      FideLite'ın kardeş projesi: <code>engine_4x</code>'in üstüne kurulu, kurulumu, saatleri ve
+      Chess960'ıyla eksiksiz bir oyun sayfası, tek bir 9.392 baytlık HTML dosyası. Oynanabilir hâli
+      <code class="vn">special</code> seviyesindeki <code class="vn">LUX</code>. Dosyanın motor satırı
+      2.383 bayt; aşağıdaki kaynak o satırın kendisi ve <code>engine_4x.js</code>'te olmayan her parça
+      boyalı.</p>
+      <p>Satır arayüzle iç içe yazılmış. Başlığında arayüzün birkaç değişkeni de duruyor
+      (<code>Y</code>, <code>z</code>, <code>dg</code>, <code>m</code>, <code>r</code>, <code>Q</code>);
+      hamleyi oynatan <code>A</code> ile tekrar sayımı arayüzde, otomatik 3R/50 ayarı <code>Ac</code> de
+      oradan geliyor. Bu yüzden <code>builds/special/engine_lux.js</code> tek başına oyun yönetecek bir
+      motor değil; LUX'un motorunu ayrı okumak için ayrılmış hâli. Hamle üretimi ise tam:
+      <a href="#runtests">test süiti</a> onu beşinci motor olarak koşuyor (<code>node test.js --engine=5</code>)
+      ve perft sayıları <code>engine_4x</code>'inkilerle birebir aynı. Perft kilit dedektörüne hiç
+      uğramadığı için bu, geniş dedektör hakkında bir şey söylemiyor; onun kapsamı CHA-Solver'ın
+      oyunlarıyla <a href="#lux">ölçüldü</a>.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p><a href="https://github.com/cuneytinann/Chess-LUX" target="_blank" rel="noopener">Chess LUX</a>
+      is FideLite's sibling project: a complete game page built on <code>engine_4x</code>, with game
+      set-up, clocks and Chess960, in a single 9,392-byte HTML file. Its playable form is
+      <code class="vn">LUX</code> in the <code class="vn">special</code> level. The file's engine line is
+      2,383 bytes; the source below is that line itself, and every part that is not in
+      <code>engine_4x.js</code> is painted.</p>
+      <p>The line is written hand in hand with the interface. Its header also holds a few of the
+      interface's variables (<code>Y</code>, <code>z</code>, <code>dg</code>, <code>m</code>,
+      <code>r</code>, <code>Q</code>); <code>A</code>, which plays a move, and the repetition count live
+      in the interface, and so does <code>Ac</code>, the automatic-3R/50 setting. So
+      <code>builds/special/engine_lux.js</code> is not an engine to run a game on its own; it is LUX's
+      engine set apart for reading. Its move generation is complete, though: <a href="#runtests">the
+      test suite</a> runs it as its fifth engine (<code>node test.js --engine=5</code>), and the perft
+      counts match <code>engine_4x</code>'s exactly. Perft never reaches the lock detector, so this says
+      nothing about the wider detector; its coverage was <a href="#lux">measured</a> on CHA-Solver's
+      games.</p>
+    </div>
+    <div class="srcwrap xsrc" id="xlux" data-key="engine_lux" data-diff="engine_4x">
+      <div class="srchead">
+        <span class="fn">builds/special/engine_lux.js</span>
+        <span class="xmeta">—</span>
+        <span class="pacts">
+          <button class="xcopy" type="button"><span lang="tr">Kopyala</span><span lang="en">Copy</span></button>
+          <button class="dl1 xdl" type="button"><span lang="tr">İndir</span><span lang="en">Download</span></button>
+        </span>
+      </div>
+      <pre class="src"></pre>
+    </div>
+
+    <h3 id="lux-bytes" lang="tr">739 bayt nereye gidiyor</h3>
+    <h3 lang="en" data-id="lux-bytes">Where the 739 bytes go</h3>
+<div class="tw" lang="tr"><table>
+<thead><tr><th>Kalem</th><th>Fonksiyon</th><th class="num">Bayt</th></tr></thead>
+<tbody>
+<tr><td>Geniş kilit dedektörü — aşağıda katman katman</td><td><code>V</code></td><td class="num">+529</td></tr>
+<tr><td>Şahın kendi kalesinin üstüne giderek rok yapması (Chess960)</td><td><code>G</code> +78, <code>U</code> +57, <code>L</code> +23, <code>M</code> +7, <code>C</code> ile tablosu <code>y</code> +4</td><td class="num">+169</td></tr>
+<tr><td>Her hamleden sonra iki taraf için 9 yarım hamlelik ölü pozisyon araması; otomatik 3R/50</td><td><code>Z</code></td><td class="num">+42</td></tr>
+<tr><td>Aramada kilit dedektörünü yalnız almadan ya da piyon hamlesinden sonraki iki yarım hamlede sormak (<code>n+e&lt;10</code>); otomatik 3R/50</td><td><code>H</code></td><td class="num">+14</td></tr>
+<tr><td>Bayrak düşmesinde 300 yarım hamle ve 400.000 düğüm</td><td><code>F</code></td><td class="num">+8</td></tr>
+<tr><td>Teklif bitini arayüz veriyor; kendiliğinden gelen sonuçlar anlaşmadan ve taleplerden önce soruluyor</td><td><code>D</code></td><td class="num">+3</td></tr>
+<tr><td>5×5 kutu yerine <code>T</code>'deki uzaklık süzgeci: rok kalesi altı sütun uzakta olabilir</td><td><code>O</code></td><td class="num">−11</td></tr>
+<tr><td>Hamleyi oynatmak ve tekrar sayımı arayüzde; arayüzün başlıktaki değişkenleri</td><td><code>A</code>, başlık</td><td class="num">−15</td></tr>
+<tr class="alt"><td><b>Toplam</b> — <code>engine_4x.js</code> 1.644 → <code>builds/special/engine_lux.js</code> 2.383</td><td></td><td class="num"><b>+739</b></td></tr>
+</tbody>
+</table></div>
+<div class="tw" lang="en"><table>
+<thead><tr><th>Item</th><th>Function</th><th class="num">Bytes</th></tr></thead>
+<tbody>
+<tr><td>The wider lock detector — layer by layer below</td><td><code>V</code></td><td class="num">+529</td></tr>
+<tr><td>Castling by moving the king onto its own rook (Chess960)</td><td><code>G</code> +78, <code>U</code> +57, <code>L</code> +23, <code>M</code> +7, <code>C</code> and its table <code>y</code> +4</td><td class="num">+169</td></tr>
+<tr><td>A 9-ply dead-position search for each side after every move; automatic 3R/50</td><td><code>Z</code></td><td class="num">+42</td></tr>
+<tr><td>In the search, asking the lock detector only in the two plies after a capture or a pawn move (<code>n+e&lt;10</code>); automatic 3R/50</td><td><code>H</code></td><td class="num">+14</td></tr>
+<tr><td>300 plies and 400,000 nodes when a flag falls</td><td><code>F</code></td><td class="num">+8</td></tr>
+<tr><td>The interface supplies the offer bit; the automatic endings are asked before agreement and claims</td><td><code>D</code></td><td class="num">+3</td></tr>
+<tr><td><code>T</code>'s distance filter instead of the 5×5 box: the castling rook can stand six files away</td><td><code>O</code></td><td class="num">−11</td></tr>
+<tr><td>Playing the move and counting repetitions are in the interface; the interface's variables in the header</td><td><code>A</code>, header</td><td class="num">−15</td></tr>
+<tr class="alt"><td><b>Total</b> — <code>engine_4x.js</code> 1,644 → <code>builds/special/engine_lux.js</code> 2,383</td><td></td><td class="num"><b>+739</b></td></tr>
+</tbody>
+</table></div>
+
+    <h3 id="lux-lock" lang="tr">Kilit dedektörü katman katman</h3>
+    <h3 lang="en" data-id="lux-lock">The lock detector, layer by layer</h3>
+    <div class="prose" lang="tr">
+      <p>LUX'un <code>V</code>'si <code>engine_4x</code>'inkinden 529 bayt uzun ve fark üç katmana
+      ayrılıyor. Aynı katmanlar <code>engine.js</code>'in yazımıyla da sayılabiliyor:</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>LUX's <code>V</code> is 529 bytes longer than <code>engine_4x</code>'s, and the difference splits
+      into three layers. The same layers can be counted in <code>engine.js</code>'s spelling too:</p>
+    </div>
+<div class="tw" lang="tr"><table>
+<thead><tr><th>Katman</th><th class="num"><code>engine.js</code>'te <code>V</code></th><th class="num"><code>engine_4x</code> ve LUX'ta <code>V</code></th></tr></thead>
+<tbody>
+<tr><td>Bugünkü dedektör: şah ve piyon</td><td class="num">405</td><td class="num">432</td></tr>
+<tr><td>+ filler, şahın alabileceği piyonlar, mat edemeyen şahlar, hiç kıpırdayamayan şah <span class="sub">motorda vardı, çıkarıldı</span></td><td class="num">+333 → 738</td><td class="num">+334 → 766</td></tr>
+<tr><td>+ kutulu at, kale ve vezir <span class="sub">yalnız LUX için yazıldı</span></td><td class="num">+169 → 907</td><td class="num">+168 → 934</td></tr>
+<tr><td>+ çıkabilen şah kısa yolu</td><td class="num">—</td><td class="num">+27 → 961</td></tr>
+<tr class="alt"><td><b>Motorun tamamı</b></td><td class="num"><b>1.527 → 1.860 → 2.029</b></td><td class="num"></td></tr>
+</tbody>
+</table></div>
+<div class="tw" lang="en"><table>
+<thead><tr><th>Layer</th><th class="num"><code>V</code> in <code>engine.js</code></th><th class="num"><code>V</code> in <code>engine_4x</code> and LUX</th></tr></thead>
+<tbody>
+<tr><td>Today's detector: kings and pawns</td><td class="num">405</td><td class="num">432</td></tr>
+<tr><td>+ bishops, pawns a king can take, checks that cannot mate, a king that can never move <span class="sub">was in the engine, taken out</span></td><td class="num">+333 → 738</td><td class="num">+334 → 766</td></tr>
+<tr><td>+ boxed-in knights, rooks and queens <span class="sub">written for LUX only</span></td><td class="num">+169 → 907</td><td class="num">+168 → 934</td></tr>
+<tr><td>+ the king-can-step-out shortcut</td><td class="num">—</td><td class="num">+27 → 961</td></tr>
+<tr class="alt"><td><b>The whole engine</b></td><td class="num"><b>1,527 → 1,860 → 2,029</b></td><td class="num"></td></tr>
+</tbody>
+</table></div>
+    <div class="prose" lang="tr">
+      <p><b>Bugünkü dedektör.</b> Duvar kıpırdayabilir: bir piyon kendi dikeyinde ilerleyebiliyor,
+      yeter ki hiçbir yol bir almaya, son yataya ya da şaha çıkmasın
+      (<a href="#dead">kilitli pozisyonun koşulları</a>). Şahın bir piyonu alabilmesi de, ilerleyen bir
+      piyonun şah çekebilmesi de hayat sayılıyor; tahtada şah ve piyondan başka tek bir taş varsa
+      tarama hiç başlamıyor.</p>
+      <p><b>Birinci katman.</b> LUX'un dedektörü bunların dördünü ölü pozisyonun içine alıyor.
+      <b>Filler:</b> fil duvarın arkasında dolaşabilir, yeter ki bir piyonu alamasın ve bir piyonun
+      alabileceği kareye çıkamasın. <b>Şahın alabileceği piyonlar:</b> şahın bir piyona ulaşması tek
+      başına hayat sayılmıyor; piyon duvardan çıkarılıyor ve arkasında bir şeyin açılıp açılmadığına
+      bakılıyor — tarama her şah için ayrıca koşuyor. <b>Mat edemeyen şahlar:</b> ilerleyen bir piyonun
+      ya da bir filin çekebileceği şah kilidi tek başına bozmuyor; ancak şahın kaçacak karesi
+      kalmayabiliyorsa sayılıyor. Kilit bu yüzden bir taraf için tutup öbürü için tutmayabiliyor; aynı
+      tahtada bir taraf hâlâ mat edebilir. <b>Hiç kıpırdayamayan şah:</b> duvarın parçası sayılıyor ve
+      önündeki rakip piyonu donduruyor.</p>
+      <p>Bu katman <code>engine.js</code>'te bir süre durdu: 0x88 neslinde motor 1.860 bayta çıktı
+      (<a href="https://github.com/cuneytinann/FideLite/blob/f883097/builds/engine.js" target="_blank" rel="noopener">o günkü <code>engine.js</code> ↗️</a>),
+      <code>engine_4x</code> 1.978'e; sonra katman çıkarıldı ve iki motor bugünkü boyuna indi. Gerekçe
+      <a href="#bishops">askıdaki genişletme</a> başlığındakiyle aynı: bayt başına getiri ve motorun
+      tek ispatlı özelliği. LUX onu tutuyor.</p>
+      <p><b>İkinci katman: kutulu at, kale ve vezir.</b> Tahtada tek bir at, kale ya da vezir dedektörü
+      kapatıyor; LUX böyle bir taşın kutulu olduğu durumda kalmasına izin veriyor. Kutulu taşın
+      gidebileceği her karede kendi sabit adamı duruyor: atta at kareleri, kalede dört dik komşu,
+      vezirde sekiz komşu. Sabit adam ya rakip şahın alamayacağı kalıcı tıkalı bir piyon ya da başka bir
+      kutulu taş. Kutulu taş önündeki piyonu da durduruyor; rakip şah ya da bir fil ona ulaşabiliyorsa
+      “düşmüş” sayılıyor ve duvar olmaktan çıkıyor; bir piyon alabiliyorsa hiç sertifika çıkmıyor.
+      Standart satrançta neredeyse hiç görülmüyor — kayıttaki 201.060 oyunun yalnızca birinde var:</p>
+    </div>
+    <div class="prose" lang="en">
+      <p><b>Today's detector.</b> The wall may move: a pawn may advance along its file, as long as no path
+      leads to a capture, to the last rank or to a check (<a href="#dead">the conditions of a lock</a>). A
+      king that can take a pawn counts as life, and so does an advancing pawn that could give check; with a
+      single piece other than kings and pawns on the board, the scan does not even start.</p>
+      <p><b>The first layer.</b> LUX's detector takes four of these into the dead position.
+      <b>Bishops:</b> a bishop may roam behind the wall, as long as it can never take a pawn or stand on a
+      square a pawn could take. <b>Pawns a king can take:</b> a king reaching a pawn is not, by itself, a
+      sign of life; the pawn leaves the wall and the detector looks at whether anything opens behind it —
+      the scan runs once more for each king. <b>Checks that cannot mate:</b> a check an advancing pawn or a
+      bishop could give does not break the lock on its own; it counts only where the checked king could be
+      left without an escape square. So a lock can hold for one side and not for the other: on the same
+      board one side may still be able to mate. <b>A king that can never move:</b> it counts as part of the
+      wall, and it freezes the enemy pawn in front of it.</p>
+      <p>This layer stood in <code>engine.js</code> for a while: in the 0x88 generation the engine went up
+      to 1,860 bytes (<a href="https://github.com/cuneytinann/FideLite/blob/f883097/builds/engine.js" target="_blank" rel="noopener"><code>engine.js</code> as it was then ↗️</a>),
+      <code>engine_4x</code> to 1,978; then the layer was taken out and both engines came down to today's
+      size. The reasons are the ones under <a href="#bishops">the extension on hold</a>: the return per byte
+      and the engine's only proved property. LUX keeps it.</p>
+      <p><b>The second layer: boxed-in knights, rooks and queens.</b> A single knight, rook or queen on the
+      board switches the detector off; LUX lets such a piece stay when it is boxed in. Every square a boxed
+      piece could step to holds one of its own fixed men: the knight squares for a knight, the four
+      orthogonal neighbours for a rook, all eight neighbours for a queen. A fixed man is either a
+      permanently blocked pawn the enemy king cannot take, or another boxed piece. A boxed piece also stops
+      the pawn in front of it; if the enemy king or a bishop can reach it, it counts as “fallen” and stops
+      being a wall; if a pawn can take it, there is no certificate at all. In standard chess it hardly ever
+      happens — in the record's 201,060 games there is exactly one:</p>
+    </div>
+    <pre class="snip">1n6/2Bp4/p1pPp1k1/PpP1Pp1p/1P3P1P/2K5/8/8 w - - 7 53</pre>
+    <div class="prose" lang="tr">
+      <p>Siyahın b8'deki atı a6, c6 ve d7'deki piyonlarının arasında kutulu. Beyaz fil onu alabilir ama
+      almak hiçbir şeyi açmıyor ve siyah hiçbir hamle dizisiyle mat edemiyor: doğru sonuç beraberlik.
+      LUX bunu arama yapmadan, dedektörle veriyor. Bu katman <code>engine.js</code> için hiç yazılmadı;
+      LUX için yazıldı, çünkü Chess960'ta kale, at ve vezir başka karelerden başlıyor ve kendi piyonlarının
+      arkasında kalan bir taş çok daha olası.</p>
+      <p><code>engine.js</code>'e eklenseydi kaç bayt tutardı? LUX'un kutulu taş kodunu
+      <code>engine.js</code>'in yazımına — sabit nokta yerine 600 tur, kısa devre yerine <code>|</code> —
+      taşıyınca <code>V</code> 738'den 907'ye çıkıyor: <b>169 bayt</b>; motor 2.029 bayt, bugünkünden 502
+      bayt uzun. Bu ara sürüm hiç yayımlanmadı. LUX'un dedektörüyle yan yana çalıştırıldı: <a href="#arbiter">Arbiter</a>'in veri dosyasındaki 204.060 pozisyonun her birinde, iki taraf için de aynı hükmü veriyor.</p>
+      <p><b>Üçüncü katman: çıkabilen şah.</b> Dedektör bir şah için bütün çözümlemeye girmeden önce o şahın
+      hiçbir piyonun tutmadığı ya da tehdit etmediği bir kareye adım atıp atamayacağını soruyor; atabiliyorsa
+      o şahın durumu hemen kapanıyor. Hükmü değiştirmiyor, yalnız hızlandırıyor. Aramadaki
+      <code>n+e&lt;10</code> kapısı gibi o da baytını ancak uzun bir aramada karşılıyor: kapı
+      <code>engine_4x</code> için de ölçüldü ve 9 yarım hamle, 2.000 düğümlük aramada karşılığını vermedi
+      (<a href="#4x-round">bu tur</a>). LUX'un aramaları çok daha uzun olduğu için ikisini de tutuyor.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>Black's knight on b8 is boxed in by its pawns on a6, c6 and d7. The white bishop can take it, but
+      taking it opens nothing, and Black cannot mate by any series of moves: the correct result is a draw.
+      LUX gives it from the detector, without a search. This layer was never written for
+      <code>engine.js</code>; it was written for LUX, because in Chess960 rooks, knights and queens start on
+      other squares, and a piece left behind its own pawns becomes far more likely.</p>
+      <p>How many bytes would it cost in <code>engine.js</code>? Carrying LUX's boxed-piece code over to
+      <code>engine.js</code>'s spelling — 600 rounds instead of a fixed point, <code>|</code> instead of a
+      short circuit — takes <code>V</code> from 738 to 907: <b>169 bytes</b>; the engine would be 2,029 bytes,
+      502 more than today. This intermediate build was never published. It was run side by side with LUX's detector: on every one of the 204,060 positions in <a href="#arbiter">the Arbiter</a>'s data file it gives the same verdict, for both sides.</p>
+      <p><b>The third layer: a king that can step out.</b> Before the detector runs its full analysis for a
+      king, it asks whether that king can simply step to a square no pawn holds or attacks; if it can, that
+      king's case is settled at once. It changes no verdict, it only saves time. Like the
+      <code>n+e&lt;10</code> gate in the search, it pays for its bytes only in a long search: the gate was
+      measured for <code>engine_4x</code> too and did not pay off in a 9-ply, 2,000-node search
+      (<a href="#4x-round">this round</a>). LUX's searches are far longer, so it keeps both.</p>
     </div>
   </div>
 </section>
@@ -14397,7 +14784,7 @@ _ = '-'      E = 'a'      j = p =&gt; p?.toUpperCase()</pre></div>
       hiç atanmamış delik olarak kalıyor — ve <code>map</code>, <code>some</code>, <code>every</code>
       deliklerde geri çağrıyı hiç çalıştırmıyor. Dizinin yarısını eleyen ek bir test yazılmadı.
       Literal de iki katına çıkmadı: aynı 64 haneli dizgi <code>j*2-j%8</code> ile yayılıyor ve
-      kurulum 70 bayttan 83'e çıkıyor (+13). Yan kazanç olarak kare rengi <code>i*9/8%2+1</code>
+      kurulum 70 bayttan 83'e çıktı (+13); bugünkü <code>for…in</code> yazımıyla 80 bayt (+10). Yan kazanç olarak kare rengi <code>i*9/8%2+1</code>
       yerine <code>i%15%2+1</code> ile hesaplanıyor, çünkü 16 ≡ 1 (mod 15).</p>
       <p>Dolgunun kenar testi de alıcı buldu — üreticide değil, yürüyüşte. Kayan taşlar için adım
       zincirinin son dalı <code>1</code>: düz bir doğru üzerinde olmayan her fark yatay adım
@@ -14457,7 +14844,7 @@ _ = '-'      E = 'a'      j = p =&gt; p?.toUpperCase()</pre></div>
       the 56 cells in between stay holes that were never assigned — and <code>map</code>,
       <code>some</code> and <code>every</code> never run their callback on a hole. No extra test
       filtering out half the array was written. Nor did the literal double: the same 64-digit
-      string is spread out with <code>j*2-j%8</code>, and the setup goes from 70 bytes to 83 (+13).
+      string is spread out with <code>j*2-j%8</code>, and the setup went from 70 bytes to 83 (+13); written today as a <code>for…in</code> loop it is 80 (+10).
       As a side gain, the square colour is <code>i%15%2+1</code> instead of
       <code>i*9/8%2+1</code>, because 16 ≡ 1 (mod 15).</p>
       <p>Padding's edge test found a buyer too — not in a generator, but in the walk. For the
@@ -14494,7 +14881,7 @@ _ = '-'      E = 'a'      j = p =&gt; p?.toUpperCase()</pre></div>
       rastgele oyunlarla — ve bayt bayt ölçüldü. Tahtaya bağlı her yuvanın — başlangıç eşlemesi,
       geçerken alınan piyonun karesi, kare rengi, kayan taş testi, ekranı döndürme, yön zinciri, at
       testi, çift adım ve son yatay sabitleri — en iyi yazımı her tahta için ayrıca arandı. Sayılar
-      o günkü sıkı arayüzle ölçüldü; sitenin arayüzü her dosyaya aynı 30 baytı eklediği için
+      o günkü sıkı arayüzle ölçüldü; sitenin arayüzü her dosyaya aynı 24 baytı eklediği için
       sıralama değişmiyor.</p>
     </div>
     <div class="prose" lang="en">
@@ -14506,7 +14893,7 @@ _ = '-'      E = 'a'      j = p =&gt; p?.toUpperCase()</pre></div>
       depends on the board — the initial mapping, the square of the pawn taken en passant, the
       square colour, the slider test, flipping the display, the direction chain, the knight test,
       the double-step and last-rank constants — was searched for separately on each board. The numbers
-      were measured with the tight interface of the day; the site's interface adds the same 30
+      were measured with the tight interface of the day; the site's interface adds the same 24
       bytes to every file and the order does not change.</p>
     </div>
 <div class="tw" lang="tr"><table>
@@ -14638,7 +15025,7 @@ _ = '-'      E = 'a'      j = p =&gt; p?.toUpperCase()</pre></div>
       sekiz adet <code>9</code>, ardından otuz iki adet <code>0</code> — yani beyaz piyon sırası ve
       ortadaki dört boş yatay. Kaynakta 20 karakter tutuyor, ürettiği dizgi 40 karakter. <b>20 bayt
       kazanç.</b> BigInt tahta temsili olarak elendi, literal sıkıştırıcı olarak kaldı — bir de
-      <a href="#lscan">kilitli taramada</a>: <code>V</code> piyonları, şahları ve filleri 64 bitlik
+      <a href="#lscan">kilitli taramada</a>: <code>V</code> piyonları ve şahları 64 bitlik
       BigInt kümelerinde tutuyor. Tahtanın tamamı için pahalı olan model, tek bir sorunun içinde ucuz.</p>
     </div>
     <div class="prose" lang="en">
@@ -14672,7 +15059,7 @@ _ = '-'      E = 'a'      j = p =&gt; p?.toUpperCase()</pre></div>
       <code>0</code>s — that is, the
       white pawn rank and the four empty middle ranks. 20 characters in the source, 40 in the string it produces. <b>A 20-byte gain.</b> BigInt was eliminated as a board
       representation and kept as a literal compressor — and in <a href="#lscan">the blocked
-      scan</a>: <code>V</code> holds pawns, kings and bishops in 64-bit BigInt sets. The model that is
+      scan</a>: <code>V</code> holds pawns and kings in 64-bit BigInt sets. The model that is
       expensive for the whole board is cheap inside a single question.</p>
     </div>
 
@@ -15629,7 +16016,8 @@ signed  b=[...`24135142${(10n**40n+1n)*66666666n}24135142`].map((u,i)=&gt;i&gt;3
       <code class="vn">L2_string_base</code>; <code class="vn">prompt_string_a1</code> ise aynı
       motorun a1'den sayan eşi. Ters indeksin, tahta temsilini baştan sona değiştirdiği hâlde koda
       ne kadar az yansıdığı orada görülebiliyor: piyonun yön sınaması <code>f&lt;i</code> yerine
-      <code>f&gt;i</code> oluyor, gövdenin geri kalanı hiç değişmiyor.</p>
+      <code>f&gt;i</code> oluyor; kural gövdesinde bundan başka yalnızca kilitli taramanın ad bağlaması
+      değişiyor (aşağıda). Arayüzdeki farkın dökümü <a href="#letters-ui">harf tahtası bölümünde</a>.</p>
       <p><b>Ters tahtada kilitli tarama.</b> Tahtayı a8'den sayan harf tahtalı sürümler —
       <code>engine_string.js</code> ile <code class="vn">L2</code> ve <code class="vn">L3</code>'ün
       <code>prompt_string</code>'i — kilitli taramayı da taşıyor. Doyma döngüsü ile çıkıştaki altı
@@ -15680,7 +16068,8 @@ signed  b=[...`24135142${(10n**40n+1n)*66666666n}24135142`].map((u,i)=&gt;i&gt;3
       <code class="vn">L2_string_base</code>; <code class="vn">prompt_string_a1</code> is the same
       engine's twin counting from a1. There you can see how little a reversed index — which changes the
       whole board representation — touches the code: the pawn's direction test becomes
-      <code>f&gt;i</code> instead of <code>f&lt;i</code>, and nothing else in the body changes.</p>
+      <code>f&gt;i</code> instead of <code>f&lt;i</code>; apart from that, only the blocked scan's name binding
+      changes in the rule body (below). The interface side is itemised in <a href="#letters-ui">the letter-board section</a>.</p>
       <p><b>The blocked scan on a flipped board.</b> The letter-board builds that count the board
       from a8 — <code>engine_string.js</code> and the <code>prompt_string</code> of
       <code class="vn">L2</code> and <code class="vn">L3</code> — carry the blocked scan as well. The
@@ -15800,6 +16189,37 @@ signed  b=[...`24135142${(10n**40n+1n)*66666666n}24135142`].map((u,i)=&gt;i&gt;3
 <tr><td>Cost per move with a piece on the board</td><td class="num">+0.004 ms</td></tr>
 </tbody>
 </table></div>
+    <div class="prose" lang="tr">
+      <p><b><code>engine_4x</code>'te kapı geri döndü, ama başka bir yerde ve başka bir biçimde.</b>
+      Hızlı motorun <code>Z</code>'si ölü pozisyon testini <code>(n+e&lt;10|_)&amp;&amp;</code> ile kapılıyor
+      (<a href="#4x-bytes">117 bayt nereye gidiyor</a>). Kapı artık taramanın içinde değil <code>Z</code>'de:
+      6.9 araması <code>V</code>'yi doğrudan çağırdığı için zorlanacak bir şey yok, oyunun dışında hüküm
+      isteyen de kapıyı <code>Z(1)</code> ile açıyor. Yerine 3 bayt kısa <code>n&lt;2</code> denendi ve
+      bırakıldı: iki koşul eşdeğer değil. Geçerken alma karesi yokken <code>e</code> 8 olduğu için
+      <code>n+e&lt;10</code>, <code>n&lt;2</code>'nin ta kendisi; bir kare varsa <code>e</code> en az 32 ve
+      toplam hiçbir zaman 10'un altına inmiyor. Yani <code>n+e&lt;10</code>, <code>n&lt;2</code> <b>ve</b>
+      geçerken alma yok demek. Fark hükme yansımıyor: geçerken alma mümkünken <code>V</code>'nin kilitli
+      yarısı <code>e-8</code>'de duruyor, materyal yarısı da iki tarafta piyon varken ölü demiyor. Yansıdığı
+      yer iş: <code>n&lt;2</code> ile <code>Z</code>, geçerken almanın açık olduğu her yarım hamlede
+      <code>V</code>'yi iki kez boşuna çağırırdı — tahtayı tarayıp kümeleri kurduktan sonra cevabı
+      <code>e-8</code>'de öğrenmek için.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p><b>In <code>engine_4x</code> the gate came back, but in another place and in another form.</b>
+      The fast engine's <code>Z</code> gates the dead-position test with <code>(n+e&lt;10|_)&amp;&amp;</code>
+      (<a href="#4x-bytes">where the 117 bytes go</a>). The gate no longer sits inside the scan but in
+      <code>Z</code>: the 6.9 search calls <code>V</code> directly, so there is nothing to force, and anyone
+      asking for a verdict outside the game opens the gate with <code>Z(1)</code>. The 3-byte-shorter
+      <code>n&lt;2</code> was tried in its place and dropped: the two conditions are not equivalent. With no
+      en passant square, <code>e</code> is 8, so <code>n+e&lt;10</code> is exactly <code>n&lt;2</code>; with a
+      square, <code>e</code> is at least 32 and the sum never falls below 10. So <code>n+e&lt;10</code> means
+      <code>n&lt;2</code> <b>and</b> no en passant. The difference never reaches the verdict: while en passant
+      is available, <code>V</code>'s blocked half stops at <code>e-8</code>, and its material half never
+      calls a position dead with pawns on both sides. Where it does show is the work: with
+      <code>n&lt;2</code>, <code>Z</code> would call <code>V</code> twice for nothing on every ply with an open
+      en passant capture — scanning the board and building the sets only to learn the answer at
+      <code>e-8</code>.</p>
+    </div>
 
     <h3 id="bishops" lang="tr">Filli kilitli pozisyonlar — askıdaki genişletme</h3>
     <h3 lang="en" data-id="bishops">Blocked positions with bishops — the extension on hold</h3>
@@ -15813,7 +16233,9 @@ signed  b=[...`24135142${(10n**40n+1n)*66666666n}24135142`].map((u,i)=&gt;i&gt;3
       nesilde tasarlandı ve ölçüldü: 782 bayt daha tutuyordu, yani bayt başına getiri yirmi dört
       kat düşüyordu. Hızı da düşürüyordu. Asıl engel ise güvence: fil soruya üçüncü bir bilinmeyen
       eklediği için motorun tek ispatlı özelliğini — ölü dediği her pozisyonun gerçekten ölü
-      olmasını — riske atıyor. Genişletme askıda, kaybolmuş değil.</p>
+      olmasını — riske atıyor. Genişletme askıda, kaybolmuş değil: 0x88 neslinde yeniden yazılıp bir süre
+      motorda durdu (+333 bayt), sonra çıkarıldı; bugün LUX'ta yaşıyor. Katmanları ve baytları
+      <a href="#lux-lock">LUX'un motoru</a> bölümünde.</p>
     </div>
     <div class="prose" lang="en">
       <p>The blocked-position scan — today <a href="#lscan"><code>V</code>'s blocked half</a>, in the
@@ -15826,7 +16248,9 @@ signed  b=[...`24135142${(10n**40n+1n)*66666666n}24135142`].map((u,i)=&gt;i&gt;3
       factor of twenty-four. It also cost speed. The real obstacle
       is the guarantee: a bishop adds a third unknown to the question and so puts the engine's
       only proved property — every position it calls dead really is dead — at risk. The extension
-      is shelved, not lost.</p>
+      is shelved, not lost: rewritten in the 0x88 generation, it stood in the engine for a while
+      (+333 bytes) and was then taken out; today it lives on in LUX. Its layers and their bytes are in
+      <a href="#lux-lock">LUX's engine</a>.</p>
     </div>
   </div>
 </section>
@@ -16146,7 +16570,7 @@ Y = K[2] &lt;&lt; 4 | K[3]</pre></div>
 
     <div class="srcwrap"><pre class="src">Z = _ =&gt; O(_=&gt;0) ? T() ? t ? 'B#' : 'W#' : 'SM'
        : V(0)&amp;V(8) ? 'DP' : R&gt;4 ? '5R' : n&gt;149 ? '75' : 0
-D = s =&gt; n&gt;99 ? '50' : R&gt;2 ? '3R' : (o^=2-s/8)&gt;2 ? 'DA' : Z()
+D = s =&gt; (o^=2-s/8)&gt;2 ? 'DA' : R&gt;2 ? '3R' : n&gt;99 ? '50' : Z()
 z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
 
     <div class="prose" lang="tr">
@@ -16354,13 +16778,13 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
     <pre class="snip" lang="tr"><i>              L2 · L3                          L1</i>
 <i>başlangıç</i>     c=15                             —
 <i>hamlede</i>       c&amp;=~C(i)&amp;~C(x)                   G[i]=G[Y]=1
-<i>rokta</i>         c&amp;C(r=f+=s-!~s)                  !(G[i]|G[r=f+=s-!~s]|…)
+<i>rokta</i>         c&amp;C(r=f+=s-!~s)                  G[i]|G[r=f+=s-!~s]|…?0:S()
 <i>çift adımda</i>   2+(i%96&lt;24)                      2+!G[i]
 <i>tablo</i>         C=i=&gt;'20003001'[i%112]&lt;&lt;i/56     —</pre>
     <pre class="snip" lang="en"><i>              L2 · L3                          L1</i>
 <i>start</i>         c=15                             —
 <i>on a move</i>     c&amp;=~C(i)&amp;~C(x)                   G[i]=G[Y]=1
-<i>castling</i>      c&amp;C(r=f+=s-!~s)                  !(G[i]|G[r=f+=s-!~s]|…)
+<i>castling</i>      c&amp;C(r=f+=s-!~s)                  G[i]|G[r=f+=s-!~s]|…?0:S()
 <i>double step</i>   2+(i%96&lt;24)                      2+!G[i]
 <i>table</i>         C=i=&gt;'20003001'[i%112]&lt;&lt;i/56     —</pre>
 
@@ -16368,9 +16792,9 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
     <h3 lang="en" data-id="castlebook-how">How it works</h3>
     <div class="prose" lang="tr">
       <p>Hamle gerçekten oynandığında <code>G[i]=G[Y]=1</code> iki kareyi işaretliyor. Rok dalında
-      <code>!(G[i]|G[r=f+=s-!~s]|T()|T(i+s))</code> dört soruyu tek bir olumsuzlamanın altında
+      <code>G[i]|G[r=f+=s-!~s]|T()|T(i+s)?0:S()</code> dört soruyu tek bir koşulda
       topluyor: şahın bulunduğu kareye ya da hesaplanan kale karesine hiç dokunuldu mu, şaha şu anda
-      şah çekilmiş mi, şahın üzerinden geçeceği kare tehdit altında mı? Kale karesinin hesabı
+      şah çekilmiş mi, şahın üzerinden geçeceği kare tehdit altında mı? Biri bile doğruysa cevap 0. Kale karesinin hesabı
       <code class="vn">L2</code> ve <code class="vn">L3</code>'tekiyle aynı: <code>s-!~s</code> kısa
       rokta 1, uzun rokta -2; yani kısa rokta şahın varacağı karenin bir sağı, uzun rokta iki solu.
       <code>f</code> artık kale karesi olduğu için ardından gelen <code>S()</code> şahtan kaleye
@@ -16403,9 +16827,9 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
     </div>
     <div class="prose" lang="en">
       <p>When a move is actually played, <code>G[i]=G[Y]=1</code> marks two squares. In the castling
-      branch, <code>!(G[i]|G[r=f+=s-!~s]|T()|T(i+s))</code> gathers four questions under a single negation:
+      branch, <code>G[i]|G[r=f+=s-!~s]|T()|T(i+s)?0:S()</code> gathers four questions into a single condition:
       has the king's current square or the computed rook square ever been touched, is the king in check
-      right now, is the square it passes over attacked. The rook square is worked out exactly as in
+      right now, is the square it passes over attacked. If any of them holds, the answer is 0. The rook square is worked out exactly as in
       <code class="vn">L2</code> and <code class="vn">L3</code>: <code>s-!~s</code> is 1 on the kingside
       and -2 on the queenside — one to the right of the king's destination on the kingside, two to the
       left on the queenside. Since <code>f</code> is now the rook square, the <code>S()</code> that
@@ -16481,7 +16905,7 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
     <div class="prose" lang="tr">
       <p>Fark küçük. Yeni nesilde dört yerin hesabı şöyle: <code>C</code> tablosu virgülüyle 29 bayt ve
       <code class="vn">L1</code>'de hiç yok; hamledeki işaret 3 bayt, çift adım testi 4 bayt kısa; rok
-      testi ise 2 bayt uzun. Toplam <b>34 bayt</b>. Maskenin başlangıç değeri de ayrı bir atama istiyor:
+      testi ise 4 bayt uzun. Toplam <b>32 bayt</b>. Maskenin başlangıç değeri de ayrı bir atama istiyor:
       <code class="vn">L3</code>'ün başlığındaki <code>15,</code> üç bayt daha. Algoritma olarak ikisi
       aynı ağırlıkta: biri dört biti kırpıyor, öbürü iki kareyi işaretliyor.</p>
       <p>Defter <code class="vn">L1</code>'e önceki nesilde
@@ -16500,7 +16924,7 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       <p>The difference is small. In the new generation the four places add up like this: the
       <code>C</code> table is 29 bytes with its comma and absent from <code class="vn">L1</code>
       altogether; the mark on a move is 3 bytes shorter and the double-step test 4; the castling test, on
-      the other hand, is 2 bytes longer. That makes <b>34 bytes</b>. The mask's starting value needs an
+      the other hand, is 4 bytes longer. That makes <b>32 bytes</b>. The mask's starting value needs an
       assignment of its own, too: the <code>15,</code> in <code class="vn">L3</code>'s header is three
       bytes more. As algorithms the two weigh the same: one clips four bits, the other marks two
       squares.</p>
@@ -16984,7 +17408,7 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
     <h2 lang="tr">Paketlenmiş dosya</h2>
     <h2 lang="en">The packed file</h2>
     <div class="prose" lang="tr">
-      <p>Oynanabilir dosyalar, arayüzlerine ve eski ya da modern işaretleme kullanmalarına göre
+      <p>Tam hakemi taşıyan oynanabilir dosyalar, arayüzlerine ve eski ya da modern işaretleme kullanmalarına göre
       <b>1,7 KB</b> ile <b>2,7 KB</b> arasında değişiyor
       <span class="gloss">(1 KB = 1024 bayt)</span>.</p>
       <p>Paketlenmiş tek bir sürüm var: <code class="vn">L3_packed</code>, dosyası <code>FideLite.html</code>, 2.437 bayt. Kendi kendini açan
@@ -16994,7 +17418,7 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       kaynağını geri veriyor:</p>
     </div>
     <div class="prose" lang="en">
-      <p>The playable files range from <b>1.7 KB</b> to <b>2.7 KB</b>
+      <p>The playable files that carry the full arbiter range from <b>1.7 KB</b> to <b>2.7 KB</b>
       <span class="gloss">(1 KB = 1024 bytes)</span>, depending on their interface and on old or
       modern markup.</p>
       <p>There is one packed build: <code class="vn">L3_packed</code>, in the file <code>FideLite.html</code>, at 2,437 bytes. It is self-extracting RegPack
@@ -17309,9 +17733,10 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       <code>&lt;th width=54 onclick=S(id)\x20id=${w}&gt;</code>. RegPack kaçış dizisini boşluk
       saymıyor. Bu kaçış kaynağı üç karakter uzatıyor, pakete birkaç bayt yansıyor ve üretilen HTML
       düz sürümdekiyle birebir aynı kalıyor; <code>reassignVars</code>'ın açık ya da kapalı olması
-      fark etmiyor. Yeni pakette böyle bir boşluk yok: işaretlemedeki tek anlamlı boşluk
-      <code>&lt;/label&gt;</code> ile <code>&lt;button</code> arasında ve önünde satır sonu olmadığı
-      için temizlemeden zarar görmeden çıkıyor.</li>
+      fark etmiyor. Yeni pakette böyle bir boşluk yok: kaynakta hiç satır sonu bulunmadığı için
+      işaretlemedeki boşlukların hiçbirinin — öznitelikleri ayıranlar da,
+      <code>&lt;/label&gt;</code> ile <code>&lt;button</code> arasındaki de — önünde satır sonu yok ve
+      hepsi temizlemeden zarar görmeden çıkıyor.</li>
       <li><b>Paketleyiciye yalnızca JS girmeli.</b> Ham HTML paketlenirse açılan kaynak
       <code>eval</code> edilebilir bir JS olmaktan çıkıyor. İşaretleme için iki yol var: ya
       paketin dışında, <code>&lt;script&gt;</code>'ten önce statik kalıyor —
@@ -17338,10 +17763,10 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       as an escape: <code>&lt;th width=54 onclick=S(id)\x20id=${w}&gt;</code>. RegPack does not count
       an escape sequence as whitespace. It lengthens the source by three characters, costs the
       packed file a few bytes, and leaves the generated HTML identical to the plain build's; whether
-      <code>reassignVars</code> is on or off makes no difference. The new pack has no such space: the
-      one meaningful space in its markup sits between <code>&lt;/label&gt;</code> and
-      <code>&lt;button</code>, and with no line break in front of it, it comes through the cleanup
-      unharmed.</li>
+      <code>reassignVars</code> is on or off makes no difference. The new pack has no such space: its
+      source has no line breaks at all, so no space in its markup — the attribute separators
+      included, as well as the one between <code>&lt;/label&gt;</code> and <code>&lt;button</code> —
+      has a line break in front of it, and all of them come through the cleanup unharmed.</li>
       <li><b>Only JS may go into the packer.</b> Pack raw HTML and the recovered source is no longer
       JS that <code>eval</code> can run. There are two ways to deal with the markup: either it stays
       outside the pack, static before the <code>&lt;script&gt;</code> — as in
@@ -17357,22 +17782,19 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       Bu tablo tersini gösteriyor: her dosyada tanımlayıcı olarak hiç geçmeyen harfleri. Düz
       dosyaların kaynağı ayrıştırılıp tek harfli bütün tanımlayıcılar toplandı — işaretlemedeki
       <code>id</code>'ler de, çünkü adla erişim sayesinde onlar da birer global değişken; aşağıdakiler
-      geriye kalanlar. <code>engine_4x.js</code> satırı önceki ölçümden: hızlı motor üzerindeki
-      çalışma sürüyor, o dosya bitince yeniden sayılacak.</p>
+      geriye kalanlar.</p>
     </div>
     <div class="prose" lang="en">
       <p>The four tables on the <a href="#state">Engine tab</a> say which letters are used. This one
       says the reverse: the letters that never appear as identifiers in each file. The source of the
       plain files was parsed and every single-letter identifier collected — the <code>id</code>s in
-      the markup as well, since named access makes them globals too; what follows is what was left.
-      The <code>engine_4x.js</code> row is from the earlier count: work on the fast engine is still
-      under way, and that file will be counted again once it is done.</p>
+      the markup as well, since named access makes them globals too; what follows is what was left.</p>
     </div>
 <div class="tw" lang="tr"><table>
 <thead><tr><th>Dosya</th><th>Boşta harfler</th><th class="num">Sayı</th></tr></thead>
 <tbody>
 <tr><td><code>engine.js</code></td><td><code>l</code> <code>w</code> <code>z</code> <code>E</code> <code>J</code> <code>K</code> <code>Y</code></td><td class="num">7</td></tr>
-<tr><td><code>engine_4x.js</code></td><td><code>E</code> <code>J</code></td><td class="num">2</td></tr>
+<tr><td><code>engine_4x.js</code></td><td><code>l</code> <code>w</code> <code>z</code> <code>E</code> <code>J</code> <code>K</code> <code>Y</code></td><td class="num">7</td></tr>
 <tr><td><code class="vn">numerical</code></td><td><code>l</code> <code>D</code> <code>F</code> <code>J</code></td><td class="num">4</td></tr>
 <tr><td><code class="vn">prompt</code></td><td><code>l</code></td><td class="num">1</td></tr>
 <tr><td><code class="vn">input</code></td><td><code>l</code> <code>Z</code></td><td class="num">2</td></tr>
@@ -17384,7 +17806,7 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
 <thead><tr><th>File</th><th>Free letters</th><th class="num">Count</th></tr></thead>
 <tbody>
 <tr><td><code>engine.js</code></td><td><code>l</code> <code>w</code> <code>z</code> <code>E</code> <code>J</code> <code>K</code> <code>Y</code></td><td class="num">7</td></tr>
-<tr><td><code>engine_4x.js</code></td><td><code>E</code> <code>J</code></td><td class="num">2</td></tr>
+<tr><td><code>engine_4x.js</code></td><td><code>l</code> <code>w</code> <code>z</code> <code>E</code> <code>J</code> <code>K</code> <code>Y</code></td><td class="num">7</td></tr>
 <tr><td><code class="vn">numerical</code></td><td><code>l</code> <code>D</code> <code>F</code> <code>J</code></td><td class="num">4</td></tr>
 <tr><td><code class="vn">prompt</code></td><td><code>l</code></td><td class="num">1</td></tr>
 <tr><td><code class="vn">input</code></td><td><code>l</code> <code>Z</code></td><td class="num">2</td></tr>
@@ -17393,9 +17815,9 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
 </tbody>
 </table></div>
     <div class="prose" lang="tr">
-      <p>Sayı, arayüzsüz motordan sürücülere geçince düşüyor: <code>engine.js</code>'in arayüzü yok,
-      yedi harfi boşta; sürücülerde bir ile dört arası kalıyor, en azı
-      <code class="vn">prompt</code>'ta. Ölçülen altı dosyanın hepsinde boşta olan tek bir harf var:
+      <p>Sayı, arayüzsüz motorlardan sürücülere geçince düşüyor: iki motorun da arayüzü yok,
+      ikisinde de yedi harf boşta; sürücülerde bir ile dört arası kalıyor, en azı
+      <code class="vn">prompt</code>'ta. Ölçülen yedi dosyanın hepsinde boşta olan tek bir harf var:
       <b><code>l</code></b>.</p>
       <p>Tanımlayıcı olarak boşta olmak tek başına yetmiyor ve nedeni
       <a href="#packing">paketleyicide</a>. RegPack açma döngüsünün sarmalayıcısı için
@@ -17406,8 +17828,8 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
     </div>
     <div class="prose" lang="en">
       <p>The count falls as you move from the engine without a front end to the drivers:
-      <code>engine.js</code> has no interface and seven letters free; the drivers keep between one
-      and four, the fewest in <code class="vn">prompt</code>. Exactly one letter is free in all six of
+      neither engine has an interface, and each has seven letters free; the drivers keep between one
+      and four, the fewest in <code class="vn">prompt</code>. Exactly one letter is free in all seven of
       the files measured: <b><code>l</code></b>.</p>
       <p>Being free as an identifier is not enough on its own, and the reason lies in the
       <a href="#packing">packer</a>. RegPack wants a letter for the unpacking loop's wrapper,
@@ -17419,46 +17841,51 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
 <div class="tw" lang="tr"><table>
 <thead><tr><th>Harf</th><th class="num">Kaç dosyada boşta</th><th>Boşta olduğu dosyalarda karakter olarak</th></tr></thead>
 <tbody>
-<tr><td><code>l</code></td><td class="num">6</td><td>Hepsinde var — <code>slice</code>, <code>every</code>, <code>replace</code> …</td></tr>
+<tr><td><code>l</code></td><td class="num">7</td><td>Hepsinde var — <code>slice</code>, <code>every</code>, <code>replace</code> …</td></tr>
 <tr><td><code>Z</code></td><td class="num">3</td><td>Hiçbirinde yok — <code class="vn">default</code>, <code class="vn">input</code>, <code class="vn">input_blindfold</code></td></tr>
-<tr><td><code>J</code></td><td class="num">2</td><td>Hiçbirinde yok — <code>engine.js</code>, <code class="vn">numerical</code></td></tr>
+<tr><td><code>J</code></td><td class="num">3</td><td>Hiçbirinde yok — <code>engine.js</code>, <code>engine_4x.js</code>, <code class="vn">numerical</code></td></tr>
 <tr><td><code>D</code></td><td class="num">2</td><td>İkisinde de var — <code>new Date</code></td></tr>
+<tr><td><code>w</code> <code>z</code> <code>E</code> <code>K</code> <code>Y</code></td><td class="num">2</td><td>Hiçbirinde yok — <code>engine.js</code>, <code>engine_4x.js</code></td></tr>
 </tbody>
 </table></div>
 <div class="tw" lang="en"><table>
 <thead><tr><th>Letter</th><th class="num">Free in how many files</th><th>As a character, in the files where it is free</th></tr></thead>
 <tbody>
-<tr><td><code>l</code></td><td class="num">6</td><td>In all of them — <code>slice</code>, <code>every</code>, <code>replace</code> …</td></tr>
+<tr><td><code>l</code></td><td class="num">7</td><td>In all of them — <code>slice</code>, <code>every</code>, <code>replace</code> …</td></tr>
 <tr><td><code>Z</code></td><td class="num">3</td><td>In none of them — <code class="vn">default</code>, <code class="vn">input</code>, <code class="vn">input_blindfold</code></td></tr>
-<tr><td><code>J</code></td><td class="num">2</td><td>In none of them — <code>engine.js</code>, <code class="vn">numerical</code></td></tr>
+<tr><td><code>J</code></td><td class="num">3</td><td>In none of them — <code>engine.js</code>, <code>engine_4x.js</code>, <code class="vn">numerical</code></td></tr>
 <tr><td><code>D</code></td><td class="num">2</td><td>In both — <code>new Date</code></td></tr>
+<tr><td><code>w</code> <code>z</code> <code>E</code> <code>K</code> <code>Y</code></td><td class="num">2</td><td>In none of them — <code>engine.js</code>, <code>engine_4x.js</code></td></tr>
 </tbody>
 </table></div>
     <div class="prose" lang="tr">
-      <p>Altı dosyanın hepsinde iki testi birden geçen bir harf yok. <code>l</code> her yerde
+      <p>Yedi dosyanın hepsinde iki testi birden geçen bir harf yok. <code>l</code> her yerde
       tanımlayıcı olarak boşta, ama karakter olarak da her yerde geçiyor: sarmalayıcı için iş görür,
-      token olamaz. İki testi birden geçenler arasında en geniş kapsamlısı <b><code>Z</code></b>:
-      tarayıcıda tahta çizen üç sürücüde — <code class="vn">default</code>,
-      <code class="vn">input</code>, <code class="vn">input_blindfold</code> — ne tanımlayıcı ne de
-      karakter olarak geçiyor. Paket de bunu görüyor: <code class="vn">default</code>'tan üretilen
+      token olamaz. İki testi birden geçenler arasında en geniş kapsamlıları <b><code>Z</code></b> ile
+      <b><code>J</code></b>, üçer dosyada: <code>Z</code> tarayıcıda tahta çizen üç sürücüde —
+      <code class="vn">default</code>, <code class="vn">input</code>, <code class="vn">input_blindfold</code> —,
+      <code>J</code> iki motorla <code class="vn">numerical</code>'da ne tanımlayıcı ne de karakter olarak
+      geçiyor. Paket de bunu görüyor: <code class="vn">default</code>'tan üretilen
       <code>L3_packed</code>'in token sınıfında <code>Z</code> var.</p>
       <p>Önceki nesilde bu harf <code>J</code>'ydi: yedi dosyanın yedisinde de iki testi birden
       geçiyordu. Yeni nesilde <code>J</code> sürücülere geçti — <code class="vn">default</code>'ta talep
-      fonksiyonu, metin sürücülerinde UCI ayrıştırıcısı — ve yalnızca motorla
+      fonksiyonu, metin sürücülerinde UCI ayrıştırıcısı — ve yalnızca iki motorla
       <code class="vn">numerical</code>'da boşta kaldı.</p>
     </div>
     <div class="prose" lang="en">
-      <p>No letter passes both tests in all six files. <code>l</code> is free as an identifier
+      <p>No letter passes both tests in all seven files. <code>l</code> is free as an identifier
       everywhere, but it is everywhere as a character too: good for the wrapper, useless as a token.
-      The widest of the letters that pass both is <b><code>Z</code></b>: in the three drivers that
-      draw a board in the browser — <code class="vn">default</code>, <code class="vn">input</code>,
-      <code class="vn">input_blindfold</code> — it appears neither as an identifier nor as a character.
+      The widest of the letters that pass both are <b><code>Z</code></b> and <b><code>J</code></b>, at
+      three files each: <code>Z</code> in the three drivers that draw a board in the browser —
+      <code class="vn">default</code>, <code class="vn">input</code>, <code class="vn">input_blindfold</code> —,
+      <code>J</code> in the two engines and <code class="vn">numerical</code>; there they appear neither as an
+      identifier nor as a character.
       The pack sees this too: the token class of <code>L3_packed</code>, built from
       <code class="vn">default</code>, contains <code>Z</code>.</p>
       <p>In the previous generation that letter was <code>J</code>: it passed both tests in all seven
       files. In the new generation <code>J</code> has moved into the drivers — the claim function in
       <code class="vn">default</code>, the UCI parser in the text drivers — and is left free only in
-      the engine and in <code class="vn">numerical</code>.</p>
+      the two engines and in <code class="vn">numerical</code>.</p>
     </div>
 
     <h3 id="pack-tokens" lang="tr">Token karakterleri</h3>
@@ -17774,7 +18201,8 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
     <h3 lang="en" data-id="concessions">The concessions — obsolete techniques and quirks mode</h3>
     <div class="prose" lang="tr">
       <p>Motor tarafı modern: BigInt değişmezleri, şablon dizgileri, varsayılan parametreler. Eskimiş
-      olan her şey <b>paketlenmiş tarafta</b> — ve orada da nedeni tek kelimeyle bayt. HTML'in terk
+      olan her şey <b>paketlenmiş tarafta</b> ve <code>builds/special/</code>'daki iki Toledo dosyasında — ve
+      orada da nedeni tek kelimeyle bayt. HTML'in terk
       edilmiş sunum nitelikleri CSS karşılıklarından kısa ve tarayıcılar onları desteklemeyi
       bırakamıyor: spesifikasyon bugün de nasıl işleneceklerini tanımlıyor, çünkü webin büyük bölümü
       onlara bağlı. Eskimiş olmak çalışmamak demek değil; doğrulayıcının şikâyet etmesi demek.</p>
@@ -17790,8 +18218,8 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
     </div>
     <div class="prose" lang="en">
       <p>The engine side is modern: BigInt literals, template literals, default parameters.
-      Everything that has aged sits on the <b>packed side</b> — and there too the reason is one
-      word: bytes. HTML's abandoned presentational attributes are shorter than their CSS
+      Everything that has aged sits on the <b>packed side</b> and in the two Toledo files in
+      <code>builds/special/</code> — and there too the reason is one word: bytes. HTML's abandoned presentational attributes are shorter than their CSS
       equivalents, and browsers are not free to drop them: the specification still defines how they
       are to be processed, because a large part of the web depends on them. Being obsolete does not
       mean not working; it means the validator complains.</p>
@@ -17888,7 +18316,8 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       hilesi: <code>document.write`…`</code> etiketli bir şablon. Metot tek elemanlı bir dizi alıyor;
       dizi dizgiye çevrilince içeriğin kendisini veriyor. Parantez ve tırnak yerine yalnızca iki ters
       tırnak gerekiyor. Bugünkü <code>L3.html</code> ise <code>document.write</code>'ı hiç çağırmıyor:
-      işaretlemesi statik, yalnızca tablo gövdesi <code>innerHTML</code> ile yazılıyor.</p>
+      işaretlemesinin iskeleti statik; tahta, terfi düğmeleri, iki saat ve durum satırı
+      <code>innerHTML</code> ile yazılıyor.</p>
       <p><code>with</code> paketlenmiş dosyada var, ama bizim yazdığımız kod
       değil: RegPack'in açma döngüsü <code>with(_.split(…))</code> kalıbını kullanıyor.
       Pratik sonucu şu: <code>with</code> katı kipte (strict mode) sözdizimi hatası olduğu için
@@ -17913,8 +18342,9 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       parser. The call is a piece of golf in itself: <code>document.write`…`</code> is a tagged
       template. The method receives a one-element array, and the array, turned into a string, gives
       back its content; two backticks instead of parentheses and quotes. Today's
-      <code>L3.html</code> does not call <code>document.write</code> at all — its markup is static and
-      only the table body is written, through <code>innerHTML</code>.</p>
+      <code>L3.html</code> does not call <code>document.write</code> at all — its skeleton markup is
+      static; the board, the promotion buttons, the two clocks and the status line are written
+      through <code>innerHTML</code>.</p>
       <p><code>with</code> is present in the packed file, but it is not code we wrote:
       RegPack's unpacking loop uses the <code>with(_.split(…))</code> pattern. The practical
       consequence is that, since <code>with</code> is a syntax error in strict mode, the packed
@@ -17940,10 +18370,10 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       <code class="vn">L3</code>'ün paketlenmiş hâline de paket dizgisindeki kontrol karakterleri için
       yüzlerce hata daha ekleniyor. <b>Merdivende eskimiş öge ya da nitelik yok</b>; önceki nesilde
       yalnızca <code class="vn">L3_packed</code>'te, o da çalışırken ürettiği işaretlemede vardı. Üç
-      JavaScript dosyası — <code>engine.js</code>, <code>engine_4x.js</code> ve
-      <code>engine_string.js</code> — için ne DOCTYPE'ın ne de render modunun bir karşılığı var.
+      motor dosyası — <code>engine.js</code>, <code>engine_4x.js</code> ve
+      <code>engine_string.js</code> — ile dört terminal sürümü (<code>.cjs</code>) için ne DOCTYPE'ın ne de render modunun bir karşılığı var.
       <code>builds/special/</code> klasöründeki dosyalar bu sayımın dışında: çoğu kendi başına bir
-      proje, <a href="https://github.com/cuneytinann" target="_blank" rel="noopener">GitHub</a>'daki beş
+      proje, <a href="https://github.com/cuneytinann" target="_blank" rel="noopener">GitHub</a>'daki altı
       ayrı deponun dosyaları; ayrıntıları her deponun README'sinde. Paketlenmiş hâlin, yani
       <code class="vn">L3_packed</code>'in ayrıntıları ise bu sayfada, <a href="#packing">paketleme
       bölümünde</a>.</p>
@@ -17993,10 +18423,10 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       packed form of <code class="vn">L3</code> it adds hundreds more for the control characters in the
       packed string. <b>The ladder contains no obsolete elements or attributes</b>; in the previous
       generation they appeared only in <code class="vn">L3_packed</code>, and only in the markup it
-      generated at run time. For the three JavaScript files — <code>engine.js</code>,
-      <code>engine_4x.js</code> and <code>engine_string.js</code> — neither a DOCTYPE nor a rendering
-      mode means anything. The files in <code>builds/special/</code> are outside this count: most are
-      projects in their own right, the files of five separate repositories on
+      generated at run time. For the three engine files — <code>engine.js</code>,
+      <code>engine_4x.js</code> and <code>engine_string.js</code> — and the four terminal builds
+      (<code>.cjs</code>), neither a DOCTYPE nor a rendering mode means anything. The files in <code>builds/special/</code> are outside this count: most are
+      projects in their own right, the files of six separate repositories on
       <a href="https://github.com/cuneytinann" target="_blank" rel="noopener">GitHub</a>, and each
       repository's README tells the details. The packed form, <code class="vn">L3_packed</code>, is
       covered on this page, in the <a href="#packing">packing section</a>.</p>
@@ -18056,7 +18486,7 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
 <tr><td><code class="vn">light</code></td><td><code>L1_light</code>, <code>L2_light</code>, <code>L3_light</code></td><td>quirks</td><td>4–12 / 1 — aynıları ve kapanmamış <code>table</code>, <code>button</code> ya da <code>style</code>; <code>L3_light</code>'ta ayrıca gövdedeki <code>&lt;style&gt;</code> için yer, seçici ve birimsiz uzunluk hataları</td><td>yok</td><td>modern</td></tr>
 <tr><td><code>builds/</code>, paketlenmiş</td><td><code>L3_packed</code></td><td>quirks</td><td>267 / 6 — üçü dışında hepsi paket dizgisindeki kontrol karakterleri</td><td>yok</td><td><code>with</code>, <code>eval</code>, <code>document.write</code></td></tr>
 <tr><td><code>builds/special/</code>, standart</td><td><code>Lichess-equivalent</code>, <code>Chesscom-equivalent</code>, <code>L2_base</code>, <code>L2_string_base</code>, <code>L1_1250elo</code>, <code>L2_aybars_2500</code>, <code>LUX</code></td><td>standart</td><td>0 / 0</td><td>yok</td><td>modern</td></tr>
-<tr><td><code>builds/special/</code>, paketlenmiş</td><td><code>Lichess-equivalent_minimum</code>, <code>Chesscom-equivalent_minimum</code>, <code>DOM_911</code>, <code>DOM_minimum</code></td><td>quirks</td><td>89–175 / 4–9 — neredeyse tamamı paket dizgisindeki kontrol karakterleri</td><td><code>DOM_911</code>'te statik <code>&lt;center&gt;</code>; ürettiği hücrelerde <code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>width</code>, <code>height</code></td><td><code>with</code>, <code>eval</code></td></tr>
+<tr><td><code>builds/special/</code>, paketlenmiş</td><td><code>Lichess-eqv_min</code>, <code>Chesscom-eqv_min</code>, <code>DOM_911</code>, <code>DOM_minimum</code></td><td>quirks</td><td>89–175 / 4–9 — neredeyse tamamı paket dizgisindeki kontrol karakterleri</td><td><code>DOM_911</code>'te statik <code>&lt;center&gt;</code>; ürettiği hücrelerde <code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>width</code>, <code>height</code></td><td><code>with</code>, <code>eval</code></td></tr>
 <tr><td>Toledo</td><td><code>Toledos-ES6-optimized</code></td><td>quirks</td><td>8 / 1 — <code>&lt;center&gt;</code>, birimsiz CSS değerleri, ikinci <code>&lt;body&gt;</code></td><td><code>&lt;center&gt;</code>, <code>bgcolor</code>; ürettiği tabloda <code>cellspacing</code></td><td><code>document.write</code>, dizgiyle <code>setTimeout</code></td></tr>
 <tr><td>Toledo'nun rakibi</td><td><code>ToledosOpponentbyMe</code></td><td>quirks</td><td>10 / 3 — <code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>cellspacing</code>, gövdedeki <code>&lt;style&gt;</code>, kapanmamış ögeler</td><td><code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>cellspacing</code>; ürettiği hücrelerde <code>width</code></td><td><code>.bgColor</code></td></tr>
 </tbody>
@@ -18069,7 +18499,7 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
 <tr><td><code class="vn">light</code></td><td><code>L1_light</code>, <code>L2_light</code>, <code>L3_light</code></td><td>quirks</td><td>4–12 / 1 — the same, plus an unclosed <code>table</code>, <code>button</code> or <code>style</code>; in <code>L3_light</code> also placement, selector and unitless-length errors for the <code>&lt;style&gt;</code> in the body</td><td>none</td><td>modern</td></tr>
 <tr><td><code>builds/</code>, packed</td><td><code>L3_packed</code></td><td>quirks</td><td>267 / 6 — all but three of them control characters in the packed string</td><td>none</td><td><code>with</code>, <code>eval</code>, <code>document.write</code></td></tr>
 <tr><td><code>builds/special/</code>, standards</td><td><code>Lichess-equivalent</code>, <code>Chesscom-equivalent</code>, <code>L2_base</code>, <code>L2_string_base</code>, <code>L1_1250elo</code>, <code>L2_aybars_2500</code>, <code>LUX</code></td><td>standards</td><td>0 / 0</td><td>none</td><td>modern</td></tr>
-<tr><td><code>builds/special/</code>, packed</td><td><code>Lichess-equivalent_minimum</code>, <code>Chesscom-equivalent_minimum</code>, <code>DOM_911</code>, <code>DOM_minimum</code></td><td>quirks</td><td>89–175 / 4–9 — almost all of them control characters in the packed string</td><td>a static <code>&lt;center&gt;</code> in <code>DOM_911</code>; in the cells it writes: <code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>width</code>, <code>height</code></td><td><code>with</code>, <code>eval</code></td></tr>
+<tr><td><code>builds/special/</code>, packed</td><td><code>Lichess-eqv_min</code>, <code>Chesscom-eqv_min</code>, <code>DOM_911</code>, <code>DOM_minimum</code></td><td>quirks</td><td>89–175 / 4–9 — almost all of them control characters in the packed string</td><td>a static <code>&lt;center&gt;</code> in <code>DOM_911</code>; in the cells it writes: <code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>width</code>, <code>height</code></td><td><code>with</code>, <code>eval</code></td></tr>
 <tr><td>Toledo</td><td><code>Toledos-ES6-optimized</code></td><td>quirks</td><td>8 / 1 — <code>&lt;center&gt;</code>, unitless CSS values, a second <code>&lt;body&gt;</code></td><td><code>&lt;center&gt;</code>, <code>bgcolor</code>; <code>cellspacing</code> in the table it writes</td><td><code>document.write</code>, <code>setTimeout</code> with a string</td></tr>
 <tr><td>Toledo's opponent</td><td><code>ToledosOpponentbyMe</code></td><td>quirks</td><td>10 / 3 — <code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>cellspacing</code>, a <code>&lt;style&gt;</code> in the body, unclosed elements</td><td><code>&lt;center&gt;</code>, <code>bgcolor</code>, <code>cellspacing</code>; <code>width</code> on the cells it writes</td><td><code>.bgColor</code></td></tr>
 </tbody>
@@ -18122,8 +18552,8 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       <li><b><code>E.key</code>.</b> Klavye olaylarında eskimiş olanlar <code>keyCode</code> ve
       <code>which</code>; ikisi de hiçbir sürücüde geçmiyor. Bu bir tesadüf değil, bilerek ödenmiş
       bir bedel: <code>onkeyup=E=&gt;E.which!=13</code> yazmak <code>E.key!='Enter'</code> yazmaktan
-      <b>dosya başına 3 bayt</b> kısa. Kanca yalnızca <code class="vn">input</code> ailesinde olduğu
-      için masada 6 bayt bırakıldı — <code class="vn">prompt</code> ile
+      <b>dosya başına 3 bayt</b> kısa. Kanca yalnızca <code class="vn">input</code> ailesinde, her seviyede iki dosyada
+      olduğu için masada seviye başına 6 bayt bırakıldı — <code class="vn">prompt</code> ile
       <code class="vn">numerical</code> girdiyi bloklayan bir pencereden aldıkları için olay kancasına
       hiç ihtiyaç duymuyor.</li>
       <li><b>Adla erişim (named access).</b> Element <code>id</code>'sinin global değişkene dönüşmesi
@@ -18156,7 +18586,7 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       and <code>which</code>; neither occurs in any driver. That is not a coincidence but a price
       paid: writing <code>onkeyup=E=&gt;E.which!=13</code> is <b>3 bytes per file</b> shorter
       than writing <code>E.key!='Enter'</code>. Because the hook exists only in the
-      <code class="vn">input</code> family, 6 bytes were left on the table — <code class="vn">prompt</code>
+      <code class="vn">input</code> family, two files per level, 6 bytes per level were left on the table — <code class="vn">prompt</code>
       and <code class="vn">numerical</code> take input through a blocking dialog and so need no event hook at
       all.</li>
       <li><b>Named access.</b> An element <code>id</code> becoming a global variable is defined in
@@ -18516,7 +18946,8 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       <code>s</code>, <code>t</code>'den bağımsız.</p>
       <p>Yayımlanan sürücülerin hepsi bu biçimi kısaltıyor. <code class="vn">default</code>,
       <code class="vn">input</code> ve <code class="vn">nonbrowser</code> aileleri
-      <code>s=g=&gt;($=[I=t],N=2e3,H(9))?g+'M':'WB'[t/8]+g</code> yazıyor — yani ortada bir taraf
+      <code>s=g=&gt;($=[I=t],N=2e3,H(9))?g+'M':'WB'[t/8]+g</code> yazıyor
+      (<code class="vn">nonbrowser_blindfold</code> aynı yardımcıya <code>D</code> diyor) — yani ortada bir taraf
       parametresi yok; onun yerine <b>sırası gelen taraf</b> kullanılıyor.
       <code class="vn">prompt</code> ailesi aynı ifadeyi satır içinde kuruyor,
       <code class="vn">numerical</code> da sayı kodlarını <code>$=[I=t]</code> ile üretiyor. Motorun
@@ -18536,7 +18967,8 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       <code>s</code> is independent of <code>t</code>.</p>
       <p>Every shipped driver shortens that form. The <code class="vn">default</code>,
       <code class="vn">input</code> and <code class="vn">nonbrowser</code> families write
-      <code>s=g=&gt;($=[I=t],N=2e3,H(9))?g+'M':'WB'[t/8]+g</code> — there is no side parameter at all,
+      <code>s=g=&gt;($=[I=t],N=2e3,H(9))?g+'M':'WB'[t/8]+g</code> (<code class="vn">nonbrowser_blindfold</code>
+      calls the same helper <code>D</code>) — there is no side parameter at all,
       and <b>the side to move</b> stands in for it. The <code class="vn">prompt</code> family builds the
       same expression inline, and <code class="vn">numerical</code> produces its number codes with
       <code>$=[I=t]</code> as well. No driver carries the engine's two-parameter form unchanged any
@@ -18641,7 +19073,7 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       edilmiyor.</p>
       <p><b>Bayrak testi de birime bağlı.</b> Sürücüler bayrağı sırası gelenin saatinde arıyor, ama
       farklı eşiklerle: <code class="vn">numerical</code> <code>u[t]&lt;1</code>,
-      <code class="vn">prompt</code> ailesi <code>G[t]&lt;=0</code> kullanıyor; saati canlı işleyenler
+      <code class="vn">prompt</code> ailesi <code>G[t]&lt;=0</code> kullanıyor; geri kalanlar
       ise <code>&gt;0</code>'ın tersini. Bu bir üslup meselesi değil. <code class="vn">numerical</code>
       saatini tam sayı milisaniye olarak tutuyor, yani değer ya sıfır ya da altında, ya da en az bir;
       arası yok, bu yüzden <code>&lt;1</code> hem bir bayt kısa hem güvenli. Öbürlerinin saati kesirli
@@ -18657,7 +19089,7 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       <p><b>The flag test depends on the unit too.</b> The drivers look for the flag on the clock of the
       side to move, but with different thresholds: <code class="vn">numerical</code> uses
       <code>u[t]&lt;1</code>, the <code class="vn">prompt</code> family <code>G[t]&lt;=0</code>, and the
-      builds whose clock runs live the negation of <code>&gt;0</code>. This is not a matter of style.
+      rest the negation of <code>&gt;0</code>. This is not a matter of style.
       <code class="vn">numerical</code> keeps its clock in whole milliseconds, so the value is either zero
       and below or at least one; there is nothing in between, and <code>&lt;1</code> is both a byte shorter
       and safe. The others keep fractional seconds; had <code>&lt;1</code> been written there, a player
@@ -18753,7 +19185,9 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       <p>İkinci tuzak daha ince. Render dizgisinde boş karenin karakteri normal boşluk değil,
       <b>kırılmaz boşluk</b>: <code>' ♟♚♛♞♜♝'</code>'nin ilk karakteri. <code>L1.html</code>,
       <code>L2.html</code>, <code>L3.html</code> ve paket karakterin kendisini taşıyor — kaçış
-      (<code>\xA0</code>) dört bayt, karakter iki; botlu iki sürüm hâlâ kaçışla yazıyor. Karakter
+      (<code>\xA0</code>) dört bayt, karakter iki. <code>builds/special/</code>'da
+      <code class="vn">L1_1250elo</code> da karakterin kendisini taşıyor; <code class="vn">L2_aybars_2500</code>,
+      <code class="vn">L2_base</code> ve <code class="vn">L2_string_base</code> hâlâ kaçışla yazıyor. Karakter
       <code>0x20</code>'ye çevrilirse işaretlemede daraltılabilir bir boşluğa dönüşür, hücre boş
       sayılır ve taşsız yataylar çöker. Ölçüldü: <code>L3.html</code>'de tahta 448 pikselden 232'ye
       iniyor, başlangıç pozisyonunun dört boş yatayı 56 pikselden 2 piksele. Bir editörün “gereksiz
@@ -18779,8 +19213,10 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       <p>The second trap is subtler. In the render string the character for an empty square is not an
       ordinary space but a <b>non-breaking space</b>: the first character of
       <code>' ♟♚♛♞♜♝'</code>. <code>L1.html</code>, <code>L2.html</code>, <code>L3.html</code> and the
-      pack hold the character itself — the escape (<code>\xA0</code>) is four bytes, the character two;
-      the two builds with a bot still write the escape. Convert it to <code>0x20</code> and it becomes
+      pack hold the character itself — the escape (<code>\xA0</code>) is four bytes, the character two.
+      In <code>builds/special/</code>, <code class="vn">L1_1250elo</code> holds the character too, while
+      <code class="vn">L2_aybars_2500</code>, <code class="vn">L2_base</code> and
+      <code class="vn">L2_string_base</code> still write the escape. Convert it to <code>0x20</code> and it becomes
       collapsible whitespace in the markup, the cell counts as empty and the ranks without pieces
       collapse. Measured: in <code>L3.html</code> the board drops from 448 pixels to 232, and the four
       empty ranks of the starting position from 56 pixels to 2. An editor that “cleans up an unnecessary
@@ -18806,7 +19242,9 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       <p>İmzayı taşıyanlar: <code>engine.js</code>, <code>engine_4x.js</code>,
       <code>engine_onlyMoveGenerator.js</code>, <code class="vn">L3</code>'ün dokuz sürücüsü ve paketi,
       <code class="vn">L1</code> ile <code class="vn">L2</code>'nin harf tahtası dışındaki bütün
-      sürümleri, <code>builds/special/</code>'da da Lichess ve Chess.com eşdeğerleri. Taşımayanlar ise
+      sürümleri, <code>builds/special/</code>'da da Lichess ve Chess.com eşdeğerlerinin düz sürümleri,
+      <code class="vn">LUX</code> ve <code class="vn">L1</code> seviyesindeki iki bot
+      (<code class="vn">L1_1250elo</code>, <code class="vn">ToledosOpponentbyMe</code>). Taşımayanlar ise
       harf tahtalı önceki nesil (<code class="vn">prompt_string</code> ailesi ve
       <code>engine_string.js</code>; bunların bildirimleri imzayı değil
       <a href="#fenstring">FEN alanlarının sırasını</a> izliyor) ile <code>builds/special/</code>'daki
@@ -18827,7 +19265,9 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       <p>The files that carry it: <code>engine.js</code>, <code>engine_4x.js</code>,
       <code>engine_onlyMoveGenerator.js</code>, the nine <code class="vn">L3</code> drivers and the pack,
       every <code class="vn">L1</code> and <code class="vn">L2</code> build except the letter-board ones, and
-      in <code>builds/special/</code> the Lichess and Chess.com equivalents. Those that do not: the
+      in <code>builds/special/</code> the plain Lichess and Chess.com equivalents, <code class="vn">LUX</code>
+      and the two <code class="vn">L1</code>-level bots (<code class="vn">L1_1250elo</code>,
+      <code class="vn">ToledosOpponentbyMe</code>). Those that do not: the
       previous generation with the letter board — the <code class="vn">prompt_string</code> family and
       <code>engine_string.js</code>, whose declarations follow <a href="#fenstring">the order of the FEN
       fields</a> rather than the signature — plus the other files in <code>builds/special/</code>.</p>
@@ -18871,14 +19311,14 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
 <tr><td><code>h</code></td><td><code>O</code>'nun geri çağrısı</td><td><code class="vn">default</code> ile <code class="vn">light</code>'ta üst saat ögesi; <code class="vn">prompt_blindfold</code>'da varış karesi</td></tr>
 <tr><td><code>m</code></td><td><code>G</code>'de tehdit modu bayrağı, <code>V</code>'de materyal</td><td><code class="vn">default</code>'ta son çizilen tahtanın dizgisi</td></tr>
 <tr><td><code>s</code></td><td><code>G</code>'de işaretli adım, <code>V</code>'de renk ve ardından bitboard, <code>H</code>'de saklanan durum, <code>D</code> ile <code>F</code>'de taraf</td><td><code class="vn">default</code>, <code class="vn">input</code> ve <code class="vn">nonbrowser</code> ailelerinde bayrak düşmesi ve terk sonucunu kuran yardımcı</td></tr>
-<tr><td><code>j</code></td><td>Geri çağrılarda kare indeksi; <code>V</code>'de bir karelik bit</td><td><code class="vn">default</code>, <code class="vn">light</code> ve <code class="vn">input</code> ailesinde saati işleten fonksiyon</td></tr>
+<tr><td><code>j</code></td><td>Geri çağrılarda kare indeksi; <code>V</code>'de bir karelik bit</td><td><code class="vn">default</code>, <code class="vn">light</code> ve <code class="vn">input</code> ailesinde saati işleten fonksiyon; <code class="vn">nonbrowser_blindfold</code>'da okuma tamponu</td></tr>
 <tr><td><code>i</code></td><td><code>C</code>, <code>G</code>, <code>U</code>, <code>L</code>, <code>M</code>, <code>V</code>'de kare parametresi — çoğunda çıkış karesi</td><td>Sürücülerde seçili ya da yazılan çıkış karesi, global</td></tr>
 <tr><td><code>k</code></td><td>Pozisyon anahtarı</td><td><code class="vn">default</code>'un render'ında iki saatin sırası, <code>(E,k)=&gt;</code></td></tr>
 <tr><td><code>w</code></td><td>Saati işletmek için zaman damgası, <code>w=new Date</code></td><td>Aynı sürücünün render'ında hücre indeksi, <code>(p,w)=&gt;</code></td></tr>
 <tr><td><code>F</code></td><td>Motorun bayrak düşmesi ve terk hükmü, <code>F(s,r)</code></td><td><code class="vn">default</code>, <code class="vn">light</code>, <code class="vn">input</code>, <code class="vn">nonbrowser</code>'da render; <code class="vn">prompt</code>'ta bayrak düşmesi ya da terk harfi, <code>'T'</code> ya da <code>'R'</code></td></tr>
-<tr><td><code>D</code></td><td>Motorun beraberlik fonksiyonu, <code>D(s)</code></td><td>Tahta çizen sürücülerde render'ın hesapladığı tahta karesi, <code>D=w^7&lt;&lt;t/2</code>; <code class="vn">prompt</code>'ta harfli <code>D</code></td></tr>
+<tr><td><code>D</code></td><td>Motorun beraberlik fonksiyonu, <code>D(s)</code></td><td>Tahta çizen sürücülerde render'ın hesapladığı tahta karesi, <code>D=w^7&lt;&lt;t/2</code>; <code class="vn">prompt</code>'ta harfli <code>D</code>; <code class="vn">nonbrowser_blindfold</code>'da bayrak düşmesi ve terk sonucunu kuran yardımcı</td></tr>
 <tr><td><code>Z</code></td><td>Motorun hükmü</td><td><code class="vn">light</code>'ta saatleri çizen fonksiyon; <code class="vn">prompt</code>'ta harfli <code>Z</code></td></tr>
-<tr><td><code>E</code></td><td><code class="vn">default</code> ile <code class="vn">light</code>'ta hamle fonksiyonu</td><td>Render'da saat ögesi, <code>(E,k)=&gt;</code>; <code class="vn">input</code> ailesinde klavye olayı; <code class="vn">prompt</code>'ta zaman damgası; <code class="vn">prompt_blindfold</code>'da <code>=</code> eki; <code class="vn">numerical</code>'da bayrak düşmesini terkten ayıran bayrak</td></tr>
+<tr><td><code>E</code></td><td><code class="vn">default</code> ile <code class="vn">light</code>'ta hamle fonksiyonu</td><td>Render'da saat ögesi, <code>(E,k)=&gt;</code>; <code class="vn">input</code> ailesinde klavye olayı; <code class="vn">prompt</code>'ta zaman damgası; <code class="vn">prompt_blindfold</code> ile <code class="vn">nonbrowser_blindfold</code>'da <code>=</code> eki; <code class="vn">numerical</code>'da bayrak düşmesini terkten ayıran bayrak</td></tr>
 <tr><td><code>J</code></td><td><code class="vn">default</code>'ta talep fonksiyonu</td><td><code class="vn">light</code>'ta taş glifi; metin sürücülerinde UCI ayrıştırıcısı</td></tr>
 <tr><td><code>K</code></td><td><code class="vn">default</code> ile <code class="vn">light</code>'ta kare tıklama işleyicisi</td><td>Metin sürücülerinde ham girdi metni</td></tr>
 <tr><td><code>y</code></td><td>İmza harfi; motor okumuyor</td><td>Tıklamalı sürümlerde terfi taşı; <code class="vn">numerical</code> ile körleme sürümlerde son hamle</td></tr>
@@ -18899,14 +19339,14 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
 <tr><td><code>h</code></td><td><code>O</code>'s callback</td><td>The upper clock element in <code class="vn">default</code> and <code class="vn">light</code>; the destination square in <code class="vn">prompt_blindfold</code></td></tr>
 <tr><td><code>m</code></td><td>The attack-mode flag in <code>G</code>, material in <code>V</code></td><td>The string of the last board drawn in <code class="vn">default</code></td></tr>
 <tr><td><code>s</code></td><td>The signed step in <code>G</code>, the colour and then a bitboard in <code>V</code>, the saved state in <code>H</code>, the side in <code>D</code> and <code>F</code></td><td>The helper that builds the flag-fall and resignation result in the <code class="vn">default</code>, <code class="vn">input</code> and <code class="vn">nonbrowser</code> families</td></tr>
-<tr><td><code>j</code></td><td>The square index in callbacks; one square's bit in <code>V</code></td><td>The function that runs the clock in <code class="vn">default</code>, <code class="vn">light</code> and the <code class="vn">input</code> family</td></tr>
+<tr><td><code>j</code></td><td>The square index in callbacks; one square's bit in <code>V</code></td><td>The function that runs the clock in <code class="vn">default</code>, <code class="vn">light</code> and the <code class="vn">input</code> family; the read buffer in <code class="vn">nonbrowser_blindfold</code></td></tr>
 <tr><td><code>i</code></td><td>The square parameter in <code>C</code>, <code>G</code>, <code>U</code>, <code>L</code>, <code>M</code>, <code>V</code> — in most of them the origin square</td><td>The selected or typed origin square in the drivers, a global</td></tr>
 <tr><td><code>k</code></td><td>The position key</td><td>The order of the two clocks in <code class="vn">default</code>'s render, <code>(E,k)=&gt;</code></td></tr>
 <tr><td><code>w</code></td><td>The timestamp that runs the clock, <code>w=new Date</code></td><td>The cell index in the same driver's render, <code>(p,w)=&gt;</code></td></tr>
 <tr><td><code>F</code></td><td>The engine's flag-fall and resignation verdict, <code>F(s,r)</code></td><td>The render in <code class="vn">default</code>, <code class="vn">light</code>, <code class="vn">input</code>, <code class="vn">nonbrowser</code>; the flag or resignation letter in <code class="vn">prompt</code>, <code>'T'</code> or <code>'R'</code></td></tr>
-<tr><td><code>D</code></td><td>The engine's draw function, <code>D(s)</code></td><td>The board square the render computes in the board-drawing drivers, <code>D=w^7&lt;&lt;t/2</code>; the lettered <code>D</code> in <code class="vn">prompt</code></td></tr>
+<tr><td><code>D</code></td><td>The engine's draw function, <code>D(s)</code></td><td>The board square the render computes in the board-drawing drivers, <code>D=w^7&lt;&lt;t/2</code>; the lettered <code>D</code> in <code class="vn">prompt</code>; the helper that builds the flag-fall and resignation result in <code class="vn">nonbrowser_blindfold</code></td></tr>
 <tr><td><code>Z</code></td><td>The engine's verdict</td><td>The function that draws the clocks in <code class="vn">light</code>; the lettered <code>Z</code> in <code class="vn">prompt</code></td></tr>
-<tr><td><code>E</code></td><td>The move function in <code class="vn">default</code> and <code class="vn">light</code></td><td>The clock element in the render, <code>(E,k)=&gt;</code>; the keyboard event in the <code class="vn">input</code> family; a timestamp in <code class="vn">prompt</code>; the <code>=</code> suffix in <code class="vn">prompt_blindfold</code>; the flag-or-resignation bit in <code class="vn">numerical</code></td></tr>
+<tr><td><code>E</code></td><td>The move function in <code class="vn">default</code> and <code class="vn">light</code></td><td>The clock element in the render, <code>(E,k)=&gt;</code>; the keyboard event in the <code class="vn">input</code> family; a timestamp in <code class="vn">prompt</code>; the <code>=</code> suffix in <code class="vn">prompt_blindfold</code> and <code class="vn">nonbrowser_blindfold</code>; the flag-or-resignation bit in <code class="vn">numerical</code></td></tr>
 <tr><td><code>J</code></td><td>The claim function in <code class="vn">default</code></td><td>The piece glyph in <code class="vn">light</code>; the UCI parser in the text drivers</td></tr>
 <tr><td><code>K</code></td><td>The square-click handler in <code class="vn">default</code> and <code class="vn">light</code></td><td>The raw input text in the text drivers</td></tr>
 <tr><td><code>y</code></td><td>A signature letter; the engine never reads it</td><td>The promotion piece in the clicking builds; the last move in <code class="vn">numerical</code> and the blindfold builds</td></tr>
@@ -18972,10 +19412,10 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       <li><b>Dizgi literalleri.</b> Harf gibi görünen ama tanımlayıcı olmayan yerler:
       <code class="vn">input</code> ve <code class="vn">nonbrowser</code>'daki <code>'a b c d e f g h'</code>
       ve <code>'h g f e d c b a'</code> sütun etiketleri; <code class="vn">default</code>,
-      <code class="vn">input</code> ve <code class="vn">prompt</code>'taki <code>'C!'</code> göstergesi ve
-      son ikisindeki <code>'D?'</code>; sonuç kodları — <code>'WB'[t/8]</code>'deki <code>W</code> ile
-      <code>B</code>, <code>V</code>'nin sızdırdığı globallerle aynı harfler —; <code class="vn">prompt</code>
-      ve <code class="vn">input</code> ailelerindeki <code>'T'</code> süre bitimi kodu ve <code>${…}s</code> saniye
+      <code class="vn">input</code>, <code class="vn">nonbrowser</code> ve <code class="vn">prompt</code>'taki
+      <code>'C!'</code> göstergesi ve son üçündeki <code>'D?'</code>; sonuç kodları — <code>'WB'[t/8]</code>'deki <code>W</code> ile
+      <code>B</code>, <code>V</code>'nin sızdırdığı globallerle aynı harfler —; <code class="vn">prompt</code>,
+      <code class="vn">input</code> ve <code class="vn">nonbrowser</code> ailelerindeki <code>'T'</code> süre bitimi kodu ve <code>${…}s</code> saniye
       eki.</li>
       <li><b>İşaretlemedeki <code>id=</code>.</b> İşaretlemeye yazılan her harf orada da değiştirilmeli;
       değiştirilmezse adla erişim bağı kopar ve global <code>undefined</code> kalır.</li>
@@ -18986,10 +19426,12 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       <li><b>String literals.</b> Places that look like letters but are not identifiers: the file labels
       <code>'a b c d e f g h'</code> and <code>'h g f e d c b a'</code> in <code class="vn">input</code> and
       <code class="vn">nonbrowser</code>; the <code>'C!'</code> indicator in <code class="vn">default</code>,
-      <code class="vn">input</code> and <code class="vn">prompt</code>, and <code>'D?'</code> in the last two;
+      <code class="vn">input</code>, <code class="vn">nonbrowser</code> and <code class="vn">prompt</code>, and
+      <code>'D?'</code> in the last three;
       the result codes — the <code>W</code> and <code>B</code> in <code>'WB'[t/8]</code> are the same letters
       as the globals <code>V</code> leaks —; the <code>'T'</code> timeout code and the <code>${…}s</code>
-      seconds suffix in the <code class="vn">prompt</code> and <code class="vn">input</code> families.</li>
+      seconds suffix in the <code class="vn">prompt</code>, <code class="vn">input</code> and
+      <code class="vn">nonbrowser</code> families.</li>
       <li><b>The <code>id=</code> in the markup.</b> Every letter that is written into the markup has to be
       renamed there too; if it is not, the named-access binding breaks and the global stays
       <code>undefined</code>.</li>
@@ -19877,7 +20319,7 @@ var DIR = 'builds/';
    icin de gerekli: koku DIR'den turetiyoruz, boylece build.mjs'te ikinci bir
    kural tutmaya gerek kalmiyor. */
 var ROOT = DIR.slice(0, -'builds/'.length);
-var ART = {"L3": {"p": "L3.html", "ps": 2758}, "L3_light": {"p": "L3_light.html", "ps": 2241}, "L3_numerical": {"p": "L3_numerical.html", "ps": 1715}, "L3_input": {"p": "L3_input.html", "ps": 2155}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2025}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2257}, "L3_prompt_string": {"p": "L3_prompt_string.html", "ps": 2205}, "L1": {"p": "builds/L1/L1.html", "ps": 1416}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 946}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 767}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1063}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 994}, "L1_prompt_string": {"p": "builds/L1/L1_prompt_string.html", "ps": 1039}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1191}, "L2": {"p": "builds/L2/L2.html", "ps": 1924}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1437}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1253}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1574}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1487}, "L2_prompt_string": {"p": "builds/L2/L2_prompt_string.html", "ps": 1618}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 1702}, "L2_aybars_2500": {"p": "builds/special/L2_aybars_2500.html", "ps": 7935}, "L1_1250elo": {"p": "builds/special/L1_1250elo.html", "ps": 2051}, "L3_packed": {"p": "builds/FideLite.html", "ps": 2437}, "Chesscom-equivalent": {"p": "builds/special/Chesscom-equivalent.html", "ps": 2667}, "Chesscom-equivalent_minimum": {"p": "builds/special/Chesscom-eqv_min.html", "ps": 1050}, "Lichess-equivalent": {"p": "builds/special/Lichess-equivalent.html", "ps": 2828}, "Lichess-equivalent_minimum": {"p": "builds/special/Lichess-eqv_min.html", "ps": 1088}, "L2_base": {"p": "builds/special/L2_base.html", "ps": 1817}, "L2_string_base": {"p": "builds/special/L2_string_base.html", "ps": 1895}, "DOM_911": {"p": "builds/special/DOM_911.html", "ps": 911}, "DOM_minimum": {"p": "builds/special/DOM_minimum.html", "ps": 722}, "Lowest": {"p": "builds/special/Lowest.html", "ps": 650}, "LUX": {"p": "builds/special/LUX.html", "ps": 9392}, "Toledos-ES6-optimized": {"p": "builds/special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "builds/special/ToledosOpponentbyMe.html", "ps": 1904}, "engine": {"p": "engine.js", "ps": 1527}, "engine_4x": {"p": "engine_4x.js", "ps": 1644}, "engine_string": {"p": "engine_string.js", "ps": 1721}, "engine_onlyMoveGenerator": {"p": "builds/special/engine_onlyMoveGenerator.js", "ps": 653}};
+var ART = {"L3": {"p": "L3.html", "ps": 2758}, "L3_light": {"p": "L3_light.html", "ps": 2241}, "L3_numerical": {"p": "L3_numerical.html", "ps": 1715}, "L3_input": {"p": "L3_input.html", "ps": 2155}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2025}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2257}, "L3_prompt_string": {"p": "L3_prompt_string.html", "ps": 2205}, "L1": {"p": "builds/L1/L1.html", "ps": 1416}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 946}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 767}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1063}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 994}, "L1_prompt_string": {"p": "builds/L1/L1_prompt_string.html", "ps": 1039}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1191}, "L2": {"p": "builds/L2/L2.html", "ps": 1924}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1437}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1253}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1574}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1487}, "L2_prompt_string": {"p": "builds/L2/L2_prompt_string.html", "ps": 1618}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 1702}, "L2_aybars_2500": {"p": "builds/special/L2_aybars_2500.html", "ps": 7935}, "L1_1250elo": {"p": "builds/special/L1_1250elo.html", "ps": 2051}, "L3_packed": {"p": "builds/FideLite.html", "ps": 2437}, "Chesscom-equivalent": {"p": "builds/special/Chesscom-equivalent.html", "ps": 2667}, "Chesscom-equivalent_minimum": {"p": "builds/special/Chesscom-eqv_min.html", "ps": 1050}, "Lichess-equivalent": {"p": "builds/special/Lichess-equivalent.html", "ps": 2828}, "Lichess-equivalent_minimum": {"p": "builds/special/Lichess-eqv_min.html", "ps": 1088}, "L2_base": {"p": "builds/special/L2_base.html", "ps": 1817}, "L2_string_base": {"p": "builds/special/L2_string_base.html", "ps": 1895}, "DOM_911": {"p": "builds/special/DOM_911.html", "ps": 911}, "DOM_minimum": {"p": "builds/special/DOM_minimum.html", "ps": 722}, "Lowest": {"p": "builds/special/Lowest.html", "ps": 650}, "LUX": {"p": "builds/special/LUX.html", "ps": 9392}, "Toledos-ES6-optimized": {"p": "builds/special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "builds/special/ToledosOpponentbyMe.html", "ps": 1904}, "engine": {"p": "engine.js", "ps": 1527}, "engine_4x": {"p": "engine_4x.js", "ps": 1644}, "engine_string": {"p": "engine_string.js", "ps": 1721}, "engine_onlyMoveGenerator": {"p": "builds/special/engine_onlyMoveGenerator.js", "ps": 653}, "engine_lux": {"p": "builds/special/engine_lux.js", "ps": 2383}};
 
 function url(n) { return n.indexOf('/') > -1 ? ROOT + n : DIR + n; }
 /* Terminal surumu (.cjs): tarayicida calismaz. Oyna kapali; kodu ve indirme acik. */
@@ -21356,6 +21798,165 @@ engShow();
 })();
 </script>
 
+<script>
+/* Chesseus: oynaticiyi Theseus'un gemisine oturtan govde. Her sey panelin
+   gercek piksel boyutundan cizilir, egriler hic gerilmez; panel buyuyup
+   kucüldukce (oyun, kod gorunumu) yeniden cizilir.
+   Govdenin dis cizgisi: ustte disa acilan bas ve kic (yay), dik yanlar,
+   yuvarlak sintine, duz omurga. Kaplama tahtalari bu cizgiye paralel
+   siralar; her sira icin yarıcaplar d kadar kayar, ofset tam ve ucuz. */
+(function () {
+  var ship = document.getElementById('ship'), svg = document.getElementById('hull');
+  if (!ship || !svg || !window.ResizeObserver) return;
+  var P = ship.querySelector('.player'), NS = 'http://www.w3.org/2000/svg';
+  /* tahta boylari: tekrar ettigi belli olmasin diye duzensiz */
+  var PL = [150, 96, 178, 122, 204, 88, 140, 166, 112, 190];
+  var busy = false, last = '';
+  function el(n, a, p) {
+    var e = document.createElementNS(NS, n);
+    for (var k in a) e.setAttribute(k, a[k]);
+    (p || svg).appendChild(e); return e;
+  }
+  function f(n) { return Math.round(n * 10) / 10; }
+  function draw() {
+    if (busy) return; busy = true;
+    ship.style.margin = ''; ship.style.padding = '';
+    var W = ship.clientWidth, k = Math.max(.42, Math.min(1, W / 1150));
+    var T = 26 * k, F = 46 * k, TB = 84 * k, RB = 140 * k, SEA = 22 * k,
+        PROW = 124 * k, AFT = 178 * k,
+        needL = T + F + 96 * k, needR = T + F + 24 * k;
+    /* gerekirse sayfa kenar boslugundan pay al, panel daralmasin */
+    var sr = ship.getBoundingClientRect(), vw = document.documentElement.clientWidth,
+        sc = getComputedStyle(ship),
+        roomL = Math.max(0, sr.left - 8), roomR = Math.max(0, vw - sr.right - 8),
+        eL = Math.min(roomL, needL), eR = Math.min(roomR, needR);
+    ship.style.marginLeft = f(parseFloat(sc.marginLeft) - eL) + 'px';
+    ship.style.marginRight = f(parseFloat(sc.marginRight) - eR) + 'px';
+    ship.style.padding = '0 ' + f(needR) + 'px ' + f(TB + SEA) + 'px ' + f(needL) + 'px';
+    /* susler metin sutununa tasiyorsa ust bosluk ac */
+    var col = ship.parentElement, cr = col.getBoundingClientRect(), cs = getComputedStyle(col),
+        cL = cr.left + parseFloat(cs.paddingLeft), cR = cr.right - parseFloat(cs.paddingRight),
+        pr = P.getBoundingClientRect();
+    var top = (pr.left - F > cL - 4 || pr.right - 70 * k < cR + 4) ? AFT + 12 * k : 0;
+    ship.style.paddingTop = f(top) + 'px';
+    var w = P.offsetWidth, h = P.offsetHeight, key = [w, h, k].join();
+    svg.style.left = P.offsetLeft + 'px'; svg.style.top = P.offsetTop + 'px';
+    svg.style.width = w + 'px'; svg.style.height = h + 'px';
+    if (key === last) { busy = false; return; }
+    last = key;
+    svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    var yb = h + TB, YF = Math.min(170 * k, h * .3), th = 2 * Math.atan(F / YF),
+        RF = YF / Math.sin(th), C2y = yb - RB, s = 6.5 * k, gap = 1.4 * k;
+    /* d kadar iceriden giden kaplama sirasinin yolu */
+    function xTop(d) { var r = RF + d; return -T - RF + Math.sqrt(r * r - YF * YF); }
+    function U(d) {
+      var rf = RF + d, rb = Math.max(RB - d, .1), xt = xTop(d);
+      return 'M' + f(xt) + ' -2' +
+        'A' + f(rf) + ' ' + f(rf) + ' 0 0 1 ' + f(-T + d) + ' ' + f(YF) +
+        'V' + f(C2y) +
+        'A' + f(rb) + ' ' + f(rb) + ' 0 0 0 ' + f(-T + RB) + ' ' + f(yb - d) +
+        'H' + f(w + T - RB) +
+        'A' + f(rb) + ' ' + f(rb) + ' 0 0 0 ' + f(w + T - d) + ' ' + f(C2y) +
+        'V' + f(YF) +
+        'A' + f(rf) + ' ' + f(rf) + ' 0 0 1 ' + f(w - xt) + ' -2';
+    }
+    /* sintinenin d=0 cizgisinde verilen yukseklikteki x */
+    function xBilge(y) { var dy = y - C2y; return dy <= 0 ? -T : -T + RB - Math.sqrt(Math.max(RB * RB - dy * dy, 0)); }
+
+    /* deniz rengi: ustte yogun, asagi ve yanlara dogru soluk */
+    var defs = el('defs');
+    var lg = el('linearGradient', { id: 'hull-sea-g', x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+    el('stop', { offset: 0, 'class': 'sea0' }, lg); el('stop', { offset: 1, 'class': 'sea1' }, lg);
+    var mg = el('linearGradient', { id: 'hull-sea-m', x1: 0, y1: 0, x2: 1, y2: 0 }, defs);
+    el('stop', { offset: 0, 'stop-color': '#fff', 'stop-opacity': 0 }, mg);
+    el('stop', { offset: .12, 'stop-color': '#fff', 'stop-opacity': 1 }, mg);
+    el('stop', { offset: .88, 'stop-color': '#fff', 'stop-opacity': 1 }, mg);
+    el('stop', { offset: 1, 'stop-color': '#fff', 'stop-opacity': 0 }, mg);
+
+    /* mahmuz: su hizasinda bronz gaga, kaplamanin altinda baslar */
+    var ry = yb - 30 * k, tip = -T - F - 34 * k,
+        xa = xBilge(ry - 13 * k), xb = xBilge(ry + 14 * k);
+    el('path', { d: 'M' + f(xa + 14 * k) + ' ' + f(ry - 13 * k) + 'L' + f(tip + 22 * k) + ' ' + f(ry - 7 * k) +
+                    'L' + f(tip) + ' ' + f(ry) + 'L' + f(tip + 22 * k) + ' ' + f(ry + 7 * k) +
+                    'L' + f(xb + 24 * k) + ' ' + f(ry + 14 * k) + 'Z', 'class': 'ram', 'stroke-width': f(1.4 * k) });
+    el('path', { d: 'M' + f(tip + 8 * k) + ' ' + f(ry - 1.5 * k) + 'L' + f(xa + 10 * k) + ' ' + f(ry - 5 * k) +
+                    'M' + f(tip + 8 * k) + ' ' + f(ry + 1.5 * k) + 'L' + f(xb + 18 * k) + ' ' + f(ry + 6 * k),
+                 'class': 'caulk', 'stroke-width': f(1.1 * k) });
+
+    /* kaplama: her sira dis cizgiye paralel; ek yerleri sira sira kaydirilmis.
+       Acik renkli tahtalar yenisiyle degistirilmis olanlar. */
+    var gC = el('g'), gW = el('g'), gN = el('g');
+    for (var i = 0, d = s / 2; d < TB + s; i++, d += s) {
+      var path = U(d), a = [], b = [];
+      for (var j = 0; j < PL.length; j++) {
+        var L = PL[(j + i * 3) % PL.length] * k, nw = !((i * 5 + j * 3) % 7);
+        a.push(f(L), f(gap));
+        b.push(nw ? f(L) : 0, nw ? f(gap) : f(L + gap));
+      }
+      var off = f(i * 57 * k);
+      el('path', { d: path, 'class': 'caulk', 'stroke-width': f(s) }, gC);
+      el('path', { d: path, 'class': 'wood' + (i % 2 ? ' b' : ''), 'stroke-width': f(s - 1.1 * k),
+                   'stroke-dasharray': a.join(' '), 'stroke-dashoffset': off }, gW);
+      el('path', { d: path, 'class': 'new', 'stroke-width': f(s - 1.1 * k),
+                   'stroke-dasharray': b.join(' '), 'stroke-dashoffset': off }, gN);
+    }
+    el('path', { d: U(0), 'class': 'caulk', 'stroke-width': f(2 * k) });
+
+    /* pruva ve kic direkleri: orta cizgi boyunca incelen govde */
+    function post(x, d, wide) {
+      var g = el('g', { transform: 'translate(' + f(x) + ' 0) scale(' + k + ')' }), n = 10, j;
+      for (j = 0; j < n; j++)
+        el('path', { d: d, 'class': 'postc', pathLength: 100,
+          'stroke-width': f(wide * (1 - j / n * .85) + 3),
+          'stroke-dasharray': f(100 * (j + 1) / n) + ' 200' }, g);
+      for (j = 0; j < n; j++)
+        el('path', { d: d, 'class': 'post', pathLength: 100,
+          'stroke-width': f(wide * (1 - j / n * .85)),
+          'stroke-dasharray': f(100 * (j + 1) / n) + ' 200' }, g);
+      el('path', { d: d, 'class': 'gold', pathLength: 100, 'stroke-width': 1.6,
+                   'stroke-dasharray': '86 200', 'stroke-linecap': 'round' }, g);
+    }
+    var xl = xTop(13 * k);
+    post(xl, 'M2 14C-6 -24 -22 -62 -48 -92C-60 -106 -76 -116 -94 -120', 28);
+    post(w - xl, 'M-2 14C10 -32 18 -92 0 -132C-14 -164 -54 -178 -72 -160C-86 -146 -78 -124 -60 -126C-48 -128 -46 -142 -55 -146', 28);
+
+    /* parmaklik: geminin bir ucundan otekine */
+    var x0 = xTop(0);
+    el('path', { d: 'M' + f(x0 - 2 * k) + ' ' + f(-7 * k) + 'H' + f(w - x0 + 2 * k) + 'V0H' + f(x0 - 2 * k) + 'Z', 'class': 'rail', 'stroke-width': f(1.2 * k) });
+    el('path', { d: 'M' + f(x0) + ' ' + f(-5 * k) + 'H' + f(w - x0), 'class': 'gold', 'stroke-width': f(1.4 * k) });
+
+    /* goz: pruvanin genis yerinde */
+    var ey = 36 * k, xo = -T - RF + Math.sqrt(RF * RF - (ey - YF) * (ey - YF)),
+        ex = xo * .55, er = Math.min(15 * k, -xo * .32);
+    el('path', { d: 'M' + f(ex - er) + ' ' + f(ey) + 'Q' + f(ex) + ' ' + f(ey - er * .8) + ' ' + f(ex + er) + ' ' + f(ey - er * .1) +
+                    'Q' + f(ex) + ' ' + f(ey + er * .75) + ' ' + f(ex - er) + ' ' + f(ey) + 'Z', 'class': 'eye', 'stroke-width': f(1.4 * k) });
+    el('circle', { cx: f(ex - er * .12), cy: f(ey), r: f(er * .34), 'class': 'iris' });
+
+    /* deniz: govdenin alti suya gomulu, dalgalar yavasca akar */
+    var wl = yb - 17 * k, L0 = -needL + 2, L1 = w + needR - 2, per = 42 * k, amp = 3.4 * k;
+    function wave(y, a) {
+      var dd = 'M' + f(L0 - 2 * per) + ' ' + f(y);
+      for (var x = L0 - 2 * per; x < L1 + per; x += per)
+        dd += 'q' + f(per / 4) + ' ' + f(-a) + ' ' + f(per / 2) + ' 0t' + f(per / 2) + ' 0';
+      return dd;
+    }
+    svg.style.setProperty('--wl', f(per) + 'px');
+    var mk = el('mask', { id: 'hull-sea-k', maskUnits: 'userSpaceOnUse', x: f(L0), y: f(wl - 10 * k), width: f(L1 - L0), height: f(yb + SEA - wl + 12 * k) }, defs);
+    el('rect', { x: f(L0), y: f(wl - 10 * k), width: f(L1 - L0), height: f(yb + SEA - wl + 12 * k), fill: 'url(#hull-sea-m)' }, mk);
+    var g = el('g', { mask: 'url(#hull-sea-k)' }), mv = el('g', { 'class': 'waves' }, g);
+    el('path', { d: wave(wl, amp) + 'V' + f(yb + SEA) + 'H' + f(L0 - 2 * per) + 'Z', fill: 'url(#hull-sea-g)' }, mv);
+    el('path', { d: wave(wl, amp), 'class': 'foam', 'stroke-width': f(1.3 * k) }, mv);
+    el('path', { d: wave(wl + 9 * k, amp * .7), 'class': 'foam', 'stroke-width': f(.9 * k), opacity: .55,
+                 transform: 'translate(' + f(per / 2) + ' 0)' }, mv);
+    busy = false;
+  }
+  var ro = new ResizeObserver(function () { requestAnimationFrame(draw); });
+  ro.observe(P); ro.observe(ship.parentElement);
+  draw();
+})();
+</script>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
