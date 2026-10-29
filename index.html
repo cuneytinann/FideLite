@@ -14628,6 +14628,75 @@ prompt_string     ~'rbn'[U](K[4])?K[4]:'q'</pre>
       measured for <code>engine_4x</code> too and did not pay off in a 9-ply, 2,000-node search
       (<a href="#4x-round">this round</a>). LUX's searches are far longer, so it keeps both.</p>
     </div>
+
+    <h3 id="lux-960-castle" lang="tr">Rokun tek bekçisi <code>L</code> — b dikeyindeki uzun kale</h3>
+    <h3 lang="en" data-id="lux-960-castle"><code>L</code>, castling's only guard — the long rook on the b-file</h3>
+    <div class="prose" lang="tr">
+      <p>LUX'ta rok, şahın kendi kalesinin üstüne gitmesiyle oynanıyor ve <code>G</code>'nin şah dalı bu
+      hamleyi tahtaya dokunmadan yanıtlıyor: hak duruyor mu, şahın ve kalenin geçeceği kareler boş mu,
+      şahın yolundaki karelerden biri tehdit altında mı. Son soru tahta olduğu gibiyken, yani kale daha
+      yerindeyken soruluyor. Chess960'ta bunun yetmediği tek bir durum var.</p>
+      <p>Uzun kale b1'de, a1'de rakip bir kale ya da vezir dursun. Uzun rokta şah c1'e, kale d1'e
+      gidiyor ve b1 boşalıyor; a1'deki taş artık c1'i görüyor, şah rokun kendisiyle çekmeye giriyor.
+      <code>G</code> sorduğu anda b1'de kale durduğu için a1'in hattı kapalı, c1 tehdit altında
+      görünmüyor ve <code>G</code> roka izin veriyor. Rokun kuraldışı olduğunu söyleyen <code>L</code>:
+      her hamlede yaptığı gibi hamleyi kopya bir tahtada <code>U</code> ile oynatıyor ve şahı
+      <code>T()</code> ile soruyor. Ölçüldü: Şd1 ve Kb1 ile a1'de siyah kale ya da vezir varken
+      <code>G(3,1)</code> evet, <code>L(3,1)</code> hayır diyor; a1 boşken ya da orada fil veya at
+      dururken ikisi de evet.</p>
+      <p>Boşluk yalnızca bu. 960 dizilişin hepsinde, iki yöne rok için, tahtada yalnızca yerindeki
+      beyaz şah ile iki kalesi ve kalesiz bir dikeydeki siyah şah varken her boş kareye tek bir rakip
+      kale, vezir, fil, at ya da piyon kondu: 552.960 konum. <code>G</code> ile <code>L</code> yalnızca 468'inde ayrışıyor ve
+      hepsi aynı kalıpta: uzun rok, kale b1'de, rakip kale ya da vezir a1'de. a1 ile c1 arasındaki tek
+      kare b1; hat ancak o boşalınca açılıyor. Kısa yanda tarama tek bir ayrışma bulmadı. Uzun kalesi b
+      dikeyinde olan 252 diziliş var; 234'ünde boşluk ilk hamleden açık, kalan 18'inde kısa kale d1'de
+      durduğu için uzun rok ancak o kale yerinden oynadıktan sonra mümkün. Başlangıçta a1'de kendi
+      taşın duruyor; tehlike o taş gidip yerine rakip bir kale ya da vezir gelince doğuyor.</p>
+      <p>Kural şu: rok <code>L</code>'nin geçerlilik denemesinden geçmeli. Bayt ya da hız uğruna rokun
+      bu denemeyi atlayıp <code>G</code>'nin hükmüyle yetinmesi açığı geri getirir. Rokun 56 iskelete
+      göre <a href="#chess960">sabit kodlandığı</a> eski 960 motoru tam olarak bunu yapıyordu: rok
+      hamlesini kendi durağan testlerinden sonra doğrudan listeye ekliyor, öbür her hamlenin geçtiği
+      yap–dene–geri al süzgecine sokmuyordu. Açık orada bu 252 diziliş için yazılmış ayrı bir a1
+      bekçisiyle kapatılmıştı, +26 bayt; roku genel süzgeçten geçirmek +59 tutuyordu. LUX'ta bekçiye
+      gerek yok, çünkü rok zaten her hamle gibi <code>L</code>'den geçiyor: tıklanan hamle de, hamle
+      sorguları da. Test süitinin perft koşuları standart tahtada ve bu konuma uğramıyor; bu denetim
+      ayrıca yapıldı.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>In LUX a castle is played by moving the king onto its own rook, and <code>G</code>'s king branch
+      answers that move without touching the board: is the right still held, are the squares the king
+      and rook pass through empty, is any square on the king's path attacked. That last question is put
+      to the board as it stands, with the rook still on its square. In Chess960 there is exactly one
+      situation where that is not enough.</p>
+      <p>Put the long rook on b1 and an enemy rook or queen on a1. Castling long takes the king to c1 and
+      the rook to d1, and b1 empties; the piece on a1 now sees c1, and the castle itself puts the king in
+      check. When <code>G</code> asks, the rook still stands on b1, the a1 line is closed, c1 does not
+      look attacked, and <code>G</code> allows the castle. What rules it illegal is <code>L</code>: as
+      with every move, it plays the move on a copy of the board with <code>U</code> and asks
+      <code>T()</code> about the king. Measured: with Kd1 and Rb1 and a black rook or queen on a1,
+      <code>G(3,1)</code> says yes and <code>L(3,1)</code> says no; with a1 empty, or with a bishop or a
+      knight there, both say yes.</p>
+      <p>This is the only gap. Across all 960 arrangements, castling to both sides, with nothing on the
+      board but the white king and both rooks at home and the black king on a file with no rook, a single
+      enemy rook, queen, bishop, knight or pawn was placed on every empty square: 552,960 positions.
+      <code>G</code> and <code>L</code> part ways in 468 of them, all of one shape: castling long, the
+      rook on b1, an enemy rook or queen on a1. b1 is the one square between a1 and c1, and the line opens
+      only when it empties. On the short side the sweep found no difference at all. 252 arrangements have
+      their long rook on the b-file; in 234 of them the gap is open from the first move, and in the other
+      18 the short rook stands on d1, so castling long becomes possible only once that rook has moved. At
+      the start a1 holds one of your own pieces; the danger arises when it leaves and an enemy rook or
+      queen takes its place.</p>
+      <p>The rule: castling has to pass through <code>L</code>'s legality trial. Letting a castle skip
+      that trial for bytes or speed and settle for <code>G</code>'s verdict brings the gap back. The old
+      Chess960 engine, with castling <a href="#chess960">hard-coded per skeleton</a>, did exactly that:
+      it pushed the castling move onto the list straight after its own static tests, without sending it
+      through the make–test–unmake filter every other move went through. There the gap was closed by a
+      separate a1 guard written for these 252 arrangements, +26 bytes; routing castling through the
+      general filter would have cost +59. LUX needs no guard, because castling already goes through
+      <code>L</code> like every other move — the clicked move and every move query alike. The test
+      suite's perft runs are on the standard board and never reach this position; this check was made
+      separately.</p>
+    </div>
   </div>
 </section>
 
@@ -15061,6 +15130,68 @@ prompt_string     ~'rbn'[U](K[4])?K[4]:'q'</pre>
       representation and kept as a literal compressor — and in <a href="#lscan">the blocked
       scan</a>: <code>V</code> holds pawns and kings in 64-bit BigInt sets. The model that is
       expensive for the whole board is cheap inside a single question.</p>
+    </div>
+
+    <h3 id="pair-packing" lang="tr">İki kare bir karakterde — kaynakta bayt bellek değil</h3>
+    <h3 lang="en" data-id="pair-packing">Two squares to a character — in the source, a byte is not memory</h3>
+    <div class="prose" lang="tr">
+      <p>Tahta sayıya dönünce sıradaki adım kendiliğinden akla geliyor: her kare
+      <a href="#board">dört bit</a>, bir bayta iki kare sığar; 64 karelik başlangıç tahtası 32 bayta
+      inmeli. Bu, <b>bellek</b> için doğru bir cümle. Küçültülen ise bellek değil, kaynak metin; orada
+      bir bayt tek bir ASCII karakteri demek ve iki kare o karaktere sığmıyor.</p>
+      <p>Sayı basit. Bir kare on üç değer alabiliyor: boş kare ve on iki taş. İki karelik bir çift
+      13 × 13 = 169 değer eder. UTF-8'in tek baytlık aralığı 0–127, toplam 128 karakter; tırnak, ters
+      bölü, satır sonu ve HTML'in sorun çıkardığı denetim karakterleri düşülünce daha da az. Çiftlerin
+      bir kısmı ister istemez 127'nin üstüne taşıyor ve UTF-8 bunların her birini iki baytla yazıyor.
+      Beyazın kodları siyahınkinden 8 fazla olduğu için taşanlar çoğunlukla beyaz taşlı çiftler:
+      başlangıç pozisyonunda beyaz arka sıranın ve beyaz piyonların sekiz çiftinin sekizi de iki
+      baytlık karaktere düşüyor.</p>
+      <p>Asıl sıkıştırma zaten yapılmış. Yukarıdaki <code>10n**40n-10n**32n</code> ortadaki 40 kareyi
+      20 karakterde yazıyor: kare başına yarım karakter, çiftlemenin vaat ettiği yoğunluğun ta kendisi
+      — üstelik ayrı bir çözücüye gerek kalmadan. Çiftlemenin kazandırabileceği yer, geriye kalan 24
+      kare.</p>
+      <p>Bugünkü <code>engine.js</code>'te kurup ölçtüm. Çiftleri <code>16a+b+32</code> diye kodlayınca
+      boş çiftler boşluk karakterine düşüyor ve <code>padEnd(24)</code>'ün varsayılan dolgusuyla
+      bedavaya geliyor; dizgi 46 bayttan 41'e iniyor, −5. Ama her karakteri iki kareye açan çözücü
+      pahalı: bugünkü <code>'0x'+s[j]-0</code> yerine <code>s.charCodeAt(j>>1)-32>>4-j%2*4&amp;15</code>
+      ve onu 64 kez döndüren döngü, +27. Bulabildiğim en kısa yazımda motor 1.527 bayttan 1.549'a çıktı:
+      <b>+22</b>. Tahta da sıraların arasındaki delikler de birebir aynı kaldı; sanity, CPW ve zor
+      pozisyonlar geçti. Her çift tek bayta sığsaydı bile dizgi ancak 32 bayta inerdi ve motor yine 13
+      bayt uzardı. Önceki nesilde, düz 64'lük tahtada aynı deneme +16 çıkmıştı.</p>
+      <p>Ders, <a href="#alphabet">taş alfabesindeki</a> “neyi küçültüyoruz?” sorusunun aynısı: dört
+      bitlik kod tahtanın bellekteki boyutunu anlatır, programınkini değil. Kaynakta sayılan
+      karakterdir.</p>
+    </div>
+    <div class="prose" lang="en">
+      <p>Once the board is numbers, the next step suggests itself: every square is
+      <a href="#board">four bits</a>, so two squares fit in a byte, and the 64-square starting board
+      should come down to 32 bytes. That is a true sentence about <b>memory</b>. What is being shrunk,
+      though, is not memory but source text, where a byte means one ASCII character — and two squares do
+      not fit in one.</p>
+      <p>The arithmetic is simple. A square can take thirteen values: empty and the twelve pieces. A pair
+      of squares takes 13 × 13 = 169. UTF-8's single-byte range is 0–127, 128 characters in all, and
+      fewer still once the quote, the backslash, the line break and the control characters HTML objects
+      to are taken out. Some pairs inevitably spill above 127, and UTF-8 writes each of those in two
+      bytes. Because White's codes are Black's plus 8, the pairs that spill are mostly the ones holding a
+      white piece: in the starting position all eight pairs of White's back rank and pawns land on
+      two-byte characters.</p>
+      <p>The real compression has already been done. The <code>10n**40n-10n**32n</code> above writes the
+      40 middle squares in 20 characters: half a character per square, exactly the density pairing
+      promises — and with no decoder of its own. What pairing could still gain is on the remaining 24
+      squares.</p>
+      <p>I built it on today's <code>engine.js</code> and measured it. Encoding each pair as
+      <code>16a+b+32</code> turns the empty pairs into spaces, which come free with
+      <code>padEnd(24)</code>'s default fill; the string goes from 46 bytes to 41, −5. But the decoder
+      that opens each character into two squares is expensive:
+      <code>s.charCodeAt(j>>1)-32>>4-j%2*4&amp;15</code> in place of today's <code>'0x'+s[j]-0</code>,
+      and the loop that runs it 64 times, +27. In the shortest spelling I found, the engine went from
+      1,527 bytes to 1,549: <b>+22</b>. The board and the holes between the ranks came out identical;
+      sanity, the CPW positions and the tricky suite passed. Even if every pair fitted in a single byte,
+      the string would only come down to 32 bytes and the engine would still be 13 bytes longer. In the
+      previous generation, on the flat 64 board, the same attempt came to +16.</p>
+      <p>The lesson is the <a href="#alphabet">piece alphabet</a> search's “what is being shrunk?”
+      question: a four-bit code describes the board's size in memory, not the program's. In the source,
+      what counts is characters.</p>
     </div>
 
 
