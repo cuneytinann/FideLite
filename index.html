@@ -1318,6 +1318,14 @@ footer .wrap.bio::after { content:""; display:block; height:1px; margin-top:1.5r
 .bio p { font:400 1rem/1.65 var(--sans); color:var(--ink-2); max-width:44rem; margin:0 }
 .bio .eyebrow { font-family:var(--mono); font-size:.7rem; line-height:1.35; color:var(--acc-tx);
   margin-bottom:.6rem }
+/* Genis ekranda footer bolumlerin kagit sutunuyla ayni hizada: biyografi de imza
+   da ortadaki 10/16'lik sutunda durur. Sol kenara yaslaninca sagda koca bir
+   bosluk kaliyor, footer sayfanin geri kalanina gore asimetrik duruyordu.
+   Okuma genisligini sutun belirler, 44rem siniri kalkar. */
+@media (min-width:64rem) {
+  footer .wrap { padding-inline:calc(min(100%, 78rem) * 3 / 16) }
+  .bio p { max-width:none }
+}
 @media (prefers-reduced-motion:reduce) { * { transition:none !important } }
 </style>
 </head>
