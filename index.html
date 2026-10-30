@@ -1296,10 +1296,15 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 .hole .ring { fill:none; stroke:var(--acc); stroke-width:2.5 }
 .hole .core { fill:#05070c }   /* cekirdek her iki temada da siyah; onu ceviren
                                   halka ve disk --acc ile temaya gore degisiyor */
-.foot-txt { display:flex; flex-direction:column; gap:.35rem; min-width:0 }
+/* Taban 0: destek satiri eklenince metnin dogal genisligi dar ekranda simgeyle
+   ayni satira sigmiyor, flex-wrap simgeyi uste atiyordu. Taban 0'la metin
+   kalan yere sigip kendi icinde kiriliyor. */
+.foot-txt { display:flex; flex-direction:column; gap:.35rem; flex:1 1 0; min-width:0 }
 /* Genel p alt boslugu burada metni simgeye gore yukari itip altta fazladan
    bosluk birakiyordu. */
 .foot-txt p { margin:0 }
+/* "GitHub Sponsors" dar ekranda ortadan bolunmesin. */
+.foot-txt a { white-space:nowrap }
 .foot-txt b { color:var(--ink-2); font-weight:600; letter-spacing:.01em }
 /* Biyografi imza satirinin ustunde, ondan ince bir cizgiyle ayrili. Footer'in
    mono'su yalnizca imzaya ait: paragraf govde yazisiyla, metin sutunu
@@ -20440,6 +20445,8 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       <b lang="en">This code is a black hole!</b>
       <p lang="tr">FideLite.Art · <a href="https://cuneytinan.com" target="_blank" rel="noopener">cuneytinan.com</a></p>
       <p lang="en">FideLite.Art · <a href="https://cuneytinan.com" target="_blank" rel="noopener">cuneytinan.com</a></p>
+      <p lang="tr">Projeyi destekle: <a href="https://github.com/sponsors/cuneytinann" target="_blank" rel="noopener">GitHub Sponsors</a> · <a href="https://kreosus.com/cuneytinan" target="_blank" rel="noopener">Kreosus</a></p>
+      <p lang="en">Support the project: <a href="https://github.com/sponsors/cuneytinann" target="_blank" rel="noopener">GitHub Sponsors</a> · <a href="https://kreosus.com/cuneytinan" target="_blank" rel="noopener">Kreosus</a></p>
     </div>
   </div>
 </footer>
