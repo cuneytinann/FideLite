@@ -7936,18 +7936,27 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     <p class="cost" lang="en"><b>What it costs to apply.</b> The result rule is one line: the draw goes to Black. The one-sided dead position means running the 6.9 search in the background after every move in minor-piece positions, without waiting for a flag.</p>
     <div class="prose fl" lang="tr">
       <p><b>FideLite'ta.</b> Ana sürümlerde armageddon yok; <a href="#lux">LUX</a>'ta başlangıç
-      penceresindeki <b>Armageddon</b> kutusuyla açılıyor ve buradaki üç maddenin üçünü de uyguluyor:
-      talepler kendiliğinden işliyor, beraberlik teklifi yok ve tek taraflı ölü pozisyon her hamleden
-      sonra beyaz için soruluyor; kodu normal oyundaki gibi <code>DP</code>. Oyun yalnızca kanıtla erken bitiyor: materyal testi, kilit dedektörü
-      ya da bütün yolları matsız kapatan bir arama. Aramanın bütçesi dolarsa oyun sürüyor.</p>
+      penceresindeki <b>Armageddon</b> kutusuyla açılıyor ve buradaki üç maddenin üçünü de uyguluyor.
+      Her şey otomatik: talepler kendiliğinden işliyor, beraberlik teklifi yok ve her hamleden sonra,
+      yalnızca armageddona özgü tek yönlü bir arama beyazın hâlâ mat edip edemeyeceğine bakıyor;
+      edemiyorsa oyun o anda siyahın galibiyetiyle bitiyor. Oyun yalnızca kanıtla erken bitiyor:
+      materyal testi, kilit dedektörü ya da bütün yolları matsız kapatan bir arama. Aramanın bütçesi
+      dolarsa oyun sürüyor. Aşağıdaki <a href="#socko">Soćko–Foişor</a> pozisyonunda oyun bitmiyor:
+      siyahın atı kendi şahının kaçış karesini kapatabildiği için mat hâlâ kurulabiliyor. Siyahın
+      bayrağı düştüğünde hakem aynı ölçüte bakıyor (6.9) ve oyunu beyaza veriyor, tıpkı itiraz
+      kurulu gibi.</p>
     </div>
     <div class="prose fl" lang="en">
       <p><b>In FideLite.</b> The main builds have no Armageddon; in <a href="#lux">LUX</a> it is switched
-      on with the <b>Armageddon</b> box in the start dialog, and it applies all three points above:
-      claims take effect automatically, there is no draw offer, and the one-sided dead position is
-      asked for White after every move; its code is <code>DP</code>, as in a normal game. The game ends early only on proof: the material test, the lock
-      detector, or a search that closes every line without mate. If the search runs out of budget, the
-      game plays on.</p>
+      on with the <b>Armageddon</b> box in the start dialog, and it applies all three points above.
+      Everything is automatic: claims take effect by themselves, there is no draw offer, and after
+      every move a one-way search used only in Armageddon checks whether White can still mate; if not,
+      the game ends there as a win for Black. The game ends early only on proof: the material test, the
+      lock detector, or a search that closes every line without mate. If the search runs out of budget,
+      the game plays on. In the <a href="#socko">Soćko–Foişor</a> position below the game does not
+      end: since Black's knight can shut its own king's escape square, a mate can still be built. When
+      Black's flag falls, the arbiter applies the same standard (6.9) and gives the game to White, just
+      as the appeals committee did.</p>
     </div>
 
     <p class="layer" lang="tr" id="socko">Gerçek bir örnek: Soćko–Foişor, 2008</p>
@@ -7974,11 +7983,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
         maddesine dayanarak beraberlik verdi; armageddonda bu, siyahın turu geçmesi demekti. Soćko itiraz
         etti ve itiraz kurulu kararı bozup oyunu beyaza verdi: at ve şah karşı at ve şahta mat
         kurulabiliyor. Ölçüt matın zorlanabilmesi değil, herhangi bir geçerli hamle dizisiyle ortaya
-        çıkabilmesi (<a href="#flag">6. bölüm</a>).</p>
-        <p><b>LUX'ta.</b> Bu pozisyonda oyun kendiliğinden bitmiyor: siyahın atı kendi şahının kaçış
-        karesini kapatabildiği için materyal testi beyazın mat imkânını açık bırakıyor. Siyahın bayrağı
-        düştüğünde 6.9 araması beraberliği kanıtlayamıyor ve sonuç <code>WT ⟹ WA</code>, yani itiraz
-        kurulunun verdiği hüküm. Kaynaklar: <a class="ext" href="https://en.chessbase.com/post/carry-on-up-the-armageddon" target="_blank" rel="noopener">ChessBase ↗️</a>,
+        çıkabilmesi (<a href="#flag">6. bölüm</a>). Kaynaklar: <a class="ext" href="https://en.chessbase.com/post/carry-on-up-the-armageddon" target="_blank" rel="noopener">ChessBase ↗️</a>,
         <a class="ext" href="https://chessexpress.blogspot.com/2008/09/but-rules-are-rules.html" target="_blank" rel="noopener">Chess Express ↗️</a>.</p>
       </div>
     </div>
@@ -8005,11 +8010,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
         Soćko appealed, and the appeals committee overturned the ruling and gave the game to White: with
         king and knight against king and knight, a mate can be built. The standard is not whether mate
         can be forced, but whether it can arise by any series of legal moves
-        (<a href="#flag">section 6</a>).</p>
-        <p><b>In LUX.</b> In this position the game does not end by itself: since Black's knight can shut
-        its own king's escape square, the material test leaves White's chance of mate open. When Black's
-        flag falls, the 6.9 search cannot prove the draw, and the result is <code>WT ⟹ WA</code>: the
-        appeals committee's ruling. Sources: <a class="ext" href="https://en.chessbase.com/post/carry-on-up-the-armageddon" target="_blank" rel="noopener">ChessBase ↗️</a>,
+        (<a href="#flag">section 6</a>). Sources: <a class="ext" href="https://en.chessbase.com/post/carry-on-up-the-armageddon" target="_blank" rel="noopener">ChessBase ↗️</a>,
         <a class="ext" href="https://chessexpress.blogspot.com/2008/09/but-rules-are-rules.html" target="_blank" rel="noopener">Chess Express ↗️</a>.</p>
       </div>
     </div>
