@@ -57,7 +57,7 @@ the book asks what that board is forced to become.**
 | `builds/engine.js` | 1,527 | The rule engine. One line, no front end. |
 | `builds/engine_4x.js` | 1,644 | The same rules, +117 bytes, 3.5 times the speed in move generation, about 6 times in adjudication. |
 | `builds/engine_string.js` | 1,721 | The same rules on a board of FEN letters instead of numbers. |
-| `builds/special/engine_lux.js` | 2,383 | LUX's engine set apart: `engine_4x` with Chess960 castling and the wider lock detector. [Where the 739 bytes go.](https://www.fidelite.art/#luxengine) |
+| `builds/special/engine_lux.js` | 2,391 | LUX's engine set apart: `engine_4x` with Chess960 castling, the wider lock detector and the Armageddon rules. [Where the 747 bytes go.](https://www.fidelite.art/#luxengine) |
 
 Every file under `builds/` runs on its own — download an HTML file and double-click
 it. The `.cjs` builds run in a terminal with `node`.
@@ -178,7 +178,7 @@ zorunlu olarak neye dönüşeceğini soruyor.**
 | `builds/engine.js` | 1.527 | Kural motoru. Tek satır, önyüz yok. |
 | `builds/engine_4x.js` | 1.644 | Aynı kurallar, +117 bayt, hamle üretiminde 3,5 kat, hükümde yaklaşık 6 kat hız. |
 | `builds/engine_string.js` | 1.721 | Aynı kurallar, tahta sayı yerine FEN harfleriyle. |
-| `builds/special/engine_lux.js` | 2.383 | LUX'un ayrılmış motoru: Chess960 roku ve geniş kilit dedektörüyle `engine_4x`. [739 bayt nereye gidiyor.](https://www.fidelite.art/tr#luxengine) |
+| `builds/special/engine_lux.js` | 2.391 | LUX'un ayrılmış motoru: Chess960 roku, geniş kilit dedektörü ve armageddon kurallarıyla `engine_4x`. [747 bayt nereye gidiyor.](https://www.fidelite.art/tr#luxengine) |
 
 `builds/` altındaki her dosya tek başına çalışır — HTML dosyasını indirip çift
 tıklamak yeterli. `.cjs` sürümleri terminalde `node` ile koşar.

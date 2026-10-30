@@ -972,11 +972,15 @@ th.numr { text-align:right }
    Oynatici Theseus'un gemisinin govdesine oturur. Govde, pruva, kic, mahmuz ve
    su tek bir SVG; JS panelin gercek boyutundan cizer, panel buyudukce (oyun,
    kod gorunumu) yeniden cizer. Kaplama tahtalarinin bir kismi acik renkte:
-   yenisiyle degistirilmis tahtalar. JS yoksa SVG bos kalir, panel eskisi gibi. */
+   yenisiyle degistirilmis tahtalar. JS yoksa SVG bos kalir, panel eskisi gibi.
+   Gemi yalnizca genis duzende (64rem ve ustu) var: orada sayfanin yan
+   bosluklari govdeye yer acar. Daha dar ekranda govde panelden 130-200 px
+   yiyor, susler de ust tarafa bosluk aciyordu; orada SVG gizli ve JS .ship'e
+   hicbir kenar boslugu ya da dolgu vermiyor, yani yerlesimde de yok. */
 .ship { position:relative; margin:1.5rem 0 }
 .ship > .player { position:relative; z-index:1; margin:0 }
 .hull { position:absolute; left:0; top:0; width:0; height:0; overflow:visible;
-  pointer-events:none; z-index:0;
+  pointer-events:none; z-index:0; display:none;
   --seam: color-mix(in oklab, var(--dk) 32%, #000);
   --wood: var(--dk);
   --wood-2: color-mix(in oklab, var(--dk) 84%, #000);
@@ -1000,6 +1004,7 @@ th.numr { text-align:right }
 .hull .waves { animation:hull-sea 7s linear infinite }
 @keyframes hull-sea { to { transform:translateX(var(--wl, 40px)) } }
 @media (prefers-reduced-motion:reduce) { .hull .waves { animation:none } }
+@media (min-width:64rem) { .hull { display:block } }
 .pbar { display:flex; flex-wrap:wrap; gap:.5rem 1.25rem; align-items:center;
   padding:.85rem 1rem; border-bottom:1px solid var(--rule); background:var(--panel) }
 fieldset.builds { border:0; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:.4rem .9rem;
@@ -1782,7 +1787,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 <label class="rd cli" data-lv="L3" title="Terminal sürümü — node ile çalışır, tarayıcıda oynanmaz; kodunu göster ya da indir" data-en-title="Terminal build — runs with node, not in the browser; show its code or download it"><input type="radio" name="build" value="L3_nonbrowser"> <code>nonbrowser</code></label>
 <label class="rd" data-lv="L3" title="Sayısal arayüz, prompt penceresi" data-en-title="Numeric interface, prompt dialog"><input type="radio" name="build" value="L3_numerical"> <code>numerical</code></label>
 <label class="rd pk" data-lv="L3" title="L3, RegPack ile paketli — tıklanabilir tahta, canlı saat" data-en-title="L3 packed with RegPack — clickable board, live clock"><input type="radio" name="build" value="L3_packed"> <code>FideLite.html</code></label>
-<label class="rd" data-lv="special" hidden title="Tam hakem, zengin arayüz — sürükle bırak, sağ tıkla işaretleme; başlarken süre, saat modu, FEN ve Chess960 seçimi" data-en-title="Full arbiter with a rich interface — drag and drop, right-click marking; time control, clock mode, FEN and Chess960 picked at the start"><input type="radio" name="build" value="LUX"> <code class="lux">LUX</code> <small>L3++</small></label>
+<label class="rd" data-lv="special" hidden title="Tam hakem, zengin arayüz — sürükle bırak, sağ tıkla işaretleme; başlarken süre, saat modu, FEN, Chess960 ve armageddon seçimi" data-en-title="Full arbiter with a rich interface — drag and drop, right-click marking; time control, clock mode, FEN, Chess960 and Armageddon picked at the start"><input type="radio" name="build" value="LUX"> <code class="lux">LUX</code> <small>L3++</small></label>
 <span class="rbr" data-lv="special" hidden></span>
 <label class="rd" data-lv="special" hidden title="Tıklanabilir tahta, kurallar Lichess'in uyguladığı gibi" data-en-title="Clickable board, with the rules as Lichess applies them"><input type="radio" name="build" value="Lichess-equivalent"> <code>Lichess-equivalent</code></label>
 <label class="rd pk" data-lv="special" hidden title="Lichess kuralları, sayısal arayüz, prompt penceresi" data-en-title="Lichess rules, numeric interface, prompt dialog"><input type="radio" name="build" value="Lichess-equivalent_minimum"> <code>Lichess-equivalent_minimum</code></label>
@@ -5760,11 +5765,11 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
     </div>
     <ul class="tight" lang="tr">
       <li><b>Tek taraflı.</b> 5.2.2 iki tarafı birden sorar; bu iki madde ise yalnızca terk eden ya da süresi biten tarafın <em>rakibini</em> sorar. Senin mat edebiliyor olman seni kurtarmaz — soru senin ne yapabildiğin değil, rakibinin ne yapabildiği.</li>
-      <li><b>“Zorlayabilir mi” değil, “kurulabilir mi”.</b> Madde zorlamalı mat (rakip ne yaparsa yapsın gelen mat) aramıyor; kaybeden taraf en kötü hamleleri oynarsa ortaya çıkabilecek bir mat olup olmadığını soruyor. Yani <em>yardımlı mat</em>. Kaybeden taraf kendi şahının kaçışını kendi taşlarıyla kapatarak yardım edebildiği için, savunanın taşları da hesaba girer.</li>
+      <li><b>“Zorlayabilir mi” değil, “kurulabilir mi”.</b> Madde zorlamalı mat (rakip ne yaparsa yapsın gelen mat) aramıyor; kaybeden taraf en kötü hamleleri oynarsa ortaya çıkabilecek bir mat olup olmadığını soruyor. Yani <em>yardımlı mat</em>. Kaybeden taraf kendi şahının kaçışını kendi taşlarıyla kapatarak yardım edebildiği için, savunanın taşları da hesaba girer. Gerçek bir örnek: <a href="#socko">Soćko–Foişor, 2008</a>.</li>
     </ul>
     <ul class="tight" lang="en">
       <li><b>It is one-sided.</b> 5.2.2 asks about both players; these two ask only about the <em>opponent</em> of the player who resigned or flagged. That you can mate does not save you — the question is not what you can do but what your opponent can.</li>
-      <li><b>Not “can they force it”, but “can it be built”.</b> The article is not looking for a forced mate (one that arrives whatever the opponent does); it asks whether a mate could arise if the losing side played the worst moves available. A <em>helpmate</em>, in other words. Since the losing side can help by shutting off its own king’s escape squares with its own pieces, the defender’s material counts too.</li>
+      <li><b>Not “can they force it”, but “can it be built”.</b> The article is not looking for a forced mate (one that arrives whatever the opponent does); it asks whether a mate could arise if the losing side played the worst moves available. A <em>helpmate</em>, in other words. Since the losing side can help by shutting off its own king’s escape squares with its own pieces, the defender’s material counts too. A real case: <a href="#socko">Soćko–Foişor, 2008</a>.</li>
     </ul>
     <p class="layer" lang="tr">Algoritmada nasıl okunur</p>
     <p class="layer" lang="en">How an algorithm reads it</p>
@@ -7920,6 +7925,85 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 
     <p class="cost" lang="tr"><b>Uygulama maliyeti.</b> Sonuç kuralı tek satır: beraberlik siyaha yazılıyor. Tek taraflı ölü pozisyon ise 6.9 aramasını bayrağı beklemeden, hafif taşlı pozisyonlarda her hamleden sonra arka planda çalıştırmak demek.</p>
     <p class="cost" lang="en"><b>What it costs to apply.</b> The result rule is one line: the draw goes to Black. The one-sided dead position means running the 6.9 search in the background after every move in minor-piece positions, without waiting for a flag.</p>
+    <div class="prose fl" lang="tr">
+      <p><b>FideLite'ta.</b> Ana sürümlerde armageddon yok; <a href="#lux">LUX</a>'ta başlangıç
+      penceresindeki <b>Armageddon</b> kutusuyla açılıyor ve buradaki üç maddenin üçünü de uyguluyor:
+      talepler kendiliğinden işliyor, beraberlik teklifi yok ve tek taraflı ölü pozisyon her hamleden
+      sonra beyaz için soruluyor. Oyun yalnızca kanıtla erken bitiyor: materyal testi, kilit dedektörü
+      ya da bütün yolları matsız kapatan bir arama. Aramanın bütçesi dolarsa oyun sürüyor.</p>
+    </div>
+    <div class="prose fl" lang="en">
+      <p><b>In FideLite.</b> The main builds have no Armageddon; in <a href="#lux">LUX</a> it is switched
+      on with the <b>Armageddon</b> box in the start dialog, and it applies all three points above:
+      claims take effect automatically, there is no draw offer, and the one-sided dead position is
+      asked for White after every move. The game ends early only on proof: the material test, the lock
+      detector, or a search that closes every line without mate. If the search runs out of budget, the
+      game plays on.</p>
+    </div>
+
+    <p class="layer" lang="tr" id="socko">Gerçek bir örnek: Soćko–Foişor, 2008</p>
+    <p class="layer" lang="en" data-id="socko">A real case: Soćko–Foişor, 2008</p>
+    <div class="sidefig" lang="tr">
+      <figure class="fig">
+<div class="mb et el" style="--c:3" role="img" aria-label="Siyah şah a8'de, siyah at b8'de; beyaz at c7'de, beyaz şah b6'da. Siyah mat oldu.">
+<i><b class="b">♚</b></i>
+<i class="d"><b class="b">♞</b></i>
+<i data-r="8"></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="7"><b class="w">♞</b></i>
+<i data-f="a"></i>
+<i class="d" data-f="b"><b class="w">♚</b></i>
+<i data-f="c" data-r="6"></i>
+</div>
+        <figcaption>Kurulabilen mat: siyahın atı b8'de kendi şahının kaçış karesini kapatıyor, c7'deki at şah çekiyor, a7 ile b7'yi beyaz şah tutuyor.</figcaption>
+      </figure>
+      <div class="prose">
+        <p>2008 Kadınlar Dünya Şampiyonası'nın ilk turunda Monika Soćko (beyaz) ile Sabina-Francesca
+        Foişor (siyah) arasındaki armageddon oyununda tahtada yalnızca iki şah ve iki at kaldı; piyon
+        yoktu. Foişor'un süresi bitti. Hakem, bu malzemeyle mat kurulamayacağı gerekçesiyle o dönemin 9.6
+        maddesine dayanarak beraberlik verdi; armageddonda bu, siyahın turu geçmesi demekti. Soćko itiraz
+        etti ve itiraz kurulu kararı bozup oyunu beyaza verdi: at ve şah karşı at ve şahta mat
+        kurulabiliyor. Ölçüt matın zorlanabilmesi değil, herhangi bir geçerli hamle dizisiyle ortaya
+        çıkabilmesi (<a href="#flag">6. bölüm</a>).</p>
+        <p><b>LUX'ta.</b> Bu pozisyonda oyun kendiliğinden bitmiyor: siyahın atı kendi şahının kaçış
+        karesini kapatabildiği için materyal testi beyazın mat imkânını açık bırakıyor. Siyahın bayrağı
+        düştüğünde 6.9 araması beraberliği kanıtlayamıyor ve sonuç <code>WT ⟹ WA</code>, yani itiraz
+        kurulunun verdiği hüküm. Kaynaklar: <a class="ext" href="https://en.chessbase.com/post/carry-on-up-the-armageddon" target="_blank" rel="noopener">ChessBase ↗️</a>,
+        <a class="ext" href="https://chessexpress.blogspot.com/2008/09/but-rules-are-rules.html" target="_blank" rel="noopener">Chess Express ↗️</a>.</p>
+      </div>
+    </div>
+    <div class="sidefig" lang="en">
+      <figure class="fig">
+<div class="mb et el" style="--c:3" role="img" aria-label="Black king on a8, black knight on b8; white knight on c7, white king on b6. Black is mated.">
+<i><b class="b">♚</b></i>
+<i class="d"><b class="b">♞</b></i>
+<i data-r="8"></i>
+<i class="d"></i>
+<i></i>
+<i class="d" data-r="7"><b class="w">♞</b></i>
+<i data-f="a"></i>
+<i class="d" data-f="b"><b class="w">♚</b></i>
+<i data-f="c" data-r="6"></i>
+</div>
+        <figcaption>A mate that can be built: Black's knight on b8 shuts its own king's escape square, the knight on c7 gives check, and the white king covers a7 and b7.</figcaption>
+      </figure>
+      <div class="prose">
+        <p>In the first round of the 2008 Women's World Championship, the Armageddon game between Monika
+        Soćko (White) and Sabina-Francesca Foişor (Black) came down to two kings and two knights, with no
+        pawns. Foişor's flag fell. The arbiter declared a draw under the then Article 9.6, on the grounds
+        that mate could not be reached with this material; in Armageddon, that meant Black went through.
+        Soćko appealed, and the appeals committee overturned the ruling and gave the game to White: with
+        king and knight against king and knight, a mate can be built. The standard is not whether mate
+        can be forced, but whether it can arise by any series of legal moves
+        (<a href="#flag">section 6</a>).</p>
+        <p><b>In LUX.</b> In this position the game does not end by itself: since Black's knight can shut
+        its own king's escape square, the material test leaves White's chance of mate open. When Black's
+        flag falls, the 6.9 search cannot prove the draw, and the result is <code>WT ⟹ WA</code>: the
+        appeals committee's ruling. Sources: <a class="ext" href="https://en.chessbase.com/post/carry-on-up-the-armageddon" target="_blank" rel="noopener">ChessBase ↗️</a>,
+        <a class="ext" href="https://chessexpress.blogspot.com/2008/09/but-rules-are-rules.html" target="_blank" rel="noopener">Chess Express ↗️</a>.</p>
+      </div>
+    </div>
 
     </div>
 </section>
@@ -9064,29 +9148,28 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       halka. Şah çekildiğinde, eşdeğerlerde olduğu gibi, şahın karesi kırmızı bir ışıkla
       vurgulanıyor. Alınan taşlar ve materyal farkı saatlerin yanında duruyor. Bitiş göstergeleri ve
       bütün yerleşim daha ferah.</p>
-      <p><b>Armageddon.</b> LUX'ta armageddon için ayrı bir kip yok; başlangıç penceresinden
-      kuruluyor:</p>
+      <p><b>Armageddon.</b> Başlangıç penceresindeki <b>Armageddon</b> kutusu oyunu armageddona
+      çeviriyor:</p>
       <ol class="tight">
-        <li><b>Auto 3R/50</b> işaretlenir: üçlü tekrar ve 50 hamle kuralı, talep beklemeden oyunu bitirir. Armageddonda beraberlik zaten siyahın galibiyeti sayıldığı için talep bir formalite; oyunu kendiliğinden bitirmek sonucu değiştirmiyor.</li>
-        <li><b>⚖</b> işareti kaldırılır ve siyaha daha az süre verilir; örneğin beyaza 5, siyaha 4 dakika.</li>
-        <li>Armageddonda genelde iki periyot olur: ikinci periyot süre eklemez, yalnızca artışı devreye sokar. 61. hamleden itibaren hamle başına 2 saniye artış için ana artış 0 bırakılır ve <b>per2</b> alanına <code># 60 +0 min +2 s</code> girilir.</li>
-        <li>İstenirse <b>½ Offer</b> çok büyük bir sayıya, örneğin 99999'a ayarlanır; böylece hiç teklif yapılamaz. Bu şart değil: anlaşmalı beraberlik de zaten siyahın galibiyeti sayılır.</li>
+        <li><b>Süre farkı şart.</b> Kutu işaretlenince <b>⚖</b> kendiliğinden kalkıyor ve siyahın süre kutusu açılıyor; ilk kutu beyazın süresi oluyor. Beyazın süresi siyahınkinden fazla olmalı, örneğin beyaza 5, siyaha 4 dakika; eşitse ya da azsa giriş geçersiz sayılıyor ve oyun başlamıyor. Armageddon işareti kaldırılınca <b>⚖</b> geri geliyor.</li>
+        <li><b>Talep ve teklif yok.</b> <b>Auto 3R/50</b> kendiliğinden işaretlenip kilitleniyor: beraberlik zaten siyahın galibiyeti sayıldığı için üçlü tekrar ve 50 hamle kuralı talep beklemeden oyunu bitiriyor. ½ düğmesi de gizleniyor; teklif edilecek bir şey kalmıyor.</li>
+        <li><b>Tek taraflı ölü pozisyon.</b> Her hamleden sonra “beyaz hâlâ mat edebilir mi?” diye soruluyor; edemiyorsa oyun bitiyor. Kod <code>IM</code>, iki taraf da edemiyorsa <code>DP</code>. Soruyu materyal testi, geniş kilit dedektörü ve 9 yarım hamlelik arama cevaplıyor. Arama “mat imkânsız” hükmünü yalnızca bütün yolları kapattığında veriyor; bütçesi dolarsa oyun sürüyor.</li>
+        <li><b>Bayrak ve terk.</b> FIDE'deki gibi işliyor: 6.9 araması her zamanki gibi 300 yarım hamle ve 400.000 düğümle soruluyor. Rakip mat edebiliyorsa bayrağı düşen ya da terk eden kaybediyor (<code>WT</code>, <code>WR</code>, <code>BT</code>, <code>BR</code>), edemiyorsa sonuç <code>TM</code> ya da <code>RM</code>. Armageddonda <code>TM</code> ile <code>RM</code> de siyahın galibiyeti: beyazın bayrağı ya da terki her durumda <code>BA</code>.</li>
+        <li><b>Skor.</b> Sonuç satırı kodla birlikte skoru gösteriyor: <code>W# ⟹ WA</code>, <code>3R ⟹ BA</code>. Beyazın galibiyetleri <code>W</code> ile başlayan üç kod; geri kalan her kod siyahın.</li>
       </ol>
-      <p>Hakem, berabere biten bir oyunu her beraberlikte olduğu gibi ½-½ olarak gösteriyor. Buna, beyazın mat
-      edemeyeceği bir durumda siyahın bayrağının düşmesi de dahil (6.9). Armageddonda bu sonuç siyahın
-      galibiyeti anlamına geliyor. Kuralların nasıl işlediği Kurallar sekmesinin
-      <a href="#armageddon">10. bölümünde</a> anlatılıyor.</p>
+      <p>Armageddonda genelde iki periyot olur: ikinci periyot süre eklemez, yalnızca artışı devreye
+      sokar. 61. hamleden itibaren hamle başına 2 saniye artış için ana artış 0 bırakılır ve
+      <b>per2</b> alanına <code># 60 +0 min +2 s</code> girilir. Armageddon, Chess960 ve FEN'le birlikte de
+      çalışıyor. Kuralların nasıl işlediği Kurallar sekmesinin <a href="#armageddon">10. bölümünde</a>
+      anlatılıyor.</p>
       <div class="note">
-        <p><b>Tek taraflı sonlandırma yok.</b> Kurallarda anlatılan tek taraflı ölü pozisyon, yani beyazın
-        artık mat edemediği anda oyunu bitirmek, LUX'ta uygulanmadı. Bu hiçbir sonucu değiştirmiyor;
-        oyun yalnızca daha geç bitebiliyor. Siyah kazandığından eminse bunu kendisi ilan edebilir:
-        ya kendi süresini bitirerek ya da, ironik biçimde, terk düğmesine (⚐) basarak. İki durumda da
-        hakem 5.1.2 ve 6.9. maddelere bakıyor; beyaz mat edemiyorsa sonuç ½-½, yani siyahın galibiyeti.</p>
-        <p>Ama siyah kuralı bildiğinden emin olmalı! Beyazda yalnızca şah ve at, siyahta şah ve kale
+        <p><b>Siyah kuralı bildiğinden emin olmalı.</b> Beyazda yalnızca şah ve at, siyahta şah ve kale
         kalmışken bile yardımlı mat kurulabiliyor: siyahın kendi kalesi, şahının kaçış karesini
-        kapatıyor. O anda terk eden ya da süresini bitiren siyah gerçekten kaybediyor (<a href="#flag">6. bölümdeki tablo</a>). Hakemin de beraberliği
-        kanıtlayabilmesi gerekiyor: kanıt bulunamazsa tedbiren beyaza galibiyet veriliyor. LUX'ta bu çok
-        nadir, ama sıfır değil.</p>
+        kapatıyor. Bu yüzden oyun orada kendiliğinden bitmiyor; o anda terk eden ya da süresini bitiren
+        siyah da gerçekten kaybediyor (<a href="#flag">6. bölümdeki tablo</a>). Benzeri 2008'de bir dünya
+        şampiyonasında, at ve şah karşı at ve şahta yaşandı: <a href="#socko">Soćko–Foişor</a>. Hakemin de
+        beraberliği kanıtlayabilmesi gerekiyor: kanıt bulunamazsa tedbiren beyaza galibiyet veriliyor.
+        LUX'ta bu çok nadir, ama sıfır değil.</p>
       </div>
     </div>
     <div class="prose" lang="en">
@@ -9123,41 +9206,40 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
       straight or diagonal line, otherwise just the two end squares; right-clicking a single square marks only that one. A piece's legal destinations are marked in two ways, as in the Lichess and Chess.com equivalents: a dot in the middle of an empty square and a ring around a square holding an enemy
       piece. A king in check has its square highlighted in red, as in the equivalents. Captured
       pieces and the material balance are shown beside the clocks. The end-of-game indicators and the whole layout are roomier.</p>
-      <p><b>Armageddon.</b> LUX has no separate Armageddon mode; you set it up from the start
-      dialog:</p>
+      <p><b>Armageddon.</b> The <b>Armageddon</b> box in the start dialog turns the game into an
+      Armageddon game:</p>
       <ol class="tight">
-        <li>Tick <b>Auto 3R/50</b>: threefold repetition and the 50-move rule end the game without waiting for a claim. In Armageddon a draw counts as a win for Black anyway, so the claim is a formality, and ending the game automatically does not change the result.</li>
-        <li>Untick <b>⚖</b> and give Black less time, for example 5 minutes for White and 4 for Black.</li>
-        <li>Armageddon usually has two periods: the second adds no time and only switches the increment on. For 2 seconds per move from move 61, leave the main increment at 0 and enter <b>per2</b> <code># 60 +0 min +2 s</code>.</li>
-        <li>Optionally, set <b>½ Offer</b> to a very large number, such as 99999, so that no draw can be offered. This is not required: an agreed draw counts as a win for Black anyway.</li>
+        <li><b>A time difference is required.</b> Ticking the box unticks <b>⚖</b> by itself and opens Black's time box; the first box becomes White's time. White must have more time than Black, for example 5 minutes for White and 4 for Black; if the times are equal, or White has less, the input counts as invalid and the game does not start. Unticking Armageddon brings <b>⚖</b> back.</li>
+        <li><b>No claims and no offers.</b> <b>Auto 3R/50</b> is ticked and locked: since a draw counts as a win for Black anyway, threefold repetition and the 50-move rule end the game without waiting for a claim. The ½ button is hidden as well; there is nothing left to offer.</li>
+        <li><b>A one-sided dead position.</b> After every move the arbiter asks “can White still mate?”, and if not, the game ends. The code is <code>IM</code>, or <code>DP</code> if neither side can. The question is answered by the material test, the wider lock detector and a 9-ply search. The search rules mate impossible only when it has closed every line; if its budget runs out, the game plays on.</li>
+        <li><b>Flag and resignation.</b> These work as under FIDE: the 6.9 search is asked as always, with 300 plies and 400,000 nodes. If the opponent can mate, the player whose flag falls or who resigns loses (<code>WT</code>, <code>WR</code>, <code>BT</code>, <code>BR</code>); if not, the result is <code>TM</code> or <code>RM</code>. In Armageddon <code>TM</code> and <code>RM</code> are wins for Black too, so White's flag or resignation is <code>BA</code> either way.</li>
+        <li><b>The score.</b> The result line shows the score together with the code: <code>W# ⟹ WA</code>, <code>3R ⟹ BA</code>. White's wins are the three codes beginning with <code>W</code>; every other code is Black's.</li>
       </ol>
-      <p>The arbiter reports a drawn game as ½-½, like any other draw, including a flag fall after
-      which White cannot mate (6.9). Under Armageddon rules that result means Black wins. How the
+      <p>Armageddon usually has two periods: the second adds no time and only switches the
+      increment on. For 2 seconds per move from move 61, leave the main increment at 0 and enter
+      <b>per2</b> <code># 60 +0 min +2 s</code>. Armageddon works together with Chess960 and FEN too. How the
       rules work is explained in <a href="#armageddon">section 10</a> of the Rules tab.</p>
       <div class="note">
-        <p><b>No one-sided ending.</b> The one-sided dead position described in the rules — ending the game
-        the moment White can no longer mate — is not implemented in LUX. That changes no result;
-        the game may just end later. If Black is sure of the win, Black can end it: either by
-        letting their own time run out or, ironically, by pressing the resign button (⚐). Either way
-        the arbiter looks at 5.1.2 and 6.9: if White cannot mate, the result is ½-½, which means Black
-        wins.</p>
-        <p>But Black must be sure of the rule! Even with White down to king and knight and Black to
-        king and rook, a helpmate exists: Black's own rook blocks the king's escape square. A Black
-        player who resigns or lets the clock run out at that point really loses (<a href="#flag">the table in section 6</a>). The arbiter also has to
-        be able to prove the draw: if no proof is found, the win goes to White as a precaution. In
-        LUX this is very rare, but it can happen.</p>
+        <p><b>Black must be sure of the rule.</b> Even with White down to king and knight and Black to
+        king and rook, a helpmate exists: Black's own rook blocks the king's escape square. So the game
+        does not end there by itself, and a Black player who resigns or lets the clock run out at that
+        point really loses (<a href="#flag">the table in section 6</a>). Something similar happened at a
+        world championship in 2008, with king and knight against king and knight:
+        <a href="#socko">Soćko–Foişor</a>. The arbiter also has to be able to prove the draw: if no proof
+        is found, the win goes to White as a precaution. In LUX this is very rare, but it can
+        happen.</p>
       </div>
     </div>
     <div class="tw" lang="tr"><table>
 <thead><tr><th>Sürüm</th><th>Ne</th><th>Giriş</th><th>Bayt</th></tr></thead>
 <tbody>
-<tr class="luxrow"><td><code class="lux">LUX</code><br><span class="fn2">builds/special/LUX.html</span><br><span class="fn2">depoda: index.html</span></td><td>Zengin arayüzlü tam hakem: sürükle-bırak, sağ tıkla işaretleme; başlangıçta FEN, süre, saat modu (Fischer, Bronstein ya da basit gecikme) ve Chess960 seçimi.</td><td>Sürükle-bırak, tıklama</td><td>9.377</td></tr>
+<tr class="luxrow"><td><code class="lux">LUX</code><br><span class="fn2">builds/special/LUX.html</span><br><span class="fn2">depoda: index.html</span></td><td>Zengin arayüzlü tam hakem: sürükle-bırak, sağ tıkla işaretleme; başlangıçta FEN, süre, saat modu (Fischer, Bronstein ya da basit gecikme), Chess960 ve armageddon seçimi.</td><td>Sürükle-bırak, tıklama</td><td>9.559</td></tr>
 </tbody>
 </table></div>
     <div class="tw" lang="en"><table>
 <thead><tr><th>Build</th><th>What it is</th><th>Input</th><th>Bytes</th></tr></thead>
 <tbody>
-<tr class="luxrow"><td><code class="lux">LUX</code><br><span class="fn2">builds/special/LUX.html</span><br><span class="fn2">in the repo: index.html</span></td><td>The full arbiter with a rich interface: drag and drop, right-click marking; FEN, time control, clock mode (Fischer, Bronstein or simple delay) and Chess960 picked at the start.</td><td>Drag and drop, clicking</td><td>9,377</td></tr>
+<tr class="luxrow"><td><code class="lux">LUX</code><br><span class="fn2">builds/special/LUX.html</span><br><span class="fn2">in the repo: index.html</span></td><td>The full arbiter with a rich interface: drag and drop, right-click marking; FEN, time control, clock mode (Fischer, Bronstein or simple delay), Chess960 and Armageddon picked at the start.</td><td>Drag and drop, clicking</td><td>9,559</td></tr>
 </tbody>
 </table></div>
 
@@ -14427,19 +14509,19 @@ prompt_string     ~'rbn'[U](K[4])?K[4]:'q'</pre>
   <div class="wrap">
     <p class="eyebrow" lang="tr">Kapsamlı motor</p>
     <p class="eyebrow" lang="en">The full engine</p>
-    <h2 lang="tr">LUX'un motoru — <code>engine_4x</code>'in kapsamlı hâli, 2.383 bayt</h2>
-    <h2 lang="en">LUX's engine — the full form of <code>engine_4x</code>, 2,383 bytes</h2>
+    <h2 lang="tr">LUX'un motoru — <code>engine_4x</code>'in kapsamlı hâli, 2.391 bayt</h2>
+    <h2 lang="en">LUX's engine — the full form of <code>engine_4x</code>, 2,391 bytes</h2>
     <div class="prose" lang="tr">
       <p><a href="https://github.com/cuneytinann/Chess-LUX" target="_blank" rel="noopener">Chess LUX</a>
       FideLite'ın kardeş projesi: <code>engine_4x</code>'in üstüne kurulu, kurulumu, saatleri ve
-      Chess960'ıyla eksiksiz bir oyun sayfası, tek bir 9.377 baytlık HTML dosyası. Oynanabilir hâli
+      Chess960'ıyla eksiksiz bir oyun sayfası, tek bir 9.559 baytlık HTML dosyası. Oynanabilir hâli
       <code class="vn">special</code> seviyesindeki <code class="vn">LUX</code>. Dosyanın motor satırı
-      2.383 bayt; aşağıdaki kaynak o satırın kendisi ve <code>engine_4x.js</code>'te olmayan her parça
+      2.391 bayt; aşağıdaki kaynak o satırın kendisi ve <code>engine_4x.js</code>'te olmayan her parça
       boyalı.</p>
       <p>Satır arayüzle iç içe yazılmış. Başlığında arayüzün birkaç değişkeni de duruyor
       (<code>Y</code>, <code>z</code>, <code>dg</code>, <code>m</code>, <code>r</code>, <code>Q</code>);
-      hamleyi oynatan <code>A</code> ile tekrar sayımı arayüzde, otomatik 3R/50 ayarı <code>Ac</code> de
-      oradan geliyor. Bu yüzden <code>builds/special/engine_lux.js</code> tek başına oyun yönetecek bir
+      hamleyi oynatan <code>A</code> ile tekrar sayımı arayüzde, otomatik 3R/50 ayarı <code>Ac</code> ile
+      armageddon ayarı <code>Ag</code> de oradan geliyor. Bu yüzden <code>builds/special/engine_lux.js</code> tek başına oyun yönetecek bir
       motor değil; LUX'un motorunu ayrı okumak için ayrılmış hâli. Hamle üretimi ise tam:
       <a href="#runtests">test süiti</a> onu beşinci motor olarak koşuyor (<code>node test.js --engine=5</code>)
       ve perft sayıları <code>engine_4x</code>'inkilerle birebir aynı. Perft kilit dedektörüne hiç
@@ -14449,14 +14531,15 @@ prompt_string     ~'rbn'[U](K[4])?K[4]:'q'</pre>
     <div class="prose" lang="en">
       <p><a href="https://github.com/cuneytinann/Chess-LUX" target="_blank" rel="noopener">Chess LUX</a>
       is FideLite's sibling project: a complete game page built on <code>engine_4x</code>, with game
-      set-up, clocks and Chess960, in a single 9,377-byte HTML file. Its playable form is
+      set-up, clocks and Chess960, in a single 9,559-byte HTML file. Its playable form is
       <code class="vn">LUX</code> in the <code class="vn">special</code> level. The file's engine line is
-      2,383 bytes; the source below is that line itself, and every part that is not in
+      2,391 bytes; the source below is that line itself, and every part that is not in
       <code>engine_4x.js</code> is painted.</p>
       <p>The line is written hand in hand with the interface. Its header also holds a few of the
       interface's variables (<code>Y</code>, <code>z</code>, <code>dg</code>, <code>m</code>,
       <code>r</code>, <code>Q</code>); <code>A</code>, which plays a move, and the repetition count live
-      in the interface, and so does <code>Ac</code>, the automatic-3R/50 setting. So
+      in the interface, and so do <code>Ac</code>, the automatic-3R/50 setting, and <code>Ag</code>, the
+      Armageddon setting. So
       <code>builds/special/engine_lux.js</code> is not an engine to run a game on its own; it is LUX's
       engine set apart for reading. Its move generation is complete, though: <a href="#runtests">the
       test suite</a> runs it as its fifth engine (<code>node test.js --engine=5</code>), and the perft
@@ -14476,20 +14559,21 @@ prompt_string     ~'rbn'[U](K[4])?K[4]:'q'</pre>
       <pre class="src"></pre>
     </div>
 
-    <h3 id="lux-bytes" lang="tr">739 bayt nereye gidiyor</h3>
-    <h3 lang="en" data-id="lux-bytes">Where the 739 bytes go</h3>
+    <h3 id="lux-bytes" lang="tr">747 bayt nereye gidiyor</h3>
+    <h3 lang="en" data-id="lux-bytes">Where the 747 bytes go</h3>
 <div class="tw" lang="tr"><table>
 <thead><tr><th>Kalem</th><th>Fonksiyon</th><th class="num">Bayt</th></tr></thead>
 <tbody>
 <tr><td>Geniş kilit dedektörü — aşağıda katman katman</td><td><code>V</code></td><td class="num">+529</td></tr>
 <tr><td>Şahın kendi kalesinin üstüne giderek rok yapması (Chess960)</td><td><code>G</code> +78, <code>U</code> +57, <code>L</code> +23, <code>M</code> +7, <code>C</code> ile tablosu <code>y</code> +4</td><td class="num">+169</td></tr>
 <tr><td>Her hamleden sonra iki taraf için 9 yarım hamlelik ölü pozisyon araması; otomatik 3R/50</td><td><code>Z</code></td><td class="num">+42</td></tr>
+<tr><td>Armageddon: her hamleden sonra yalnız beyaz için ölü pozisyon (<code>IM</code>), aramayı <code>Dz</code> olarak ayırıp iki kez kullanmak</td><td><code>Z</code></td><td class="num">+8</td></tr>
 <tr><td>Aramada kilit dedektörünü yalnız almadan ya da piyon hamlesinden sonraki iki yarım hamlede sormak (<code>n+e&lt;10</code>); otomatik 3R/50</td><td><code>H</code></td><td class="num">+14</td></tr>
 <tr><td>Bayrak düşmesinde 300 yarım hamle ve 400.000 düğüm</td><td><code>F</code></td><td class="num">+8</td></tr>
 <tr><td>Teklif bitini arayüz veriyor; kendiliğinden gelen sonuçlar anlaşmadan ve taleplerden önce soruluyor</td><td><code>D</code></td><td class="num">+3</td></tr>
 <tr><td>5×5 kutu yerine <code>T</code>'deki uzaklık süzgeci: rok kalesi altı sütun uzakta olabilir</td><td><code>O</code></td><td class="num">−11</td></tr>
 <tr><td>Hamleyi oynatmak ve tekrar sayımı arayüzde; arayüzün başlıktaki değişkenleri</td><td><code>A</code>, başlık</td><td class="num">−15</td></tr>
-<tr class="alt"><td><b>Toplam</b> — <code>engine_4x.js</code> 1.644 → <code>builds/special/engine_lux.js</code> 2.383</td><td></td><td class="num"><b>+739</b></td></tr>
+<tr class="alt"><td><b>Toplam</b> — <code>engine_4x.js</code> 1.644 → <code>builds/special/engine_lux.js</code> 2.391</td><td></td><td class="num"><b>+747</b></td></tr>
 </tbody>
 </table></div>
 <div class="tw" lang="en"><table>
@@ -14498,12 +14582,13 @@ prompt_string     ~'rbn'[U](K[4])?K[4]:'q'</pre>
 <tr><td>The wider lock detector — layer by layer below</td><td><code>V</code></td><td class="num">+529</td></tr>
 <tr><td>Castling by moving the king onto its own rook (Chess960)</td><td><code>G</code> +78, <code>U</code> +57, <code>L</code> +23, <code>M</code> +7, <code>C</code> and its table <code>y</code> +4</td><td class="num">+169</td></tr>
 <tr><td>A 9-ply dead-position search for each side after every move; automatic 3R/50</td><td><code>Z</code></td><td class="num">+42</td></tr>
+<tr><td>Armageddon: a dead-position test for White alone after every move (<code>IM</code>), with the search set apart as <code>Dz</code> and used twice</td><td><code>Z</code></td><td class="num">+8</td></tr>
 <tr><td>In the search, asking the lock detector only in the two plies after a capture or a pawn move (<code>n+e&lt;10</code>); automatic 3R/50</td><td><code>H</code></td><td class="num">+14</td></tr>
 <tr><td>300 plies and 400,000 nodes when a flag falls</td><td><code>F</code></td><td class="num">+8</td></tr>
 <tr><td>The interface supplies the offer bit; the automatic endings are asked before agreement and claims</td><td><code>D</code></td><td class="num">+3</td></tr>
 <tr><td><code>T</code>'s distance filter instead of the 5×5 box: the castling rook can stand six files away</td><td><code>O</code></td><td class="num">−11</td></tr>
 <tr><td>Playing the move and counting repetitions are in the interface; the interface's variables in the header</td><td><code>A</code>, header</td><td class="num">−15</td></tr>
-<tr class="alt"><td><b>Total</b> — <code>engine_4x.js</code> 1,644 → <code>builds/special/engine_lux.js</code> 2,383</td><td></td><td class="num"><b>+739</b></td></tr>
+<tr class="alt"><td><b>Total</b> — <code>engine_4x.js</code> 1,644 → <code>builds/special/engine_lux.js</code> 2,391</td><td></td><td class="num"><b>+747</b></td></tr>
 </tbody>
 </table></div>
 
@@ -20564,7 +20649,7 @@ var DIR = 'builds/';
    icin de gerekli: koku DIR'den turetiyoruz, boylece build.mjs'te ikinci bir
    kural tutmaya gerek kalmiyor. */
 var ROOT = DIR.slice(0, -'builds/'.length);
-var ART = {"L3": {"p": "L3.html", "ps": 2744}, "L3_light": {"p": "L3_light.html", "ps": 2241}, "L3_numerical": {"p": "L3_numerical.html", "ps": 1715}, "L3_input": {"p": "L3_input.html", "ps": 2155}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2025}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2257}, "L3_prompt_string": {"p": "L3_prompt_string.html", "ps": 2205}, "L1": {"p": "builds/L1/L1.html", "ps": 1404}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 946}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 767}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1063}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 994}, "L1_prompt_string": {"p": "builds/L1/L1_prompt_string.html", "ps": 1039}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1191}, "L2": {"p": "builds/L2/L2.html", "ps": 1922}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1437}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1253}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1574}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1487}, "L2_prompt_string": {"p": "builds/L2/L2_prompt_string.html", "ps": 1618}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 1702}, "L2_aybars_2500": {"p": "builds/special/L2_aybars_2500.html", "ps": 7927}, "L1_1250elo": {"p": "builds/special/L1_1250elo.html", "ps": 2051}, "L3_packed": {"p": "builds/FideLite.html", "ps": 2423}, "Chesscom-equivalent": {"p": "builds/special/Chesscom-equivalent.html", "ps": 2643}, "Chesscom-equivalent_minimum": {"p": "builds/special/Chesscom-eqv_min.html", "ps": 1050}, "Lichess-equivalent": {"p": "builds/special/Lichess-equivalent.html", "ps": 2804}, "Lichess-equivalent_minimum": {"p": "builds/special/Lichess-eqv_min.html", "ps": 1088}, "L2_base": {"p": "builds/special/L2_base.html", "ps": 1815}, "L2_string_base": {"p": "builds/special/L2_string_base.html", "ps": 1893}, "DOM_911": {"p": "builds/special/DOM_911.html", "ps": 911}, "DOM_minimum": {"p": "builds/special/DOM_minimum.html", "ps": 722}, "Lowest": {"p": "builds/special/Lowest.html", "ps": 650}, "LUX": {"p": "builds/special/LUX.html", "ps": 9377}, "Toledos-ES6-optimized": {"p": "builds/special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "builds/special/ToledosOpponentbyMe.html", "ps": 1904}, "engine": {"p": "engine.js", "ps": 1527}, "engine_4x": {"p": "engine_4x.js", "ps": 1644}, "engine_string": {"p": "engine_string.js", "ps": 1721}, "engine_onlyMoveGenerator": {"p": "builds/special/engine_onlyMoveGenerator.js", "ps": 653}, "engine_lux": {"p": "builds/special/engine_lux.js", "ps": 2383}};
+var ART = {"L3": {"p": "L3.html", "ps": 2744}, "L3_light": {"p": "L3_light.html", "ps": 2241}, "L3_numerical": {"p": "L3_numerical.html", "ps": 1715}, "L3_input": {"p": "L3_input.html", "ps": 2155}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2025}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2257}, "L3_prompt_string": {"p": "L3_prompt_string.html", "ps": 2205}, "L1": {"p": "builds/L1/L1.html", "ps": 1404}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 946}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 767}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1063}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 994}, "L1_prompt_string": {"p": "builds/L1/L1_prompt_string.html", "ps": 1039}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1191}, "L2": {"p": "builds/L2/L2.html", "ps": 1922}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1437}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1253}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1574}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1487}, "L2_prompt_string": {"p": "builds/L2/L2_prompt_string.html", "ps": 1618}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 1702}, "L2_aybars_2500": {"p": "builds/special/L2_aybars_2500.html", "ps": 7927}, "L1_1250elo": {"p": "builds/special/L1_1250elo.html", "ps": 2051}, "L3_packed": {"p": "builds/FideLite.html", "ps": 2423}, "Chesscom-equivalent": {"p": "builds/special/Chesscom-equivalent.html", "ps": 2643}, "Chesscom-equivalent_minimum": {"p": "builds/special/Chesscom-eqv_min.html", "ps": 1050}, "Lichess-equivalent": {"p": "builds/special/Lichess-equivalent.html", "ps": 2804}, "Lichess-equivalent_minimum": {"p": "builds/special/Lichess-eqv_min.html", "ps": 1088}, "L2_base": {"p": "builds/special/L2_base.html", "ps": 1815}, "L2_string_base": {"p": "builds/special/L2_string_base.html", "ps": 1893}, "DOM_911": {"p": "builds/special/DOM_911.html", "ps": 911}, "DOM_minimum": {"p": "builds/special/DOM_minimum.html", "ps": 722}, "Lowest": {"p": "builds/special/Lowest.html", "ps": 650}, "LUX": {"p": "builds/special/LUX.html", "ps": 9559}, "Toledos-ES6-optimized": {"p": "builds/special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "builds/special/ToledosOpponentbyMe.html", "ps": 1904}, "engine": {"p": "engine.js", "ps": 1527}, "engine_4x": {"p": "engine_4x.js", "ps": 1644}, "engine_string": {"p": "engine_string.js", "ps": 1721}, "engine_onlyMoveGenerator": {"p": "builds/special/engine_onlyMoveGenerator.js", "ps": 653}, "engine_lux": {"p": "builds/special/engine_lux.js", "ps": 2391}};
 
 function url(n) { return n.indexOf('/') > -1 ? ROOT + n : DIR + n; }
 /* Terminal surumu (.cjs): tarayicida calismaz. Oyna kapali; kodu ve indirme acik. */
@@ -22057,6 +22142,8 @@ engShow();
   /* tahta boylari: tekrar ettigi belli olmasin diye duzensiz */
   var PL = [150, 96, 178, 122, 204, 88, 140, 166, 112, 190];
   var busy = false, last = '';
+  /* CSS'teki esikle ayni: gemi yalnizca genis duzende. */
+  var wideQ = window.matchMedia('(min-width:64rem)');
   function el(n, a, p) {
     var e = document.createElementNS(NS, n);
     for (var k in a) e.setAttribute(k, a[k]);
@@ -22066,6 +22153,7 @@ engShow();
   function draw() {
     if (busy) return; busy = true;
     ship.style.margin = ''; ship.style.padding = '';
+    if (!wideQ.matches) { busy = false; return; }
     var W = ship.clientWidth, k = Math.max(.42, Math.min(1, W / 1150));
     var T = 26 * k, F = 46 * k, TB = 84 * k, RB = 140 * k, SEA = 22 * k,
         PROW = 124 * k, AFT = 178 * k,
@@ -22199,6 +22287,7 @@ engShow();
   }
   var ro = new ResizeObserver(function () { requestAnimationFrame(draw); });
   ro.observe(P); ro.observe(ship.parentElement);
+  if (wideQ.addEventListener) wideQ.addEventListener('change', function () { requestAnimationFrame(draw); });
   draw();
 })();
 </script>
