@@ -1303,16 +1303,30 @@ footer .wrap.sig { justify-content:space-between; gap:.6rem 1.5rem }
 .sig-hole { display:flex; align-items:center; gap:1.5rem }
 .sig b { color:var(--ink-2); font-weight:600; letter-spacing:.01em }
 /* "GitHub Sponsors" ve e-posta ortadan bolunmesin. */
-.sig a { white-space:nowrap }
+.sig a, .sig .mail { white-space:nowrap }
+/* E-posta baglanti degil: mailto masaustunde cogu zaman kurulu olmayan bir posta
+   istemcisini aciyor. Adres italik duz metin, tek tiklamada tamami secilir;
+   yaninda kopyala dugmesi. Dugme genel button'un kucuk hali, satira oturuyor.
+   Aradaki bosluk margin degil gercek bir bosluk: dar ekranda dugme alta inince
+   satir sonunda kayboluyor, dugme girintili kalmiyor. */
+.sig .mail { color:var(--ink-2); font-style:italic; user-select:all }
+.sig .mcopy { font-size:.75rem; padding:.3rem .55rem; vertical-align:.1em;
+  border-color:var(--rule); color:var(--ink-2) }
+.sig .mcopy:hover { border-color:var(--ink-2) }
+/* Kopyalaninca dugme kisa sure disabled kalir; genel kural onu %38'e soldurur ve
+   onay isareti zor seciliyor. Burada tam opaklikta, vurgu renginde. */
+.sig .mcopy[disabled] { opacity:1; cursor:default; color:var(--acc-tx); border-color:var(--acc-tx);
+  background:transparent }
 /* Uc oge mono'da yaklasik 100 karakter: 18 pikselde sarmalayicinin 1200 piksellik
-   en genis hâline bile sigmiyor, 16 pikselde sigiyor. Tek satir bu yuzden
-   75rem'den itibaren ve 1rem'de. Altinda eski duzen: simge solda, uc satir
+   en genis hâline bile sigmiyor, 16 pikselde sigiyor; e-postanin kopyala dugmesiyle
+   de ancak sarmalayici tam 78rem'e acildiginda. Tek satir bu yuzden 78rem'den
+   itibaren ve 1rem'de; ogeler kendi iclerinde kirilmaz. Altinda eski duzen: simge solda, uc satir
    yaninda alt alta. .sig-hole orada kutusunu birakir (display:contents), simge
    ile baslik izgaranin ayri hucrelerine yerlesir. */
-@media (min-width:75rem) {
-  footer .wrap.sig { font-size:1rem; flex-wrap:nowrap }
+@media (min-width:78rem) {
+  footer .wrap.sig { font-size:1rem; flex-wrap:nowrap; white-space:nowrap }
 }
-@media (max-width:74.99rem) {
+@media (max-width:77.99rem) {
   footer .wrap.sig { display:grid; grid-template-columns:auto 1fr; gap:.35rem 1.5rem }
   .sig-hole { display:contents }
   .sig .hole { grid-column:1; grid-row:1 / span 3; align-self:center }
@@ -20464,8 +20478,8 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
       <b lang="tr">Bu kod bir karadelik!</b>
       <b lang="en">This code is a black hole!</b>
     </span>
-    <span lang="tr">İletişim: <a href="mailto:cuneytinan37@gmail.com">cuneytinan37@gmail.com</a></span>
-    <span lang="en">Contact: <a href="mailto:cuneytinan37@gmail.com">cuneytinan37@gmail.com</a></span>
+    <span lang="tr">İletişim: <i class="mail">cuneytinan37@gmail.com</i> <button type="button" class="mcopy" data-copy="cuneytinan37@gmail.com">Kopyala</button></span>
+    <span lang="en">Contact: <i class="mail">cuneytinan37@gmail.com</i> <button type="button" class="mcopy" data-copy="cuneytinan37@gmail.com">Copy</button></span>
     <span lang="tr">Projeyi destekle: <a href="https://github.com/sponsors/cuneytinann" target="_blank" rel="noopener">GitHub Sponsors</a> · <a href="https://kreosus.com/cuneytinan" target="_blank" rel="noopener">Kreosus</a></span>
     <span lang="en">Support the project: <a href="https://github.com/sponsors/cuneytinann" target="_blank" rel="noopener">GitHub Sponsors</a> · <a href="https://kreosus.com/cuneytinan" target="_blank" rel="noopener">Kreosus</a></span>
   </div>
@@ -21520,11 +21534,11 @@ paint();
 /* Panoya kopyalama. Guvenli baglam disinda (file://) Clipboard API yok,
    o yuzden gizli bir textarea uzerinden eski yola dusuyoruz. Dugmenin
    ikiz lang span'lari korunsun diye etiket innerHTML uzerinden geri konuyor. */
-function copyText(btn, text) {
+function copyText(btn, text, label) {
   if (!text) return;
   var keep = btn.innerHTML;
   function done() {
-    btn.textContent = FL('copied');
+    btn.textContent = label || FL('copied');
     btn.disabled = true;
     setTimeout(function () { btn.innerHTML = keep; btn.disabled = false; }, 1400);
   }
@@ -21543,6 +21557,18 @@ function copyText(btn, text) {
     navigator.clipboard.writeText(text).then(done, legacy);
   } else legacy();
 }
+
+/* Footer'daki e-posta: kopyala dugmesi adresi data-copy'den alir. Iki dilli ana
+   dosyada her ikizde bir dugme var, ikisine de baglaniyor. Imza satiri esit
+   aralikli tek satir: "Kopyalandi" etiketi dugmeyi genisletip ogeleri
+   kaydirirdi. Genislik tiklamadan once sabitlenir, geri bildirim yalnizca bir
+   onay isareti. */
+Array.prototype.forEach.call(document.querySelectorAll('.mcopy'), function (b) {
+  b.addEventListener('click', function () {
+    b.style.width = b.getBoundingClientRect().width + 'px';
+    copyText(b, b.getAttribute('data-copy'), '\u2713');
+  });
+});
 
 document.getElementById('copysrc').addEventListener('click', function () {
   if (mode === 'src') copyText(this, src.textContent);
