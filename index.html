@@ -1301,6 +1301,18 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
    bosluk birakiyordu. */
 .foot-txt p { margin:0 }
 .foot-txt b { color:var(--ink-2); font-weight:600; letter-spacing:.01em }
+/* Biyografi imza satirinin ustunde, ondan ince bir cizgiyle ayrili. Footer'in
+   mono'su yalnizca imzaya ait: paragraf govde yazisiyla, metin sutunu
+   genisliginde okunuyor. Sarmalayici blok, footer .wrap'in flex satiri ona
+   uygulanmasin. Hero'daki "Hakkinda" dugmesi #about'a iniyor. */
+footer .wrap.bio { display:block; margin-bottom:1.5rem }
+/* Ayirici cizgi sarmalayicinin dolgusuna tasmasin, metin sutunuyla ayni yerden
+   baslasin diye kenarlik degil, icerik kutusunda duran bir sozde oge. */
+footer .wrap.bio::after { content:""; display:block; height:1px; margin-top:1.5rem;
+  background:var(--rule) }
+.bio p { font:400 1rem/1.65 var(--sans); color:var(--ink-2); max-width:44rem; margin:0 }
+.bio .eyebrow { font-family:var(--mono); font-size:.7rem; line-height:1.35; color:var(--acc-tx);
+  margin-bottom:.6rem }
 @media (prefers-reduced-motion:reduce) { * { transition:none !important } }
 </style>
 </head>
@@ -1391,6 +1403,7 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
           <a class="dl" href="builds/FideLite.html" download="FideLite.html"><span lang="tr">Hemen indir · 2,4 KB</span><span lang="en">Download · 2.4 KB</span></a>
           <a class="mx" id="ctasrc" href="#engcode"><span lang="tr">Kodu gör</span><span lang="en">View the code</span></a>
           <a href="https://github.com/cuneytinann/FideLite" target="_blank" rel="noopener"><img class="fav" src="https://github.com/favicon.ico" alt="" width="16" height="16">GitHub</a>
+          <a href="#about"><span lang="tr">Hakkında</span><span lang="en">About</span></a>
         </span>
       </div>
 
@@ -20394,7 +20407,27 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
 
 </main>
 
-<footer>
+<footer id="about">
+  <div class="wrap bio">
+    <p class="eyebrow" lang="tr">Yapan hakkında</p>
+    <p class="eyebrow" lang="en">About the maker</p>
+    <p lang="tr">Cüneyt İnan, tekniğin ve sanatın buluştuğu alanlarda, hoşuna gittiği için
+    üretiyor. Hiçbiri ticari değil, hiçbiri portfolyo için yapılmadı: her biri, mükemmeliyetçi bir
+    gözle işlediği bir takıntı. Adını ilk kez Counter-Strike 1.6 topluluğunda, <a href="https://gamebanana.com/members/1405829" target="_blank" rel="noopener">GameBanana</a>'da
+    paylaştığı haritalarla duyurdu. Moleküler biyoloji ve genetik okudu; 3B modellemeye, satranca ve
+    görsel sanata ilgi duyuyor, <a href="https://vsco.co/cuneytinan" target="_blank" rel="noopener">VSCO</a>'da 1.300'ü aşkın fotoğrafı var. FideLite.Art, onun
+    <a href="#golfstack">Golfstack</a> dediği code golf pratiğinin ürünü: en çok işlevi en az bayta
+    sığdırmak, çıkarılacak bir şey kalmayana dek yontmak. Sonuç, 1.527 baytlık eksiksiz bir FIDE
+    satranç hakemi.</p>
+    <p lang="en">Cüneyt İnan makes things because he loves them, wherever technique meets art.
+    None of it is commercial or made for a portfolio: each piece is an obsession he refines with a
+    perfectionist's eye. He first made his name in the Counter-Strike 1.6 community with the maps he
+    shared on <a href="https://gamebanana.com/members/1405829" target="_blank" rel="noopener">GameBanana</a>. He studied molecular biology and genetics; he is drawn to 3D modelling, chess
+    and visual art, and has published more than 1,300 photographs on <a href="https://vsco.co/cuneytinan" target="_blank" rel="noopener">VSCO</a>. FideLite.Art comes out
+    of what he calls <a href="#golfstack">Golfstack</a>, his practice of code golf: fitting the most
+    function into the fewest bytes, carving until nothing is left to remove. The result is a
+    complete FIDE chess arbiter in 1,527 bytes.</p>
+  </div>
   <div class="wrap">
     <svg class="hole" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
       <ellipse class="disk" cx="32" cy="32" rx="30" ry="9"/>
