@@ -1296,16 +1296,28 @@ footer .wrap { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap }
 .hole .ring { fill:none; stroke:var(--acc); stroke-width:2.5 }
 .hole .core { fill:#05070c }   /* cekirdek her iki temada da siyah; onu ceviren
                                   halka ve disk --acc ile temaya gore degisiyor */
-/* Taban 0: destek satiri eklenince metnin dogal genisligi dar ekranda simgeyle
-   ayni satira sigmiyor, flex-wrap simgeyi uste atiyordu. Taban 0'la metin
-   kalan yere sigip kendi icinde kiriliyor. */
-.foot-txt { display:flex; flex-direction:column; gap:.35rem; flex:1 1 0; min-width:0 }
-/* Genel p alt boslugu burada metni simgeye gore yukari itip altta fazladan
-   bosluk birakiyordu. */
-.foot-txt p { margin:0 }
-/* "GitHub Sponsors" dar ekranda ortadan bolunmesin. */
-.foot-txt a { white-space:nowrap }
-.foot-txt b { color:var(--ink-2); font-weight:600; letter-spacing:.01em }
+/* Imza satiri: kara delik, iletisim ve destek tek satirda, aralarindaki bosluk
+   esit (space-between). Biyografi orta sutunda durur; bu satir sarmalayicinin tam
+   genisligine yayilir. Tek satira sigmayan genislikte ogeler alt alta iner. */
+footer .wrap.sig { justify-content:space-between; gap:.6rem 1.5rem }
+.sig-hole { display:flex; align-items:center; gap:1.5rem }
+.sig b { color:var(--ink-2); font-weight:600; letter-spacing:.01em }
+/* "GitHub Sponsors" ve e-posta ortadan bolunmesin. */
+.sig a { white-space:nowrap }
+/* Uc oge mono'da yaklasik 100 karakter: 18 pikselde sarmalayicinin 1200 piksellik
+   en genis hâline bile sigmiyor, 16 pikselde sigiyor. Tek satir bu yuzden
+   75rem'den itibaren ve 1rem'de. Altinda eski duzen: simge solda, uc satir
+   yaninda alt alta. .sig-hole orada kutusunu birakir (display:contents), simge
+   ile baslik izgaranin ayri hucrelerine yerlesir. */
+@media (min-width:75rem) {
+  footer .wrap.sig { font-size:1rem; flex-wrap:nowrap }
+}
+@media (max-width:74.99rem) {
+  footer .wrap.sig { display:grid; grid-template-columns:auto 1fr; gap:.35rem 1.5rem }
+  .sig-hole { display:contents }
+  .sig .hole { grid-column:1; grid-row:1 / span 3; align-self:center }
+  .sig-hole b, .sig > span:not(.sig-hole) { grid-column:2 }
+}
 /* Biyografi imza satirinin ustunde, ondan ince bir cizgiyle ayrili. Footer'in
    mono'su yalnizca imzaya ait: paragraf govde yazisiyla, metin sutunu
    genisliginde okunuyor. Sarmalayici blok, footer .wrap'in flex satiri ona
@@ -1318,12 +1330,12 @@ footer .wrap.bio::after { content:""; display:block; height:1px; margin-top:1.5r
 .bio p { font:400 1rem/1.65 var(--sans); color:var(--ink-2); max-width:44rem; margin:0 }
 .bio .eyebrow { font-family:var(--mono); font-size:.7rem; line-height:1.35; color:var(--acc-tx);
   margin-bottom:.6rem }
-/* Genis ekranda footer bolumlerin kagit sutunuyla ayni hizada: biyografi de imza
-   da ortadaki 10/16'lik sutunda durur. Sol kenara yaslaninca sagda koca bir
-   bosluk kaliyor, footer sayfanin geri kalanina gore asimetrik duruyordu.
-   Okuma genisligini sutun belirler, 44rem siniri kalkar. */
+/* Genis ekranda biyografi bolumlerin kagit sutunuyla ayni hizada, ortadaki
+   10/16'lik sutunda durur. Sol kenara yaslaninca sagda koca bir bosluk kaliyor,
+   footer sayfanin geri kalanina gore asimetrik duruyordu. Okuma genisligini
+   sutun belirler, 44rem siniri kalkar. Imza satiri bu sutuna girmez, yayilir. */
 @media (min-width:64rem) {
-  footer .wrap { padding-inline:calc(min(100%, 78rem) * 3 / 16) }
+  footer .wrap.bio { padding-inline:calc(min(100%, 78rem) * 3 / 16) }
   .bio p { max-width:none }
 }
 @media (prefers-reduced-motion:reduce) { * { transition:none !important } }
@@ -20441,21 +20453,21 @@ z = ($=[I=t], N=2e3, H(9)) ? F+'M' : 'WB'[t/8]+F</pre></div>
     function into the fewest bytes, carving until nothing is left to remove. The result is a
     complete FIDE chess arbiter in 1,527 bytes.</p>
   </div>
-  <div class="wrap">
-    <svg class="hole" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
-      <ellipse class="disk" cx="32" cy="32" rx="30" ry="9"/>
-      <ellipse class="disk" cx="32" cy="32" rx="24" ry="6.5" opacity=".5"/>
-      <circle class="ring" cx="32" cy="32" r="14.5"/>
-      <circle class="core" cx="32" cy="32" r="13"/>
-    </svg>
-    <div class="foot-txt">
+  <div class="wrap sig">
+    <span class="sig-hole">
+      <svg class="hole" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <ellipse class="disk" cx="32" cy="32" rx="30" ry="9"/>
+        <ellipse class="disk" cx="32" cy="32" rx="24" ry="6.5" opacity=".5"/>
+        <circle class="ring" cx="32" cy="32" r="14.5"/>
+        <circle class="core" cx="32" cy="32" r="13"/>
+      </svg>
       <b lang="tr">Bu kod bir karadelik!</b>
       <b lang="en">This code is a black hole!</b>
-      <p lang="tr">FideLite.Art · <a href="https://cuneytinan.com" target="_blank" rel="noopener">cuneytinan.com</a></p>
-      <p lang="en">FideLite.Art · <a href="https://cuneytinan.com" target="_blank" rel="noopener">cuneytinan.com</a></p>
-      <p lang="tr">Projeyi destekle: <a href="https://github.com/sponsors/cuneytinann" target="_blank" rel="noopener">GitHub Sponsors</a> · <a href="https://kreosus.com/cuneytinan" target="_blank" rel="noopener">Kreosus</a></p>
-      <p lang="en">Support the project: <a href="https://github.com/sponsors/cuneytinann" target="_blank" rel="noopener">GitHub Sponsors</a> · <a href="https://kreosus.com/cuneytinan" target="_blank" rel="noopener">Kreosus</a></p>
-    </div>
+    </span>
+    <span lang="tr">İletişim: <a href="mailto:cuneytinan37@gmail.com">cuneytinan37@gmail.com</a></span>
+    <span lang="en">Contact: <a href="mailto:cuneytinan37@gmail.com">cuneytinan37@gmail.com</a></span>
+    <span lang="tr">Projeyi destekle: <a href="https://github.com/sponsors/cuneytinann" target="_blank" rel="noopener">GitHub Sponsors</a> · <a href="https://kreosus.com/cuneytinan" target="_blank" rel="noopener">Kreosus</a></span>
+    <span lang="en">Support the project: <a href="https://github.com/sponsors/cuneytinann" target="_blank" rel="noopener">GitHub Sponsors</a> · <a href="https://kreosus.com/cuneytinan" target="_blank" rel="noopener">Kreosus</a></span>
   </div>
 </footer>
 
