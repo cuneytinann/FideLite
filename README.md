@@ -39,13 +39,13 @@ and was then taken out. It is shelved, not lost: it lives on in
 
 ## Why it matters
 
-Across the Lichess open database, Miguel Ambrona's CHA-Solver counted **201,060** games that were
-decided wrongly. This engine gets **197,464** of them right. Of the 3,596
-it misses, 3,558 have a bishop on the board; the other 38 are king-and-pawn endings that the
+Across the Lichess open database, up to 30 September 2026, Miguel Ambrona's CHA-Solver counted
+**204,060** games that were decided wrongly. This engine gets **200,384** of them right. Of the 3,676
+it misses, 3,638 have a bishop on the board; the other 38 are king-and-pawn endings that the
 blocked scan does not recognise and the 9-ply search cannot close.
 [Chess LUX](https://github.com/cuneytinann/Chess-LUX), a sibling project on `engine_4x` with a looser byte budget, extends
-the lock detector to bishops and closes all but 2 of them: the right verdict in 201,058 of the
-201,060 games (99.999%).
+the lock detector to bishops and closes all but 2 of them: the right verdict in 204,058 of the
+204,060 games (99.999%).
 
 The difference fits in one sentence: **the platforms look at the board at the moment the flag fell;
 the book asks what that board is forced to become.**
@@ -57,7 +57,7 @@ the book asks what that board is forced to become.**
 | `builds/engine.js` | 1,527 | The rule engine. One line, no front end. |
 | `builds/engine_4x.js` | 1,644 | The same rules, +117 bytes, 3.5 times the speed in move generation, about 6 times in adjudication. |
 | `builds/engine_string.js` | 1,721 | The same rules on a board of FEN letters instead of numbers. |
-| `builds/special/engine_lux.js` | 2,391 | LUX's engine set apart: `engine_4x` with Chess960 castling, the wider lock detector and the Armageddon rules. [Where the 747 bytes go.](https://www.fidelite.art/#luxengine) |
+| `builds/special/engine_lux.js` | 2,387 | LUX's engine set apart: `engine_4x` with Chess960 castling, the wider lock detector and the Armageddon rules. [Where the 743 bytes go.](https://www.fidelite.art/#luxengine) |
 
 Every file under `builds/` runs on its own — download an HTML file and double-click
 it. The `.cjs` builds run in a terminal with `node`.
@@ -160,13 +160,13 @@ yazılıp bir süre motorda durdu (**+333 bayt**), sonra çıkarıldı. Askıda,
 
 ## Neden önemli
 
-Miguel Ambrona'nın CHA-Solver'ı Lichess açık veritabanını baştan sona tarayıp **201.060** haksız
-sonuçlanmış oyun saydı. Bu motor onların **197.464'ünü** doğru karara
-bağlıyor. Kaçırdığı 3.596 oyunun 3.558'inde tahtada fil var; kalan 38'i, kilitli taramanın
+Miguel Ambrona'nın CHA-Solver'ı Lichess açık veritabanını 30 Eylül 2026'ya kadar tarayıp **204.060** haksız
+sonuçlanmış oyun saydı. Bu motor onların **200.384'ünü** doğru karara
+bağlıyor. Kaçırdığı 3.676 oyunun 3.638'inde tahtada fil var; kalan 38'i, kilitli taramanın
 tanımadığı ve 9 yarım hamlelik aramanın kapatamadığı şah-piyon oyunsonları. `engine_4x` üzerine, daha gevşek bir bayt bütçesiyle kurulu kardeş
 proje
 [Chess LUX](https://github.com/cuneytinann/Chess-LUX) kilitli pozisyon dedektörünü fillere genişletip bunların 2'si dışında
-hepsini kapatıyor: 201.060 oyunun 201.058'inde doğru hüküm (%99,999).
+hepsini kapatıyor: 204.060 oyunun 204.058'inde doğru hüküm (%99,999).
 
 Fark tek cümleye sığıyor: **platformlar bayrak düştüğü andaki tahtaya bakıyor, kitap ise o tahtanın
 zorunlu olarak neye dönüşeceğini soruyor.**
@@ -178,7 +178,7 @@ zorunlu olarak neye dönüşeceğini soruyor.**
 | `builds/engine.js` | 1.527 | Kural motoru. Tek satır, önyüz yok. |
 | `builds/engine_4x.js` | 1.644 | Aynı kurallar, +117 bayt, hamle üretiminde 3,5 kat, hükümde yaklaşık 6 kat hız. |
 | `builds/engine_string.js` | 1.721 | Aynı kurallar, tahta sayı yerine FEN harfleriyle. |
-| `builds/special/engine_lux.js` | 2.391 | LUX'un ayrılmış motoru: Chess960 roku, geniş kilit dedektörü ve armageddon kurallarıyla `engine_4x`. [747 bayt nereye gidiyor.](https://www.fidelite.art/tr#luxengine) |
+| `builds/special/engine_lux.js` | 2.387 | LUX'un ayrılmış motoru: Chess960 roku, geniş kilit dedektörü ve armageddon kurallarıyla `engine_4x`. [743 bayt nereye gidiyor.](https://www.fidelite.art/tr#luxengine) |
 
 `builds/` altındaki her dosya tek başına çalışır — HTML dosyasını indirip çift
 tıklamak yeterli. `.cjs` sürümleri terminalde `node` ile koşar.
