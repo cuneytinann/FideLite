@@ -9492,18 +9492,18 @@ footer .wrap.bio::after { content:""; display:block; height:1px; margin-top:1.5r
 <thead><tr><th>Seviye</th><th>Botsuz</th><th>Botlu</th><th>Botun maliyeti</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">L1</code></td><td>1.404<span class="sub">builds/L1/L1.html</span></td><td>2.051<span class="sub">builds/special/L1_1250elo.html</span></td><td>647</td></tr>
-<tr><td><code class="vn">L2</code></td><td>1.922<span class="sub">builds/L2/L2.html</span></td><td>7.927<span class="sub">builds/special/L2_aybars_2500.html</span></td><td>6.005</td></tr>
+<tr><td><code class="vn">L2</code></td><td>1.922<span class="sub">builds/L2/L2.html</span></td><td>8.269<span class="sub">builds/special/L2_aybars_2500.html</span></td><td>6.347</td></tr>
 </tbody>
 </table></div>
     <div class="tw" lang="en"><table>
 <thead><tr><th>Level</th><th>No bot</th><th>With bot</th><th>Cost of the bot</th></tr></thead>
 <tbody>
 <tr><td><code class="vn">L1</code></td><td>1,404<span class="sub">builds/L1/L1.html</span></td><td>2,051<span class="sub">builds/special/L1_1250elo.html</span></td><td>647</td></tr>
-<tr><td><code class="vn">L2</code></td><td>1,922<span class="sub">builds/L2/L2.html</span></td><td>7,927<span class="sub">builds/special/L2_aybars_2500.html</span></td><td>6,005</td></tr>
+<tr><td><code class="vn">L2</code></td><td>1,922<span class="sub">builds/L2/L2.html</span></td><td>8,269<span class="sub">builds/special/L2_aybars_2500.html</span></td><td>6,347</td></tr>
 </tbody>
 </table></div>
     <div class="prose" lang="tr">
-      <p><code class="vn">L1_1250elo</code>, <code class="vn">L1</code> ile aynı yeni tahta temsilinde, 0x88 tahtada ve <code>engine_4x</code>'in çekirdeği üstünde çalışıyor; ilk satırdaki farkın neredeyse tamamı bot, kalan 35 bayt kadarı kural çekirdeğinin <code>engine_4x</code>'ten aldığı hız ayarları. <code class="vn">L2_aybars_2500</code> ise hâlâ önceki tahta temsilinde, 64 karelik düz bir dizide çalışıyor; <code class="vn">L2</code> yeni tahta temsiline geçtiği için ikinci satırın son sütunu yalnızca botun maliyetini değil, iki tahta arasındaki farkı da içeriyor. Üstelik bu iki fark aynı şeyin iki ölçümü değil: iki seviyede farklı botlar var. Adlarındaki 1250 ile 2500'ün de işaret ettiği gibi <code class="vn">L1</code>'deki bot hafif; <code class="vn">L2</code>'deki Aybars'ın araması ve değerlendirmesi ise çok daha ileri gidiyor. Her seviyede kurallar botlu ve botsuz dosyada aynı olduğu için fark büyük ölçüde botun kendisinden geliyor; iki fark arasındaki yaklaşık dokuz katlık açık da kurallardan değil, botların gücünden kaynaklanıyor. <code class="vn">L2</code>'nin botlu sürümü oyunu üçlü tekrarda ve 50 hamlede de <a href="#indicators">bitiriyor</a>; bu da farkın içinde, ama küçük bir parçası.</p>
+      <p><code class="vn">L1_1250elo</code>, <code class="vn">L1</code> ile aynı yeni tahta temsilinde, 0x88 tahtada ve <code>engine_4x</code>'in çekirdeği üstünde çalışıyor; ilk satırdaki farkın neredeyse tamamı bot, kalan 35 bayt kadarı kural çekirdeğinin <code>engine_4x</code>'ten aldığı hız ayarları. <code class="vn">L2_aybars_2500</code> da artık aynı 0x88 tahtada ve <code class="vn">L2</code>'nin kural çekirdeğini bayt bayt taşıyor; ikinci satırdaki 6.347 baytın 6.227'si bot, kalan 120 bayt ise kural tarafındaki küçük farklarla (ölü konum dedektörü bir fonksiyona sarılı) daha kısa, sabit yönlü arayüzün net toplamı. Üstelik bu iki fark aynı şeyin iki ölçümü değil: iki seviyede farklı botlar var. Adlarındaki 1250 ile 2500'ün de işaret ettiği gibi <code class="vn">L1</code>'deki bot hafif; <code class="vn">L2</code>'deki Aybars'ın araması ve değerlendirmesi ise çok daha ileri gidiyor. Her seviyede kurallar botlu ve botsuz dosyada aynı olduğu için fark büyük ölçüde botun kendisinden geliyor; iki fark arasındaki yaklaşık on katlık açık da kurallardan değil, botların gücünden kaynaklanıyor. <code class="vn">L2</code>'nin botlu sürümü oyunu üçlü tekrarda ve 50 hamlede de <a href="#indicators">bitiriyor</a>; bu da farkın içinde, ama küçük bir parçası.</p>
       <p>Seviyelerin iki botu iddianın dışında ve bu bir çekince değil, tasarımın bir sonucu. Bot
       öncelikli olsaydı <a href="#board">tahta temsili</a> baştan başka türlü yazılırdı: kare merkezli
       düz bir dizi “bu karede ne var?” sorusunu ucuzlatıyor ama küme işlemlerini pahalılaştırıyor; bir arama ağacı ise tam tersini ister. Burada seçim kural yoğunluğundan yana yapıldı;
@@ -9514,7 +9514,7 @@ footer .wrap.bio::after { content:""; display:block; height:1px; margin-top:1.5r
       aynı.</p>
     </div>
     <div class="prose" lang="en">
-      <p><code class="vn">L1_1250elo</code> runs on the same new board as <code class="vn">L1</code>, the 0x88 board, on the core of <code>engine_4x</code>; almost all of the first row's difference is the bot, and the remaining 35 bytes or so are the speed tweaks the rule core takes from <code>engine_4x</code>. <code class="vn">L2_aybars_2500</code> still runs on the previous board representation, a flat 64-square array, while <code class="vn">L2</code> has moved to the new board; the second row's last column therefore carries the difference between the two boards as well, not the bot alone. Nor are these two measurements of the same thing: the two levels carry different bots. As the 1250 and 2500 in their names suggest, the one in <code class="vn">L1</code> is a light bot, while Aybars in <code class="vn">L2</code> is a far stronger one whose search and evaluation go much further. Within each level the rules are the same with or without the bot, so the difference comes largely from the bot itself; the roughly ninefold gap between the two reflects the bots' strength, not the rules. The <code class="vn">L2</code> bot build also <a href="#indicators">ends the game</a> on threefold repetition and 50 moves; that is inside the difference too, but only a small part of it.</p>
+      <p><code class="vn">L1_1250elo</code> runs on the same new board as <code class="vn">L1</code>, the 0x88 board, on the core of <code>engine_4x</code>; almost all of the first row's difference is the bot, and the remaining 35 bytes or so are the speed tweaks the rule core takes from <code>engine_4x</code>. <code class="vn">L2_aybars_2500</code> now runs on the same 0x88 board too, carrying <code class="vn">L2</code>'s rule core byte for byte; of the second row's 6,347 bytes, 6,227 are the bot, and the remaining 120 are the net of small rule-side differences (the dead-position detector wrapped in a function) and a shorter, fixed-orientation interface. Nor are these two measurements of the same thing: the two levels carry different bots. As the 1250 and 2500 in their names suggest, the one in <code class="vn">L1</code> is a light bot, while Aybars in <code class="vn">L2</code> is a far stronger one whose search and evaluation go much further. Within each level the rules are the same with or without the bot, so the difference comes largely from the bot itself; the roughly tenfold gap between the two reflects the bots' strength, not the rules. The <code class="vn">L2</code> bot build also <a href="#indicators">ends the game</a> on threefold repetition and 50 moves; that is inside the difference too, but only a small part of it.</p>
       <p>The two level bots sit outside the claim, and that is a consequence of the design rather than a caveat. Had the bot been the priority, the <a href="#board">board representation</a> itself
       would have been written differently from the start: a flat, square-centric array makes “what
       is on this square?” cheap and set operations expensive, and a search tree wants exactly the
@@ -20743,7 +20743,7 @@ var DIR = 'builds/';
    icin de gerekli: koku DIR'den turetiyoruz, boylece build.mjs'te ikinci bir
    kural tutmaya gerek kalmiyor. */
 var ROOT = DIR.slice(0, -'builds/'.length);
-var ART = {"L3": {"p": "L3.html", "ps": 2744}, "L3_light": {"p": "L3_light.html", "ps": 2241}, "L3_numerical": {"p": "L3_numerical.html", "ps": 1715}, "L3_input": {"p": "L3_input.html", "ps": 2155}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2025}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2257}, "L3_prompt_string": {"p": "L3_prompt_string.html", "ps": 2205}, "L1": {"p": "builds/L1/L1.html", "ps": 1404}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 946}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 767}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1063}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 994}, "L1_prompt_string": {"p": "builds/L1/L1_prompt_string.html", "ps": 1039}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1191}, "L2": {"p": "builds/L2/L2.html", "ps": 1922}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1437}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1253}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1574}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1487}, "L2_prompt_string": {"p": "builds/L2/L2_prompt_string.html", "ps": 1618}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 1702}, "L2_aybars_2500": {"p": "builds/special/L2_aybars_2500.html", "ps": 7927}, "L1_1250elo": {"p": "builds/special/L1_1250elo.html", "ps": 2051}, "L3_packed": {"p": "builds/FideLite.html", "ps": 2423}, "Chesscom-equivalent": {"p": "builds/special/Chesscom-equivalent.html", "ps": 2643}, "Chesscom-equivalent_minimum": {"p": "builds/special/Chesscom-eqv_min.html", "ps": 1050}, "Lichess-equivalent": {"p": "builds/special/Lichess-equivalent.html", "ps": 2804}, "Lichess-equivalent_minimum": {"p": "builds/special/Lichess-eqv_min.html", "ps": 1088}, "L2_base": {"p": "builds/special/L2_base.html", "ps": 1815}, "L2_string_base": {"p": "builds/special/L2_string_base.html", "ps": 1893}, "DOM_911": {"p": "builds/special/DOM_911.html", "ps": 911}, "DOM_minimum": {"p": "builds/special/DOM_minimum.html", "ps": 722}, "Lowest": {"p": "builds/special/Lowest.html", "ps": 650}, "LUX": {"p": "builds/special/LUX.html", "ps": 9553}, "Toledos-ES6-optimized": {"p": "builds/special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "builds/special/ToledosOpponentbyMe.html", "ps": 1904}, "engine": {"p": "engine.js", "ps": 1527}, "engine_4x": {"p": "engine_4x.js", "ps": 1644}, "engine_string": {"p": "engine_string.js", "ps": 1721}, "engine_onlyMoveGenerator": {"p": "builds/special/engine_onlyMoveGenerator.js", "ps": 653}, "engine_lux": {"p": "builds/special/engine_lux.js", "ps": 2387}};
+var ART = {"L3": {"p": "L3.html", "ps": 2744}, "L3_light": {"p": "L3_light.html", "ps": 2241}, "L3_numerical": {"p": "L3_numerical.html", "ps": 1715}, "L3_input": {"p": "L3_input.html", "ps": 2155}, "L3_input_blindfold": {"p": "L3_input_blindfold.html", "ps": 2025}, "L3_nonbrowser": {"p": "L3_nonbrowser.cjs", "ps": 2257}, "L3_prompt_string": {"p": "L3_prompt_string.html", "ps": 2205}, "L1": {"p": "builds/L1/L1.html", "ps": 1404}, "L1_light": {"p": "builds/L1/L1_light.html", "ps": 946}, "L1_numerical": {"p": "builds/L1/L1_numerical.html", "ps": 767}, "L1_input": {"p": "builds/L1/L1_input.html", "ps": 1063}, "L1_input_blindfold": {"p": "builds/L1/L1_input_blindfold.html", "ps": 994}, "L1_prompt_string": {"p": "builds/L1/L1_prompt_string.html", "ps": 1039}, "L1_nonbrowser": {"p": "builds/L1/L1_nonbrowser.cjs", "ps": 1191}, "L2": {"p": "builds/L2/L2.html", "ps": 1922}, "L2_light": {"p": "builds/L2/L2_light.html", "ps": 1437}, "L2_numerical": {"p": "builds/L2/L2_numerical.html", "ps": 1253}, "L2_input": {"p": "builds/L2/L2_input.html", "ps": 1574}, "L2_input_blindfold": {"p": "builds/L2/L2_input_blindfold.html", "ps": 1487}, "L2_prompt_string": {"p": "builds/L2/L2_prompt_string.html", "ps": 1618}, "L2_nonbrowser": {"p": "builds/L2/L2_nonbrowser.cjs", "ps": 1702}, "L2_aybars_2500": {"p": "builds/special/L2_aybars_2500.html", "ps": 8269}, "L1_1250elo": {"p": "builds/special/L1_1250elo.html", "ps": 2051}, "L3_packed": {"p": "builds/FideLite.html", "ps": 2423}, "Chesscom-equivalent": {"p": "builds/special/Chesscom-equivalent.html", "ps": 2643}, "Chesscom-equivalent_minimum": {"p": "builds/special/Chesscom-eqv_min.html", "ps": 1050}, "Lichess-equivalent": {"p": "builds/special/Lichess-equivalent.html", "ps": 2804}, "Lichess-equivalent_minimum": {"p": "builds/special/Lichess-eqv_min.html", "ps": 1088}, "L2_base": {"p": "builds/special/L2_base.html", "ps": 1815}, "L2_string_base": {"p": "builds/special/L2_string_base.html", "ps": 1893}, "DOM_911": {"p": "builds/special/DOM_911.html", "ps": 911}, "DOM_minimum": {"p": "builds/special/DOM_minimum.html", "ps": 722}, "Lowest": {"p": "builds/special/Lowest.html", "ps": 650}, "LUX": {"p": "builds/special/LUX.html", "ps": 9553}, "Toledos-ES6-optimized": {"p": "builds/special/Toledos-ES6-optimized.html", "ps": 2032}, "ToledosOpponentbyMe": {"p": "builds/special/ToledosOpponentbyMe.html", "ps": 1904}, "engine": {"p": "engine.js", "ps": 1527}, "engine_4x": {"p": "engine_4x.js", "ps": 1644}, "engine_string": {"p": "engine_string.js", "ps": 1721}, "engine_onlyMoveGenerator": {"p": "builds/special/engine_onlyMoveGenerator.js", "ps": 653}, "engine_lux": {"p": "builds/special/engine_lux.js", "ps": 2387}};
 
 function url(n) { return n.indexOf('/') > -1 ? ROOT + n : DIR + n; }
 /* Terminal surumu (.cjs): tarayicida calismaz. Oyna kapali; kodu ve indirme acik. */
@@ -21087,7 +21087,9 @@ function start() {
    L1 light'ta U; harf tahtali surumlerde L1'de M, L2 ve L3'te R=G[k=. Bas dizisi
    durumun tamamini tasir (sira, rok, gecerken alma, sayaclar, sonuc, imza),
    hepsi kural rengi. Botlu surumlerde arayuz ilk cizimle (d();) biter, gerisi
-   bot. L1'in iki botu 0x88 cekirdekte: ToledosOpponentbyMe'de arayuz yine ilk
+   bot; aybars'ta ilk cizim dosyanin sonunda, o yuzden arayuz S ile biter, bot
+   U1=0 ile baslar ve sondaki d() arayuze geri kesilir. L1'in iki botu 0x88
+   cekirdekte: ToledosOpponentbyMe'de arayuz yine ilk
    cizimle (d(),) biter; L1_1250elo'da arayuz K ile biter, dosyanin sonundaki
    F() de arayuz. Orada g hem botun hamle ureticisi hem E'deki oyun sonu
    hukmunun sorgusu (g().some), o yuzden 'm'.
@@ -21126,17 +21128,14 @@ function start() {
    dizilisi kural, tas degerleri ile konum tablosu bot. Tahtanin kurulumu ve
    50 hamle sayacinin baslangici kural. Botu tetikleyen setTimeout saf bot.
    Motor fonksiyonlarina yapilan cagrilar (A(...), F('R'), D(t)) ve saat sayimi
-   arayuzde kalir. aybars'ta motorun iki fonksiyonu bot icin uyarlanmis: M
-   tahtaya her yazisini botun S1'i uzerinden yapiyor, L legallik denemesinden
-   sonra tahtayi botun UN'u ile geri aliyor ve botun hash, degerlendirme ve
-   geri alma durumunu saklayip geri koyuyor. Ikisi 'm' (kural + bot). S1, geri
-   alma yigini (A1, A2) ve UN botun bolumunde tanimli ama tahtaya yazan ve
-   tahtayi geri alan onlar; bu blok da 'm'. A'daki A1=0 ayni yigini sifirlar,
-   'm'. Tahtanin Int8Array olarak tutulmasi (botun hizi icin) ile hiz icin
-   yeniden yazilmis G ve V de 'm'; V sahin karesini kendisi buluyor, ayri bir
-   J yok. C ve l saf kural. Yetersiz materyal testi ayri bir I olarak durmuyor,
-   A'nin sonuc ifadesine gomulu; o da kesimin icinde, kural. Hash tablosu,
-   degerlendirme, arama ve A'daki PT[++Y3]=H2 (botun pozisyon gecmisi) saf bot.
+   arayuzde kalir. aybars'ta kural katmani L2'ninkiyle bayt bayt ayni ve botla
+   kod paylasmiyor: bot kendi tipli tahta kopyasinda, kendi yap/geri al'i (M,
+   S1, UN), kendi sah denetimi (V), kendi rok ve gecerken alma yasalligi (g,
+   EPL) ile ariyor; o yuzden 'm' yok. Olu konum dedektoru l bir fonksiyon, saf
+   kural; a=Math.abs kural bolgesinde. A'da hamleyi uygulayip hukmu veren govde
+   (y=P'den '50':0'a) kural; ortasindaki SY(), PT[++Y3]=H2 ve A1=0 (botun
+   artimli durumu, pozisyon gecmisi, geri alma yigini) bot. Hash tablosu,
+   degerlendirme ve arama saf bot.
    LUX'ta kural bolgesi motor satirinin sonunda, D'de biter; arayuz satiri Rs ile
    baslar. Go FEN'den pozisyon kuruyor: bicim denetimi (alan sayisi, her yatayda
    tam sekiz kare, gecersiz harf, sure siniri, sira alani) arayuz; pozisyonun kurallara
@@ -21197,8 +21196,7 @@ var PAINT = {
   L2_nonbrowser: P2, L2_prompt_string: P3_G,
   L3: P3_U, L3_light: P3_U, L3_input: P3_U, L3_input_blindfold: P3_U, L3_numerical: P3_G,
   L3_nonbrowser: P3_G, L3_prompt_string: P3_G,
-  L2_aybars_2500: ['r', ',t=1', 'm', ',b=Int8Array', 'r', ',a=Math.abs', 'm', ',L=(', 'r',
-    ',C=i=>', 'm', ',M=(', 'r', ',l=(', 'u', ';d();U=0', 'b'],
+  L2_aybars_2500: ['r', ',l=(', 'u', ';S=u=>', 'b'],
   L1_1250elo: ['r', ',L=(i,x', 'u', ',K=u=>', 'b', ",W='", 'm', ',g=(Q,', 'b', ',o=(u=', 'u'],
   'Chesscom-equivalent': P3_U, 'Lichess-equivalent': P3_U,
   L2_base: ['r', 'R=G[k=', 'u'],
@@ -21233,8 +21231,7 @@ var CARVE = {
   L3_nonbrowser: [['R=G[M(', "'50':0:0"], ['z=O(', 'z=', 'u'], ['),/=$/', 'z||=', 'u'], [':0)', ':0', 'u']],
   L3_prompt_string: [['($=[],N=2e3', "'WB'[I]+F"], ['M(i,Y,', "'50':z):0"], ['G[I]+=5', 'z=', 'u'],
     ['),/=$/', 'z||(', 'u'], ['z=o>2', 'z=', 'u'], ['):0;alert', '):0;', 'u']],
-  L2_aybars_2500: APPLY.concat([['A1=0', 'A1=0', 'm'], ['PT[++Y3]', '=H2', 'b'],
-    ['S1=(', 'b[q>>4]=q&15}', 'm']]),
+  L2_aybars_2500: [['y=P', "'50':0"], ['SY()', 'A1=0', 'b'], ['d();', 'd()', 'u']],
   L1_1250elo: [['G[i]=G[Y]=1', ":'SM'"], ['g().some', 'g()', 'm'], ['z||t||', 'setTimeout(o,9)', 'b']],
   'Chesscom-equivalent': [['V(t^8)<2', "'WB'[t/8]+'T'"], ['R=u[M(i,Y,P)]', "'50':0"],
     ["'WB'[t/8]+'R'", "&&'DA'"]],
